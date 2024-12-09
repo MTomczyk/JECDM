@@ -92,7 +92,7 @@ public class Fields
     private SizeFields _mainLineWidthRelative = null;
 
     /**
-     * Reference to the field indicating the whether to consider main line width fixed or relative.
+     * Reference to the field indicating whether to consider main line width fixed or relative.
      */
     private FlagFields _mainLineWidthUseRelative = null;
 
@@ -107,12 +107,12 @@ public class Fields
     private SizeFields _tickLineWidthRelative = null;
 
     /**
-     * Reference to the field indicating the whether to consider tick line width fixed or relative.
+     * Reference to the field indicating whether to consider tick line width fixed or relative.
      */
     private FlagFields _tickLineWidthUseRelative = null;
 
     /**
-     * Reference to the field indicating the axis border width (fixed).
+     * Reference to the field indicating axis border width (fixed).
      */
     private SizeFields _borderWidthFixed = null;
 
@@ -122,7 +122,7 @@ public class Fields
     private SizeFields _borderWidthRelative = null;
 
     /**
-     * Reference to the field indicating the whether to consider border width relative
+     * Reference to the field indicating whether to consider border width relative
      */
     private FlagFields _borderWidthUseRelative = null;
 
@@ -147,27 +147,27 @@ public class Fields
     private SizeFields _titleOffsetRelative = null;
 
     /**
-     * Reference to the field indicating the whether to consider tick size relative.
+     * Reference to the field indicating whether to consider tick size relative.
      */
     private FlagFields _tickSizeUseRelative;
 
     /**
-     * Reference to the field indicating the whether to consider tick label size relative.
+     * Reference to the field indicating whether to consider tick label size relative.
      */
     private FlagFields _tickLabelFontSizeUseRelative;
 
     /**
-     * Reference to the field indicating the whether to consider tick label offset relative.
+     * Reference to the field indicating whether to consider tick label offset relative.
      */
     private FlagFields _tickLabelOffsetUseRelative;
 
     /**
-     * Reference to the field indicating the whether to consider title font size relative.
+     * Reference to the field indicating whether to consider title font size relative.
      */
     private FlagFields _titleFontSizeUseRelative;
 
     /**
-     * Reference to the field indicating the whether to consider title offset relative.
+     * Reference to the field indicating whether to consider title offset relative.
      */
     private FlagFields _titleOffsetUseRelative;
 
@@ -559,9 +559,9 @@ public class Fields
     }
 
     /**
-     * Getter for the field indicating the whether to consider main line width fixed or relative.
+     * Getter for the field indicating whether to consider main line width fixed or relative.
      *
-     * @return field indicating the whether to consider main line width fixed or relative
+     * @return field indicating whether to consider main line width fixed or relative
      */
     public FlagFields getMainLineWidthUseRelative()
     {

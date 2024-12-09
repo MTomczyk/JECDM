@@ -104,7 +104,7 @@ public class Tutorial5
 
         // The presorting can be executed on one's own. It may be convenient when, e.g., implementing an application
         // that makes use of data stored on the disc. If so, it is recommended to assume a data format in which the bucket
-        // data is presented in the file. This way, no additional sorting would be reuired during runtime. Such sorted
+        // data is presented in the file. This way, no additional sorting would be required during runtime. Such sorted
         // data can be provided via the "public void setDataAndPerformProcessing(Coords[] sortedCoords, double[]
         // sortedValues)" method, where the first array specifies the coordinates (sorted according to values), while
         // the second represents the sorted values) (the elements in both arrays are assumed to be connected).

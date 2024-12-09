@@ -44,7 +44,7 @@ public interface IDataSet
      * It can be implemented to return auxiliary mask that tell whether the update of the i-th display range should be skipped.
      * Can return null (not used). Obviously, the mask has no effect when updating display ranges is globally disabled.
      *
-     * @return mask (i-th element = true -> the update of i-th display range is skipped.
+     * @return mask (i-th element = true -> the update of i-th display range is skipped).
      */
     boolean[] getSkipDisplayRangesUpdateMasks();
 
@@ -52,7 +52,7 @@ public interface IDataSet
      * It can be implemented to set auxiliary mask that tell whether the update of the i-th display range should be skipped.
      * Can be null (not used).
      *
-     * @param mask mask (i-th element = true -> the update of i-th display range is skipped.
+     * @param mask mask (i-th element = true -> the update of i-th display range is skipped).
      */
     void setSkipDisplayRangesUpdateMasks(boolean[] mask);
 

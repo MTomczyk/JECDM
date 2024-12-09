@@ -177,7 +177,6 @@ public class ParallelCoordinatePlot2D extends Plot2D
 
                 if ((pp._disableOverlappingTicks) && (i > 0)) pY._ticksDataGetter.setNoTicks(2);
 
-
                 axes[cnt++] = axis;
             }
         }

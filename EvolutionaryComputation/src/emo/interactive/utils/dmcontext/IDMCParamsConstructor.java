@@ -5,7 +5,7 @@ import ea.EA;
 
 /**
  * Interface for classes responsible for constructing decision-making context objects (params; the main input for
- * {@link system.ds.DecisionSupportSystem#executeProcess(DMContext.Params)}.
+ * {@link system.ds.DecisionSupportSystem#executeProcess(DMContext.Params)}).
  *
  * @author MTomczyk
  */

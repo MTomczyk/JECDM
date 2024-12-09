@@ -24,7 +24,7 @@ public abstract class AbstractPreferenceModel<T extends IInternalModel> implemen
     protected final String _name;
 
     /**
-     * This array stores the internal models (extending {@link IInternalModel}.
+     * This array stores the internal models (extending {@link IInternalModel}).
      */
     protected ArrayList<T> _models;
 

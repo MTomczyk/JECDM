@@ -263,17 +263,6 @@ public class EA
     }
 
     /**
-     * Parameterized constructor.
-     *
-     * @param name     name of the ea
-     * @param criteria considered criteria
-     */
-    public EA(String name, Criteria criteria)
-    {
-        this(new Params(name, criteria));
-    }
-
-    /**
      * Parameterized constructor. Sets EA as imposed by the provided params container.
      *
      * @param p params container

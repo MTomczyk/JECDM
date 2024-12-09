@@ -75,8 +75,6 @@ public class Plot
 
         pP._colorbar = new Colorbar(gradient, "Distance", tdg);
 
-        Plot3D plot3D = new Plot3D(pP);
-
-        return plot3D;
+        return new Plot3D(pP);
     }
 }

@@ -104,7 +104,7 @@ public class Tutorial4wfg2
         // Create EAs - iterate over Ms:
         for (int i = 0; i < M.length; i++)
         {
-            // Set goals (normalizations = null; they will be set (if fixed ranges are used) by the getMOEAD method.
+            // Set goals (normalizations = null; they will be set (if fixed ranges are used) by the getMOEAD method).
             //IGoal[] goals = GoalsFactory.getLNormsDND(M[i], mToN.get(M[i]), Double.POSITIVE_INFINITY, null);
             //IGoal [] goals = GoalsFactory.getPBIsDND(M[i], mToN.get(M[i]), 5.0d, null);
             // Not recommended (ignores convergence):

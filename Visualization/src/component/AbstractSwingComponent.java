@@ -194,11 +194,8 @@ public abstract class AbstractSwingComponent extends JPanel
     @Override
     public void paintComponent(Graphics g)
     {
-        //super.paintComponent(g); // do not use it
-        //Graphics g2 = g.create();
         drawBackground(g);
         drawBorder(g);
-        //g2.dispose();
     }
 
     /**

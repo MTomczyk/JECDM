@@ -3,7 +3,7 @@ package relation;
 import alternative.Alternative;
 
 /**
- * Interface for classes implementing the concept of an unary relation.
+ * Interface for classes implementing the concept of a unary relation.
  *
  * @author MTomczyk
  */

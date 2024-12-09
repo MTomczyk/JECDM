@@ -73,7 +73,7 @@ public class Tutorial4b
         model.setInternalModels(internals);
 
         // Simulate the update (typically, it is done automatically by the system using the context's normalizations
-        // (only when the _osChanged flag is true).
+        // (only when the _osChanged flag is true)).
         for (LNorm lNorm : model.getInternalModels())
             lNorm.setNormalizations(normalizations);
 

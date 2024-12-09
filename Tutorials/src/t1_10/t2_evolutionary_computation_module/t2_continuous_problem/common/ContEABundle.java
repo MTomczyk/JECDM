@@ -3,7 +3,6 @@ package t1_10.t2_evolutionary_computation_module.t2_continuous_problem.common;
 import criterion.Criteria;
 import ea.AbstractEABundle;
 import phase.SortByAuxValue;
-import random.IRandom;
 
 /**
  * The "bundle" implementation for the evolutionary algorithm for solving the 2-variable continuous problem.

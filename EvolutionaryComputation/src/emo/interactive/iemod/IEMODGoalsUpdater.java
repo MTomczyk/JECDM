@@ -26,7 +26,7 @@ public class IEMODGoalsUpdater<T extends AbstractValueInternalModel>
     private final IPreferenceModel<T> _preferenceModel;
 
     /**
-     * Reference to the goals manager.
+     * Reference to the "goals manager".
      */
     private final MOEADGoalsManager _goalsManager;
 

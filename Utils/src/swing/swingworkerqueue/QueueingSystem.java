@@ -29,7 +29,7 @@ public class QueueingSystem<T, V>
     /**
      * Queues that manage swing workers' execution. It ensures that their execution does not overlap,
      * i.e., workers are queued, and execution of next task begins after its predecessor finished its job
-     * (see {@link swing.swingworkerqueue.ExecutionBlock}.
+     * (see {@link swing.swingworkerqueue.ExecutionBlock}).
      */
     protected ArrayList<SwingWorkerQueue<T, V>> _queues;
 

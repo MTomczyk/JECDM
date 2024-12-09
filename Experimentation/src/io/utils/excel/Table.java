@@ -131,7 +131,6 @@ public class Table
     public void applyCellStyleToCells(int x, int y, int w, int h, CellStyle cellStyle)
     {
         if (cellStyle == null) return;
-        ;
         int[] tc = getTruncatedCoords(x, y, w, h);
         if (tc == null) return;
         for (int j = tc[1]; j < tc[1] + tc[3]; j++)

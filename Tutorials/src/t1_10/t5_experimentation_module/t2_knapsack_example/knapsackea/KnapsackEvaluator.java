@@ -86,7 +86,7 @@ public class KnapsackEvaluator implements IEvaluate
                 }
 
                 // Extra: some extra space may be left; one may try adding items that fit (starting from the ones
-                // that have the best value/size ratio.
+                // that have the best value/size ratio).
 
                 // not really needed, the ``getBooleanDecisionVector'' method returns a reference (not copy)
                 //s.setBooleanDecisionVector(used);

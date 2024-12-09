@@ -5,7 +5,7 @@ import plot.AbstractPlot;
 
 /**
  * Implementation of the {@link IReferenceValueGetter} interface.
- * Returns the reference value defined as min { plot.width , plot.height }.
+ * Returns the reference value defined as min { "plot.width" , "plot.height" }.
  *
  * @author MTomczyk
  */
@@ -28,7 +28,7 @@ public class MinPlotDimension implements IReferenceValueGetter
     }
 
     /**
-     * Returns the reference value defined as min { panel.width , panel.height }.
+     * Returns the reference value defined as min { "panel.width" , "panel.height" }.
      *
      * @return reference value
      */

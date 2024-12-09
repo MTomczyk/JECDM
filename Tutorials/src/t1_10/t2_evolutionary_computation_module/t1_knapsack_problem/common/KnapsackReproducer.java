@@ -4,7 +4,6 @@ import ea.EA;
 import population.Chromosome;
 import population.Parents;
 import population.Specimen;
-import random.IRandom;
 import reproduction.IReproduce;
 import reproduction.operators.crossover.SinglePointCrossover;
 import reproduction.operators.mutation.Flip;

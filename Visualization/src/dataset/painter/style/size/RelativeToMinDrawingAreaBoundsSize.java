@@ -6,7 +6,7 @@ import container.PlotContainer;
 import java.awt.*;
 
 /**
- * Calculates relative value as a percent of "min {drawing area bounds (in pixels))}".
+ * Calculates relative value as a percent of min {drawing area bounds (in pixels))}.
  *
  * @author MTomczyk
  */

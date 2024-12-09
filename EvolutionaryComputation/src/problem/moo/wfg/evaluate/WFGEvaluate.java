@@ -97,7 +97,7 @@ public abstract class WFGEvaluate implements IEvaluate
         _A = getA();
         _D = getD();
         _S = getS();
-        _Z_MAX = getZmax();
+        _Z_MAX = getZMax();
         _transformations = getTransformations();
         _shapes = getShapes();
 
@@ -260,7 +260,7 @@ public abstract class WFGEvaluate implements IEvaluate
      *
      * @return the Z vector.
      */
-    protected double[] getZmax()
+    protected double[] getZMax()
     {
         double[] Zmax = new double[_n];
         for (int i = 0; i < _n; i++) Zmax[i] = 2.0d * (i + 1);

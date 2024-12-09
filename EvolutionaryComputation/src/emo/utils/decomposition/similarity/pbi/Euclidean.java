@@ -4,7 +4,7 @@ import emo.utils.decomposition.similarity.AbstractEuclidean;
 import emo.utils.decomposition.similarity.ISimilarity;
 
 /**
- * Quantifies a similarity between two PBI functions as an Euclidean distance between their two reference points (the less, the better).
+ * Quantifies a similarity between two PBI functions as a Euclidean distance between their two reference points (the less, the better).
  *
  * @author MTomczyk
  */

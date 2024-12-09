@@ -43,7 +43,7 @@ public class Tutorial4a
         model.setInternalModel(lnorm);
 
         // Create the artificial data (in the normalized space first, but the code then does the ``upscaling'' (so that
-        // the used normalization objects will be relevant).
+        // the used normalization objects will be relevant)).
         int no = 11;
         double[][] e = new double[11][2];
         for (int i = 0; i < no; i++)

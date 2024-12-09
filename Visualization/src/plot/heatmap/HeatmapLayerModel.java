@@ -434,7 +434,7 @@ public class HeatmapLayerModel
     /**
      * Getter for the number of divisions on axes (x-axis, y-axis, z-axis).
      *
-     * @return the number of divisions on axes
+     * @return the numbers of divisions on axes
      */
     protected int[] getDivisions()
     {

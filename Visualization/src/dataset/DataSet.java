@@ -198,7 +198,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
 
     /**
      * Parameterized constructor (for 2D plots; (protected access: it is recommended that painter object creation is handled by
-     * the static builders).
+     * the static builders)).
      *
      * @param name data set name
      * @param data data

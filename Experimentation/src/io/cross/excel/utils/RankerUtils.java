@@ -59,16 +59,6 @@ public class RankerUtils
                 ranks++;
                 if (trials == 0) trials = d.length;
             }
-        int[] map1 = new int[trialResults.length];
-        int[] map2 = new int[ranks];
-        int idx = 0;
-        for (int t = 0; t < trialResults.length; t++)
-            if (trialResults[t] != null)
-            {
-                map1[t] = idx;
-                map2[idx] = t;
-                idx++;
-            }
 
         // result matrix [scenario x possible ranks]
         double[][] rMatrix = new double[trialResults.length][ranks];
@@ -105,9 +95,6 @@ public class RankerUtils
             }
         }
 
-        // replace with null not used
-        //for (int i = 0; i < trialResults.length; i++)
-        //     if (trialResults[i] == null) rMatrix[i] = null;
 
         return rMatrix;
     }

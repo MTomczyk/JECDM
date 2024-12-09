@@ -207,7 +207,7 @@ public class VBOManager
         }
     }
 
-    /**
+    /*
      * Array ids (vao).
      */
     //protected int[] _arrayIds = null;

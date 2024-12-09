@@ -1,7 +1,6 @@
 package t1_10.t5_experimentation_module.t3_emo_experiment;
 
 import executor.CrossSummarizer;
-import executor.ScenariosSummarizer;
 import summary.Summary;
 
 /**

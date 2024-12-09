@@ -169,18 +169,7 @@ public class Plot3D extends AbstractPlot
     @Override
     protected void applySchemeCustomModifications(AbstractPlot.Params p)
     {
-        /*_M._scheme._size.put(SizeFields.MARGIN_LEFT_RELATIVE_SIZE_MULTIPLIER, 0.0f);
-        _M._scheme._size.put(SizeFields.MARGIN_RIGHT_RELATIVE_SIZE_MULTIPLIER, 0.0f);
-        _M._scheme._size.put(SizeFields.MARGIN_TOP_RELATIVE_SIZE_MULTIPLIER, 0.0f);
-        _M._scheme._size.put(SizeFields.MARGIN_BOTTOM_RELATIVE_SIZE_MULTIPLIER, 0.0f);
 
-        _M._scheme._flags.put(FlagFields.MARGIN_BOTTOM_USE_RELATIVE_SIZE, true);
-        _M._scheme._flags.put(FlagFields.MARGIN_RIGHT_USE_RELATIVE_SIZE, true);
-        _M._scheme._flags.put(FlagFields.MARGIN_TOP_USE_RELATIVE_SIZE, true);
-        _M._scheme._flags.put(FlagFields.MARGIN_LEFT_USE_RELATIVE_SIZE, true);
-
-        _M._scheme._size.put(SizeFields.DRAWING_AREA_BORDER_WIDTH_FIXED, 0.0f);
-        _M._scheme._flags.put(FlagFields.DRAWING_AREA_USE_BORDER_RELATIVE_WIDTH, false);*/
     }
 
     /**

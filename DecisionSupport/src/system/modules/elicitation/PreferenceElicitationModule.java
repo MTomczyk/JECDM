@@ -374,8 +374,7 @@ public class PreferenceElicitationModule extends AbstractModule
     {
         if (dmResult == null) return false;
         if (dmResult._feedback == null) return false;
-        if (dmResult._feedback.isEmpty()) return false;
-        return true;
+        return !dmResult._feedback.isEmpty();
     }
 
     /**

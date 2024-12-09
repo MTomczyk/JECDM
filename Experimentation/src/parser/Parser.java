@@ -146,10 +146,7 @@ public class Parser
             {
                 if (!processNoThreads(result, kv[1])) result._invalidArgs.add(s);
             }
-            default ->
-            {
-                result._invalidArgs.add(s);
-            }
+            default -> result._invalidArgs.add(s);
         }
     }
 

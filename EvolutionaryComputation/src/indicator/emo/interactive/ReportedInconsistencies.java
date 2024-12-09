@@ -67,7 +67,7 @@ public class ReportedInconsistencies extends AbstractPerformanceIndicator implem
     /**
      * Returns string representation
      *
-     * @return string representation: "REPORTED_INCONSISTENCIES_" + DM's id + "_" + model's ID..
+     * @return string representation: "REPORTED_INCONSISTENCIES_" + DM's id + "_" + model's ID.
      */
     @Override
     public String toString()

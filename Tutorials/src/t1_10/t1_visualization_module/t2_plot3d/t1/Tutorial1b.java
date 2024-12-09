@@ -43,7 +43,7 @@ public class Tutorial1b
         // matching will be done automatically. Additionally, multiple (i.e., more than 1) alignments that match
         // a particular axis type (e.g., X-axis) can be specified. If so, multiple such axes will be drawn. In this
         // example, the matching axes are as follows: Y-axis (BACK_RIGHT), X-axis (FRONT_TOP), and two Z-axes
-        // (LEFT_BOTTOM and RIGHT_TOP). Note that using ``draw axis'' flag has no effect.
+        // (LEFT_BOTTOM and RIGHT_TOP). Note that using "draw axis" flag has no effect.
         pP._axesAlignments = new Align[]{Align.BACK_RIGHT, Align.FRONT_TOP, Align.LEFT_BOTTOM, Align.RIGHT_TOP};
 
         // The plot drawing area is spanned on [-0.5, 0.5] bound by default. These bounds can be, however, customized.

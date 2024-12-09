@@ -10,8 +10,6 @@ import model.constructor.Report;
 import model.constructor.random.IRandomModel;
 import model.internals.value.AbstractValueInternalModel;
 import random.IRandom;
-import space.normalization.builder.INormalizationBuilder;
-import space.normalization.builder.StandardLinearBuilder;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -36,12 +34,6 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractConstruct
          * Random model generator.
          */
         public final IRandomModel<T> _RM;
-
-        /**
-         * Auxiliary normalization builder object that can be used to generate normalization objects.
-         * By default, standard linear builder is used.
-         */
-        public INormalizationBuilder _normalizationBuilder;
 
         /**
          * Limit for the number of samples the FRS method is allowed to generate. Should be positive and greater (or equal)
@@ -82,7 +74,6 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractConstruct
         public Params(IRandomModel<T> RM)
         {
             _RM = RM;
-            _normalizationBuilder = new StandardLinearBuilder();
         }
     }
 

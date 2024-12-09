@@ -12,7 +12,7 @@ import visualization.updaters.sources.AbstractEASource;
 import java.util.ArrayList;
 
 /**
- * Implementation of {@link IDataSource}. This implementations works similarly to {@link visualization.updaters.sources.EASource}.
+ * Implementation of {@link IDataSource}. This implementation works similarly to {@link visualization.updaters.sources.EASource}.
  * However, instead of adding ea timestamp, the resulting vectors are extended by statistics on the alternative's relevance
  * given the internal preference models.
  *

@@ -423,7 +423,7 @@ public class DisplayRangesManager
         /**
          * Params getter for the converge plot.
          * Sets display ranges as provided and prohibits their update.
-         * The third (upper bound) and the fourth (lowerr bound) attribute are mapped on the second display range that
+         * The third (upper bound) and the fourth (lower bound) attribute are mapped on the second display range that
          * should be linked to Y-axis.
          *
          * @param xDisplayRange display range for X-axis

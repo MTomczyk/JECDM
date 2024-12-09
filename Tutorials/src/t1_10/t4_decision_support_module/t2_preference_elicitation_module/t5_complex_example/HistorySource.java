@@ -42,7 +42,7 @@ public class HistorySource extends AbstractSource implements IDataSource
     @Override
     public double[][] createData()
     {
-        // rows = preferred alternative and not; columns = f1, f2, f3, [0, 1] (depends whether the alternative is preferred).
+        // rows = preferred alternative and not; columns = f1, f2, f3, [0, 1] (depends on whether the alternative is preferred).
         double[][] data = new double[2][4];
         try
         {

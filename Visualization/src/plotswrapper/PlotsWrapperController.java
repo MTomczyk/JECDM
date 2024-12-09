@@ -109,7 +109,7 @@ public class PlotsWrapperController
      * Queueing system that wraps queues that can manage swing workers' execution.
      * It ensures that their execution does not overlap, i.e., workers are queued and execution
      * of a next task begins after its predecessor finished its job.
-     * (see {@link swing.swingworkerqueue.ExecutionBlock}.
+     * (see {@link swing.swingworkerqueue.ExecutionBlock}).
      */
     protected QueueingSystem<Void, Void> _queueingSystem;
 

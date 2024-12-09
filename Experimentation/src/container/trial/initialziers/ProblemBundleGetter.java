@@ -4,7 +4,6 @@ import problem.AbstractProblemBundle;
 import problem.Problem;
 import problem.moo.dtlz.DTLZBundle;
 import problem.moo.wfg.WFGBundle;
-import random.IRandom;
 
 /**
  * Auxiliary method that aids in constructing a problem bundle.

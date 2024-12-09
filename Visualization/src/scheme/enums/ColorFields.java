@@ -71,7 +71,7 @@ public enum ColorFields
     LEGEND_BORDER,
 
     /**
-     * Legend entry poiny color.
+     * Legend entry font color.
      */
     LEGEND_ENTRY_FONT,
 

@@ -432,32 +432,6 @@ public class AbstractPlot extends AbstractSwingComponent
     }
 
     /**
-     * Overwrite the hashCode function.
-     * Hash code is based on the plot id.
-     *
-     * @return hash code
-     */
-   /* @Override
-    public final int hashCode()
-    {
-        return _M._id;
-    }*/
-
-    /**
-     * Overwrites the "equals" method. Equality is based on comparing IDs.
-     *
-     * @param o other objects
-     * @return true if both objects are the same; false otherwise
-     */
-    /*public boolean equals(Object o)
-    {
-        if (o == this) return true;
-        if (!(o instanceof AbstractPlot)) return false;
-        if (_M._id == null) return ((AbstractPlot) o)._M._id == null;
-        return _M._id.equals(((AbstractPlot) o)._M._id);
-    }*/
-
-    /**
      * Can be called to dispose the object and its children.
      */
     @Override

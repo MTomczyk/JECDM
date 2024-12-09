@@ -85,7 +85,7 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
     protected int _currentScenarioIndex;
 
     /**
-     * Index of a indicator being currently processed.
+     * Index of an indicator being currently processed.
      */
     protected int _currentIndicatorIndex;
 

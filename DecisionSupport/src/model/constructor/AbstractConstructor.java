@@ -211,7 +211,7 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
     }
 
     /**
-     * The pre-construct models phase. This default implementation creates the bundle and fills some some of its fields.
+     * The pre-construct models phase. This default implementation creates the bundle and fills some of its fields.
      *
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
      * @return bundle result object to be filled

@@ -60,15 +60,6 @@ public class RemoveOldest<T extends AbstractInternalModel> extends AbstractIncon
         if (!modelBundle._inconsistencyDetected)
             throw new InconsistencyHandlerException("Called for inconsistency reintroduction, but the input model bundle reports consistency", this.getClass());
 
-        /*LinkedList<PreferenceInformationWrapper> copiedHistory;
-        try
-        {
-            copiedHistory = history.getPreferenceInformationCopy();
-        } catch (HistoryException e)
-        {
-            throw new InconsistencyHandlerException("Could not copy the preference elicitation history " + e.getDetailedReasonMessage(), this.getClass(), e);
-        }*/
-
         if (preferenceInformation.isEmpty())
             throw new InconsistencyHandlerException("The history of preference elicitation is empty (no reason to reintroduce consistency)", this.getClass());
 

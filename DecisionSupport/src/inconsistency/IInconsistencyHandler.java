@@ -35,9 +35,9 @@ public interface IInconsistencyHandler<T extends AbstractInternalModel>
     /**
      * Signature for the method responsible for reintroducing consistency.
      *
-     * @param report bundle result of the attempt to construct models (see {@link Report},
+     * @param report bundle result of the attempt to construct models (see {@link Report}),
      *                    it is assumed that this bundle indicates inconsistency ({@link Report#_inconsistencyDetected}).
-     * @param constructor object used to construct the model given the preference information stored in the history object {see {@link History}).
+     * @param constructor object used to construct the model given the preference information stored in the history object (see {@link History}).
      * @param preferenceInformation current preference information (copied from the model system) that can be modified to reintroduce consistency (altered set should be stored in the report);
      *                              the list is derived via {@link History#getPreferenceInformationCopy()}, thus it is valid (e.g., preference statements are ordered from the oldest to the newest)
      * @return the method should reintroduce consistency (e.g., by altering the constructor definition or history

@@ -21,7 +21,7 @@ public class AbstractAlternatives<T extends IAlternativeWrapper> implements Iter
         private int index = 0;
 
         /**
-         * Checks if has next element.
+         * Checks if it has next element.
          * @return true, if there is next element; false otherwise
          */
         public boolean hasNext()

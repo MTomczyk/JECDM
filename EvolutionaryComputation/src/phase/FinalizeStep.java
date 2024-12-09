@@ -32,7 +32,7 @@ public class FinalizeStep extends AbstractFinalizeStepPhase implements IPhase
     }
 
     /**
-     * Phase main action (sets the ``requires evaluation/ID assignments'' flags to false).
+     * Phase main action (sets the "requires evaluation/ID assignments" flags to false).
      *
      * @param ea     evolutionary algorithm
      * @param report report on the executed action (to be filled)

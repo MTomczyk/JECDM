@@ -50,8 +50,6 @@ import space.normalization.INormalization;
 import space.simplex.DasDennis;
 import statistics.*;
 import statistics.tests.ITest;
-import statistics.tests.MannWhitneyU;
-import statistics.tests.TStudent;
 import statistics.tests.WilcoxonSignedRank;
 import utils.weights.WeightsGetter;
 

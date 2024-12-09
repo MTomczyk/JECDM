@@ -23,7 +23,7 @@ public interface IPainter
 {
     /**
      * The method clones the painter but ignores the rendering data.
-     * The method supports data reaplcing.
+     * The method supports data replacing.
      *
      * @return cloned painter (except for rendering data).
      */

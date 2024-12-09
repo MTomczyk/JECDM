@@ -42,7 +42,7 @@ public class DMContext
 
         /**
          * Normalization builder that will be used to generate normalization objects using the OSs (if null,
-         * the standard linear builder will be used ({@link StandardLinearBuilder}).
+         * the standard linear builder will be used ({@link StandardLinearBuilder})).
          */
         public INormalizationBuilder _normalizationBuilder;
 

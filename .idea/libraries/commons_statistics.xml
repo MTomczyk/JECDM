@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="commons-statistics">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/libs/commons-statistics" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/commons-statistics" recursive="false" />
+  </library>
+</component>

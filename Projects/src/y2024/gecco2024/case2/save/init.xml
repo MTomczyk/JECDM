@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<init>
+    <frame fps="true" size="0.5" title="Case #2 heatmap (NSGA-II; 3D; generation; min; avg)"/>
+    <datasets>
+        <dataset dimensions="3" file="nsgaii_3d_generation_min_average" ms="s">
+            <axes>
+                <axis divisions="100" max="2.0" min="0.0" title="f1" type="x"/>
+                <axis divisions="100" max="2.0" min="0.0" title="f2" type="y"/>
+                <axis divisions="100" max="2.0" min="0.0" title="f3" type="z"/>
+            </axes>
+            <heatmap gradient="viridis" max="300.0" min="0.0" title="Expected earliest generation when found"/>
+        </dataset>
+    </datasets>
+</init>

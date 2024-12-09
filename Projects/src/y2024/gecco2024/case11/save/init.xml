@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<init>
+    <frame fps="false" size="0.5" title="Case #11 heatmap (MOEA/D; 2D; 1; min; sum, alpha=1)"/>
+    <datasets>
+        <dataset dimensions="2" file="moead_2d_1_min_sum" ms="s" scheme="white">
+            <axes>
+                <axis divisions="100" max="2.0" min="0.0" title="f1" type="x"/>
+                <axis divisions="100" max="2.0" min="0.0" title="f2" type="y"/>
+            </axes>
+            <heatmap gradient="magma" max="100.0" min="0.0" title="Expected no. times found"/>
+        </dataset>
+    </datasets>
+</init>

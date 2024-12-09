@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<init>
+    <frame fps="false" size="0.5" title="Case #1 heatmap (NSGA-II; 2D; generation; min; avg)"/>
+    <datasets>
+        <dataset dimensions="2" file="nsgaii_2d_generation_min_average" ms="s" scheme="white">
+            <axes>
+                <axis divisions="100" max="2.0" min="0.0" title="f1" type="x"/>
+                <axis divisions="100" max="2.0" min="0.0" title="f2" type="y"/>
+            </axes>
+            <heatmap gradient="viridis" max="200.0" min="0.0" title="Expected earliest generation when found"/>
+        </dataset>
+    </datasets>
+</init>

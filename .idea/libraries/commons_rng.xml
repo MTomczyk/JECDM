@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="commons-rng">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/libs/commons-rng" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/commons-rng" recursive="false" />
+  </library>
+</component>

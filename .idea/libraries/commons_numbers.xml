@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="commons-numbers">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/libs/commons-numbers" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/commons-numbers" recursive="false" />
+  </library>
+</component>

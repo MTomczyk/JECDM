@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="gluegen">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/libs/gluegen" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/gluegen" recursive="false" />
+  </library>
+</component>

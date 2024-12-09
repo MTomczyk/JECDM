@@ -1,0 +1,2 @@
+This folder includes various tests to verify the correctness of the results produced by the main classes of this module.
+The input data is artificial (see various Excel files), and the expected results were calculated by hand.

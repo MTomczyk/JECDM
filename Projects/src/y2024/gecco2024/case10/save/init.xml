@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<init>
+    <frame fps="true" size="0.5" title="Case #10 heatmap (NSGA-II; 3D; 1; min; sum)"/>
+    <datasets>
+        <dataset dimensions="3" file="nsgaii_3d_1_min_sum" ms="s" scheme="white">
+            <axes>
+                <axis divisions="100" max="2.0" min="0.0" title="f1" type="x"/>
+                <axis divisions="100" max="2.0" min="0.0" title="f2" type="y"/>
+                <axis divisions="100" max="2.0" min="0.0" title="f3" type="z"/>
+            </axes>
+            <heatmap gradient="magma" max="200.0" min="0.0" title="Expected no. times found"/>
+        </dataset>
+    </datasets>
+</init>

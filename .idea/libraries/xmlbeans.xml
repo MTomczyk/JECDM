@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="xmlbeans">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/libs/xmlbeans" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/xmlbeans" recursive="false" />
+  </library>
+</component>

@@ -1,0 +1,104 @@
+package emo.interactive.ktscone.cdemo;
+
+import criterion.Criteria;
+import ea.AbstractEABundle;
+import emo.interactive.ktscone.AbstractKTSConeBundle;
+import interaction.feedbackprovider.dm.IDMFeedbackProvider;
+import interaction.reference.constructor.IReferenceSetConstructor;
+import interaction.trigger.rules.IRule;
+import system.ds.DecisionSupportSystem;
+
+/**
+ * Bundle (container) of necessary fields for CDEMO algorithm.
+ *
+ * @author MTomczyk
+ */
+
+public class CDEMOBundle extends AbstractKTSConeBundle
+{
+    /**
+     * Params container for the bundle's getter.
+     */
+    public static class Params extends AbstractKTSConeBundle.Params
+    {
+        /**
+         * Parameterized constructor.
+         *
+         * @param criteria considered criteria
+         * @param DSS      decision support system object
+         */
+        protected Params(Criteria criteria, DecisionSupportSystem DSS)
+        {
+            super("CDEMO", criteria, DSS);
+        }
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param pA params contained of the parent class
+         */
+        protected Params(AbstractKTSConeBundle.Params pA)
+        {
+            super(pA);
+        }
+
+        /**
+         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
+         * feedback provider, and one interaction rule.
+         *
+         * @param criteria                considered criteria
+         * @param DM                      decision maker's identifier
+         * @param interactionRule         interaction rule
+         * @param referenceSetConstructor reference set constructor
+         * @param dmFeedbackProvider      DM-based feedback provider
+         * @return params container
+         */
+        public static CDEMOBundle.Params getDefault(Criteria criteria, String DM, IRule interactionRule,
+                                                              IReferenceSetConstructor referenceSetConstructor,
+                                                              IDMFeedbackProvider dmFeedbackProvider)
+        {
+            AbstractKTSConeBundle.Params pA = AbstractKTSConeBundle.Params.getDefault("CDEMO", criteria, DM, interactionRule,
+                    referenceSetConstructor, dmFeedbackProvider);
+            return new Params(pA);
+        }
+
+        /**
+         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
+         * feedback provider, and one interaction rule.
+         *
+         * @param criteria considered criteria
+         * @param pDSS     params container used to establish the decision support system
+         * @return params container
+         */
+        public static CDEMOBundle.Params getDefault(Criteria criteria, DecisionSupportSystem.Params pDSS)
+        {
+            AbstractKTSConeBundle.Params pA = AbstractKTSConeBundle.Params.getDefault("CDEMO", criteria, pDSS);
+            return new Params(pA);
+        }
+    }
+
+
+    /**
+     * Constructs the bundle of fields aiding in instantiating the CDEMO algorithm.
+     * The runtime exception will be thrown if the parameterization is invalid.
+     *
+     * @param p params container
+     */
+    public CDEMOBundle(CDEMOBundle.Params p)
+    {
+        super(p);
+    }
+
+    /**
+     * Auxiliary method instantiating the "sort" phase.
+     *
+     * @param p params container
+     */
+    @Override
+    protected void instantiateSortPhase(AbstractEABundle.Params p)
+    {
+        CDEMOBundle.Params pp = (CDEMOBundle.Params) p;
+        _phasesBundle._sort = new CDEMOSort(p._criteria, pp._DSS);
+    }
+
+}

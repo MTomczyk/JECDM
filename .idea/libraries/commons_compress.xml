@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="commons-compress">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/libs/commons-compress" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/commons-compress" recursive="false" />
+  </library>
+</component>

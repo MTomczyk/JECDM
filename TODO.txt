@@ -1,0 +1,30 @@
+This document contains loose ideas on future updates:
+
+Decision Support:
+- For the preference elicitation: allow the DM(s) to resign from providing feedback (after reference sets are shown).
+
+Evolutionary Computation:
+- Introducing the archive functionality (SpecimenContainer).
+- Multiple RNGs for possible in-EA multithreading (each thread should have a different generator)
+
+Visualization:
+- Interface for overwriting scheme after plot is initialized (to avoid the manual update, e.g., in plot 3d).
+- Allowing for changing some of the data sets, while keeping the others untouched (i.e., using static and dynamic data sets).
+- Data set that aggregates multiple data sets (for preloading, wrapped data sets can be turned off/on for rendering)
+- Providing better ways of ticks (axis) adjustment.
+- Using multiple colorbars
+- Using multiple X, Y axes
+- Introducing OpenGL-based 2D rendering mode.
+- Allowing marker edges to have a volume (e.g., Line.POLY_OCTO).
+- Introducing lighting into 3D mode and custom objects loading.
+- Introducing textures into 3D mode.
+- Introducing clipping into 3D mode.
+- Introducing labels (data sets) to into 2D/3D mode
+- Marker size based on attribute value (use of DR)
+- Heatmap2D: providing values in buckets
+- Providing initial projection data as an input (for 3D)
+- New data sets: arrows and labels
+
+Experimentation
+- Mechanisms for surpassing original names of the indicators
+- Option for automatically saving the summary in txt

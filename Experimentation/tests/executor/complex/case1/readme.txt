@@ -1,0 +1,2 @@
+This testing scenario assumes that the trial executors are dummy objects. They mimic the processing by executing a loop
+and delaying the subsequent calls (thread sleep). They can also cast exceptions when desired (exception handling testing).

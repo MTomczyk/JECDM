@@ -1,0 +1,1 @@
+ For opengl debugging: -Djogl.debug.DebugGL=1

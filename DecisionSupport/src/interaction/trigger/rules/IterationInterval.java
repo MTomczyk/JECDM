@@ -106,7 +106,7 @@ public class IterationInterval extends AbstractRule implements IRule
 
     /**
      * A call-back method that can be used to inform the object that the interaction, although triggered, is postponed
-     * (e.g., due to the unavailability of alternatives). This implementations increases the postponing counter.
+     * (e.g., due to the unavailability of alternatives). This implementation increases the postponing counter.
      *
      * @param postpone object providing auxiliary data related to postponing (e.g., reason)
      */

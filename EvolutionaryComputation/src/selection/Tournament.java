@@ -197,20 +197,11 @@ public class Tournament extends AbstractSelect implements ISelect
 
                 for (int r = 1; r < _size; r++)
                 {
-                    Specimen counter = null;
+                    Specimen counter;
                     if (_withReplacement)
                     {
 
-                        try
-                        {
-                            counter = draw(matingPool, R);
-                        } catch (RuntimeException e)
-                        {
-                            System.out.println();
-                            System.out.println(matingPool.size());
-                            System.out.println("HERE " + _useSampling + " " + _withReplacement);
-                            System.out.println(e.getMessage());
-                        }
+                        counter = draw(matingPool, R);
 
                     }
                     else
@@ -219,7 +210,6 @@ public class Tournament extends AbstractSelect implements ISelect
                         else counter = drawWithReplacementPointers(matingPool, R, selected, _pointers);
                     }
 
-                    //noinspection DataFlowIssue
                     if (((_preferenceDirection) && (Double.compare(counter.getAlternative().getAuxScore(), winner.getAlternative().getAuxScore()) > 0))
                             || ((!_preferenceDirection) && (Double.compare(counter.getAlternative().getAuxScore(), winner.getAlternative().getAuxScore()) < 0)))
                         winner = counter; // replacement

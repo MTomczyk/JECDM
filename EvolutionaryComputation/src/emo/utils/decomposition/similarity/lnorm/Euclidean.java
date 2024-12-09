@@ -4,7 +4,7 @@ import emo.utils.decomposition.similarity.AbstractEuclidean;
 import emo.utils.decomposition.similarity.ISimilarity;
 
 /**
- * Quantifies a similarity between two L-norms as an Euclidean distance between their two weight vectors (the less, the better).
+ * Quantifies a similarity between two L-norms as a Euclidean distance between their two weight vectors (the less, the better).
  *
  * @author MTomczyk
  */

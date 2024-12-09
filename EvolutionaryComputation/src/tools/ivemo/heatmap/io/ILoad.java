@@ -10,7 +10,7 @@ package tools.ivemo.heatmap.io;
 public interface ILoad
 {
     /**
-     * Can be called to save thedata file.
+     * Can be called to save the data file.
      * @param path folder path (relative to the jar; excludes filename)
      * @throws Exception exception
      */

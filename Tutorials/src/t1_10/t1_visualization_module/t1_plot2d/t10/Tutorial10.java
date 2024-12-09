@@ -67,7 +67,7 @@ public class Tutorial10
 
 
             // A gradient object consists of two primary fields: associations between the normalized [0-1] value and
-            // a color (see color.gradient.ColorAssignment; the normalized values are kept sorted in an ascending order);
+            // a color (see color.gradient.ColorAssignment; the normalized values are kept sorted in ascending order);
             // and an interpolation flag. The interpolation flag is used when retrieving a color for which the input
             // normalized value is not stored. If the flag is true, the nearest normalized values to the requested one
             // are identified (smaller/equal and greater/equal; binary search is used) and their associated colors.

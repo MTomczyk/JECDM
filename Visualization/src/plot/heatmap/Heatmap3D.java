@@ -125,7 +125,7 @@ public class Heatmap3D extends Plot3D
         /**
          * Default constructor. Properly adjust some fields that are not relevant to the heatmap.
          *
-         * @param heatmapDisplayRange Display range object for handling data on the display range/normalizations/etc; if not provided (null), it is instantiated with nulled range and flags for dynamic range update set to true.
+         * @param heatmapDisplayRange Display range object for handling data on the display range/normalizations/etc.; if not provided (null), it is instantiated with nulled range and flags for dynamic range update set to true.
          */
         public Params(DisplayRangesManager.DisplayRange heatmapDisplayRange)
         {
@@ -136,7 +136,7 @@ public class Heatmap3D extends Plot3D
          * Parameterized constructor. Properly adjust some fields that are not relevant to the heatmap.
          *
          * @param bucketStyle bucket style
-         * @param heatmapDisplayRange Display range object for handling data on the display range/normalizations/etc; if not provided (null), it is instantiated with nulled range and flags for dynamic range update set to true.
+         * @param heatmapDisplayRange Display range object for handling data on the display range/normalizations/etc.; if not provided (null), it is instantiated with nulled range and flags for dynamic range update set to true.
          *
          */
         public Params(BucketStyle bucketStyle, DisplayRangesManager.DisplayRange heatmapDisplayRange)

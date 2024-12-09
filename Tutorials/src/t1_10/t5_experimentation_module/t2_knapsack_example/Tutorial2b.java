@@ -63,7 +63,7 @@ public class Tutorial2b
         pGDC._mapObject = new HashMap<>();
         pGDC._mapObject.put("DATA", dataMap);
 
-        // The ``savers'' are responsible for creating per-scenario result files. The object used below will provide the
+        // The "savers" are responsible for creating per-scenario result files. The object used below will provide the
         // aggregated results (obtained through statistic functions) in an Excel file, where the columns will represent
         // different statistics, while rows will be associated with generations. Further, results obtained according
         // to different indicators will be presented in different tabs.

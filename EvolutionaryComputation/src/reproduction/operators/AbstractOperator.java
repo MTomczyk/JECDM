@@ -34,7 +34,7 @@ public class AbstractOperator
         public Range[] _doubleBounds;
 
         /**
-         * Feasible bounds for integers (if value check is provided but integer bounds not, the [0, 1] default should will be used).
+         * Feasible bounds for integers (if value check is provided but integer bounds not, the [0, 1] bound default will be used).
          */
         public IntRange[] _intBounds;
 

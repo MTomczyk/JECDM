@@ -83,26 +83,13 @@ public class IntegerDivider
 
         while (remains > 0)
         {
-          //  System.out.println();
-           // System.out.println("accu = " + a);
-         //   System.out.println("idx = " + idx);
-          //  System.out.println("remains = " + remains);
-
-
             int up = dm[s - 2][d];
             boolean goUp = true;
-          //  System.out.println("s = " + s);
-           // System.out.println("d = " + d);
-
-           // System.out.println("up = " + up);
             if (d > 0)
             {
                 int left = dm[s - 1][d - 1];
-              //  System.out.println("left = " + left);
                 goUp = R.nextInt(up + left) < up;
             }
-
-           // System.out.println("up? = " + goUp);
 
             if (goUp)
             {
@@ -123,10 +110,8 @@ public class IntegerDivider
                 a++;
             }
 
-          //  PrintUtils.printVectorOfIntegers(r);
         }
 
-      //  PrintUtils.printVectorOfIntegers(r);
         return r;
     }
 }

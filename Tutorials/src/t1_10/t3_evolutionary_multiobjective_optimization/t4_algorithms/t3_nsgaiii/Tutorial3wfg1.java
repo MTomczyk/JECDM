@@ -103,7 +103,7 @@ public class Tutorial3wfg1
         // Create EAs - iterate over Ms:
         for (int i = 0; i < M.length; i++)
         {
-            // Set goals (normalizations = null; they will be set (if fixed ranges are used) by the getNSGAII method.
+            // Set goals (normalizations = null; they will be set (if fixed ranges are used) by the getNSGAII method).
             //IGoal[] goals = GoalsFactory.getPointLineProjectionsDND(M[i], mToN.get(M[i]), null);
             // Check different definitions:
             //IGoal [] goals = GoalsFactory.getLNormsDND(M[i], mToN.get(M[i]), Double.POSITIVE_INFINITY, null);

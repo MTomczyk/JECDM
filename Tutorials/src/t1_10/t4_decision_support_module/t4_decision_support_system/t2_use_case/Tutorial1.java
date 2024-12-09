@@ -231,9 +231,6 @@ public class Tutorial1
                 runner.executeSingleGeneration(g, limits);
                 pContext = getDMContextParams(g, R, os, EA.getSpecimensContainer().getPopulation());
                 report = DSS.executeProcess(pContext);
-                System.out.println(g);
-
-                System.out.println("AAAA " + DSS.getDecisionMakersSystems()[0].getHistory().getNoPreferenceExamples());
             }
 
 

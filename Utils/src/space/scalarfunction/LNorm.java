@@ -138,7 +138,7 @@ public class LNorm extends AbstractScalarizingFunction implements IScalarizingFu
      */
     public String toString()
     {
-        if (Double.compare(getAuxParam(), Double.POSITIVE_INFINITY) == 0) return "Infty-norm";
+        if (Double.compare(getAuxParam(), Double.POSITIVE_INFINITY) == 0) return "Infinity-norm";
         else return String.format("%.4f-norm", getAuxParam());
     }
 }

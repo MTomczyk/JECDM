@@ -46,7 +46,7 @@ public class AbstractStatistic implements IStatistic
     }
 
     /**
-     * Method for retrieving the string representation..
+     * Method for retrieving the string representation.
      *
      * @return string representation.
      */

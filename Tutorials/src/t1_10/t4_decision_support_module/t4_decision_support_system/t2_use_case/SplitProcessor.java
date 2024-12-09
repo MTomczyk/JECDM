@@ -21,7 +21,7 @@ public class SplitProcessor extends AbstractDataProcessor implements IDataProces
 
     /**
      * Can be called to update the internal data maintained by the updater.
-     * (takes control over the `\_cumulatedData').
+     * (takes control over the "\_cumulatedData").
      *
      * @param sourceData new data to be processed
      */

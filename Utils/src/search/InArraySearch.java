@@ -23,7 +23,7 @@ public class InArraySearch<E extends DoubleWrapper>
      * @param atLeast threshold
      * @param array   input array (array list): the values are assumed to be sorted in ascending order
      * @param strict  if true, strict relation (>) is used, (>=) relation is used if false
-     * @return index (if the index exceeds the array limits, -1 or array.length is returned; 0 is returned if the array length is 0)
+     * @return index (if the index exceeds the array limits, -1 or "array.length" is returned; 0 is returned if the array length is 0)
 
      */
     public int getIndexAtLeast(double atLeast, ArrayList<E> array, boolean strict)
@@ -95,7 +95,7 @@ public class InArraySearch<E extends DoubleWrapper>
      * @param atLeast threshold
      * @param array   input array: the values are assumed to be sorted in ascending order
      * @param strict  if true, strict relation (>) is used, (>=) relation is used if false
-     * @return index (if the index exceeds the array limits, -1 or array.length is returned; 0 is returned if the array length is 0)
+     * @return index (if the index exceeds the array limits, -1 or "array.length" is returned; 0 is returned if the array length is 0)
      */
     public static int getIndexAtLeast(double atLeast, double[] array, boolean strict)
     {
@@ -158,13 +158,13 @@ public class InArraySearch<E extends DoubleWrapper>
 
 
     /**
-     * Returns an index up to which in-array-stored values (sorted in ascending order) have a value smaller (&lt;) or no greater (&lt;=)
+     * Returns an index up to which in-array-stored values (sorted in ascending order) have a value smaller &lt; or no greater &lt;=
      * than the provided threshold (strict or non-strict relation). The index is searched using the binary search.
      *
      * @param atMost threshold
      * @param array  input array (array list): the values are assumed to be sorted in ascending order
-     * @param strict  if true, strict relation (>) is used, (>=) relation is used if false
-     * @return index (if the index exceeds the array limits, -1 or array.length is returned; 0 is returned if the array length is 0)
+     * @param strict  if true, strict relation &lt; is used, &lt;= relation is used if false
+     * @return index (if the index exceeds the array limits, -1 or "array.length" is returned; 0 is returned if the array length is 0)
      */
     public int getIndexAtMost(double atMost, ArrayList<E> array, boolean strict)
     {
@@ -229,13 +229,13 @@ public class InArraySearch<E extends DoubleWrapper>
 
 
     /**
-     * Returns an index up to which in-array-stored values (sorted in ascending order) have a value smaller (&lt;) or no greater (&lt;=)
+     * Returns an index up to which in-array-stored values (sorted in ascending order) have a value smaller &lt; or no greater &lt;=
      * than the provided threshold (strict or non-strict relation). The index is searched using the binary search.
      *
      * @param atMost threshold
      * @param array  input array: the values are assumed to be sorted in ascending order
-     * @param strict  if true, strict relation (>) is used, (>=) relation is used if false
-     * @return index (if the index exceeds the array limits, -1 or array.length is returned; 0 is returned if the array length is 0)
+     * @param strict  if true, strict relation &lt; is used, &lt;= relation is used if false
+     * @return index (if the index exceeds the array limits, -1 or "array.length" is returned; 0 is returned if the array length is 0)
 
      */
     public static int getIndexAtMost(double atMost, double[] array,  boolean strict)

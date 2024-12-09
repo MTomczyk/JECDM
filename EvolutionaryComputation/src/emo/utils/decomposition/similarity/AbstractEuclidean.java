@@ -17,7 +17,7 @@ public abstract class AbstractEuclidean implements ISimilarity
     protected final space.scalarfunction.LNorm _LN = new space.scalarfunction.LNorm(null, 2.0d, null);
 
     /**
-     * Quantifies a similarity between two L-norms as an Euclidean distance between their two weight vectors (the less, the better).
+     * Quantifies a similarity between two L-norms as a Euclidean distance between their two weight vectors (the less, the better).
      * It is assumed that the input goals are L-norms ({@link LNorm}) and their vectors are on a simplex hyperplane.
      *
      * @param A the first L-norm

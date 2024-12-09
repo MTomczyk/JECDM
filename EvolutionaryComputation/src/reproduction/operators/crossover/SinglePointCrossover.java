@@ -18,7 +18,7 @@ public class SinglePointCrossover extends AbstractCrossover implements ICrossove
     public static class Params extends AbstractCrossover.Params
     {
         /**
-         * Default constructor (sets ``swap parents randomly'' to true with the probability of 1.0).
+         * Default constructor (sets ``swap parents randomly'' to true with the probability of 1.0)).
          */
         public Params()
         {

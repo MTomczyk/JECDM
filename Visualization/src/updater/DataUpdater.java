@@ -81,7 +81,7 @@ public class DataUpdater
         public ProcessorToPlots[] _processorToPlots;
 
         /**
-         * Reference to the plots wrapper.
+         * Reference to the "plots wrapper".
          */
         protected final AbstractPlotsWrapper _plotsWrapper;
 
@@ -141,7 +141,7 @@ public class DataUpdater
          *
          * @param plotsWrapper      reference to the plots wrapper
          * @param dataSource        data source
-         * @param referenceDataSets reference data set for each plot(provides info on market styles etc); the array length determines the number of target plots
+         * @param referenceDataSets reference data set for each plot(provides info on market styles etc.); the array length determines the number of target plots
          */
         protected Params(AbstractPlotsWrapper plotsWrapper, IDataSource dataSource, IDataSet[] referenceDataSets)
         {
@@ -156,7 +156,7 @@ public class DataUpdater
          * @param plotsWrapper      reference to the plots wrapper
          * @param dataSource        data source
          * @param dataProcessor     data processor
-         * @param referenceDataSets reference data set for each plot(provides info on market styles etc); the array length determines the number of target plots
+         * @param referenceDataSets reference data set for each plot(provides info on market styles etc.); the array length determines the number of target plots
          */
         protected Params(AbstractPlotsWrapper plotsWrapper, IDataSource dataSource, IDataProcessor dataProcessor, IDataSet[] referenceDataSets)
         {
@@ -193,7 +193,7 @@ public class DataUpdater
     private final ProcessorToPlots[] _processorToPlots;
 
     /**
-     * Reference to the plots wrapper.
+     * Reference to the "plots wrapper".
      */
     private final AbstractPlotsWrapper _plotsWrapper;
 
@@ -253,7 +253,7 @@ public class DataUpdater
      *
      * @param plotsWrapper      reference to the plots wrapper
      * @param dataSource        data source
-     * @param referenceDataSets reference data set for each plot(provides info on market styles etc); the array length determines the number of target plots
+     * @param referenceDataSets reference data set for each plot(provides info on market styles etc.); the array length determines the number of target plots
      * @return data updater object
      * @throws Exception exception will be thrown if the input data is invalid
      */

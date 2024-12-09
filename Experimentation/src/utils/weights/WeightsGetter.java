@@ -12,7 +12,7 @@ public class WeightsGetter
      *
      * @param M vector length (dimensions)
      * @param t vector no. (e.g., trial ID)
-     * @return weight vector (returns null if cannot find proper vector).
+     * @return weight vector (returns null if it cannot find a predefined vector).
      */
     public static double[] getPredefinedVector(int M, int t)
     {

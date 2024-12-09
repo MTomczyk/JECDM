@@ -212,7 +212,7 @@ public class Scenario
 
     /**
      * Provides quick access for an integer representing the number of generations considered.
-     * If the scenario does not contain an generations-related key (see {@link Keys}), the method returns null.
+     * If the scenario does not contain a generations-related key (see {@link Keys}), the method returns null.
      *
      * @return generations-related value, or null if not specified
      */

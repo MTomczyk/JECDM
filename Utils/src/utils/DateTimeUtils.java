@@ -11,17 +11,6 @@ import java.time.LocalDateTime;
 
 public class DateTimeUtils
 {
-    /**
-     * Returns the duration between two timestamps (in seconds).
-     *
-     * @param startTime starting timestamp
-     * @param stopTime  stopping timestamp
-     * @return delta time (in seconds)
-     */
-    public static long getDeltaTimeInSeconds(LocalDateTime startTime, LocalDateTime stopTime)
-    {
-        return Duration.between(startTime, stopTime).toSeconds();
-    }
 
     /**
      * Returns the duration between two timestamps (in seconds).

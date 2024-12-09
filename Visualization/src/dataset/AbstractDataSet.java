@@ -115,7 +115,7 @@ public abstract class AbstractDataSet implements IDataSet
      * Returns an auxiliary mask that tell whether the update of the i-th display range should be skipped.
      * Can return null (not used). Obviously, the mask has no effect when updating display ranges is globally disabled.
      *
-     * @return mask (i-th element = true -> the update of i-th display range is skipped.
+     * @return mask (i-th element = true -> the update of i-th display range is skipped).
      */
     @Override
     public boolean[] getSkipDisplayRangesUpdateMasks()
@@ -127,7 +127,7 @@ public abstract class AbstractDataSet implements IDataSet
      * It can be implemented to set auxiliary mask that tell whether the update of the i-th display range should be skipped.
      * Can be null (not used).
      *
-     * @param mask mask (i-th element = true -> the update of i-th display range is skipped.
+     * @param mask mask (i-th element = true -> the update of i-th display range is skipped).
      */
     @Override
     public void setSkipDisplayRangesUpdateMasks(boolean[] mask)

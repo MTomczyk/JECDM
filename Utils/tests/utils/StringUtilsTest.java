@@ -13,7 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class StringUtilsTest
 {
-
+    /**
+     * Test 1.
+     */
     @Test
     void getDeltaTime()
     {

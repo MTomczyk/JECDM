@@ -11,6 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class WFG1_FinalTest
 {
+    /**
+     * Test 1.
+     */
     @Test
     void applyTransformation()
     {

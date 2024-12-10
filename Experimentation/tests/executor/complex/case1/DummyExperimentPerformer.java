@@ -14,6 +14,9 @@ import summary.ScenarioSummary;
  */
 public class DummyExperimentPerformer extends ExperimentPerformer
 {
+    /**
+     * Dummy params container.
+     */
     public static class Params extends ExperimentPerformer.Params
     {
         /**

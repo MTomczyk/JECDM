@@ -6,7 +6,12 @@ package swing;
  */
 class LoadingFrameTest
 {
-    public static void main(String [] args)
+    /**
+     * Runs the test.
+     *
+     * @param args not used
+     */
+    public static void main(String[] args)
     {
         LoadingFrame LF = new LoadingFrame(0.07f);
         LF.setVisible(true);

@@ -91,6 +91,7 @@ public class Utils
      * Returns a default feedback provider for 3D case (artificial value-based model base on an L-norm with [0.3, 0.2, 0.5]
      * weights and alpha of infinity (Chebyshev function).
      *
+     * @param normalizations normalization functions
      * @return DM-based feedback provider
      */
     public static IDMFeedbackProvider getDefaultDMFeedbackProvider3D(INormalization[] normalizations)
@@ -447,7 +448,6 @@ public class Utils
     }
 
 
-
     /**
      * Creates NEMO-II instance.
      *
@@ -460,7 +460,7 @@ public class Utils
      * @param referenceSetConstructor reference set constructor
      * @param dmFeedbackProvider      DM-based feedback provider
      * @param preferenceModel         preference model used
-     * @param modelConstructor               model constructor that is supposed to generate a plurality of compatible preference model instances (e.g. {@link model.constructor.value.frs.FRS})
+     * @param modelConstructor        model constructor that is supposed to generate a plurality of compatible preference model instances (e.g. {@link model.constructor.value.frs.FRS})
      * @param <T>                     internal preference model definition
      * @return NEMO-II instance
      */

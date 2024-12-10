@@ -23,7 +23,20 @@ class BST2Test
          */
         public enum TEST_TYPE
         {
-            TEST_A, TEST_B, TEST_C
+            /**
+             * A test enum
+             */
+            TEST_A,
+
+            /**
+             * B test enum
+             */
+            TEST_B,
+
+            /**
+             * C test enum
+             */
+            TEST_C
         }
 
         /**

@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class FlagTest
 {
+    /**
+     * Test 1.
+     */
     @Test
     void shouldInteract()
     {

@@ -11,7 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class ConstantTest
 {
-
+    /**
+     * Test 1.
+     */
     @Test
     void calculate()
     {

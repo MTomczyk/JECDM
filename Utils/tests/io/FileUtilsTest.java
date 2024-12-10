@@ -64,11 +64,11 @@ class FileUtilsTest
             allowed.add('!');
             allowed.add('@');
             allowed.add('#');
-            allowed.add('漢');
+            allowed.add('Ę');
             assertTrue(FileUtils.isAlphanumeric("!", allowed));
             assertTrue(FileUtils.isAlphanumeric("@", allowed));
             assertTrue(FileUtils.isAlphanumeric("#", allowed));
-            assertTrue(FileUtils.isAlphanumeric("漢", allowed));
+            assertTrue(FileUtils.isAlphanumeric("Ę", allowed));
         }
         {
             assertFalse(FileUtils.isAlphanumeric("ABCD!", null));
@@ -76,16 +76,16 @@ class FileUtilsTest
             assertFalse(FileUtils.isAlphanumeric("ABCD1234#", null));
             assertFalse(FileUtils.isAlphanumeric("abcd1234!", null));
             assertFalse(FileUtils.isAlphanumeric("1234@", null));
-            assertFalse(FileUtils.isAlphanumeric("#", null));
+            assertFalse(FileUtils.isAlphanumeric("Ę", null));
             Set<Character> allowed = new HashSet<>();
             allowed.add('!');
             allowed.add('@');
             allowed.add('#');
-            allowed.add('漢');
+            allowed.add('Ę');
             assertFalse(FileUtils.isAlphanumeric("$", allowed));
             assertFalse(FileUtils.isAlphanumeric("%", allowed));
             assertFalse(FileUtils.isAlphanumeric("^", allowed));
-            assertFalse(FileUtils.isAlphanumeric("字", allowed));
+            assertFalse(FileUtils.isAlphanumeric("Ź", allowed));
         }
     }
 

@@ -7,7 +7,12 @@ package swing.imagesaver;
  */
 class ImageSaverTest
 {
-    public static void main(String [] args)
+    /**
+     * Runs the test.
+     *
+     * @param args not used
+     */
+    public static void main(String[] args)
     {
         ImageSaver saver = new ImageSaver(null, true);
         saver.setSize(500, 500);

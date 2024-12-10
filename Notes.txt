@@ -1,1 +1,2 @@
-For opengl debugging: -Djogl.debug.DebugGL=1
+1) For opengl debugging: -Djogl.debug.DebugGL=1
+2) For Javadoc (corrent encoding): -encoding utf8 -docencoding utf8 -charset utf8

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author MTomczyk
  */
-class WFG1_FinalTest
+class WFG1FinalTest
 {
     /**
      * Test 1.

@@ -45,10 +45,10 @@ public class WFG1 extends WFGEvaluate
     protected LinkedList<ITransformation> getTransformations()
     {
         LinkedList<ITransformation> transformations = new LinkedList<>();
-        transformations.add(new s_linear(0.35d, _k, _n));
-        transformations.add(new b_flat(0.8d, 0.75d, 0.85d, _k, _n));
-        transformations.add(new b_polynomial(_alpha, 0, _n));
-        transformations.add(new WFG1_Final(_M, _k));
+        transformations.add(new sLinear(0.35d, _k, _n));
+        transformations.add(new bFlat(0.8d, 0.75d, 0.85d, _k, _n));
+        transformations.add(new bPolynomial(_alpha, 0, _n));
+        transformations.add(new WFG1Final(_M, _k));
         return transformations;
     }
 

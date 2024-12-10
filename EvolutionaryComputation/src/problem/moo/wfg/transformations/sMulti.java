@@ -5,7 +5,7 @@ package problem.moo.wfg.transformations;
  *
  * @author MTomczyk
  */
-public class s_multi extends AbstractTransformation implements ITransformation
+public class sMulti extends AbstractTransformation implements ITransformation
 {
     /**
      * Technical parameter #1.
@@ -21,7 +21,7 @@ public class s_multi extends AbstractTransformation implements ITransformation
      * @param startIdx starting index for processing
      * @param stopIdx  stopping index for processing
      */
-    public s_multi(int Ai, double B, double C, int startIdx, int stopIdx)
+    public sMulti(int Ai, double B, double C, int startIdx, int stopIdx)
     {
         super(0, B, C, startIdx, stopIdx);
         _Ai = Ai;

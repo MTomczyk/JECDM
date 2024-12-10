@@ -8,7 +8,7 @@ import java.util.Arrays;
  *
  * @author MTomczyk
  */
-public class b_param_WFG8 extends AbstractTransformation implements ITransformation
+public class bParamWFG8 extends AbstractTransformation implements ITransformation
 {
 
     /**
@@ -20,7 +20,7 @@ public class b_param_WFG8 extends AbstractTransformation implements ITransformat
      * @param startIdx starting index for processing
      * @param stopIdx  stopping index for processing
      */
-    public b_param_WFG8(double A, double B, double C, int startIdx, int stopIdx)
+    public bParamWFG8(double A, double B, double C, int startIdx, int stopIdx)
     {
         super(A, B, C, startIdx, stopIdx);
     }

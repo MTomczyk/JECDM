@@ -2,24 +2,23 @@ package problem.moo.wfg.transformations;
 
 
 /**
- * Deceptive transformation.
+ * Linear transformation.
  *
  * @author MTomczyk
  */
-public class s_deceptive extends AbstractTransformation implements ITransformation
+public class sLinear extends AbstractTransformation implements ITransformation
 {
+
     /**
      * Parameterized constructor.
      *
      * @param A                 technical parameter #1
-     * @param B                 technical parameter #2
-     * @param C                 technical parameter #3
      * @param startIdx          starting index for processing
      * @param stopIdx           stopping index for processing
      */
-    public s_deceptive(double A, double B, double C, int startIdx, int stopIdx)
+    public sLinear(double A, int startIdx, int stopIdx)
     {
-        super(A, B, C, startIdx, stopIdx);
+        super(A, 0, 0, startIdx, stopIdx);
     }
 
     /**
@@ -32,8 +31,7 @@ public class s_deceptive extends AbstractTransformation implements ITransformati
     public double[] applyTransformation(double[] input)
     {
         double[] r = input.clone();
-        for (int i = _startIdx; i < _stopIdx; i++)
-            r[i] = Transformations.s_deceptive(r[i], _A, _B, _C);
+        for (int i = _startIdx; i < _stopIdx; i++) r[i] = Transformations.s_linear(r[i], _A);
         return r;
     }
 }

@@ -3,9 +3,9 @@ package problem.moo.wfg.evaluate;
 import problem.moo.wfg.shapes.IShape;
 import problem.moo.wfg.shapes.Linear;
 import problem.moo.wfg.transformations.ITransformation;
-import problem.moo.wfg.transformations.WFG2_Final;
-import problem.moo.wfg.transformations.r_nonseparability;
-import problem.moo.wfg.transformations.s_linear;
+import problem.moo.wfg.transformations.WFG2Final;
+import problem.moo.wfg.transformations.rNonseparability;
+import problem.moo.wfg.transformations.sLinear;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -61,9 +61,9 @@ public class WFG3 extends WFGEvaluate
     protected LinkedList<ITransformation> getTransformations()
     {
         LinkedList<ITransformation> transformations = new LinkedList<>();
-        transformations.add(new s_linear(0.35d, _k, _n));
-        transformations.add(new r_nonseparability(2, _k, _k, _k + _l / 2));
-        transformations.add(new WFG2_Final(_M, _k, _l));
+        transformations.add(new sLinear(0.35d, _k, _n));
+        transformations.add(new rNonseparability(2, _k, _k, _k + _l / 2));
+        transformations.add(new WFG2Final(_M, _k, _l));
         return transformations;
     }
 

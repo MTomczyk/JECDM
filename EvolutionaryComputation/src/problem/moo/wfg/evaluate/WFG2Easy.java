@@ -1,7 +1,7 @@
 package problem.moo.wfg.evaluate;
 
 import problem.moo.wfg.transformations.ITransformation;
-import problem.moo.wfg.transformations.WFG2_Final;
+import problem.moo.wfg.transformations.WFG2Final;
 
 import java.util.LinkedList;
 
@@ -35,7 +35,7 @@ public class WFG2Easy extends WFG2
     public LinkedList<ITransformation> getTransformations()
     {
         LinkedList<ITransformation> transformations = new LinkedList<>();
-        transformations.add(new WFG2_Final(_M, _k, _l));
+        transformations.add(new WFG2Final(_M, _k, _l));
         return transformations;
     }
 

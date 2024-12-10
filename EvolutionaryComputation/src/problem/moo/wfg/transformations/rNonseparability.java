@@ -6,7 +6,7 @@ package problem.moo.wfg.transformations;
  *
  * @author MTomczyk
  */
-public class r_nonseparability extends AbstractTransformation implements ITransformation
+public class rNonseparability extends AbstractTransformation implements ITransformation
 {
     /**
      * Technical parameter #1.
@@ -26,7 +26,7 @@ public class r_nonseparability extends AbstractTransformation implements ITransf
      * @param startIdx          starting index for processing
      * @param stopIdx           stopping index for processing
      */
-    public r_nonseparability(int Ai, int k, int startIdx, int stopIdx)
+    public rNonseparability(int Ai, int k, int startIdx, int stopIdx)
     {
         super(0, 0, 0, startIdx, stopIdx);
         _Ai = Ai;

@@ -3,8 +3,8 @@ package problem.moo.wfg.evaluate;
 import problem.moo.wfg.shapes.Concave;
 import problem.moo.wfg.shapes.IShape;
 import problem.moo.wfg.transformations.ITransformation;
-import problem.moo.wfg.transformations.WFG4_Final;
-import problem.moo.wfg.transformations.s_deceptive;
+import problem.moo.wfg.transformations.WFG4Final;
+import problem.moo.wfg.transformations.sDeceptive;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -42,8 +42,8 @@ public class WFG5 extends WFGEvaluate
     public LinkedList<ITransformation> getTransformations()
     {
         LinkedList<ITransformation> transformations = new LinkedList<>();
-        transformations.add(new s_deceptive(0.35d, 0.001d, 0.05d, 0, _n));
-        transformations.add(new WFG4_Final(_M, _k));
+        transformations.add(new sDeceptive(0.35d, 0.001d, 0.05d, 0, _n));
+        transformations.add(new WFG4Final(_M, _k));
         return transformations;
     }
 

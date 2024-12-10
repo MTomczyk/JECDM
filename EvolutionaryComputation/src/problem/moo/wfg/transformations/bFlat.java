@@ -2,23 +2,25 @@ package problem.moo.wfg.transformations;
 
 
 /**
- * Polynomial bias transformation.
+ * Flat region transformation.
  *
  * @author MTomczyk
  */
-public class b_polynomial extends AbstractTransformation implements ITransformation
+public class bFlat extends AbstractTransformation implements ITransformation
 {
 
     /**
      * Parameterized constructor.
      *
      * @param A                 technical parameter #1
+     * @param B                 technical parameter #2
+     * @param C                 technical parameter #3
      * @param startIdx          starting index for processing
      * @param stopIdx           stopping index for processing
      */
-    public b_polynomial(double A, int startIdx, int stopIdx)
+    public bFlat(double A, double B, double C, int startIdx, int stopIdx)
     {
-        super(A, 0, 0, startIdx, stopIdx);
+        super(A, B, C, startIdx, stopIdx);
     }
 
     /**
@@ -31,7 +33,7 @@ public class b_polynomial extends AbstractTransformation implements ITransformat
     public double[] applyTransformation(double[] input)
     {
         double[] r = input.clone();
-        for (int i = _startIdx; i < _stopIdx; i++) r[i] = Transformations.b_poly(r[i], _A);
+        for (int i = _startIdx; i < _stopIdx; i++) r[i] = Transformations.b_flat(r[i], _A, _B, _C);
         return r;
     }
 }

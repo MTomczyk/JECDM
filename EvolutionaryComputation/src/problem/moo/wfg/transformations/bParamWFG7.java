@@ -7,7 +7,7 @@ import java.util.Arrays;
  *
  * @author MTomczyk
  */
-public class b_param_WFG7 extends AbstractTransformation implements ITransformation
+public class bParamWFG7 extends AbstractTransformation implements ITransformation
 {
     /**
      * Technical parameter #4.
@@ -30,7 +30,7 @@ public class b_param_WFG7 extends AbstractTransformation implements ITransformat
      * @param startIdx          starting index for processing
      * @param stopIdx           stopping index for processing
      */
-    public b_param_WFG7(double A, double B, double C, int startIdx, int stopIdx, int k, int l)
+    public bParamWFG7(double A, double B, double C, int startIdx, int stopIdx, int k, int l)
     {
         super(A, B, C, startIdx, stopIdx);
         _k = k;

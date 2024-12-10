@@ -5,7 +5,7 @@ package problem.moo.wfg.transformations;
  *
  * @author MTomczyk
  */
-public class b_param_dependant extends AbstractTransformation implements ITransformation
+public class bParamDependant extends AbstractTransformation implements ITransformation
 {
     /**
      * Technical parameter #4.
@@ -22,7 +22,7 @@ public class b_param_dependant extends AbstractTransformation implements ITransf
      * @param startIdx          starting index for processing
      * @param stopIdx           stopping index for processing
      */
-    public b_param_dependant(double A, double B, double C, double u, int startIdx, int stopIdx)
+    public bParamDependant(double A, double B, double C, double u, int startIdx, int stopIdx)
     {
         super(A, B, C, startIdx, stopIdx);
         _u = u;

@@ -6,7 +6,7 @@ package problem.moo.wfg.transformations;
  *
  * @author MTomczyk
  */
-public class WFG4_Final extends AbstractTransformation implements ITransformation
+public class WFG4Final extends AbstractTransformation implements ITransformation
 {
     /**
      * The number of objectives.
@@ -24,7 +24,7 @@ public class WFG4_Final extends AbstractTransformation implements ITransformatio
      * @param M                 the number of objectives
      * @param k                 the number of position-related parameters
      */
-    public WFG4_Final(int M, int k)
+    public WFG4Final(int M, int k)
     {
         super(0, 0, 0, 0, 0);
         _k = k;

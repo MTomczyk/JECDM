@@ -2,11 +2,11 @@ package problem.moo.wfg.transformations;
 
 
 /**
- * WFG4 final transformation.
+ * WFG6 final transformation.
  *
  * @author MTomczyk
  */
-public class WFG6_Final extends AbstractTransformation implements ITransformation
+public class WFG6Final extends AbstractTransformation implements ITransformation
 {
     /**
      * The number of objectives.
@@ -23,7 +23,6 @@ public class WFG6_Final extends AbstractTransformation implements ITransformatio
      */
     private final int _l;
 
-
     /**
      * Parameterized constructor.
      *
@@ -31,7 +30,7 @@ public class WFG6_Final extends AbstractTransformation implements ITransformatio
      * @param k                 the number of position-related parameters
      * @param l                 the number of distance-related parameters
      */
-    public WFG6_Final(int M, int k, int l)
+    public WFG6Final(int M, int k, int l)
     {
         super(0, 0, 0, 0, 0);
         _k = k;

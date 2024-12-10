@@ -39,10 +39,10 @@ public class WFG9 extends WFGEvaluate
     protected LinkedList<ITransformation> getTransformations()
     {
         LinkedList<ITransformation> transformations = new LinkedList<>();
-        transformations.add(new b_param_WFG7(0.98 / 49.98, 0.02, 50, 0, _n - 1, _k, _l));
-        transformations.add(new s_deceptive(0.35, 0.001, 0.05, 0, _k));
-        transformations.add(new s_multi(30, 95, 0.35, _k, _n));
-        transformations.add(new WFG6_Final(_M, _k, _l));
+        transformations.add(new bParamWFG7(0.98 / 49.98, 0.02, 50, 0, _n - 1, _k, _l));
+        transformations.add(new sDeceptive(0.35, 0.001, 0.05, 0, _k));
+        transformations.add(new sMulti(30, 95, 0.35, _k, _n));
+        transformations.add(new WFG6Final(_M, _k, _l));
         return transformations;
     }
 

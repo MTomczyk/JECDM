@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/EvolutionaryComputation/EvolutionaryComputation.iml" filepath="$PROJECT_DIR$/EvolutionaryComputation/EvolutionaryComputation.iml" />
       <module fileurl="file://$PROJECT_DIR$/Experimentation/Experimentation.iml" filepath="$PROJECT_DIR$/Experimentation/Experimentation.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/JECDM.iml" filepath="$PROJECT_DIR$/.idea/JECDM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Private/Private.iml" filepath="$PROJECT_DIR$/Private/Private.iml" />
       <module fileurl="file://$PROJECT_DIR$/Projects/Projects.iml" filepath="$PROJECT_DIR$/Projects/Projects.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tutorials/Tutorials.iml" filepath="$PROJECT_DIR$/Tutorials/Tutorials.iml" />
       <module fileurl="file://$PROJECT_DIR$/Utils/Utils.iml" filepath="$PROJECT_DIR$/Utils/Utils.iml" />

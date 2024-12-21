@@ -29,7 +29,7 @@ class DecisionSupportSystem3Test
         IRandom R = new MersenneTwister64(0);
         DecisionSupportSystem.Params p = new DecisionSupportSystem.Params();
         p._criteria = Criteria.constructCriteria("C", 2, false);
-        p._dmBundles = Dummy.getDMBundlesModels(R);
+        p._dmBundles = Dummy.getDMBundlesModels();
         p._interactionTrigger = Dummy.getInteractionTrigger();
         p._refiner = Dummy.getRefiner();
         p._referenceSetsConstructor = Dummy.getReferenceSetsConstructor(

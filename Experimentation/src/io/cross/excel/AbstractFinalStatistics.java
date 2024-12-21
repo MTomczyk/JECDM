@@ -20,9 +20,8 @@ import java.util.Arrays;
  * Abstract extension of {@link io.scenario.excel.AbstractExcelSaver}. It is dedicated to Excel-based savers that
  * summarize the final results. The example and default implementations are {@link FinalStatisticsXLS} and
  * {@link FinalStatisticsXLS}. They store the final results in tables; each one is stored in a separate sheet, and each
- * one is dedicated to a different performance indicator. The dimensionality N of the cross-analysis can be specified
- * (currently, only 2 and 3 are supported). The first N - 1 key-values objects are linked to tables' rows, while the
- * last key-values object is associated with columns.
+ * one is dedicated to a different performance indicator. The dimensionality N of the cross-analysis can be specified.
+ * The first N - 1 key-values objects are linked to tables' rows, while the last key-values object is associated with columns.
  *
  * @author MTomczyk
  */

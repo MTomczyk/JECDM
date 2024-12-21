@@ -10,7 +10,7 @@ import exeption.ModelSystemException;
 import exeption.ModuleException;
 import inconsistency.RemoveOldest;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.definitions.LNorm;
 import model.internals.AbstractInternalModel;
 import org.junit.jupiter.api.Test;

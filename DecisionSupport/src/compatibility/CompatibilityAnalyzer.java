@@ -16,8 +16,6 @@ import java.util.LinkedList;
  */
 public class CompatibilityAnalyzer implements IAnalyzer
 {
-
-
     /**
      * Params container.
      */
@@ -26,7 +24,7 @@ public class CompatibilityAnalyzer implements IAnalyzer
         /**
          * Analyzer object that is dedicated to pairwise comparisons.
          */
-        IAnalyzer _pairwiseComparisonsAnalyzer = new PairwiseComparisonAnalyzer();
+        public IAnalyzer _pairwiseComparisonsAnalyzer = new PairwiseComparisonAnalyzer();
     }
 
     /**
@@ -57,7 +55,7 @@ public class CompatibilityAnalyzer implements IAnalyzer
     /**
      * The main method for calculating the compatibility degree to which the input preference information is compatible
      * with the given value model. It is assumed that positive values reflect compatibility, 0 reflects the boundary
-     * case, and negative values represent incompatibility.
+     * case (treated as incompatible), and negative values represent incompatibility.
      *
      * @param preferenceInformation analyzed preference information
      * @param model                 the preference model
@@ -71,21 +69,20 @@ public class CompatibilityAnalyzer implements IAnalyzer
         return analyzer.calculateCompatibilityDegreeWithValueModel(preferenceInformation, model);
     }
 
-
     /**
      * Auxiliary method that calculates the most discriminative (minimum) degree to which preference examples are compatible
      * with a given preference model.
      *
      * @param preferenceInformation preference examples (wrapped)
      * @param model                 analyzed model
-     * @return compatibility degree (null if the input is invalid, e.g., null)
+     * @return compatibility degree (null if the model is not provided, smallest possible positive number is the preference information is not provided)
      */
     public Double calculateTheMostDiscriminativeCompatibilityWithValueModel(
             LinkedList<PreferenceInformationWrapper> preferenceInformation,
             AbstractValueInternalModel model)
     {
         if (model == null) return null;
-        if ((preferenceInformation == null) || (preferenceInformation.isEmpty())) return null;
+        if ((preferenceInformation == null) || (preferenceInformation.isEmpty())) return Double.MIN_VALUE;
 
         double minCompatibility = Double.POSITIVE_INFINITY;
         for (PreferenceInformationWrapper pi : preferenceInformation)

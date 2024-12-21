@@ -1,6 +1,7 @@
 package model.constructor;
 
 import compatibility.CompatibilityAnalyzer;
+import compatibility.IAnalyzer;
 import dmcontext.DMContext;
 import exeption.ConstructorException;
 import history.PreferenceInformationWrapper;
@@ -219,9 +220,18 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
      */
     protected Report<T> preConstructModels(LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
-        Report<T> bundle = new Report<>(_dmContext);
+        Report<T> bundle = getReportInstance();
         bundle._constructionStartTime = System.nanoTime();
         return bundle;
+    }
+
+    /**
+     * Auxiliary method for creating report instance.
+     * @return report instance
+     */
+    protected Report<T> getReportInstance()
+    {
+        return new Report<>(_dmContext);
     }
 
     /**

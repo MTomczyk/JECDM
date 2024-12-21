@@ -84,8 +84,6 @@ public class CrossedSetting
             throw new GlobalException("No values are provided (the array is empty)", this.getClass());
         if (_comparedKeys.length != _comparedValues.length)
             throw new GlobalException("The number of keys to be compared differs from the number of value arrays", this.getClass());
-        if ((_comparedKeys.length != 1) && (_comparedKeys.length != 2) && (_comparedKeys.length != 3))
-            throw new GlobalException("Only 1-level, 2-level, and 3-level cross-comparisons are allowed currently", this.getClass());
 
         _comparedKeyValues = new KeyValues[_comparedKeys.length];
         for (int i = 0; i < _comparedKeys.length; i++)

@@ -4,6 +4,8 @@ package space;
 import org.junit.jupiter.api.Test;
 import random.IRandom;
 import random.MersenneTwister64;
+import random.WeightsGenerator;
+import space.simplex.Simplex;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,8 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SuppressWarnings("DuplicatedCode")
 public class VectorTest
 {
-
-
     /**
      * Test 1.
      */
@@ -139,8 +139,8 @@ public class VectorTest
             assertNotNull(i);
             assertEquals(1, i.length);
             assertEquals(2, i[0].length);
-            assertEquals(i[0][0], 2.0d, 0.1d);
-            assertEquals(i[0][1], 2.0d, 0.1d);
+            assertEquals(2.0d, i[0][0], 0.1d);
+            assertEquals(2.0d, i[0][1], 0.1d);
         }
         { // VERTICAL WITH SEGMENT INTERSECTION
             double[][] A = new double[][]{{2.0d, 1.0d}, {2.0d, 4.0d}};
@@ -926,25 +926,25 @@ public class VectorTest
     public void getPointLineOrthogonalProjection()
     {
         {
-            double [] p = new double[]{0.0d, 2.0d};
-            double [] l = new double[]{1.0d, 1.0d};
-            double [] r = Vector.getPointLineOrthogonalProjection(p, l);
+            double[] p = new double[]{0.0d, 2.0d};
+            double[] l = new double[]{1.0d, 1.0d};
+            double[] r = Vector.getPointLineOrthogonalProjection(p, l);
             assertEquals(1.0d, r[0], 0.000000001d);
             assertEquals(1.0d, r[1], 0.000000001d);
         }
 
         {
-            double [] p = new double[]{0.0d, 1.0d};
-            double [] l = new double[]{1.0d, 1.0d};
-            double [] r = Vector.getPointLineOrthogonalProjection(p, l);
+            double[] p = new double[]{0.0d, 1.0d};
+            double[] l = new double[]{1.0d, 1.0d};
+            double[] r = Vector.getPointLineOrthogonalProjection(p, l);
             assertEquals(0.5d, r[0], 0.000000001d);
             assertEquals(0.5d, r[1], 0.000000001d);
         }
 
         {
-            double [] p = new double[]{0.0d, 3.0d, 0.0d};
-            double [] l = new double[]{1.0d, 1.0d, 1.0d};
-            double [] r = Vector.getPointLineOrthogonalProjection(p, l);
+            double[] p = new double[]{0.0d, 3.0d, 0.0d};
+            double[] l = new double[]{1.0d, 1.0d, 1.0d};
+            double[] r = Vector.getPointLineOrthogonalProjection(p, l);
             assertEquals(1.0d, r[0], 0.000000001d);
             assertEquals(1.0d, r[1], 0.000000001d);
             assertEquals(1.0d, r[2], 0.000000001d);
@@ -955,22 +955,108 @@ public class VectorTest
         {
             for (int t = 0; t < 1000; t++)
             {
-                double [] l = new double[M];
-                double [] p = new double[M];
+                double[] l = new double[M];
+                double[] p = new double[M];
                 for (int i = 0; i < M; i++)
                 {
                     l[i] = R.nextDouble();
                     p[i] = R.nextDouble();
                 }
 
-                double [] r = Vector.getPointLineOrthogonalProjection(p, l);
-                double [] delta = new double[M];
+                double[] r = Vector.getPointLineOrthogonalProjection(p, l);
+                double[] delta = new double[M];
                 for (int i = 0; i < M; i++) delta[i] = r[i] - p[i];
                 double dot = Vector.getDotProduct(delta, l);
-                double cos = Vector.getCosineSimilarity(r,  l);
+                double cos = Vector.getCosineSimilarity(r, l);
                 assertEquals(0.0d, dot, 0.0000001d);
                 assertEquals(1.0d, cos, 0.0000001d);
             }
         }
+    }
+
+    /**
+     * Test 15 (get combination).
+     */
+    @Test
+    public void getCombination()
+    {
+        {
+            double[] b = new double[1];
+            assertNull(Vector.getCombination(null, b, 1.0d));
+        }
+        {
+            double[] a = new double[1];
+            assertNull(Vector.getCombination(a, null, 1.0d));
+        }
+        {
+            double[] a = new double[2];
+            double[] b = new double[1];
+            assertNull(Vector.getCombination(a, b, 1.0d));
+        }
+        {
+            double[] a = new double[0];
+            double[] b = new double[0];
+            double[] c = Vector.getCombination(a, b, 1.0d);
+            assertNotNull(c);
+            assertEquals(0, c.length);
+        }
+        {
+            double[] a = new double[]{0.0d, 1.0d};
+            double[] b = new double[]{1.0d, 0.0d};
+            double[] w = new double[]{-1.0d, 0.0d, 0.5d, 1.0d, 2.0d};
+            double[][] exp = new double[][]{
+                    {-1.0d, 2.0d},
+                    {0.0d, 1.0d},
+                    {0.5d, 0.5d},
+                    {1.0d, 0.0d},
+                    {2.0d, -1.0d}
+            };
+            for (int i = 0; i < exp.length; i++)
+            {
+                double[] c = Vector.getCombination(a, b, w[i]);
+                assertNotNull(c);
+                assertEquals(2, c.length);
+                assertEquals(exp[i][0], c[0], 0.0000001d);
+                assertEquals(exp[i][1], c[1], 0.0000001d);
+            }
+        }
+        { // checks if produces normalized
+            IRandom R = new MersenneTwister64(0);
+
+            for (int m = 1; m < 5; m++) // dimensions
+            {
+                for (int i = 0; i < 1000; i++) // no. trials
+                {
+                    double[] w1 = WeightsGenerator.getNormalizedWeightVector(m, R);
+                    double[] w2 = WeightsGenerator.getNormalizedWeightVector(m, R);
+                    double[] w3 = Vector.getCombination(w1, w2, R.nextDouble());
+                    assertTrue(Simplex.isOnSimplex(w3, 1.0E-12));
+                }
+            }
+        }
+    }
+
+    /**
+     * Test 16 (thresholdAtOneFromAbove).
+     */
+    @Test
+    public void thresholdAtOneFromAbove()
+    {
+        double [] a = new double[]{1.1d, 1.00000d};
+        Vector.thresholdAtOneFromAbove(a);
+        assertEquals(1.0d, a[0]);
+        assertEquals(1.0d, a[1]);
+    }
+
+    /**
+     * Test 17 (thresholdAtZeroFromBelow).
+     */
+    @Test
+    public void thresholdAtZeroFromBelow()
+    {
+        double [] a = new double[]{-0.00001d, 0.0d};
+        Vector.thresholdAtZeroFromBelow(a);
+        assertEquals(0.0d, a[0]);
+        assertEquals(0.0d, a[1]);
     }
 }

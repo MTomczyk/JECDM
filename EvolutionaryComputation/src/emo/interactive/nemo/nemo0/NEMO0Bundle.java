@@ -8,7 +8,8 @@ import interaction.feedbackprovider.dm.IDMFeedbackProvider;
 import interaction.reference.constructor.IReferenceSetConstructor;
 import interaction.trigger.rules.IRule;
 import model.IPreferenceModel;
-import model.constructor.value.frs.representative.RepresentativeModel;
+import model.constructor.value.rs.frs.FRS;
+import model.constructor.value.rs.representative.RepresentativeModel;
 import model.internals.value.AbstractValueInternalModel;
 import system.ds.DSSParamsProvider;
 import system.ds.DecisionSupportSystem;
@@ -48,7 +49,7 @@ public class NEMO0Bundle extends AbstractNEMOBundle
          * @param referenceSetConstructor        reference set constructor
          * @param dmFeedbackProvider             DM-based feedback provider
          * @param preferenceModel                preference model used
-         * @param representativeModelConstructor representative model instance constructor (founded on {@link model.constructor.value.frs.FRS})
+         * @param representativeModelConstructor representative model instance constructor (founded on {@link FRS})
          * @param <T>                            internal preference model definition
          * @return params container
          */

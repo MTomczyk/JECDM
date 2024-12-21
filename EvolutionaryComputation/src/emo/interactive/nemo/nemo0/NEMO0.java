@@ -6,7 +6,7 @@ import interaction.feedbackprovider.dm.IDMFeedbackProvider;
 import interaction.reference.constructor.IReferenceSetConstructor;
 import interaction.trigger.rules.IRule;
 import model.IPreferenceModel;
-import model.constructor.value.frs.representative.RepresentativeModel;
+import model.constructor.value.rs.representative.RepresentativeModel;
 import model.internals.value.AbstractValueInternalModel;
 import os.ObjectiveSpaceManager;
 import phase.IConstruct;
@@ -42,18 +42,18 @@ public class NEMO0 extends AbstractInteractiveEA
      * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
      * inconsistency handler = remove oldest; refiner = default). The method is also coupled with a random selection (of size two).
      *
-     * @param id                      algorithm id
-     * @param populationSize          population size
-     * @param updateOSDynamically     if true, the OS will be updated dynamically; false = it will be fixed
-     * @param useNadirIncumbent       if true, nadir incumbent will be used when updating OS
-     * @param R                       the RGN
-     * @param problem                 problem bundle (provides criteria, normalizations (when fixed))
-     * @param interactionRule         interaction rule
-     * @param referenceSetConstructor reference set constructor
-     * @param dmFeedbackProvider      artificial decision maker (feedback provider)
-     * @param modelConstructor        model constructor (the number of goals it constructs should be greater/equal to the number of initial goals
-     * @param preferenceModel         definition of the preference model
-     * @param <T>                     form of the internal value model used to represent preferences
+     * @param id                             algorithm id
+     * @param populationSize                 population size
+     * @param updateOSDynamically            if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent              if true, nadir incumbent will be used when updating OS
+     * @param R                              the RGN
+     * @param problem                        problem bundle (provides criteria, normalizations (when fixed))
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
+     * @param <T>                            form of the internal value model used to represent preferences
      * @return NEMO-0 algorithm
      */
     public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int id,
@@ -66,7 +66,7 @@ public class NEMO0 extends AbstractInteractiveEA
                                                                         IReferenceSetConstructor referenceSetConstructor,
                                                                         IDMFeedbackProvider dmFeedbackProvider,
                                                                         IPreferenceModel<T> preferenceModel,
-                                                                        RepresentativeModel<T> modelConstructor)
+                                                                        RepresentativeModel<T> representativeModelConstructor)
     {
         Tournament.Params pT = new Tournament.Params();
         pT._size = 5;
@@ -76,7 +76,7 @@ public class NEMO0 extends AbstractInteractiveEA
 
         return getNEMO0(id, populationSize, updateOSDynamically, useNadirIncumbent, R, problem, new Tournament(pT), problem._construct,
                 problem._evaluate, problem._reproduce, interactionRule, referenceSetConstructor,
-                dmFeedbackProvider, preferenceModel, modelConstructor);
+                dmFeedbackProvider, preferenceModel, representativeModelConstructor);
     }
 
 
@@ -85,22 +85,22 @@ public class NEMO0 extends AbstractInteractiveEA
      * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
      * inconsistency handler = remove oldest; refiner = default).
      *
-     * @param id                      algorithm id
-     * @param populationSize          population size
-     * @param updateOSDynamically     if true, the OS will be updated dynamically; false = it will be fixed
-     * @param useNadirIncumbent       if true, nadir incumbent will be used when updating OS
-     * @param R                       the RGN
-     * @param problem                 problem bundle (provides criteria, normalizations (when fixed))
-     * @param select                  parents selector
-     * @param construct               specimens constructor
-     * @param evaluate                specimens evaluator
-     * @param reproduce               specimens reproducer
-     * @param interactionRule         interaction rule
-     * @param referenceSetConstructor reference set constructor
-     * @param dmFeedbackProvider      artificial decision maker (feedback provider)
-     * @param modelConstructor        model constructor (the number of goals it constructs should be greater/equal to the number of initial goals
-     * @param preferenceModel         definition of the preference model
-     * @param <T>                     form of the internal value model used to represent preferences
+     * @param id                             algorithm id
+     * @param populationSize                 population size
+     * @param updateOSDynamically            if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent              if true, nadir incumbent will be used when updating OS
+     * @param R                              the RGN
+     * @param problem                        problem bundle (provides criteria, normalizations (when fixed))
+     * @param select                         parents selector
+     * @param construct                      specimens constructor
+     * @param evaluate                       specimens evaluator
+     * @param reproduce                      specimens reproducer
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
+     * @param <T>                            form of the internal value model used to represent preferences
      * @return NEMO-0 algorithm
      */
     public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int id,
@@ -117,11 +117,11 @@ public class NEMO0 extends AbstractInteractiveEA
                                                                         IReferenceSetConstructor referenceSetConstructor,
                                                                         IDMFeedbackProvider dmFeedbackProvider,
                                                                         IPreferenceModel<T> preferenceModel,
-                                                                        RepresentativeModel<T> modelConstructor)
+                                                                        RepresentativeModel<T> representativeModelConstructor)
     {
         NEMO0Bundle.Params pB = NEMO0Bundle.Params.getDefault(problem._criteria,
                 "DM", interactionRule, referenceSetConstructor, dmFeedbackProvider,
-                preferenceModel, modelConstructor);
+                preferenceModel, representativeModelConstructor);
 
         pB._construct = construct;
         pB._reproduce = reproduce;
@@ -129,7 +129,8 @@ public class NEMO0 extends AbstractInteractiveEA
         pB._select = select;
 
         // Parameterize depending on the ``update OS dynamically'' flag.
-        if (updateOSDynamically) {
+        if (updateOSDynamically)
+        {
             // No initial normalizations:
             pB._initialNormalizations = null;
             ObjectiveSpaceManager.Params pOS = new ObjectiveSpaceManager.Params();
@@ -139,7 +140,8 @@ public class NEMO0 extends AbstractInteractiveEA
             pOS._updateNadirUsingIncumbent = useNadirIncumbent;
             pB._osManager = new ObjectiveSpaceManager(pOS);
         }
-        else {
+        else
+        {
             // Set the initial normalizations (will be delivered to the object responsible for calculating crowding distances):
             pB._initialNormalizations = problem._normalizations;
             pB._osManager = null; // no os manager needed

@@ -4,8 +4,6 @@ import criterion.Criteria;
 import dmcontext.DMContext;
 import exeption.DecisionSupportSystemException;
 import org.junit.jupiter.api.Test;
-import random.IRandom;
-import random.MersenneTwister64;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,10 +22,9 @@ class DecisionSupportSystem2Test
     @Test
     void test1()
     {
-        IRandom R = new MersenneTwister64(0);
         DecisionSupportSystem.Params p = new DecisionSupportSystem.Params();
         p._criteria = Criteria.constructCriteria("C", 2, false);
-        p._dmBundles = Dummy.getDMBundlesModels(R);
+        p._dmBundles = Dummy.getDMBundlesModels();
         p._interactionTrigger = Dummy.getInteractionTrigger();
         p._refiner = Dummy.getRefiner();
         p._referenceSetsConstructor = Dummy.getReferenceSetsConstructor(
@@ -62,10 +59,9 @@ class DecisionSupportSystem2Test
     @Test
     void test2()
     {
-        IRandom R = new MersenneTwister64(0);
         DecisionSupportSystem.Params p = new DecisionSupportSystem.Params();
         p._criteria = Criteria.constructCriteria("C", 2, false);
-        p._dmBundles = Dummy.getDMBundlesModels(R);
+        p._dmBundles = Dummy.getDMBundlesModels();
         p._interactionTrigger = Dummy.getInteractionTrigger();
         p._refiner = Dummy.getRefiner();
         p._referenceSetsConstructor = Dummy.getReferenceSetsConstructor(
@@ -101,10 +97,9 @@ class DecisionSupportSystem2Test
     @Test
     void test3()
     {
-        IRandom R = new MersenneTwister64(0);
         DecisionSupportSystem.Params p = new DecisionSupportSystem.Params();
         p._criteria = Criteria.constructCriteria("C", 2, false);
-        p._dmBundles = Dummy.getDMBundlesModels(R);
+        p._dmBundles = Dummy.getDMBundlesModels();
         p._interactionTrigger = Dummy.getInteractionTrigger();
         p._refiner = Dummy.getRefiner();
         p._referenceSetsConstructor = Dummy.getReferenceSetsConstructor(
@@ -140,10 +135,9 @@ class DecisionSupportSystem2Test
     @Test
     void test4()
     {
-        IRandom R = new MersenneTwister64(0);
         DecisionSupportSystem.Params p = new DecisionSupportSystem.Params();
         p._criteria = Criteria.constructCriteria("C", 2, false);
-        p._dmBundles = Dummy.getDMBundlesModels(R);
+        p._dmBundles = Dummy.getDMBundlesModels();
         p._interactionTrigger = Dummy.getInteractionTrigger();
         p._refiner = Dummy.getRefiner();
         p._referenceSetsConstructor = Dummy.getReferenceSetsConstructor(
@@ -182,10 +176,9 @@ class DecisionSupportSystem2Test
     @Test
     void test5()
     {
-        IRandom R = new MersenneTwister64(0);
         DecisionSupportSystem.Params p = new DecisionSupportSystem.Params();
         p._criteria = Criteria.constructCriteria("C", 2, false);
-        p._dmBundles = Dummy.getDMBundlesModels(R);
+        p._dmBundles = Dummy.getDMBundlesModels();
         p._interactionTrigger = Dummy.getInteractionTrigger();
         p._refiner = Dummy.getRefiner();
         p._referenceSetsConstructor = Dummy.getReferenceSetsConstructor(

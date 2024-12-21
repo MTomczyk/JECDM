@@ -29,7 +29,7 @@ public class AbstractOperator
         public IValueCheck _valueCheck;
 
         /**
-         * Feasible bounds for doubles (if value check is provided but double bounds not, the [0-1] default bound should be used).
+         * Feasible bounds for doubles (if value check is provided but double bounds not, the [0-1] default bound will be used).
          */
         public Range[] _doubleBounds;
 
@@ -39,7 +39,7 @@ public class AbstractOperator
         public IntRange[] _intBounds;
 
         /**
-         * Parameterized constructor (sets the Wrap object to check values).
+         * Parameterized constructor (sets the Wrap object to check doubles {@link Wrap} - default bound of [0-1] is used).
          *
          * @param probability the probability of triggering the operation
          */
@@ -133,13 +133,34 @@ public class AbstractOperator
      * @param index index for the double bound
      * @return corrected value (will equal the input if it is in the bound).
      */
-    public double applyDoubleCorrection(double v, int index)
+    public double applyDoubleBoundCorrection(double v, int index)
     {
         if (_valueCheck != null)
         {
             if ((_doubleBounds != null) && (_doubleBounds.length > index) && (_doubleBounds[index] != null))
                 return _valueCheck.checkAndCorrect(v, _doubleBounds[index].getLeft(), _doubleBounds[index].getRight());
             else return _valueCheck.checkAndCorrect(v, 0.0d, 1.0d); // use normal bound otherwise
+        }
+        else return v;
+    }
+
+    /**
+     * Auxiliary method that checks if the input int value is in correct bounds (the method terminates if che
+     * value check object is not provided of the int bound is not specified). If the method proceeds, the value check
+     * object will conditionally apply the correction (if the int bound is not specified, a default bound of [0, 1] will
+     * be used).
+     *
+     * @param v     input value
+     * @param index index for the double bound
+     * @return corrected value (will equal the input if it is in the bound).
+     */
+    public double applyIntBoundCorrection(int v, int index)
+    {
+        if (_valueCheck != null)
+        {
+            if ((_intBounds != null) && (_intBounds.length > index) && (_intBounds[index] != null))
+                return _valueCheck.checkAndCorrect(v, _intBounds[index].getLeft(), _intBounds[index].getRight());
+            else return _valueCheck.checkAndCorrect(v, 0, 1); // use normal bound otherwise
         }
         else return v;
     }

@@ -6,11 +6,9 @@ import exeption.ModelSystemException;
 import exeption.ModuleException;
 import inconsistency.RemoveOldest;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.definitions.LNorm;
 import org.junit.jupiter.api.Test;
-import random.IRandom;
-import random.MersenneTwister64;
 import system.dm.DM;
 import system.dm.DecisionMakerSystem;
 import system.model.ModelSystem;
@@ -103,7 +101,6 @@ class ModelsUpdaterModule1Test
         dms[0] = new DM(0, "DM1");
         dms[1] = new DM(1, "DM2");
         String msg = null;
-        IRandom R = new MersenneTwister64(0);
 
         pP._DMSs = new DecisionMakerSystem[2];
         {
@@ -171,7 +168,6 @@ class ModelsUpdaterModule1Test
         dms[0] = new DM(0, "DM1");
         dms[1] = new DM(1, "DM2");
         String msg = null;
-        IRandom R = new MersenneTwister64(0);
 
         pP._DMSs = new DecisionMakerSystem[2];
         {
@@ -240,7 +236,6 @@ class ModelsUpdaterModule1Test
         dms[0] = new DM(0, "DM1");
         dms[1] = new DM(1, "DM2");
         String msg = null;
-        IRandom R = new MersenneTwister64(0);
 
         pP._DMSs = new DecisionMakerSystem[2];
         {
@@ -308,7 +303,6 @@ class ModelsUpdaterModule1Test
         dms[0] = new DM(0, "DM1");
         dms[1] = new DM(1, "DM2");
         String msg = null;
-        IRandom R = new MersenneTwister64(0);
 
         pP._DMSs = new DecisionMakerSystem[2];
         {
@@ -377,7 +371,6 @@ class ModelsUpdaterModule1Test
         dms[0] = new DM(0, "DM1");
         dms[1] = new DM(1, "DM2");
         String msg = null;
-        IRandom R = new MersenneTwister64(0);
 
         pP._DMSs = new DecisionMakerSystem[2];
         {

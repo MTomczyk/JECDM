@@ -1,4 +1,4 @@
-package model.constructor.value.frs.representative;
+package model.constructor.value.rs.representative;
 
 import exeption.ConstructorException;
 import history.PreferenceInformationWrapper;
@@ -7,7 +7,7 @@ import model.constructor.IConstructor;
 import model.constructor.Report;
 import model.constructor.random.IRandomModel;
 import model.constructor.value.representative.IRepresentativeValueModelSelector;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.value.AbstractValueInternalModel;
 
 import java.util.ArrayList;

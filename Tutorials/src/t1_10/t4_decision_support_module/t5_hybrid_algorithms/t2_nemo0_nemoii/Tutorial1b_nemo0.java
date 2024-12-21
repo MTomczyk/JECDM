@@ -20,7 +20,7 @@ import interaction.trigger.rules.IterationInterval;
 import model.IPreferenceModel;
 import model.constructor.random.LNormGenerator;
 import model.constructor.value.representative.MDVF;
-import model.constructor.value.frs.representative.RepresentativeModel;
+import model.constructor.value.rs.representative.RepresentativeModel;
 import model.internals.value.scalarizing.LNorm;
 import plot.Plot3D;
 import problem.Problem;

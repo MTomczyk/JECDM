@@ -12,7 +12,7 @@ import interaction.refine.Refiner;
 import interaction.trigger.InteractionTrigger;
 import interaction.trigger.rules.IterationInterval;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.definitions.LNorm;
 import org.junit.jupiter.api.Test;
 import random.IRandom;
@@ -257,7 +257,6 @@ class PreferenceElicitationModule1Test
                 dms[1].getName(), new ArtificialValueDM<>(new LNorm(new model.internals.value.scalarizing.LNorm(new double[]{0.7d, 0.3d}, Double.POSITIVE_INFINITY)))
         );
 
-        IRandom R = new MersenneTwister64(0);
         String msg = null;
 
         pP._DMSs = new DecisionMakerSystem[1];
@@ -329,7 +328,6 @@ class PreferenceElicitationModule1Test
                 dms[1].getName(), new ArtificialValueDM<>(new LNorm(new model.internals.value.scalarizing.LNorm(new double[]{0.7d, 0.3d}, Double.POSITIVE_INFINITY)))
         );
 
-        IRandom R = new MersenneTwister64(0);
         String msg = null;
 
         pP._DMs = new DM[0];
@@ -401,7 +399,6 @@ class PreferenceElicitationModule1Test
                 dms[1].getName(), new ArtificialValueDM<>(new LNorm(new model.internals.value.scalarizing.LNorm(new double[]{0.7d, 0.3d}, Double.POSITIVE_INFINITY)))
         );
 
-        IRandom R = new MersenneTwister64(0);
         String msg = null;
 
         pP._DMs = new DM[1];
@@ -475,7 +472,6 @@ class PreferenceElicitationModule1Test
                 dms[1].getName(), new ArtificialValueDM<>(new LNorm(new model.internals.value.scalarizing.LNorm(new double[]{0.7d, 0.3d}, Double.POSITIVE_INFINITY)))
         );
 
-        IRandom R = new MersenneTwister64(0);
         String msg = null;
 
         pP._DMs = dms;
@@ -548,7 +544,6 @@ class PreferenceElicitationModule1Test
                 dms[1].getName(), new ArtificialValueDM<>(new LNorm(new model.internals.value.scalarizing.LNorm(new double[]{0.7d, 0.3d}, Double.POSITIVE_INFINITY)))
         );
 
-        IRandom R = new MersenneTwister64(0);
         String msg = null;
 
         pP._DMs = dms;

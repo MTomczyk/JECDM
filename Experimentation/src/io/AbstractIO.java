@@ -110,7 +110,7 @@ public abstract class AbstractIO
         if (file.exists())
         {
             boolean deleted = file.delete();
-            if (!deleted) throw new ScenarioException("Could not remove the already existing txt file",
+            if (!deleted) throw new ScenarioException("Could not remove the already existing file",
                     this.getClass(), _scenario);
         }
         return file;

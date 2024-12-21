@@ -272,4 +272,16 @@ class ParserTest
         assertEquals("WRONG", r._invalidArgs.getFirst());
         assertEquals("DISAB_SC", r._invalidArgs.get(1));
     }
+
+    /**
+     * Test 12.
+     */
+    @Test
+    void parse12()
+    {
+        String[] args = new String[0];
+        Parser parser = new Parser();
+        Parser.Result r = parser.parse(args);
+        assertNull(r._noThreads);
+    }
 }

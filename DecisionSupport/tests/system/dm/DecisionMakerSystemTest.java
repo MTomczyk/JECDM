@@ -12,7 +12,7 @@ import inconsistency.RemoveOldest;
 import inconsistency.State;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.AbstractInternalModel;
 import model.internals.value.scalarizing.LNorm;
 import org.junit.jupiter.api.Test;

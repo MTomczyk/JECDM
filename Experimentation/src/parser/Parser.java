@@ -47,7 +47,7 @@ public class Parser
         public Result()
         {
             _invalidArgs = new LinkedList<>();
-            _noThreads = 1;
+            _noThreads = null;
             _disabledTrials = null;
             _scenarioDisablingConditions = null;
         }
@@ -307,7 +307,6 @@ public class Parser
             result._noThreads = null;
             return false;
         }
-
         return true;
     }
 }

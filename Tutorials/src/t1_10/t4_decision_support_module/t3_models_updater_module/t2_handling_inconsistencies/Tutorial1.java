@@ -14,7 +14,7 @@ import inconsistency.RemoveOldest;
 import model.constructor.Report;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.value.scalarizing.LNorm;
 import preference.IPreferenceInformation;
 import preference.indirect.PairwiseComparison;

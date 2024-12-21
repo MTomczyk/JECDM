@@ -19,9 +19,9 @@ import model.IPreferenceModel;
 import model.constructor.IConstructor;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.constructor.value.representative.MDVF;
-import model.constructor.value.frs.representative.RepresentativeModel;
+import model.constructor.value.rs.representative.RepresentativeModel;
 import model.definitions.LNorm;
 import model.internals.value.AbstractValueInternalModel;
 import os.ObjectiveSpaceManager;
@@ -358,17 +358,17 @@ public class Utils
     /**
      * Creates NEMO-0 instance.
      *
-     * @param populationSize          populationSize
-     * @param criteria                considered criteria
-     * @param problemBundle           problem bundle
-     * @param dynamicObjectiveSpace   true = dynamic objective ranges mode is on
-     * @param R                       random number generator
-     * @param interactionRule         interaction rule
-     * @param referenceSetConstructor reference set constructor
-     * @param dmFeedbackProvider      DM-based feedback provider
-     * @param preferenceModel         preference model used
-     * @param modelConstructor        model instance constructor
-     * @param <T>                     internal preference model definition
+     * @param populationSize                 populationSize
+     * @param criteria                       considered criteria
+     * @param problemBundle                  problem bundle
+     * @param dynamicObjectiveSpace          true = dynamic objective ranges mode is on
+     * @param R                              random number generator
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             DM-based feedback provider
+     * @param preferenceModel                preference model used
+     * @param representativeModelConstructor representative model instance constructor
+     * @param <T>                            internal preference model definition
      * @return NEMO-0 instance
      */
     public static <T extends AbstractValueInternalModel> EA getNEMO0(Criteria criteria,
@@ -380,27 +380,27 @@ public class Utils
                                                                      IReferenceSetConstructor referenceSetConstructor,
                                                                      IDMFeedbackProvider dmFeedbackProvider,
                                                                      IPreferenceModel<T> preferenceModel,
-                                                                     RepresentativeModel<T> modelConstructor)
+                                                                     RepresentativeModel<T> representativeModelConstructor)
     {
         return getNEMO0(0, criteria, populationSize, problemBundle, dynamicObjectiveSpace,
-                R, interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, modelConstructor);
+                R, interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, representativeModelConstructor);
     }
 
     /**
      * Creates NEMO-0 instance.
      *
-     * @param id                      EA's id
-     * @param populationSize          populationSize
-     * @param criteria                considered criteria
-     * @param problemBundle           problem bundle
-     * @param dynamicObjectiveSpace   true = dynamic objective ranges mode is on
-     * @param R                       random number generator
-     * @param interactionRule         interaction rule
-     * @param referenceSetConstructor reference set constructor
-     * @param dmFeedbackProvider      DM-based feedback provider
-     * @param preferenceModel         preference model used
-     * @param modelConstructor        model instance constructor
-     * @param <T>                     internal preference model definition
+     * @param id                             EA's id
+     * @param populationSize                 populationSize
+     * @param criteria                       considered criteria
+     * @param problemBundle                  problem bundle
+     * @param dynamicObjectiveSpace          true = dynamic objective ranges mode is on
+     * @param R                              random number generator
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             DM-based feedback provider
+     * @param preferenceModel                preference model used
+     * @param representativeModelConstructor representative model instance constructor
+     * @param <T>                            internal preference model definition
      * @return NEMO-0 instance
      */
     public static <T extends AbstractValueInternalModel> EA getNEMO0(int id,
@@ -413,10 +413,10 @@ public class Utils
                                                                      IReferenceSetConstructor referenceSetConstructor,
                                                                      IDMFeedbackProvider dmFeedbackProvider,
                                                                      IPreferenceModel<T> preferenceModel,
-                                                                     RepresentativeModel<T> modelConstructor)
+                                                                     RepresentativeModel<T> representativeModelConstructor)
     {
         NEMO0Bundle.Params pNEMO0 = NEMO0Bundle.Params.getDefault(criteria,
-                "DM", interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, modelConstructor);
+                "DM", interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, representativeModelConstructor);
 
         pNEMO0._construct = problemBundle._construct;
         pNEMO0._reproduce = problemBundle._reproduce;
@@ -460,7 +460,7 @@ public class Utils
      * @param referenceSetConstructor reference set constructor
      * @param dmFeedbackProvider      DM-based feedback provider
      * @param preferenceModel         preference model used
-     * @param modelConstructor        model constructor that is supposed to generate a plurality of compatible preference model instances (e.g. {@link model.constructor.value.frs.FRS})
+     * @param modelConstructor        model constructor that is supposed to generate a plurality of compatible preference model instances (e.g. {@link FRS})
      * @param <T>                     internal preference model definition
      * @return NEMO-II instance
      */
@@ -492,7 +492,7 @@ public class Utils
      * @param referenceSetConstructor reference set constructor
      * @param dmFeedbackProvider      DM-based feedback provider
      * @param preferenceModel         preference model used
-     * @param modelConstructor        model constructor that is supposed to generate a plurality of compatible preference model instances (e.g. {@link model.constructor.value.frs.FRS})
+     * @param modelConstructor        model constructor that is supposed to generate a plurality of compatible preference model instances (e.g. {@link FRS})
      * @param <T>                     internal preference model definition
      * @return NEMO-II instance
      */

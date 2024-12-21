@@ -8,6 +8,7 @@ import history.History;
 import model.constructor.Report;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.value.scalarizing.LNorm;
 import org.junit.jupiter.api.Test;
 import preference.IPreferenceInformation;
@@ -503,6 +504,6 @@ class FRSTest
         {
             msg = e.toString();
         }
-        assertEquals("Exception handled by: model.constructor.value.frs.FRS, caused by: null, happened in line: null, message: The preference examples are not provided (the list is null)", msg);
+        assertEquals("Exception handled by: model.constructor.value.rs.frs.FRS, caused by: null, happened in line: null, message: The preference examples are not provided (the list is null)", msg);
     }
 }

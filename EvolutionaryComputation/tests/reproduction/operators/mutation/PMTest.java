@@ -31,7 +31,7 @@ class PMTest
     public static void main(String[] args)
     {
         double[] distributionIndexes = new double[]{1.0d, 5.0d, 10.0d, 20.0d};
-        double[] values = new double[]{0.2d, 0.5d, 0.8d};
+        double[] values = new double[]{0.0d, 0.2d, 0.5d, 0.8d, 1.0d};
         int trials = 1000000;
         int buckets = 100;
 
@@ -89,7 +89,7 @@ class PMTest
 
                 plotIdx = value * distributionIndexes.length + index;
                 IDataSet ds = DataSet.getFor2D("Probability distribution", data, new LineStyle(1.0f, color.gradient.Color.RED));
-                plots[plotIdx].getModel().setDataSet(ds, false);
+                plots[plotIdx].getModel().setDataSet(ds, true);
             }
         }
 

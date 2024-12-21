@@ -67,7 +67,7 @@ public abstract class AbstractTrialIO extends AbstractIO
         if (file.exists())
         {
             boolean deleted = file.delete();
-            if (!deleted) throw new TrialException("Could not remove the already existing txt file",
+            if (!deleted) throw new TrialException("Could not remove the already existing file",
                     this.getClass(), _scenario, _trialID);
         }
         return file;

@@ -66,4 +66,12 @@ public interface IScalarizingFunction
      * @return  auxiliary param value
      */
     double getAuxParam();
+
+
+    /**
+     * Can be used to check if smaller or greater values are preferred.
+     *
+     * @return true, if smaller values are preferred; false otherwise
+     */
+    boolean isLessMorePreferred();
 }

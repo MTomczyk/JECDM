@@ -1,7 +1,8 @@
 package emo.utils.decomposition.similarity;
 
 import emo.utils.decomposition.goal.IGoal;
-import emo.utils.decomposition.goal.definitions.LNorm;
+import space.distance.Euclidean;
+import space.distance.IDistance;
 
 /**
  * Provides default implementation for the Euclidean similarity.
@@ -14,11 +15,11 @@ public abstract class AbstractEuclidean implements ISimilarity
      * Auxiliary object for calculating the Euclidean distance (no weights and normalizations are used),
      * it is assumed that the input weight vectors for the comparison are already on the normalized simplex hyperplane.
      */
-    protected final space.scalarfunction.LNorm _LN = new space.scalarfunction.LNorm(null, 2.0d, null);
+    protected final IDistance _distance = new Euclidean();
 
     /**
-     * Quantifies a similarity between two L-norms as a Euclidean distance between their two weight vectors (the less, the better).
-     * It is assumed that the input goals are L-norms ({@link LNorm}) and their vectors are on a simplex hyperplane.
+     * Quantifies a similarity between two goals as a Euclidean distance between their two weight vectors (the less, the closer).
+     * It is assumed that the input vectors are on a normalized simplex hyperplane.
      *
      * @param A the first L-norm
      * @param B the second L-norm
@@ -29,17 +30,16 @@ public abstract class AbstractEuclidean implements ISimilarity
     {
         double[] w1 = A.getParams()[0];
         double[] w2 = B.getParams()[0];
-        double[] dw = new double[w1.length]; // calculate the delta vector.
-        for (int i = 0; i < w1.length; i++) dw[i] = w1[i] - w2[i];
-        return _LN.evaluate(dw); // calculate the Euclidean norm
+        return _distance.getDistance(w1, w2);
     }
 
     /**
-     * Used to determine preference direction.
-     * @return true -> smaller values are preferred; false otherwise.
+     * Used to determine is less/more means closer/further.
+     *
+     * @return true, if smaller values mean closer; false otherwise.
      */
     @Override
-    public boolean isLessPreferred()
+    public boolean isLessMeaningCloser()
     {
         return true;
     }

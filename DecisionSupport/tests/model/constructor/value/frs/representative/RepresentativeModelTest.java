@@ -10,6 +10,7 @@ import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
 import model.constructor.value.representative.IRepresentativeValueModelSelector;
 import model.constructor.value.representative.MDVF;
+import model.constructor.value.rs.representative.RepresentativeModel;
 import model.internals.value.AbstractValueInternalModel;
 import model.internals.value.scalarizing.LNorm;
 import org.junit.jupiter.api.Test;

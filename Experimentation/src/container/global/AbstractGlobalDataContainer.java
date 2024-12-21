@@ -307,6 +307,7 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
     public void instantiateData(Parser.Result r) throws GlobalException
     {
         _p._r = r;
+        instantiateAllowedCharacters(_p);
         instantiateRNGInitializer(_p);
         instantiateScenarios(_p);
         instantiateScenarioDisablingConditions(_p);
@@ -316,7 +317,6 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
         instantiateMainPath(_p);
         instantiateUseMonitorThreadFlag(_p);
         instantiateMonitorReportingDelay(_p);
-        instantiateAllowedCharacters(_p);
         instantiateReferenceScenarioSavers(_p);
         instantiateCrossedSettings(_p);
         instantiateCrossedFolderName(_p);

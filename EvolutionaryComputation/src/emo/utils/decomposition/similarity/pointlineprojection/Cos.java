@@ -8,7 +8,6 @@ import emo.utils.decomposition.similarity.ISimilarity;
  *
  * @author MTomczyk
  */
-
 public class Cos extends AbstractCos implements ISimilarity
 {
 

@@ -36,7 +36,7 @@ public class InsertionSortConstructor extends AbstractNeighborhoodConstructor im
             return new Neighborhood(N);
         }
 
-        boolean lessIsPreferred = similarity.isLessPreferred();
+        boolean isLessMeaningCloser = similarity.isLessMeaningCloser();
         int lastIndex = size - 1; // aux field
 
         double[] tS = new double[size]; // temporarily stored similarities (pre data)
@@ -76,8 +76,8 @@ public class InsertionSortConstructor extends AbstractNeighborhoodConstructor im
                     if (pointer > lastIndex)
                     {
                         // check skipping
-                        if (((lessIsPreferred) && (Double.compare(s, tS[lastIndex]) >= 0)) ||
-                                ((!lessIsPreferred) && (Double.compare(s, tS[lastIndex]) <= 0))) continue;
+                        if (((isLessMeaningCloser) && (Double.compare(s, tS[lastIndex]) >= 0)) ||
+                                ((!isLessMeaningCloser) && (Double.compare(s, tS[lastIndex]) <= 0))) continue;
                         else
                         {
                             tS[lastIndex] = s;
@@ -97,8 +97,8 @@ public class InsertionSortConstructor extends AbstractNeighborhoodConstructor im
                     if (idx > lastIndex) idx = lastIndex;
 
                     while ((idx > 0) &&
-                            (((lessIsPreferred) && (tS[idx] < tS[idx - 1])) ||
-                                    ((!lessIsPreferred) && (tS[idx] > tS[idx - 1]))) )
+                            (((isLessMeaningCloser) && (tS[idx] < tS[idx - 1])) ||
+                                    ((!isLessMeaningCloser) && (tS[idx] > tS[idx - 1]))) )
                     {
                         //do swap
                         double tmpSim = tS[idx - 1];

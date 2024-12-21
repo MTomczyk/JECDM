@@ -68,4 +68,11 @@ public interface IDistance
      * @return auxiliary param value
      */
     double getAuxParam();
+
+    /**
+     * Can be used to check whether less/more means closer/further.
+     *
+     * @return true, if less means closer; false otherwise
+     */
+    boolean isLessMeaningCloser();
 }

@@ -19,13 +19,11 @@ import interaction.refine.Refiner;
 import interaction.trigger.InteractionTrigger;
 import interaction.trigger.rules.IterationInterval;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.definitions.LNorm;
 import org.junit.jupiter.api.Test;
 import preference.IPreferenceInformation;
 import preference.indirect.PairwiseComparison;
-import random.IRandom;
-import random.MersenneTwister64;
 import relation.Relations;
 import space.Range;
 import space.os.ObjectiveSpace;
@@ -81,7 +79,6 @@ class PreferenceElicitationModule2Test
                 dms[1].getName(), new ArtificialValueDM<>(new LNorm(new model.internals.value.scalarizing.LNorm(new double[]{0.7d, 0.3d}, Double.POSITIVE_INFINITY)))
         );
 
-        IRandom R = new MersenneTwister64(0);
         String msg = null;
 
         pP._DMs = dms;
@@ -272,11 +269,11 @@ class PreferenceElicitationModule2Test
                 assertTrue(report._feedbackProviderResult._feedback.get(dms[0])._processingTime >= 0);
                 assertEquals(1, report._feedbackProviderResult._feedback.get(dms[0])._iteration);
                 assertEquals(2, report._feedbackProviderResult._feedback.get(dms[0])._feedback.size());
-                assertTrue(report._feedbackProviderResult._feedback.get(dms[0])._feedback.getFirst() instanceof PairwiseComparison);
+                assertInstanceOf(PairwiseComparison.class, report._feedbackProviderResult._feedback.get(dms[0])._feedback.getFirst());
                 assertEquals(Relations.PREFERENCE, ((PairwiseComparison) report._feedbackProviderResult._feedback.get(dms[0])._feedback.getFirst()).getRelation());
                 assertEquals("A1", ((PairwiseComparison) report._feedbackProviderResult._feedback.get(dms[0])._feedback.getFirst()).getPreferredAlternative().getName());
                 assertEquals("A0", ((PairwiseComparison) report._feedbackProviderResult._feedback.get(dms[0])._feedback.getFirst()).getNotPreferredAlternative().getName());
-                assertTrue(report._feedbackProviderResult._feedback.get(dms[0])._feedback.getLast() instanceof PairwiseComparison);
+                assertInstanceOf(PairwiseComparison.class, report._feedbackProviderResult._feedback.get(dms[0])._feedback.getLast());
                 assertEquals(Relations.PREFERENCE, ((PairwiseComparison) report._feedbackProviderResult._feedback.get(dms[0])._feedback.getLast()).getRelation());
                 assertEquals("A3", ((PairwiseComparison) report._feedbackProviderResult._feedback.get(dms[0])._feedback.getLast()).getPreferredAlternative().getName());
                 assertEquals("A2", ((PairwiseComparison) report._feedbackProviderResult._feedback.get(dms[0])._feedback.getLast()).getNotPreferredAlternative().getName());
@@ -286,11 +283,11 @@ class PreferenceElicitationModule2Test
                 assertTrue(report._feedbackProviderResult._feedback.get(dms[1])._processingTime >= 0);
                 assertEquals(1, report._feedbackProviderResult._feedback.get(dms[1])._iteration);
                 assertEquals(2, report._feedbackProviderResult._feedback.get(dms[1])._feedback.size());
-                assertTrue(report._feedbackProviderResult._feedback.get(dms[1])._feedback.getFirst() instanceof PairwiseComparison);
+                assertInstanceOf(PairwiseComparison.class, report._feedbackProviderResult._feedback.get(dms[1])._feedback.getFirst());
                 assertEquals(Relations.PREFERENCE, ((PairwiseComparison) report._feedbackProviderResult._feedback.get(dms[1])._feedback.getFirst()).getRelation());
                 assertEquals("A1", ((PairwiseComparison) report._feedbackProviderResult._feedback.get(dms[1])._feedback.getFirst()).getPreferredAlternative().getName());
                 assertEquals("A0", ((PairwiseComparison) report._feedbackProviderResult._feedback.get(dms[1])._feedback.getFirst()).getNotPreferredAlternative().getName());
-                assertTrue(report._feedbackProviderResult._feedback.get(dms[1])._feedback.getLast() instanceof PairwiseComparison);
+                assertInstanceOf(PairwiseComparison.class, report._feedbackProviderResult._feedback.get(dms[1])._feedback.getLast());
                 assertEquals(Relations.PREFERENCE, ((PairwiseComparison) report._feedbackProviderResult._feedback.get(dms[1])._feedback.getLast()).getRelation());
                 assertEquals("A4", ((PairwiseComparison) report._feedbackProviderResult._feedback.get(dms[1])._feedback.getLast()).getPreferredAlternative().getName());
                 assertEquals("A5", ((PairwiseComparison) report._feedbackProviderResult._feedback.get(dms[1])._feedback.getLast()).getNotPreferredAlternative().getName());
@@ -300,13 +297,13 @@ class PreferenceElicitationModule2Test
             try
             {
                 IPreferenceInformation pi = pP._DMSs[0].getHistory().getPreferenceInformationCopy().getFirst()._preferenceInformation;
-                assertTrue(pi instanceof PairwiseComparison);
+                assertInstanceOf(PairwiseComparison.class, pi);
                 assertEquals(Relations.PREFERENCE, ((PairwiseComparison) pi).getRelation());
                 assertEquals("A1", ((PairwiseComparison) pi).getPreferredAlternative().getName());
                 assertEquals("A0", ((PairwiseComparison) pi).getNotPreferredAlternative().getName());
 
                 pi = pP._DMSs[0].getHistory().getPreferenceInformationCopy().getLast()._preferenceInformation;
-                assertTrue(pi instanceof PairwiseComparison);
+                assertInstanceOf(PairwiseComparison.class, pi);
                 assertEquals(Relations.PREFERENCE, ((PairwiseComparison) pi).getRelation());
                 assertEquals("A3", ((PairwiseComparison) pi).getPreferredAlternative().getName());
                 assertEquals("A2", ((PairwiseComparison) pi).getNotPreferredAlternative().getName());
@@ -320,13 +317,13 @@ class PreferenceElicitationModule2Test
             try
             {
                 IPreferenceInformation pi = pP._DMSs[1].getHistory().getPreferenceInformationCopy().getFirst()._preferenceInformation;
-                assertTrue(pi instanceof PairwiseComparison);
+                assertInstanceOf(PairwiseComparison.class, pi);
                 assertEquals(Relations.PREFERENCE, ((PairwiseComparison) pi).getRelation());
                 assertEquals("A1", ((PairwiseComparison) pi).getPreferredAlternative().getName());
                 assertEquals("A0", ((PairwiseComparison) pi).getNotPreferredAlternative().getName());
 
                 pi = pP._DMSs[1].getHistory().getPreferenceInformationCopy().getLast()._preferenceInformation;
-                assertTrue(pi instanceof PairwiseComparison);
+                assertInstanceOf(PairwiseComparison.class, pi);
                 assertEquals(Relations.PREFERENCE, ((PairwiseComparison) pi).getRelation());
                 assertEquals("A4", ((PairwiseComparison) pi).getPreferredAlternative().getName());
                 assertEquals("A5", ((PairwiseComparison) pi).getNotPreferredAlternative().getName());

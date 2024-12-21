@@ -20,9 +20,8 @@ public abstract class AbstractMutation extends AbstractOperator implements IMuta
      */
     public static class Params extends AbstractOperator.Params
     {
-
         /**
-         * Parameterized constructor (sets the Wrap object to check values).
+         * Parameterized constructor (sets the Wrap object to check doubles {@link Wrap} - default bound of [0-1] is used).
          *
          * @param probability the probability of triggering the operation
          */

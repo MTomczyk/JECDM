@@ -26,7 +26,7 @@ public class Flip extends AbstractMutation implements IMutate
         public double _upperDoubleThreshold = 1.0d;
 
         /**
-         * Parameterized constructor.
+         * Parameterized constructor (uses a default flip threshold of 1).
          *
          * @param probability probability of executing the flip
          */
@@ -82,6 +82,37 @@ public class Flip extends AbstractMutation implements IMutate
         _upperDoubleThreshold = params._upperDoubleThreshold;
     }
 
+    /**
+     * Parameterized constructor (uses a default flip threshold of 1).
+     *
+     * @param probability    probability of mutation
+     */
+    public Flip(double probability)
+    {
+        this(new Params(probability));
+    }
+
+    /**
+     * Parameterized constructor.
+     *
+     * @param probability    probability of mutation
+     * @param upperThreshold used for flipping doubles
+     */
+    public Flip(double probability, double upperThreshold)
+    {
+        this(new Params(probability, upperThreshold));
+    }
+
+    /**
+     * Parameterized constructor.
+     *
+     * @param probability    probability of mutation
+     * @param upperThreshold used for flipping integers
+     */
+    public Flip(double probability, int upperThreshold)
+    {
+        this(new Params(probability, upperThreshold));
+    }
 
     /**
      * Flips integers.

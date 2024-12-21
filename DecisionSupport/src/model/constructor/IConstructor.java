@@ -1,6 +1,7 @@
 package model.constructor;
 
 import compatibility.CompatibilityAnalyzer;
+import compatibility.IAnalyzer;
 import dmcontext.DMContext;
 import exeption.ConstructorException;
 import history.PreferenceInformationWrapper;

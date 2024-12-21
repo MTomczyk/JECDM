@@ -18,13 +18,11 @@ import interaction.feedbackprovider.dm.IDMFeedbackProvider;
 import interaction.feedbackprovider.dm.artificial.value.ArtificialValueDM;
 import interaction.reference.constructor.IReferenceSetConstructor;
 import interaction.reference.constructor.RandomPairs;
-import interaction.reference.validator.IValidator;
-import interaction.reference.validator.RequiredSpread;
 import interaction.trigger.rules.IRule;
 import interaction.trigger.rules.IterationInterval;
 import model.IPreferenceModel;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.value.scalarizing.LNorm;
 import plot.Plot2D;
 import problem.Problem;
@@ -67,7 +65,7 @@ public class Tutorial1a
         int neighborhoodSize = 10;
         IRule interactionRule = new IterationInterval(50); // 0 generation is skipped (init does not involve DSS, use (1, 5) params if want to trigger interactions ASAP (i.e., from generation 1)
         IPreferenceModel<LNorm> preferenceModel = new model.definitions.LNorm();
-        IValidator validator = new RequiredSpread(0.001d);
+        //IValidator validator = new RequiredSpread(0.001d);
         //IReferenceSetConstructor referenceSetConstructor = new PWI(preferenceModel, validator);
         IReferenceSetConstructor referenceSetConstructor = new RandomPairs();
         IDMFeedbackProvider dmFeedbackProvider = new ArtificialValueDM<>(new model.definitions.LNorm(new LNorm(

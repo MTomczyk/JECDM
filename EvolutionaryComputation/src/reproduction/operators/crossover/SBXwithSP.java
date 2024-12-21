@@ -10,9 +10,7 @@ import random.IRandom;
  *
  * @author MTomczyk
  */
-
-
-public class SBXwithSP extends AbstractSBX
+public class SBXwithSP extends AbstractSBX implements ICrossover
 {
     /**
      * Params container.
@@ -71,7 +69,7 @@ public class SBXwithSP extends AbstractSBX
                 else o[i] = p[1][i];
             }
 
-            o[i] = applyDoubleCorrection(o[i], i);
+            o[i] = applyDoubleBoundCorrection(o[i], i);
         }
         return o;
     }

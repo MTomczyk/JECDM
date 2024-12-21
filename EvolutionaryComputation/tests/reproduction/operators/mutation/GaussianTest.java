@@ -88,7 +88,7 @@ class GaussianTest
 
                 plotIdx = value * stds.length + std;
                 IDataSet ds = DataSet.getFor2D("Probability distribution", data, new LineStyle(1.0f, color.gradient.Color.RED));
-                plots[plotIdx].getModel().setDataSet(ds, false);
+                plots[plotIdx].getModel().setDataSet(ds, true);
             }
         }
 

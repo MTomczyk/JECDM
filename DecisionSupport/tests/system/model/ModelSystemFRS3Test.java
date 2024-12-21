@@ -16,7 +16,7 @@ import model.constructor.IConstructor;
 import model.constructor.Report;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.value.scalarizing.LNorm;
 import org.junit.jupiter.api.Test;
 import preference.indirect.PairwiseComparison;
@@ -32,11 +32,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
- * Provides various (complex) tests for {@link ModelSystem}.
+ * Provides various (complex) tests for {@link ModelSystem} (uses FRS {@link FRS}).
  *
  * @author MTomczyk
  */
-class ModelSystem3Test
+class ModelSystemFRS3Test
 {
     /**
      * Test 1.

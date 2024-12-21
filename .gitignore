@@ -1,6 +1,5 @@
 ### IntelliJ IDEA ###
-MyProjects/
-Didactics/
+Private/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/

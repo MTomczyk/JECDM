@@ -8,8 +8,6 @@ import emo.utils.decomposition.similarity.ISimilarity;
  *
  * @author MTomczyk
  */
-
-
 public class Euclidean extends AbstractEuclidean implements ISimilarity
 {
 

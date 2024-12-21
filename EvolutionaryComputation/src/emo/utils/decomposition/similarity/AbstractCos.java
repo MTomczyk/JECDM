@@ -1,7 +1,6 @@
 package emo.utils.decomposition.similarity;
 
 import emo.utils.decomposition.goal.IGoal;
-import emo.utils.decomposition.goal.definitions.LNorm;
 import space.Vector;
 
 /**
@@ -12,8 +11,8 @@ import space.Vector;
 public abstract class AbstractCos implements ISimilarity
 {
     /**
-     * Quantifies a similarity between two L-norms as a cosine distance between their two weight vectors (the less, the better).
-     * It is assumed that the input goals are L-norms ({@link LNorm}) and their vectors are on a simplex hyperplane.
+     * Quantifies a similarity between two goals as a cosine distance between their two weight vectors (the less, the closer).
+     * It is assumed that the input vectors are on a normalized simplex hyperplane.
      *
      * @param A the first L-norm
      * @param B the second L-norm
@@ -28,11 +27,12 @@ public abstract class AbstractCos implements ISimilarity
     }
 
     /**
-     * Used to determine preference direction (i.e., whether the smaller or bigger values are preferred).
-     * @return true -> smaller values are preferred; false otherwise.
+     * Used to determine is less/more means closer/further.
+     *
+     * @return true, if smaller values mean closer; false otherwise.
      */
     @Override
-    public boolean isLessPreferred()
+    public boolean isLessMeaningCloser()
     {
         return false;
     }

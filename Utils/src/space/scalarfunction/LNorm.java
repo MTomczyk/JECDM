@@ -4,11 +4,10 @@ import space.normalization.INormalization;
 
 /**
  * Implementation of the L-norm scalarizing function.
- * If weight vector = null; weights are not used.
+ * If weight vector = null; weights are not used (they are applied after the normalization).
  *
  * @author MTomczyk
  */
-
 public class LNorm extends AbstractScalarizingFunction implements IScalarizingFunction
 {
     /**

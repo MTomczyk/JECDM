@@ -8,7 +8,7 @@ import sort.InsertionSortDouble;
 public class WeightsGenerator
 {
     /**
-     * Generates normalized weight vectors (components sum to 1.0).
+     * Generates normalized weight vectors (components are from [0, 1] bound and sum to 1.0).
      * The vectors are drawn randomly from a uniform distribution.
      *
      * @param m vector dimensionality

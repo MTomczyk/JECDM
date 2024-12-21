@@ -122,7 +122,6 @@ public abstract class AbstractCrossover extends AbstractOperator implements ICro
         {
             super(probability, valueCheck, intBounds);
             _swapParentsRandomly = swapParentsRandomly;
-
         }
     }
 
@@ -215,7 +214,6 @@ public abstract class AbstractCrossover extends AbstractOperator implements ICro
         if (!_swapParentsRandomly) return new double[][]{p1, p2};
         if (R.nextBoolean()) return new double[][]{p1, p2};
         else return new double[][]{p2, p1};
-
     }
 
     /**

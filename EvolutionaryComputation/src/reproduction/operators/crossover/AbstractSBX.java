@@ -7,7 +7,7 @@ import random.IRandom;
  *
  * @author MTomczyk
  */
-public class AbstractSBX extends AbstractCrossover
+public class AbstractSBX extends AbstractCrossover implements ICrossover
 {
     /**
      * Params container.

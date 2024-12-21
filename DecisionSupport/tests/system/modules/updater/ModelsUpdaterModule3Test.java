@@ -10,7 +10,7 @@ import exeption.ModelSystemException;
 import exeption.ModuleException;
 import inconsistency.RemoveOldest;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.definitions.LNorm;
 import model.internals.AbstractInternalModel;
 import org.junit.jupiter.api.Test;
@@ -192,7 +192,7 @@ class ModelsUpdaterModule3Test
                     assertEquals(1000000, mR._reportOnInconsistencyHandling._states.getFirst()._report._rejectedNewlyConstructedModels);
                     assertEquals(0.0d, mR._reportOnInconsistencyHandling._states.getFirst()._report._successRateInConstructing, 0.0001d);
                     assertEquals(1, mR._reportOnInconsistencyHandling._states.getFirst()._preferenceInformation.size());
-                    assertTrue(mR._reportOnInconsistencyHandling._states.getFirst()._preferenceInformation.getFirst()._preferenceInformation instanceof PairwiseComparison);
+                    assertInstanceOf(PairwiseComparison.class, mR._reportOnInconsistencyHandling._states.getFirst()._preferenceInformation.getFirst()._preferenceInformation);
                     PairwiseComparison PC = (PairwiseComparison) mR._reportOnInconsistencyHandling._states.getFirst()._preferenceInformation.getFirst()._preferenceInformation;
                     if (i == 0)
                     {

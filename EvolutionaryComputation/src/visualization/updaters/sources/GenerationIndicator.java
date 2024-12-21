@@ -2,7 +2,6 @@ package visualization.updaters.sources;
 
 import ea.EA;
 import indicator.IPerformanceIndicator;
-import updater.AbstractSource;
 import updater.IDataSource;
 
 /**
@@ -13,13 +12,8 @@ import updater.IDataSource;
  *
  * @author MTomczyk
  */
-public class GenerationIndicator extends AbstractSource implements IDataSource
+public class GenerationIndicator extends AbstractEASource implements IDataSource
 {
-    /**
-     * Reference to the evolutionary algorithm.
-     */
-    private final EA _ea;
-
     /**
      * Indicator used to assess the population.
      */
@@ -33,7 +27,7 @@ public class GenerationIndicator extends AbstractSource implements IDataSource
      */
     public GenerationIndicator(EA ea, IPerformanceIndicator indicator)
     {
-        _ea = ea;
+        super(ea, null);
         _indicator = indicator;
     }
 

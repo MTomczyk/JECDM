@@ -10,7 +10,7 @@ import history.History;
 import history.PreferenceInformationWrapper;
 import inconsistency.RemoveOldest;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.value.scalarizing.LNorm;
 import preference.IPreferenceInformation;
 import preference.indirect.PairwiseComparison;

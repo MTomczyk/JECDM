@@ -41,40 +41,39 @@ public class Report<T extends AbstractInternalModel> extends AbstractReport
     public long _constructionElapsedTime = 0;
 
     /**
-     * Auxiliary method that can be used to store the constructor's success rate in preserving existing models (relevant, e.g.,
+     * Auxiliary field that can be used to store the constructor's success rate in preserving existing models (relevant, e.g.,
      * when the constructor is based on the Monte Carlo simulation).
      */
     public double _successRateInPreserving = 0.0d;
 
 
     /**
-     * Auxiliary method that can be used to store data on how many already existing models were preserved by the
+     * Auxiliary field that can be used to store data on how many already existing models were preserved by the
      * constructor (e.g., due to their remaining feasibility).
      */
     public int _modelsPreservedBetweenIterations = 0;
 
     /**
-     * Auxiliary method that can be used to store data on how many already existing models were rejected by the
+     * Auxiliary field that can be used to store data on how many already existing models were rejected by the
      * constructor (e.g., due to their lost feasibility).
      */
     public int _modelsRejectedBetweenIterations = 0;
 
 
     /**
-     * Auxiliary method that can be used to store the constructor's success rate in building new models (relevant, e.g.,
+     * Auxiliary field that can be used to store the constructor's success rate in building new models (relevant, e.g.,
      * when the constructor is based on the Monte Carlo simulation).
      */
     public double _successRateInConstructing = 0.0d;
 
     /**
-     * An auxiliary method that can be used to store data on how many newly constructed models were accepted (e.g., due
+     * An auxiliary field that can be used to store data on how many newly constructed models were accepted (e.g., due
      * to their compatibility).
      */
     public int _acceptedNewlyConstructedModels = 0;
 
-
     /**
-     * An auxiliary method that can be used to store data on how many newly constructed models were rejected (e.g., due
+     * An auxiliary field that can be used to store data on how many newly constructed models were rejected (e.g., due
      * to their incompatibility).
      */
     public int _rejectedNewlyConstructedModels = 0;
@@ -118,7 +117,19 @@ public class Report<T extends AbstractInternalModel> extends AbstractReport
         lines.add(ind + "Accepted newly constructed models = " + _acceptedNewlyConstructedModels);
         lines.add(ind + "Rejected newly constructed models = " + _rejectedNewlyConstructedModels);
         lines.add(ind + "Normalizations were updated = " + _normalizationsWereUpdated);
+        addExtraLogLines(lines, ind);
         return StringUtils.getArrayFromList(lines);
+    }
+
+    /**
+     * Auxiliary method that can be overwritten to add extra log lines (used by {@link Report#getStringRepresentation(int)}).
+     *
+     * @param lines lines being processed
+     * @param ind   base indent
+     */
+    protected void addExtraLogLines(LinkedList<String> lines, String ind)
+    {
+        // does nothing
     }
 
     /**

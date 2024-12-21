@@ -1,6 +1,7 @@
 package reproduction.operators.crossover;
 
 import random.IRandom;
+import reproduction.valuecheck.IValueCheck;
 
 /**
  * Implementation of the SBX operator. The operator constructs the offspring's vector elements using the corresponding
@@ -9,9 +10,7 @@ import random.IRandom;
  *
  * @author MTomczyk
  */
-
-
-public class SBX extends AbstractSBX
+public class SBX extends AbstractSBX implements ICrossover
 {
     /**
      * Params container.
@@ -31,13 +30,51 @@ public class SBX extends AbstractSBX
     }
 
     /**
-     * Parameterized constructor.
+     * Parameterized constructor. The wrap procedure {@link reproduction.valuecheck.Wrap} is used to constrain variable bounds to [0, 1].
      *
      * @param p params container
      */
     public SBX(Params p)
     {
         super(p);
+    }
+
+    /**
+     * Parameterized constructor. The wrap procedure {@link reproduction.valuecheck.Wrap} is used to constrain variable bounds to [0, 1].
+     *
+     * @param probability       probability of executing the flip
+     * @param distributionIndex distribution index
+     */
+    public SBX(double probability, double distributionIndex)
+    {
+        this(new SBX.Params(probability, distributionIndex));
+    }
+
+    /**
+     * Returns an object instance that does not perform value check (the variable values are not bounded)
+     *
+     * @param probability       probability of executing the flip
+     * @param distributionIndex distribution index
+     * @return SBX operator for unconstrained variables
+     */
+    public static SBX getUnconstrained(double probability, double distributionIndex)
+    {
+        return getConstrained(probability, distributionIndex, null);
+    }
+
+    /**
+     * Returns an object instance that performs value check (the variable values are bounded to [0, 1])
+     *
+     * @param probability       probability of executing the flip
+     * @param distributionIndex distribution index
+     * @param valueCheck        procedure used to check the values
+     * @return PM operator for unconstrained variables
+     */
+    public static SBX getConstrained(double probability, double distributionIndex, IValueCheck valueCheck)
+    {
+        Params p = new Params(probability, distributionIndex);
+        p._valueCheck = valueCheck;
+        return new SBX(p);
     }
 
     /**
@@ -68,7 +105,7 @@ public class SBX extends AbstractSBX
                 else o[i] = p[1][i];
             }
 
-            o[i] = applyDoubleCorrection(o[i], i);
+            o[i] = applyDoubleBoundCorrection(o[i], i);
         }
         return o;
     }

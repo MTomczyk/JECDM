@@ -42,6 +42,7 @@ public abstract class AbstractDistanceFunction implements IDistance
      * @param b the second vector
      * @return distance between a and b
      */
+    @Override
     public double getDistance(double[] a, double[] b)
     {
         double[] d = new double[a.length];
@@ -129,5 +130,16 @@ public abstract class AbstractDistanceFunction implements IDistance
     public double getAuxParam()
     {
         return _sf.getAuxParam();
+    }
+
+    /**
+     * Can be used to check whether less/more means closer/further.
+     *
+     * @return true, if less means closer; false otherwise
+     */
+    @Override
+    public boolean isLessMeaningCloser()
+    {
+        return true;
     }
 }

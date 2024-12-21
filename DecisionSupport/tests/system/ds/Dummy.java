@@ -14,10 +14,9 @@ import interaction.trigger.InteractionTrigger;
 import interaction.trigger.rules.IterationInterval;
 import model.IPreferenceModel;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.AbstractInternalModel;
 import model.internals.value.scalarizing.LNorm;
-import random.IRandom;
 import space.Range;
 import space.os.ObjectiveSpace;
 
@@ -75,10 +74,9 @@ public class Dummy
     /**
      * Getter for dummy bundles (valid models).
      *
-     * @param R random number generator
      * @return dummy bundles
      */
-    public static DMBundle[] getDMBundlesModels(IRandom R)
+    public static DMBundle[] getDMBundlesModels()
     {
         DMBundle[] b = new DMBundle[2];
         {

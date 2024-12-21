@@ -5,6 +5,7 @@ import space.normalization.INormalization;
 import space.normalization.minmax.Linear;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Various tests for the {@link PBI} class.
@@ -26,6 +27,7 @@ class PointLineProjectionTest
                 double[] e = new double[]{0.0d, 2.0d};
                 double r = plp.evaluate(e);
                 assertEquals(Math.sqrt(2.0d), r, 0.000001d);
+                assertTrue(plp.isLessMorePreferred());
             }
             {
                 PointLineProjection plp = new PointLineProjection(new double[]{2.0d, 2.0d});

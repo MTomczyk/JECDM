@@ -13,7 +13,7 @@ import interaction.refine.Refiner;
 import interaction.trigger.InteractionTrigger;
 import interaction.trigger.rules.IterationInterval;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.value.scalarizing.LNorm;
 import random.IRandom;
 import random.MersenneTwister64;

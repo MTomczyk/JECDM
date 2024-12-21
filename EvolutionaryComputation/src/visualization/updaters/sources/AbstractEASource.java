@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author MTomczyk
  */
-public class AbstractEASource extends AbstractSource implements IDataSource
+public abstract class AbstractEASource extends AbstractSource implements IDataSource
 {
     /**
      * Reference to the associated EA.

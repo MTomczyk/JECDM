@@ -1,6 +1,7 @@
 package reproduction.operators.mutation;
 
 import random.IRandom;
+import reproduction.valuecheck.IValueCheck;
 
 /**
  * Polynomial Mutation operator implemented for doubles (domain is [0, 1] by default).
@@ -49,6 +50,43 @@ public class Gaussian extends AbstractMutation implements IMutate
         _std = p._std;
     }
 
+    /**
+     * Parameterized constructor. The wrap procedure {@link reproduction.valuecheck.Wrap} is used to constrain variable bounds to [0, 1].
+     *
+     * @param probability probability of executing the flip
+     * @param std         standard deviation
+     */
+    public Gaussian(double probability, double std)
+    {
+        this(new Params(probability, std));
+    }
+
+    /**
+     * Returns an object instance that does not perform value check (the variable values are not bounded)
+     *
+     * @param probability probability of executing the flip
+     * @param std         standard deviation
+     * @return Gaussian operator for unconstrained variables
+     */
+    public static Gaussian getUnconstrained(double probability, double std)
+    {
+        return getConstrained(probability, std, null);
+    }
+
+    /**
+     * Returns an object instance that performs value check (the variable values are bounded to [0, 1])
+     *
+     * @param probability probability of executing the flip
+     * @param std         standard deviation
+     * @param valueCheck  procedure used to check the values
+     * @return Gaussian operator for unconstrained variables
+     */
+    public static Gaussian getConstrained(double probability, double std, IValueCheck valueCheck)
+    {
+        Params p = new Params(probability, std);
+        p._valueCheck = valueCheck;
+        return new Gaussian(p);
+    }
 
     /**
      * Executes Gaussian mutation (doubles only).
@@ -63,7 +101,7 @@ public class Gaussian extends AbstractMutation implements IMutate
             if (R.nextDouble() < _probability)
             {
                 double delta = R.nextGaussian() * _std;
-                o[i] = applyDoubleCorrection(o[i] + delta, i);
+                o[i] = applyDoubleBoundCorrection(o[i] + delta, i);
             }
     }
 

@@ -6,6 +6,7 @@ import space.normalization.minmax.Linear;
 import space.normalization.minmax.LinearWithFlip;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Several tests for the {@link LNorm} class.
@@ -23,6 +24,7 @@ class LNormTest
         double[] e = new double[]{0.3, 0.7};
         LNorm LN = new LNorm(new double[]{0.5d, 0.5d},1.0d, null);
         assertEquals(0.5d, LN.evaluate(e));
+        assertTrue(LN.isLessMorePreferred());
     }
 
     /**

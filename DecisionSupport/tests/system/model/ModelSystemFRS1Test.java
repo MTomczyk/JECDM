@@ -14,7 +14,7 @@ import model.IPreferenceModel;
 import model.constructor.IConstructor;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.value.scalarizing.LNorm;
 import org.junit.jupiter.api.Test;
 import preference.indirect.PairwiseComparison;
@@ -30,11 +30,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
- * Provides various (complex) tests for {@link ModelSystem}.
+ * Provides various (complex) tests for {@link ModelSystem} (uses FRS {@link FRS}).
  *
  * @author MTomczyk
  */
-class ModelSystem1Test
+class ModelSystemFRS1Test
 {
     /**
      * Test 1.
@@ -86,7 +86,6 @@ class ModelSystem1Test
     {
         IPreferenceModel<LNorm> preferenceModel = new model.definitions.LNorm();
         IRandomModel<LNorm> randomModel = new LNormGenerator(2, Double.POSITIVE_INFINITY);
-        IRandom R = new MersenneTwister64(0);
         FRS.Params<LNorm> pFRS = new FRS.Params<>(randomModel);
         IConstructor<LNorm> modelConstructor = new FRS<>(pFRS);
         ModelSystem.Params<LNorm> pModelSystem = new ModelSystem.Params<>();

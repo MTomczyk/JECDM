@@ -23,7 +23,7 @@ import interaction.trigger.rules.IRule;
 import interaction.trigger.rules.IterationInterval;
 import model.IPreferenceModel;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.frs.FRS;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.value.scalarizing.LNorm;
 import plot.Plot3D;
 import problem.Problem;

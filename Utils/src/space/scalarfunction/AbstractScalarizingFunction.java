@@ -135,4 +135,14 @@ public abstract class AbstractScalarizingFunction implements IScalarizingFunctio
         return _a;
     }
 
+    /**
+     * Can be used to check if smaller or greater values are preferred.
+     *
+     * @return true, if smaller values are preferred; false otherwise
+     */
+    @Override
+    public boolean isLessMorePreferred()
+    {
+        return true;
+    }
 }

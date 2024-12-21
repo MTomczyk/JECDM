@@ -115,19 +115,6 @@ class CrossedSettingTest
         }
 
         {
-            CrossedSetting CS = new CrossedSetting(new String[]{"K1", "K2", "K3", "K4"},
-                    new String[][]{new String[]{}, new String[]{}, new String[]{}, new String[]{}}, null);
-            try
-            {
-                CS.instantiateSetting(scenarios);
-            } catch (GlobalException e)
-            {
-                msg = e.getMessage();
-            }
-            assertEquals("Only 1-level, 2-level, and 3-level cross-comparisons are allowed currently", msg);
-        }
-
-        {
             CrossedSetting CS = new CrossedSetting(new String[]{"K1", "K2"},
                     new String[][]{null, null}, null);
             try

@@ -2,7 +2,6 @@ package model.constructor.value.representative;
 
 import compatibility.CompatibilityAnalyzer;
 import history.PreferenceInformationWrapper;
-import model.constructor.value.representative.IRepresentativeValueModelSelector;
 import model.internals.value.AbstractValueInternalModel;
 
 import java.util.ArrayList;

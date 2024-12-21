@@ -14,13 +14,14 @@ public class Vector
 {
     /**
      * Creates and returns a vector of length n whose components are set to the same provided value.
-     * @param n array length
+     *
+     * @param n     array length
      * @param value value to be set
      * @return created vector
      */
-    public static double [] getVectorWithEqualComponents(int n, double value)
+    public static double[] getVectorWithEqualComponents(int n, double value)
     {
-        double [] v = new double[n];
+        double[] v = new double[n];
         Arrays.fill(v, value);
         return v;
     }
@@ -636,17 +637,41 @@ public class Vector
     }
 
     /**
+     * This method replaces all vector's components that are smaller than zero with zero.
+     *
+     * @param a vector.
+     */
+    public static void thresholdAtOneFromAbove(double[] a)
+    {
+        if (a == null) return;
+        for (int i = 0; i < a.length; i++)
+            if (Double.compare(a[i], 1.0d) > 0) a[i] = 1.0d;
+    }
+
+    /**
+     * This method replaces all vector's components that are greater than one with one.
+     *
+     * @param a vector.
+     */
+    public static void thresholdAtZeroFromBelow(double[] a)
+    {
+        if (a == null) return;
+        for (int i = 0; i < a.length; i++)
+            if (Double.compare(a[i], 0.0d) < 0) a[i] = 0.0d;
+    }
+
+    /**
      * Calculates the difference of two m-dimensional vectors.
      *
-     * @param A m-dimensional vector
-     * @param B m-dimensional vector
+     * @param a m-dimensional vector
+     * @param b m-dimensional vector
      * @return difference between A and B (vector)
      */
-    public static double[] getDifference(double[] A, double[] B)
+    public static double[] getDifference(double[] a, double[] b)
     {
-        double[] result = A.clone();
+        double[] result = a.clone();
         for (int i = 0; i < result.length; i++)
-            result[i] -= B[i];
+            result[i] -= b[i];
         return result;
     }
 
@@ -865,5 +890,24 @@ public class Vector
         double[] r = l.clone();
         multiply(r, c);
         return r;
+    }
+
+    /**
+     * Returns a combination of two vectors (a and b) defined as a + (b - a)w. If 0 &lt;= w &lt;= 1, the combination is convex.
+     *
+     * @param a a-vector
+     * @param b b-vector
+     * @param w weighting coefficient
+     * @return vector combination (null if the input data is invalid)
+     */
+    public static double[] getCombination(double[] a, double[] b, double w)
+    {
+        if (a == null) return null;
+        if (b == null) return null;
+        if (a.length != b.length) return null;
+        double[] c = a.clone();
+        double[] dv = getDifference(b, a);
+        for (int i = 0; i < a.length; i++) c[i] += dv[i] * w;
+        return c;
     }
 }

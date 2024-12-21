@@ -58,6 +58,7 @@ public class EA
             PhasesBundle.copyPhasesFromBundleToEA(this, bundle._phasesBundle);
         }
 
+
         /**
          * Name of the EA.
          */
@@ -259,7 +260,17 @@ public class EA
      */
     protected EA()
     {
-        _R = null;
+        this((IRandom) null);
+    }
+
+    /**
+     * Parameterized constructor (for extending classes only).
+     *
+     * @param R random number generator
+     */
+    protected EA(IRandom R)
+    {
+        _R = R;
     }
 
     /**

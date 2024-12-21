@@ -9,6 +9,7 @@ import interaction.reference.constructor.IReferenceSetConstructor;
 import interaction.trigger.rules.IRule;
 import model.IPreferenceModel;
 import model.constructor.IConstructor;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.value.AbstractValueInternalModel;
 import system.ds.DSSParamsProvider;
 import system.ds.DecisionSupportSystem;
@@ -48,7 +49,7 @@ public class NEMOIIBundle extends AbstractNEMOBundle
          * @param referenceSetConstructor        reference set constructor
          * @param dmFeedbackProvider             DM-based feedback provider
          * @param preferenceModel                preference model used
-         * @param modelConstructor               model constructor that is supposed to generate a plurality of compatible preference model instances (e.g. {@link model.constructor.value.frs.FRS})
+         * @param modelConstructor               model constructor that is supposed to generate a plurality of compatible preference model instances (e.g. {@link FRS})
          * @param <T>                            internal preference model definition
          * @return params container
          */

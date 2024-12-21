@@ -19,8 +19,9 @@ public interface ISimilarity
     double calculateSimilarity(IGoal A, IGoal B);
 
     /**
-     * Used to determine preference direction (i.e., whether the smaller or bigger values are preferred).
-     * @return true -> smaller values are preferred; false otherwise.
+     * Used to determine is less/more means closer/further.
+     *
+     * @return true, if smaller values mean closer; false otherwise.
      */
-    boolean isLessPreferred();
+    boolean isLessMeaningCloser();
 }

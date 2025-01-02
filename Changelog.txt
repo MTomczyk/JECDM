@@ -1,5 +1,6 @@
-[02.01.2025] Minor updates
+[02.01.2025] Minor updates + drawing arrows in visualization module
 - Added a Simplex class in Utils.space.simplex (provides various functionalities related to a normalized simplex plane (vectors whose components are in [0, 1] bounds and sum up to 1.0)
+- Refactorization: Minor changes in space.Vector class and its corresponding VectorTest test.
 - Refactorization: Utils.space: Minor changes in IDistance and IScalarizingFunction interfaces (methods informing about preference direction are added)
 - Refactorization: Similarity in EvolutionaryComputation.emo.utils.decomposition.similarity.ISimilarity: isLessPreferred changed name to isLessMeaningCloser
 - Refactorization: Resigned from private MyProject and Didactics module; switched to just one "Private"

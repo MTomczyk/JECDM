@@ -13,6 +13,164 @@ import java.util.Arrays;
 public class Vector
 {
     /**
+     * Returns an orientation of a 3D vector. The vector is expressed as [xs, ys, zs] (starting point) and [xe, ye, ze]
+     * (ending point). Let assume that l is the vector length. The method returns angles alpha and beta (in radians)
+     * such that xe = xs + cos(alpha)cos(beta) * l, ye = ys + cos(alpha)sin(beta) * l, and ze = zs + sin(alpha).
+     * Also, the method returns [0.0d, 0.0d] if l == 0.
+     *
+     * @param xs starting x-coordinate
+     * @param ys starting y-coordinate
+     * @param zs starting z-coordinate
+     * @param xe ending x-coordinate
+     * @param ye ending y-coordinate
+     * @param ze ending z-coordinate
+     * @return Angles [alpha, beta] (in radians; alpha in [0, 2pi), beta in [-pi/2, pi/2);
+     */
+    public static double[] getOrientation(double xs, double ys, double zs, double xe, double ye, double ze)
+    {
+        int c1 = Double.compare(xe, xs);
+        int c2 = Double.compare(ye, ys);
+        int c3 = Double.compare(ze, zs);
+
+        if ((c1 == 0) && (c2 == 0) && (c3 == 0)) return new double[]{0.0d, 0.0d};
+
+        double alpha;
+        double beta = 0.0d;
+
+        // beta
+        if (c2 != 0)
+        {
+            if ((c2 > 0) && (c1 == 0) && (c3 == 0)) beta = Math.PI / 2.0d;
+            else if ((c2 < 0) && (c1 == 0) && (c3 == 0)) beta = -Math.PI / 2.0d;
+            else
+            {
+                double tg = (ye - ys) / (xe - xs);
+                beta = Math.atan(tg);
+            }
+        }
+
+        // alpha
+        {
+            if ((c1 == 0) && (c3 == 0)) alpha = 0.0d;
+            else if ((c3 == 0) && (c2 == 0) && (c1 > 0)) alpha = 0.0d;
+            else if ((c3 == 0) && (c2 == 0)) alpha = Math.PI;
+            else if ((c1 == 0) && (c2 == 0) && (c3 > 0)) alpha = Math.PI / 2.0d;
+            else if ((c1 == 0) && (c2 == 0)) alpha = Math.PI * 1.5d;
+            else
+            {
+                double nxe = xs + (xe - xs) / Math.cos(beta);
+                alpha = getOrientation(xs, zs, nxe, ze);
+            }
+        }
+
+        return new double[]{alpha, beta};
+    }
+
+
+    /**
+     * Returns an orientation of a 2D vector. The vector is expressed as [xs, ys] (starting point) and [xe, ye]
+     * (ending point). Let assume that l is the vector length. The method returns an angle (in radians) such that
+     * xe = xs + cos(angle) * l and ye = ys + sin(angle) * l. Also, the method returns 0.0d if l == 0.
+     *
+     * @param xs starting x-coordinate
+     * @param ys starting y-coordinate
+     * @param xe ending x-coordinate
+     * @param ye ending y-coordinate
+     * @return angle (in radians; in [0, 2pi))
+     */
+    public static double getOrientation(double xs, double ys, double xe, double ye)
+    {
+        int c1 = Double.compare(xe, xs);
+        int c2 = Double.compare(ye, ys);
+
+        if (c1 == 0)
+        {
+            if (c2 == 0) return 0.0d;
+            else if (c2 > 0) return Math.PI / 2.0d;
+            else return Math.PI * 1.5d;
+        }
+        else if (c2 == 0)
+        {
+            if (c1 > 0) return 0.0d;
+            else return Math.PI;
+        }
+        else if ((c1 > 0) && (c2 > 0))
+        {
+            double dx = xe - xs;
+            double dy = ye - ys;
+            return Math.atan(dy / dx);
+        }
+        else if ((c1 < 0) && (c2 > 0))
+        {
+            double dx = xs - xe;
+            double dy = ye - ys;
+            return Math.PI - Math.atan(dy / dx);
+        }
+        else if (c1 < 0)
+        {
+            double dx = xs - xe;
+            double dy = ys - ye;
+            return Math.PI + Math.atan(dy / dx);
+        }
+
+        double dx = xe - xs;
+        double dy = ys - ye;
+        return 2.0d * Math.PI - Math.atan(dy / dx);
+    }
+
+    /**
+     * Returns an orientation of a 2D vector. The vector is expressed as [xs, ys] (starting point) and [xe, ye]
+     * (ending point). Let assume that l is the vector length. The method returns an angle (in radians) such that
+     * xe = xs + cos(angle) * l and ye = ys + sin(angle) * l. Also, the method returns 0.0d if l == 0.
+     *
+     * @param xs starting x-coordinate
+     * @param ys starting y-coordinate
+     * @param xe ending x-coordinate
+     * @param ye ending y-coordinate
+     * @return angle (in radians; in [0, 2pi))
+     */
+    public static float getOrientation(float xs, float ys, float xe, float ye)
+    {
+        int c1 = Double.compare(xe, xs);
+        int c2 = Double.compare(ye, ys);
+
+        if (c1 == 0)
+        {
+            if (c2 == 0) return 0.0f;
+            else if (c2 > 0) return (float) (Math.PI / 2.0f);
+            else return (float) (Math.PI * 1.5f);
+        }
+        else if (c2 == 0)
+        {
+            if (c1 > 0) return 0.0f;
+            else return (float) Math.PI;
+        }
+        else if ((c1 > 0) && (c2 > 0))
+        {
+            double dx = xe - xs;
+            double dy = ye - ys;
+            return (float) Math.atan(dy / dx);
+        }
+        else if ((c1 < 0) && (c2 > 0))
+        {
+            double dx = xs - xe;
+            double dy = ye - ys;
+            return (float) (Math.PI - Math.atan(dy / dx));
+        }
+        else if (c1 < 0)
+        {
+            double dx = xs - xe;
+            double dy = ys - ye;
+            return (float) (Math.PI + Math.atan(dy / dx));
+        }
+
+        double dx = xe - xs;
+        double dy = ys - ye;
+        return (float) (2.0d * Math.PI - Math.atan(dy / dx));
+    }
+
+
+    /**
      * Creates and returns a vector of length n whose components are set to the same provided value.
      *
      * @param n     array length
@@ -96,12 +254,26 @@ public class Vector
     @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "DuplicatedCode"})
     public static boolean areVectorsEqual(double[] a, double[] b)
     {
+        return areVectorsEqual(a, b, 0.0d);
+    }
+
+    /**
+     * Compares if two double vectors are equal.
+     *
+     * @param a         the first vector
+     * @param b         the second vector
+     * @param precision precision (|a - b| should be &lt; precision)
+     * @return true = vectors are equal; false otherwise
+     */
+    @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "DuplicatedCode"})
+    public static boolean areVectorsEqual(float[] a, float[] b, float precision)
+    {
         if ((a != null) && (b == null)) return false;
         if ((a == null) && (b != null)) return false;
         if ((a == null)) return true;
         if (a.length != b.length) return false;
         for (int i = 0; i < a.length; i++)
-            if (Double.compare(a[i], b[i]) != 0) return false;
+            if (Float.compare(Math.abs(a[i] - b[i]), precision) > 0) return false;
         return true;
     }
 
@@ -115,13 +287,7 @@ public class Vector
     @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "DuplicatedCode"})
     public static boolean areVectorsEqual(float[] a, float[] b)
     {
-        if ((a != null) && (b == null)) return false;
-        if ((a == null) && (b != null)) return false;
-        if ((a == null)) return true;
-        if (a.length != b.length) return false;
-        for (int i = 0; i < a.length; i++)
-            if (Float.compare(a[i], b[i]) != 0) return false;
-        return true;
+        return areVectorsEqual(a, b, 0.0f);
     }
 
 
@@ -161,25 +327,6 @@ public class Vector
         return true;
     }
 
-    /**
-     * Compares if two double vectors are equal.
-     *
-     * @param a         the first vector
-     * @param b         the second vector
-     * @param precision precision (|a - b| should be &lt; precision)
-     * @return true = vectors are equal; false otherwise
-     */
-    @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "DuplicatedCode"})
-    public static boolean areVectorsEqual(float[] a, float[] b, float precision)
-    {
-        if ((a != null) && (b == null)) return false;
-        if ((a == null) && (b != null)) return false;
-        if ((a == null)) return true;
-        if (a.length != b.length) return false;
-        for (int i = 0; i < a.length; i++)
-            if (Float.compare(Math.abs(a[i] - b[i]), precision) > 0) return false;
-        return true;
-    }
 
     /**
      * Returns direction vector coordinates (not normalized) given the alpha and beta angles (degrees) in the coordinate system.
@@ -691,57 +838,60 @@ public class Vector
     }
 
     /**
-     * Multiplies a vector by a scalar (rescale) (creates a new object).
-     *
-     * @param A m-dimensional vector
-     * @param a multiplier
-     * @return rescaled vector
-     */
-    public static double[] getMultiplication(double[] A, double a)
-    {
-        double[] result = A.clone();
-        for (int i = 0; i < result.length; i++)
-            result[i] *= a;
-        return result;
-    }
-
-    /**
      * Multiplies an input vector by a scalar (rescale) (does not create a new object).
      *
-     * @param A m-dimensional vector
-     * @param a multiplier
+     * @param a m-dimensional vector
+     * @param m multiplier
      */
-    public static void multiply(double[] A, double a)
+    public static void multiply(double[] a, double m)
     {
-        for (int i = 0; i < A.length; i++) A[i] *= a;
+        if (a == null) return;
+        for (int i = 0; i < a.length; i++) a[i] *= m;
     }
 
 
     /**
      * Multiplies a vector by a scalar (rescale) (creates a new object).
      *
-     * @param A m-dimensional vector
-     * @param a multiplier
-     * @return rescaled vector
+     * @param a-dimensional vector
+     * @param m             multiplier
+     * @return rescaled vector (null, if the input is null)
      */
-    public static float[] getMultiplication(float[] A, float a)
+    public static double[] getMultiplication(double[] a, double m)
     {
-        float[] result = A.clone();
-        for (int i = 0; i < result.length; i++)
-            result[i] *= a;
+        if (a == null) return null;
+        double[] result = a.clone();
+        multiply(result, m);
         return result;
     }
 
     /**
      * Multiplies an input vector by a scalar (rescale) (does not create a new object).
      *
-     * @param A m-dimensional vector
-     * @param a multiplier
+     * @param a m-dimensional vector
+     * @param m multiplier
      */
-    public static void multiply(float[] A, float a)
+    public static void multiply(float[] a, float m)
     {
-        for (int i = 0; i < A.length; i++) A[i] *= a;
+        if (a == null) return;
+        for (int i = 0; i < a.length; i++) a[i] *= m;
     }
+
+    /**
+     * Multiplies a vector by a scalar (rescale) (creates a new object).
+     *
+     * @param a m-dimensional vector
+     * @param m multiplier
+     * @return rescaled vector (null, if the input is null)
+     */
+    public static float[] getMultiplication(float[] a, float m)
+    {
+        if (a == null) return null;
+        float[] result = a.clone();
+        multiply(result, m);
+        return result;
+    }
+
 
     /**
      * Calculates intersection point(s) of two 2D lines (not segments).

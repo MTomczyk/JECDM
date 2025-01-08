@@ -46,7 +46,7 @@ public class Painter2D extends AbstractPainter implements IPainter
      * @param ms                           marker style
      * @param ls                           line style
      * @param as                           arrow styles (beginning and ending)
-     * @param treadContiguousLinesAsNot    if true, the default interpretation of raw data is changed. Instead of treating
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
      *                                     each double [][] data segment as one contiguous line (when using a line style),
      *                                     the data is considered to be a series of independent lines whose coordinates
      *                                     occupy each subsequent pair of double [] vectors in the data segment
@@ -59,10 +59,10 @@ public class Painter2D extends AbstractPainter implements IPainter
     public Painter2D(MarkerStyle ms,
                      LineStyle ls,
                      ArrowStyles as,
-                     boolean treadContiguousLinesAsNot,
+                     boolean treatContiguousLinesAsBroken,
                      float gradientLineMinSegmentLength)
     {
-        super(ms, ls, as, treadContiguousLinesAsNot, gradientLineMinSegmentLength);
+        super(ms, ls, as, treatContiguousLinesAsBroken, gradientLineMinSegmentLength);
     }
 
     /**
@@ -81,7 +81,7 @@ public class Painter2D extends AbstractPainter implements IPainter
         if (_ls != null) ls = _ls.getClone();
         ArrowStyles as = null;
         if (_as != null) as = _as.getClone();
-        return new Painter2D(ms, ls, as, _treadContiguousLinesAsNot, _gradientLineMinSegmentLength);
+        return new Painter2D(ms, ls, as, _treatContiguousLinesAsBroken, _gradientLineMinSegmentLength);
     }
 
     /**
@@ -375,7 +375,7 @@ public class Painter2D extends AbstractPainter implements IPainter
 
             int move = _IDS._pSize;
             // If the interpretation is changed, make twice bigger jumps
-            if (_treadContiguousLinesAsNot) move *= 2;
+            if (_treatContiguousLinesAsBroken) move *= 2;
 
             if (gradient) gradientColors = colorIt.next();
 
@@ -408,7 +408,7 @@ public class Painter2D extends AbstractPainter implements IPainter
                 else drawLine(lines, pOffset, offset);
 
                 pOffset += move;
-                if (_treadContiguousLinesAsNot) colorIdx += 2;
+                if (_treatContiguousLinesAsBroken) colorIdx += 2;
                 else colorIdx++;
                 auxIdx++;
             }

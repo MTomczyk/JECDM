@@ -109,6 +109,7 @@ public class Tutorial1a
 
 
         Frame frame = new Frame(plot2D, 0.5f);
+        //Frame frame = new Frame(plot2D, 800, 800);
         plot2D.getModel().setDataSets(dataSets, true);
         frame.setVisible(true);
     }

@@ -80,7 +80,7 @@ public abstract class AbstractPainter implements IPainter
      * as one contiguous line (when using a line style), the data is considered to be a series of independent lines whose
      * coordinates occupy each subsequent pair of double [] vectors in the data segment.
      */
-    protected final boolean _treadContiguousLinesAsNot;
+    protected final boolean _treatContiguousLinesAsBroken;
 
     /**
      * Determines the minimal segment line used when constructing gradient line (discretization level, the lower the value,
@@ -129,7 +129,7 @@ public abstract class AbstractPainter implements IPainter
      * @param ms                           marker style
      * @param ls                           line style
      * @param as                           arrow styles (beginning and ending)
-     * @param treadContiguousLinesAsNot    if true, the default interpretation of raw data is changed. Instead of treating
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
      *                                     each double [][] data segment as one contiguous line (when using a line style),
      *                                     the data is considered to be a series of independent lines whose coordinates
      *                                     occupy each subsequent pair of double [] vectors in the data segment
@@ -142,13 +142,13 @@ public abstract class AbstractPainter implements IPainter
     protected AbstractPainter(MarkerStyle ms,
                               LineStyle ls,
                               ArrowStyles as,
-                              boolean treadContiguousLinesAsNot,
+                              boolean treatContiguousLinesAsBroken,
                               float gradientLineMinSegmentLength)
     {
         _ms = ms;
         _ls = ls;
         _as = as;
-        _treadContiguousLinesAsNot = treadContiguousLinesAsNot;
+        _treatContiguousLinesAsBroken = treatContiguousLinesAsBroken;
         _gradientLineMinSegmentLength = gradientLineMinSegmentLength;
         instantiateAuxiliaryObjects();
         instantiateTimeStatistics();
@@ -289,7 +289,7 @@ public abstract class AbstractPainter implements IPainter
         fillNormalizedData(DRM);
         AbstractPainterUtils.fillMarkerGradientColors(_IDS, _ms);
         AbstractPainterUtils.fillLineGradientColors(_IDS, _ls);
-        AbstractPainterUtils.fillArrowGradientColors(_IDS, _bAPDC, _eAPDC, _as, _treadContiguousLinesAsNot);
+        AbstractPainterUtils.fillArrowGradientColors(_IDS, _bAPDC, _eAPDC, _as, _treatContiguousLinesAsBroken);
         if (_measureRecalculateIDSTimes[0]) _IDSRecalculationTimes[0].addData(System.nanoTime() - startTime);
     }
 
@@ -326,10 +326,10 @@ public abstract class AbstractPainter implements IPainter
                     if (linePoints > 1) // only valid sizes are passed
                     {
                         // If the interpretation is changed: the number of line points must be even.
-                        if ((_treadContiguousLinesAsNot) && (linePoints % 2 == 1)) linePoints--;
+                        if ((_treatContiguousLinesAsBroken) && (linePoints % 2 == 1)) linePoints--;
                         _IDS._noLinePointsInContiguousLines.add(linePoints);
                         _IDS._noLinePoints += linePoints;
-                        if ((drawArrows) && (!_treadContiguousLinesAsNot)) _IDS._noLinesWithArrows++;
+                        if ((drawArrows) && (!_treatContiguousLinesAsBroken)) _IDS._noLinesWithArrows++;
                     }
                     if (drawArrows) arrowCount = false;
                     linePoints = 0;
@@ -358,7 +358,7 @@ public abstract class AbstractPainter implements IPainter
                 if (drawLines)
                 {
                     linePoints++;
-                    if ((drawArrows) && (_treadContiguousLinesAsNot))
+                    if ((drawArrows) && (_treatContiguousLinesAsBroken))
                     {
                         if (arrowCount)
                         {
@@ -376,10 +376,10 @@ public abstract class AbstractPainter implements IPainter
         if ((drawLines) && (linePoints > 1))
         {
             // If the interpretation is changed: the number of line points must be even.
-            if ((_treadContiguousLinesAsNot) && (linePoints % 2 == 1)) linePoints--;
+            if ((_treatContiguousLinesAsBroken) && (linePoints % 2 == 1)) linePoints--;
             _IDS._noLinePointsInContiguousLines.add(linePoints);
             _IDS._noLinePoints += linePoints;
-            if ((drawArrows) && (!_treadContiguousLinesAsNot)) _IDS._noLinesWithArrows++;
+            if ((drawArrows) && (!_treatContiguousLinesAsBroken)) _IDS._noLinesWithArrows++;
         }
 
         Notification.printNotification(_GC, _PC, _name + ": report on basic statistics");
@@ -654,7 +654,7 @@ public abstract class AbstractPainter implements IPainter
         {
             if (noLinePointsIt.hasNext()) noLinePoints = noLinePointsIt.next();
             int[] auxPoints;
-            if (_treadContiguousLinesAsNot)
+            if (_treatContiguousLinesAsBroken)
             {
                 // If the interpretation is changed: the no. points is even, and the no. aux should be twice smaller
                 auxPoints = new int[noLinePoints / 2];
@@ -667,7 +667,7 @@ public abstract class AbstractPainter implements IPainter
             int auxIdx = 0;
             int move = _IDS._pSize;
             // If the interpretation is changed, make twice bigger jumps
-            if (_treadContiguousLinesAsNot) move *= 2;
+            if (_treatContiguousLinesAsBroken) move *= 2;
 
             for (int offset = _IDS._pSize; offset < projectedArray.length; offset += move)
             {
@@ -715,7 +715,7 @@ public abstract class AbstractPainter implements IPainter
             int moveNormalized = _IDS._noAttributes;
 
             // If the interpretation is changed, make twice bigger jumps
-            if (_treadContiguousLinesAsNot)
+            if (_treatContiguousLinesAsBroken)
             {
                 move *= 2;
                 moveNormalized *= 2;
@@ -768,7 +768,7 @@ public abstract class AbstractPainter implements IPainter
 
         for (float[] lines : _IDS._projectedContiguousLines)
         {
-            if (_treadContiguousLinesAsNot)
+            if (_treatContiguousLinesAsBroken)
             {
                 for (int offset = 0; offset < lines.length; offset += _IDS._pSize * 2)
                 {
@@ -883,6 +883,7 @@ public abstract class AbstractPainter implements IPainter
 
     /**
      * Returns arrow styles.
+     *
      * @return arrow styles
      */
     @Override

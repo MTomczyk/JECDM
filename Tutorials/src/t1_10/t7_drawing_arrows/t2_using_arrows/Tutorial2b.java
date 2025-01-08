@@ -80,6 +80,7 @@ public class Tutorial2b
         IDataSet ds = DSFactory2D.getDS("DS", data, null, ls, new ArrowStyles(bas, eas), true, 0.005f);
 
         Frame frame = new Frame(plot2D, 0.5f);
+        //Frame frame = new Frame(plot2D, 800, 800);
         plot2D.getModel().setDataSet(ds, true);
         frame.setVisible(true);
     }

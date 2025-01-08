@@ -130,39 +130,39 @@ public class DSFactory3D
      * Builder for a data set that should be rendered using a 3D plot. This constructor does not allow providing data to
      * be depicted. Hence, it creates an ''empty'' data set object that may be treated as a reference for {@link updater.DataUpdater}.
      *
-     * @param name                      data set name
-     * @param ls                        line style (either ms or ls can be null)
-     * @param as                        arrow styles (used only when ls is provided)
-     * @param useAlpha                  if true, the fourth (alpha) channel is used
-     * @param treadContiguousLinesAsNot if true, the default interpretation of raw data is changed. Instead of treating
-     *                                  each double [][] data segment as one contiguous line (when using a line style),
-     *                                  the data is considered to be a series of independent lines whose coordinates
-     *                                  occupy each subsequent pair of double [] vectors in the data segment
+     * @param name                         data set name
+     * @param ls                           line style (either ms or ls can be null)
+     * @param as                           arrow styles (used only when ls is provided)
+     * @param useAlpha                     if true, the fourth (alpha) channel is used
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
+     *                                     each double [][] data segment as one contiguous line (when using a line style),
+     *                                     the data is considered to be a series of independent lines whose coordinates
+     *                                     occupy each subsequent pair of double [] vectors in the data segment
      * @return parameterized data set object
      */
-    public static DataSet getReferenceDS(String name, LineStyle ls, ArrowStyles as, boolean useAlpha, boolean treadContiguousLinesAsNot)
+    public static DataSet getReferenceDS(String name, LineStyle ls, ArrowStyles as, boolean useAlpha, boolean treatContiguousLinesAsBroken)
     {
-        return getReferenceDS(name, null, ls, as, useAlpha, treadContiguousLinesAsNot);
+        return getReferenceDS(name, null, ls, as, useAlpha, treatContiguousLinesAsBroken);
     }
 
     /**
      * Builder for a data set that should be rendered using a 3D plot. This constructor does not allow providing data to
      * be depicted. Hence, it creates an ''empty'' data set object that may be treated as a reference for {@link updater.DataUpdater}.
      *
-     * @param name                      data set name
-     * @param ms                        marker style (either ms or ls can be null)
-     * @param ls                        line style (either ms or ls can be null)
-     * @param as                        arrow styles (used only when ls is provided)
-     * @param useAlpha                  if true, the fourth (alpha) channel is used
-     * @param treadContiguousLinesAsNot if true, the default interpretation of raw data is changed. Instead of treating
-     *                                  each double [][] data segment as one contiguous line (when using a line style),
-     *                                  the data is considered to be a series of independent lines whose coordinates
-     *                                  occupy each subsequent pair of double [] vectors in the data segment
+     * @param name                         data set name
+     * @param ms                           marker style (either ms or ls can be null)
+     * @param ls                           line style (either ms or ls can be null)
+     * @param as                           arrow styles (used only when ls is provided)
+     * @param useAlpha                     if true, the fourth (alpha) channel is used
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
+     *                                     each double [][] data segment as one contiguous line (when using a line style),
+     *                                     the data is considered to be a series of independent lines whose coordinates
+     *                                     occupy each subsequent pair of double [] vectors in the data segment
      * @return parameterized data set object
      */
-    public static DataSet getReferenceDS(String name, MarkerStyle ms, LineStyle ls, ArrowStyles as, boolean useAlpha, boolean treadContiguousLinesAsNot)
+    public static DataSet getReferenceDS(String name, MarkerStyle ms, LineStyle ls, ArrowStyles as, boolean useAlpha, boolean treatContiguousLinesAsBroken)
     {
-        return getDS(name, (double[][]) null, ms, ls, as, useAlpha, treadContiguousLinesAsNot, 0.005f);
+        return getDS(name, (double[][]) null, ms, ls, as, useAlpha, treatContiguousLinesAsBroken, 0.005f);
     }
 
     /**
@@ -335,15 +335,15 @@ public class DSFactory3D
     /**
      * Builder for a data set that should be rendered using a 3D plot.
      *
-     * @param name                      data set name
-     * @param data                      input data point
-     * @param ms                        marker style (either ms or ls can be null)
-     * @param ls                        line style (either ms or ls can be null)
-     * @param useAlpha                  if true, the fourth (alpha) channel is used
-     * @param treadContiguousLinesAsNot if true, the default interpretation of raw data is changed. Instead of treating
-     *                                  each double [][] data segment as one contiguous line (when using a line style),
-     *                                  the data is considered to be a series of independent lines whose coordinates
-     *                                  occupy each subsequent pair of double [] vectors in the data segment
+     * @param name                         data set name
+     * @param data                         input data point
+     * @param ms                           marker style (either ms or ls can be null)
+     * @param ls                           line style (either ms or ls can be null)
+     * @param useAlpha                     if true, the fourth (alpha) channel is used
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
+     *                                     each double [][] data segment as one contiguous line (when using a line style),
+     *                                     the data is considered to be a series of independent lines whose coordinates
+     *                                     occupy each subsequent pair of double [] vectors in the data segment
      * @return parameterized data set object
      */
     public static DataSet getDS(String name,
@@ -351,9 +351,9 @@ public class DSFactory3D
                                 MarkerStyle ms,
                                 LineStyle ls,
                                 boolean useAlpha,
-                                boolean treadContiguousLinesAsNot)
+                                boolean treatContiguousLinesAsBroken)
     {
-        return getDS(name, data, ms, ls, null, useAlpha, treadContiguousLinesAsNot, 0.005f);
+        return getDS(name, data, ms, ls, null, useAlpha, treatContiguousLinesAsBroken, 0.005f);
     }
 
     /**
@@ -384,15 +384,15 @@ public class DSFactory3D
     /**
      * Builder for a data set that should be rendered using a 3D plot.
      *
-     * @param name                      data set name
-     * @param data                      input data point
-     * @param ls                        line style (either ms or ls can be null)
-     * @param as                        arrow styles  (used only when ls is provided)
-     * @param useAlpha                  if true, the fourth (alpha) channel is used
-     * @param treadContiguousLinesAsNot if true, the default interpretation of raw data is changed. Instead of treating
-     *                                  each double [][] data segment as one contiguous line (when using a line style),
-     *                                  the data is considered to be a series of independent lines whose coordinates
-     *                                  occupy each subsequent pair of double [] vectors in the data segment
+     * @param name                         data set name
+     * @param data                         input data point
+     * @param ls                           line style (either ms or ls can be null)
+     * @param as                           arrow styles  (used only when ls is provided)
+     * @param useAlpha                     if true, the fourth (alpha) channel is used
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
+     *                                     each double [][] data segment as one contiguous line (when using a line style),
+     *                                     the data is considered to be a series of independent lines whose coordinates
+     *                                     occupy each subsequent pair of double [] vectors in the data segment
      * @return parameterized data set object
      */
     public static DataSet getDS(String name,
@@ -400,9 +400,9 @@ public class DSFactory3D
                                 LineStyle ls,
                                 ArrowStyles as,
                                 boolean useAlpha,
-                                boolean treadContiguousLinesAsNot)
+                                boolean treatContiguousLinesAsBroken)
     {
-        return getDS(name, data, null, ls, as, useAlpha, treadContiguousLinesAsNot, 0.005f);
+        return getDS(name, data, null, ls, as, useAlpha, treatContiguousLinesAsBroken, 0.005f);
     }
 
     /**
@@ -414,7 +414,7 @@ public class DSFactory3D
      * @param ls                           line style (either ms or ls can be null)
      * @param as                           arrow styles (used only when ls is provided)
      * @param useAlpha                     if true, the fourth (alpha) channel is used
-     * @param treadContiguousLinesAsNot    if true, the default interpretation of raw data is changed. Instead of treating
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
      *                                     each double [][] data segment as one contiguous line (when using a line style),
      *                                     the data is considered to be a series of independent lines whose coordinates
      *                                     occupy each subsequent pair of double [] vectors in the data segment
@@ -431,24 +431,24 @@ public class DSFactory3D
                                 LineStyle ls,
                                 ArrowStyles as,
                                 boolean useAlpha,
-                                boolean treadContiguousLinesAsNot,
+                                boolean treatContiguousLinesAsBroken,
                                 float gradientLineMinSegmentLength)
     {
-        return new DataSet(name, data, new Painter3D(ms, ls, as, useAlpha, treadContiguousLinesAsNot, gradientLineMinSegmentLength));
+        return new DataSet(name, data, new Painter3D(ms, ls, as, useAlpha, treatContiguousLinesAsBroken, gradientLineMinSegmentLength));
     }
 
     /**
      * Builder for a data set that should be rendered using a 3D plot.
      *
-     * @param name                      data set name
-     * @param data                      input data point
-     * @param ms                        marker style (either ms or ls can be null)
-     * @param ls                        line style (either ms or ls can be null)
-     * @param useAlpha                  if true, the fourth (alpha) channel is used
-     * @param treadContiguousLinesAsNot if true, the default interpretation of raw data is changed. Instead of treating
-     *                                  each double [][] data segment as one contiguous line (when using a line style),
-     *                                  the data is considered to be a series of independent lines whose coordinates
-     *                                  occupy each subsequent pair of double [] vectors in the data segment
+     * @param name                         data set name
+     * @param data                         input data point
+     * @param ms                           marker style (either ms or ls can be null)
+     * @param ls                           line style (either ms or ls can be null)
+     * @param useAlpha                     if true, the fourth (alpha) channel is used
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
+     *                                     each double [][] data segment as one contiguous line (when using a line style),
+     *                                     the data is considered to be a series of independent lines whose coordinates
+     *                                     occupy each subsequent pair of double [] vectors in the data segment
      * @return parameterized data set object
      */
     public static DataSet getDS(String name,
@@ -456,9 +456,9 @@ public class DSFactory3D
                                 MarkerStyle ms,
                                 LineStyle ls,
                                 boolean useAlpha,
-                                boolean treadContiguousLinesAsNot)
+                                boolean treatContiguousLinesAsBroken)
     {
-        return getDS(name, data, ms, ls, null, useAlpha, treadContiguousLinesAsNot, 0.005f);
+        return getDS(name, data, ms, ls, null, useAlpha, treatContiguousLinesAsBroken, 0.005f);
     }
 
     /**
@@ -489,15 +489,15 @@ public class DSFactory3D
     /**
      * Builder for a data set that should be rendered using a 3D plot.
      *
-     * @param name                      data set name
-     * @param data                      input data point
-     * @param ls                        line style (either ms or ls can be null)
-     * @param as                        arrow styles (used only when ls is provided)
-     * @param useAlpha                  if true, the fourth (alpha) channel is used
-     * @param treadContiguousLinesAsNot if true, the default interpretation of raw data is changed. Instead of treating
-     *                                  each double [][] data segment as one contiguous line (when using a line style),
-     *                                  the data is considered to be a series of independent lines whose coordinates
-     *                                  occupy each subsequent pair of double [] vectors in the data segment
+     * @param name                         data set name
+     * @param data                         input data point
+     * @param ls                           line style (either ms or ls can be null)
+     * @param as                           arrow styles (used only when ls is provided)
+     * @param useAlpha                     if true, the fourth (alpha) channel is used
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
+     *                                     each double [][] data segment as one contiguous line (when using a line style),
+     *                                     the data is considered to be a series of independent lines whose coordinates
+     *                                     occupy each subsequent pair of double [] vectors in the data segment
      * @return parameterized data set object
      */
     public static DataSet getDS(String name,
@@ -505,9 +505,9 @@ public class DSFactory3D
                                 LineStyle ls,
                                 ArrowStyles as,
                                 boolean useAlpha,
-                                boolean treadContiguousLinesAsNot)
+                                boolean treatContiguousLinesAsBroken)
     {
-        return getDS(name, data, null, ls, as, useAlpha, treadContiguousLinesAsNot, 0.005f);
+        return getDS(name, data, null, ls, as, useAlpha, treatContiguousLinesAsBroken, 0.005f);
     }
 
     /**
@@ -519,7 +519,7 @@ public class DSFactory3D
      * @param ls                           line style (either ms or ls can be null)
      * @param as                           arrow styles (used only when ls is provided)
      * @param useAlpha                     if true, the fourth (alpha) channel is used
-     * @param treadContiguousLinesAsNot    if true, the default interpretation of raw data is changed. Instead of treating
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
      *                                     each double [][] data segment as one contiguous line (when using a line style),
      *                                     the data is considered to be a series of independent lines whose coordinates
      *                                     occupy each subsequent pair of double [] vectors in the data segment
@@ -536,9 +536,9 @@ public class DSFactory3D
                                 LineStyle ls,
                                 ArrowStyles as,
                                 boolean useAlpha,
-                                boolean treadContiguousLinesAsNot,
+                                boolean treatContiguousLinesAsBroken,
                                 float gradientLineMinSegmentLength)
     {
-        return new DataSet(name, data, new Painter3D(ms, ls, as, useAlpha, treadContiguousLinesAsNot, gradientLineMinSegmentLength));
+        return new DataSet(name, data, new Painter3D(ms, ls, as, useAlpha, treatContiguousLinesAsBroken, gradientLineMinSegmentLength));
     }
 }

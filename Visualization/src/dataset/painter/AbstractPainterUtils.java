@@ -165,17 +165,17 @@ class AbstractPainterUtils
     /**
      * Supportive method that fills arrow gradient colors data.
      *
-     * @param ids                       internal data structures
-     * @param bAPDC     beginning arrow data projection constructor
-     * @param eAPDC     ending arrow data projection constructor
-     * @param as                        arrows styles
-     * @param treadContiguousLinesAsNot flag indicating which line interpretation is used
+     * @param ids                          internal data structures
+     * @param bAPDC                        beginning arrow data projection constructor
+     * @param eAPDC                        ending arrow data projection constructor
+     * @param as                           arrows styles
+     * @param treatContiguousLinesAsBroken flag indicating which line interpretation is used
      */
     protected static void fillArrowGradientColors(IDS ids,
                                                   IArrowProjectionDataConstructor bAPDC,
                                                   IArrowProjectionDataConstructor eAPDC,
                                                   ArrowStyles as,
-                                                  boolean treadContiguousLinesAsNot)
+                                                  boolean treatContiguousLinesAsBroken)
     {
         if (ids._noLinesWithArrows == 0) return; // not used
         if (as == null) return; // should not be null at this point, but checked for safety
@@ -193,7 +193,7 @@ class AbstractPainterUtils
         for (float[] line : ids._normalizedContiguousLines)
         {
             if (noPointsIt.hasNext()) noPoints = noPointsIt.next();
-            if (treadContiguousLinesAsNot)    // repeat for all points (every two)
+            if (treatContiguousLinesAsBroken)    // repeat for all points (every two)
             {
                 for (int i = 0; i < noPoints; i += 2)
                 {
@@ -256,8 +256,8 @@ class AbstractPainterUtils
      * @param lines    contiguous line
      * @param bOffset  offset pointing to the beginning of a single line segment
      * @param eOffset  offset pointing to the ending of a single line segment
-     * @param bAPDC     beginning arrow data projection constructor
-     * @param eAPDC     ending arrow data projection constructor
+     * @param bAPDC    beginning arrow data projection constructor
+     * @param eAPDC    ending arrow data projection constructor
      * @param bpOffset beginning arrow projection data offset
      * @param epOffset ending arrow projection data offset
      */

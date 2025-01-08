@@ -89,7 +89,7 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
      * @param ls                           line style
      * @param as                           arrow styles (beginning and ending)
      * @param useAlpha                     if true, the fourth channel is used when defining the colors
-     * @param treadContiguousLinesAsNot    if true, the default interpretation of raw data is changed. Instead of treating
+     * @param treatContiguousLinesAsBroken    if true, the default interpretation of raw data is changed. Instead of treating
      *                                     each double [][] data segment as one contiguous line (when using a line style),
      *                                     the data is considered to be a series of independent lines whose coordinates
      *                                     occupy each subsequent pair of double [] vectors in the data segment
@@ -103,10 +103,10 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
                      LineStyle ls,
                      ArrowStyles as,
                      boolean useAlpha,
-                     boolean treadContiguousLinesAsNot,
+                     boolean treatContiguousLinesAsBroken,
                      float gradientLineMinSegmentLength)
     {
-        super(ms, ls, as, treadContiguousLinesAsNot, gradientLineMinSegmentLength);
+        super(ms, ls, as, treatContiguousLinesAsBroken, gradientLineMinSegmentLength);
         _useAlpha = useAlpha;
         if (useAlpha) _colorStride = 4;
         else _colorStride = 3;
@@ -128,7 +128,7 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
         if (_ls != null) ls = _ls.getClone();
         ArrowStyles as = null;
         if (_as != null) as = _as.getClone();
-        return new Painter3D(ms, ls, as, _useAlpha, _treadContiguousLinesAsNot, _gradientLineMinSegmentLength);
+        return new Painter3D(ms, ls, as, _useAlpha, _treatContiguousLinesAsBroken, _gradientLineMinSegmentLength);
     }
 
     /**
@@ -367,7 +367,7 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
         {
             if (_ls._style.equals(Line.POLY_QUAD))
             {
-                if (_treadContiguousLinesAsNot)
+                if (_treatContiguousLinesAsBroken)
                 {
                     LinkedList<BufferData> lBD = PolyLineQuad.getPolyLineQuadDataForNonContiguousModeWithGradient(
                             cLine, noPointsIt, colorsIterator, noAuxPointsIt, auxLinesIt, auxColorsIt, gradient,
@@ -379,7 +379,7 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
             }
             else if (_ls._style.equals(Line.POLY_OCTO))
             {
-                if (_treadContiguousLinesAsNot)
+                if (_treatContiguousLinesAsBroken)
                 {
                     LinkedList<BufferData> lBD = PolyLineOcto.getPolyLineOctoDataForNonContiguousModeWithGradient(
                             cLine, noPointsIt, colorsIterator, noAuxPointsIt, auxLinesIt, auxColorsIt, gradient,
@@ -396,7 +396,7 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
                 // gradient, cont -> as normal (GL_LINE_STRIP)
                 // mono color, gradient, not cont -> go to GL_LINES
                 // gradient, not cont -> split into multiple buffers and use GL_LINE_STRIP for each
-                if (_treadContiguousLinesAsNot)
+                if (_treatContiguousLinesAsBroken)
                 {
                     if (gradient)
                     {
@@ -592,7 +592,7 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
         if (ls._style.equals(Line.REGULAR))
         {
             // Depends on the interpretation
-            if (_treadContiguousLinesAsNot)
+            if (_treatContiguousLinesAsBroken)
             {
                 if (ls._color.isMonoColor()) return GL2.GL_LINES;
                 else return GL2.GL_LINE_STRIP;

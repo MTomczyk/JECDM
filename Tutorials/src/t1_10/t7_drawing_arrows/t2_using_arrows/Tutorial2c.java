@@ -37,9 +37,6 @@ public class Tutorial2c
     public static void main(String[] args)
     {
         Plot3D.Params pP = new Plot3D.Params();
-        pP._xAxisTitle = "X-axis";
-        pP._yAxisTitle = "Y-axis";
-        pP._zAxisTitle = "Z-axis";
         pP._drawLegend = true;
         pP._title = "Drawing arrows";
         pP._pDisplayRangesManager = DisplayRangesManager.Params.getFor3D(Range.get0R(20.0d),
@@ -89,10 +86,9 @@ public class Tutorial2c
             dataSets.add(DSFactory3D.getDS("DS" + (i + 1), data, ls, as[i], false, false));
         }
 
-        Frame frame = new Frame(plot3D, 0.5f);
-        frame.setVisible(true);
+        Frame frame = new Frame(plot3D, 0.4f, 0.5f);
+        //Frame frame = new Frame(plot3D, 1200,1000);
         plot3D.getModel().setDataSets(dataSets, true);
-
-        plot3D.getModel().updatePlotIDSsAndRenderOnDemand(); // need to be called
+        frame.setVisible(true);
     }
 }

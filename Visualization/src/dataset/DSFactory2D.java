@@ -75,37 +75,37 @@ public class DSFactory2D
      * Builder for a data set that should be rendered using a 2D plot. This constructor does not allow providing data to
      * be depicted. Hence, it creates an ''empty'' data set object that may be treated as a reference for {@link updater.DataUpdater}.
      *
-     * @param name data set name
-     * @param ls   line style (either ms or ls can be null)
-     * @param as   arrow styles (used only when ls is provided)
-     * @param treadContiguousLinesAsNot    if true, the default interpretation of raw data is changed. Instead of treating
+     * @param name                         data set name
+     * @param ls                           line style (either ms or ls can be null)
+     * @param as                           arrow styles (used only when ls is provided)
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
      *                                     each double [][] data segment as one contiguous line (when using a line style),
      *                                     the data is considered to be a series of independent lines whose coordinates
      *                                     occupy each subsequent pair of double [] vectors in the data segment
      * @return parameterized data set object
      */
-    public static DataSet getReferenceDS(String name, LineStyle ls, ArrowStyles as, boolean treadContiguousLinesAsNot)
+    public static DataSet getReferenceDS(String name, LineStyle ls, ArrowStyles as, boolean treatContiguousLinesAsBroken)
     {
-        return getReferenceDS(name, null, ls, as, treadContiguousLinesAsNot);
+        return getReferenceDS(name, null, ls, as, treatContiguousLinesAsBroken);
     }
 
     /**
      * Builder for a data set that should be rendered using a 2D plot. This constructor does not allow providing data to
      * be depicted. Hence, it creates an ''empty'' data set object that may be treated as a reference for {@link updater.DataUpdater}.
      *
-     * @param name data set name
-     * @param ms   marker style (either ms or ls can be null)
-     * @param ls   line style (either ms or ls can be null)
-     * @param as   arrow styles (used only when ls is provided)
-     * @param treadContiguousLinesAsNot    if true, the default interpretation of raw data is changed. Instead of treating
+     * @param name                         data set name
+     * @param ms                           marker style (either ms or ls can be null)
+     * @param ls                           line style (either ms or ls can be null)
+     * @param as                           arrow styles (used only when ls is provided)
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
      *                                     each double [][] data segment as one contiguous line (when using a line style),
      *                                     the data is considered to be a series of independent lines whose coordinates
      *                                     occupy each subsequent pair of double [] vectors in the data segment
      * @return parameterized data set object
      */
-    public static DataSet getReferenceDS(String name, MarkerStyle ms, LineStyle ls, ArrowStyles as, boolean treadContiguousLinesAsNot)
+    public static DataSet getReferenceDS(String name, MarkerStyle ms, LineStyle ls, ArrowStyles as, boolean treatContiguousLinesAsBroken)
     {
-        return getDS(name, (double[][]) null, ms, ls, as, treadContiguousLinesAsNot, 0.005f);
+        return getDS(name, (double[][]) null, ms, ls, as, treatContiguousLinesAsBroken, 0.005f);
     }
 
     /**
@@ -207,23 +207,23 @@ public class DSFactory2D
     /**
      * Builder for a data set that should be rendered using a 2D plot.
      *
-     * @param name                      data set name
-     * @param data                      input data point
-     * @param ms                        marker style (either ms or ls can be null)
-     * @param ls                        line style (either ms or ls can be null)
-     * @param treadContiguousLinesAsNot if true, the default interpretation of raw data is changed. Instead of treating
-     *                                  each double [][] data segment as one contiguous line (when using a line style),
-     *                                  the data is considered to be a series of independent lines whose coordinates
-     *                                  occupy each subsequent pair of double [] vectors in the data segment
+     * @param name                         data set name
+     * @param data                         input data point
+     * @param ms                           marker style (either ms or ls can be null)
+     * @param ls                           line style (either ms or ls can be null)
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
+     *                                     each double [][] data segment as one contiguous line (when using a line style),
+     *                                     the data is considered to be a series of independent lines whose coordinates
+     *                                     occupy each subsequent pair of double [] vectors in the data segment
      * @return parameterized data set object
      */
     public static DataSet getDS(String name,
                                 double[][] data,
                                 MarkerStyle ms,
                                 LineStyle ls,
-                                boolean treadContiguousLinesAsNot)
+                                boolean treatContiguousLinesAsBroken)
     {
-        return getDS(name, data, ms, ls, null, treadContiguousLinesAsNot, 0.005f);
+        return getDS(name, data, ms, ls, null, treatContiguousLinesAsBroken, 0.005f);
     }
 
     /**
@@ -252,23 +252,23 @@ public class DSFactory2D
     /**
      * Builder for a data set that should be rendered using a 2D plot.
      *
-     * @param name                      data set name
-     * @param data                      input data point
-     * @param ls                        line style (either ms or ls can be null)
-     * @param as                        arrow styles (used only when ls is provided)
-     * @param treadContiguousLinesAsNot if true, the default interpretation of raw data is changed. Instead of treating
-     *                                  each double [][] data segment as one contiguous line (when using a line style),
-     *                                  the data is considered to be a series of independent lines whose coordinates
-     *                                  occupy each subsequent pair of double [] vectors in the data segment
+     * @param name                         data set name
+     * @param data                         input data point
+     * @param ls                           line style (either ms or ls can be null)
+     * @param as                           arrow styles (used only when ls is provided)
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
+     *                                     each double [][] data segment as one contiguous line (when using a line style),
+     *                                     the data is considered to be a series of independent lines whose coordinates
+     *                                     occupy each subsequent pair of double [] vectors in the data segment
      * @return parameterized data set object
      */
     public static DataSet getDS(String name,
                                 double[][] data,
                                 LineStyle ls,
                                 ArrowStyles as,
-                                boolean treadContiguousLinesAsNot)
+                                boolean treatContiguousLinesAsBroken)
     {
-        return getDS(name, data, null, ls, as, treadContiguousLinesAsNot, 0.005f);
+        return getDS(name, data, null, ls, as, treatContiguousLinesAsBroken, 0.005f);
     }
 
     /**
@@ -279,7 +279,7 @@ public class DSFactory2D
      * @param ms                           marker style (either ms or ls can be null)
      * @param ls                           line style (either ms or ls can be null)
      * @param as                           arrow styles (used only when ls is provided)
-     * @param treadContiguousLinesAsNot    if true, the default interpretation of raw data is changed. Instead of treating
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
      *                                     each double [][] data segment as one contiguous line (when using a line style),
      *                                     the data is considered to be a series of independent lines whose coordinates
      *                                     occupy each subsequent pair of double [] vectors in the data segment
@@ -295,32 +295,32 @@ public class DSFactory2D
                                 MarkerStyle ms,
                                 LineStyle ls,
                                 ArrowStyles as,
-                                boolean treadContiguousLinesAsNot,
+                                boolean treatContiguousLinesAsBroken,
                                 float gradientLineMinSegmentLength)
     {
-        return new DataSet(name, data, new Painter2D(ms, ls, as, treadContiguousLinesAsNot, gradientLineMinSegmentLength));
+        return new DataSet(name, data, new Painter2D(ms, ls, as, treatContiguousLinesAsBroken, gradientLineMinSegmentLength));
     }
 
     /**
      * Builder for a data set that should be rendered using a 2D plot.
      *
-     * @param name                      data set name
-     * @param data                      input data point
-     * @param ms                        marker style (either ms or ls can be null)
-     * @param ls                        line style (either ms or ls can be null)
-     * @param treadContiguousLinesAsNot if true, the default interpretation of raw data is changed. Instead of treating
-     *                                  each double [][] data segment as one contiguous line (when using a line style),
-     *                                  the data is considered to be a series of independent lines whose coordinates
-     *                                  occupy each subsequent pair of double [] vectors in the data segment
+     * @param name                         data set name
+     * @param data                         input data point
+     * @param ms                           marker style (either ms or ls can be null)
+     * @param ls                           line style (either ms or ls can be null)
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
+     *                                     each double [][] data segment as one contiguous line (when using a line style),
+     *                                     the data is considered to be a series of independent lines whose coordinates
+     *                                     occupy each subsequent pair of double [] vectors in the data segment
      * @return parameterized data set object
      */
     public static DataSet getDS(String name,
                                 LinkedList<double[][]> data,
                                 MarkerStyle ms,
                                 LineStyle ls,
-                                boolean treadContiguousLinesAsNot)
+                                boolean treatContiguousLinesAsBroken)
     {
-        return getDS(name, data, ms, ls, null, treadContiguousLinesAsNot, 0.005f);
+        return getDS(name, data, ms, ls, null, treatContiguousLinesAsBroken, 0.005f);
     }
 
     /**
@@ -349,23 +349,23 @@ public class DSFactory2D
     /**
      * Builder for a data set that should be rendered using a 2D plot.
      *
-     * @param name                      data set name
-     * @param data                      input data point
-     * @param ls                        line style (either ms or ls can be null)
-     * @param as                        arrow styles (used only when ls is provided)
-     * @param treadContiguousLinesAsNot if true, the default interpretation of raw data is changed. Instead of treating
-     *                                  each double [][] data segment as one contiguous line (when using a line style),
-     *                                  the data is considered to be a series of independent lines whose coordinates
-     *                                  occupy each subsequent pair of double [] vectors in the data segment
+     * @param name                         data set name
+     * @param data                         input data point
+     * @param ls                           line style (either ms or ls can be null)
+     * @param as                           arrow styles (used only when ls is provided)
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
+     *                                     each double [][] data segment as one contiguous line (when using a line style),
+     *                                     the data is considered to be a series of independent lines whose coordinates
+     *                                     occupy each subsequent pair of double [] vectors in the data segment
      * @return parameterized data set object
      */
     public static DataSet getDS(String name,
                                 LinkedList<double[][]> data,
                                 LineStyle ls,
                                 ArrowStyles as,
-                                boolean treadContiguousLinesAsNot)
+                                boolean treatContiguousLinesAsBroken)
     {
-        return getDS(name, data, null, ls, as, treadContiguousLinesAsNot, 0.005f);
+        return getDS(name, data, null, ls, as, treatContiguousLinesAsBroken, 0.005f);
     }
 
 
@@ -377,7 +377,7 @@ public class DSFactory2D
      * @param ms                           marker style (either ms or ls can be null)
      * @param ls                           line style (either ms or ls can be null)
      * @param as                           arrow styles (used only when ls is provided)
-     * @param treadContiguousLinesAsNot    if true, the default interpretation of raw data is changed. Instead of treating
+     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
      *                                     each double [][] data segment as one contiguous line (when using a line style),
      *                                     the data is considered to be a series of independent lines whose coordinates
      *                                     occupy each subsequent pair of double [] vectors in the data segment
@@ -393,10 +393,10 @@ public class DSFactory2D
                                 MarkerStyle ms,
                                 LineStyle ls,
                                 ArrowStyles as,
-                                boolean treadContiguousLinesAsNot,
+                                boolean treatContiguousLinesAsBroken,
                                 float gradientLineMinSegmentLength)
     {
-        return new DataSet(name, data, new Painter2D(ms, ls, as, treadContiguousLinesAsNot, gradientLineMinSegmentLength));
+        return new DataSet(name, data, new Painter2D(ms, ls, as, treatContiguousLinesAsBroken, gradientLineMinSegmentLength));
     }
 
 

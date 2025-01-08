@@ -5,6 +5,7 @@ import container.Notification;
 import container.PlotContainer;
 import dataset.painter.IDS;
 import dataset.painter.IPainter;
+import dataset.painter.style.ArrowStyles;
 import dataset.painter.style.LineStyle;
 import dataset.painter.style.MarkerStyle;
 import drmanager.DisplayRangesManager;
@@ -252,6 +253,16 @@ public abstract class AbstractDataSet implements IDataSet
     public LineStyle getLineStyle()
     {
         return _painter.getLineStyle();
+    }
+
+    /**
+     * Returns arrow styles.
+     * @return arrow styles
+     */
+    @Override
+    public ArrowStyles getArrowStyles()
+    {
+        return _painter.getArrowStyles();
     }
 
     /**

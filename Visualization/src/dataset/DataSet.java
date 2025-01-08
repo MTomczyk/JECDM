@@ -3,9 +3,6 @@ package dataset;
 import color.Color;
 import dataset.painter.IPainter;
 import dataset.painter.Painter2D;
-import dataset.painter.Painter3D;
-import dataset.painter.convergenceplot.ConvergencePlotPainter2D;
-import dataset.painter.parallelcoordinateplot.PCPPainter2D;
 import dataset.painter.style.LineStyle;
 import dataset.painter.style.MarkerStyle;
 
@@ -22,7 +19,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      * Parameterized constructor (for 2D plots; protected access: it is recommended that painter object creation is handled by
      * the static builders).
      * This constructor does not allow providing data to be depicted.
-     * Hence, it creates an ''empty' data set object that may be treated as a reference
+     * Hence, it creates an ''empty'' data set object that may be treated as a reference
      * for {@link updater.DataUpdater}.
      *
      * @param name data set name
@@ -37,7 +34,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      * Parameterized constructor (for 2D plots; protected access: it is recommended that painter object creation is handled by
      * the static builders).
      * This constructor does not allow providing data to be depicted.
-     * Hence, it creates an ''empty' data set object that may be treated as a reference
+     * Hence, it creates an ''empty'' data set object that may be treated as a reference
      * for {@link updater.DataUpdater}.
      *
      * @param name data set name
@@ -52,7 +49,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      * Parameterized constructor (for 2D plots; protected access: it is recommended that painter object creation is handled by
      * the static builders).
      * This constructor does not allow providing data to be depicted.
-     * Hence, it creates an ''empty' data set object that may be treated as a reference
+     * Hence, it creates an ''empty'' data set object that may be treated as a reference
      * for {@link updater.DataUpdater}.
      *
      * @param name data set name
@@ -275,10 +272,9 @@ public class DataSet extends AbstractDataSet implements IDataSet
         _painter.setName("Painter of (" + _name + ")");
     }
 
-    // ===================
     /**
-     * Builder for a data set that should be rendered using a 3D plot. This constructor does not allow providing data to
-     * be depicted. Hence, it creates an ''empty' data set object that may be treated as a reference for {@link updater.DataUpdater}.
+     * Builder for a data set that should be rendered using a 2D plot. This constructor does not allow providing data to
+     * be depicted. Hence, it creates an ''empty'' data set object that may be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name data set name
      * @param ms   marker style (either ms or ls can be null)
@@ -286,12 +282,12 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor2D(String name, MarkerStyle ms)
     {
-        return getFor2D(name, (double[][]) null, ms, null);
+        return DSFactory2D.getReferenceDS(name, ms);
     }
 
     /**
-     * Builder for a data set that should be rendered using a 3D plot. This constructor does not allow providing data to
-     * be depicted. Hence, it creates an ''empty' data set object that may be treated as a reference for {@link updater.DataUpdater}.
+     * Builder for a data set that should be rendered using a 2D plot. This constructor does not allow providing data to
+     * be depicted. Hence, it creates an ''empty'' data set object that may be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name data set name
      * @param ls   line style (either ms or ls can be null)
@@ -299,12 +295,12 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor2D(String name, LineStyle ls)
     {
-        return getFor2D(name, (double[][]) null, null, ls);
+        return DSFactory2D.getReferenceDS(name, ls);
     }
 
     /**
-     * Builder for a data set that should be rendered using a 3D plot. This constructor does not allow providing data to
-     * be depicted. Hence, it creates an ''empty' data set object that may be treated as a reference for {@link updater.DataUpdater}.
+     * Builder for a data set that should be rendered using a 2D plot. This constructor does not allow providing data to
+     * be depicted. Hence, it creates an ''empty'' data set object that may be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name data set name
      * @param ms   marker style (either ms or ls can be null)
@@ -313,95 +309,92 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor2D(String name, MarkerStyle ms, LineStyle ls)
     {
-        return getFor2D(name, (double[][]) null, ms, ls);
+        return DSFactory2D.getReferenceDS(name, ms, ls);
     }
 
     /**
-     * Builder for a data set that should be rendered using a 3D plot.
+     * Builder for a data set that should be rendered using a 2D plot.
      *
-     * @param name     data set name
-     * @param data     input data point
-     * @param ms       marker style (either ms or ls can be null)
+     * @param name data set name
+     * @param data input data point
+     * @param ms   marker style (either ms or ls can be null)
      * @return parameterized data set object
      */
     public static DataSet getFor2D(String name, double[][] data, MarkerStyle ms)
     {
-        return new DataSet(name, data, new Painter2D(ms, null));
+        return DSFactory2D.getDS(name, data, ms);
     }
 
     /**
-     * Builder for a data set that should be rendered using a 3D plot.
+     * Builder for a data set that should be rendered using a 2D plot.
      *
-     * @param name     data set name
-     * @param data     input data point
-     * @param ms       marker style (either ms or ls can be null)
+     * @param name data set name
+     * @param data input data point
+     * @param ms   marker style (either ms or ls can be null)
      * @return parameterized data set object
      */
     public static DataSet getFor2D(String name, LinkedList<double[][]> data, MarkerStyle ms)
     {
-        return new DataSet(name, data, new Painter2D(ms, null));
+        return DSFactory2D.getDS(name, data, ms);
     }
 
     /**
-     * Builder for a data set that should be rendered using a 3D plot.
+     * Builder for a data set that should be rendered using a 2D plot.
      *
-     * @param name     data set name
-     * @param data     input data point
-     * @param ls       line style (either ms or ls can be null)
+     * @param name data set name
+     * @param data input data point
+     * @param ls   line style (either ms or ls can be null)
      * @return parameterized data set object
      */
     public static DataSet getFor2D(String name, double[][] data, LineStyle ls)
     {
-        return new DataSet(name, data, new Painter2D(null, ls));
+        return DSFactory2D.getDS(name, data, ls);
     }
 
     /**
-     * Builder for a data set that should be rendered using a 3D plot.
+     * Builder for a data set that should be rendered using a 2D plot.
      *
-     * @param name     data set name
-     * @param data     input data point
-     * @param ls       line style (either ms or ls can be null)
+     * @param name data set name
+     * @param data input data point
+     * @param ls   line style (either ms or ls can be null)
      * @return parameterized data set object
      */
     public static DataSet getFor2D(String name, LinkedList<double[][]> data, LineStyle ls)
     {
-        return new DataSet(name, data, new Painter2D(null, ls));
+        return DSFactory2D.getDS(name, data, ls);
     }
 
     /**
-     * Builder for a data set that should be rendered using a 3D plot.
+     * Builder for a data set that should be rendered using a 2D plot.
      *
-     * @param name     data set name
-     * @param data     input data point
-     * @param ms       marker style (either ms or ls can be null)
-     * @param ls       line style (either ms or ls can be null)
+     * @param name data set name
+     * @param data input data point
+     * @param ms   marker style (either ms or ls can be null)
+     * @param ls   line style (either ms or ls can be null)
      * @return parameterized data set object
      */
     public static DataSet getFor2D(String name, double[][] data, MarkerStyle ms, LineStyle ls)
     {
-        return new DataSet(name, data, new Painter2D(ms, ls));
+        return DSFactory2D.getDS(name, data, ms, ls);
     }
 
     /**
-     * Builder for a data set that should be rendered using a 3D plot.
+     * Builder for a data set that should be rendered using a 2D plot.
      *
-     * @param name     data set name
-     * @param data     input data point
-     * @param ms       marker style (either ms or ls can be null)
-     * @param ls       line style (either ms or ls can be null)
+     * @param name data set name
+     * @param data input data point
+     * @param ms   marker style (either ms or ls can be null)
+     * @param ls   line style (either ms or ls can be null)
      * @return parameterized data set object
      */
     public static DataSet getFor2D(String name, LinkedList<double[][]> data, MarkerStyle ms, LineStyle ls)
     {
-        return new DataSet(name, data, new Painter2D(ms, ls));
+        return DSFactory2D.getDS(name, data, ms, ls);
     }
-
-
-
 
     /**
      * Builder for a data set that should be rendered using a 3D plot. This constructor does not allow providing data to
-     * be depicted. Hence, it creates an ''empty' data set object that may be treated as a reference for {@link updater.DataUpdater}.
+     * be depicted. Hence, it creates an ''empty'' data set object that may be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name data set name
      * @param ms   marker style (either ms or ls can be null)
@@ -409,12 +402,12 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, MarkerStyle ms)
     {
-        return getFor3D(name, (double[][]) null, ms, null, true);
+        return DSFactory3D.getReferenceDS(name, ms);
     }
 
     /**
      * Builder for a data set that should be rendered using a 3D plot. This constructor does not allow providing data to
-     * be depicted. Hence, it creates an ''empty' data set object that may be treated as a reference for {@link updater.DataUpdater}.
+     * be depicted. Hence, it creates an ''empty'' data set object that may be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name data set name
      * @param ls   line style (either ms or ls can be null)
@@ -422,12 +415,12 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, LineStyle ls)
     {
-        return getFor3D(name, (double[][]) null, null, ls, true);
+        return DSFactory3D.getReferenceDS(name, ls);
     }
 
     /**
      * Builder for a data set that should be rendered using a 3D plot. This constructor does not allow providing data to
-     * be depicted. Hence, it creates an ''empty' data set object that may be treated as a reference for {@link updater.DataUpdater}.
+     * be depicted. Hence, it creates an ''empty'' data set object that may be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name data set name
      * @param ms   marker style (either ms or ls can be null)
@@ -436,12 +429,12 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, MarkerStyle ms, LineStyle ls)
     {
-        return getFor3D(name, (double[][]) null, ms, ls, true);
+        return DSFactory3D.getReferenceDS(name, ms, ls);
     }
 
     /**
      * Builder for a data set that should be rendered using a 3D plot. This constructor does not allow providing data to
-     * be depicted. Hence, it creates an ''empty' data set object that may be treated as a reference for {@link updater.DataUpdater}.
+     * be depicted. Hence, it creates an ''empty'' data set object that may be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name     data set name
      * @param ms       marker style (either ms or ls can be null)
@@ -450,12 +443,12 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, MarkerStyle ms, boolean useAlpha)
     {
-        return getFor3D(name, (double[][]) null, ms, null, useAlpha);
+        return DSFactory3D.getReferenceDS(name, ms, useAlpha);
     }
 
     /**
      * Builder for a data set that should be rendered using a 3D plot. This constructor does not allow providing data to
-     * be depicted. Hence, it creates an ''empty' data set object that may be treated as a reference for {@link updater.DataUpdater}.
+     * be depicted. Hence, it creates an ''empty'' data set object that may be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name     data set name
      * @param ls       line style (either ms or ls can be null)
@@ -464,12 +457,12 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, LineStyle ls, boolean useAlpha)
     {
-        return getFor3D(name, (double[][]) null, null, ls, useAlpha);
+        return DSFactory3D.getReferenceDS(name, ls, useAlpha);
     }
 
     /**
      * Builder for a data set that should be rendered using a 3D plot. This constructor does not allow providing data to
-     * be depicted. Hence, it creates an ''empty' data set object that may be treated as a reference for {@link updater.DataUpdater}.
+     * be depicted. Hence, it creates an ''empty'' data set object that may be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name     data set name
      * @param ms       marker style (either ms or ls can be null)
@@ -479,7 +472,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, MarkerStyle ms, LineStyle ls, boolean useAlpha)
     {
-        return getFor3D(name, (double[][]) null, ms, ls, useAlpha);
+        return DSFactory3D.getReferenceDS(name, ms, ls, useAlpha);
     }
 
     /**
@@ -493,7 +486,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, double[][] data, MarkerStyle ms, LineStyle ls)
     {
-        return getFor3D(name, data, ms, ls, false);
+        return DSFactory3D.getDS(name, data, ms, ls);
     }
 
     /**
@@ -507,7 +500,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, LinkedList<double[][]> data, MarkerStyle ms, LineStyle ls)
     {
-        return getFor3D(name, data, ms, ls, false);
+        return DSFactory3D.getDS(name, data, ms, ls);
     }
 
     /**
@@ -520,7 +513,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, double[][] data, MarkerStyle ms)
     {
-        return getFor3D(name, data, ms, null, false);
+        return DSFactory3D.getDS(name, data, ms);
     }
 
     /**
@@ -533,7 +526,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, LinkedList<double[][]> data, MarkerStyle ms)
     {
-        return getFor3D(name, data, ms, null, false);
+        return DSFactory3D.getDS(name, data, ms);
     }
 
     /**
@@ -546,7 +539,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, double[][] data, LineStyle ls)
     {
-        return getFor3D(name, data, null, ls, false);
+        return DSFactory3D.getDS(name, data, ls);
     }
 
     /**
@@ -559,7 +552,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, LinkedList<double[][]> data, LineStyle ls)
     {
-        return getFor3D(name, data, null, ls, false);
+        return DSFactory3D.getDS(name, data, ls);
     }
 
 
@@ -574,7 +567,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, double[][] data, MarkerStyle ms, boolean useAlpha)
     {
-        return new DataSet(name, data, new Painter3D(ms, null, useAlpha));
+        return DSFactory3D.getDS(name, data, ms, useAlpha);
     }
 
     /**
@@ -588,7 +581,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, LinkedList<double[][]> data, MarkerStyle ms, boolean useAlpha)
     {
-        return new DataSet(name, data, new Painter3D(ms, null, useAlpha));
+        return DSFactory3D.getDS(name, data, ms, useAlpha);
     }
 
     /**
@@ -602,7 +595,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, double[][] data, LineStyle ls, boolean useAlpha)
     {
-        return new DataSet(name, data, new Painter3D(null, ls, useAlpha));
+        return DSFactory3D.getDS(name, data, ls, useAlpha);
     }
 
     /**
@@ -616,7 +609,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, LinkedList<double[][]> data, LineStyle ls, boolean useAlpha)
     {
-        return new DataSet(name, data, new Painter3D(null, ls, useAlpha));
+        return DSFactory3D.getDS(name, data, ls, useAlpha);
     }
 
     /**
@@ -631,7 +624,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, double[][] data, MarkerStyle ms, LineStyle ls, boolean useAlpha)
     {
-        return new DataSet(name, data, new Painter3D(ms, ls, useAlpha));
+        return DSFactory3D.getDS(name, data, ms, ls, useAlpha);
     }
 
     /**
@@ -646,14 +639,14 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getFor3D(String name, LinkedList<double[][]> data, MarkerStyle ms, LineStyle ls, boolean useAlpha)
     {
-        return new DataSet(name, data, new Painter3D(ms, ls, useAlpha));
+        return DSFactory3D.getDS(name, data, ms, ls, useAlpha);
     }
 
     /**
      * Builder for a data set that should be represented as a convergence plot.
      * It is assumed that input data points are two or four-element tuples: [x-coordinate, y-coordinate] or
      * [x-coordinate, y-coordinate, y + deviation; y - deviation]. The deviation can represent, e.g., some error. This
-     * constructor does not allow providing data to be depicted. Hence, it creates an ''empty' data set object that may
+     * constructor does not allow providing data to be depicted. Hence, it creates an ''empty'' data set object that may
      * be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name          data set name
@@ -664,14 +657,14 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getForConvergencePlot2D(String name, MarkerStyle ms, LineStyle ls, Color envelopeColor)
     {
-        return new DataSet(name, (double[][]) null, new ConvergencePlotPainter2D(ms, ls, envelopeColor));
+        return DSFactory2D.getReferenceDSForConvergencePlot(name, ms, ls, envelopeColor);
     }
 
     /**
      * Builder for a data set that should be represented as a convergence plot.
      * It is assumed that input data points are two or four-element tuples: [x-coordinate, y-coordinate] or [x-coordinate,
      * y-coordinate, y + deviation; y - deviation]. The deviation can represent, e.g., some error. This constructor does
-     * not allow providing data to be depicted. Hence, it creates an ''empty' data set object that may be treated as a
+     * not allow providing data to be depicted. Hence, it creates an ''empty'' data set object that may be treated as a
      * reference for {@link updater.DataUpdater}.
      *
      * @param name          data set name
@@ -681,30 +674,30 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getForConvergencePlot2D(String name, MarkerStyle ms, Color envelopeColor)
     {
-        return new DataSet(name, (double[][]) null, new ConvergencePlotPainter2D(ms, null, envelopeColor));
+        return DSFactory2D.getReferenceDSForConvergencePlot(name, ms, envelopeColor);
     }
 
     /**
      * Builder for a data set that should be represented as a convergence plot (no envelope used).
      * It is assumed that input data points are two or four-element tuples: [x-coordinate, y-coordinate] or
      * [x-coordinate, y-coordinate, y + deviation; y - deviation]. The deviation can represent, e.g., some error. This
-     * constructor does not allow providing data to be depicted. Hence, it creates an ''empty' data set object that may
+     * constructor does not allow providing data to be depicted. Hence, it creates an ''empty'' data set object that may
      * be treated as a reference for {@link updater.DataUpdater}.
      *
-     * @param name          data set name
-     * @param ls            line style (either ms or ls can be null)
+     * @param name data set name
+     * @param ls   line style (either ms or ls can be null)
      * @return parameterized data set object
      */
     public static DataSet getForConvergencePlot2D(String name, LineStyle ls)
     {
-        return new DataSet(name, (double[][]) null, new ConvergencePlotPainter2D(null, ls, null));
+        return DSFactory2D.getReferenceDSForConvergencePlot(name, ls);
     }
 
     /**
      * Builder for a data set that should be represented as a convergence plot.
      * It is assumed that input data points are two or four-element tuples: [x-coordinate, y-coordinate] or
      * [x-coordinate, y-coordinate, y + deviation; y - deviation]. The deviation can represent, e.g., some error. This
-     * constructor does not allow providing data to be depicted. Hence, it creates an ''empty' data set object that may
+     * constructor does not allow providing data to be depicted. Hence, it creates an ''empty'' data set object that may
      * be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name          data set name
@@ -714,7 +707,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getForConvergencePlot2D(String name, LineStyle ls, Color envelopeColor)
     {
-        return new DataSet(name, (double[][]) null, new ConvergencePlotPainter2D(null, ls, envelopeColor));
+        return DSFactory2D.getReferenceDSForConvergencePlot(name, ls, envelopeColor);
     }
 
     /**
@@ -732,7 +725,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getForConvergencePlot2D(String name, double[][] data, LineStyle ls, Color envelopeColor)
     {
-        return new DataSet(name, data, new ConvergencePlotPainter2D(null, ls, envelopeColor));
+        return DSFactory2D.getDSForConvergencePlot(name, data, ls, envelopeColor);
     }
 
     /**
@@ -750,7 +743,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getForConvergencePlot2D(String name, double[][] data, MarkerStyle ms, Color envelopeColor)
     {
-        return new DataSet(name, data, new ConvergencePlotPainter2D(ms, null, envelopeColor));
+        return DSFactory2D.getDSForConvergencePlot(name, data, ms, envelopeColor);
     }
 
     /**
@@ -769,7 +762,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getForConvergencePlot2D(String name, double[][] data, MarkerStyle ms, LineStyle ls, Color envelopeColor)
     {
-        return new DataSet(name, data, new ConvergencePlotPainter2D(ms, ls, envelopeColor));
+        return DSFactory2D.getDSForConvergencePlot(name, data, ms, ls, envelopeColor);
     }
 
     /**
@@ -787,7 +780,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getForConvergencePlot2D(String name, LinkedList<double[][]> data, MarkerStyle ms, Color envelopeColor)
     {
-       return getForConvergencePlot2D(name, data, ms, null, envelopeColor);
+        return DSFactory2D.getDSForConvergencePlot(name, data, ms, envelopeColor);
     }
 
     /**
@@ -805,7 +798,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getForConvergencePlot2D(String name, LinkedList<double[][]> data, LineStyle ls, Color envelopeColor)
     {
-        return getForConvergencePlot2D(name, data, null, ls, envelopeColor);
+        return DSFactory2D.getDSForConvergencePlot(name, data, ls, envelopeColor);
     }
 
 
@@ -825,9 +818,8 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     public static DataSet getForConvergencePlot2D(String name, LinkedList<double[][]> data, MarkerStyle ms, LineStyle ls, Color envelopeColor)
     {
-        return new DataSet(name, data, new ConvergencePlotPainter2D(ms, ls, envelopeColor));
+        return DSFactory2D.getDSForConvergencePlot(name, data, ms, ls, envelopeColor);
     }
-
 
     /**
      * Builder for a data set that should be represented as a parallel coordinate plot.
@@ -835,18 +827,18 @@ public class DataSet extends AbstractDataSet implements IDataSet
      * considered. Exception: the PCP allows using custom display ranges, but they must be positioned explicitly between
      * the first M display ranges associated with the parallel coordinate lines and the last display range that is
      * reserved for the X-axis. Consequently, the M-element tuple can be extended by additional (custom) elements.
-     * This constructor does not allow providing data to be depicted. Hence, it creates an ''empty' data set
+     * This constructor does not allow providing data to be depicted. Hence, it creates an ''empty'' data set
      * object that may be treated as a reference for {@link updater.DataUpdater}.
      *
-     * @param name data set name
+     * @param name       data set name
      * @param dimensions the number of dimensions (parallel y-axes)
-     * @param ms   marker style (either ms or ls can be null)
-     * @param ls   line style (either ms or ls can be null)
+     * @param ms         marker style (either ms or ls can be null)
+     * @param ls         line style (either ms or ls can be null)
      * @return parameterized data set object
      */
     public static DataSet getForParallelCoordinatePlot2D(String name, int dimensions, MarkerStyle ms, LineStyle ls)
     {
-        return new DataSet(name, (double[][]) null, new PCPPainter2D(ms, ls, dimensions));
+        return DSFactory2D.getReferenceDSForParallelCoordinatePlot(name, dimensions, ms, ls);
     }
 
     /**
@@ -855,17 +847,17 @@ public class DataSet extends AbstractDataSet implements IDataSet
      * considered. Exception: the PCP allows using custom display ranges, but they must be positioned explicitly between
      * the first M display ranges associated with the parallel coordinate lines and the last display range that is
      * reserved for the X-axis. Consequently, the M-element tuple can be extended by additional (custom) elements. This
-     * constructor does not allow providing data to be depicted. Hence, it creates an ''empty' data set
+     * constructor does not allow providing data to be depicted. Hence, it creates an ''empty'' data set
      * object that may be treated as a reference for {@link updater.DataUpdater}.
      *
-     * @param name data set name
+     * @param name       data set name
      * @param dimensions the number of dimensions (parallel y-axes)
-     * @param ms   marker style (either ms or ls can be null)
+     * @param ms         marker style (either ms or ls can be null)
      * @return parameterized data set object
      */
     public static DataSet getForParallelCoordinatePlot2D(String name, int dimensions, MarkerStyle ms)
     {
-        return new DataSet(name, (double[][]) null, new PCPPainter2D(ms, null, dimensions));
+        return DSFactory2D.getReferenceDSForParallelCoordinatePlot(name, dimensions, ms);
     }
 
     /**
@@ -874,17 +866,17 @@ public class DataSet extends AbstractDataSet implements IDataSet
      * considered. Exception: the PCP allows using custom display ranges, but they must be positioned explicitly between
      * the first M display ranges associated with the parallel coordinate lines and the last display range that is
      * reserved for the X-axis. Consequently, the M-element tuple can be extended by additional (custom) elements.This
-     * constructor does not allow providing data to be depicted. Hence, it creates an ''empty' data set
+     * constructor does not allow providing data to be depicted. Hence, it creates an ''empty'' data set
      * object that may be treated as a reference for {@link updater.DataUpdater}.
      *
-     * @param name data set name
+     * @param name       data set name
      * @param dimensions the number of dimensions (parallel y-axes)
-     * @param ls   line style (either ms or ls can be null)
+     * @param ls         line style (either ms or ls can be null)
      * @return parameterized data set object
      */
     public static DataSet getForParallelCoordinatePlot2D(String name, int dimensions, LineStyle ls)
     {
-        return new DataSet(name, (double[][]) null, new PCPPainter2D(null, ls, dimensions));
+        return DSFactory2D.getReferenceDSForParallelCoordinatePlot(name, dimensions, ls);
     }
 
     /**
@@ -894,16 +886,16 @@ public class DataSet extends AbstractDataSet implements IDataSet
      * the first M display ranges associated with the parallel coordinate lines and the last display range that is
      * reserved for the X-axis. Consequently, the M-element tuple can be extended by additional (custom) elements.
      *
-     * @param name data set name
+     * @param name       data set name
      * @param dimensions the number of dimensions (parallel y-axes)
-     * @param data input data point
-     * @param ms   marker style (either ms or ls can be null)
-     * @param ls   line style (either ms or ls can be null)
+     * @param data       input data point
+     * @param ms         marker style (either ms or ls can be null)
+     * @param ls         line style (either ms or ls can be null)
      * @return parameterized data set object
      */
     public static DataSet getForParallelCoordinatePlot2D(String name, int dimensions, double[][] data, MarkerStyle ms, LineStyle ls)
     {
-        return new DataSet(name, data, new PCPPainter2D(ms, ls, dimensions));
+        return DSFactory2D.getDSForParallelCoordinatePlot(name, dimensions, data, ms, ls);
     }
 
     /**
@@ -913,16 +905,16 @@ public class DataSet extends AbstractDataSet implements IDataSet
      * the first M display ranges associated with the parallel coordinate lines and the last display range that is
      * reserved for the X-axis. Consequently, the M-element tuple can be extended by additional (custom) elements.
      *
-     * @param name data set name
+     * @param name       data set name
      * @param dimensions the number of dimensions (parallel y-axes)
-     * @param data input data point
-     * @param ms   marker style (either ms or ls can be null)
-     * @param ls   line style (either ms or ls can be null)
+     * @param data       input data point
+     * @param ms         marker style (either ms or ls can be null)
+     * @param ls         line style (either ms or ls can be null)
      * @return parameterized data set object
      */
     public static DataSet getForParallelCoordinatePlot2D(String name, int dimensions, LinkedList<double[][]> data, MarkerStyle ms, LineStyle ls)
     {
-        return new DataSet(name, data, new PCPPainter2D(ms, ls, dimensions));
+        return DSFactory2D.getDSForParallelCoordinatePlot(name, dimensions, data, ms, ls);
     }
 
 }

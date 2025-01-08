@@ -15,7 +15,7 @@ public class Point
      * @param v        vertex array to be filled
      * @param ii       index array to be filled (integers) (either ii or is must be null)
      * @param is       index array to be filled (shorts) (either ii or is must be null)
-     * @param c        color array to be filled (can be null -> not filled; only when the used color is not a gradient)
+     * @param c        color array to be filled (can be null: not filled; only when the used color is not a gradient)
      * @param useAlpha true, the fourth channel is used
      * @param P        projection data
      */

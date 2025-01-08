@@ -6,6 +6,9 @@ import container.Notification;
 import container.PlotContainer;
 import dataset.Data;
 import dataset.IDataSet;
+import dataset.painter.arrowsutils.IArrowProjectionDataConstructor;
+import dataset.painter.style.ArrowStyle;
+import dataset.painter.style.ArrowStyles;
 import dataset.painter.style.LineStyle;
 import dataset.painter.style.MarkerStyle;
 import drmanager.DisplayRangesManager;
@@ -68,6 +71,18 @@ public abstract class AbstractPainter implements IPainter
     protected LineStyle _ls;
 
     /**
+     * Arrow styles (beginning and ending) used when illustrating arrows.
+     */
+    protected ArrowStyles _as;
+
+    /**
+     * If true, the default interpretation of raw data is changed. Instead of treating each double [][] data segment
+     * as one contiguous line (when using a line style), the data is considered to be a series of independent lines whose
+     * coordinates occupy each subsequent pair of double [] vectors in the data segment.
+     */
+    protected final boolean _treadContiguousLinesAsNot;
+
+    /**
      * Determines the minimal segment line used when constructing gradient line (discretization level, the lower the value,
      * the greater the discretization but also computational resources used). The interpretation is implementation-dependent.
      * Default: percent value of an average screen dimension (in pixels).
@@ -86,6 +101,15 @@ public abstract class AbstractPainter implements IPainter
      */
     protected MovingAverageLong[] _IDSRecalculationTimes;
 
+    /**
+     * Auxiliary object support creating internal data for line beginnings.
+     */
+    protected IArrowProjectionDataConstructor _bAPDC = null;
+
+    /**
+     * Auxiliary object support creating internal data for line endings.
+     */
+    protected IArrowProjectionDataConstructor _eAPDC = null;
 
     /**
      * Parameterized constructor.
@@ -95,11 +119,50 @@ public abstract class AbstractPainter implements IPainter
      */
     protected AbstractPainter(MarkerStyle ms, LineStyle ls)
     {
+        this(ms, ls, null, false, 0.005f);
+    }
+
+
+    /**
+     * Parameterized constructor.
+     *
+     * @param ms                           marker style
+     * @param ls                           line style
+     * @param as                           arrow styles (beginning and ending)
+     * @param treadContiguousLinesAsNot    if true, the default interpretation of raw data is changed. Instead of treating
+     *                                     each double [][] data segment as one contiguous line (when using a line style),
+     *                                     the data is considered to be a series of independent lines whose coordinates
+     *                                     occupy each subsequent pair of double [] vectors in the data segment
+     * @param gradientLineMinSegmentLength Determines the minimal segment line used when constructing gradient line
+     *                                     (discretization level, the lower the value, the greater the discretization
+     *                                     but also computational resources used); the interpretation is
+     *                                     implementation-dependent; default: percent value of an average screen
+     *                                     dimension (in pixels)
+     */
+    protected AbstractPainter(MarkerStyle ms,
+                              LineStyle ls,
+                              ArrowStyles as,
+                              boolean treadContiguousLinesAsNot,
+                              float gradientLineMinSegmentLength)
+    {
         _ms = ms;
         _ls = ls;
-        _gradientLineMinSegmentLength = 0.005f;
+        _as = as;
+        _treadContiguousLinesAsNot = treadContiguousLinesAsNot;
+        _gradientLineMinSegmentLength = gradientLineMinSegmentLength;
+        instantiateAuxiliaryObjects();
         instantiateTimeStatistics();
         instantiateProjections();
+        instantiateAuxiliaryProjections();
+    }
+
+    /**
+     * Instantiates auxiliary objects
+     */
+    protected void instantiateAuxiliaryObjects()
+    {
+        if ((_as != null) && (_as.isBeginningDrawable())) _bAPDC = getArrowDataConstructor(_as._bas);
+        if ((_as != null) && (_as.isEndingDrawable())) _eAPDC = getArrowDataConstructor(_as._eas);
     }
 
     /**
@@ -118,6 +181,15 @@ public abstract class AbstractPainter implements IPainter
     protected void instantiateProjections()
     {
         _IDS = new IDS();
+    }
+
+    /**
+     * Instantiates auxiliary projections
+     */
+    protected void instantiateAuxiliaryProjections()
+    {
+        if (_bAPDC != null) _IDS._baIDS = new IDSArrows();
+        if (_eAPDC != null) _IDS._eaIDS = new IDSArrows();
     }
 
     /**
@@ -168,7 +240,6 @@ public abstract class AbstractPainter implements IPainter
         _PC = PC;
     }
 
-
     /**
      * Method called to indicate that the data processing began.
      *
@@ -216,8 +287,9 @@ public abstract class AbstractPainter implements IPainter
         calculateBasicStatistics(DRM);
         initNormalizedDataStructures();
         fillNormalizedData(DRM);
-        fillMarkerGradientColors();
-        fillLineGradientColors();
+        AbstractPainterUtils.fillMarkerGradientColors(_IDS, _ms);
+        AbstractPainterUtils.fillLineGradientColors(_IDS, _ls);
+        AbstractPainterUtils.fillArrowGradientColors(_IDS, _bAPDC, _eAPDC, _as, _treadContiguousLinesAsNot);
         if (_measureRecalculateIDSTimes[0]) _IDSRecalculationTimes[0].addData(System.nanoTime() - startTime);
     }
 
@@ -234,14 +306,15 @@ public abstract class AbstractPainter implements IPainter
         _IDS._drIdx_to_flatAttIdx = DRM.get_drIdx_to_flatAttIdx().clone();
         _IDS._noMarkerPoints = 0;
         _IDS._noLinePoints = 0;
+        _IDS._noLinesWithArrows = 0;
         _IDS._noLinePointsInContiguousLines = new LinkedList<>();
 
         boolean drawLines = ((_ls != null) && (_ls.isDrawable()));
         boolean drawMarkers = ((_ms != null) && (_ms.isDrawable()));
-
+        boolean drawArrows = ((_bAPDC != null) || (_eAPDC != null));
+        boolean arrowCount = false;
         int markerNo = 0;
         int pointNo = 0;
-
         int linePoints = 0;
 
         for (double[][] arr : _data.getData())
@@ -252,9 +325,13 @@ public abstract class AbstractPainter implements IPainter
                 {
                     if (linePoints > 1) // only valid sizes are passed
                     {
+                        // If the interpretation is changed: the number of line points must be even.
+                        if ((_treadContiguousLinesAsNot) && (linePoints % 2 == 1)) linePoints--;
                         _IDS._noLinePointsInContiguousLines.add(linePoints);
                         _IDS._noLinePoints += linePoints;
+                        if ((drawArrows) && (!_treadContiguousLinesAsNot)) _IDS._noLinesWithArrows++;
                     }
+                    if (drawArrows) arrowCount = false;
                     linePoints = 0;
                 }
                 continue;
@@ -279,18 +356,30 @@ public abstract class AbstractPainter implements IPainter
 
                 // line processing
                 if (drawLines)
+                {
                     linePoints++;
-
+                    if ((drawArrows) && (_treadContiguousLinesAsNot))
+                    {
+                        if (arrowCount)
+                        {
+                            _IDS._noLinesWithArrows++;
+                            arrowCount = false;
+                        }
+                        else arrowCount = true;
+                    }
+                }
                 pointNo++;
             }
         }
 
-
         // another break point for the line (triggered at the end if the last segment is valid).
         if ((drawLines) && (linePoints > 1))
         {
+            // If the interpretation is changed: the number of line points must be even.
+            if ((_treadContiguousLinesAsNot) && (linePoints % 2 == 1)) linePoints--;
             _IDS._noLinePointsInContiguousLines.add(linePoints);
             _IDS._noLinePoints += linePoints;
+            if ((drawArrows) && (!_treadContiguousLinesAsNot)) _IDS._noLinesWithArrows++;
         }
 
         Notification.printNotification(_GC, _PC, _name + ": report on basic statistics");
@@ -313,7 +402,6 @@ public abstract class AbstractPainter implements IPainter
     {
         return dimensions.length;
     }
-
 
     /**
      * Called to init projection data structures (allocate the memory).
@@ -345,6 +433,7 @@ public abstract class AbstractPainter implements IPainter
         boolean fillFromMarker;
 
         ListIterator<float[]> lineIterator = _IDS._normalizedContiguousLines.listIterator();
+
         float[] normalizedLine = null;
         // has to be satisfied and should contain only valid entries (len > 1 and their sum should equal total no. line points).
         if (_IDS._noLinePoints > 1) normalizedLine = lineIterator.next();
@@ -376,10 +465,9 @@ public abstract class AbstractPainter implements IPainter
 
                 if ((drawMarkers) && (pointNo >= _ms._startPaintingFrom))
                 {
-                    if ((_ms._paintEvery == 1) ||
-                            ((_ms._paintEvery > 1) && ((markerNo == 0) || (markerNo == _ms._paintEvery))))
+                    if ((_ms._paintEvery == 1) || ((_ms._paintEvery > 1) && ((markerNo == 0) || (markerNo == _ms._paintEvery))))
                     {
-                        fillNormalizedPoint(_IDS._normalizedMarkers, markerIndex, p, DRM);
+                        AbstractPainterUtils.fillNormalizedPoint(_IDS._normalizedMarkers, markerIndex, p, DRM);
                         fillFromMarker = true;
                         markerIndex += _IDS._noAttributes;
                         markerNo = 0;
@@ -394,23 +482,32 @@ public abstract class AbstractPainter implements IPainter
                     {
                         if (pPoint == null) // data is filled for the first time (store nPoint)
                         {
-                            fillNormalizedPoint(normalizedLine, lineIndex, nPoint, DRM);
-                            lineIndex += _IDS._noAttributes;
+                            // condition matters only when the interpretation of contiguous lines is changed,
+                            // (because the array length is truncated to an even number).
+                            //noinspection DataFlowIssue
+                            if (lineIndex + _IDS._noAttributes <= normalizedLine.length)
+                            {
+                                AbstractPainterUtils.fillNormalizedPoint(normalizedLine, lineIndex, nPoint, DRM);
+                                lineIndex += _IDS._noAttributes;
+                            }
                         }
 
                         // swap
                         pPoint = nPoint;
                         nPoint = p;
 
-                        // store nPoint
-                        if (fillFromMarker)
+                        // condition matters only when the interpretation of contiguous lines is changed,
+                        // (because the array length is truncated to an even number).
+                        if (lineIndex + _IDS._noAttributes <= normalizedLine.length)
                         {
-                            //noinspection DataFlowIssue
-                            System.arraycopy(_IDS._normalizedMarkers, markerIndex - _IDS._noAttributes, // 2* (two elements back)
-                                    normalizedLine, lineIndex, _IDS._noAttributes);
+                            // store nPoint
+                            if (fillFromMarker)
+                            {
+                                System.arraycopy(_IDS._normalizedMarkers, markerIndex - _IDS._noAttributes, // 2* (two elements back)
+                                        normalizedLine, lineIndex, _IDS._noAttributes);
+                            }
+                            else AbstractPainterUtils.fillNormalizedPoint(normalizedLine, lineIndex, nPoint, DRM);
                         }
-                        else fillNormalizedPoint(normalizedLine, lineIndex, nPoint, DRM);
-
                         lineIndex += _IDS._noAttributes;
                     }
                 }
@@ -418,89 +515,6 @@ public abstract class AbstractPainter implements IPainter
             }
         }
     }
-
-    /**
-     * Calculates the normalized point (in the display space) and accordingly fills the normalized data array.
-     *
-     * @param array      array to be filled
-     * @param offset     offset index for the normalized point.
-     * @param inputPoint raw, original input point
-     * @param DRM        display ranges manager for handling data on display ranges
-     */
-    protected void fillNormalizedPoint(float[] array, int offset, double[] inputPoint, DisplayRangesManager DRM)
-    {
-        int idx = 0;
-        for (int i = 0; i < inputPoint.length; i++)
-        {
-            DisplayRangesManager.DisplayRange DR = DRM.getDisplayRangeForAttribute(i);
-            if (DR == null) continue;
-            if (DR.getR() == null) array[offset + idx] = (float) inputPoint[i];
-            else if (Double.compare(DR.getR().getInterval(), 0) == 0) array[offset + idx] = (float) inputPoint[i];
-            else array[offset + idx] = (float) DR.getNormalizer().getNormalized(inputPoint[i]);
-            idx++;
-        }
-    }
-
-    /**
-     * Auxiliary method for pre-determining and storing marker gradient colors.
-     */
-    protected void fillMarkerGradientColors()
-    {
-        boolean fill = ((_ms != null) && (_ms.isToBeFilled()) && (!_ms._color.isMonoColor()));
-        boolean edge = ((_ms != null) && (_ms._edge != null) && (_ms._edge.isDrawable()) && (!_ms._edge._color.isMonoColor()));
-
-        if ((!fill) && (!edge)) return;
-
-        if (fill) _IDS._markerFillGradientColors = new Color[_IDS._noMarkerPoints];
-        if (edge) _IDS._markerEdgeGradientColors = new Color[_IDS._noMarkerPoints];
-
-        int offset = 0;
-        for (int i = 0; i < _IDS._noMarkerPoints; i++)
-        {
-            if (fill)
-            {
-                @SuppressWarnings("DataFlowIssue")
-                float val = getGradientNormalizationValue(_IDS._normalizedMarkers, offset, _IDS._drIdx_to_flatAttIdx[_ms._drID]);
-                _IDS._markerFillGradientColors[i] = _ms._color.getColor(val);
-            }
-            if (edge)
-            {
-                float val = getGradientNormalizationValue(_IDS._normalizedMarkers, offset, _IDS._drIdx_to_flatAttIdx[_ms._edge._drID]);
-                _IDS._markerEdgeGradientColors[i] = _ms._edge._color.getColor(val);
-            }
-            offset += _IDS._noAttributes;
-        }
-    }
-
-    /**
-     * Auxiliary method for pre-determining and storing marker gradient colors.
-     */
-    protected void fillLineGradientColors()
-    {
-        boolean fill = ((_ls != null) && (_ls.isDrawable()) && (!_ls._color.isMonoColor()));
-        if (!fill) return;
-
-        _IDS._lineGradientColors = new LinkedList<>();
-
-        int noPoints = 0;
-        ListIterator<Integer> noPointsIt = _IDS._noLinePointsInContiguousLines.listIterator();
-
-        for (float[] line : _IDS._normalizedContiguousLines)
-        {
-            if (noPointsIt.hasNext()) noPoints = noPointsIt.next();
-            Color[] colors = new Color[noPoints];
-
-            int offset = 0;
-            for (int i = 0; i < noPoints; i++)
-            {
-                float val = getGradientNormalizationValue(line, offset, _IDS._drIdx_to_flatAttIdx[_ls._drID]);
-                colors[i] = _ls._color.getColor(val);
-                offset += _IDS._noAttributes;
-            }
-            _IDS._lineGradientColors.add(colors);
-        }
-    }
-
 
     /**
      * IDS = Internal Data Set Structures = data structures optimized for rendering.
@@ -519,37 +533,19 @@ public abstract class AbstractPainter implements IPainter
         long startTime = 0;
         if (_measureRecalculateIDSTimes[1]) startTime = System.nanoTime();
 
-        if (areDimensionsNonZero(dimensions))
+        if (AbstractPainterUtils.areDimensionsNonZero(dimensions))
         {
             _IDS._pSize = getSizeOfAProjectedEntry(dimensions);
 
             fillProjectedMarkers(dimensions);
             fillProjectedLines(dimensions);
+            if ((_as != null) && (_as.isDrawable()) && (_PC != null))
+                fillProjectedArrows(); // important: arrows must be before gradient lines as it modifies the lines data
             if ((_ls != null) && (_ls.isDrawable() && (!_ls._color.isMonoColor())))
                 fillGradientLinesAuxData(dimensions);
         }
-
         if (_measureRecalculateIDSTimes[1]) _IDSRecalculationTimes[1].addData(System.nanoTime() - startTime);
     }
-
-    /**
-     * Checks if all dimensions of the drawing area are not null and not zero.
-     *
-     * @param dimensions dimensions of the drawing area
-     * @return true if all conditions are passed; false otherwise
-     */
-    protected boolean areDimensionsNonZero(Dimension[] dimensions)
-    {
-        if (dimensions == null) return false;
-
-        for (Dimension d : dimensions)
-        {
-            if (d == null) return false;
-            if (Double.compare(d._size, 0.0d) <= 0) return false;
-        }
-        return true;
-    }
-
 
     /**
      * Fill data on projected markers.
@@ -590,7 +586,6 @@ public abstract class AbstractPainter implements IPainter
                             _IDS._drIdx_to_flatAttIdx[i]] * (dimensions[i]._size));
         }
     }
-
 
     /**
      * Fills data on projected lines.
@@ -634,21 +629,6 @@ public abstract class AbstractPainter implements IPainter
         }
     }
 
-
-    /**
-     * Returns the minimal line segment length used when constructing gradient lines.
-     *
-     * @param dimensions drawing area dimensions (coordinates + sizes)
-     * @return minimal line segment length
-     */
-    protected float getMinLineSegmentLength(Dimension[] dimensions)
-    {
-        float sum = 0.0f;
-        for (Dimension d : dimensions) sum += (float) d._size;
-        sum /= dimensions.length;
-        return sum * _gradientLineMinSegmentLength;
-    }
-
     /**
      * Auxiliary method for generating data supporting rendering gradient lines.
      * It consists of additional projected data points and color that are between the original ones (increasing the discretization level).
@@ -667,24 +647,35 @@ public abstract class AbstractPainter implements IPainter
         ListIterator<Integer> noLinePointsIt = _IDS._noLinePointsInContiguousLines.listIterator();
         int noLinePoints = 0;
 
-        float sl = getMinLineSegmentLength(dimensions);
+        float sl = AbstractPainterUtils.getMinLineSegmentLength(_gradientLineMinSegmentLength, dimensions);
 
         // first : determine the number of aux line points per line segment
         for (float[] projectedArray : _IDS._projectedContiguousLines)
         {
             if (noLinePointsIt.hasNext()) noLinePoints = noLinePointsIt.next();
-            int[] auxPoints = new int[noLinePoints - 1];
+            int[] auxPoints;
+            if (_treadContiguousLinesAsNot)
+            {
+                // If the interpretation is changed: the no. points is even, and the no. aux should be twice smaller
+                auxPoints = new int[noLinePoints / 2];
+            }
+            else auxPoints = new int[noLinePoints - 1];
+
             _IDS._auxProjectedLinesNoPoints.add(auxPoints);
 
             int pOffset = 0;
             int auxIdx = 0;
-            for (int offset = _IDS._pSize; offset < projectedArray.length; offset += _IDS._pSize)
+            int move = _IDS._pSize;
+            // If the interpretation is changed, make twice bigger jumps
+            if (_treadContiguousLinesAsNot) move *= 2;
+
+            for (int offset = _IDS._pSize; offset < projectedArray.length; offset += move)
             {
                 int c = 1;
                 if (Double.compare(sl, 0.0d) != 0)
                     c = Vector.getLineSegmentDivisions(projectedArray, pOffset, offset, _IDS._pSize, sl);
                 auxPoints[auxIdx++] = c;
-                pOffset += _IDS._pSize;
+                pOffset += move;
             }
         }
 
@@ -720,7 +711,17 @@ public abstract class AbstractPainter implements IPainter
             int auxOffset = 0;
             int auxColorIdx = 0;
 
-            for (int nOffset = _IDS._pSize; nOffset < projectedArray.length; nOffset += _IDS._pSize)
+            int move = _IDS._pSize;
+            int moveNormalized = _IDS._noAttributes;
+
+            // If the interpretation is changed, make twice bigger jumps
+            if (_treadContiguousLinesAsNot)
+            {
+                move *= 2;
+                moveNormalized *= 2;
+            }
+
+            for (int nOffset = _IDS._pSize; nOffset < projectedArray.length; nOffset += move)
             {
                 if (noAuxPoints[lineSegmentIdx] != 0)
                 {
@@ -731,41 +732,74 @@ public abstract class AbstractPainter implements IPainter
                     for (int pnt = 0; pnt < noAuxPoints[lineSegmentIdx]; pnt++)
                     {
                         float prop = (float) (pnt + 1) / (noAuxPoints[lineSegmentIdx] + 1);
-                        fillInterpolatedPoint(auxPoints, projectedArray, auxOffset, pOffset, nOffset, _IDS._pSize, prop);
+                        AbstractPainterUtils.fillInterpolatedPoint(auxPoints, projectedArray, auxOffset, pOffset, nOffset, _IDS._pSize, prop);
 
                         float iV = pV + (nV - pV) * prop;
                         auxColors[auxColorIdx] = _ls._color.getColor(iV);
 
                         auxColorIdx++;
-                        auxOffset += _IDS._pSize;
+                        auxOffset += _IDS._pSize; // ok, do not use ''move here''
                     }
                 }
 
-                lineSegmentIdx++;
-                pOffset += _IDS._pSize;
-                pOffsetNormalized += _IDS._noAttributes;
-                nOffsetNormalized += _IDS._noAttributes;
+                lineSegmentIdx++; // do not use ''move'' here
+                pOffset += move;
+                pOffsetNormalized += moveNormalized;
+                nOffsetNormalized += moveNormalized;
+            }
+        }
+    }
+
+    /**
+     * Auxiliary method that adjust the projected lines data so that the lines begin/end in the middle of arrows.
+     */
+    protected void fillProjectedArrows()
+    {
+        if (_IDS._noLinesWithArrows == 0) return;
+        if ((_bAPDC == null) && (_eAPDC == null)) return;
+
+        if (_bAPDC != null)
+            AbstractPainterUtils.fillBasicArrowProjectionData(_IDS._baIDS, _bAPDC, _IDS._noLinesWithArrows);
+        if (_eAPDC != null)
+            AbstractPainterUtils.fillBasicArrowProjectionData(_IDS._eaIDS, _eAPDC, _IDS._noLinesWithArrows);
+
+        int bpO = 0;
+        int epO = 0;
+
+        for (float[] lines : _IDS._projectedContiguousLines)
+        {
+            if (_treadContiguousLinesAsNot)
+            {
+                for (int offset = 0; offset < lines.length; offset += _IDS._pSize * 2)
+                {
+                    AbstractPainterUtils.modifyArrowLine(_IDS, _as, _GC, _PC,
+                            lines, offset, offset + _IDS._pSize, _bAPDC, _eAPDC, bpO, epO);
+                    if (_bAPDC != null) bpO += _IDS._baIDS._stride;
+                    if (_eAPDC != null) epO += _IDS._eaIDS._stride;
+                }
+            }
+            else
+            {
+                if (_bAPDC != null)
+                    AbstractPainterUtils.modifyArrowLine(_IDS, _as, _GC, _PC, lines, 0, _IDS._pSize, _bAPDC, null, 0, 0);
+                if (_eAPDC != null) AbstractPainterUtils.modifyArrowLine(_IDS, _as, _GC, _PC,
+                        lines, lines.length - 2 * _IDS._pSize, lines.length - _IDS._pSize, null, _eAPDC, 0, 0);
             }
         }
     }
 
 
     /**
-     * Auxiliary method for generating interpolated points between two input ones (convex combination). The method works on existing arrays.
+     * Auxiliary method that initializes arrow projection data constructor.
      *
-     * @param output       array to be filled with the interpolated point
-     * @param input        input data containing two points
-     * @param outputOffset output point offset in the output array
-     * @param pInputOffset first input point offset in the input array
-     * @param nInputOffset second input point offset in the input array
-     * @param stride       data stride
-     * @param prop         weight from 0 (first input point) to 1 (second input point)
+     * @param as arrow style
+     * @return arrow projection data constructor
      */
-    protected void fillInterpolatedPoint(float[] output, float[] input, int outputOffset, int pInputOffset, int nInputOffset, int stride, float prop)
+    protected IArrowProjectionDataConstructor getArrowDataConstructor(ArrowStyle as)
     {
-        for (int i = 0; i < stride; i++)
-            output[outputOffset + i] = input[pInputOffset + i] + prop * (input[nInputOffset + i] - input[pInputOffset + i]);
+        return null;
     }
+
 
     /**
      * IDS = Internal Data Set Structures = data structures optimized for rendering.
@@ -795,6 +829,7 @@ public abstract class AbstractPainter implements IPainter
         {
             drawLines();
             drawMarkers();
+            drawArrows();
         }
         releaseRenderer();
     }
@@ -808,7 +843,7 @@ public abstract class AbstractPainter implements IPainter
     }
 
     /**
-     * Used for drawing lines.
+     * Used for drawing markers.
      */
     protected void drawMarkers()
     {
@@ -816,19 +851,11 @@ public abstract class AbstractPainter implements IPainter
     }
 
     /**
-     * Supportive method for determining normalized gradient value (0->1).
-     *
-     * @param nArray array containing normalized values (stored as segments for data points)
-     * @param offset in-array offset
-     * @param attId  attribute ID (in-segment offset)
-     * @return normalized gradient value
+     * Used for drawing arrows.
      */
-    protected float getGradientNormalizationValue(float[] nArray, int offset, int attId)
+    protected void drawArrows()
     {
-        float val = nArray[offset + attId];
-        if (Double.compare(val, 0) < 0) val = 0.0f;
-        if (Double.compare(val, 1) > 0) val = 1.0f;
-        return val;
+
     }
 
 
@@ -852,6 +879,16 @@ public abstract class AbstractPainter implements IPainter
     public LineStyle getLineStyle()
     {
         return _ls;
+    }
+
+    /**
+     * Returns arrow styles.
+     * @return arrow styles
+     */
+    @Override
+    public ArrowStyles getArrowStyles()
+    {
+        return _as;
     }
 
 

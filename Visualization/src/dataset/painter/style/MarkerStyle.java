@@ -37,8 +37,8 @@ public class MarkerStyle extends AbstractStyle
      * Parameterized constructor (marker edge is not drawn).
      *
      * @param size      marker size (percent value 0-100, relative size, implementation dependent)
-     * @param fillColor color used when filling the marker (can be null -> the marker is not filled); note that it can be either a mono color or a complete gradient
-     * @param style     marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null -> markers will not be drawn)
+     * @param fillColor color used when filling the marker (can be null: the marker is not filled); note that it can be either a mono color or a gradient
+     * @param style     marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null: markers will not be drawn)
      */
     public MarkerStyle(float size, Color fillColor, Marker style)
     {
@@ -49,8 +49,8 @@ public class MarkerStyle extends AbstractStyle
      * Parameterized constructor (marker edge is not drawn).
      *
      * @param size       marker size (percent value 0-100, relative size, implementation dependent)
-     * @param fillColor  color used when filling the marker (can be null -> the marker is not filled); note that it can be either a mono color or a complete gradient
-     * @param style      marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null -> markers will not be drawn)
+     * @param fillColor  color used when filling the marker (can be null: the marker is not filled); note that it can be either a mono color or a gradient
+     * @param style      marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null: markers will not be drawn)
      * @param legendSize supportive field that, if provided (not null), surpasses the original size field when determining legend entry size
      */
     public MarkerStyle(float size, Color fillColor, Marker style, Float legendSize)
@@ -61,10 +61,23 @@ public class MarkerStyle extends AbstractStyle
     /**
      * Parameterized constructor (marker edge is not drawn).
      *
+     * @param size       marker size (percent value 0-100, relative size, implementation dependent)
+     * @param fillColor  color used when filling the marker (can be null: the marker is not filled); note that it can be either a mono color or a gradient
+     * @param style      marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null: markers will not be drawn)
+     * @param legendSize supportive field that, if provided (not null), surpasses the original size field when determining legend entry size
+     */
+    public MarkerStyle(float size, Color fillColor, Float legendSize, Marker style)
+    {
+        this(size, fillColor, 0, style, null, legendSize);
+    }
+
+    /**
+     * Parameterized constructor (marker edge is not drawn).
+     *
      * @param size      marker size (percent value 0-100, relative size, implementation dependent)
-     * @param fillColor color used when filling the marker (can be null -> the marker is not filled); note that it can be either a mono color or a complete gradient
-     * @param drID      supportive index pointing to the display range used when determining the marker fill gradient color (can be null -> not used)
-     * @param style     marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null -> markers will not be drawn)
+     * @param fillColor color used when filling the marker (can be null: the marker is not filled); note that it can be either a mono color or a gradient
+     * @param drID      supportive index pointing to the display range used when determining the marker fill gradient color (can be null: not used)
+     * @param style     marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null: markers will not be drawn)
      */
     public MarkerStyle(float size, Gradient fillColor, int drID, Marker style)
     {
@@ -75,12 +88,26 @@ public class MarkerStyle extends AbstractStyle
      * Parameterized constructor (marker edge is not drawn).
      *
      * @param size       marker size (percent value 0-100, relative size, implementation dependent)
-     * @param fillColor  color used when filling the marker (can be null -> the marker is not filled); note that it can be either a mono color or a complete gradient
-     * @param drID       supportive index pointing to the display range used when determining the marker fill gradient color (can be null -> not used)
-     * @param style      marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null -> markers will not be drawn)
+     * @param fillColor  color used when filling the marker (can be null: the marker is not filled); note that it can be either a mono color or a gradient
+     * @param drID       supportive index pointing to the display range used when determining the marker fill gradient color (can be null: not used)
+     * @param style      marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null: markers will not be drawn)
      * @param legendSize supportive field that, if provided (not null), surpasses the original size field when determining legend entry size
      */
     public MarkerStyle(float size, Gradient fillColor, int drID, Marker style, Float legendSize)
+    {
+        this(size, fillColor, drID, style, null, legendSize);
+    }
+
+    /**
+     * Parameterized constructor (marker edge is not drawn).
+     *
+     * @param size       marker size (percent value 0-100, relative size, implementation dependent)
+     * @param fillColor  color used when filling the marker (can be null: the marker is not filled); note that it can be either a mono color or a gradient
+     * @param drID       supportive index pointing to the display range used when determining the marker fill gradient color (can be null: not used)
+     * @param legendSize supportive field that, if provided (not null), surpasses the original size field when determining legend entry size
+     * @param style      marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null: markers will not be drawn)
+     */
+    public MarkerStyle(float size, Gradient fillColor, int drID, Float legendSize, Marker style)
     {
         this(size, fillColor, drID, style, null, legendSize);
     }
@@ -111,9 +138,9 @@ public class MarkerStyle extends AbstractStyle
      * Parameterized constructor.
      *
      * @param size      marker size (percent value 0-100, relative size, implementation dependent)
-     * @param fillColor color used when filling the marker (can be null -> the marker is not filled); note that it can be either a mono color or a complete gradient
-     * @param style     marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null -> markers will not be drawn)
-     * @param edge      edge style (can be null -> edge is not drawn)
+     * @param fillColor color used when filling the marker (can be null: the marker is not filled); note that it can be either a mono color or a gradient
+     * @param style     marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null: markers will not be drawn)
+     * @param edge      edge style (can be null: edge is not drawn)
      */
     public MarkerStyle(float size, Color fillColor, Marker style, LineStyle edge)
     {
@@ -124,9 +151,9 @@ public class MarkerStyle extends AbstractStyle
      * Parameterized constructor.
      *
      * @param size       marker size (percent value 0-100, relative size, implementation dependent)
-     * @param fillColor  color used when filling the marker (can be null -> the marker is not filled); note that it can be either a mono color or a complete gradient
-     * @param style      marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null -> markers will not be drawn)
-     * @param edge       edge style (can be null -> edge is not drawn)
+     * @param fillColor  color used when filling the marker (can be null: the marker is not filled); note that it can be either a mono color or a gradient
+     * @param style      marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null: markers will not be drawn)
+     * @param edge       edge style (can be null: edge is not drawn)
      * @param legendSize supportive field that, if provided (not null), surpasses the original size field when determining legend entry size
      */
     public MarkerStyle(float size, Color fillColor, Marker style, LineStyle edge, Float legendSize)
@@ -141,29 +168,29 @@ public class MarkerStyle extends AbstractStyle
      * Parameterized constructor.
      *
      * @param size      marker size (percent value 0-100, relative size, implementation dependent)
-     * @param fillColor color used when filling the marker (can be null -> the marker is not filled); note that it can be either a mono color or a complete gradient
-     * @param dsID      supportive index pointing to the display range used when determining the marker fill gradient color (can be null -> not used)
-     * @param style     marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null -> markers will not be drawn)
-     * @param edge      edge style (can be null -> edge is not drawn)
+     * @param fillColor color used when filling the marker (can be null: the marker is not filled); note that it can be either a mono color or a gradient
+     * @param drID      supportive index pointing to the display range used when determining the marker fill gradient color (can be null: not used)
+     * @param style     marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null: markers will not be drawn)
+     * @param edge      edge style (can be null: edge is not drawn)
      */
-    public MarkerStyle(float size, Gradient fillColor, int dsID, Marker style, LineStyle edge)
+    public MarkerStyle(float size, Gradient fillColor, int drID, Marker style, LineStyle edge)
     {
-        this(size, fillColor, dsID, style, edge, null);
+        this(size, fillColor, drID, style, edge, null);
     }
 
     /**
      * Parameterized constructor.
      *
      * @param size       marker size (percent value 0-100, relative size, implementation dependent)
-     * @param fillColor  color used when filling the marker (can be null -> the marker is not filled); note that it can be either a mono color or a complete gradient
-     * @param dsID       supportive index pointing to the display range used when determining the marker fill gradient color (can be null -> not used)
-     * @param style      marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null -> markers will not be drawn)
-     * @param edge       edge style (can be null -> edge is not drawn)
+     * @param fillColor  color used when filling the marker (can be null: the marker is not filled); note that it can be either a mono color or a gradient
+     * @param drID       supportive index pointing to the display range used when determining the marker fill gradient color (can be null: not used)
+     * @param style      marker style (AbstractScheme.Marker.MARKER_CIRCLE, AbstractScheme.Marker.MARKER_SQUARE; can be null: markers will not be drawn)
+     * @param edge       edge style (can be null: edge is not drawn)
      * @param legendSize supportive field that, if provided (not null), surpasses the original size field when determining legend entry size
      */
-    public MarkerStyle(float size, Gradient fillColor, int dsID, Marker style, LineStyle edge, Float legendSize)
+    public MarkerStyle(float size, Gradient fillColor, int drID, Marker style, LineStyle edge, Float legendSize)
     {
-        super(size, fillColor, dsID, legendSize);
+        super(size, fillColor, drID, legendSize);
         _style = style;
         _edge = edge;
         _paintEvery = 1;
@@ -190,7 +217,7 @@ public class MarkerStyle extends AbstractStyle
     /**
      * Supportive method that determines whether the marker is to be filled.
      *
-     * @return true -> fill the marker; false -> otherwise
+     * @return if true, fill the marker; false otherwise
      */
     public boolean isToBeFilled()
     {
@@ -201,7 +228,7 @@ public class MarkerStyle extends AbstractStyle
     /**
      * Supportive method that determines whether the edges are to be drawn.
      *
-     * @return true -> draw edges; false -> otherwise
+     * @return if true, draw edges; false otherwise
      */
     public boolean areEdgesToBeDrawn()
     {
@@ -213,7 +240,7 @@ public class MarkerStyle extends AbstractStyle
     /**
      * Determines whether the object is drawable based on the parameters set.
      *
-     * @return true -> object can be drawn; false -> otherwise
+     * @return if true, object can be drawn; false otherwise
      */
     @Override
     public boolean isDrawable()

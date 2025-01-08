@@ -2,7 +2,7 @@ package layoutmanager;
 
 import component.AbstractSwingComponent;
 import component.axis.swing.AbstractAxis;
-import component.legend.AbstractLegend;
+import component.legend.Dimensions;
 import container.ComponentsContainer;
 import container.Notification;
 import container.PlotContainer;
@@ -348,7 +348,7 @@ public class BaseLayoutManager extends AbstractLayoutManager implements ILayoutM
 
         _CC.getLegend().updateRelativeFields(); // execution order matters!
         _CC.getLegend().calculateExpectedDimensions(g);
-        AbstractLegend.Dimensions d = _CC.getLegend().getExpectedDimensions();
+        Dimensions d = _CC.getLegend().getExpectedDimensions();
 
         int[] iD = new int[]{Projection.getP(d._expectedDimensions[0]), Projection.getP(d._expectedDimensions[1])};
         float cO = _CC.getLegend().getOffset()._actualSize;
@@ -357,22 +357,22 @@ public class BaseLayoutManager extends AbstractLayoutManager implements ILayoutM
         switch (_CC.getLegend().getAlignment())
         {
             case LEFT_TOP -> _CC.getLegend().setPrimaryDrawingArea(sx[1] + lO[0], sy[1] + lO[1], iD[0], iD[1]);
-            case CENTER_TOP ->
+            case CENTER_TOP, TOP ->
                     _CC.getLegend().setPrimaryDrawingArea(Projection.getP(sx[1] + sw[1] / 2.0f - iD[0] / 2.0f), sy[1] + lO[1], iD[0], iD[1]);
             case RIGHT_TOP ->
                     _CC.getLegend().setPrimaryDrawingArea(sx[1] + sw[1] - lO[0] - iD[0], sy[1] + lO[1], iD[0], iD[1]);
 
-            case LEFT_CENTER -> _CC.getLegend().setPrimaryDrawingArea(sx[1] + lO[0],
+            case LEFT_CENTER, LEFT -> _CC.getLegend().setPrimaryDrawingArea(sx[1] + lO[0],
                     Projection.getP(sy[1] + sh[1] / 2.0f - iD[1] / 2.0f), iD[0], iD[1]);
             case CENTER_CENTER ->
                     _CC.getLegend().setPrimaryDrawingArea(Projection.getP(sx[1] + sw[1] / 2.0f - iD[0] / 2.0f),
                             Projection.getP(sy[1] + sh[1] / 2.0f - iD[1] / 2.0f), iD[0], iD[1]);
-            case RIGHT_CENTER -> _CC.getLegend().setPrimaryDrawingArea(sx[1] + sw[1] - lO[0] - iD[0],
+            case RIGHT_CENTER, RIGHT -> _CC.getLegend().setPrimaryDrawingArea(sx[1] + sw[1] - lO[0] - iD[0],
                     Projection.getP(sy[1] + sh[1] / 2.0f - iD[1] / 2.0f), iD[0], iD[1]);
 
             case LEFT_BOTTOM -> _CC.getLegend().setPrimaryDrawingArea(sx[1] + lO[0],
                     sy[1] + sh[1] - iD[1] - lO[1], iD[0], iD[1]);
-            case CENTER_BOTTOM ->
+            case CENTER_BOTTOM, BOTTOM ->
                     _CC.getLegend().setPrimaryDrawingArea(Projection.getP(sx[1] + sw[1] / 2.0f - iD[0] / 2.0f),
                             sy[1] + sh[1] - iD[1] - lO[1], iD[0], iD[1]);
             case RIGHT_BOTTOM -> _CC.getLegend().setPrimaryDrawingArea(sx[1] + sw[1] - lO[0] - iD[0],

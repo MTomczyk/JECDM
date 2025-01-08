@@ -57,6 +57,13 @@ public class RunAllTest
             Test33_MarkerStyles_Gradient.main(args);
             Test34_Disable_DSs.main(args);
             Test39_Gradients.main(args);
+            Test40_SpaceNormalizationTicksGetter.main(args);
+            Test41_SpaceNormalizationTicksGetter.main(args);
+            Test42_SpaceNormalizationTicksGetter.main(args);
+            Test43_Arrows.main(args);
+            Test44_Arrows.main(args);
+            Test45_LegendWithArrows1.main(args);
+
         } catch (Exception e)
         {
             passed = false;

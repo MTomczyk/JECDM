@@ -49,6 +49,11 @@ public class IDS
     public int _noLinePoints = 0;
 
     /**
+     * Determines the number of contiguous lines starting or ending with arrows.
+     */
+    public int _noLinesWithArrows = 0;
+
+    /**
      * Total number of individual line points for each contiguous line.
      */
     public LinkedList<Integer> _noLinePointsInContiguousLines;
@@ -91,6 +96,16 @@ public class IDS
      */
     public LinkedList<float[]> _projectedContiguousLines = null;
 
+    /**
+     * IDS for the arrows (beginning).
+     */
+    public IDSArrows _baIDS;
+
+    /**
+     * IDS for the arrows (ending).
+     */
+    public IDSArrows _eaIDS;
+
     // === aux data for gradient lines
 
     /**
@@ -120,6 +135,7 @@ public class IDS
         _noAttributes = 0;
         _noMarkerPoints = 0;
         _noLinePoints = 0;
+        _noLinesWithArrows = 0;
 
         _noLinePointsInContiguousLines = null;
 
@@ -136,5 +152,8 @@ public class IDS
         _auxProjectedContiguousLines = null;
         _auxProjectedLinesNoPoints = null;
         _auxLineGradientColors = null;
+
+        if (_baIDS != null) _baIDS.reset();
+        if (_eaIDS != null) _eaIDS.reset();
     }
 }

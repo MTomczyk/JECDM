@@ -42,7 +42,7 @@ public class LineStyle extends AbstractStyle
      * Parameterized constructor.
      *
      * @param width line width (percent value 0-100, relative width, implementation dependent)
-     * @param color color used when drawing the line (can be null -> the line is not drawn); note that it can be either a mono color or a complete gradient
+     * @param color color used when drawing the line (can be null: the line is not drawn); note that it can be either a mono color or a gradient
      */
     public LineStyle(float width, Color color)
     {
@@ -53,7 +53,7 @@ public class LineStyle extends AbstractStyle
      * Parameterized constructor.
      *
      * @param width line width (percent value 0-100, relative width, implementation dependent)
-     * @param color color used when drawing the line (can be null -> the line is not drawn); note that it can be either a mono color or a complete gradient
+     * @param color color used when drawing the line (can be null: the line is not drawn); note that it can be either a mono color or a gradient
      * @param style line style
      */
     public LineStyle(float width, Color color, Line style)
@@ -65,7 +65,7 @@ public class LineStyle extends AbstractStyle
      * Parameterized constructor.
      *
      * @param width      line width (percent value 0-100, relative width, implementation dependent)
-     * @param color      color used when drawing the line (can be null -> the line is not drawn); note that it can be either a mono color or a complete gradient
+     * @param color      color used when drawing the line (can be null: the line is not drawn); note that it can be either a mono color or a gradient
      * @param legendSize supportive field that, if provided (not null), surpasses the original size field when determining legend entry size
      */
     public LineStyle(float width, Color color, Float legendSize)
@@ -73,13 +73,25 @@ public class LineStyle extends AbstractStyle
         this(width, color, 0, legendSize);
     }
 
+    /**
+     * Parameterized constructor.
+     *
+     * @param width      line width (percent value 0-100, relative width, implementation dependent)
+     * @param color      color used when drawing the line (can be null: the line is not drawn); note that it can be either a mono color or a gradient
+     * @param legendSize supportive field that, if provided (not null), surpasses the original size field when determining legend entry size
+     * @param style line style
+     */
+    public LineStyle(float width, Color color, Float legendSize, Line style)
+    {
+        this(width, color, 0, legendSize, style);
+    }
 
     /**
      * Parameterized constructor.
      *
      * @param width line width (percent value 0-100, relative width, implementation dependent)
-     * @param color color used when drawing the line (can be null -> the line is not drawn); note that it can be either a mono color or a complete gradient
-     * @param drID  supportive index pointing to the display range used when determining the line gradient color (can be null -> not used)
+     * @param color color used when drawing the line (can be null: the line is not drawn); note that it can be either a mono color or a gradient
+     * @param drID  supportive index pointing to the display range used when determining the line gradient color (can be null: not used)
      */
     public LineStyle(float width, Gradient color, int drID)
     {
@@ -90,8 +102,8 @@ public class LineStyle extends AbstractStyle
      * Parameterized constructor.
      *
      * @param width line width (percent value 0-100, relative width, implementation dependent)
-     * @param color color used when drawing the line (can be null -> the line is not drawn); note that it can be either a mono color or a complete gradient
-     * @param drID  supportive index pointing to the display range used when determining the line gradient color (can be null -> not used)
+     * @param color color used when drawing the line (can be null: the line is not drawn); note that it can be either a mono color or a gradient
+     * @param drID  supportive index pointing to the display range used when determining the line gradient color (can be null: not used)
      * @param style line style
      */
     public LineStyle(float width, Gradient color, int drID, Line style)
@@ -103,8 +115,8 @@ public class LineStyle extends AbstractStyle
      * Parameterized constructor.
      *
      * @param width      line width (percent value 0-100, relative width, implementation dependent)
-     * @param color      color used when drawing the line (can be null -> the line is not drawn); note that it can be either a mono color or a complete gradient
-     * @param drID       supportive index pointing to the display range used when determining the line gradient color (can be null -> not used)
+     * @param color      color used when drawing the line (can be null: the line is not drawn); note that it can be either a mono color or a gradient
+     * @param drID       supportive index pointing to the display range used when determining the line gradient color (can be null: not used)
      * @param legendSize supportive field that, if provided (not null), surpasses the original size field when determining legend entry size
      */
     public LineStyle(float width, Gradient color, int drID, Float legendSize)
@@ -116,8 +128,8 @@ public class LineStyle extends AbstractStyle
      * Parameterized constructor.
      *
      * @param width      line width (percent value 0-100, relative width, implementation dependent)
-     * @param color      color used when drawing the line (can be null -> the line is not drawn); note that it can be either a mono color or a complete gradient
-     * @param drID       supportive index pointing to the display range used when determining the line gradient color (can be null -> not used)
+     * @param color      color used when drawing the line (can be null: the line is not drawn); note that it can be either a mono color or a gradient
+     * @param drID       supportive index pointing to the display range used when determining the line gradient color (can be null: not used)
      * @param legendSize supportive field that, if provided (not null), surpasses the original size field when determining legend entry size
      * @param style      line style
      */

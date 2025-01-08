@@ -284,6 +284,27 @@ public class Tetrahedron
         if (c != null) fillTetrahedronVerticesColors(c, os._caOffset, color, useAlpha);
     }
 
+    /**
+     * Fills tetrahedron vertex + index + color (optional) data in provided arrays (the input data is precalculated
+     * for TRIANGULAR_3D arrows (and similar).
+     *
+     * @param data     pre-calculated data (each tetrahedron data occupies 12 elements; 4 walls * 3 coordinates)
+     * @param v        vertices array; the data organization should match the data array
+     * @param ii       indices array (ints) (either ii or is must be null)
+     * @param is       indices array (shorts) (either ii or is must be null)
+     * @param c        color array (can be null -> not filled)
+     * @param os       offset/stride data
+     * @param color    provides color components (not used is c is null)
+     * @param useAlpha if true, alpha channel is considered, therefore the stride for c-array is assumed 4 (not 3)
+     */
+    public static void fillTetrahedronFillData(float[] data, float[] v, int[] ii, short[] is, float[] c,
+                                               OffsetStride os, Color color,
+                                               boolean useAlpha)
+    {
+        System.arraycopy(data, os._vaOffset, v, os._vaOffset, 12);
+        if (c != null) fillTetrahedronVerticesColors(c, os._caOffset, color, useAlpha);
+        fillTetrahedronFillIndices(ii, is, os);
+    }
 
     /**
      * Fills tetrahedron vertex + index + color (optional) data in provided arrays.
@@ -307,7 +328,18 @@ public class Tetrahedron
                                                boolean useAlpha, Marker marker)
     {
         fillVertices(x, y, z, l, v, c, os, color, useAlpha, marker);
+        fillTetrahedronFillIndices(ii, is, os);
+    }
 
+    /**
+     * Fills tetrahedron fills indices data
+     *
+     * @param ii indices array (ints) (either ii or is must be null)
+     * @param is indices array (shorts) (either ii or is must be null)
+     * @param os offset/stride data
+     */
+    protected static void fillTetrahedronFillIndices(int[] ii, short[] is, OffsetStride os)
+    {
         if (ii != null)
         {
             // front triangle
@@ -402,5 +434,6 @@ public class Tetrahedron
             c[cOffset + 15] = color._a;
         }
     }
+
 
 }

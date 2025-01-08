@@ -1,6 +1,7 @@
 package visualization.plot3D;
 
 import org.junit.jupiter.api.Test;
+import visualization.plot2D.Test29_BrokenLine;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -53,6 +54,10 @@ public class RunAllTest
             Test26_PolyOctoLine_Random.main(args);
             Test27_ProjectionBounds.main(args);
             Test28_ProjectionBounds.main(args);
+            Test29_BrokenLine.main(args);
+            Test30_Arrows.main(args);
+            Test31_Arrows.main(args);
+            Test32_LegendWithArrows1.main(args);
 
         } catch (Exception e)
         {

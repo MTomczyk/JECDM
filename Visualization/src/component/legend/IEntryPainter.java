@@ -1,6 +1,7 @@
 package component.legend;
 
 import color.gradient.Gradient;
+import dataset.painter.style.ArrowStyle;
 import dataset.painter.style.LineStyle;
 import dataset.painter.style.MarkerStyle;
 
@@ -28,6 +29,19 @@ public interface IEntryPainter
     void drawMarker(Graphics g, float x, float y, float size, color.Color fillColor, color.Color edgeColor, boolean fill, boolean drawEdge);
 
     /**
+     * Draws an arrow.
+     *
+     * @param g         Java AWT graphics context
+     * @param x         x-coordinate
+     * @param y         y-coordinate
+     * @param length    arrow length
+     * @param width     arrow width
+     * @param fillColor fill color (can be null -> color is not set, i.e., the current color set in the graphics context is used)
+     * @param fill      if false, the procedure for filling the marker is entirely skipped
+     */
+    void drawArrow(Graphics g, float x, float y, float length, float width, color.Color fillColor, boolean fill);
+
+    /**
      * Draws a line.
      *
      * @param g  Java AWT rendering context
@@ -42,12 +56,12 @@ public interface IEntryPainter
      * Draws a horizontal line divided into equal segments that are differently colored.
      * Used when there is a need to draw a gradient line (division = linear interpolation).
      *
-     * @param g          Java AWT rendering context
-     * @param gradient   gradient used
-     * @param lw  lineWidth (used to determine the basic line stroke)
-     * @param x1         left coordinate x
-     * @param x2         right coordinate x
-     * @param y          y coordinate
+     * @param g        Java AWT rendering context
+     * @param gradient gradient used
+     * @param lw       lineWidth (used to determine the basic line stroke)
+     * @param x1       left coordinate x
+     * @param x2       right coordinate x
+     * @param y        y coordinate
      */
     void drawGradientLine(Graphics g, Gradient gradient, float lw, float x1, float x2, float y);
 
@@ -64,4 +78,11 @@ public interface IEntryPainter
      * @param ls line style used when depicting data set
      */
     void setLineStyle(LineStyle ls);
+
+    /**
+     * Setter for the arrow style used when depicting data set.
+     *
+     * @param as arrow style used when depicting data set
+     */
+    void setArrowStyle(ArrowStyle as);
 }

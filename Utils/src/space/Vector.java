@@ -518,6 +518,47 @@ public class Vector
     }
 
     /**
+     * Returns the normal vector perpendicular to the input one (in 2D spaces).
+     *
+     * @param a 2d input vector
+     * @return perpendicular normal vector; note that if the input vector is a zero vector or its length is not 2, null is returned
+     */
+    public static double[] getPerpendicularVector2D(double[] a)
+    {
+        if (a == null) return null;
+        if (a.length != 2) return null;
+        if (Double.compare(a[0], 0.0d) == 0)
+        {
+            int c = Double.compare(a[1], 0.0d);
+            if (c == 0) return null;
+            if (c > 0) return new double[]{1.0d, 0.0d};
+            else return new double[]{-1.0d, 0.0d};
+        }
+
+        return new double[]{a[1], -a[0]};
+    }
+
+    /**
+     * Returns the normal vector perpendicular to the input one (in 2D spaces).
+     *
+     * @param a 2d input vector
+     * @return perpendicular normal vector; note that if the input vector is a zero vector or its length is not 2, null is returned
+     */
+    public static float[] getPerpendicularVector2D(float[] a)
+    {
+        if (a == null) return null;
+        if (a.length != 2) return null;
+        if (Float.compare(a[0], 0.0f) == 0)
+        {
+            int c = Float.compare(a[1], 0.0f);
+            if (c == 0) return null;
+            if (c > 0) return new float[]{1.0f, 0.0f};
+            else return new float[]{-1.0f, 0.0f};
+        }
+        return new float[]{a[1], -a[0]};
+    }
+
+    /**
      * Returns the normal vector perpendicular to the input one (in 3D spaces).
      *
      * @param a 3d input vector
@@ -760,7 +801,7 @@ public class Vector
     }
 
     /**
-     * Normalizes the input vector (does not create a new object).
+     * Normalizes the input vector (length = 1; does not create a new object).
      *
      * @param v m-dimensional vector
      */
@@ -772,7 +813,7 @@ public class Vector
     }
 
     /**
-     * Normalizes the input vector (does not create a new object).
+     * Normalizes the input vector (length = 1; does not create a new object).
      *
      * @param v m-dimensional vector
      */

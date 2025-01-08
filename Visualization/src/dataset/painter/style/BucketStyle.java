@@ -20,7 +20,7 @@ public class BucketStyle
     public final Bucket _style;
 
     /**
-     * Bucket size (used when the bucket style == POINT; relative size from 0 to 1; can be 0.0 -> object is not drawn).
+     * Bucket size (used when the bucket style == POINT; relative size from 0 to 1; can be 0.0: object is not drawn).
      */
     public final float _size;
 
@@ -40,7 +40,7 @@ public class BucketStyle
     public final boolean _drawEdges;
 
     /**
-     * Edge style (if null -> edges are not drawn).
+     * Edge style (if null, edges are not drawn).
      */
     public final LineStyle _edgeStyle;
 

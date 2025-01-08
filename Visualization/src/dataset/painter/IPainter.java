@@ -4,6 +4,7 @@ import container.GlobalContainer;
 import container.PlotContainer;
 import dataset.Data;
 import dataset.IDataSet;
+import dataset.painter.style.ArrowStyles;
 import dataset.painter.style.LineStyle;
 import dataset.painter.style.MarkerStyle;
 import drmanager.DisplayRangesManager;
@@ -133,6 +134,12 @@ public interface IPainter
      * @return line style
      */
     LineStyle getLineStyle();
+
+    /**
+     * Returns arrow styles.
+     * @return arrow styles
+     */
+    ArrowStyles getArrowStyles();
 
     /**
      * Getter for the IDS recalculation times.

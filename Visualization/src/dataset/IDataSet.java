@@ -3,6 +3,7 @@ package dataset;
 import container.GlobalContainer;
 import container.PlotContainer;
 import dataset.painter.IPainter;
+import dataset.painter.style.ArrowStyles;
 import dataset.painter.style.LineStyle;
 import dataset.painter.style.MarkerStyle;
 import drmanager.DisplayRangesManager;
@@ -127,6 +128,12 @@ public interface IDataSet
      * @return line style
      */
     LineStyle getLineStyle();
+
+    /**
+     * Returns arrow styles.
+     * @return arrow styles
+     */
+    ArrowStyles getArrowStyles();
 
     /**
      * Getter for data set name.

@@ -84,7 +84,8 @@ public class Tutorial2a
             dataSets.add(DSFactory2D.getDS("DS" + (i + 1), data, ls, as[i], false));
         }
 
-        Frame frame = new Frame(plot2D, 0.5f);
+        //Frame frame = new Frame(plot2D, 0.5f);
+        Frame frame = new Frame(plot2D, 800, 800);
         plot2D.getModel().setDataSets(dataSets, true);
         frame.setVisible(true);
     }

@@ -38,9 +38,6 @@ public class Tutorial1b
     public static void main(String[] args)
     {
         Plot3D.Params pP = new Plot3D.Params();
-        pP._xAxisTitle = "X-axis";
-        pP._yAxisTitle = "Y-axis";
-        pP._zAxisTitle = "Z-axis";
         pP._drawLegend = true;
         pP._title = "Alternated data interpretation";
         pP._pDisplayRangesManager = DisplayRangesManager.Params.getFor3D(Range.get0R(20.0d),
@@ -139,7 +136,8 @@ public class Tutorial1b
         }
 
 
-        Frame frame = new Frame(plot3D, 0.4f, 0.5f);
+        //Frame frame = new Frame(plot3D, 0.4f, 0.5f);
+        Frame frame = new Frame(plot3D, 1200,1000);
         plot3D.getModel().setDataSets(dataSets, true);
         frame.setVisible(true);
     }

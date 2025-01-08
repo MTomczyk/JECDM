@@ -79,7 +79,7 @@ public class Tutorial2d
                 new ArrowStyles(new ArrowStyle(0.02f, 0.01f, Gradient.getViridisGradient(), 3, 0.06f, 0.03f, Arrow.TRIANGULAR_3D)),
                 false, true);
 
-        Frame frame = new Frame(plot3D, 0.5f);
+        Frame frame = new Frame(plot3D, 1200,1000);
         frame.setVisible(true);
         plot3D.getModel().setDataSet(dataSet, true);
 

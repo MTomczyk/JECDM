@@ -254,7 +254,9 @@ public abstract class AbstractLegend extends AbstractSwingComponent
         {
             _dimensions._lineEndingHalfSegment = _dimensions._noHalfSegments - 1;
             if (_dimensions._eArrowsUseGradients) _dimensions._eArrowsCentersNoHalfSegments
-                    = new int[]{_dimensions._noHalfSegments - 1, _dimensions._noHalfSegments - 4, _dimensions._noHalfSegments - 7};
+                    = new int[]{_dimensions._noHalfSegments - 7,
+                    _dimensions._noHalfSegments - 4,
+                    _dimensions._noHalfSegments - 1};
             else _dimensions._eArrowsCentersNoHalfSegments = new int[]{_dimensions._noHalfSegments - 1};
         }
 
@@ -465,13 +467,20 @@ public abstract class AbstractLegend extends AbstractSwingComponent
                     float mWidth = AS._bas.calculateRelativeWidth(_GC, _PC, AS._bas._legendWidth)
                             * _dimensions._arrowsScalingFactor;
 
-                    int lim = _dimensions._bArrowsX.length;
-                    if (lim == 1) g2.setColor(AS._bas._color.getColor(0.0f));
-
-                    for (int i = 0; i < _dimensions._bArrowsX.length; i++)
+                    if (AS._bas._color.isMonoColor())
                     {
-                        if (lim > 1) g2.setColor(AS._bas._color.getColor((float) i / (lim - 1)));
-                        _entryPainter.drawArrow(g2, bx + _dimensions._bArrowsX[i] - 1, by - 1, mLength, mWidth, null, true);
+                        g2.setColor(AS._bas._color.getColor(0.0f));
+                        _entryPainter.drawArrow(g2, bx + _dimensions._bArrowsX[0] - 1, by - 1, mLength, mWidth, null, true);
+                    }
+                    else
+                    {
+                        int lim = _dimensions._bArrowsX.length;
+                        if (lim == 1) g2.setColor(AS._bas._color.getColor(0.0f));
+                        for (int i = 0; i < _dimensions._bArrowsX.length; i++)
+                        {
+                            if (lim > 1) g2.setColor(AS._bas._color.getColor((float) i / (lim - 1)));
+                            _entryPainter.drawArrow(g2, bx + _dimensions._bArrowsX[i] - 1, by - 1, mLength, mWidth, null, true);
+                        }
                     }
                 }
 
@@ -483,14 +492,23 @@ public abstract class AbstractLegend extends AbstractSwingComponent
                     float mWidth = AS._eas.calculateRelativeWidth(_GC, _PC, AS._eas._legendWidth)
                             * _dimensions._arrowsScalingFactor;
 
-                    int lim = _dimensions._eArrowsX.length;
-                    if (lim == 1) g2.setColor(AS._eas._color.getColor(0.0f));
-
-                    for (int i = 0; i < _dimensions._eArrowsX.length; i++)
+                    if (AS._eas._color.isMonoColor())
                     {
-                        if (lim > 1) g2.setColor(AS._eas._color.getColor((float) i / (lim - 1)));
-                        _entryPainter.drawArrow(g2, bx + _dimensions._eArrowsX[i] - 1, by - 1, mLength, mWidth, null, true);
+                        g2.setColor(AS._eas._color.getColor(0.0f));
+                        _entryPainter.drawArrow(g2, bx + _dimensions._eArrowsX[_dimensions._eArrowsX.length - 1] - 1, by - 1, mLength, mWidth, null, true);
                     }
+                    else
+                    {
+                        int lim = _dimensions._eArrowsX.length;
+                        if (lim == 1) g2.setColor(AS._eas._color.getColor(0.0f));
+
+                        for (int i = 0; i < _dimensions._eArrowsX.length; i++)
+                        {
+                            if (lim > 1) g2.setColor(AS._eas._color.getColor((float) i / (lim - 1)));
+                            _entryPainter.drawArrow(g2, bx + _dimensions._eArrowsX[i] - 1, by - 1, mLength, mWidth, null, true);
+                        }
+                    }
+
                 }
 
                 // ====================================================================================================

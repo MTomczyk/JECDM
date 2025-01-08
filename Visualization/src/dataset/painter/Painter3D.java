@@ -2,9 +2,14 @@ package dataset.painter;
 
 import color.Color;
 import com.jogamp.opengl.GL2;
+import dataset.painter.arrowsutils.IArrowProjectionDataConstructor;
+import dataset.painter.arrowsutils.Triangular3D;
 import dataset.painter.glutils.*;
+import dataset.painter.style.ArrowStyle;
+import dataset.painter.style.ArrowStyles;
 import dataset.painter.style.LineStyle;
 import dataset.painter.style.MarkerStyle;
+import dataset.painter.style.enums.Arrow;
 import dataset.painter.style.enums.Line;
 import dataset.painter.style.enums.Marker;
 import gl.IVBOComponent;
@@ -41,9 +46,19 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
     protected VBOManager _markerEdges;
 
     /**
-     * VBO for markers (fill).One marker for one contiguous line.
+     * VBO for markers (fill). One marker for one contiguous line.
      */
     protected VBOManager[] _lines;
+
+    /**
+     * VBO for arrows (fills; beginnings).
+     */
+    protected VBOManager _bArrowsFills;
+
+    /**
+     * VBO for arrows (fills; endings).
+     */
+    protected VBOManager _eArrowsFills;
 
     /**
      * If true, the fourth channel is used when defining the colors. False otherwise.
@@ -64,7 +79,34 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
      */
     public Painter3D(MarkerStyle ms, LineStyle ls, boolean useAlpha)
     {
-        super(ms, ls);
+        this(ms, ls, null, useAlpha, false, 0.005f);
+    }
+
+    /**
+     * Parameterized constructor.
+     *
+     * @param ms                           marker style
+     * @param ls                           line style
+     * @param as                           arrow styles (beginning and ending)
+     * @param useAlpha                     if true, the fourth channel is used when defining the colors
+     * @param treadContiguousLinesAsNot    if true, the default interpretation of raw data is changed. Instead of treating
+     *                                     each double [][] data segment as one contiguous line (when using a line style),
+     *                                     the data is considered to be a series of independent lines whose coordinates
+     *                                     occupy each subsequent pair of double [] vectors in the data segment
+     * @param gradientLineMinSegmentLength Determines the minimal segment line used when constructing gradient line
+     *                                     (discretization level, the lower the value, the greater the discretization
+     *                                     but also computational resources used); the interpretation is
+     *                                     implementation-dependent; default: percent value of an average screen
+     *                                     dimension (in pixels)
+     */
+    public Painter3D(MarkerStyle ms,
+                     LineStyle ls,
+                     ArrowStyles as,
+                     boolean useAlpha,
+                     boolean treadContiguousLinesAsNot,
+                     float gradientLineMinSegmentLength)
+    {
+        super(ms, ls, as, treadContiguousLinesAsNot, gradientLineMinSegmentLength);
         _useAlpha = useAlpha;
         if (useAlpha) _colorStride = 4;
         else _colorStride = 3;
@@ -76,6 +118,7 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
      *
      * @return cloned painter (except for rendering data).
      */
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public IPainter getEmptyClone()
     {
@@ -83,7 +126,9 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
         if (_ms != null) ms = _ms.getClone();
         LineStyle ls = null;
         if (_ls != null) ls = _ls.getClone();
-        return new Painter3D(ms, ls, _useAlpha);
+        ArrowStyles as = null;
+        if (_as != null) as = _as.getClone();
+        return new Painter3D(ms, ls, as, _useAlpha, _treadContiguousLinesAsNot, _gradientLineMinSegmentLength);
     }
 
     /**
@@ -96,6 +141,7 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
      * @param dimensions       dimensions of the rendering space
      * @param pSize            size of a projected entry
      */
+    @Override
     protected void fillProjectedPoint(float[] projectedArray, int projectedOffset,
                                       float[] normalizedArray, int normalizedOffset,
                                       Dimension[] dimensions, int pSize)
@@ -133,15 +179,16 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
         if ((eventType.equals(EventTypes.ON_DATA_CHANGED)) || (eventType.equals(EventTypes.ON_DEMAND)))
         {
             instantiateMarkerFillData();
-            instantiateMarkerEdgeEdge();
+            instantiateMarkerEdgeData();
             instantiateLineData();
+            instantiateArrowFillData();
             if (eventType.equals(EventTypes.ON_DATA_CHANGED)) createBuffers();
             else updateBuffers();
         }
 
-
         if (_measureRecalculateIDSTimes[2]) _IDSRecalculationTimes[2].addData(System.nanoTime() - startTime);
     }
+
 
     /**
      * Auxiliary method instantiating data related to marker fills.
@@ -220,7 +267,7 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
      * Auxiliary method instantiating data related to marker fills.
      */
     @SuppressWarnings("DuplicatedCode")
-    protected void instantiateMarkerEdgeEdge()
+    protected void instantiateMarkerEdgeData()
     {
         if (_3dProjection == null) return;
         if (_3dProjection._noMarkerPoints <= 0) return;
@@ -318,20 +365,110 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
 
         for (float[] cLine : _IDS._projectedContiguousLines)
         {
-            BufferData bd;
-            if (_ls._style.equals(Line.POLY_QUAD)) bd = PolyLine.getPolyQuadLineData(cLine, noPointsIt, colorsIterator,
-                    noAuxPointsIt, auxLinesIt, auxColorsIt, gradient, _colorStride, _useAlpha, lineRadius);
-            else if (_ls._style.equals(Line.POLY_OCTO)) bd = PolyLine.getPolyOctoLineData(cLine, noPointsIt,
-                    colorsIterator, noAuxPointsIt, auxLinesIt, auxColorsIt, gradient, _colorStride, _useAlpha, lineRadius);
-            else bd = RegularLine.getRegularLineData(cLine, noPointsIt, colorsIterator, noAuxPointsIt, auxLinesIt,
-                        auxColorsIt, gradient, _colorStride, _useAlpha);
-
-            buffers.add(bd);
+            if (_ls._style.equals(Line.POLY_QUAD))
+            {
+                if (_treadContiguousLinesAsNot)
+                {
+                    LinkedList<BufferData> lBD = PolyLineQuad.getPolyLineQuadDataForNonContiguousModeWithGradient(
+                            cLine, noPointsIt, colorsIterator, noAuxPointsIt, auxLinesIt, auxColorsIt, gradient,
+                            _colorStride, _useAlpha, lineRadius);
+                    buffers.addAll(lBD);
+                }
+                else buffers.add(PolyLineQuad.getPolyLineQuadData(cLine, noPointsIt,
+                        colorsIterator, noAuxPointsIt, auxLinesIt, auxColorsIt, gradient, _colorStride, _useAlpha, lineRadius));
+            }
+            else if (_ls._style.equals(Line.POLY_OCTO))
+            {
+                if (_treadContiguousLinesAsNot)
+                {
+                    LinkedList<BufferData> lBD = PolyLineOcto.getPolyLineOctoDataForNonContiguousModeWithGradient(
+                            cLine, noPointsIt, colorsIterator, noAuxPointsIt, auxLinesIt, auxColorsIt, gradient,
+                            _colorStride, _useAlpha, lineRadius);
+                    buffers.addAll(lBD);
+                }
+                else buffers.add(PolyLineOcto.getPolyLineOctoData(cLine, noPointsIt,
+                        colorsIterator, noAuxPointsIt, auxLinesIt, auxColorsIt, gradient, _colorStride, _useAlpha, lineRadius));
+            }
+            else
+            {
+                // possibilities
+                // mono color, cont -> as normal (GL_LINE_STRIP)
+                // gradient, cont -> as normal (GL_LINE_STRIP)
+                // mono color, gradient, not cont -> go to GL_LINES
+                // gradient, not cont -> split into multiple buffers and use GL_LINE_STRIP for each
+                if (_treadContiguousLinesAsNot)
+                {
+                    if (gradient)
+                    {
+                        LinkedList<BufferData> lBD = RegularLine.getRegularLineDataForNonContiguousModeWithGradient(
+                                cLine, noPointsIt.next(), colorsIterator.next(), noAuxPointsIt.next(),
+                                auxLinesIt.next(), auxColorsIt.next(), _colorStride, _useAlpha);
+                        buffers.addAll(lBD);
+                    }
+                    else
+                        buffers.add(RegularLine.getRegularLineData(cLine, noPointsIt, null, null, null,
+                                null, false, _colorStride, _useAlpha));
+                }
+                else
+                {
+                    buffers.add(RegularLine.getRegularLineData(cLine, noPointsIt, colorsIterator, noAuxPointsIt, auxLinesIt,
+                            auxColorsIt, gradient, _colorStride, _useAlpha));
+                }
+            }
         }
 
         _3dProjection._linesBuffer = new BufferData[buffers.size()];
         int pnt = 0;
         for (BufferData bd : buffers) _3dProjection._linesBuffer[pnt++] = bd;
+    }
+
+    /**
+     * Auxiliary method instantiating data related to arrow fills.
+     */
+    protected void instantiateArrowFillData()
+    {
+        if (_3dProjection == null) return;
+        if (_3dProjection._noLinesWithArrows <= 0) return;
+        if (_as == null) return;
+
+        if ((_as.isBeginningDrawable()) && (_IDS._baIDS != null) && (_IDS._baIDS._arrowProjectedData != null))
+            _3dProjection._bArrowsFillsBuffer = createArrowFillData(_IDS._baIDS, _as._bas);
+        if ((_as.isEndingDrawable()) && (_IDS._eaIDS != null) && (_IDS._eaIDS._arrowProjectedData != null))
+            _3dProjection._eArrowsFillsBuffer = createArrowFillData(_IDS._eaIDS, _as._eas);
+    }
+
+    /**
+     * Auxiliary method that creates arrow fills data (to be buffered).
+     *
+     * @param idsArrows internal data structures (arrows)
+     * @param as        arrow style
+     * @return data to be buffered
+     */
+    private BufferData createArrowFillData(IDSArrows idsArrows, ArrowStyle as)
+    {
+        int totalIndices;
+        boolean intIndices = false;
+        float[] v;
+        int[] ii = null;
+        short[] is = null;
+        float[] c = null;
+
+        if ((as._arrow.equals(Arrow.TRIANGULAR_3D)) ||
+                (as._arrow.equals(Arrow.TRIANGULAR_REVERSED_3D)))
+        {
+            // no walls * no triangles * no points
+            totalIndices = _IDS._noLinesWithArrows * 4 * 3;
+            if (_3dProjection._noMarkerPoints * 4 > Short.MAX_VALUE) intIndices = true;
+            v = new float[_3dProjection._noLinesWithArrows * 4 * 3]; // no points per cube * no dimensions
+            if (intIndices) ii = new int[totalIndices];
+            else is = new short[totalIndices];
+            if (!as._color.isMonoColor()) c = new float[_3dProjection._noLinesWithArrows * 4 * _colorStride];
+            dataset.painter.glutils.Arrow.fillTriangularArrowFillData(v, ii, is, c, _useAlpha, _IDS._noLinesWithArrows, idsArrows);
+        }
+        else return null;
+
+        if (intIndices) return new BufferData(v, ii, c);
+        else return new BufferData(v, is, c);
     }
 
     /**
@@ -341,10 +478,9 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
     public void createBuffers()
     {
         if (_3dProjection._markersFillsBuffer != null)
-        {
             _markerFills = _3dProjection._markersFillsBuffer.createVBOManager(
                     getMarkerFillsRenderingMode(_ms), 3, _colorStride);
-        }
+
         if (_3dProjection._markersEdgesBuffer != null)
             _markerEdges = _3dProjection._markersEdgesBuffer.createVBOManager(
                     getMarkerEdgesRenderingMode(_ms), 3, _colorStride);
@@ -356,6 +492,14 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
             for (int i = 0; i < _3dProjection._linesBuffer.length; i++)
                 _lines[i] = _3dProjection._linesBuffer[i].createVBOManager(renderingMode, 3, _colorStride);
         }
+
+        if (_3dProjection._bArrowsFillsBuffer != null)
+            _bArrowsFills = _3dProjection._bArrowsFillsBuffer.createVBOManager(
+                    getArrowFillsRenderingMode(_as._bas), 3, _colorStride);
+
+        if (_3dProjection._eArrowsFillsBuffer != null)
+            _eArrowsFills = _3dProjection._eArrowsFillsBuffer.createVBOManager(
+                    getArrowFillsRenderingMode(_as._eas), 3, _colorStride);
     }
 
     /**
@@ -369,8 +513,9 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
         if (_markerFills != null) _markerFills.initialDataTransfer(gl);
         if (_markerEdges != null) _markerEdges.initialDataTransfer(gl);
         if (_lines != null) for (VBOManager l : _lines) l.initialDataTransfer(gl);
+        if (_bArrowsFills != null) _bArrowsFills.initialDataTransfer(gl);
+        if (_eArrowsFills != null) _eArrowsFills.initialDataTransfer(gl);
     }
-
 
     /**
      * Can be called to update data in the VBO that has already been instantiated and sent to GPU  (but the updated is not yet transferred to GPU).
@@ -385,6 +530,10 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
         if (_3dProjection._linesBuffer != null)
             for (int i = 0; i < _3dProjection._linesBuffer.length; i++)
                 _lines[i].initDataUpdate(_3dProjection._linesBuffer[i], 3, _colorStride);
+        if (_3dProjection._bArrowsFillsBuffer != null)
+            _bArrowsFills.initDataUpdate(_3dProjection._bArrowsFillsBuffer, 3, _colorStride);
+        if (_3dProjection._eArrowsFillsBuffer != null)
+            _eArrowsFills.initDataUpdate(_3dProjection._eArrowsFillsBuffer, 3, _colorStride);
     }
 
 
@@ -440,10 +589,46 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
     {
         if (ls._style.equals(Line.POLY_QUAD)) return GL2.GL_TRIANGLES;
         if (ls._style.equals(Line.POLY_OCTO)) return GL2.GL_TRIANGLES;
-        if (ls._style.equals(Line.REGULAR)) return GL2.GL_LINE_STRIP;
+        if (ls._style.equals(Line.REGULAR))
+        {
+            // Depends on the interpretation
+            if (_treadContiguousLinesAsNot)
+            {
+                if (ls._color.isMonoColor()) return GL2.GL_LINES;
+                else return GL2.GL_LINE_STRIP;
+            }
+            else return GL2.GL_LINE_STRIP;
+
+        }
         return -1;
     }
 
+    /**
+     * Auxiliary method returning the rendering mode for arrows fill (GL_LINES,etc.) based on the arrow style.
+     *
+     * @param as arrow style
+     * @return rendering mode
+     */
+    protected int getArrowFillsRenderingMode(ArrowStyle as)
+    {
+        if (as._arrow.equals(Arrow.TRIANGULAR_3D)) return GL2.GL_TRIANGLES;
+        if (as._arrow.equals(Arrow.TRIANGULAR_REVERSED_3D)) return GL2.GL_TRIANGLES;
+        return -1;
+    }
+
+    /**
+     * Auxiliary method that initializes arrow projection data constructor.
+     *
+     * @param as arrow style
+     * @return arrow projection data constructor
+     */
+    @Override
+    protected IArrowProjectionDataConstructor getArrowDataConstructor(ArrowStyle as)
+    {
+        if ((as._arrow.equals(Arrow.TRIANGULAR_3D)) || (as._arrow.equals(Arrow.TRIANGULAR_REVERSED_3D)))
+            return new Triangular3D();
+        else return null;
+    }
 
     /**
      * Setter for the renderer.
@@ -477,7 +662,7 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
 
 
     /**
-     * Used for drawing lines.
+     * Used for drawing markers.
      */
     @Override
     protected void drawMarkers()
@@ -521,6 +706,18 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
             gl.glLineWidth(_ms._edge._size);
             _markerEdges.render(gl);
         }
+
+        if (_bArrowsFills != null)
+        {
+            if (_as._bas._color.isMonoColor()) setConstantColor(gl, _as._bas._color.getColor(0.0f));
+            _bArrowsFills.render(gl);
+        }
+
+        if (_eArrowsFills != null)
+        {
+            if (_as._eas._color.isMonoColor()) setConstantColor(gl, _as._eas._color.getColor(0.0f));
+            _eArrowsFills.render(gl);
+        }
     }
 
     /**
@@ -546,6 +743,8 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
         if (_markerFills != null) return _markerFills.isInitializationRequested();
         if (_markerEdges != null) return _markerEdges.isInitializationRequested();
         if (_lines != null) for (VBOManager l : _lines) if (l.isInitializationRequested()) return true;
+        if (_bArrowsFills != null) return _bArrowsFills.isInitializationRequested();
+        if (_eArrowsFills != null) return _eArrowsFills.isInitializationRequested();
         return false;
     }
 
@@ -561,7 +760,8 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
         if ((_markerFills != null) && (_markerFills.isUpdateRequested())) return true;
         if ((_markerEdges != null) && (_markerEdges.isUpdateRequested())) return true;
         if (_lines != null) for (VBOManager l : _lines) if (l.isUpdateRequested()) return true;
-        return false;
+        if ((_bArrowsFills != null) && (_bArrowsFills.isUpdateRequested())) return true;
+        return (_eArrowsFills != null) && (_eArrowsFills.isUpdateRequested());
     }
 
     /**
@@ -575,6 +775,8 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
         if (_markerFills != null) _markerFills.updateData(gl);
         if (_markerEdges != null) _markerEdges.updateData(gl);
         if (_lines != null) for (VBOManager l : _lines) l.updateData(gl);
+        if (_bArrowsFills != null) _bArrowsFills.updateData(gl);
+        if (_eArrowsFills != null) _eArrowsFills.updateData(gl);
     }
 
 
@@ -589,21 +791,32 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
         if (_markerFills != null) _markerFills.dispose(gl);
         if (_markerEdges != null) _markerEdges.dispose(gl);
         if (_lines != null) for (VBOManager l : _lines) l.dispose(gl);
+        if (_bArrowsFills != null) _bArrowsFills.dispose(gl);
+        if (_eArrowsFills != null) _eArrowsFills.dispose(gl);
         _markerFills = null;
         _markerEdges = null;
         _lines = null;
+        _bArrowsFills = null;
+        _eArrowsFills = null;
     }
 
     /**
      * Can be called to check whether the buffer objects have not been created yet.
      *
-     * @return true, buffer objects have not been created yet.
+     * @return true, buffer objects have not been created yet
      */
     @Override
     public boolean areVBOsNull()
     {
         if ((_ms != null) && (_ms.isToBeFilled()) && (_markerFills == null)) return true;
         if ((_ms != null) && (_ms.areEdgesToBeDrawn()) && (_markerEdges == null)) return true;
+        if (_as != null)
+        {
+            if ((_as.isBeginningDrawable()) && (_IDS._baIDS._arrowProjectedData != null) && (_bArrowsFills == null))
+                return true;
+            if ((_as.isEndingDrawable()) && (_IDS._eaIDS._arrowProjectedData != null) && (_eArrowsFills == null))
+                return true;
+        }
         return (_ls != null) && (_ls.isDrawable()) && (_lines == null);
     }
 

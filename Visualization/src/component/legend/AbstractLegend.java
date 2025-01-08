@@ -4,13 +4,12 @@ package component.legend;
 import component.AbstractSwingComponent;
 import container.PlotContainer;
 import dataset.IDataSet;
+import dataset.painter.style.ArrowStyle;
+import dataset.painter.style.ArrowStyles;
 import dataset.painter.style.LineStyle;
 import dataset.painter.style.MarkerStyle;
 import scheme.AbstractScheme;
-import scheme.enums.AlignFields;
-import scheme.enums.ColorFields;
-import scheme.enums.FlagFields;
-import scheme.enums.SizeFields;
+import scheme.enums.*;
 import utils.DrawUtils;
 import utils.Font;
 import utils.Projection;
@@ -26,100 +25,6 @@ import java.awt.geom.Rectangle2D;
  */
 public abstract class AbstractLegend extends AbstractSwingComponent
 {
-    /**
-     * Supportive class storing information on the properties of the legend drawing area.
-     */
-    public static class Dimensions
-    {
-        /**
-         * Supportive field used when drawing entries: height of one entry.
-         */
-        public float _entryHeight = 0.0f;
-
-        /**
-         * Supportive field used when drawing entries: width of the left column where the markers are drawn.
-         */
-        public float _markerColumnWidth = 0.0f;
-
-        /**
-         * X-translation of a center marker.
-         */
-        public float _markerCenterShiftX = 0.0f;
-
-        /**
-         * X-translation of a left marker (if used).
-         */
-        public float _markerLeftShiftX = 0.0f;
-
-        /**
-         * X-translation of a right marker (if used).
-         */
-        public float _markerRightShiftX = 0.0f;
-
-        /**
-         * Supportive field used when drawing entries: width of the right column where the labels are drawn.
-         */
-        public float _labelColumnWidth = 0.0f;
-
-        /**
-         * Supportive field used when drawing entries: spacing between the left and the right column
-         */
-        public float _columnsSeparator = 0.0f;
-
-        /**
-         * Supportive field for scaling legend entries (markers).
-         */
-        public float _markerScalingFactor = 1.0f;
-
-        /**
-         * Supportive field for additionally rescaling the "_markerScalingFactor" field.
-         */
-        public float _markerScalingFactorMultiplier = 1.0f;
-
-        /**
-         * Supportive field for scaling legend entries (lines).
-         */
-        public float _lineScalingFactor = 1.0f;
-
-        /**
-         * Supportive field for additionally rescaling the "_lineScalingFactor" field.
-         */
-        public float _lineScalingFactorMultiplier = 1.0f;
-
-        /**
-         * Expected dimensions of the legend.
-         */
-        public float[] _expectedDimensions = new float[]{0.0f, 0.0f};
-
-        /**
-         * Expected number of entries to be drawn.
-         */
-        public int _noEntries = 0;
-
-        /**
-         * Default constructor.
-         */
-        public Dimensions()
-        {
-            reset();
-        }
-
-
-        /**
-         * Resets the fields.
-         */
-        public void reset()
-        {
-            _entryHeight = 0.0f;
-            _markerColumnWidth = 0.0f;
-            _labelColumnWidth = 0.0f;
-            _columnsSeparator = 0.0f;
-            _expectedDimensions[0] = 0.0f;
-            _expectedDimensions[1] = 0.0f;
-            _markerScalingFactor = 0.75f;
-            _noEntries = 0;
-        }
-    }
 
     /**
      * Params container.
@@ -151,7 +56,7 @@ public abstract class AbstractLegend extends AbstractSwingComponent
     /**
      * Offset : distance from the borders of the drawing area.
      */
-    protected final Size _offset;
+    protected final Size _borderOffset;
 
     /**
      * Inner offset : distance between legend entries and legend borders.
@@ -159,12 +64,22 @@ public abstract class AbstractLegend extends AbstractSwingComponent
     protected final Size _innerOffset;
 
     /**
-     * Spacing: distance between legend entries.
+     * Spacing: distance between legend entries (rows).
      */
     protected final Size _spacing;
 
     /**
-     * Spacing between the left column (markers) and the right (labels).
+     * Spacing between the left column (drawings) and the right (labels).
+     */
+    protected final Size _drawingLabelSeparator;
+
+    /**
+     * Entries per column limit
+     */
+    protected int _entriesPerColumnLimit;
+
+    /**
+     * Spacing between the left column (drawings) and the right (labels).
      */
     protected final Size _columnsSeparator;
 
@@ -181,13 +96,14 @@ public abstract class AbstractLegend extends AbstractSwingComponent
     public AbstractLegend(AbstractLegend.Params p)
     {
         super(p._name, p._PC);
-        _offset = new Size();
+        _borderOffset = new Size();
         _innerOffset = new Size();
         _spacing = new Size();
-        _columnsSeparator = new Size();
+        _drawingLabelSeparator = new Size();
         _entryFont = new Font();
         _dimensions = new Dimensions();
-
+        _columnsSeparator = new Size();
+        _entriesPerColumnLimit = 1;
         instantiateEntryPainter();
     }
 
@@ -199,14 +115,13 @@ public abstract class AbstractLegend extends AbstractSwingComponent
 
     }
 
-
     /**
      * Called by {@link layoutmanager.BaseLayoutManager} to determine expected dimension so that the legend can be properly positioned.
      * The result is stored in the object "_dimensions" field.
      *
      * @param g graphics context
      */
-    @SuppressWarnings("SuspiciousNameCombination")
+    @SuppressWarnings({"DuplicatedCode"})
     public void calculateExpectedDimensions(Graphics g)
     {
         if (g == null) return;
@@ -223,11 +138,7 @@ public abstract class AbstractLegend extends AbstractSwingComponent
 
         float labelColumnWidth = -1.0f;
         float entryHeight = -1.0f;
-        float maximumMarkerLineSize = -1.0f; // for rescalling
-
-        boolean markers = false;
-        boolean markersUseGradients = false;
-        boolean lines = false;
+        float maximumMarkerLineArrowSize = -1.0f; // for rescalling
 
         if ((_PC.getDrawingArea() != null) && (_PC.getDataSets() != null))
         {
@@ -238,101 +149,181 @@ public abstract class AbstractLegend extends AbstractSwingComponent
                 if (!ds.isDisplayableOnLegend()) continue;
                 _dimensions._noEntries++;
 
+                // Label-based adjustment
                 Rectangle2D b = Font.getCorrectDimensions(g2d, ds.getName());
+                if (Double.compare(b.getWidth(), labelColumnWidth) > 0) labelColumnWidth = (float) b.getWidth();
+                if (Double.compare(b.getHeight(), entryHeight) > 0) entryHeight = (float) b.getHeight();
 
-                if (b.getWidth() > labelColumnWidth) labelColumnWidth = (float) b.getWidth();
-                if (b.getHeight() > entryHeight) entryHeight = (float) b.getHeight();
-
+                // Marker based adjustment
                 if ((ds.getMarkerStyle() != null) && (ds.getMarkerStyle().isDrawable()))
                 {
-                    markers = true;
-
+                    _dimensions._drawMarkers = true;
                     MarkerStyle MS = ds.getMarkerStyle();
-                    float ms = MS.calculateRelativeSize(_GC, _PC);
-                    if (MS._legendSize != null)
-                    {
-                        ms = MS._legendSize; // surpass
-                    }
-
-                    if (ms > maximumMarkerLineSize) maximumMarkerLineSize = ms;
-                    if ((MS.isToBeFilled()) && (!MS._color.isMonoColor())) markersUseGradients = true;
-                    if ((MS.areEdgesToBeDrawn()) && (!MS._edge._color.isMonoColor())) markersUseGradients = true;
+                    float ms = MS.calculateRelativeSize(_GC, _PC, MS._legendSize);
+                    if (ms > maximumMarkerLineArrowSize) maximumMarkerLineArrowSize = ms;
+                    if ((MS.isToBeFilled()) && (!MS._color.isMonoColor())) _dimensions._markersUseGradient = true;
+                    if ((MS.areEdgesToBeDrawn()) && (!MS._edge._color.isMonoColor()))
+                        _dimensions._markersUseGradient = true;
                 }
                 if ((ds.getLineStyle() != null) && (ds.getLineStyle().isDrawable()))
                 {
-                    lines = true;
+                    _dimensions._drawLines = true;
                     LineStyle LS = ds.getLineStyle();
-                    float ls = LS.calculateRelativeSize(_GC, _PC);
-                    if (LS._legendSize != null) ls = LS._legendSize; // surpass
-                    if (ls > maximumMarkerLineSize) maximumMarkerLineSize = ls;
+                    float ls = LS.calculateRelativeSize(_GC, _PC, LS._legendSize);
+                    if (ls > maximumMarkerLineArrowSize) maximumMarkerLineArrowSize = ls;
                 }
-
+                if (ds.getArrowStyles() != null)
+                {
+                    if (ds.getArrowStyles().isBeginningDrawable())
+                    {
+                        _dimensions._drawBArrows = true;
+                        ArrowStyle as = ds.getArrowStyles()._bas;
+                        float ll = as.calculateRelativeLength(_GC, _PC, as._legendSize);
+                        float lw = as.calculateRelativeWidth(_GC, _PC, as._legendWidth);
+                        if (Float.compare(ll, maximumMarkerLineArrowSize) > 0) maximumMarkerLineArrowSize = ll;
+                        if (Float.compare(lw, maximumMarkerLineArrowSize) > 0) maximumMarkerLineArrowSize = lw;
+                        if (!as._color.isMonoColor()) _dimensions._bArrowsUseGradients = true;
+                    }
+                    if (ds.getArrowStyles().isEndingDrawable())
+                    {
+                        _dimensions._drawEArrows = true;
+                        ArrowStyle as = ds.getArrowStyles()._eas;
+                        float ll = as.calculateRelativeLength(_GC, _PC, as._legendSize);
+                        float lw = as.calculateRelativeWidth(_GC, _PC, as._legendWidth);
+                        if (Float.compare(ll, maximumMarkerLineArrowSize) > 0) maximumMarkerLineArrowSize = ll;
+                        if (Float.compare(lw, maximumMarkerLineArrowSize) > 0) maximumMarkerLineArrowSize = lw;
+                        if (!as._color.isMonoColor()) _dimensions._eArrowsUseGradients = true;
+                    }
+                }
             }
         }
 
         if (_dimensions._noEntries == 0) return;
 
+        _dimensions._noColumns = _dimensions._noEntries / _entriesPerColumnLimit;
+        if (_dimensions._noEntries % _entriesPerColumnLimit != 0) _dimensions._noColumns++;
+
+
         _dimensions._labelColumnWidth = labelColumnWidth;
         _dimensions._entryHeight = entryHeight;
-        _dimensions._markerColumnWidth = 0.0f;
-        _dimensions._expectedDimensions[0] += labelColumnWidth; // offset + labels
+        _dimensions._drawingColumnWidth = 0.0f;
 
-        if (markers)
+        _dimensions._expectedDimensions[0] += (labelColumnWidth * _dimensions._noColumns); // offset + labels
+
+        // CALCULATE HALF SEGMENTS
+        _dimensions._noHalfSegments = 0;
+        if (_dimensions._drawMarkers)
         {
-            if (markersUseGradients)
+            if (_dimensions._markersUseGradient) _dimensions._noHalfSegments += 8;
+            else _dimensions._noHalfSegments += 2;
+            if (_dimensions._drawLines) _dimensions._noHalfSegments += 2;
+        }
+        else if (_dimensions._drawLines) _dimensions._noHalfSegments += 6;
+
+        if (_dimensions._drawBArrows)
+        {
+            _dimensions._noHalfSegments += 2;
+            if (_dimensions._bArrowsUseGradients) _dimensions._noHalfSegments += 6;
+        }
+        if (_dimensions._drawEArrows)
+        {
+            _dimensions._noHalfSegments += 2;
+            if (_dimensions._eArrowsUseGradients) _dimensions._noHalfSegments += 6;
+        }
+
+        // CALCULATE STARTING SEGMENTS
+        if (_dimensions._drawLines)
+        {
+            _dimensions._lineBeginningHalfSegment = 0;
+            _dimensions._lineEndingHalfSegment = _dimensions._noHalfSegments;
+        }
+
+        int offset = 0;
+        if (_dimensions._drawBArrows)
+        {
+            _dimensions._lineBeginningHalfSegment = 1;
+            offset += 2;
+            if (_dimensions._bArrowsUseGradients)
             {
-                _dimensions._expectedDimensions[0] += entryHeight * 4.0f;
-                _dimensions._markerColumnWidth += entryHeight * 4.0f;
+                offset += 6;
+                _dimensions._bArrowsCentersNoHalfSegments = new int[]{1, 4, 7};
             }
-            else
-            {
-                _dimensions._expectedDimensions[0] += entryHeight;
-                _dimensions._markerColumnWidth += entryHeight;
-            }
+            else _dimensions._bArrowsCentersNoHalfSegments = new int[]{1};
         }
-
-        if (lines)
+        if (_dimensions._drawEArrows)
         {
-            _dimensions._expectedDimensions[0] += entryHeight;
-            _dimensions._markerColumnWidth += entryHeight;
+            _dimensions._lineEndingHalfSegment = _dimensions._noHalfSegments - 1;
+            if (_dimensions._eArrowsUseGradients) _dimensions._eArrowsCentersNoHalfSegments
+                    = new int[]{_dimensions._noHalfSegments - 1, _dimensions._noHalfSegments - 4, _dimensions._noHalfSegments - 7};
+            else _dimensions._eArrowsCentersNoHalfSegments = new int[]{_dimensions._noHalfSegments - 1};
         }
 
-        if (markers || lines)
+        if (_dimensions._drawMarkers)
         {
-            _dimensions._expectedDimensions[0] += _columnsSeparator._actualSize;
-            _dimensions._columnsSeparator = _columnsSeparator._actualSize;
+            if (_dimensions._drawLines) offset++;
+            if (_dimensions._markersUseGradient) _dimensions._markerCentersNoHalfSegments
+                    = new int[]{offset + 1, offset + 4, offset + 7};
+            else _dimensions._markerCentersNoHalfSegments = new int[]{offset + 1};
         }
 
-        _dimensions._expectedDimensions[1] += (_dimensions._noEntries - 1) * _spacing._actualSize + _dimensions._noEntries * entryHeight;
+        float drawingColumnWidth = _dimensions._noHalfSegments * entryHeight / 2.0f;
 
-        if (Float.compare(maximumMarkerLineSize, 0.0f) > 0)
+        _dimensions._expectedDimensions[0] += drawingColumnWidth * _dimensions._noColumns; // separators are already included
+        _dimensions._drawingColumnWidth = drawingColumnWidth;
+
+        float dw = drawingColumnWidth / _dimensions._noHalfSegments;
+
+        // CALCULATE CENTERS
+        if (_dimensions._drawMarkers)
         {
-            if (markers)
-                _dimensions._markerScalingFactor = entryHeight / maximumMarkerLineSize * _dimensions._markerScalingFactorMultiplier;
-            if (lines)
-                _dimensions._lineScalingFactor = entryHeight / maximumMarkerLineSize * _dimensions._lineScalingFactorMultiplier;
+            _dimensions._markersX = new float[_dimensions._markerCentersNoHalfSegments.length];
+            for (int i = 0; i < _dimensions._markerCentersNoHalfSegments.length; i++)
+                _dimensions._markersX[i] = dw * _dimensions._markerCentersNoHalfSegments[i];
+        }
+        if (_dimensions._drawLines)
+        {
+            _dimensions._lineBeginnningX = _dimensions._lineBeginningHalfSegment * dw;
+            _dimensions._lineEndingX = _dimensions._lineEndingHalfSegment * dw;
         }
 
-        _dimensions._markerCenterShiftX = _dimensions._markerColumnWidth / 2.0f;
-        if (markersUseGradients)
+        if (_dimensions._drawBArrows)
         {
-            if (lines)
-            {
-                _dimensions._markerLeftShiftX = _dimensions._markerColumnWidth * (1.0f / 5.0f);
-                _dimensions._markerRightShiftX = _dimensions._markerColumnWidth * (4.0f / 5.0f);
-            }
-            else
-            {
-                _dimensions._markerLeftShiftX = _dimensions._markerColumnWidth * (1.0f / 8.0f);
-                _dimensions._markerRightShiftX = _dimensions._markerColumnWidth * (7.0f / 8.0f);
-            }
+            _dimensions._bArrowsX = new float[_dimensions._bArrowsCentersNoHalfSegments.length];
+            for (int i = 0; i < _dimensions._bArrowsCentersNoHalfSegments.length; i++)
+                _dimensions._bArrowsX[i] = dw * _dimensions._bArrowsCentersNoHalfSegments[i];
         }
+
+        if (_dimensions._drawEArrows)
+        {
+            _dimensions._eArrowsX = new float[_dimensions._eArrowsCentersNoHalfSegments.length];
+            for (int i = 0; i < _dimensions._eArrowsCentersNoHalfSegments.length; i++)
+                _dimensions._eArrowsX[i] = dw * _dimensions._eArrowsCentersNoHalfSegments[i];
+        }
+
+        if (_dimensions._drawMarkers || _dimensions._drawLines) // arrows can be drawn only when lines are
+        {
+            _dimensions._drawingLabelColumnsSeparator = _drawingLabelSeparator._actualSize;
+
+            float d = _columnsSeparator._actualSize * (_dimensions._noColumns - 1) +
+                    _dimensions._drawingLabelColumnsSeparator * _dimensions._noColumns;
+            _dimensions._expectedDimensions[0] += d;
+
+        }
+
+        if (_dimensions._noEntries > _entriesPerColumnLimit)
+            _dimensions._expectedDimensions[1] += (_entriesPerColumnLimit - 1) * _spacing._actualSize + _entriesPerColumnLimit * entryHeight;
         else
-        {
-            _dimensions._markerLeftShiftX = -1.0f;
-            _dimensions._markerRightShiftX = -1.0f;
-        }
+            _dimensions._expectedDimensions[1] += (_dimensions._noEntries - 1) * _spacing._actualSize + _dimensions._noEntries * entryHeight;
 
+        if (Float.compare(maximumMarkerLineArrowSize, 0.0f) > 0)
+        {
+            if (_dimensions._drawMarkers)
+                _dimensions._markerScalingFactor = entryHeight / maximumMarkerLineArrowSize * _dimensions._markerScalingFactorMultiplier;
+            if (_dimensions._drawLines)
+                _dimensions._lineScalingFactor = entryHeight / maximumMarkerLineArrowSize * _dimensions._lineScalingFactorMultiplier;
+            if (_dimensions._drawBArrows || _dimensions._drawEArrows)
+                _dimensions._arrowsScalingFactor = entryHeight / maximumMarkerLineArrowSize * _dimensions._arrowsScalingFactorMultiplier;
+        }
 
         g2d.dispose();
     }
@@ -354,7 +345,7 @@ public abstract class AbstractLegend extends AbstractSwingComponent
      */
     public Size getOffset()
     {
-        return _offset;
+        return _borderOffset;
     }
 
     /**
@@ -373,9 +364,9 @@ public abstract class AbstractLegend extends AbstractSwingComponent
         Graphics2D g2d = (Graphics2D) g2;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        float y = _translationVector[1] + _innerOffset._actualSize + _dimensions._entryHeight / 2.0f;
-        float x = _translationVector[0] + _innerOffset._actualSize;
-        float labelShift = _dimensions._markerColumnWidth + _dimensions._columnsSeparator;
+        float by = _translationVector[1] + _innerOffset._actualSize + _dimensions._entryHeight / 2.0f;
+        float bx = _translationVector[0] + _innerOffset._actualSize; // base x
+        float labelShift = _dimensions._drawingColumnWidth + _dimensions._drawingLabelColumnsSeparator;
 
         g2.setFont(_entryFont._font);
         g2.setColor(_entryFont._color);
@@ -390,6 +381,7 @@ public abstract class AbstractLegend extends AbstractSwingComponent
 
         if (_PC.getDataSets() != null)
         {
+            int no = 0;
             for (IDataSet ds : _PC.getDataSets())
             {
                 if (ds == null) continue;
@@ -402,61 +394,46 @@ public abstract class AbstractLegend extends AbstractSwingComponent
                 g2.setColor(_entryFont._color);
 
                 g2.drawString(ds.getName(),
-                        Projection.getP((float) (x + labelShift - referenceB.getMinX())) - 1,
-                        Projection.getP(y + mod) - 1);
+                        Projection.getP((float) (bx + labelShift - referenceB.getMinX())) - 1,
+                        Projection.getP(by + mod) - 1);
 
                 LineStyle LS = ds.getLineStyle();
                 MarkerStyle MS = ds.getMarkerStyle();
+                ArrowStyles AS = ds.getArrowStyles();
 
-                if ((LS != null) && (LS.isDrawable()))
+                // draw lines
+                if ((_dimensions._drawLines) && (ds.getLineStyle() != null) && (ds.getLineStyle().isDrawable()))
                 {
                     _entryPainter.setLineStyle(LS);
-                    float ratio = _dimensions._lineScalingFactor * LS.calculateRelativeSize(_GC, _PC) / LS._size;
-                    if (LS._legendSize != null)
-                        ratio = _dimensions._lineScalingFactor * LS._legendSize; // surpass
+                    float ratio = _dimensions._lineScalingFactor * LS.calculateRelativeSize(_GC, _PC, LS._legendSize) / LS._size;
 
                     BasicStroke modStroke = DrawUtils.constructRescaledStroke(ratio, LS._stroke);
                     g2d.setStroke(modStroke);
-
+                    float x1 = bx + _dimensions._lineBeginnningX;
+                    float x2 = bx + _dimensions._lineEndingX;
                     if (LS._color.isMonoColor())
                     {
                         g2.setColor(LS._color.getColor(0.0f));
-                        _entryPainter.drawLine(g2, x - 1, y - 1, x + _dimensions._markerColumnWidth - 1, y - 1);
+                        _entryPainter.drawLine(g2, x1 - 1.0f, by - 1, x2 - 1, by - 1.0f);
                     }
-                    else
-                        _entryPainter.drawGradientLine(g2, LS._color, modStroke.getLineWidth(), x - 1, x + _dimensions._markerColumnWidth - 1, y - 1);
+                    else _entryPainter.drawGradientLine(g2, LS._color, modStroke.getLineWidth(),
+                            x1 - 1.0f, x2 - 1.0f, by - 1);
                 }
 
-                if ((MS != null) && (MS.isDrawable()))
+                if ((_dimensions._drawMarkers) && (ds.getMarkerStyle() != null) && (ds.getMarkerStyle().isDrawable()))
                 {
                     _entryPainter.setMarkerStyle(MS);
-                    float mSize = MS.calculateRelativeSize(_GC, _PC) * _dimensions._markerScalingFactor;
-                    if (MS._legendSize != null) mSize = MS._legendSize * _dimensions._markerScalingFactor; // surpass
-
-                    boolean drawThree = (((MS.isToBeFilled()) && (!MS._color.isMonoColor())) ||
-                            ((MS.areEdgesToBeDrawn()) && (!MS._edge._color.isMonoColor())));
+                    float mSize = MS.calculateRelativeSize(_GC, _PC, MS._legendSize) * _dimensions._markerScalingFactor;
 
                     if (MS.isToBeFilled())
                     {
+                        int lim = _dimensions._markersX.length;
+                        if (lim == 1) g2.setColor(MS._color.getColor(0.0f));
 
-                        g2.setColor(MS._color.getColor(0.0f));
-                        if (!drawThree)
+                        for (int i = 0; i < _dimensions._markersX.length; i++)
                         {
-                            _entryPainter.drawMarker(g2, x + _dimensions._markerCenterShiftX - 1, y - 1, mSize,
-                                    null, null, true, false);
-                        }
-                        else
-                        {
-                            g2.setColor(MS._color.getColor(0.0f));
-                            _entryPainter.drawMarker(g2, x + _dimensions._markerLeftShiftX - 1, y - 1, mSize,
-                                    null, null, true, false);
-
-                            g2.setColor(MS._color.getColor(0.5f));
-                            _entryPainter.drawMarker(g2, x + _dimensions._markerCenterShiftX - 1, y - 1, mSize,
-                                    null, null, true, false);
-
-                            g2.setColor(MS._color.getColor(1.0f));
-                            _entryPainter.drawMarker(g2, x + _dimensions._markerRightShiftX - 1, y - 1, mSize,
+                            if (lim > 1) g2.setColor(MS._color.getColor((float) i / (lim - 1)));
+                            _entryPainter.drawMarker(g2, bx + _dimensions._markersX[i] - 1, by - 1, mSize,
                                     null, null, true, false);
                         }
                     }
@@ -468,28 +445,64 @@ public abstract class AbstractLegend extends AbstractSwingComponent
                             ratio = _dimensions._markerScalingFactor * MS._edge._legendSize; // surpass
 
                         g2d.setStroke(DrawUtils.constructRescaledStroke(ratio, MS._edge._stroke));
-                        g2.setColor(MS._edge._color.getColor(0.0f));
-                        if (!drawThree)
+                        int lim = _dimensions._markersX.length;
+                        if (lim == 1) g2.setColor(MS._edge._color.getColor(0.0f));
+
+                        for (int i = 0; i < _dimensions._markersX.length; i++)
                         {
-                            _entryPainter.drawMarker(g2, x + _dimensions._markerCenterShiftX - 1, y - 1, mSize,
-                                    null, null, false, true);
-                        }
-                        else
-                        {
-                            _entryPainter.drawMarker(g2, x + _dimensions._markerLeftShiftX - 1, y - 1, mSize,
-                                    null, null, false, true);
-                            g2.setColor(MS._edge._color.getColor(0.5f));
-                            _entryPainter.drawMarker(g2, x + _dimensions._markerCenterShiftX - 1, y - 1, mSize,
-                                    null, null, false, true);
-                            g2.setColor(MS._edge._color.getColor(1.0f));
-                            _entryPainter.drawMarker(g2, x + _dimensions._markerRightShiftX - 1, y - 1, mSize,
+                            if (lim > 1) g2.setColor(MS._edge._color.getColor((float) i / (lim - 1)));
+                            _entryPainter.drawMarker(g2, bx + _dimensions._markersX[i] - 1, by - 1, mSize,
                                     null, null, false, true);
                         }
                     }
                 }
 
+                if ((_dimensions._drawBArrows) && (AS != null) && (AS.isBeginningDrawable()))
+                {
+                    _entryPainter.setArrowStyle(AS._bas);
+                    float mLength = AS._bas.calculateRelativeLength(_GC, _PC, AS._bas._legendSize)
+                            * _dimensions._arrowsScalingFactor;
+                    float mWidth = AS._bas.calculateRelativeWidth(_GC, _PC, AS._bas._legendWidth)
+                            * _dimensions._arrowsScalingFactor;
+
+                    int lim = _dimensions._bArrowsX.length;
+                    if (lim == 1) g2.setColor(AS._bas._color.getColor(0.0f));
+
+                    for (int i = 0; i < _dimensions._bArrowsX.length; i++)
+                    {
+                        if (lim > 1) g2.setColor(AS._bas._color.getColor((float) i / (lim - 1)));
+                        _entryPainter.drawArrow(g2, bx + _dimensions._bArrowsX[i] - 1, by - 1, mLength, mWidth, null, true);
+                    }
+                }
+
+                if ((_dimensions._drawEArrows) && (AS != null) && (AS.isEndingDrawable()))
+                {
+                    _entryPainter.setArrowStyle(AS._eas);
+                    float mLength = AS._eas.calculateRelativeLength(_GC, _PC, AS._eas._legendSize)
+                            * _dimensions._arrowsScalingFactor;
+                    float mWidth = AS._eas.calculateRelativeWidth(_GC, _PC, AS._eas._legendWidth)
+                            * _dimensions._arrowsScalingFactor;
+
+                    int lim = _dimensions._eArrowsX.length;
+                    if (lim == 1) g2.setColor(AS._eas._color.getColor(0.0f));
+
+                    for (int i = 0; i < _dimensions._eArrowsX.length; i++)
+                    {
+                        if (lim > 1) g2.setColor(AS._eas._color.getColor((float) i / (lim - 1)));
+                        _entryPainter.drawArrow(g2, bx + _dimensions._eArrowsX[i] - 1, by - 1, mLength, mWidth, null, true);
+                    }
+                }
+
                 // ====================================================================================================
-                y += (_dimensions._entryHeight + _spacing._actualSize);
+                by += (_dimensions._entryHeight + _spacing._actualSize);
+                no++;
+                if (no >= _entriesPerColumnLimit)
+                {
+                    no = 0;
+                    bx += (_dimensions._drawingColumnWidth + _dimensions._drawingLabelColumnsSeparator +
+                            _dimensions._labelColumnWidth + _columnsSeparator._actualSize);
+                    by = _translationVector[1] + _innerOffset._actualSize + _dimensions._entryHeight / 2.0f;
+                }
             }
         }
 
@@ -520,10 +533,12 @@ public abstract class AbstractLegend extends AbstractSwingComponent
 
         float RV = _PC.getReferenceValueGetter().getReferenceValue();
 
-        _offset.setFixedSize(scheme.getSizes(_surpassedSizes, SizeFields.LEGEND_OFFSET_FIXED));
-        _offset.setRelativeSizeMultiplier(scheme.getSizes(_surpassedSizes, SizeFields.LEGEND_OFFSET_RELATIVE_MULTIPLIER));
-        _offset.setUseRelativeSize(scheme.getFlags(_surpassedFlags, FlagFields.LEGEND_OFFSET_USE_RELATIVE_SIZE));
-        _offset.computeActualSize(RV);
+        _entriesPerColumnLimit = scheme.getNumbers(_surpassedNumbers, NumberFields.LEGEND_NO_ENTRIES_PER_COLUMN_LIMIT);
+
+        _borderOffset.setFixedSize(scheme.getSizes(_surpassedSizes, SizeFields.LEGEND_OFFSET_FIXED));
+        _borderOffset.setRelativeSizeMultiplier(scheme.getSizes(_surpassedSizes, SizeFields.LEGEND_OFFSET_RELATIVE_MULTIPLIER));
+        _borderOffset.setUseRelativeSize(scheme.getFlags(_surpassedFlags, FlagFields.LEGEND_DRAWING_LABEL_OFFSET_USE_RELATIVE_SIZE));
+        _borderOffset.computeActualSize(RV);
 
         _innerOffset.setFixedSize(scheme.getSizes(_surpassedSizes, SizeFields.LEGEND_INNER_OFFSET_FIXED));
         _innerOffset.setRelativeSizeMultiplier(scheme.getSizes(_surpassedSizes, SizeFields.LEGEND_INNER_OFFSET_RELATIVE_MULTIPLIER));
@@ -535,11 +550,17 @@ public abstract class AbstractLegend extends AbstractSwingComponent
         _spacing.setUseRelativeSize(scheme.getFlags(_surpassedFlags, FlagFields.LEGEND_ENTRIES_SPACING_USE_RELATIVE_SIZE));
         _spacing.computeActualSize(RV);
 
+        _drawingLabelSeparator.setFixedSize(scheme.getSizes(_surpassedSizes, SizeFields.LEGEND_DRAWING_LABEL_SEPARATOR_FIXED));
+        _drawingLabelSeparator.setRelativeSizeMultiplier(scheme.getSizes(_surpassedSizes, SizeFields.LEGEND_DRAWING_LABEL_SEPARATOR_RELATIVE_MULTIPLIER));
+        _drawingLabelSeparator.setUseRelativeSize(scheme.getFlags(_surpassedFlags, FlagFields.LEGEND_DRAWING_LABEL_SEPARATOR_USE_RELATIVE_SIZE));
+        _drawingLabelSeparator.computeActualSize(RV);
+
         _columnsSeparator.setFixedSize(scheme.getSizes(_surpassedSizes, SizeFields.LEGEND_COLUMNS_SEPARATOR_FIXED));
         _columnsSeparator.setRelativeSizeMultiplier(scheme.getSizes(_surpassedSizes, SizeFields.LEGEND_COLUMNS_SEPARATOR_RELATIVE_MULTIPLIER));
         _columnsSeparator.setUseRelativeSize(scheme.getFlags(_surpassedFlags, FlagFields.LEGEND_COLUMNS_SEPARATOR_USE_RELATIVE_SIZE));
         _columnsSeparator.computeActualSize(RV);
 
+        _entryFont._fontName = scheme.getFonts(_surpassedFonts, FontFields.LEGEND_ENTRY);
         _entryFont._size.setFixedSize(scheme.getSizes(_surpassedSizes, SizeFields.LEGEND_ENTRY_FONT_SIZE_FIXED));
         _entryFont._size.setRelativeSizeMultiplier(scheme.getSizes(_surpassedSizes, SizeFields.LEGEND_ENTRY_FONT_SIZE_RELATIVE_MULTIPLIER));
         _entryFont._size.setUseRelativeSize(scheme.getFlags(_surpassedFlags, FlagFields.LEGEND_ENTRY_FONT_USE_RELATIVE_SIZE));
@@ -572,10 +593,11 @@ public abstract class AbstractLegend extends AbstractSwingComponent
     public void updateRelativeFields()
     {
         float RV = _PC.getReferenceValueGetter().getReferenceValue();
-        _offset.computeActualSize(RV);
+        _borderOffset.computeActualSize(RV);
         _innerOffset.computeActualSize(RV);
-        _spacing.computeActualSize(RV);
         _columnsSeparator.computeActualSize(RV);
+        _spacing.computeActualSize(RV);
+        _drawingLabelSeparator.computeActualSize(RV);
         _entryFont._size.computeActualSize(RV);
         _entryFont.prepareFont();
         _borderStroke = getStroke(_borderWidth);

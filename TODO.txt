@@ -12,6 +12,7 @@ Visualization:
 - Allowing for changing some of the data sets, while keeping the others untouched (i.e., using static and dynamic data sets).
 - Data set that aggregates multiple data sets (for preloading, wrapped data sets can be turned off/on for rendering)
 - Providing better ways of ticks (axis) adjustment.
+- Creating custom legend (legend entries)
 - Using multiple colorbars
 - Using multiple X, Y axes
 - Introducing OpenGL-based 2D rendering mode.
@@ -19,6 +20,7 @@ Visualization:
 - Introducing lighting into 3D mode and custom objects loading.
 - Introducing textures into 3D mode.
 - Introducing clipping into 3D mode.
+- Improving text quality in 3D mode.
 - Introducing labels (data sets) to into 2D/3D mode
 - Marker size based on attribute value (use of DR)
 - Heatmap2D: providing values in buckets

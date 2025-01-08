@@ -14,4 +14,9 @@ public enum NumberFields
      * Grid (auxiliary): lines dash pattern.
      */
     GRID_AUX_DASH_PATTERN,
+
+    /**
+     * Legend: limits the number of entries per one column
+     */
+    LEGEND_NO_ENTRIES_PER_COLUMN_LIMIT
 }

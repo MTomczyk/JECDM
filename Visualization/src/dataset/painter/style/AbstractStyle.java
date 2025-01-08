@@ -11,12 +11,10 @@ import dataset.painter.style.size.RelativeToMinDrawingAreaBoundsSize;
  *
  * @author MTomczyk
  */
-
-
 public abstract class AbstractStyle
 {
     /**
-     * Object size (relative size from 0 to 1; can be 0.0 -> object is not drawn).
+     * Object size (relative size; can be 0.0: object is not drawn).
      */
     public final float _size;
 
@@ -26,18 +24,18 @@ public abstract class AbstractStyle
     public IRelativeSize _relativeSize = new RelativeToMinDrawingAreaBoundsSize();
 
     /**
-     * Color used when drawing the object (can be null -> the object is not drawn). Note that it can be either
-     * a mono color or a complete gradient.
+     * Color used when drawing the object (can be null: the object is not drawn). Note that it can be either
+     * a mono color or a gradient.
      */
     public final Gradient _color;
 
     /**
-     * Supportive index pointing to the display range used when determining the line gradient color (can be null -> not used).
+     * Supportive index pointing to the display range used when determining the gradient color (can be null: not used).
      */
     public final int _drID;
 
     /**
-     * Supportive fields that, if provided (not null), surpass the original size field when determining legend entry size.
+     * Supportive field that, if provided (not null), surpass the original size field when determining legend entry size.
      */
     public final Float _legendSize;
 
@@ -45,9 +43,9 @@ public abstract class AbstractStyle
     /**
      * Parameterized constructor.
      *
-     * @param size       object size (can be 0.0 -> object is not drawn)
-     * @param color      color used when drawing the object (can be null -> the object is not drawn); note that it can be either a mono color or a complete gradient
-     * @param drID       supportive index pointing to the display range used when determining the line gradient color (can be null -> not used)
+     * @param size       object size (can be 0.0: object is not drawn)
+     * @param color      color used when drawing the object (can be null: the object is not drawn); note that it can be either a mono color or a gradient
+     * @param drID       supportive index pointing to the display range used when determining the line gradient color (can be null: not used)
      * @param legendSize supportive field that, if provided (not null), surpasses the original size field when determining legend entry size
      */
     public AbstractStyle(float size, Gradient color, int drID, Float legendSize)
@@ -62,7 +60,7 @@ public abstract class AbstractStyle
     /**
      * Determines whether the object is drawable based on the parameters set.
      *
-     * @return true -> object can be drawn; false -> otherwise
+     * @return if true, object can be drawn; false otherwise
      */
     public boolean isDrawable()
     {
@@ -78,7 +76,21 @@ public abstract class AbstractStyle
      */
     public float calculateRelativeSize(GlobalContainer GC, PlotContainer PC)
     {
-        return _relativeSize.getSize(GC, PC, _size);
+        return calculateRelativeSize(GC, PC, _size);
+    }
+
+    /**
+     * Supportive method for calculating an object's relative size (marker size/line width).
+     *
+     * @param GC   global container
+     * @param PC   plot container
+     * @param size surpasses the size field value (can be null; then the size field value is used)
+     * @return relative size
+     */
+    public float calculateRelativeSize(GlobalContainer GC, PlotContainer PC, Float size)
+    {
+        if (size == null) return _relativeSize.getSize(GC, PC, _size);
+        return _relativeSize.getSize(GC, PC, size);
     }
 
 }

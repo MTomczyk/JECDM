@@ -771,6 +771,112 @@ public class VectorTest
     }
 
     /**
+     * Test "getPerpendicularVector2D (double)".
+     */
+    @Test
+    public void getPerpendicularVector2DDouble()
+    {
+        {
+            assertNull(Vector.getPerpendicularVector2D((double[]) null));
+            assertNull(Vector.getPerpendicularVector2D(new double[1]));
+            assertNull(Vector.getPerpendicularVector2D(new double[2]));
+        }
+
+        {
+            double[] v = Vector.getPerpendicularVector2D(new double[]{1.0d, 2.0d});
+            assertNotNull(v);
+            assertEquals(2.0d, v[0], 1.0E-6);
+            assertEquals(-1.0d, v[1], 1.0E-6);
+        }
+
+        {
+            double[] v = Vector.getPerpendicularVector2D(new double[]{1.0d, 0.0d});
+            assertNotNull(v);
+            assertEquals(0.0d, v[0], 1.0E-6);
+            assertEquals(-1.0d, v[1], 1.0E-6);
+        }
+
+        {
+            double[] v = Vector.getPerpendicularVector2D(new double[]{0.0d, -1.0d});
+            assertNotNull(v);
+            assertEquals(-1.0d, v[0], 1.0E-6);
+            assertEquals(0.0d, v[1], 1.0E-6);
+        }
+
+        {
+            double[] v = Vector.getPerpendicularVector2D(new double[]{0.0d, 1.0d});
+            assertNotNull(v);
+            assertEquals(1.0d, v[0], 1.0E-6);
+            assertEquals(0.0d, v[1], 1.0E-6);
+        }
+
+        {
+            IRandom R = new MersenneTwister64(0);
+            for (int t = 0; t < 10000; t++)
+            {
+                double[] w = WeightsGenerator.getNormalizedWeightVector(2, R);
+                double[] pw = Vector.getPerpendicularVector2D(w);
+                double sp = Vector.getDotProduct(w, pw);
+                assertEquals(0.0d, sp, 1.0E-5);
+            }
+        }
+    }
+
+    /**
+     * Test "getPerpendicularVector2D (float)".
+     */
+    @Test
+    public void getPerpendicularVector2DFloat()
+    {
+        {
+            assertNull(Vector.getPerpendicularVector2D((float[]) null));
+            assertNull(Vector.getPerpendicularVector2D(new float[1]));
+            assertNull(Vector.getPerpendicularVector2D(new float[2]));
+        }
+
+        {
+            float[] v = Vector.getPerpendicularVector2D(new float[]{1.0f, 2.0f});
+            assertNotNull(v);
+            assertEquals(2.0f, v[0], 1.0E-6);
+            assertEquals(-1.0f, v[1], 1.0E-6);
+        }
+
+        {
+            float[] v = Vector.getPerpendicularVector2D(new float[]{1.0f, 0.0f});
+            assertNotNull(v);
+            assertEquals(0.0f, v[0], 1.0E-6);
+            assertEquals(-1.0f, v[1], 1.0E-6);
+        }
+
+        {
+            float[] v = Vector.getPerpendicularVector2D(new float[]{0.0f, -1.0f});
+            assertNotNull(v);
+            assertEquals(-1.0f, v[0], 1.0E-6);
+            assertEquals(0.0f, v[1], 1.0E-6);
+        }
+
+        {
+            float[] v = Vector.getPerpendicularVector2D(new float[]{0.0f, 1.0f});
+            assertNotNull(v);
+            assertEquals(1.0f, v[0], 1.0E-6);
+            assertEquals(0.0f, v[1], 1.0E-6);
+        }
+
+
+        {
+            IRandom R = new MersenneTwister64(0);
+            for (int t = 0; t < 10000; t++)
+            {
+                double[] w = WeightsGenerator.getNormalizedWeightVector(2, R);
+                float[] fw = new float[]{(float) w[0], (float) w[1]};
+                float[] pw = Vector.getPerpendicularVector2D(fw);
+                float sp = Vector.getDotProduct(fw, pw);
+                assertEquals(0.0d, sp, 1.0E-5);
+            }
+        }
+    }
+
+    /**
      * Test "getPerpendicularVector3D (double)".
      */
     @Test

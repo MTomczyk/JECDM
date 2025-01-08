@@ -1,13 +1,17 @@
-[02.01.2025] Minor updates + drawing arrows in visualization module
-- Added a Simplex class in Utils.space.simplex (provides various functionalities related to a normalized simplex plane (vectors whose components are in [0, 1] bounds and sum up to 1.0)
-- Refactorization: Minor changes in space.Vector class and its corresponding VectorTest test.
-- Refactorization: Utils.space: Minor changes in IDistance and IScalarizingFunction interfaces (methods informing about preference direction are added)
-- Refactorization: Similarity in EvolutionaryComputation.emo.utils.decomposition.similarity.ISimilarity: isLessPreferred changed name to isLessMeaningCloser
-- Refactorization: Resigned from private MyProject and Didactics module; switched to just one "Private"
-- Refactorization: Minor changes in packages structure of DecisionSupport.model.constructor.value
-- Refactorization: Minor changes in the evolutionary operators (EvolutionaryComputation.reproduction.operators)
+[07.01.2025] Minor updates + drawing arrows in visualization module
+- Added a possibility of drawing arrows (see Tutorial 7: Visualization module -- drawing arrows).
+- Added a Simplex class in Utils.space.simplex (provides various functionalities related to a normalized simplex plane (vectors whose components are in [0, 1] bounds and sum up to 1.0).
+- Added Visualization.AbstractScheme.setAllFontsTo(String fontName) public method.
+- Refactorization: Visualization.dataset.DataSet + added new factory-like classes DSFactory2D and DSFactory3D (they will be updated with new methods from now, not DataSet).
+- Refactorization: Minor changes in Utils.space.Vector class and its corresponding VectorTest test.
+- Refactorization: Utils.space: Minor changes in IDistance and IScalarizingFunction interfaces (methods informing about preference direction are added).
+- Refactorization: Similarity in EvolutionaryComputation.emo.utils.decomposition.similarity.ISimilarity: isLessPreferred changed name to isLessMeaningCloser.
+- Refactorization: Resigned from private MyProject and Didactics module; switched to just one "Private".
+- Refactorization: Minor changes in packages structure of DecisionSupport.model.constructor.value.
+- Refactorization: Minor changes in the evolutionary operators (EvolutionaryComputation.reproduction.operators).
 - Bug in Experimentation module: (GlobalDataContainer) The number of threads is reduced to 1 (surpasses the original value) when the empty arguments array is provided to ExperimentPerformer.execute(String [] args). Corrected.
 - Bug in Experimentation module: CrossSummarizer throws an exception when the crossed-scenario level is > 3. Corrected.
+- Bug in Visualization module: Surpassing legend entry sizes was not working properly. Corrected.
 - Changelog.txt is added
 
 [10.12.2024] Initial release

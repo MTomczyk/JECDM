@@ -207,6 +207,16 @@ public enum SizeFields
     LEGEND_COLUMNS_SEPARATOR_RELATIVE_MULTIPLIER,
 
     /**
+     * Legend: drawing-label separator (fixed size).
+     */
+    LEGEND_DRAWING_LABEL_SEPARATOR_FIXED,
+
+    /**
+     * Legend: drawing-label separator (size relative multiplier).
+     */
+    LEGEND_DRAWING_LABEL_SEPARATOR_RELATIVE_MULTIPLIER,
+
+    /**
      * Legend: marker scaling factor multiplier.
      */
     LEGEND_MARKER_SCALING_FACTOR_MULTIPLIER,

@@ -101,9 +101,14 @@ public enum FlagFields
     LEGEND_BORDER_USE_RELATIVE_WIDTH,
 
     /**
-     * Legend: offset use relative size flag.
+     * Legend: drawing-label offset use relative size flag.
      */
-    LEGEND_OFFSET_USE_RELATIVE_SIZE,
+    LEGEND_DRAWING_LABEL_OFFSET_USE_RELATIVE_SIZE,
+
+    /**
+     * Legend: columns separator use relative size flag.
+     */
+    LEGEND_COLUMNS_SEPARATOR_USE_RELATIVE_SIZE,
 
     /**
      * Legend: inner offset use relative size flag.
@@ -121,9 +126,9 @@ public enum FlagFields
     LEGEND_ENTRIES_SPACING_USE_RELATIVE_SIZE,
 
     /**
-     * Legend: columns separator use relative size flag.
+     * Legend: drawing-label separator use relative size flag.
      */
-    LEGEND_COLUMNS_SEPARATOR_USE_RELATIVE_SIZE,
+    LEGEND_DRAWING_LABEL_SEPARATOR_USE_RELATIVE_SIZE,
 
     /**
      * Legend: opaque flag.

@@ -18,7 +18,7 @@ public class Tetrahedron
      * @param v        vertex array to be filled
      * @param ii       index array to be filled (integers) (either ii or is must be null)
      * @param is       index array to be filled (shorts) (either ii or is must be null)
-     * @param c        color array to be filled (can be null -> not filled; only when the used color is not a gradient)
+     * @param c        color array to be filled (can be null: not filled; only when the used color is not a gradient)
      * @param useAlpha true, the fourth channel is used
      * @param P        projection data
      * @param ms       marker style
@@ -27,7 +27,7 @@ public class Tetrahedron
     {
         OffsetStride os = new OffsetStride();
         os._vaStride = 4 * 3;
-        os._iaStride = 6 * 2;
+        os._iaStride = 4 * 3;
         os._iStride = 4;
         if (useAlpha) os._caStride = 4 * 4;
         else os._caStride = 4 * 3;
@@ -67,7 +67,7 @@ public class Tetrahedron
      * @param v        vertex array to be filled
      * @param ii       index array to be filled (integers) (either ii or is must be null)
      * @param is       index array to be filled (shorts) (either ii or is must be null)
-     * @param c        color array to be filled (can be null -> not filled; only when the used color is not a gradient)
+     * @param c        color array to be filled (can be null: not filled; only when the used color is not a gradient)
      * @param useAlpha true, the fourth channel is used
      * @param P        projection data
      * @param ms       marker style

@@ -26,6 +26,16 @@ public class IDS3D extends IDS
     public BufferData[] _linesBuffer;
 
     /**
+     * Arrows fill buffer data (beginnings).
+     */
+    public BufferData _bArrowsFillsBuffer;
+
+    /**
+     * Arrows fill buffer data (endings).
+     */
+    public BufferData _eArrowsFillsBuffer;
+
+    /**
      * Can be called to reset (clear) IDS.
      */
     @SuppressWarnings("DuplicatedCode")
@@ -35,5 +45,7 @@ public class IDS3D extends IDS
         _markersFillsBuffer = null;
         _markersEdgesBuffer = null;
         _linesBuffer = null;
+        _bArrowsFillsBuffer = null;
+        _eArrowsFillsBuffer = null;
     }
 }

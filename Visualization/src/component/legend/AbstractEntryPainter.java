@@ -1,8 +1,10 @@
 package component.legend;
 
 import color.gradient.Gradient;
+import dataset.painter.style.ArrowStyle;
 import dataset.painter.style.LineStyle;
 import dataset.painter.style.MarkerStyle;
+import dataset.painter.style.enums.Arrow;
 import utils.DrawUtils;
 import utils.Projection;
 
@@ -24,6 +26,11 @@ public class AbstractEntryPainter implements IEntryPainter
      * Line style.
      */
     private LineStyle _ls;
+
+    /**
+     * Arrow style.
+     */
+    private ArrowStyle _as;
 
     /**
      * Auxiliary constant basic stroke.
@@ -64,6 +71,32 @@ public class AbstractEntryPainter implements IEntryPainter
             case HEXAGON_VERT -> DrawUtils.drawHexagonVert(g, x, y, size, fillColor, edgeColor, fill, drawEdge);
             case DIAMOND_HOR -> DrawUtils.drawDiamondHor(g, x, y, size, fillColor, edgeColor, fill, drawEdge);
             case DIAMOND_VERT -> DrawUtils.drawDiamondVert(g, x, y, size, fillColor, edgeColor, fill, drawEdge);
+        }
+    }
+
+    /**
+     * Draws an arrow.
+     *
+     * @param g         Java AWT graphics context
+     * @param x         x-coordinate
+     * @param y         y-coordinate
+     * @param length    arrow length
+     * @param width     arrow width
+     * @param fillColor fill color (can be null -> color is not set, i.e., the current color set in the graphics context is used)
+     * @param fill      if false, the procedure for filling the marker is entirely skipped
+     */
+    public void drawArrow(Graphics g, float x, float y, float length, float width, color.Color fillColor, boolean fill)
+    {
+        if ((_as._arrow.equals(Arrow.TRIANGULAR_2D)) || (_as._arrow.equals(Arrow.TRIANGULAR_3D)))
+        {
+            g.fillPolygon(new int[]{Projection.getP(x + length / 2.0f), Projection.getP(x - length / 2.0f), Projection.getP(x - length / 2.0f)},
+                    new int[]{Projection.getP(y), Projection.getP(y - width / 2.0f), Projection.getP(y + width / 2.0f)}, 3);
+        }
+
+        if ((_as._arrow.equals(Arrow.TRIANGULAR_REVERSED_2D)) || (_as._arrow.equals(Arrow.TRIANGULAR_REVERSED_3D)))
+        {
+            g.fillPolygon(new int[]{Projection.getP(x - length / 2.0f), Projection.getP(x + length / 2.0f), Projection.getP(x + length / 2.0f)},
+                    new int[]{Projection.getP(y), Projection.getP(y - width / 2.0f), Projection.getP(y + width / 2.0f)}, 3);
         }
     }
 
@@ -122,5 +155,17 @@ public class AbstractEntryPainter implements IEntryPainter
     {
         _ls = ls;
     }
+
+    /**
+     * Setter for the arrow style used when depicting data set.
+     *
+     * @param as arrow style used when depicting data set
+     */
+    @Override
+    public void setArrowStyle(ArrowStyle as)
+    {
+        _as = as;
+    }
+
 
 }

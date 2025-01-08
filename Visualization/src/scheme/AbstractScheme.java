@@ -136,38 +136,49 @@ public abstract class AbstractScheme
     }
 
     /**
+     * Auxiliary method that sets all fonts as specified.
+     *
+     * @param fontName font name
+     */
+    public void setAllFontsTo(String fontName)
+    {
+        _fonts.put(FontFields.TITLE, fontName);
+
+        _fonts.put(FontFields.POPUP_MENU_ITEM, fontName);
+
+        _fonts.put(FontFields.LOADING_PANEL, fontName);
+
+        _fonts.put(FontFields.LEGEND_ENTRY, fontName);
+
+        _fonts.put(FontFields.AXIS_X_TICK_LABEL, fontName);
+        _fonts.put(FontFields.AXIS_Y_TICK_LABEL, fontName);
+        _fonts.put(FontFields.AXIS_Z_TICK_LABEL, fontName);
+        _fonts.put(FontFields.AXIS_A1_TICK_LABEL, fontName);
+        _fonts.put(FontFields.AXIS_COLORBAR_TICK_LABEL, fontName);
+
+        _fonts.put(FontFields.AXIS_X_TITLE, fontName);
+        _fonts.put(FontFields.AXIS_Y_TITLE, fontName);
+        _fonts.put(FontFields.AXIS_Z_TITLE, fontName);
+        _fonts.put(FontFields.AXIS_A1_TITLE, fontName);
+        _fonts.put(FontFields.AXIS_COLORBAR_TITLE, fontName);
+
+        _fonts.put(FontFields.AXIS3D_X_TICK_LABEL, fontName);
+        _fonts.put(FontFields.AXIS3D_Y_TICK_LABEL, fontName);
+        _fonts.put(FontFields.AXIS3D_Z_TICK_LABEL, fontName);
+
+        _fonts.put(FontFields.AXIS3D_X_TITLE, fontName);
+        _fonts.put(FontFields.AXIS3D_Y_TITLE, fontName);
+        _fonts.put(FontFields.AXIS3D_Z_TITLE, fontName);
+    }
+
+
+    /**
      * Instantiates default fonts (names).
      */
     protected void setFonts()
     {
         _fonts = new HashMap<>(20);
-        _fonts.put(FontFields.TITLE, "Helvetica");
-
-        _fonts.put(FontFields.POPUP_MENU_ITEM, "Helvetica");
-
-        _fonts.put(FontFields.LOADING_PANEL, "Helvetica");
-
-        _fonts.put(FontFields.LEGEND_ENTRY, "Helvetica");
-
-        _fonts.put(FontFields.AXIS_X_TICK_LABEL, "Helvetica");
-        _fonts.put(FontFields.AXIS_Y_TICK_LABEL, "Helvetica");
-        _fonts.put(FontFields.AXIS_Z_TICK_LABEL, "Helvetica");
-        _fonts.put(FontFields.AXIS_A1_TICK_LABEL, "Helvetica");
-        _fonts.put(FontFields.AXIS_COLORBAR_TICK_LABEL, "Helvetica");
-
-        _fonts.put(FontFields.AXIS_X_TITLE, "Helvetica");
-        _fonts.put(FontFields.AXIS_Y_TITLE, "Helvetica");
-        _fonts.put(FontFields.AXIS_Z_TITLE, "Helvetica");
-        _fonts.put(FontFields.AXIS_A1_TITLE, "Helvetica");
-        _fonts.put(FontFields.AXIS_COLORBAR_TITLE, "Helvetica");
-
-        _fonts.put(FontFields.AXIS3D_X_TICK_LABEL, "Helvetica");
-        _fonts.put(FontFields.AXIS3D_Y_TICK_LABEL, "Helvetica");
-        _fonts.put(FontFields.AXIS3D_Z_TICK_LABEL, "Helvetica");
-
-        _fonts.put(FontFields.AXIS3D_X_TITLE, "Helvetica");
-        _fonts.put(FontFields.AXIS3D_Y_TITLE, "Helvetica");
-        _fonts.put(FontFields.AXIS3D_Z_TITLE, "Helvetica");
+        setAllFontsTo("Helvetica");
     }
 
     /**
@@ -223,6 +234,8 @@ public abstract class AbstractScheme
         _sizes.put(SizeFields.LEGEND_ENTRY_FONT_SIZE_RELATIVE_MULTIPLIER, 0.03f);
         _sizes.put(SizeFields.LEGEND_ENTRIES_SPACING_FIXED, 5.0f);
         _sizes.put(SizeFields.LEGEND_ENTRIES_SPACING_RELATIVE_MULTIPLIER, 0.01f);
+        _sizes.put(SizeFields.LEGEND_DRAWING_LABEL_SEPARATOR_FIXED, 5.0f);
+        _sizes.put(SizeFields.LEGEND_DRAWING_LABEL_SEPARATOR_RELATIVE_MULTIPLIER, 0.02f); // 0.02f
         _sizes.put(SizeFields.LEGEND_COLUMNS_SEPARATOR_FIXED, 5.0f);
         _sizes.put(SizeFields.LEGEND_COLUMNS_SEPARATOR_RELATIVE_MULTIPLIER, 0.02f);
         _sizes.put(SizeFields.LEGEND_MARKER_SCALING_FACTOR_MULTIPLIER, 0.6f);
@@ -383,6 +396,7 @@ public abstract class AbstractScheme
         _numbers = new HashMap<>(10);
         _numbers.put(NumberFields.GRID_MAIN_DASH_PATTERN, 0);
         _numbers.put(NumberFields.GRID_AUX_DASH_PATTERN, 100);
+        _numbers.put(NumberFields.LEGEND_NO_ENTRIES_PER_COLUMN_LIMIT, Integer.MAX_VALUE);
     }
 
     /**
@@ -417,10 +431,11 @@ public abstract class AbstractScheme
         _flags.put(FlagFields.GRID_AUX_LINES_USE_RELATIVE_WIDTH, true);
 
         _flags.put(FlagFields.LEGEND_BORDER_USE_RELATIVE_WIDTH, true);
-        _flags.put(FlagFields.LEGEND_OFFSET_USE_RELATIVE_SIZE, true);
+        _flags.put(FlagFields.LEGEND_DRAWING_LABEL_OFFSET_USE_RELATIVE_SIZE, true);
         _flags.put(FlagFields.LEGEND_INNER_OFFSET_USE_RELATIVE_SIZE, true);
         _flags.put(FlagFields.LEGEND_ENTRY_FONT_USE_RELATIVE_SIZE, true);
         _flags.put(FlagFields.LEGEND_ENTRIES_SPACING_USE_RELATIVE_SIZE, true);
+        _flags.put(FlagFields.LEGEND_DRAWING_LABEL_SEPARATOR_USE_RELATIVE_SIZE, true);
         _flags.put(FlagFields.LEGEND_COLUMNS_SEPARATOR_USE_RELATIVE_SIZE, true);
         _flags.put(FlagFields.LEGEND_OPAQUE, false);
 
@@ -619,16 +634,17 @@ public abstract class AbstractScheme
 
     /**
      * Auxiliary method that sets fields' values as in other object.
+     *
      * @param reference reference scheme
      */
     protected void setFieldsAsIn(AbstractScheme reference)
     {
-        for (AlignFields af: AlignFields.values()) _aligns.put(af, reference.getAlignments(null, af));
-        for (ColorFields cf: ColorFields.values()) _colors.put(cf, reference.getColors(null, cf));
-        for (FlagFields ff: FlagFields.values()) _flags.put(ff, reference.getFlags(null, ff));
-        for (FontFields ff: FontFields.values()) _fonts.put(ff, reference.getFonts(null, ff));
-        for (NumberFields nf: NumberFields.values()) _numbers.put(nf, reference.getNumbers(null, nf));
-        for (SizeFields sf: SizeFields.values()) _sizes.put(sf, reference.getSizes(null, sf));
+        for (AlignFields af : AlignFields.values()) _aligns.put(af, reference.getAlignments(null, af));
+        for (ColorFields cf : ColorFields.values()) _colors.put(cf, reference.getColors(null, cf));
+        for (FlagFields ff : FlagFields.values()) _flags.put(ff, reference.getFlags(null, ff));
+        for (FontFields ff : FontFields.values()) _fonts.put(ff, reference.getFonts(null, ff));
+        for (NumberFields nf : NumberFields.values()) _numbers.put(nf, reference.getNumbers(null, nf));
+        for (SizeFields sf : SizeFields.values()) _sizes.put(sf, reference.getSizes(null, sf));
     }
 
 

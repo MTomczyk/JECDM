@@ -31,6 +31,11 @@ public abstract class AbstractDataSet implements IDataSet
     protected String _name = "";
 
     /**
+     * Data set legend label (if null, the name is used).
+     */
+    protected String _legendLabel = "";
+
+    /**
      * Current data to be displayed.
      */
     protected final Data _data;
@@ -67,6 +72,11 @@ public abstract class AbstractDataSet implements IDataSet
     protected boolean[] _skipDisplayRangeUpdateMask;
 
     /**
+     * Flag indicating if the IDS updates should be skipped.
+     */
+    protected boolean _skipIDSUpdates;
+
+    /**
      * This method creates a new data set object.
      * All the fields are cloned except for the data to be depicted.
      * This data is provided as the input. The method may be useful when, e.g., using plots to animate the data
@@ -80,6 +90,7 @@ public abstract class AbstractDataSet implements IDataSet
         DataSet DS = new DataSet(_name, new Data(data), painter);
         DS._GC = _GC;
         DS._PC = _PC;
+        DS._legendLabel = _legendLabel;
         DS._skipRendering = _skipRendering;
         DS._displayableOnLegend = _displayableOnLegend;
         if (_skipDisplayRangeUpdateMask == null) DS.setSkipDisplayRangesUpdateMasks(null);
@@ -98,6 +109,7 @@ public abstract class AbstractDataSet implements IDataSet
     {
         _data = data;
         _painter = painter;
+        _skipIDSUpdates = false;
     }
 
 
@@ -151,6 +163,29 @@ public abstract class AbstractDataSet implements IDataSet
         Notification.printNotification(_GC, _PC, "Data set '" + _name + "': containers set");
     }
 
+    /**
+     * Method called to indicate that the data processing began. It locks references, etc.
+     *
+     * @param fromFirstLevel if true, the processing is executed from the beginning
+     */
+    @Override
+    public void beginDataProcessing(boolean fromFirstLevel)
+    {
+        Notification.printNotification(_GC, _PC, "Data set '" + _name + "': begin data processing method called");
+        if (_skipIDSUpdates) return;
+        _painter.beginDataProcessing(fromFirstLevel);
+    }
+
+    /**
+     * Method that should be called after processing IDS (releases some locked references, etc.)
+     */
+    @Override
+    public void finishDataProcessing()
+    {
+        Notification.printNotification(_GC, _PC, "Data set '" + _name + "': finish data processing method called");
+        if (_skipIDSUpdates) return;
+        _painter.finishDataProcessing();
+    }
 
     /**
      * IDS = Internal Data Structures = data structures optimized for rendering.
@@ -166,29 +201,8 @@ public abstract class AbstractDataSet implements IDataSet
     public void updateFirstLevelIDS(DisplayRangesManager DRM, EventTypes eventType)
     {
         Notification.printNotification(_GC, _PC, "Data set '" + _name + "': update first level IDS method called (event type = " + eventType.toString() + ")");
+        if (_skipIDSUpdates) return;
         _painter.updateFirstLevelIDS(DRM, eventType);
-    }
-
-    /**
-     * Method called to indicate that the data processing began. It locks references, etc.
-     *
-     * @param fromFirstLevel if true, the processing is executed from the beginning
-     */
-    @Override
-    public void beginDataProcessing(boolean fromFirstLevel)
-    {
-        Notification.printNotification(_GC, _PC, "Data set '" + _name + "': begin data processing method called");
-        _painter.beginDataProcessing(fromFirstLevel);
-    }
-
-    /**
-     * Method that should be called after processing IDS (releases some locked references, etc.)
-     */
-    @Override
-    public void finishDataProcessing()
-    {
-        Notification.printNotification(_GC, _PC, "Data set '" + _name + "': finish data processing method called");
-        _painter.finishDataProcessing();
     }
 
     /**
@@ -204,6 +218,7 @@ public abstract class AbstractDataSet implements IDataSet
     public void updateSecondLevelIDS(Dimension[] dimensions, EventTypes eventType)
     {
         Notification.printNotification(_GC, _PC, "Data set '" + _name + "': update second level IDS method called (event type = " + eventType.toString() + ")");
+        if (_skipIDSUpdates) return;
         _painter.updateSecondLevelIDS(dimensions, eventType);
     }
 
@@ -217,6 +232,7 @@ public abstract class AbstractDataSet implements IDataSet
     public void updateThirdLevelIDS(EventTypes eventType)
     {
         Notification.printNotification(_GC, _PC, "Data set '" + _name + "': update third level IDS method called (event type = " + eventType.toString() + ")");
+        if (_skipIDSUpdates) return;
         _painter.updateThirdLevelIDS(eventType);
     }
 
@@ -257,6 +273,7 @@ public abstract class AbstractDataSet implements IDataSet
 
     /**
      * Returns arrow styles.
+     *
      * @return arrow styles
      */
     @Override
@@ -274,6 +291,17 @@ public abstract class AbstractDataSet implements IDataSet
     public String getName()
     {
         return _name;
+    }
+
+    /**
+     * Getter for data set name.
+     *
+     * @return data set name
+     */
+    @Override
+    public String getLegendLabel()
+    {
+        return _legendLabel;
     }
 
     /**
@@ -329,6 +357,26 @@ public abstract class AbstractDataSet implements IDataSet
     public IPainter getPainter()
     {
         return _painter;
+    }
+
+    /**
+     * Setter for the flag indicating if the IDS updates should be skipped.
+     *
+     * @param skipIDSUpdates flag
+     */
+    public void setSkipIDSUpdates(boolean skipIDSUpdates)
+    {
+        _skipIDSUpdates = skipIDSUpdates;
+    }
+
+    /**
+     * Getter for the flag indicating if the IDS updates should be skipped.
+     *
+     * @return flag
+     */
+    public boolean areIDSUpdatesSkipped()
+    {
+        return _skipIDSUpdates;
     }
 
 

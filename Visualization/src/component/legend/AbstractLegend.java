@@ -150,7 +150,7 @@ public abstract class AbstractLegend extends AbstractSwingComponent
                 _dimensions._noEntries++;
 
                 // Label-based adjustment
-                Rectangle2D b = Font.getCorrectDimensions(g2d, ds.getName());
+                Rectangle2D b = Font.getCorrectDimensions(g2d, ds.getLegendLabel());
                 if (Double.compare(b.getWidth(), labelColumnWidth) > 0) labelColumnWidth = (float) b.getWidth();
                 if (Double.compare(b.getHeight(), entryHeight) > 0) entryHeight = (float) b.getHeight();
 
@@ -388,14 +388,14 @@ public abstract class AbstractLegend extends AbstractSwingComponent
             {
                 if (ds == null) continue;
                 if (!ds.isDisplayableOnLegend()) continue;
-                if (ds.getName() == null) continue;
+                if (ds.getLegendLabel() == null) continue;
 
                 float mod = (float) (referenceB.getHeight() / 2.0f);
 
                 g2d.setStroke(defaultStroke);
                 g2.setColor(_entryFont._color);
 
-                g2.drawString(ds.getName(),
+                g2.drawString(ds.getLegendLabel(),
                         Projection.getP((float) (bx + labelShift - referenceB.getMinX())) - 1,
                         Projection.getP(by + mod) - 1);
 

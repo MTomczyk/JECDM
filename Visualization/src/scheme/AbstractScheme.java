@@ -366,6 +366,8 @@ public abstract class AbstractScheme
         _sizes.put(SizeFields.AXIS3D_X_TITLE_OFFSET, 0.2f);
         _sizes.put(SizeFields.AXIS3D_Y_TITLE_OFFSET, 0.2f);
         _sizes.put(SizeFields.AXIS3D_Z_TITLE_OFFSET, 0.2f);
+
+        _sizes.put(SizeFields.FONT_3D_QUALITY_UPSCALING, 2.0f);
     }
 
     /**

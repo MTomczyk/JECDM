@@ -8,6 +8,7 @@ import container.GLInitComponentsContainer;
 import container.PlotContainer;
 import dataset.IDataSet;
 import dataset.painter.Painter3D;
+import gl.IVBOComponent;
 import swing.swingworkerqueue.ExecutionBlock;
 import swing.swingworkerqueue.QueuedSwingWorker;
 import thread.swingworker.BlockTypes;
@@ -15,6 +16,7 @@ import thread.swingworker.EventTypes;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 /**
  * Model for the {@link Plot3D} class.
@@ -79,16 +81,49 @@ public class Plot3DModel extends PlotModel
 
     /**
      * Protected data sets setter (just sets the reference).
+     *
+     * @param updateMatchingOnly if true, he method updates data sets whose names match names of those provided; if
+     *                           a data set is in the input but not in the currently maintained set, it is ignored;
+     *                           if a data set is not in the input but is in te currently maintained set, it remains
+     *                           in the set but; if false, the method removes the currently maintained sets and uses
+     *                           the input as the new ones
      */
     @Override
-    protected void setDataSetsReference(ArrayList<IDataSet> dataSets)
+    protected void setDataSetsReference(ArrayList<IDataSet> dataSets, boolean updateMatchingOnly)
     {
-        _dataSets = dataSets;
+        super.setDataSetsReference(dataSets, updateMatchingOnly);
         ArrayList<Painter3D> painters3D = new ArrayList<>(dataSets.size());
-        for (IDataSet ds : dataSets)
-            if ((ds != null) && (ds.getPainter() != null) && (ds.getPainter() instanceof Painter3D))
-                painters3D.add((Painter3D) ds.getPainter());
-        ((DrawingArea3D) _CC.getDrawingArea()).setPainters3D(painters3D);
+        DrawingArea3D d3d = (DrawingArea3D) _CC.getDrawingArea();
+
+        if (updateMatchingOnly)
+        {
+            LinkedList<IVBOComponent> cPainters3D = d3d.getPainters3D();
+            LinkedList<IVBOComponent> forRemoval = new LinkedList<>();
+            ListIterator<IVBOComponent> cPainters3DIt = null;
+            if (cPainters3D != null) cPainters3DIt = cPainters3D.listIterator();
+
+            for (IDataSet ds : dataSets)
+                if ((ds != null) && (ds.getPainter() != null) && (ds.getPainter() instanceof Painter3D))
+                {
+                    // It is assumed that the no. elements match
+                    painters3D.add((Painter3D) ds.getPainter());
+                    IVBOComponent previousCorrespondingPainter = null;
+                    if ((cPainters3DIt != null) && (cPainters3DIt.hasNext()))
+                        previousCorrespondingPainter = cPainters3DIt.next();
+                    if (!ds.areIDSUpdatesSkipped()) forRemoval.add(previousCorrespondingPainter);
+                }
+
+            d3d.setPainters3DForRemoval(forRemoval);
+            d3d.setPainters3D(painters3D);
+        }
+        else
+        {
+            d3d.setPainters3DForRemoval(d3d.getPainters3D());
+            for (IDataSet ds : dataSets)
+                if ((ds != null) && (ds.getPainter() != null) && (ds.getPainter() instanceof Painter3D))
+                    painters3D.add((Painter3D) ds.getPainter());
+            d3d.setPainters3D(painters3D);
+        }
     }
 
 

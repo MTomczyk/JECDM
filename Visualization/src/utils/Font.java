@@ -54,10 +54,10 @@ public class Font
     /**
      * Prepares Open GL text renderer. Requires having a current GL context set.
      */
-    public void prepareRenderer()
+    public void prepareRenderer(float fontQualityUpscaling)
     {
         if (_renderer != null) _renderer.dispose();
-        _renderer = new TextRenderer(new java.awt.Font(_fontName, java.awt.Font.PLAIN, 24));
+        _renderer = new TextRenderer(new java.awt.Font(_fontName, java.awt.Font.PLAIN, Projection.getP(24 * fontQualityUpscaling)), true, true);
     }
 
     /**

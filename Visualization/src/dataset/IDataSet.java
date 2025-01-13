@@ -58,6 +58,20 @@ public interface IDataSet
     void setSkipDisplayRangesUpdateMasks(boolean[] mask);
 
     /**
+     * Setter for the flag indicating if the IDS updates should be skipped.
+     *
+     * @param setSkipIDSUpdates flag
+     */
+    void setSkipIDSUpdates(boolean setSkipIDSUpdates);
+
+    /**
+     * Getter for the flag indicating if the IDS updates should be skipped.
+     *
+     * @return flag
+     */
+    boolean areIDSUpdatesSkipped();
+
+    /**
      * Setter for the containers.
      *
      * @param GC global container
@@ -131,6 +145,7 @@ public interface IDataSet
 
     /**
      * Returns arrow styles.
+     *
      * @return arrow styles
      */
     ArrowStyles getArrowStyles();
@@ -141,6 +156,13 @@ public interface IDataSet
      * @return data set name
      */
     String getName();
+
+    /**
+     * Getter for data set legend label.
+     *
+     * @return data set legend label
+     */
+    String getLegendLabel();
 
     /**
      * Getter for the "skip rendering" parameter. If true, the data set rendering is skipped (but the data is still processed).

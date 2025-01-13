@@ -58,7 +58,7 @@ public class RunAllTest
             Test30_Arrows.main(args);
             Test31_Arrows.main(args);
             Test32_LegendWithArrows1.main(args);
-
+            Test34_SelectiveUpdate1.main(args);
         } catch (Exception e)
         {
             passed = false;

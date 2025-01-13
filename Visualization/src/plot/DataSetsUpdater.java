@@ -31,17 +31,31 @@ class DataSetsUpdater extends QueuedSwingWorker<Void, Void>
     private final boolean _updateLegend;
 
     /**
+     * If true, he method updates data sets whose names match names of those provided; if a data set is in the input but
+     * not in the currently maintained set, it is ignored; if a data set is not in the input but is in te currently
+     * maintained set, it remains in the set but; if false, the method removes the currently maintained sets and uses
+     * the input as the new ones/
+     */
+    private final boolean _updateMatchingOnly;
+
+    /**
      * Parameterized constructor.
      *
-     * @param PC           reference to the plot container
-     * @param dataSets     new data sets
-     * @param updateLegend if true, the legend is updated after the data is swapped
+     * @param PC                 reference to the plot container
+     * @param dataSets           new data sets
+     * @param updateLegend       if true, the legend is updated after the data is swapped
+     * @param updateMatchingOnly if true, he method updates data sets whose names match names of those provided; if
+     *                           a data set is in the input but not in the currently maintained set, it is ignored;
+     *                           if a data set is not in the input but is in te currently maintained set, it remains
+     *                           in the set but; if false, the method removes the currently maintained sets and uses
+     *                           the input as the new ones
      */
-    public DataSetsUpdater(PlotContainer PC, ArrayList<IDataSet> dataSets, boolean updateLegend)
+    public DataSetsUpdater(PlotContainer PC, ArrayList<IDataSet> dataSets, boolean updateLegend, boolean updateMatchingOnly)
     {
         _PC = PC;
         _dataSets = dataSets;
         _updateLegend = updateLegend;
+        _updateMatchingOnly = updateMatchingOnly;
     }
 
 
@@ -53,16 +67,25 @@ class DataSetsUpdater extends QueuedSwingWorker<Void, Void>
     @Override
     protected Void doInBackground()
     {
-        //dispose previously assigned data
         ArrayList<IDataSet> DS = _PC.getDataSets();
-        if ((DS != null) && (!DS.equals(_dataSets))) // if not the same (accidentally)
-            for (IDataSet ds : DS) if (ds != null) ds.dispose();
 
-        // set data sets
-        _PC.getPlot().getModel().setDataSetsReference(_dataSets);
-        if (_dataSets != null)
-            for (IDataSet ds : _dataSets)
-                if (ds != null) ds.setContainers(_PC.getPlot()._M._GC, _PC.getPlot()._M._PC);
+        DSUpdaterData data = new DSUpdaterData(DS, _dataSets, _updateMatchingOnly);
+
+        //dispose previously assigned data
+        if (data._dispose != null)
+            for (int i = 0; i < data._dispose.length; i++)
+                if (data._dispose[i]) DS.get(i).dispose();
+
+        if (data._newDataSets != null)
+            for (int i = 0; i < data._newDataSets.size(); i++)
+                if (data._newDataSets.get(i) != null)
+                {
+                    if (data._skipIDSUpdate != null)
+                        data._newDataSets.get(i).setSkipIDSUpdates(data._skipIDSUpdate[i]);
+                    data._newDataSets.get(i).setContainers(_PC.getPlot()._M._GC, _PC.getPlot()._M._PC);
+                }
+
+        _PC.getPlot().getModel().setDataSetsReference(data._newDataSets, _updateMatchingOnly);
 
         notifyTermination();
         return null;

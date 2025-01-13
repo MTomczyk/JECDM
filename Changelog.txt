@@ -1,3 +1,8 @@
+[13.01.2025] Minor updates
+- Visualization.plot.PlotModel.updateDataSets (the method allows updating only a selected subset of models)
+- Visualization.dataset.AbstractDataSet: _legendLabel field added (equals _name by default, but _legendLabel can be adjusted independently; _name field is reserved to processing)
+- Visualization 3D: improved font quality
+
 [07.01.2025] Minor updates + drawing arrows in visualization module
 - Added a possibility of drawing arrows (see Tutorial 7: Visualization module -- drawing arrows).
 - Added a Simplex class in Utils.space.simplex (provides various functionalities related to a normalized simplex plane (vectors whose components are in [0, 1] bounds and sum up to 1.0).

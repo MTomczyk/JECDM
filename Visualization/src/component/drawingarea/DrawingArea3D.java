@@ -266,11 +266,14 @@ public class DrawingArea3D extends AbstractDrawingArea implements GLInit
         _renderingData = new RenderingData(3);
 
         if (pp._xProjectionBound == null) _renderingData.setProjectionBound(-0.5f, 1.0f, 0);
-        else _renderingData.setProjectionBound((float) pp._xProjectionBound._position, (float) pp._xProjectionBound._size, 0);
+        else
+            _renderingData.setProjectionBound((float) pp._xProjectionBound._position, (float) pp._xProjectionBound._size, 0);
         if (pp._yProjectionBound == null) _renderingData.setProjectionBound(-0.5f, 1.0f, 1);
-        else _renderingData.setProjectionBound((float) pp._yProjectionBound._position, (float) pp._yProjectionBound._size, 1);
+        else
+            _renderingData.setProjectionBound((float) pp._yProjectionBound._position, (float) pp._yProjectionBound._size, 1);
         if (pp._zProjectionBound == null) _renderingData.setProjectionBound(-0.5f, 1.0f, 2);
-        else _renderingData.setProjectionBound((float) pp._zProjectionBound._position, (float) pp._zProjectionBound._size, 2);
+        else
+            _renderingData.setProjectionBound((float) pp._zProjectionBound._position, (float) pp._zProjectionBound._size, 2);
     }
 
     /**
@@ -500,7 +503,12 @@ public class DrawingArea3D extends AbstractDrawingArea implements GLInit
         if ((w > 1) && (h > 1))
         {
             for (int i = 0; i < _noBuffers; i++)
-                _gl.setSurfaceSize(Projection.getP((float) d[0]._size), Projection.getP((float) d[1]._size));
+            {
+                if ((_gl != null) && (d != null))
+                {
+                    _gl.setSurfaceSize(Projection.getP((float) d[0]._size), Projection.getP((float) d[1]._size));
+                }
+            }
         }
     }
 
@@ -565,10 +573,29 @@ public class DrawingArea3D extends AbstractDrawingArea implements GLInit
      */
     public void setPainters3D(ArrayList<Painter3D> painters)
     {
-        if (_painters3D != null) _painters3DForRemoval = _painters3D;
         LinkedList<IVBOComponent> c = new LinkedList<>();
         for (Painter3D p : painters) if (p != null) c.add(p);
         _painters3D = c;
+    }
+
+    /**
+     * Sets the painters 3d for removal
+     *
+     * @param paintersForRemoval 3D painters for removal
+     */
+    public void setPainters3DForRemoval(LinkedList<IVBOComponent> paintersForRemoval)
+    {
+        _painters3DForRemoval = paintersForRemoval;
+    }
+
+    /**
+     * Getter for painters 3D.
+     *
+     * @return painters 3D
+     */
+    public LinkedList<IVBOComponent> getPainters3D()
+    {
+        return _painters3D;
     }
 
 

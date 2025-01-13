@@ -100,6 +100,8 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
      */
     private float _titleOffset = 0.3f;
 
+    private float _fontQualityUpscaling = 1.0f;
+
     /**
      * Tick label font.
      */
@@ -445,6 +447,8 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
         _titleFont._color = scheme.getColors(_surpassedColors, _titleFontColorField);
         _titleFont._fontName = scheme.getFonts(_surpassedFonts, _titleFontField);
 
+        _fontQualityUpscaling = scheme.getSizes(_surpassedSizes, SizeFields.FONT_3D_QUALITY_UPSCALING);
+
         updateBuffers();
     }
 
@@ -469,6 +473,7 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
                 if (_tickLabels[i] == null) continue;
 
                 float scale = _tickLabelFont._size._actualSize;
+                scale /= _fontQualityUpscaling;
                 Rectangle2D bounds = _tickLabelFont._renderer.getBounds(_tickLabels[i]);
 
                 float[] t2 = new float[]{(float) (-bounds.getWidth() / 2.0f * scale), (float) (-bounds.getHeight() * scale), 0.0f};
@@ -505,6 +510,7 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
         {
             Rectangle2D bounds = _titleFont._renderer.getBounds(_title);
             float scale = _titleFont._size._actualSize;
+            scale /= _fontQualityUpscaling;
             float[] t2 = new float[]{(float) (-bounds.getWidth() / 2.0f * scale), (float) (-bounds.getHeight() * scale), 0.0f};
 
             if (_associatedDisplayRangeID == 0)
@@ -552,7 +558,7 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
         if (t2 != null) gl.glTranslatef(t2[0], t2[1], t2[2]);
 
         font._renderer.begin3DRendering();
-        font._renderer.draw3D(label, 0.0f, 0.0f, 0.0f, font._size._actualSize);
+        font._renderer.draw3D(label, 0.0f, 0.0f, 0.0f, font._size._actualSize / _fontQualityUpscaling);
         font._renderer.end3DRendering();
         gl.glPopMatrix();
     }
@@ -613,8 +619,8 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
     public void executeInitialDataTransfer(GL2 gl)
     {
         super.executeInitialDataTransfer(gl);
-        _tickLabelFont.prepareRenderer();
-        _titleFont.prepareRenderer();
+        _tickLabelFont.prepareRenderer(_fontQualityUpscaling);
+        _titleFont.prepareRenderer(_fontQualityUpscaling);
     }
 
 
@@ -637,8 +643,8 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
     public void executeUpdate(GL2 gl)
     {
         if (_vbo != null) _vbo.updateData(gl);
-        _tickLabelFont.prepareRenderer();
-        _titleFont.prepareRenderer();
+        _tickLabelFont.prepareRenderer(_fontQualityUpscaling);
+        _titleFont.prepareRenderer(_fontQualityUpscaling);
     }
 
     /**

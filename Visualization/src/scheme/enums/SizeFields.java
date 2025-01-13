@@ -747,4 +747,9 @@ public enum SizeFields
      */
     AXIS3D_Z_TITLE_FONT_SIZE_SCALE,
 
+    /**
+     * Quality upscaling factor for fonts rendered in 3D mode.
+     */
+    FONT_3D_QUALITY_UPSCALING,
+
 }

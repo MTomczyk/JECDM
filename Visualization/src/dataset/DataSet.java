@@ -233,6 +233,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
     {
         super(new Data(data), painter);
         _name = name;
+        _legendLabel = name;
         _painter.setData(_data);
         _painter.setDataSet(this);
         _painter.setName("Painter of (" + _name + ")");

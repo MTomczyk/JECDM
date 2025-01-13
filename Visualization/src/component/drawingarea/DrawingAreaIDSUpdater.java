@@ -29,8 +29,8 @@ class DrawingAreaIDSUpdater extends QueuedSwingWorker<Void, Void>
     /**
      * Parameterized constructor.
      *
-     * @param PC         reference to the plot container
-     * @param eventType  event type that triggered the worker
+     * @param PC        reference to the plot container
+     * @param eventType event type that triggered the worker
      */
     public DrawingAreaIDSUpdater(PlotContainer PC, EventTypes eventType)
     {
@@ -67,6 +67,9 @@ class DrawingAreaIDSUpdater extends QueuedSwingWorker<Void, Void>
                     ds.updateSecondLevelIDS(projectionBounds, _eventType);
                     ds.updateThirdLevelIDS(_eventType);
                     ds.finishDataProcessing();
+
+                    // turn off skip IDS updates
+                    ds.setSkipIDSUpdates(false);
                 }
             }
         }

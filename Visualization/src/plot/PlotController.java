@@ -117,7 +117,6 @@ public class PlotController
             _menu.dispose();
             _menu = null;
         }
-
         _M = null;
     }
 

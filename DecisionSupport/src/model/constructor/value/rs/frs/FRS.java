@@ -7,7 +7,6 @@ import model.constructor.Report;
 import model.constructor.random.IRandomModel;
 import model.constructor.value.rs.AbstractRejectionSampling;
 import model.internals.value.AbstractValueInternalModel;
-import random.IRandom;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -54,6 +53,11 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
     private int _samplingLimit;
 
     /**
+     * Auxiliary counter.
+     */
+    protected int _toGenerate;
+
+    /**
      * Parameterized constructor.
      *
      * @param p params container
@@ -66,7 +70,6 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
         if (_samplingLimit < _feasibleSamplesToGenerate) _samplingLimit = _feasibleSamplesToGenerate;
     }
 
-
     /**
      * The main-construct models phase (to be overwritten).
      * The concrete extension should provide the constructed models via the bundle object.
@@ -78,16 +81,39 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
     @Override
     protected void mainConstructModels(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
+        if (initializeStep(bundle, preferenceInformation)) return;
+
+        for (int t = 0; t < _samplingLimit; t++)
+        {
+            executeStep(bundle, preferenceInformation);
+            if (_toGenerate == 0) break;
+        }
+
+        finalizeStep(bundle, preferenceInformation);
+    }
+
+    /**
+     * Execute the finalize step.
+     *
+     * @param bundle                bundle result object to be filled
+     * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
+     * @return indicates whether to prematurely terminate (true)
+     * @throws ConstructorException the exception can be thrown and propagated higher
+     */
+    @Override
+    protected boolean initializeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
+    {
         validate(bundle, preferenceInformation);
-        IRandom R = _dmContext.getR();
+        _R = _dmContext.getR();
 
         bundle._inconsistencyDetected = false;
         bundle._normalizationsWereUpdated = _normalizationsWereUpdated;
 
         // preservation phase
-        int toGenerate = _feasibleSamplesToGenerate;
+        _toGenerate = _feasibleSamplesToGenerate;
+
         ArrayList<T> preservedModels = executePreservationAttempt(bundle, preferenceInformation);
-        toGenerate -= preservedModels.size();
+        _toGenerate -= preservedModels.size();
 
         // set to new models
         _models = preservedModels;
@@ -96,31 +122,50 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
         bundle._rejectedNewlyConstructedModels = 0;
         bundle._successRateInConstructing = 0.0d;
 
-        if (toGenerate == 0)
+        if (_toGenerate == 0)
         {
             if (_models.size() <= _inconsistencyThreshold) bundle._inconsistencyDetected = true;
-            return;
+            return true;
         }
+        return false;
+    }
 
-        for (int t = 0; t < _samplingLimit; t++)
+    /**
+     * Execute a single sampling step.
+     *
+     * @param bundle                bundle result object to be filled
+     * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
+     * @throws ConstructorException the exception can be thrown and propagated higher
+     */
+    @Override
+    protected void executeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
+    {
+        T M = _RM.generateModel(_R);
+        Double a = _compatibilityAnalyzer.calculateTheMostDiscriminativeCompatibilityWithValueModel(preferenceInformation, M);
+        if ((a == null) || (Double.compare(a, 0.0d) > 0))
         {
-            T M = _RM.generateModel(R);
-            Double a = _compatibilityAnalyzer.calculateTheMostDiscriminativeCompatibilityWithValueModel(preferenceInformation, M);
-            if ((a == null) || (Double.compare(a, 0.0d) > 0))
-            {
-                _models.add(M);
-                toGenerate--;
-                bundle._acceptedNewlyConstructedModels++;
-                if (toGenerate == 0) break;
-            }
-            else
-            {
-                bundle._rejectedNewlyConstructedModels++;
-            }
+            _models.add(M);
+            _toGenerate--;
+            bundle._acceptedNewlyConstructedModels++;
         }
+        else bundle._rejectedNewlyConstructedModels++;
+    }
 
+
+    /**
+     * Execute the finalize step.
+     *
+     * @param bundle                bundle result object to be filled
+     * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
+     * @throws ConstructorException the exception can be thrown and propagated higher
+     */
+    @Override
+    protected void finalizeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
+    {
         bundle._successRateInConstructing = (double) bundle._acceptedNewlyConstructedModels /
                 (bundle._acceptedNewlyConstructedModels + bundle._rejectedNewlyConstructedModels);
         if (_models.size() <= _inconsistencyThreshold) bundle._inconsistencyDetected = true;
+        _toGenerate = 0;
     }
+
 }

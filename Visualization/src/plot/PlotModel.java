@@ -238,6 +238,24 @@ public class PlotModel
         updateDataSets(newDataSets, updateDisplayRanges, updateLegend, false);
     }
 
+    /**
+     * The method updates a data set whose names match the name of this provided.
+     * If a data set is in the input but not in the currently maintained set, it is ignored.
+     * If a data set is not in the input but is in te currently maintained set, it remains in the set but
+     * its internal data is not updated (saves computational time)
+     * Important note: The method invokes three swing workers to execute a background task that
+     * (1) recalculate display ranges, (2) IDS, (3) and render.
+     *
+     * @param newDataSet data set to be displayed;
+     */
+    public void updateSelectedDataSet(IDataSet newDataSet)
+    {
+        Notification.printNotification(_GC, _PC, "plot model [id = " + PlotContainer.getID(_PC) + "]: update data sets method called");
+        ArrayList<IDataSet> dsa = new ArrayList<>(1);
+        dsa.add(newDataSet);
+        updateSelectedDataSets(dsa);
+    }
+
 
     /**
      * The method updates data sets whose names match names of those provided.
@@ -252,7 +270,7 @@ public class PlotModel
     public void updateSelectedDataSets(ArrayList<IDataSet> newDataSets)
     {
         Notification.printNotification(_GC, _PC, "plot model [id = " + PlotContainer.getID(_PC) + "]: update data sets method called");
-        updateDataSets(newDataSets, true, false, true);
+        updateSelectedDataSets(newDataSets, true);
     }
 
 
@@ -271,6 +289,26 @@ public class PlotModel
     {
         Notification.printNotification(_GC, _PC, "plot model [id = " + PlotContainer.getID(_PC) + "]: update data sets method called");
         updateDataSets(newDataSets, updateDisplayRanges, false, true);
+    }
+
+    /**
+     * The method updates a data set whose names match the name of this provided.
+     * If a data set is in the input but not in the currently maintained set, it is ignored.
+     * If a data set is not in the input but is in te currently maintained set, it remains in the set but
+     * its internal data is not updated (saves computational time)
+     * Important note: The method invokes three swing workers to execute a background task that
+     * (1) recalculate display ranges, (2) IDS, (3) and render.
+     *
+     * @param newDataSet          data set to be displayed;
+     * @param updateDisplayRanges if true, the method uses {@link DisplayRangesManager#updateDisplayRanges(Data, boolean[])} method to update data on display ranges, which can be then used to build internal data set structures used for efficient rendering
+     * @param updateLegend        if true, the legend is updated after the data is swapped
+     */
+    public void updateSelectedDataSet(IDataSet newDataSet, boolean updateDisplayRanges, boolean updateLegend)
+    {
+        Notification.printNotification(_GC, _PC, "plot model [id = " + PlotContainer.getID(_PC) + "]: update data sets method called");
+        ArrayList<IDataSet> dsa = new ArrayList<>(1);
+        dsa.add(newDataSet);
+        updateSelectedDataSets(dsa, updateDisplayRanges, updateLegend);
     }
 
     /**

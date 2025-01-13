@@ -92,6 +92,11 @@ public abstract class AbstractRejectionSampling<T extends AbstractValueInternalM
     protected final boolean _validateAlreadyExistingSamplesFirst;
 
     /**
+     * Captured RNG.
+     */
+    protected IRandom _R;
+
+    /**
      * Parameterized constructor.
      *
      * @param name name of the model constructor
@@ -215,4 +220,41 @@ public abstract class AbstractRejectionSampling<T extends AbstractValueInternalM
         throw new ConstructorException("The mainConstructModels method is not implemented", this.getClass());
     }
 
+
+    /**
+     * Execute the initialize step (can be overwritten)
+     *
+     * @param bundle                bundle result object to be filled
+     * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
+     * @return indicates whether to prematurely terminate (true)
+     * @throws ConstructorException the exception can be thrown and propagated higher
+     */
+    protected boolean initializeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
+    {
+        return false;
+    }
+
+    /**
+     * Execute a single sampling step (can be overwritten)
+     *
+     * @param bundle                bundle result object to be filled
+     * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
+     * @throws ConstructorException the exception can be thrown and propagated higher
+     */
+    protected void executeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
+    {
+
+    }
+
+    /**
+     * Execute the finalize step (can be overwritten)
+     *
+     * @param bundle                bundle result object to be filled
+     * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
+     * @throws ConstructorException the exception can be thrown and propagated higher
+     */
+    protected void finalizeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
+    {
+
+    }
 }

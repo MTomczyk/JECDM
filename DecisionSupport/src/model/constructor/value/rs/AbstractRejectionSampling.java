@@ -239,11 +239,12 @@ public abstract class AbstractRejectionSampling<T extends AbstractValueInternalM
      *
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
+     * @return returns the constructed model
      * @throws ConstructorException the exception can be thrown and propagated higher
      */
-    protected void executeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
+    protected T executeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
-
+        return null;
     }
 
     /**

@@ -177,7 +177,7 @@ public class PlotsWrapperController
         if (executionBlock == null) return;
         executionBlock.setConsiderOverdue(_considerOverdueForSwingWorkers);
         executionBlock.setOverdue(_overdue);
-        _queueingSystem.addAndScheduleExecutionBlock(executionBlock);
+        if (_queueingSystem != null) _queueingSystem.addAndScheduleExecutionBlock(executionBlock);
     }
 
     /**

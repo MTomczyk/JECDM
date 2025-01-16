@@ -50,7 +50,7 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
      * than {@link Params#_feasibleSamplesToGenerate}. In the case of value violation, it is set to 1 or
      * {@link Params#_feasibleSamplesToGenerate} (whatever is greater).
      */
-    private int _samplingLimit;
+    protected int _samplingLimit;
 
     /**
      * Auxiliary counter.
@@ -68,6 +68,7 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
         _samplingLimit = p._samplingLimit;
         if (_samplingLimit < 0) _samplingLimit = 1;
         if (_samplingLimit < _feasibleSamplesToGenerate) _samplingLimit = _feasibleSamplesToGenerate;
+        attemptToSupplyInitialModels();
     }
 
     /**
@@ -135,10 +136,11 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
      *
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
+     * @return returns the constructed model
      * @throws ConstructorException the exception can be thrown and propagated higher
      */
     @Override
-    protected void executeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
+    protected T executeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
         T M = _RM.generateModel(_R);
         Double a = _compatibilityAnalyzer.calculateTheMostDiscriminativeCompatibilityWithValueModel(preferenceInformation, M);
@@ -149,6 +151,7 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
             bundle._acceptedNewlyConstructedModels++;
         }
         else bundle._rejectedNewlyConstructedModels++;
+        return M;
     }
 
 

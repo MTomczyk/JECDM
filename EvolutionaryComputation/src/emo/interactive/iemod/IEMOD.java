@@ -20,7 +20,6 @@ import random.IRandom;
 import reproduction.IReproduce;
 import selection.ISelect;
 import selection.Random;
-import system.ds.DecisionSupportSystem;
 
 /**
  * Provides means for creating an instance of IEMO/D.
@@ -31,14 +30,20 @@ import system.ds.DecisionSupportSystem;
 public class IEMOD extends AbstractInteractiveEA
 {
     /**
+     * Reference to goals manager.
+     */
+    private final MOEADGoalsManager _goalsManager;
+
+    /**
      * Parameterized constructor (private).
      *
-     * @param p   params container
-     * @param dss instantiated decision support system
+     * @param p      params container
+     * @param bundle IEMOD bundle
      */
-    private IEMOD(EA.Params p, DecisionSupportSystem dss)
+    private IEMOD(EA.Params p, IEMODBundle.Params<?> bundle)
     {
-        super(p, dss);
+        super(p, bundle._DSS);
+        _goalsManager = bundle._goalsManager;
     }
 
     /**
@@ -170,6 +175,17 @@ public class IEMOD extends AbstractInteractiveEA
         pEA._R = R;
         pEA._id = id;
 
-        return new IEMOD(pEA, bundle.getDSS());
+        return new IEMOD(pEA, pB);
     }
+
+    /**
+     * Getter for the goals manager.
+     *
+     * @return goals manager.
+     */
+    public MOEADGoalsManager getGoalsManager()
+    {
+        return _goalsManager;
+    }
+
 }

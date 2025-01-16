@@ -13,6 +13,7 @@ import model.internals.value.AbstractValueInternalModel;
 import random.IRandom;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -58,6 +59,12 @@ public abstract class AbstractRejectionSampling<T extends AbstractValueInternalM
         public CompatibilityAnalyzer _compatibilityAnalyzer = new CompatibilityAnalyzer();
 
         /**
+         * Initial models that can be optionally supplied (can be null). The extensions are supposed to initially
+         * feel the model sets constructed during initialization/restarts.
+         */
+        public T[] _initialModels;
+
+        /**
          * Parameterized constructor.
          *
          * @param RM random model generator
@@ -97,6 +104,12 @@ public abstract class AbstractRejectionSampling<T extends AbstractValueInternalM
     protected IRandom _R;
 
     /**
+     * Initial models that can be optionally supplied (can be null). The extensions are supposed to initially
+     * feel the model sets constructed during initialization/restarts.
+     */
+    protected final T[] _initialModels;
+
+    /**
      * Parameterized constructor.
      *
      * @param name name of the model constructor
@@ -109,6 +122,7 @@ public abstract class AbstractRejectionSampling<T extends AbstractValueInternalM
         _inconsistencyThreshold = p._inconsistencyThreshold;
         _validateAlreadyExistingSamplesFirst = p._validateAlreadyExistingSamplesFirst;
         _feasibleSamplesToGenerate = p._feasibleSamplesToGenerate;
+        _initialModels = p._initialModels;
         if (_feasibleSamplesToGenerate < 0) _feasibleSamplesToGenerate = 1;
     }
 
@@ -150,6 +164,33 @@ public abstract class AbstractRejectionSampling<T extends AbstractValueInternalM
         IRandom R = _dmContext.getR();
         if (R == null)
             throw new ConstructorException("The random number generator is not supplied by the decision-making context", this.getClass());
+    }
+
+    /**
+     * When called, the models are supplied with {@link AbstractRejectionSampling#_initialModels} (if provided).
+     * Method terminated if {@link AbstractConstructor#_models} is not empty.
+     *
+     * @return false if the method prematurely terminated; false otherwise
+     */
+    protected boolean attemptToSupplyInitialModels()
+    {
+        if ((_models != null) && (!_models.isEmpty())) return false;
+        if (_initialModels == null) return false;
+        if (_initialModels.length == 0) return false;
+        if (_models == null) _models = new ArrayList<>(_feasibleSamplesToGenerate);
+        _models.addAll(Arrays.asList(_initialModels));
+        return true;
+    }
+
+    /**
+     * Auxiliary method that can be called to clear all stored models (can be called, e.g., when the inconsistency was detected).
+     * This extension additionally runs {@link AbstractRejectionSampling#attemptToSupplyInitialModels()}.
+     */
+    @Override
+    public void clearModels()
+    {
+        super.clearModels();
+        attemptToSupplyInitialModels();
     }
 
     /**
@@ -239,11 +280,12 @@ public abstract class AbstractRejectionSampling<T extends AbstractValueInternalM
      *
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
+     * @return returns the constructed model
      * @throws ConstructorException the exception can be thrown and propagated higher
      */
-    protected void executeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
+    protected T executeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
-
+        return null;
     }
 
     /**

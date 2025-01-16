@@ -100,6 +100,9 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
      */
     private float _titleOffset = 0.3f;
 
+    /**
+     * Font quality upscaling factor (the higher, the higher the upscaling level; thus better quality).
+     */
     private float _fontQualityUpscaling = 1.0f;
 
     /**

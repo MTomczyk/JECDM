@@ -68,6 +68,7 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
         _samplingLimit = p._samplingLimit;
         if (_samplingLimit < 0) _samplingLimit = 1;
         if (_samplingLimit < _feasibleSamplesToGenerate) _samplingLimit = _feasibleSamplesToGenerate;
+        attemptToSupplyInitialModels();
     }
 
     /**
@@ -108,6 +109,7 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
 
         bundle._inconsistencyDetected = false;
         bundle._normalizationsWereUpdated = _normalizationsWereUpdated;
+        bundle._compatibleModelsToSample = _feasibleSamplesToGenerate;
 
         // preservation phase
         _toGenerate = _feasibleSamplesToGenerate;
@@ -145,7 +147,7 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
         Double a = _compatibilityAnalyzer.calculateTheMostDiscriminativeCompatibilityWithValueModel(preferenceInformation, M);
         if ((a == null) || (Double.compare(a, 0.0d) > 0))
         {
-            _models.add(M);
+            if (_models.size() < _feasibleSamplesToGenerate) _models.add(M);
             _toGenerate--;
             bundle._acceptedNewlyConstructedModels++;
         }

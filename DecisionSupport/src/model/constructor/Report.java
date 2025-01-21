@@ -85,6 +85,11 @@ public class Report<T extends AbstractInternalModel> extends AbstractReport
     public boolean _normalizationsWereUpdated = false;
 
     /**
+     * Provides the number of compatible models that were supposed to be sampled.
+     */
+    public int _compatibleModelsToSample = 0;
+
+    /**
      * Parameterized constructor.
      *
      * @param dmContext current decision-making context
@@ -117,6 +122,7 @@ public class Report<T extends AbstractInternalModel> extends AbstractReport
         lines.add(ind + "Accepted newly constructed models = " + _acceptedNewlyConstructedModels);
         lines.add(ind + "Rejected newly constructed models = " + _rejectedNewlyConstructedModels);
         lines.add(ind + "Normalizations were updated = " + _normalizationsWereUpdated);
+        lines.add(ind + "Compatible models to sample = " + _compatibleModelsToSample);
         addExtraLogLines(lines, ind);
         return StringUtils.getArrayFromList(lines);
     }

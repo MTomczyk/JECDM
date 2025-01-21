@@ -53,6 +53,8 @@ public class Font
 
     /**
      * Prepares Open GL text renderer. Requires having a current GL context set.
+     *
+     * @param fontQualityUpscaling font quality upscaling factor (the higher, the higher the upscaling level; thus better quality)
      */
     public void prepareRenderer(float fontQualityUpscaling)
     {

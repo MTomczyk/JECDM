@@ -371,6 +371,20 @@ public abstract class AbstractScheme
     }
 
     /**
+     * Auxiliary method for rescaling existing size entry.
+     *
+     * @param rescale   rescaling factor
+     * @param sizeField size entry
+     */
+    public void rescale(float rescale, SizeFields sizeField)
+    {
+        if (!_sizes.containsKey(sizeField)) return;
+        Float current = _sizes.get(sizeField);
+        if (current == null) return;
+        _sizes.put(sizeField, current * rescale);
+    }
+
+    /**
      * Instantiates default alignments.
      */
     protected void setAlignments()

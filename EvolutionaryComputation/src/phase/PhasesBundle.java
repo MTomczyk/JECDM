@@ -104,7 +104,32 @@ public class PhasesBundle
     }
 
     /**
+     * Supportive method that sets phases as imposed by the bundle object.
+     *
+     * @param phases phases vector to be set (must already be instantiated; reference)
+     * @param B      instantiated phases
+     */
+    public static void copyPhasesFromBundleToEA(IPhase[] phases, PhasesBundle B)
+    {
+        phases[PhasesIDs.PHASE_INIT_STARTS] = B._initStarts;
+        phases[PhasesIDs.PHASE_CONSTRUCT_INITIAL_POPULATION] = B._constructInitialPopulation;
+        phases[PhasesIDs.PHASE_ASSIGN_SPECIMENS_IDS] = B._assignSpecimenIDs;
+        phases[PhasesIDs.PHASE_EVALUATE] = B._evaluate;
+        phases[PhasesIDs.PHASE_SORT]  = B._sort;
+        phases[PhasesIDs.PHASE_INIT_ENDS] = B._initEnds;
+        phases[PhasesIDs.PHASE_PREPARE_STEP] = B._prepareStep;
+        phases[PhasesIDs.PHASE_CONSTRUCT_MATING_POOL] = B._constructMatingPool;
+        phases[PhasesIDs.PHASE_SELECT_PARENTS] = B._selectParents;
+        phases[PhasesIDs.PHASE_REPRODUCE] = B._reproduce;
+        phases[PhasesIDs.PHASE_MERGE] = B._merge;
+        phases[PhasesIDs.PHASE_REMOVE] = B._remove;
+        phases[PhasesIDs.PHASE_UPDATE_OS] = B._finalizeStep;
+        phases[PhasesIDs.PHASE_FINALIZE_STEP] = B._updateOS;
+    }
+
+    /**
      * Creates a bundle with nulled entries.
+     *
      * @return phases bundle with nulled entries
      */
     public static PhasesBundle createNulledPhases()

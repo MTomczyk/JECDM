@@ -6,8 +6,10 @@ Decision Support:
 Evolutionary Computation:
 - Introducing the archive functionality (SpecimenContainer).
 - Multiple RNGs for possible in-EA multithreading (each thread should have a different generator)
+- Simple EA for generic regression.
 
 Visualization:
+- Upsampling (rendering in higher DPI)
 - Interface for overwriting scheme after plot is initialized (to avoid the manual update, e.g., in plot 3d).
 - Allowing for changing some of the data sets, while keeping the others untouched (i.e., using static and dynamic data sets).
 - Data set that aggregates multiple data sets (for preloading, wrapped data sets can be turned off/on for rendering)
@@ -21,6 +23,7 @@ Visualization:
 - Introducing textures into 3D mode.
 - Introducing clipping into 3D mode.
 - Improving text quality in 3D mode.
+- On plot annotations
 - Introducing labels (data sets) to into 2D/3D mode
 - Marker size based on attribute value (use of DR)
 - Heatmap2D: providing values in buckets

@@ -1,22 +1,25 @@
-package statistics;
+package statistics.tests;
+
+import statistics.AbstractStatistic;
+import statistics.IStatistic;
 
 /**
- * Calculates max value from doubles.
+ * Calculates no. times the samples take non-negative values
  *
  * @author MTomczyk
  */
 
-public class Max extends AbstractStatistic implements IStatistic
+public class NoTimesNonNegative extends AbstractStatistic implements IStatistic
 {
     /**
      * Statistic function name.
      */
-    public static final String _name = "MAX";
+    public static final String _name = "NONN";
 
     /**
      * Default constructor.
      */
-    public Max()
+    public NoTimesNonNegative()
     {
         super(_name);
     }
@@ -31,9 +34,9 @@ public class Max extends AbstractStatistic implements IStatistic
     public double calculate(double[] v)
     {
         if (v.length == 0) return 0.0f;
-        double max = Double.NEGATIVE_INFINITY;
-        for (double c : v) if (Double.compare(c, max) > 0) max = c;
-        return max;
+        double st = 0.0d;
+        for (double c : v) if (Double.compare(c, 0.0d) >= 0) st += 1.0d;
+        return st;
     }
 
     /**

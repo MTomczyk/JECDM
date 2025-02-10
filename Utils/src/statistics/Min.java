@@ -32,7 +32,7 @@ public class Min extends AbstractStatistic implements IStatistic
     {
         if (v.length == 0) return 0.0f;
         double min = Double.POSITIVE_INFINITY;
-        for (double c : v) if (c < min) min = c;
+        for (double c : v) if (Double.compare(c, min) < 0) min = c;
         return min;
     }
 }

@@ -20,7 +20,7 @@ public class MannWhitneyU extends AbstractTest implements ITest
     private final MannWhitneyUTest _mwuTest;
 
     /**
-     * Parameterized constructor.
+     * Default constructor.
      *
      */
     public MannWhitneyU()

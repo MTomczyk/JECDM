@@ -172,7 +172,6 @@ public class Utils
             return 1;
         };
 
-
         // We will use six performance indicators:
         // 1-2) Indicators 1-2 are oracles that assess how relevant the constructed solution is given the decision maker's
         // preferences. For this reason, the code employs the ValueModelQuality indicator. It is coupled with the same
@@ -192,7 +191,7 @@ public class Utils
         // 6) ReportedInconsistencies (informs about a number of attempts to construct internal models that failed;
         // thus, consistency reintroduction procedure started
         pSDCF._indicatorsInitializer = p -> {
-            IIndicator[] indicators = new IIndicator[6]; // create two indicators
+            IIndicator[] indicators = new IIndicator[6]; // create indicators
             Problem problem = AbstractMOOProblemBundle.getProblemFromString(p._scenario.getProblem()); // get problem ID
             int M = p._scenario.getObjectives(); // get the number of objectives
             INormalization[] normalizations = AbstractMOOProblemBundle.getNormalizations(problem, M); // derive proper normalizations

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Various tests for {@link space.simplex.DasDennis} class.
@@ -76,6 +77,24 @@ class DasDennisTest
             assertEquals(exp[i][0], w.get(i)[0], 0.0000001d);
             assertEquals(exp[i][1], w.get(i)[1], 0.0000001d);
             assertEquals(exp[i][2], w.get(i)[2], 0.0000001d);
+        }
+    }
+
+    /**
+     * Tests {@link DasDennis#getNoProblems(int, int)}.
+     */
+    @Test
+    void testNoProblems()
+    {
+        for (int m = 2; m < 7; m++)
+        {
+            for (int p = 1; p < 7; p++)
+            {
+                int n = DasDennis.getNoProblems(m, p);
+                ArrayList<double[]> w = DasDennis.getWeightVectors(m, p);
+                assertNotNull(w);
+                assertEquals(n, w.size());
+            }
         }
     }
 }

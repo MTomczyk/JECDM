@@ -16,7 +16,7 @@ public class WilcoxonSignedRank extends AbstractTest implements ITest
     private final WilcoxonSignedRankTest _wsrTest;
 
     /**
-     * Parameterized constructor.
+     * Default constructor.
      *
      */
     public WilcoxonSignedRank()

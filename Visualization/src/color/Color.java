@@ -157,6 +157,28 @@ public class Color extends java.awt.Color
     }
 
     /**
+     * Returns a transparent instance of the color (revises the alpha channel value).
+     *
+     * @param a new value for the alpha channel (0-255).
+     * @return revised color
+     */
+    public Color getTransparentInstance(int a)
+    {
+        return getTransparentInstance((float) a / 255.0f);
+    }
+
+    /**
+     * Returns a transparent instance of the color (revises the alpha channel value).
+     *
+     * @param a new value for the alpha channel (0.0f-1.0f).
+     * @return revised color
+     */
+    public Color getTransparentInstance(float a)
+    {
+        return new Color(_r, _g, _b, a);
+    }
+
+    /**
      * Checks if the object represents the same color as another object.
      *
      * @param o other object (should be an instance of this class)

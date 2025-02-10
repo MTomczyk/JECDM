@@ -252,6 +252,13 @@ public class DrawingArea3DGLEventListener implements GLEventListener
             if (listener.getCameraRotation() != null) camera = listener.getCameraRotation().clone();
             if (listener.getObjectRotation() != null) object = listener.getObjectRotation().clone();
             if (listener.getTranslation() != null) translation = listener.getTranslation().clone();
+
+            /*System.out.println("Camera rotation = ");
+            PrintUtils.printVectorOfFloats(camera, 5);
+            System.out.println("Object rotation = ");
+            PrintUtils.printVectorOfFloats(object, 5);
+            System.out.println("Translation vector = ");
+            PrintUtils.printVectorOfFloats(translation, 5);*/
         }
 
         if (camera != null)

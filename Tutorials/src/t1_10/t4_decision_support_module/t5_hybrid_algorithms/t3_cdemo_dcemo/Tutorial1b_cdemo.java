@@ -85,10 +85,10 @@ public class Tutorial1b_cdemo
 
         pP._colorbar = new Colorbar(Gradient.getViridisGradient(), "Generation",
                 new FromDisplayRange(pP._pDisplayRangesManager._DR[3], 5));
-        Plot3D plot2D = new Plot3D(pP);
+        Plot3D plot3D = new Plot3D(pP);
 
         //Frame frame = new Frame(plot2D, 0.5f);
-        Frame frame = new Frame(plot2D, 1000, 800);
+        Frame frame = new Frame(plot3D, 1000, 800);
 
         DataUpdater.Params pDU = new DataUpdater.Params(frame.getModel().getPlotsWrapper());
         pDU._dataSources = new IDataSource[1];

@@ -3,6 +3,7 @@ package t1_10.t4_decision_support_module.t5_hybrid_algorithms.t1_iemod;
 import color.gradient.Gradient;
 import component.axis.ticksupdater.FromDisplayRange;
 import component.colorbar.Colorbar;
+import component.drawingarea.DrawingArea3D;
 import dataset.DataSet;
 import dataset.painter.style.MarkerStyle;
 import dataset.painter.style.enums.Marker;
@@ -36,17 +37,21 @@ import runner.enums.DisplayMode;
 import scheme.WhiteScheme;
 import scheme.enums.Align;
 import scheme.enums.AlignFields;
+import scheme.enums.SizeFields;
 import system.ds.DecisionSupportSystem;
 import updater.*;
 import visualization.Visualization;
 import visualization.updaters.sources.EASource;
 
+import java.text.DecimalFormat;
+
 /**
  * This tutorial showcases the IEMO/D algorithm ({@link IEMOD}).
+ * Note that this is a revised version of {@link Tutorial1b}.
  *
  * @author MTomczyk
  */
-public class Tutorial2a
+public class Tutorial1bAlternative
 {
     /**
      * Runs the tutorial.
@@ -87,6 +92,16 @@ public class Tutorial2a
         Plot3D.Params pP = new Plot3D.Params();
         pP._scheme = WhiteScheme.getForPlot3D(0.25f);
         pP._scheme._aligns.put(AlignFields.LEGEND, Align.RIGHT_TOP);
+        pP._scheme.setAllFontsTo("Times New Roman");
+        pP._scheme.rescale(1.5f, SizeFields.AXIS3D_X_TICK_LABEL_FONT_SIZE_SCALE);
+        pP._scheme.rescale(1.5f, SizeFields.AXIS3D_Y_TICK_LABEL_FONT_SIZE_SCALE);
+        pP._scheme.rescale(1.5f, SizeFields.AXIS3D_Z_TICK_LABEL_FONT_SIZE_SCALE);
+        pP._scheme.rescale(1.5f, SizeFields.AXIS3D_X_TITLE_FONT_SIZE_SCALE);
+        pP._scheme.rescale(1.5f, SizeFields.AXIS3D_Y_TITLE_FONT_SIZE_SCALE);
+        pP._scheme.rescale(1.5f, SizeFields.AXIS3D_Z_TITLE_FONT_SIZE_SCALE);
+        pP._scheme.rescale(1.25f, SizeFields.AXIS_COLORBAR_TICK_LABEL_FONT_SIZE_RELATIVE_MULTIPLIER);
+        pP._scheme.rescale(1.25f, SizeFields.AXIS_COLORBAR_TITLE_FONT_SIZE_RELATIVE_MULTIPLIER);
+
         pP._xAxisTitle = "f1";
         pP._yAxisTitle = "f2";
         pP._zAxisTitle = "f3";
@@ -101,10 +116,15 @@ public class Tutorial2a
 
         pP._colorbar = new Colorbar(Gradient.getViridisGradient(), "Generation",
                 new FromDisplayRange(pP._pDisplayRangesManager._DR[3], 5));
-        Plot3D plot2D = new Plot3D(pP);
+        Plot3D plot3D = new Plot3D(pP);
+
+        plot3D.getComponentsContainer().getColorbar().getAxis().getTicksDataGetter().setNumberFormat(new DecimalFormat("0"));
+        ((DrawingArea3D) plot3D.getComponentsContainer().getDrawingArea()).getAxes()[0].getTicksDataGetter().setNumberFormat(new DecimalFormat("0.00"));
+        ((DrawingArea3D) plot3D.getComponentsContainer().getDrawingArea()).getAxes()[1].getTicksDataGetter().setNumberFormat(new DecimalFormat("0.00"));
+        ((DrawingArea3D) plot3D.getComponentsContainer().getDrawingArea()).getAxes()[2].getTicksDataGetter().setNumberFormat(new DecimalFormat("0.00"));
 
         //Frame frame = new Frame(plot2D, 0.5f);
-        Frame frame = new Frame(plot2D, 1000, 800);
+        Frame frame = new Frame(plot3D, 1000, 800);
 
 
         DataUpdater.Params pDU = new DataUpdater.Params(frame.getModel().getPlotsWrapper());

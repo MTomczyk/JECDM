@@ -15,6 +15,7 @@ import swing.swingworkerqueue.ExecutionBlock;
 import swing.swingworkerqueue.QueuedSwingWorker;
 import thread.swingworker.BlockTypes;
 import thread.swingworker.EventTypes;
+import utils.Screenshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -401,6 +402,72 @@ public class PlotModel
         ExecutionBlock<Void, Void> executionBlock = new ExecutionBlock<>(BlockTypes.NOTIFY_DISPLAY_RANGES_CHANGED,
                 _PC.getPlotID(), worker);
         _GC.registerWorkers(executionBlock);
+    }
+
+    /**
+     * Auxiliary method that helps automatically create a screenshot. The processing involves:
+     * (1) disabling plot visibility,
+     * (2) setting projection bounds,
+     * (3) updating IDS structures,
+     * (4) creating a render,
+     * (6) creating a screenshot (synchronously),
+     * (7) restoring the plot size,
+     * (8) restoring plot visibility,
+     * (9) calling countDown on the barrier.
+     *
+     * @param w new plot width for the screenshot
+     * @param h new plot height for the screenshot
+     * @return initially empty wrapper for the buffered image (the image will be set by the workers); additionally,
+     * the method creates a count-down latch with a size of 1 and passes it via the returned object;  a thread
+     * creating a render will call its countDown() upon screenshot creation,  thus allowing for thread synchronization
+     */
+    public Screenshot requestScreenshotCreation(int w, int h)
+    {
+        return requestScreenshotCreation(w, h, false);
+    }
+
+    /**
+     * Auxiliary method that helps automatically create a screenshot. The processing involves:
+     * (1) disabling plot visibility,
+     * (2) setting projection bounds,
+     * (3) updating IDS structures,
+     * (4) creating a render,
+     * (6) creating a screenshot (synchronously),
+     * (7) restoring the plot size,
+     * (8) restoring plot visibility,
+     * (9) calling countDown on the barrier.
+     *
+     * @param w               new plot width for the screenshot
+     * @param h               new plot height for the screenshot
+     * @param useAlphaChannel if true, alpha channel is used; false otherwise
+     * @return initially empty wrapper for the buffered image (the image will be set by the workers); additionally,
+     * the method creates a count-down latch with a size of 1 and passes it via the returned object;  a thread
+     * creating a render will call its countDown() upon screenshot creation,  thus allowing for thread synchronization
+     */
+    public Screenshot requestScreenshotCreation(int w, int h, boolean useAlphaChannel)
+    {
+        if (_CC.getDrawingArea() == null) return null;
+
+        Screenshot screenshot = new Screenshot(useAlphaChannel);
+
+        int px = _plot.getX();
+        int py = _plot.getY();
+        int pw = _plot.getWidth();
+        int ph = _plot.getHeight();
+
+        AbstractDrawingArea da = _CC.getDrawingArea();
+        LinkedList<QueuedSwingWorker<Void, Void>> workers = new LinkedList<>();
+        workers.add(new PlotVisibilityUpdater(_PC, false));
+        workers.add(new PlotDimensionsUpdater(_PC, px, py, w, h));
+        workers.add(da.createIDSUpdater(EventTypes.ON_RESIZE));
+        workers.add(da.createRenderUpdater(EventTypes.ON_RESIZE));
+        workers.add(new CreateAndWrapScreenshot(_PC, screenshot));
+        workers.add(new PlotDimensionsUpdater(_PC, px, py, pw, ph));
+        workers.add(new PlotVisibilityUpdater(_PC, true));
+        workers.add(new CountDownLatchUpdater(screenshot._barrier));
+        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(BlockTypes.CREATE_SCREENSHOT_ON_DEMAND, _PC.getPlotID(), workers);
+        _GC.registerWorkers(block);
+        return screenshot;
     }
 
     /**

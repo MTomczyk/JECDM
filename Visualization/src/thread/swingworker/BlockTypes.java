@@ -10,7 +10,7 @@ public class BlockTypes
     /**
      * The number of unique and contiguous types.
      */
-    public static final int NO_TYPES = 8;
+    public static final int NO_TYPES = 9;
 
     /**
      * Data sets updater.
@@ -52,4 +52,8 @@ public class BlockTypes
      */
     public static final int NOTIFY_DISPLAY_RANGES_CHANGED = 7;
 
+    /**
+     * Creates screenshot on demand.
+     */
+    public static final int CREATE_SCREENSHOT_ON_DEMAND = 8;
 }

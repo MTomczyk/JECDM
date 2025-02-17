@@ -12,10 +12,12 @@ public class PrintUtils
 {
     /**
      * Prints strings as lines.
+     *
      * @param lines lines to be printed
      */
     public static void printLines(String[] lines)
     {
+        if (lines == null) return;
         for (String l : lines) System.out.println(l);
     }
 

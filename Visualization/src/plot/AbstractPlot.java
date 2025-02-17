@@ -23,8 +23,10 @@ import scheme.enums.FlagFields;
 import scheme.enums.SizeFields;
 import utils.Projection;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -456,49 +458,62 @@ public class AbstractPlot extends AbstractSwingComponent
     }
 
     /**
-     * Constructs and returns a screenshot of the plot.
-     * Data is stored as a buffered image.
+     * Constructs and returns a screenshot of the plot. Data is stored as a buffered image.
+     * Important note: the tasks are executed on the EDT (SwingUtilities.invokeAndWait(...)); thus, the method
+     * is executed synchronously.
      *
      * @param transparentBackground if true, background is saved as transparent and the returned object is saved as ARGB; if false, the
      *                              displayed background color is saved (RGB mode in BufferedImage).
-     * @return plot screenshot (buffered image)
+     * @return plot screenshot (buffered image); null in the case of an error
      */
     public BufferedImage getPlotScreenshot(boolean transparentBackground)
     {
         Notification.printNotification(_GC, _PC, _name + " [id = " + _M._id + "]: get plot screenshot method called");
+        final BufferedImage screenshot;
+        if (transparentBackground) screenshot = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+        else screenshot = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        BufferedImage screenshot;
-        if (transparentBackground)
+        try
         {
-            screenshot = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = screenshot.createGraphics();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-            // clear screenshot
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f));
-            g2.setColor(new Color(0, 0, 0, 0));
-            g2.fillRect(0, 0, getWidth(), getHeight());
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
-
-            for (AbstractSwingComponent c : _M._CC.getComponents())
+            SwingUtilities.invokeAndWait(() ->
             {
-                BufferedImage componentImage = new BufferedImage(c.getWidth(), c.getHeight(), BufferedImage.TYPE_INT_ARGB);
-                Graphics2D g2c = componentImage.createGraphics();
-                g2c.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-                c.paint(g2c);
-                g2.drawImage(componentImage, c.getX(), c.getY(), null);
-                g2c.dispose();
-            }
-            g2.dispose();
-        }
-        else
+                if (transparentBackground)
+                {
+                    Graphics2D g2 = screenshot.createGraphics();
+                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                    // clear screenshot
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f));
+                    g2.setColor(new Color(0, 0, 0, 0));
+                    g2.fillRect(0, 0, getWidth(), getHeight());
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+
+                    for (AbstractSwingComponent c : _M._CC.getComponents())
+                    {
+                        BufferedImage componentImage = new BufferedImage(c.getWidth(), c.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                        Graphics2D g2c = componentImage.createGraphics();
+                        g2c.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                        c.paint(g2c);
+                        g2.drawImage(componentImage, c.getX(), c.getY(), null);
+                        g2c.dispose();
+                    }
+                    g2.dispose();
+                }
+                else
+                {
+                    Graphics2D g2 = screenshot.createGraphics();
+                    paint(g2);
+                    g2.dispose();
+                }
+            });
+        } catch (InterruptedException | InvocationTargetException e)
         {
-            screenshot = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2 = screenshot.createGraphics();
-            paint(g2);
-            g2.dispose();
+            System.out.println("Error occurred when creating a screenshot (message = " + e.getMessage() + ")");
+            return null;
         }
+
         return screenshot;
     }
 }

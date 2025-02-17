@@ -61,7 +61,6 @@ public class PlotController
         Notification.printNotification(_M._GC, _M._PC, "Plot controller [id = " + _M.getPlotID() + "]: instantiate background threads method called");
     }
 
-
     /**
      * Starts all background threads.
      */

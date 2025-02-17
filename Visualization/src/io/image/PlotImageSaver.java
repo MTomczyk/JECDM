@@ -3,16 +3,9 @@ package io.image;
 import container.PlotContainer;
 import swing.imagesaver.IFileSaveDelegate;
 
-import javax.imageio.IIOImage;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
-import javax.imageio.stream.FileImageOutputStream;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
 
 /**
  * Implementation of {@link IFileSaveDelegate} responsible for saving rendering results of {@link plot.AbstractPlot}.
@@ -65,57 +58,8 @@ public class PlotImageSaver implements IFileSaveDelegate
             return;
         }
 
-        String fullPath = selectedFile.getPath() + "." + extension;
-        FileImageOutputStream ios;
-
-        try
-        {
-            ios = new FileImageOutputStream(new File(fullPath));
-        } catch (Exception e)
-        {
-            JOptionPane.showMessageDialog(_PC.getPlot(),
-                    "Could not create a file (" + fullPath + ")",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-
-            return;
-        }
-
-
-        Iterator<ImageWriter> it = ImageIO.getImageWritersByFormatName(extension);
-        ImageWriter writer;
-
-        try
-        {
-            writer = it.next();
-        } catch (Exception e)
-        {
-            JOptionPane.showMessageDialog(_PC.getPlot(),
-                    "No image writer found  (for extension = " + extension + ")",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        ImageWriteParam iwp = writer.getDefaultWriteParam();
-        iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        if (!extension.equalsIgnoreCase("bmp")) iwp.setCompressionQuality(quality);
-        writer.setOutput(ios);
-        IIOImage ioImage = new IIOImage(image, null, null);
-
-        try
-        {
-            writer.write(null, ioImage, iwp);
-        } catch (IOException e)
-        {
-            JOptionPane.showMessageDialog(_PC.getPlot(),
-                    "Could not save an image (" + selectedFile.getName() + "." + extension + ")",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        writer.dispose();
-        image.flush();
+        ImageSaver.saveImage(_PC.getPlot(), image, selectedFile, extension, quality);
     }
+
+
 }

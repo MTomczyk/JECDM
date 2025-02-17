@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hhline}
+\usepackage{multirow}
+
+\begin{document}
+
+\begin{table}[htb!]
+	\caption{TEST 1}
+	\centering
+\begin{tabular}{ | c | c | c c | c c c | }
+\hhline{*{7}{-}}
+\multicolumn{2}{| c }{Measure} & \multicolumn{2}{| c}{M1} & \multicolumn{3}{| c |}{M2} \\
+\hhline{*{7}{-}}
+Algorithm & Problem & Min & Max & Min & Mean & Max \\
+\hhline{*{7}{-}}
+\multirow{2}{*}{A1} & P1 & $0.20$ & $0.50$ & $0.100$ & $0.500$ & $0.600$ \\
+ & P2 & $0.70$ & $0.90$ & $0.300$ & $0.400$ & $0.500$ \\
+\hhline{*{7}{-}}
+\multirow{3}{*}{A2} & P1 & $0.10$ & $0.40$ & $0.300$ & $0.600$ & $0.700$ \\
+ & P2 & $0.80$ & $0.90$ & $0.100$ & $0.200$ & $0.300$ \\
+ & P3 & $0.10$ & $0.20$ & $0.400$ & $0.500$ & $0.900$ \\
+\hhline{*{7}{-}}
+\end{tabular}
+\end{table}
+
+\begin{table}[htb!]
+	\caption{TEST 2}
+	\centering
+\begin{tabular}{ | c | c | c c | c c c | }
+\hhline{*{7}{-}}
+\multicolumn{2}{| c }{Measure} & \multicolumn{2}{| c}{M3} & \multicolumn{3}{| c |}{M4} \\
+\hhline{*{7}{-}}
+Algorithm & Problem & Min & Max & Min & Mean & Max \\
+\hhline{*{7}{-}}
+\multirow{2}{*}{A1} & P1 & $0.10$ & $0.30$ & $0.100$ & $0.200$ & $0.300$ \\
+ & P2 & $0.10$ & $0.30$ & $0.100$ & $0.200$ & $0.300$ \\
+\hhline{*{7}{-}}
+\multirow{3}{*}{A2} & P1 & $0.10$ & $0.30$ & $0.100$ & $0.200$ & $0.300$ \\
+ & P2 & $0.10$ & $0.30$ & $0.100$ & $0.200$ & $0.300$ \\
+ & P3 & $0.10$ & $0.30$ & $0.100$ & $0.200$ & $0.300$ \\
+\hhline{*{7}{-}}
+\end{tabular}
+\end{table}
+
+
+\begin{table}[htb!]
+	\caption{TEST 3}
+	\centering
+\begin{tabular}{ | c | c | c c | c c | }
+\hhline{*{6}{-}}
+\multicolumn{2}{| c }{Measure} & \multicolumn{2}{| c}{M5} & \multicolumn{2}{| c |}{M6} \\
+\hhline{*{6}{-}}
+Algorithm & Problem & Min & Max & Min & Max \\
+\hhline{*{6}{-}}
+\multirow{2}{*}{A1} & P1 & A & B & A & C \\
+ & P2 & A & D & B & C \\
+\hhline{*{6}{-}}
+\multirow{2}{*}{A2} & P1 & B & B & C & C \\
+ & P2 & A & B & C & D \\
+\hhline{*{6}{-}}
+\end{tabular}
+\end{table}
+
+
+
+\end{document}

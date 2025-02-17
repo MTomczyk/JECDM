@@ -1,3 +1,7 @@
+[17.02.2025] Minor updates that are reported in "Tutorial 8: Supportive Tools for the Experimentation module and creating screenshots"
+- Experimentation: Added to tools for the Experimentation module: ConvergencePlotFromXLSX and LatexTableFromXLSX;
+- Visualization: Added functionality for requesting plot screenshot creation.
+
 [13.01.2025] Minor updates
 - Visualization.plot.PlotModel.updateDataSets (the method allows updating only a selected subset of models)
 - Visualization.dataset.AbstractDataSet: _legendLabel field added (equals _name by default, but _legendLabel can be adjusted independently; _name field is reserved to processing)

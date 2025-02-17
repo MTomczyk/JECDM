@@ -37,6 +37,4 @@ public enum EventTypes
      */
     ON_INTERACTION,
 
-
-
 }

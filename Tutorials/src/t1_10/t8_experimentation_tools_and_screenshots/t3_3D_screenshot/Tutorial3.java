@@ -99,7 +99,7 @@ public class Tutorial3
         try
         {
             screenshot._barrier.await();
-            Path path = FileUtils.getPathRelatedToClass(Tutorial3.class, "Private", "src", File.separatorChar);
+            Path path = FileUtils.getPathRelatedToClass(Tutorial3.class, "Tutorials", "src", File.separatorChar);
             String screenshotPath = path + File.separator + "screenshot";
             ImageSaver.saveImage(screenshot._image, screenshotPath, "jpg", 1.0f);
 

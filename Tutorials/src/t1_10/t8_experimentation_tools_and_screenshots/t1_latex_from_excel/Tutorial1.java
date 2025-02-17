@@ -28,7 +28,7 @@ public class Tutorial1
         try
         {
             // Construct a path to Data.xlsx.
-            Path path = FileUtils.getPathRelatedToClass(Tutorial1.class, "Private", "src", File.separatorChar);
+            Path path = FileUtils.getPathRelatedToClass(Tutorial1.class, "Tutorials", "src", File.separatorChar);
             String stringPath = path + File.separator + "Data.xlsx";
             System.out.println("Path = " + stringPath);
 

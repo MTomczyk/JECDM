@@ -1,5 +1,6 @@
 package problem;
 
+import criterion.Criteria;
 import phase.IConstruct;
 import phase.IEvaluate;
 import reproduction.IReproduce;
@@ -32,19 +33,44 @@ public abstract class AbstractProblemBundle
     public final IEvaluate _evaluate;
 
     /**
+     * Contains reference criteria objects.
+     */
+    public final Criteria _criteria;
+
+    /**
+     * True utopia point for test problems.
+     */
+    public final double[] _utopia;
+
+    /**
+     * Optimization direction flags (for each objective). True indicates that the objective is to be maximized, false otherwise.
+     */
+    public final boolean[] _optimizationDirections;
+
+    /**
      * Parameterized constructor.
      *
      * @param problem   problem id
      * @param construct constructs the initial population
      * @param reproduce creates offspring
      * @param evaluate  Evaluates solutions
+     * @param criteria  criteria array
      */
-    protected AbstractProblemBundle(Problem problem, IConstruct construct, IReproduce reproduce, IEvaluate evaluate)
+    protected AbstractProblemBundle(Problem problem,
+                                    IConstruct construct,
+                                    IReproduce reproduce,
+                                    IEvaluate evaluate,
+                                    Criteria criteria,
+                                    double[] utopia,
+                                    boolean[] optimizationDirections)
     {
         _problem = problem;
         _construct = construct;
         _reproduce = reproduce;
         _evaluate = evaluate;
+        _criteria = criteria;
+        _utopia = utopia;
+        _optimizationDirections = optimizationDirections;
     }
 
     /**
@@ -135,4 +161,16 @@ public abstract class AbstractProblemBundle
             default -> null;
         };
     }
+
+    /**
+     * Can be called to check if the problem is multi-objective.
+     *
+     * @return true, if the problem is multi-objective; false otherwise
+     */
+    public boolean isMultiObjective()
+    {
+        if (_criteria == null) return false;
+        return _criteria._no != 1;
+    }
+
 }

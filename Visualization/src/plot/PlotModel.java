@@ -79,6 +79,16 @@ public class PlotModel
     protected LinkedList<IDisplayRangesChangedListener> _drChangedListeners;
 
     /**
+     * Auxiliary flag determining whether the layout can be updated (true) or not (false0.
+     */
+    protected boolean _layoutUpdatesEnabled = true;
+
+    /**
+     * Auxiliary flag determining whether the scheme can be updated (true) or not (false0.
+     */
+    protected boolean _schemeUpdatesEnabled = true;
+
+    /**
      * Parameterized constructor.
      *
      * @param plot reference to plot.
@@ -377,7 +387,6 @@ public class PlotModel
         _GC.registerWorkers(block);
     }
 
-
     /**
      * Auxiliary method that updates plot IDS, starting from the second level.
      * The method is invoked by all window-resized-like events.
@@ -518,6 +527,38 @@ public class PlotModel
         return _scheme;
     }
 
+    /**
+     * Enables layout future updates.
+     */
+    public void enableLayoutUpdates()
+    {
+        _layoutUpdatesEnabled = true;
+    }
+
+    /**
+     * Enables layout future updates.
+     */
+    public void disableLayoutUpdates()
+    {
+        _layoutUpdatesEnabled = false;
+    }
+
+
+    /**
+     * Enables layout future updates.
+     */
+    public void enableSchemeUpdates()
+    {
+        _schemeUpdatesEnabled = true;
+    }
+
+    /**
+     * Enables layout future updates.
+     */
+    public void disableSchemeUpdates()
+    {
+        _schemeUpdatesEnabled = false;
+    }
 
     /**
      * Can be called to dispose the object and its children.

@@ -5,6 +5,9 @@ import container.Notification;
 import plot.AbstractPlot;
 import plotwrapper.AbstractPlotWrapper;
 
+import javax.swing.*;
+import java.lang.reflect.InvocationTargetException;
+
 /**
  * Model for the {@link AbstractPlotsWrapper} class.
  *
@@ -71,6 +74,92 @@ public class PlotsWrapperModel
         {
             if (w == null) continue;
             w.getModel().setPlotID(id++);
+        }
+    }
+
+    /**
+     * Auxiliary method for checking if the input plot is already in used by this component (uses the .equals method for comparison)
+     *
+     * @param plot input plot
+     * @return true, if the plot is already in the component, false otherwise
+     */
+    private boolean isPlotAlreadyUsed(AbstractPlot plot)
+    {
+        if (_wrappers == null) return false;
+        for (AbstractPlotWrapper apw : _wrappers)
+            if ((apw != null) && (apw.getModel().getPlot().equals(plot))) return true;
+        return false;
+    }
+
+    /**
+     * This method replaces an already existing plot with a new one. Use with caution. The procedure temporarily
+     * disables associated background threads and the execution queue (and removes execution blocks of the plot to be
+     * removed). Nonetheless, trying, e.g., to update plot data simultaneously with its replacement, should be avoided.
+     * The removed plot  will be disposed ({@link AbstractPlot#dispose()}). The method terminates if the input plot already
+     * exists in the set.
+     *
+     * @param plotID          ID of a plot to be replaced
+     * @param newPlot         new plot
+     * @param disposePrevious if true, the previous instance (plot) is disposed (it involves, e.g., removing its listeners);
+     *                        a disposed plot cannot be used again; it is also recommended NOT to manipulate a plot
+     *                        that is NOT a member of this component
+     */
+    public void replacePlotWith(int plotID, AbstractPlot newPlot, boolean disposePrevious)
+    {
+        if (_wrappers == null) return;
+        if (plotID >= _wrappers.length) return;
+        if (_wrappers[plotID] == null) return;
+        if (isPlotAlreadyUsed(newPlot)) return;
+
+        try
+        {
+            // Try to be synchronous
+            SwingUtilities.invokeAndWait(() -> {
+
+                // Disable the top-level listeners first.
+                _GC.getFrame().getController().disableListeners();
+
+                // Temporarily disable various updates.
+                _wrappers[plotID].getModel().getPlot().getModel().disableLayoutUpdates();
+                _wrappers[plotID].getModel().getPlot().getModel().disableSchemeUpdates();
+                newPlot.getModel().disableLayoutUpdates();
+                newPlot.getModel().disableSchemeUpdates();
+
+                _wrappers[plotID].getController().stopBackgroundThreads(); // disable background threads (for wrapper and plot)
+                _wrappers[plotID].getController().unregisterListeners(); // temporarily unregister listeners (for wrapper and plot)
+
+                _C._queueingSystem.disableAddingExecutionBlocksToQueue(plotID); // disable plot for queue-based processing (synchronous; lock)
+                _C._queueingSystem.removeExecutionBlocksWithCallerType(plotID); // remove existing tasks associated with the plot (synchronous; lock)
+
+                // Wait until:
+                _C._queueingSystem.waitUntilTheFirstBlockIsNotOfCallerType(plotID);
+
+                _wrappers[plotID].replacePlotWith(newPlot, disposePrevious); // replace the plot in a wrapper
+                _C._interactor.setActivePlot(null); // set active plot to null
+
+                _wrappers[plotID].getController().instantiateListeners(); // disable background threads (for wrapper and plot)
+
+                _C._queueingSystem.enableAddingExecutionBlocksToQueue(plotID); // need to enable first to allow for receiving new tasks
+
+                _wrappers[plotID].getController().startBackgroundThreads(); // tart background tasks
+                _wrappers[plotID].getModel().getPlot().getModel().enableLayoutUpdates();
+                _wrappers[plotID].getModel().getPlot().getModel().enableSchemeUpdates();
+
+                // Enable the top-level listeners
+                _GC.getFrame().getController().enableListeners();
+
+                _GC.getFrame().revalidate();
+                _wrappers[plotID].updateScheme(null); // update own scheme
+                _GC.getFrame().updateLayout(); // update layout
+
+                updatePlotsIDSsOnScreenResize();
+                _C.requestFocusOn(plotID);
+
+                System.gc(); // suggest cleanup
+            });
+        } catch (InterruptedException | InvocationTargetException e)
+        {
+            throw new RuntimeException(e);
         }
     }
 

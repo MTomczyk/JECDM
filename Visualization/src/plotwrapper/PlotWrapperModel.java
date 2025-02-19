@@ -51,7 +51,6 @@ public class PlotWrapperModel
         _C = C;
     }
 
-
     /**
      * Plot getter.
      *
@@ -62,13 +61,12 @@ public class PlotWrapperModel
         return _plot;
     }
 
-
     /**
      * Setter for the plot.
      *
      * @param plot plot
      */
-    public void setPlot(AbstractPlot plot)
+    protected void setPlot(AbstractPlot plot)
     {
         _plot = plot;
     }

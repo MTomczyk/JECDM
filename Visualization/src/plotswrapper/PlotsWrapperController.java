@@ -360,7 +360,7 @@ public class PlotsWrapperController
     }
 
     /**
-     * Sets which plot is focused.
+     * Requests a focus on a plot with a given ID.
      *
      * @param plotID od of a plot that gained focus
      */

@@ -31,7 +31,7 @@ public class ExecutionBlock<T, V>
 
     /**
      * Delta time specifying overdue (when the worker can be considered overdue, i.e., can be skipped).
-     * By default, it is set to infinite (no overdue/deadline).
+     * By default, it is set to infinite (no overdue/deadline). Overdue is measured in ns.
      */
     protected volatile long _overdue = Long.MAX_VALUE;
 
@@ -66,7 +66,6 @@ public class ExecutionBlock<T, V>
         block._executionStarted = _executionStarted;
         return block;
     }
-
 
     /**
      * Parameterized constructor.
@@ -121,9 +120,9 @@ public class ExecutionBlock<T, V>
     }
 
     /**
-     * Setter for the overdue threshold.
+     * Setter for the overdue threshold [ns].
      *
-     * @param overdue overdue threshold
+     * @param overdue overdue threshold [ns]
      */
     public void setOverdue(long overdue)
     {

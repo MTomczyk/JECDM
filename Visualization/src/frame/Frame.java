@@ -308,7 +308,6 @@ public class Frame extends JFrame
 
         if (p._title != null) setTitle(p._title);
 
-
         _C = new FrameController(this);
         _M = new FrameModel(this, p._plotsWrapper, p._debugMode);
         _C.setFrameModel(_M);
@@ -326,6 +325,7 @@ public class Frame extends JFrame
         _C.instantiateBackgroundThreads();
         _C.instantiateListeners();
         _C.registerKeyBindings();
+        _C.enableListeners();
 
         _M._plotsWrapper.getController().requestFocusOnTheFirstValidPlot();
 
@@ -342,7 +342,6 @@ public class Frame extends JFrame
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
     /**

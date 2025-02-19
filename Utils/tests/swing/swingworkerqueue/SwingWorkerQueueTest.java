@@ -19,7 +19,7 @@ class SwingWorkerQueueTest
     public static class Worker extends QueuedSwingWorker<String, Object>
     {
         /**
-         * Sleep time
+         * Sleep time [ms]
          */
         private final int _sleep;
 
@@ -225,4 +225,119 @@ class SwingWorkerQueueTest
         assertEquals(8, _finishedOrder.get(1));
         assertEquals(9, _finishedOrder.get(2));
     }
+
+
+    /**
+     * Test 5.
+     */
+    @Test
+    void test5()
+    {
+        int sleep = 100;
+        int T = 10;
+        _finishedOrder = new LinkedList<>();
+
+        long pTime = System.currentTimeMillis();
+        SwingWorkerQueue<String, Object> queue = new SwingWorkerQueue<>(2, 2);
+        queue.disableAddingExecutionBlocks();
+        for (int i = 0; i < T; i++)
+        {
+            QueuedSwingWorker<String, Object> worker = new Worker(i,  sleep, _finishedOrder);
+            ExecutionBlock<String, Object> B = new ExecutionBlock<>(i % 2, i % 2, worker);
+            B.setConsiderOverdue(true);
+            B.setOverdue(1000);
+            queue.addAndScheduleExecutionBlock(B);
+        }
+        System.out.println("Spawned in " + (System.currentTimeMillis() - pTime));
+        queue.enableAddingExecutionBlocks();
+        assertEquals(0, _finishedOrder.size());
+    }
+
+
+    /**
+     * Test 6.
+     */
+    @Test
+    void test6()
+    {
+        int sleep = 100;
+        int T = 10;
+        _finishedOrder = new LinkedList<>();
+
+        long pTime = System.currentTimeMillis();
+        SwingWorkerQueue<String, Object> queue = new SwingWorkerQueue<>(2, 2);
+        for (int i = 0; i < T; i++)
+        {
+            QueuedSwingWorker<String, Object> worker = new Worker(i,  sleep, _finishedOrder);
+            ExecutionBlock<String, Object> B = new ExecutionBlock<>(i % 2, i % 2, worker);
+            B.setConsiderOverdue(true);
+            B.setOverdue(1000000000);
+            queue.addAndScheduleExecutionBlock(B);
+        }
+
+        queue.removeExecutionBlocksWithCallerType(0);
+        System.out.println("Spawned in " + (System.currentTimeMillis() - pTime));
+
+        try // wait till the background thread finishes
+        {
+            Thread.sleep(4000);
+        } catch (InterruptedException e)
+        {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("==========================================");
+
+        assertEquals(6, _finishedOrder.size());
+        assertEquals(0, _finishedOrder.get(0));
+        assertEquals(1, _finishedOrder.get(1));
+        assertEquals(3, _finishedOrder.get(2));
+        assertEquals(5, _finishedOrder.get(3));
+        assertEquals(7, _finishedOrder.get(4));
+        assertEquals(9, _finishedOrder.get(5));
+    }
+
+    /**
+     * Test 7.
+     */
+    @Test
+    void test7()
+    {
+        int sleep = 100;
+        int T = 10;
+        _finishedOrder = new LinkedList<>();
+
+        long pTime = System.currentTimeMillis();
+        SwingWorkerQueue<String, Object> queue = new SwingWorkerQueue<>(2, 2);
+        for (int i = 0; i < T; i++)
+        {
+            QueuedSwingWorker<String, Object> worker = new Worker(i,  sleep, _finishedOrder);
+            ExecutionBlock<String, Object> B = new ExecutionBlock<>(i % 2, i % 2, worker);
+            B.setConsiderOverdue(true);
+            B.setOverdue(1000000000);
+            queue.addAndScheduleExecutionBlock(B);
+        }
+
+        queue.removeExecutionBlocksWithCallerType(1);
+        System.out.println("Spawned in " + (System.currentTimeMillis() - pTime));
+
+        try // wait till the background thread finishes
+        {
+            Thread.sleep(4000);
+        } catch (InterruptedException e)
+        {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("==========================================");
+
+        assertEquals(5, _finishedOrder.size());
+        assertEquals(0, _finishedOrder.get(0));
+        assertEquals(2, _finishedOrder.get(1));
+        assertEquals(4, _finishedOrder.get(2));
+        assertEquals(6, _finishedOrder.get(3));
+        assertEquals(8, _finishedOrder.get(4));
+    }
+
+
 }

@@ -103,6 +103,48 @@ public class QueueingSystem<T, V>
     }
 
     /**
+     * Auxiliary method that enables adding new execution blocks to a queue associated with a caller (upcoming tasks will be accepted).
+     */
+    public void enableAddingExecutionBlocksToQueue(int callerType)
+    {
+        int queue = _callerIDtoQueue[callerType];
+        _queues.get(queue).enableAddingExecutionBlocks();
+    }
+
+    /**
+     * Auxiliary method that waits until the first execution block is NOT of a given caller type.
+     *
+     * @param callerType caller type
+     */
+    public void waitUntilTheFirstBlockIsNotOfCallerType(int callerType)
+    {
+        int queue = _callerIDtoQueue[callerType];
+        _queues.get(queue).waitUntilTheFirstBlockIsNotOfCallerType(callerType);
+    }
+
+    /**
+     * Auxiliary method that disables adding new execution blocks to a queue associated with a caller (upcoming tasks will be rejected).
+     */
+    public void disableAddingExecutionBlocksToQueue(int callerType)
+    {
+        int queue = _callerIDtoQueue[callerType];
+        _queues.get(queue).disableAddingExecutionBlocks();
+    }
+
+    /**
+     * Auxiliary method that removes all execution blocks in the queue whose types match the input.
+     * Such blocks are expected to be located in one queue, which is determined by the method first.
+     *
+     * @param callerType type (id) of blocks that are to be removed
+     */
+    public void removeExecutionBlocksWithCallerType(int callerType)
+    {
+        int queue = _callerIDtoQueue[callerType];
+        int offset = _callerIDOffset[callerType];
+        _queues.get(queue).removeExecutionBlocksWithCallerType(callerType - offset);
+    }
+
+    /**
      * Cancels all dispatched workers and clears the data.
      */
     public void dispose()

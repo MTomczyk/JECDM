@@ -19,6 +19,11 @@ public class FrameListener extends ComponentAdapter
     private final GlobalContainer _GC;
 
     /**
+     * Flag indicating whether the listener is enabled (true) or not (false).
+     */
+    private volatile boolean _enabled;
+
+    /**
      * Parameterized constructor.
      *
      * @param GC global container (shared object; stores references, provides various functionalities)
@@ -39,6 +44,7 @@ public class FrameListener extends ComponentAdapter
     public void componentResized(ComponentEvent e)
     {
         Notification.printNotification(_GC, null, "Frame listener: window resized");
+        if (!_enabled) return;
         _GC.getFrame().updateLayout();
         _GC.getPlotsWrapper().getModel().updatePlotsIDSsOnScreenResize();
     }
@@ -65,4 +71,20 @@ public class FrameListener extends ComponentAdapter
 
     }
 
+    /**
+     * Auxiliary method that enables te listener.
+     */
+    public void enable()
+    {
+        _enabled = true;
+    }
+
+
+    /**
+     * Auxiliary method that enables te listener.
+     */
+    public void disable()
+    {
+        _enabled = false;
+    }
 }

@@ -19,6 +19,11 @@ public class MousePressedLooseFocus implements MouseListener
     private final GlobalContainer _GC;
 
     /**
+     * Flag indicating whether the listener is enabled (true) or not (false).
+     */
+    private volatile boolean _enabled;
+
+    /**
      * Parameterized constructor.
      *
      * @param GC global container (shared object; stores references, provides various functionalities)
@@ -51,6 +56,7 @@ public class MousePressedLooseFocus implements MouseListener
     public void mousePressed(MouseEvent e)
     {
         Notification.printNotification(_GC, null,  "Mouse click loose focus: mouse pressed");
+        if (!_enabled) return;
         _GC.getPlotsWrapper().getController().looseFocusToAllPlots();
     }
 
@@ -85,5 +91,22 @@ public class MousePressedLooseFocus implements MouseListener
     public void mouseExited(MouseEvent e)
     {
 
+    }
+
+    /**
+     * Auxiliary method that enables te listener.
+     */
+    public void enable()
+    {
+        _enabled = true;
+    }
+
+
+    /**
+     * Auxiliary method that enables te listener.
+     */
+    public void disable()
+    {
+        _enabled = false;
     }
 }

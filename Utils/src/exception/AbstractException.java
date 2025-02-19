@@ -30,7 +30,23 @@ public abstract class AbstractException extends Exception
      */
     public AbstractException(String message, Class<?> handler)
     {
-        this(message, handler, null);
+        this(message, handler, (Throwable) null);
+    }
+
+
+    /**
+     * Parameterized constructor
+     *
+     * @param message exception message
+     * @param handler class that caught the exception
+     * @param source exception source
+     */
+    public AbstractException(String message, Class<?> handler, Class<?> source)
+    {
+        super(message, null);
+        _handler = handler;
+        _line = null;
+        _source = source;
     }
 
     /**

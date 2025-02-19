@@ -105,6 +105,25 @@ public class FrameController
         _M._plotsWrapper.getController().instantiateListeners();
     }
 
+    /**
+     * Auxiliary method for enabling the top-level listeners.
+     */
+    public void enableListeners()
+    {
+        if (_windowListener != null) _windowListener.enable();
+        if (_mousePressedLooseFocus != null) _mousePressedLooseFocus.enable();
+        if (_frameListener != null) _frameListener.enable();
+    }
+
+    /**
+     * Auxiliary method for disabling the top-level listeners.
+     */
+    public void disableListeners()
+    {
+        if (_windowListener != null) _windowListener.disable();
+        if (_mousePressedLooseFocus != null) _mousePressedLooseFocus.disable();
+        if (_frameListener != null) _frameListener.disable();
+    }
 
     /**
      * Unregisters listeners (also calls the same method for descendants (plots wrapper -> wrappers -> plots)).
@@ -137,6 +156,7 @@ public class FrameController
     public void dispose()
     {
         Notification.printNotification(_M._GC, null,  "Frame controller: dispose method called");
+        disableListeners();
         unregisterListeners();
         _windowListener = null;
         _frameListener = null;

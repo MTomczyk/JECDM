@@ -23,6 +23,10 @@ public class WindowListener extends WindowAdapter implements java.awt.event.Wind
      */
     private final GlobalContainer _GC;
 
+    /**
+     * Flag indicating whether the listener is enabled (true) or not (false).
+     */
+    private volatile boolean _enabled;
 
     /**
      * Parameterized constructor.
@@ -42,6 +46,8 @@ public class WindowListener extends WindowAdapter implements java.awt.event.Wind
     @Override
     public void windowStateChanged(WindowEvent evt)
     {
+        if (!_enabled) return;
+
         if (_GC.getFrame().getExtendedState() == Frame.MAXIMIZED_BOTH)
         {
             Notification.printNotification(_GC, null, "Window listener: window state changed to maximized");
@@ -57,6 +63,9 @@ public class WindowListener extends WindowAdapter implements java.awt.event.Wind
     public void windowClosing(WindowEvent e)
     {
         Notification.printNotification(_GC, null, "Window listener: window is closing (termination)");
+
+        if (!_enabled) return;
+
         super.windowClosed(e);
         e.getWindow().dispose();
     }
@@ -70,6 +79,9 @@ public class WindowListener extends WindowAdapter implements java.awt.event.Wind
     public void windowOpened(WindowEvent e)
     {
         Notification.printNotification(_GC, null, "Window listener: window is opened (for the first time)");
+
+        if (!_enabled) return;
+
         _GC.notifyWindowVisible();
         _GC.getFrame().getController().startBackgroundThreads();
     }
@@ -133,6 +145,9 @@ public class WindowListener extends WindowAdapter implements java.awt.event.Wind
     public void windowIconified(WindowEvent e)
     {
         Notification.printNotification(_GC, null, "Window listener: window is minimized");
+
+        if (!_enabled) return;
+
         // timers can be stopped
         _GC.getFrame().getController().stopBackgroundThreads();
     }
@@ -147,6 +162,8 @@ public class WindowListener extends WindowAdapter implements java.awt.event.Wind
     public void windowDeiconified(WindowEvent e)
     {
         Notification.printNotification(_GC, null, "Window listener: window state changed from minimized to normal");
+        if (!_enabled) return;
+
         // timers can be started
         _GC.getFrame().updateLayout();
         if (_GC.getFrame().getModel().getPlotsWrapper() != null)
@@ -156,4 +173,19 @@ public class WindowListener extends WindowAdapter implements java.awt.event.Wind
         _GC.getFrame().getController().startBackgroundThreads();
     }
 
+    /**
+     * Auxiliary method that enables te listener.
+     */
+    public void enable()
+    {
+        _enabled = true;
+    }
+
+    /**
+     * Auxiliary method that enables te listener.
+     */
+    public void disable()
+    {
+        _enabled = false;
+    }
 }

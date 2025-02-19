@@ -111,7 +111,51 @@ public abstract class AbstractPlotWrapper extends JPanel
     protected void instantiateLayout(Params p)
     {
         setLayout(new BorderLayout());
-        add(_M._plot, BorderLayout.CENTER);
+        addPlotRespectingTheLayout(p._plot);
+    }
+
+    /**
+     * Auxiliary method that adds the plot component respecting the layout.
+     *
+     * @param plot plot to be added
+     */
+    protected void addPlotRespectingTheLayout(AbstractPlot plot)
+    {
+        add(plot, BorderLayout.CENTER);
+    }
+
+    /**
+     * Auxiliary method that removes the plot component respecting the layout.
+     *
+     * @param plot plot to be removed
+     */
+    protected void removePlotRespectingTheLayout(AbstractPlot plot)
+    {
+        if (plot == null) return;
+        remove(plot);
+    }
+
+    /**
+     * Auxiliary method for replacing the already existing plot.
+     * Should be called via {@link plotswrapper.PlotsWrapperModel#replacePlotWith(int, AbstractPlot, boolean)}
+     *
+     * @param plot            new plot that will replace existing one
+     * @param disposePrevious if true, the previous instance (plot) is disposed (it involves, e.g., removing its listeners);
+     *                        a disposed plot cannot be used again
+     */
+    public void replacePlotWith(AbstractPlot plot, boolean disposePrevious)
+    {
+        AbstractPlot toRemove = _M._plot;
+        _M.setPlot(plot);
+        _M.setPlotID(toRemove.getModel().getPlotID());
+
+        removePlotRespectingTheLayout(toRemove);
+
+        toRemove.getModel().setPlotID(-1);
+        if (disposePrevious) toRemove.dispose();
+
+        plot.getModel().establishGlobalContainer(_M._GC);
+        addPlotRespectingTheLayout(plot);
     }
 
     /**

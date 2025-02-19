@@ -1,3 +1,10 @@
+[19.02.2025] Minor updates
+- Visualization: added a new method that allows replacing a plot that is a member of AbstractPlotsWrapper with a new one; see plotswrapper.PlotsWrapperModel#replacePlotWith(int, AbstractPlot, boolean) method; not that it should be used with caution as it has not be thoroughly tested
+- Visualization: Added new plots wrapper: TwoPlotsHorizontallyWithSplit
+- Visualization: AbstractPlotWrapper.addPlotRespectingTheLayout method added (to be called by instantiateLayout)
+- EvolutionaryComputation: AbstractMOOProblemBundle: selected fields were pushed higher in the class hierarchy
+- Utils: Minor updates in swing.swingworkerqueue (disabling/enabling queues, removing execution blocks associated with specified caller ID)
+
 [17.02.2025] Minor updates that are reported in "Tutorial 8: Supportive Tools for the Experimentation module and creating screenshots"
 - Experimentation: Added to tools for the Experimentation module: ConvergencePlotFromXLSX and LatexTableFromXLSX;
 - Visualization: Added functionality for requesting plot screenshot creation.

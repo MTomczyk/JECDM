@@ -64,6 +64,7 @@ public class RunAllTest
             Test44_Arrows.main(args);
             Test45_LegendWithArrows1.main(args);
             Test47_SelectiveUpdate1.main(args);
+            Test48_TwoPlotsWithSplit.main(args);
 
         } catch (Exception e)
         {

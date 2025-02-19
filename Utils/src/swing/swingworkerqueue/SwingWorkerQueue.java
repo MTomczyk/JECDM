@@ -3,6 +3,7 @@ package swing.swingworkerqueue;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -34,6 +35,11 @@ public class SwingWorkerQueue<T, V>
     protected volatile ReentrantLock _lock = new ReentrantLock();
 
     /**
+     * Auxiliary flag indicating whether the queue allows for adding new execution blocks (true) or not (false).
+     */
+    protected volatile boolean _enableAddingExecutionBlocks = true;
+
+    /**
      * Parameterized constructor.
      *
      * @param blocksTypes should represent the spectrum (number) of types of all potentially scheduled blocks
@@ -55,9 +61,9 @@ public class SwingWorkerQueue<T, V>
      */
     public void addAndScheduleExecutionBlock(ExecutionBlock<T, V> block)
     {
-
         _lock.lock();
-        if ((block == null) || (block._workers.isEmpty())) // nothing to add
+
+        if ((!_enableAddingExecutionBlocks) || (block == null) || (block._workers.isEmpty())) // nothing to add
         {
             _lock.unlock();
             return;
@@ -70,6 +76,77 @@ public class SwingWorkerQueue<T, V>
 
         // check immediate start condition
         if (_blocks.size() == 1) dispatchNextWorker();
+
+        _lock.unlock();
+    }
+
+    /**
+     * Auxiliary method that enables the queue (upcoming tasks will be accepted).
+     */
+    public void enableAddingExecutionBlocks()
+    {
+        _lock.lock();
+        _enableAddingExecutionBlocks = true;
+        _lock.unlock();
+    }
+
+
+    /**
+     * Auxiliary method that enables the queue (upcoming tasks will be rejected).
+     */
+    public void disableAddingExecutionBlocks()
+    {
+        _lock.lock();
+        _enableAddingExecutionBlocks = false;
+        _lock.unlock();
+    }
+
+    /**
+     * Auxiliary method that waits until the first execution block is NOT of a given caller type.
+     *
+     * @param callerType caller type
+     */
+    protected void waitUntilTheFirstBlockIsNotOfCallerType(int callerType)
+    {
+        if (_blocks.isEmpty()) return;
+        while (true)
+        {
+            _lock.lock();
+            if (_blocks.isEmpty())
+            {
+                _lock.unlock();
+                return;
+            }
+            if (_blocks.getFirst()._callerType != callerType) break;
+            _lock.unlock();
+        }
+    }
+
+    /**
+     * Auxiliary method that removes all execution blocks in the queue whose types match the input.
+     *
+     * @param callerType type (id) of blocks that are to be removed
+     */
+    public void removeExecutionBlocksWithCallerType(int callerType)
+    {
+        _lock.lock();
+        if ((_blocks == null) || (_blocks.isEmpty()))
+        {
+            _lock.unlock();
+            return;
+        }
+
+        ListIterator<ExecutionBlock<T, V>> it = _blocks.listIterator();
+        ExecutionBlock<T, V> block = it.next();
+
+        // The first element can be removed only if it is not dispatched
+        if (!block._executionStarted) it.remove();
+
+        while (it.hasNext())
+        {
+            block = it.next();
+            if (block._callerType == callerType) it.remove();
+        }
 
         _lock.unlock();
     }

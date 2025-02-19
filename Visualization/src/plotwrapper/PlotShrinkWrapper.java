@@ -48,6 +48,17 @@ public class PlotShrinkWrapper extends AbstractPlotWrapper
     protected void instantiateLayout(Params p)
     {
         setLayout(null);
+        addPlotRespectingTheLayout(p._plot);
+    }
+
+    /**
+     * Auxiliary method that adds the plot component respecting the layout.
+     *
+     * @param plot plot to be added
+     */
+    @Override
+    protected void addPlotRespectingTheLayout(AbstractPlot plot)
+    {
         add(_M._plot);
     }
 

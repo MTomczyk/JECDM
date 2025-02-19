@@ -35,24 +35,9 @@ public abstract class AbstractMOOProblemBundle extends AbstractProblemBundle
     public final INormalization[] _normalizations;
 
     /**
-     * True utopia point for test problems.
-     */
-    public final double[] _utopia;
-
-    /**
      * True nadir point for test problems.
      */
     public final double[] _nadir;
-
-    /**
-     * Optimization direction flags (for each objective). True indicates that the objective is to be maximized, false otherwise.
-     */
-    public final boolean[] _optimizationDirections;
-
-    /**
-     * Contains reference criteria objects.
-     */
-    public final Criteria _criteria;
 
     /**
      * Parameterized constructor.
@@ -81,14 +66,11 @@ public abstract class AbstractMOOProblemBundle extends AbstractProblemBundle
                                        boolean[] optimizationDirections,
                                        Criteria criteria)
     {
-        super(problem, construct, reproduce, evaluate);
+        super(problem, construct, reproduce, evaluate, criteria, utopia, optimizationDirections);
         _displayRanges = displayRanges;
         _paretoFrontBounds = paretoFrontBounds;
         _normalizations = normalizations;
-        _utopia = utopia;
         _nadir = nadir;
-        _optimizationDirections = optimizationDirections;
-        _criteria = criteria;
     }
 
     /**

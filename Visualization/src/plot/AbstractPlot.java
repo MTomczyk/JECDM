@@ -342,6 +342,9 @@ public class AbstractPlot extends AbstractSwingComponent
     @Override
     public void updateScheme(AbstractScheme scheme)
     {
+        // Check for premature termination
+        if (!_M._schemeUpdatesEnabled) return;
+
         super.updateScheme(scheme);
 
         if (scheme == null) scheme = _M._scheme;
@@ -375,6 +378,9 @@ public class AbstractPlot extends AbstractSwingComponent
     public void updateLayout()
     {
         Notification.printNotification(_GC, _PC, "Plot [id = " + _M.getPlotID() + "]: update layout method called (width = " + getWidth() + " ; height = " + getHeight() + ")");
+
+        // Check for premature termination
+        if (!_M._layoutUpdatesEnabled) return;
 
         setLocationAndSize(getX(), getY(), getWidth(), getHeight());
         setPrimaryDrawingArea(getX(), getY(), getWidth(), getHeight());

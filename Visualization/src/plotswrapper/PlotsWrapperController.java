@@ -7,7 +7,7 @@ import plotwrapper.AbstractPlotWrapper;
 import swing.keyboard.KeyUtils;
 import swing.swingworkerqueue.ExecutionBlock;
 import swing.swingworkerqueue.QueuedSwingWorker;
-import swing.swingworkerqueue.QueueingSystem;
+import thread.QueueingSystem;
 import thread.swingtimer.reporters.AbstractPlotsWrapperReporter;
 import thread.swingworker.Animator;
 import thread.swingworker.BlockTypes;
@@ -83,18 +83,7 @@ public class PlotsWrapperController
     protected Interactor _interactor;
 
     /**
-     * If true, ignore execution of those background tasks (swing workers) that are overdue and not relevant for
-     * the processing (recommended).
-     */
-    protected boolean _considerOverdueForSwingWorkers = true;
-
-    /**
-     * Overdue time (in nanoseconds) for background tasks (see {@link QueuedSwingWorker}).
-     */
-    protected int _overdue = 0;
-
-    /**
-     * Represents the number of updaters queues in the queueing system {@link PlotsWrapperController#_queueingSystem}.
+     * Represents the number of updaters queues in the queueing system..
      * Each queue consumes one thread from the  swing worker thread pool, and it is assumed that
      * each plot is linked to just one queue (but one queue can have multiple linkages).
      * Therefore, using a value greater than one if there is just one plot does not make sense.
@@ -106,12 +95,20 @@ public class PlotsWrapperController
     protected int _noUpdatersQueues = 1;
 
     /**
-     * Queueing system that wraps queues that can manage swing workers' execution.
-     * It ensures that their execution does not overlap, i.e., workers are queued and execution
-     * of a next task begins after its predecessor finished its job.
-     * (see {@link swing.swingworkerqueue.ExecutionBlock}).
+     * If true, ignore execution of those background tasks (execution blocks) that are overdue and not relevant for
+     * the processing (recommended).
      */
-    protected QueueingSystem<Void, Void> _queueingSystem;
+    protected boolean _considerOverdueForExecutionBlocks = true;
+
+    /**
+     * Overdue time (in nanoseconds) for background tasks (see {@link ExecutionBlock}).
+     */
+    protected int _overdue = 0;
+
+    /**
+     * Queueing system.
+     */
+    protected thread.QueueingSystem<BlockTypes> _queueingSystem;
 
     /**
      * Parameterized constructor.
@@ -167,37 +164,15 @@ public class PlotsWrapperController
     }
 
     /**
-     * Registers workers (block) for execution to the queue, which ensures that the background tasks do not overlap,
-     * and they are executed in the order in which they were registered.
-     *
-     * @param executionBlock block of workers to be executed one by one
-     */
-    public void registerWorkers(ExecutionBlock<Void, Void> executionBlock)
-    {
-        if (executionBlock == null) return;
-        executionBlock.setConsiderOverdue(_considerOverdueForSwingWorkers);
-        executionBlock.setOverdue(_overdue);
-        if (_queueingSystem != null) _queueingSystem.addAndScheduleExecutionBlock(executionBlock);
-    }
-
-    /**
-     * Upon termination, this method is called to cancel all ongoing background threads and dispose the queue.
-     */
-    public void disposeAllQueuedWorkersAndQueue()
-    {
-        _queueingSystem.dispose();
-        _queueingSystem = null;
-    }
-
-    /**
      * Instantiates background threads (also calls the same method for descendants (wrappers -> plots)).
      */
     public void instantiateBackgroundThreads()
     {
         Notification.printNotification(_M._GC, null, "Plots wrapper controller: instantiate background threads method called");
 
-        _queueingSystem = new QueueingSystem<>(_noUpdatersQueues,
-                BlockTypes.NO_TYPES, _M._wrappers.length);
+        _queueingSystem = new thread.QueueingSystem<>(BlockTypes.values(),
+                _noUpdatersQueues, _M._wrappers.length,
+                _considerOverdueForExecutionBlocks, _overdue);
 
         if (_useInteractor)
         {
@@ -216,6 +191,35 @@ public class PlotsWrapperController
             if (w == null) continue;
             w.getController().instantiateBackgroundThreads();
         }
+    }
+
+    /**
+     * Getter for the queueing system.
+     *
+     * @return queueing system
+     */
+    public QueueingSystem<BlockTypes> getQueueingSystem()
+    {
+        return _queueingSystem;
+    }
+
+    /**
+     * Registers workers (block) for execution to the queue, which ensures that the background tasks do not overlap,
+     * and they are executed in the order in which they were registered.
+     *
+     * @param executionBlock block of workers to be executed one by one
+     */
+    public void registerWorkers(ExecutionBlock<Void, Void> executionBlock)
+    {
+        _queueingSystem.registerWorkers(executionBlock);
+    }
+
+    /**
+     * Upon termination, this method is called to cancel all ongoing background threads and dispose the queue.
+     */
+    public void disposeAllQueuedWorkersAndQueue()
+    {
+        _queueingSystem.dispose();
     }
 
     /**

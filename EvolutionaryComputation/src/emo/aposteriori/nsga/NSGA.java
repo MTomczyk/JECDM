@@ -111,7 +111,7 @@ public class NSGA extends EA
         pB._reproduce = reproduce;
         pB._evaluate = evaluate;
 
-        pB._name = "NSGA (" + threshold + ")";
+        pB._name = "NSGA";
 
         // Instantiate the bundle:
         NSGABundle nsgaBundle = new NSGABundle(pB);

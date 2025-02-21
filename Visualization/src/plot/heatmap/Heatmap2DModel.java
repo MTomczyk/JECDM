@@ -79,7 +79,7 @@ public class Heatmap2DModel extends PlotModel
                 _heatmap2DLayer._HM.getDivisions()[1], sort));
         workers.add(_PC.getDrawingArea().createRenderUpdater(EventTypes.ON_HEATMAP_DATA_CHANGED));
         workers.add(new NotifyDisplayRangesChangedUpdater(_PC));
-        ExecutionBlock<Void, Void> B = new ExecutionBlock<>(BlockTypes.RENDER_UPDATER_ON_HEATMAP_DATA_CHANGED, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> B = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.RENDER_UPDATER_ON_HEATMAP_DATA_CHANGED), _PC.getPlotID(), workers);
         _GC.registerWorkers(B);
     }
 
@@ -99,7 +99,7 @@ public class Heatmap2DModel extends PlotModel
                 _heatmap2DLayer._HM.getDivisions()[1], 1, sortedCoords, sortedValues));
         workers.add(_PC.getDrawingArea().createRenderUpdater(EventTypes.ON_HEATMAP_DATA_CHANGED));
         workers.add(new NotifyDisplayRangesChangedUpdater(_PC));
-        ExecutionBlock<Void, Void> B = new ExecutionBlock<>(BlockTypes.RENDER_UPDATER_ON_HEATMAP_DATA_CHANGED, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> B = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.RENDER_UPDATER_ON_HEATMAP_DATA_CHANGED), _PC.getPlotID(), workers);
         _GC.registerWorkers(B);
     }
 
@@ -113,7 +113,7 @@ public class Heatmap2DModel extends PlotModel
         LinkedList<QueuedSwingWorker<Void, Void>> workers = new LinkedList<>();
         workers.add(new MaskUpdater2D(_heatmap2DLayer._HM, new boolean[][][]{mask}));
         workers.add(_PC.getDrawingArea().createRenderUpdater(EventTypes.ON_HEATMAP_FILTER_CHANGED));
-        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(BlockTypes.HEATMAP_MASK_CHANGED, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.HEATMAP_MASK_CHANGED), _PC.getPlotID(), workers);
         _GC.registerWorkers(block);
     }
 
@@ -129,7 +129,7 @@ public class Heatmap2DModel extends PlotModel
         LinkedList<QueuedSwingWorker<Void, Void>> workers = new LinkedList<>();
         workers.add(new ValueFilterUpdater2D(_heatmap2DLayer._HM, valueFilter));
         workers.add(_PC.getDrawingArea().createRenderUpdater(EventTypes.ON_HEATMAP_FILTER_CHANGED));
-        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(BlockTypes.HEATMAP_VALUE_FILTER_CHANGED, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.HEATMAP_VALUE_FILTER_CHANGED), _PC.getPlotID(), workers);
         _GC.registerWorkers(block);
     }
 
@@ -150,7 +150,7 @@ public class Heatmap2DModel extends PlotModel
         LinkedList<QueuedSwingWorker<Void, Void>> workers = new LinkedList<>();
         workers.add(new ValueFilterUnnormalizedUpdater2D(_heatmap2DLayer._HM, leftNormalizedBound, rightNormalizedBound));
         workers.add(_PC.getDrawingArea().createRenderUpdater(EventTypes.ON_HEATMAP_FILTER_CHANGED));
-        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(BlockTypes.HEATMAP_VALUE_FILTER_CHANGED, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.HEATMAP_VALUE_FILTER_CHANGED), _PC.getPlotID(), workers);
         _GC.registerWorkers(block);
     }
 

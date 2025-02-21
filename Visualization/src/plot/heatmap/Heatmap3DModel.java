@@ -107,7 +107,7 @@ public class Heatmap3DModel extends Plot3DModel
         workers.add(new Heatmap3DBuffersUpdater(_heatmap3DLayer));
         workers.add(_PC.getDrawingArea().createRenderUpdater(EventTypes.ON_HEATMAP_DATA_CHANGED));
         workers.add(new NotifyDisplayRangesChangedUpdater(_PC));
-        ExecutionBlock<Void, Void> B = new ExecutionBlock<>(BlockTypes.RENDER_UPDATER_ON_HEATMAP_DATA_CHANGED, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> B = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.RENDER_UPDATER_ON_HEATMAP_DATA_CHANGED), _PC.getPlotID(), workers);
         _GC.registerWorkers(B);
     }
 
@@ -122,7 +122,7 @@ public class Heatmap3DModel extends Plot3DModel
         LinkedList<QueuedSwingWorker<Void, Void>> workers = new LinkedList<>();
         workers.add(new ValueFilterUpdater3D(_heatmap3DLayer._HM, valueFilter));
         workers.add(_PC.getDrawingArea().createRenderUpdater(EventTypes.ON_HEATMAP_FILTER_CHANGED));
-        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(BlockTypes.HEATMAP_VALUE_FILTER_CHANGED, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.HEATMAP_VALUE_FILTER_CHANGED), _PC.getPlotID(), workers);
         _GC.registerWorkers(block);
     }
 
@@ -143,7 +143,7 @@ public class Heatmap3DModel extends Plot3DModel
         LinkedList<QueuedSwingWorker<Void, Void>> workers = new LinkedList<>();
         workers.add(new ValueFilterUnnormalizedUpdater3D(_heatmap3DLayer._HM, leftNormalizedBound, rightNormalizedBound));
         workers.add(_PC.getDrawingArea().createRenderUpdater(EventTypes.ON_HEATMAP_FILTER_CHANGED));
-        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(BlockTypes.HEATMAP_VALUE_FILTER_CHANGED, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.HEATMAP_VALUE_FILTER_CHANGED), _PC.getPlotID(), workers);
         _GC.registerWorkers(block);
     }
 
@@ -157,7 +157,7 @@ public class Heatmap3DModel extends Plot3DModel
         LinkedList<QueuedSwingWorker<Void, Void>> workers = new LinkedList<>();
         workers.add(new MaskUpdater3D(_heatmap3DLayer, mask));
         workers.add(_PC.getDrawingArea().createRenderUpdater(EventTypes.ON_HEATMAP_FILTER_CHANGED));
-        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(BlockTypes.HEATMAP_MASK_CHANGED, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.HEATMAP_MASK_CHANGED), _PC.getPlotID(), workers);
         _GC.registerWorkers(block);
     }
 

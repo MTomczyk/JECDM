@@ -1,3 +1,10 @@
+[TODO] Minor updates
+- Visualization: thread.QueueingSystem class added (wrapper)
+- Visualization: BlockTypes (Execution) switched to Enum
+- Visualization: Minor refactorization in the Frame class
+- Visualization: PlotsWrapperController: Changed _considerOverdueForSwingWorkers to _considerOverdueForExecutionBlocks.
+- Utils: PlotsWrapperController, AbstractPlotsWrapper: Changed _considerOverdueForSwingWorkers to _considerOverdueForExecutionBlocks.
+
 [19.02.2025] Minor updates
 - Visualization: added a new method that allows replacing a plot that is a member of AbstractPlotsWrapper with a new one; see plotswrapper.PlotsWrapperModel#replacePlotWith(int, AbstractPlot, boolean) method; not that it should be used with caution as it has not be thoroughly tested
 - Visualization: Added new plots wrapper: TwoPlotsHorizontallyWithSplit

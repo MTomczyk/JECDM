@@ -41,7 +41,7 @@ public class FrameController
     /**
      * Parameterized constructor.
      *
-     * @param frame reference to frame
+     * @param frame reference to the frame
      */
     public FrameController(Frame frame)
     {

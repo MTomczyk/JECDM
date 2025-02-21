@@ -5,55 +5,50 @@ package thread.swingworker;
  *
  * @author MTomczyk
  */
-public class BlockTypes
+public enum BlockTypes
 {
-    /**
-     * The number of unique and contiguous types.
-     */
-    public static final int NO_TYPES = 9;
-
     /**
      * Data sets updater.
      */
-    public static final int DATA_SETS_UPDATER = 0;
+    DATA_SETS_UPDATER,
 
     /**
      * IDS and render updater ID (on demand).
      */
-    public static final int IDS_AND_RENDER_UPDATER_ON_DEMAND = 1;
+    IDS_AND_RENDER_UPDATER_ON_DEMAND,
 
     /**
      * IDS and render updater ID (on resize).
      */
-    public static final int IDS_AND_RENDER_UPDATER_ON_RESIZE = 2;
+    IDS_AND_RENDER_UPDATER_ON_RESIZE,
 
     /**
      * IDS and render updater ID (on resize).
      */
-    public static final int RENDER_UPDATER_ON_INTERACTION = 3;
+    RENDER_UPDATER_ON_INTERACTION,
 
     /**
      * IDS and render updater ID (on resize).
      */
-    public static final int RENDER_UPDATER_ON_HEATMAP_DATA_CHANGED = 4;
+    RENDER_UPDATER_ON_HEATMAP_DATA_CHANGED,
 
     /**
      * Heatmap mask changed.
      */
-    public static final int HEATMAP_MASK_CHANGED = 5;
+    HEATMAP_MASK_CHANGED,
 
     /**
      * Heatmap value filter changed.
      */
-    public static final int HEATMAP_VALUE_FILTER_CHANGED = 6;
+    HEATMAP_VALUE_FILTER_CHANGED,
 
     /**
      * Manually notify that the display ranges changed.
      */
-    public static final int NOTIFY_DISPLAY_RANGES_CHANGED = 7;
+    NOTIFY_DISPLAY_RANGES_CHANGED,
 
     /**
      * Creates screenshot on demand.
      */
-    public static final int CREATE_SCREENSHOT_ON_DEMAND = 8;
+    CREATE_SCREENSHOT_ON_DEMAND,
 }

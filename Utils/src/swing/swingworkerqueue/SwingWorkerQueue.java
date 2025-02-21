@@ -28,7 +28,6 @@ public class SwingWorkerQueue<T, V>
      */
     private final int[][] _blocksDistribution;
 
-
     /**
      * Lock used to control synchronization.
      */
@@ -125,9 +124,31 @@ public class SwingWorkerQueue<T, V>
     /**
      * Auxiliary method that removes all execution blocks in the queue whose types match the input.
      *
-     * @param callerType type (id) of blocks that are to be removed
+     * @param callerType ID of callers of blocks to be removed
      */
     public void removeExecutionBlocksWithCallerType(int callerType)
+    {
+        removeExecutionBlocksWithCallerAndBlockType(callerType, null);
+    }
+
+    /**
+     * Auxiliary method that removes all execution blocks in the queue whose types match the input (both conditions must be met, if applied).
+     *
+     * @param callerType ID of callers of blocks to be removed
+     * @param blockType  ID of blocks to be removed (null if not to be checked)
+     */
+    public void removeExecutionBlocksWithCallerAndBlockType(int callerType, int blockType)
+    {
+        removeExecutionBlocksWithCallerAndBlockType(callerType, (Integer) blockType);
+    }
+
+    /**
+     * Auxiliary method that removes all execution blocks in the queue whose types match the input (both conditions must be met, if applied).
+     *
+     * @param callerType ID of callers of blocks to be removed
+     * @param blockType  ID of blocks to be removed (null if not to be checked)
+     */
+    protected void removeExecutionBlocksWithCallerAndBlockType(int callerType, Integer blockType)
     {
         _lock.lock();
         if ((_blocks == null) || (_blocks.isEmpty()))
@@ -140,15 +161,43 @@ public class SwingWorkerQueue<T, V>
         ExecutionBlock<T, V> block = it.next();
 
         // The first element can be removed only if it is not dispatched
-        if (!block._executionStarted) it.remove();
+        if (!block._executionStarted)
+        {
+            attemptToRemoveABlock(callerType, blockType, it, block);
+        }
 
         while (it.hasNext())
         {
             block = it.next();
-            if (block._callerType == callerType) it.remove();
+            attemptToRemoveABlock(callerType, blockType, it, block);
         }
 
         _lock.unlock();
+    }
+
+    /**
+     * Auxiliary method that attempts to remove a block. Called by {@link SwingWorkerQueue#removeExecutionBlocksWithCallerAndBlockType(int, Integer)}.
+     *
+     * @param callerType ID of callers of blocks to be removed
+     * @param blockType  ID of blocks to be removed (null if not to be checked)
+     * @param it         block list iterator
+     * @param block      current block selected by the iterator
+     */
+    private void attemptToRemoveABlock(int callerType, Integer blockType, ListIterator<ExecutionBlock<T, V>> it, ExecutionBlock<T, V> block)
+    {
+        if (blockType == null)
+        {
+            if ((block._callerType == callerType))
+            {
+                it.remove();
+                _blocksDistribution[block._callerType][block._blockType]--;
+            }
+        }
+        else if ((block._callerType == callerType) && (block._blockType == blockType))
+        {
+            it.remove();
+            _blocksDistribution[block._callerType][block._blockType]--;
+        }
     }
 
     /**
@@ -163,9 +212,9 @@ public class SwingWorkerQueue<T, V>
     /**
      * Called by the worker that completed its job to remove itself from the queue
      * and execute the next worker, if any. The method can only be executed by the current worker.
-     * The method also can take into account whether the blocks are overdue.
-     * Specifically, if the processing of the next block is to begin, the method checks if it is overdue.
-     * and if it is not the last of its kind in the queue. If so, the whole block can be skipped.
+     * The method also can take into account whether the blocks are overdue. Specifically, if the processing of the next
+     * block is to begin, the method checks if it is overdue and if it is not the last of its kind in the queue.
+     * If so, the whole block can be skipped.
      */
     protected void removeFirstWorkerAndExecuteNext()
     {

@@ -104,6 +104,8 @@ public class QueueingSystem<T, V>
 
     /**
      * Auxiliary method that enables adding new execution blocks to a queue associated with a caller (upcoming tasks will be accepted).
+     *
+     * @param callerType caller type ID
      */
     public void enableAddingExecutionBlocksToQueue(int callerType)
     {
@@ -114,7 +116,7 @@ public class QueueingSystem<T, V>
     /**
      * Auxiliary method that waits until the first execution block is NOT of a given caller type.
      *
-     * @param callerType caller type
+     * @param callerType caller type ID
      */
     public void waitUntilTheFirstBlockIsNotOfCallerType(int callerType)
     {
@@ -124,6 +126,8 @@ public class QueueingSystem<T, V>
 
     /**
      * Auxiliary method that disables adding new execution blocks to a queue associated with a caller (upcoming tasks will be rejected).
+     *
+     * @param callerType caller type ID
      */
     public void disableAddingExecutionBlocksToQueue(int callerType)
     {
@@ -135,13 +139,27 @@ public class QueueingSystem<T, V>
      * Auxiliary method that removes all execution blocks in the queue whose types match the input.
      * Such blocks are expected to be located in one queue, which is determined by the method first.
      *
-     * @param callerType type (id) of blocks that are to be removed
+     * @param callerType ID of callers of blocks to be removed
      */
     public void removeExecutionBlocksWithCallerType(int callerType)
     {
         int queue = _callerIDtoQueue[callerType];
         int offset = _callerIDOffset[callerType];
         _queues.get(queue).removeExecutionBlocksWithCallerType(callerType - offset);
+    }
+
+    /**
+     * Auxiliary method that removes all execution blocks in the queue whose types match the input (both conditions must be met).
+     * Such blocks are expected to be located in one queue, which is determined by the method first.
+     *
+     * @param callerType ID of callers of blocks to be removed
+     * @param blockType  ID of blocks to be removed
+     */
+    public void removeExecutionBlocksWithCallerAndBlockType(int callerType, int blockType)
+    {
+        int queue = _callerIDtoQueue[callerType];
+        int offset = _callerIDOffset[callerType];
+        _queues.get(queue).removeExecutionBlocksWithCallerAndBlockType(callerType - offset, blockType);
     }
 
     /**

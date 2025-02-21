@@ -15,12 +15,12 @@ import java.util.LinkedList;
 public class ExecutionBlock<T, V>
 {
     /**
-     * Queue worker type (should be provided).
+     * Execution block type (should be provided).
      */
     protected volatile int _blockType;
 
     /**
-     * Queue the called/creator type
+     * Caller/creator type
      */
     protected volatile int _callerType;
 
@@ -30,13 +30,13 @@ public class ExecutionBlock<T, V>
     protected volatile long _registeredTimestamp;
 
     /**
-     * Delta time specifying overdue (when the worker can be considered overdue, i.e., can be skipped).
+     * Delta time specifying overdue (when the block can be considered overdue, i.e., can be skipped).
      * By default, it is set to infinite (no overdue/deadline). Overdue is measured in ns.
      */
     protected volatile long _overdue = Long.MAX_VALUE;
 
     /**
-     * Determines whether the worker can ever be considered overdue.
+     * Determines whether the block can ever be considered overdue.
      */
     protected volatile boolean _considerOverdue = false;
 

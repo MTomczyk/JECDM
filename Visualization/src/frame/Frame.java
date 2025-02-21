@@ -120,7 +120,7 @@ public class Frame extends JFrame
         }
 
         /**
-         * Instantiates the params container (frame size is set to [widthRelative * screen width,  heightRelative * screen height]).
+         * Instantiates the params container (frame size is set as provided).
          *
          * @param plotsWrapper main panel (wrapper) maintaining plots to be displayed
          * @param width        frame width
@@ -174,7 +174,7 @@ public class Frame extends JFrame
          * @param width        frame width
          * @param height       frame height
          */
-        public Params(AbstractPlotsWrapper plotsWrapper, int width, int height)
+        protected Params(AbstractPlotsWrapper plotsWrapper, int width, int height)
         {
             _plotsWrapper = plotsWrapper;
             _width = width;
@@ -308,8 +308,8 @@ public class Frame extends JFrame
 
         if (p._title != null) setTitle(p._title);
 
-        _C = new FrameController(this);
-        _M = new FrameModel(this, p._plotsWrapper, p._debugMode);
+        _C = instantiateFrameController(p);
+        _M = instantiateFrameModel(p);
         _C.setFrameModel(_M);
         _M.setFrameController(_C);
 
@@ -342,6 +342,28 @@ public class Frame extends JFrame
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    /**
+     * Auxiliary method for instantiating frame controller.
+     *
+     * @param p params container
+     * @return frame controller
+     */
+    protected FrameController instantiateFrameController(Params p)
+    {
+        return new FrameController(this);
+    }
+
+    /**
+     * Auxiliary method for instantiating frame model.
+     *
+     * @param p params container
+     * @return frame controller
+     */
+    protected FrameModel instantiateFrameModel(Params p)
+    {
+        return new FrameModel(this, p._plotsWrapper, p._debugMode);
     }
 
     /**

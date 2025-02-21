@@ -367,7 +367,7 @@ public class PlotModel
         workers.add(drawingArea.createIDSUpdater(EventTypes.ON_DATA_CHANGED));
         workers.add(drawingArea.createRenderUpdater(EventTypes.ON_DATA_CHANGED));
         if (updateDisplayRanges) workers.add(new NotifyDisplayRangesChangedUpdater(_PC));
-        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(BlockTypes.DATA_SETS_UPDATER, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.DATA_SETS_UPDATER), _PC.getPlotID(), workers);
         _GC.registerWorkers(block);
     }
 
@@ -383,7 +383,7 @@ public class PlotModel
         LinkedList<QueuedSwingWorker<Void, Void>> workers = new LinkedList<>();
         workers.add(da.createIDSUpdater(EventTypes.ON_DEMAND));
         workers.add(da.createRenderUpdater(EventTypes.ON_DEMAND));
-        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(BlockTypes.IDS_AND_RENDER_UPDATER_ON_DEMAND, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.IDS_AND_RENDER_UPDATER_ON_DEMAND), _PC.getPlotID(), workers);
         _GC.registerWorkers(block);
     }
 
@@ -398,7 +398,7 @@ public class PlotModel
         LinkedList<QueuedSwingWorker<Void, Void>> workers = new LinkedList<>();
         workers.add(da.createIDSUpdater(EventTypes.ON_RESIZE));
         workers.add(da.createRenderUpdater(EventTypes.ON_RESIZE));
-        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(BlockTypes.IDS_AND_RENDER_UPDATER_ON_RESIZE, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.IDS_AND_RENDER_UPDATER_ON_RESIZE), _PC.getPlotID(), workers);
         _GC.registerWorkers(block);
     }
 
@@ -408,8 +408,7 @@ public class PlotModel
     public void notifyDisplayRangesChangedListeners()
     {
         NotifyDisplayRangesChangedUpdater worker = new NotifyDisplayRangesChangedUpdater(_PC);
-        ExecutionBlock<Void, Void> executionBlock = new ExecutionBlock<>(BlockTypes.NOTIFY_DISPLAY_RANGES_CHANGED,
-                _PC.getPlotID(), worker);
+        ExecutionBlock<Void, Void> executionBlock = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.NOTIFY_DISPLAY_RANGES_CHANGED), _PC.getPlotID(), worker);
         _GC.registerWorkers(executionBlock);
     }
 
@@ -474,7 +473,7 @@ public class PlotModel
         workers.add(new PlotDimensionsUpdater(_PC, px, py, pw, ph));
         workers.add(new PlotVisibilityUpdater(_PC, true));
         workers.add(new CountDownLatchUpdater(screenshot._barrier));
-        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(BlockTypes.CREATE_SCREENSHOT_ON_DEMAND, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.CREATE_SCREENSHOT_ON_DEMAND), _PC.getPlotID(), workers);
         _GC.registerWorkers(block);
         return screenshot;
     }

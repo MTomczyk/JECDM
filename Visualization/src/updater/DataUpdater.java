@@ -7,6 +7,7 @@ import plotswrapper.AbstractPlotsWrapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Objects;
 
 
 /**
@@ -243,6 +244,30 @@ public class DataUpdater
                 if (!_plotsToDSs.containsKey(plot)) _plotsToDSs.put(plot, new ArrayList<>(_processorToPlots.length));
                 _plotsToDSs.get(plot).add(new ProcessorAndDataSet(processor, reference));
             }
+        }
+    }
+
+    /**
+     * Auxiliary method that can be used to update the plot-reference-dependent data (e.g., maps) in case
+     * when a plot has been replaced with new one (see {@link plotswrapper.PlotsWrapperModel#replacePlotWith(int, AbstractPlot, boolean)}).
+     *
+     * @param previousPlot reference to the previous plot
+     * @param currentPlot  new plot
+     */
+    public void updatePlotWith(AbstractPlot previousPlot, AbstractPlot currentPlot)
+    {
+        if (previousPlot == null) return;
+        if (currentPlot == null) return;
+
+        if ((_plotsToDSs != null) && (_plotsToDSs.containsKey(previousPlot)))
+        {
+            _plotsToDSs.put(currentPlot, _plotsToDSs.get(previousPlot));
+            _plotsToDSs.remove(previousPlot);
+        }
+        if ((_callForUpdateDisplayRanges != null) && (_callForUpdateDisplayRanges.containsKey(previousPlot)))
+        {
+            _callForUpdateDisplayRanges.put(currentPlot, _callForUpdateDisplayRanges.get(previousPlot));
+            _callForUpdateDisplayRanges.remove(previousPlot);
         }
     }
 

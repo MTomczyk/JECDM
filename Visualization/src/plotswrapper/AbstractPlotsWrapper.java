@@ -6,7 +6,6 @@ import plot.AbstractPlot;
 import plotwrapper.AbstractPlotWrapper;
 import plotwrapper.PlotWrapper;
 import scheme.AbstractScheme;
-import swing.swingworkerqueue.QueuedSwingWorker;
 import thread.swingworker.Interactor;
 
 import javax.swing.*;
@@ -51,15 +50,15 @@ public abstract class AbstractPlotsWrapper extends JPanel
         public int _interactorFPS = 240;
 
         /**
-         * If true, ignore execution of those background tasks (swing workers) that are overdue and not relevant for
+         * If true, ignore execution of those background tasks (execution blocks) that are overdue and not relevant for
          * the processing (recommended).
          */
-        public boolean _considerOverdueForSwingWorkers = true;
+        public boolean _considerOverdueForExecutionBlocks = true;
 
         /**
-         * Overdue time (in nanoseconds) for background tasks (see {@link QueuedSwingWorker}).
+         * Overdue time (in nanoseconds) for background tasks (see {@link swing.swingworkerqueue.ExecutionBlock}).
          */
-        public int _overdue = (int) (100000000.0d / 60.0d);
+        public int _overdue = (int) (1.0E9 / 60.0d);
 
         /**
          * Represents the number of updaters queues in the queueing system {@link PlotsWrapperController#_queueingSystem}.
@@ -137,7 +136,7 @@ public abstract class AbstractPlotsWrapper extends JPanel
         _C._interactorFPS = p._interactorFPS;
         _C._noUpdatersQueues = p._noUpdatersQueues;
         _C._overdue = p._overdue;
-        _C._considerOverdueForSwingWorkers = p._considerOverdueForSwingWorkers;
+        _C._considerOverdueForExecutionBlocks = p._considerOverdueForExecutionBlocks;
 
         _M.setPlotsWrapperController(_C);
         _C.setPlotsWrapperModel(_M);

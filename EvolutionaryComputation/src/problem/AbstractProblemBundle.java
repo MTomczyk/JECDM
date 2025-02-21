@@ -50,11 +50,13 @@ public abstract class AbstractProblemBundle
     /**
      * Parameterized constructor.
      *
-     * @param problem   problem id
-     * @param construct constructs the initial population
-     * @param reproduce creates offspring
-     * @param evaluate  Evaluates solutions
-     * @param criteria  criteria array
+     * @param problem                problem id
+     * @param construct              constructs the initial population
+     * @param reproduce              creates offspring
+     * @param evaluate               Evaluates solutions
+     * @param criteria               criteria array
+     * @param utopia                 true utopia point for a test problem
+     * @param optimizationDirections optimization direction flags (for each objective); true indicates that the objective is to be maximized, false otherwise
      */
     protected AbstractProblemBundle(Problem problem,
                                     IConstruct construct,

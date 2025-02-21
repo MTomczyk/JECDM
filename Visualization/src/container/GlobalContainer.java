@@ -3,6 +3,7 @@ package container;
 import frame.Frame;
 import plotswrapper.AbstractPlotsWrapper;
 import swing.swingworkerqueue.ExecutionBlock;
+import thread.swingworker.BlockTypes;
 
 /**
  * Container-like object shared among different GUI objects.
@@ -17,6 +18,7 @@ public class GlobalContainer extends AbstractVisualizationContainer
      */
     private final Frame _frame;
 
+
     /**
      * Parameterized constructor.
      *
@@ -28,6 +30,7 @@ public class GlobalContainer extends AbstractVisualizationContainer
         super(debugMode);
         _frame = frame;
     }
+
 
     /**
      * Call to notify that the window has been opened or becomes visible.
@@ -74,6 +77,17 @@ public class GlobalContainer extends AbstractVisualizationContainer
     public void registerWorkers(ExecutionBlock<Void, Void> executionBlock)
     {
         getPlotsWrapper().getController().registerWorkers(executionBlock);
+    }
+
+    /**
+     * Auxiliary method that returns execution block type ID given the input enum constant
+     *
+     * @param blockType execution block type
+     * @return block type ID (-1 if it is not possible to derive the value)
+     */
+    public int getBlockTypeID(BlockTypes blockType)
+    {
+        return _frame.getModel().getPlotsWrapper().getController().getQueueingSystem().getBlockTypeID(blockType);
     }
 
 }

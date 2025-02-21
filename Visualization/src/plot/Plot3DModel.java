@@ -56,7 +56,7 @@ public class Plot3DModel extends PlotModel
         LinkedList<QueuedSwingWorker<Void, Void>> workers = new LinkedList<>();
         //workers.add(da.createIDSUpdater(EventTypes.ON_RESIZE)); // there is no need to recalculate IDS
         workers.add(da.createRenderUpdater(EventTypes.ON_RESIZE));
-        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(BlockTypes.IDS_AND_RENDER_UPDATER_ON_RESIZE, _PC.getPlotID(), workers);
+        ExecutionBlock<Void, Void> block = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.IDS_AND_RENDER_UPDATER_ON_RESIZE), _PC.getPlotID(), workers);
         _GC.registerWorkers(block);
     }
 

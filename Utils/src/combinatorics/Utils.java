@@ -9,10 +9,10 @@ public class Utils
 {
     /**
      * Calculates the binomial coefficient (Newton's symbol), i.e., n!/(k!(n - k))!
-     * The method returns 0 if k > n or n, k < 0.
+     * The method returns 0 if k &gt; n or n, k &lt; 0.
      * @param n n-value
      * @param k k-value
-     * @return result (0 if k > n or n, k < 0)
+     * @return result (0 if k &gt; n or n, k &lt; 0)
      */
     public static int calculateBinomialCoefficient(int n, int k)
     {

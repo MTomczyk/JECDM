@@ -106,7 +106,7 @@ public class Executor3D extends AbstractExecutor
         if (changeRequired)
         {
             QueuedSwingWorker<Void, Void> w = _PC.getDrawingArea().createRenderUpdater(EventTypes.ON_INTERACTION);
-            ExecutionBlock<Void, Void> B = new ExecutionBlock<>(BlockTypes.RENDER_UPDATER_ON_INTERACTION, _PC.getPlotID(), w);
+            ExecutionBlock<Void, Void> B = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.RENDER_UPDATER_ON_INTERACTION), _PC.getPlotID(), w);
             _GC.registerWorkers(B);
         }
     }
@@ -164,7 +164,7 @@ public class Executor3D extends AbstractExecutor
             _mouseAnchoredCoordinates[1] = _mouseLastReportedCoordinates[1];
             _P.reset();
             QueuedSwingWorker<Void, Void> w = _PC.getDrawingArea().createRenderUpdater(EventTypes.ON_INTERACTION);
-            ExecutionBlock<Void, Void> B = new ExecutionBlock<>(BlockTypes.RENDER_UPDATER_ON_INTERACTION, _PC.getPlotID(), w);
+            ExecutionBlock<Void, Void> B = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.RENDER_UPDATER_ON_INTERACTION), _PC.getPlotID(), w);
             _GC.registerWorkers(B);
             return;
         }

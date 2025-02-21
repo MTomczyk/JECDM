@@ -35,7 +35,6 @@ public class PlotsWrapperModel
      */
     public AbstractPlotWrapper[] _wrappers;
 
-
     /**
      * Parameterized constructor.
      *
@@ -48,6 +47,7 @@ public class PlotsWrapperModel
         _plotsWrapper = plotsWrapper;
         assignPlotIDs();
     }
+
 
     /**
      * Setter for the plots wrapper model.

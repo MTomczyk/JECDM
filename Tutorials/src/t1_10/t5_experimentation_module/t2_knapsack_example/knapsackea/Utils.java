@@ -30,7 +30,7 @@ public class Utils
     public static EA getKnapsackEA(int populationSize, Data data, double capacity, boolean repairMode, IRandom R)
     {
         KnapsackEABundle.Params pB = new KnapsackEABundle.Params(data, capacity, repairMode, R);
-        Tournament.Params pTournament = new Tournament.Params(2, populationSize);
+        Tournament.Params pTournament = new Tournament.Params(2);
         pTournament._preferenceDirection = true;
         pB._select = new Tournament(pTournament);
         KnapsackEABundle bundle = new KnapsackEABundle(pB);

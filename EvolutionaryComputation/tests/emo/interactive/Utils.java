@@ -173,7 +173,7 @@ public class Utils
         pAB._construct = problemBundle._construct;
         pAB._reproduce = problemBundle._reproduce;
         pAB._evaluate = problemBundle._evaluate;
-        pAB._select = new Random(2, 1);
+        pAB._select = new Random(2);
 
         ObjectiveSpaceManager.Params pOS = ObjectiveSpaceManager.getInstantiatedParams(problemBundle, !dynamicObjectiveSpace,
                 dynamicObjectiveSpace, true, true, criteria);
@@ -251,7 +251,6 @@ public class Utils
         Tournament.Params pT = new Tournament.Params();
         pT._size = 5;
         pT._preferenceDirection = false;
-        pT._noOffspring = populationSize;
         pT._noParentsPerOffspring = 2;
         pAB._select = new Tournament(pT);
 
@@ -332,7 +331,6 @@ public class Utils
         Tournament.Params pT = new Tournament.Params();
         pT._size = 5;
         pT._preferenceDirection = false;
-        pT._noOffspring = populationSize;
         pT._noParentsPerOffspring = 2;
         pAB._select = new Tournament(pT);
 
@@ -424,7 +422,6 @@ public class Utils
         Tournament.Params pT = new Tournament.Params();
         pT._size = 5;
         pT._preferenceDirection = false;
-        pT._noOffspring = populationSize;
         pT._noParentsPerOffspring = 2;
         pNEMO0._select = new Tournament(pT);
 
@@ -517,7 +514,6 @@ public class Utils
         Tournament.Params pT = new Tournament.Params();
         pT._size = 5;
         pT._preferenceDirection = false;
-        pT._noOffspring = populationSize;
         pT._noParentsPerOffspring = 2;
         pNEMOII._select = new Tournament(pT);
 

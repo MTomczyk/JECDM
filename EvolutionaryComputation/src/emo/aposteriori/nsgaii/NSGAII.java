@@ -44,7 +44,7 @@ public class NSGAII extends EA
                                    IRandom R,
                                    AbstractMOOProblemBundle problem)
     {
-        ISelect select = new Tournament(new Tournament.Params(2, populationSize, false));
+        ISelect select = new Tournament(new Tournament.Params(2, false));
         return getNSGAII(id, updateOSDynamically, populationSize, R, problem, select, problem._construct, problem._evaluate, problem._reproduce);
     }
 

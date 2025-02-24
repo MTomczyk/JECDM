@@ -110,7 +110,6 @@ public class Execute
 
             Tournament.Params pT = new Tournament.Params(); // Construct tournament selection object.
             pT._size = 2; // tournament size
-            pT._noOffspring = offspringSize; // offspring size
             pT._preferenceDirection = false; // lesser score is better (as imposed by the implemented NSGA-II sorting procedure)
             pAB._select = new Tournament(pT); // assign the selection procedure to the NSGA-II bundle parameterization
 

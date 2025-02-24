@@ -55,7 +55,7 @@ public class MOEAD extends EA
                                  int neighborhoodSize)
     {
         // IMPORTANT: create just 1 offspring (1 offspring in one steady-state repeat)
-        ISelect select = new Random(2, 1);
+        ISelect select = new Random(2);
         return getMOEAD(id, updateOSDynamically, useNadirIncumbent, R, goals, problem, select,
                 problem._construct, problem._evaluate, problem._reproduce, similarity, neighborhoodSize);
     }

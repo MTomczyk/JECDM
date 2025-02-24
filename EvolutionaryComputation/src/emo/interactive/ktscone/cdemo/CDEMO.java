@@ -64,7 +64,6 @@ public class CDEMO extends AbstractInteractiveEA
         Tournament.Params pT = new Tournament.Params();
         pT._size = 5;
         pT._preferenceDirection = false;
-        pT._noOffspring = populationSize;
         pT._noParentsPerOffspring = 2;
 
         return getCDEMO(id, populationSize, updateOSDynamically, useNadirIncumbent, R, problem, new Tournament(pT), problem._construct,

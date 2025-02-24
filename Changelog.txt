@@ -1,4 +1,5 @@
-[TODO] Minor updates
+[24.02.2025] Minor changes + one critical change in one interface (may result in incompatibilities in own codes)
+- EvolutionaryComputation: selection.ISelect interface changed; not the main method's signature is ArrayList<Parents> selectParents(EA ea) (therefore, it is generalized). The concrete implementations now derive suitable parameters from the evolutionary algorithm. Thus, the 'noOffspring' field from Tournament and Random selections is now removed (it is, by default, set as ea.getOffspringSize()).
 - Visualization: thread.QueueingSystem class added (wrapper)
 - Visualization: BlockTypes (Execution) switched to Enum
 - Visualization: Minor refactorization in the Frame class

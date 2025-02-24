@@ -61,6 +61,6 @@ public class SelectParents extends AbstractSelectParentsPhase implements IPhase
     @Override
     public void action(EA ea, PhaseReport report) throws PhaseException
     {
-        ea.getSpecimensContainer().setParents(_select.selectParents(ea.getSpecimensContainer().getMatingPool(), ea.getR()));
+        ea.getSpecimensContainer().setParents(_select.selectParents(ea));
     }
 }

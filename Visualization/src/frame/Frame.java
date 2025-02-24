@@ -464,5 +464,6 @@ public class Frame extends JFrame
         _M.dispose();
         _C = null;
         _M = null;
+
     }
 }

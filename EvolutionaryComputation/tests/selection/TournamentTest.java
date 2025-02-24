@@ -60,7 +60,6 @@ class TournamentTest
             TP._noParentsPerOffspring = 2;
             TP._withReplacement = true;
             TP._size = 1;
-            TP._noOffspring = 5;
             Tournament TS = new Tournament(TP);
 
             int[][] cnt = new int[5][5];
@@ -68,7 +67,7 @@ class TournamentTest
             int t = 1000000;
             for (int i = 0; i < t; i++)
             {
-                ArrayList<Parents> parents = TS.selectParents(ea.getSpecimensContainer().getMatingPool(), R);
+                ArrayList<Parents> parents = TS.selectParents(ea);
                 for (Parents P : parents)
                 {
                     int id1 = map.get(P._parents.get(0));
@@ -90,7 +89,6 @@ class TournamentTest
             TP._noParentsPerOffspring = 2;
             TP._withReplacement = true;
             TP._size = 2;
-            TP._noOffspring = 5;
             Tournament TS = new Tournament(TP);
 
 
@@ -99,7 +97,7 @@ class TournamentTest
             int t = 1000000;
             for (int i = 0; i < t; i++)
             {
-                ArrayList<Parents> parents = TS.selectParents(ea.getSpecimensContainer().getMatingPool(), R);
+                ArrayList<Parents> parents = TS.selectParents(ea);
                 for (Parents P : parents)
                 {
                     int id1 = map.get(P._parents.get(0));
@@ -134,7 +132,6 @@ class TournamentTest
             TP._withReplacement = false;
             TP._size = 1;
             TP._useSampling = true;
-            TP._noOffspring = 5;
             Tournament TS = new Tournament(TP);
 
 
@@ -143,7 +140,7 @@ class TournamentTest
             int t = 1000000;
             for (int i = 0; i < t; i++)
             {
-                ArrayList<Parents> parents = TS.selectParents(ea.getSpecimensContainer().getMatingPool(), R);
+                ArrayList<Parents> parents = TS.selectParents(ea);
                 for (Parents P : parents)
                 {
                     int id1 = map.get(P._parents.get(0));
@@ -173,7 +170,6 @@ class TournamentTest
             TP._withReplacement = false;
             TP._size = 1;
             TP._useSampling = false;
-            TP._noOffspring = 5;
             Tournament TS = new Tournament(TP);
 
 
@@ -182,7 +178,7 @@ class TournamentTest
             int t = 1000000;
             for (int i = 0; i < t; i++)
             {
-                ArrayList<Parents> parents = TS.selectParents(ea.getSpecimensContainer().getMatingPool(), R);
+                ArrayList<Parents> parents = TS.selectParents(ea);
                 for (Parents P : parents)
                 {
                     int id1 = map.get(P._parents.get(0));
@@ -212,7 +208,6 @@ class TournamentTest
             TP._withReplacement = false;
             TP._size = 1;
             TP._useSampling = false;
-            TP._noOffspring = 5;
             Tournament TS = new Tournament(TP);
 
 
@@ -221,7 +216,7 @@ class TournamentTest
             int t = 1000000;
             for (int i = 0; i < t; i++)
             {
-                ArrayList<Parents> parents = TS.selectParents(ea.getSpecimensContainer().getMatingPool(), R);
+                ArrayList<Parents> parents = TS.selectParents(ea);
                 for (Parents P : parents)
                 {
                     assertEquals(5, P._parents.size());
@@ -234,8 +229,8 @@ class TournamentTest
                 }
             }
 
-            int min  = Integer.MAX_VALUE;
-            int max  = Integer.MIN_VALUE;
+            int min = Integer.MAX_VALUE;
+            int max = Integer.MIN_VALUE;
 
 
             for (int a1 = 0; a1 < 5; a1++)
@@ -245,10 +240,10 @@ class TournamentTest
                             for (int a5 = 0; a5 < 5; a5++)
                             {
                                 //noinspection PointlessArithmeticExpression
-                                if (((1+a1) * (1+a2) * (1+a3) * (1+a4) * (1+a5) == 1 * 2 * 3 * 4 * 5) &&
-                                        ((1+a1) + (1+a2) + (1+a3) + (1+a4) + (1+a5) ==  1 + 2 + 3 + 4 + 5))
+                                if (((1 + a1) * (1 + a2) * (1 + a3) * (1 + a4) * (1 + a5) == 1 * 2 * 3 * 4 * 5) &&
+                                        ((1 + a1) + (1 + a2) + (1 + a3) + (1 + a4) + (1 + a5) == 1 + 2 + 3 + 4 + 5))
                                 {
-                                    assertTrue( cnt[a1][a2][a3][a4][a5] > 0);
+                                    assertTrue(cnt[a1][a2][a3][a4][a5] > 0);
                                     if (cnt[a1][a2][a3][a4][a5] > max) max = cnt[a1][a2][a3][a4][a5];
                                     if (cnt[a1][a2][a3][a4][a5] < min) min = cnt[a1][a2][a3][a4][a5];
                                 }
@@ -260,7 +255,7 @@ class TournamentTest
                             }
 
             System.out.println(min + " " + max);
-            System.out.println((double) Math.abs(max - min) / t );
+            System.out.println((double) Math.abs(max - min) / t);
             assertTrue((double) Math.abs(max - min) / t < 0.01d);
 
         }

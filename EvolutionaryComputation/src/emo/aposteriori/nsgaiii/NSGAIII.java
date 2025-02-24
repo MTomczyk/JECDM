@@ -54,7 +54,7 @@ public class NSGAIII extends EA
                                      IAssignmentResolveTie assignmentResolveTie,
                                      ISpecimenResolveTie specimenResolveTie)
     {
-        ISelect select = new Random(2, goals.length);
+        ISelect select = new Random(2);
         return getNSGAIII(id, updateOSDynamically, useNadirIncumbent, R, goals, problem, select,
                 problem._construct, problem._evaluate, problem._reproduce, assignmentResolveTie, specimenResolveTie);
     }

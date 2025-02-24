@@ -85,7 +85,6 @@ class VisualizationTest_AvgAvgGeneration_ProcessFiles
             pAB._osManager = null;
             Tournament.Params pT = new Tournament.Params();
             pT._size = 2;
-            pT._noOffspring = offspringSize;
             pT._preferenceDirection = false;
             pAB._select = new Tournament(pT);
             NSGAIIBundle algorithmBundle = new NSGAIIBundle(pAB);

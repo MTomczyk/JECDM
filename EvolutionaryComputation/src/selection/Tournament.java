@@ -1,7 +1,9 @@
 package selection;
 
+import ea.EA;
 import population.Parents;
 import population.Specimen;
+import population.SpecimensContainer;
 import random.IRandom;
 import random.Shuffle;
 
@@ -62,23 +64,20 @@ public class Tournament extends AbstractSelect implements ISelect
          * Parameterized constructor.
          *
          * @param size        tournament size
-         * @param noOffspring no. offspring solutions to be generated
          */
-        public Params(int size, int noOffspring)
+        public Params(int size)
         {
-            this(size, noOffspring, true);
+            this(size, true);
         }
 
         /**
          * Parameterized constructor.
          *
          * @param size                tournament size
-         * @param noOffspring         no. offspring solutions to be generated
          * @param preferenceDirection aux score preference direction: true = gain (to be maximized); false = cost (to be minimized); used for determining the tournament winner
          */
-        public Params(int size, int noOffspring, boolean preferenceDirection)
+        public Params(int size, boolean preferenceDirection)
         {
-            super(noOffspring);
             _size = size;
             _preferenceDirection = preferenceDirection;
         }
@@ -122,11 +121,10 @@ public class Tournament extends AbstractSelect implements ISelect
      * Parameterized constructor.
      *
      * @param size        tournament size
-     * @param noOffspring no. offspring solutions to be generated
      */
-    public Tournament(int size, int noOffspring)
+    public Tournament(int size)
     {
-        this(new Params(size, noOffspring));
+        this(new Params(size));
     }
 
     /**
@@ -152,15 +150,19 @@ public class Tournament extends AbstractSelect implements ISelect
 
     /**
      * Performs tournament selection.
+     * The default (implicit) assumptions are as follows:
+     * - The number of parents to construct ({@link Parents}) equals the offspring size ({@link EA#getOffspringSize()}).
+     * - The parents are selected from the current mating pool in {@link SpecimensContainer#getMatingPool()}.
      *
-     * @param matingPool mating pool
-     * @param R          random number generator
+     * @param ea evolutionary algorithm
      * @return selected parents
      */
     @Override
-    public ArrayList<Parents> selectParents(ArrayList<Specimen> matingPool, IRandom R)
+    public ArrayList<Parents> selectParents(EA ea)
     {
-        ArrayList<Parents> P = new ArrayList<>(_noOffspring);
+        ArrayList<Parents> P = new ArrayList<>(ea.getOffspringSize());
+        ArrayList<Specimen> matingPool = ea.getSpecimensContainer().getMatingPool();
+        IRandom R = ea.getR();
 
         // set auxiliary pointers
         int[] _pointers = null;
@@ -172,7 +174,7 @@ public class Tournament extends AbstractSelect implements ISelect
         }
 
         // Construct the desired number of parents (pairs)
-        for (int o = 0; o < _noOffspring; o++)
+        for (int o = 0; o < ea.getOffspringSize(); o++)
         {
             ArrayList<Specimen> parents = new ArrayList<>(_noParentsPerOffspring);
             Set<Specimen> selected = null;

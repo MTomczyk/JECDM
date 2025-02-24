@@ -113,7 +113,6 @@ public class Execute
 
             Random.Params pS = new Random.Params();
             pS._noParentsPerOffspring = 2;
-            pS._noOffspring = offspringSize;
             pAB._select = new Random(pS);
 
             pAB._initialNormalizations = problemBundle._normalizations;

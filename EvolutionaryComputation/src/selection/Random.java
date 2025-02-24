@@ -1,7 +1,9 @@
 package selection;
 
+import ea.EA;
 import population.Parents;
 import population.Specimen;
+import population.SpecimensContainer;
 import random.IRandom;
 
 import java.util.ArrayList;
@@ -31,11 +33,10 @@ public class Random extends AbstractSelect implements ISelect
          * Parameterized constructor.
          *
          * @param noParentsPerOffspring no. parents per offspring (to be selected)
-         * @param noOffspring           no. offspring solutions to be generated
          */
-        public Params(int noParentsPerOffspring, int noOffspring)
+        public Params(int noParentsPerOffspring)
         {
-            super(noParentsPerOffspring, noOffspring);
+            super(noParentsPerOffspring);
         }
     }
 
@@ -53,26 +54,30 @@ public class Random extends AbstractSelect implements ISelect
      * Parameterized constructor.
      *
      * @param noParentsPerOffspring no parents per offspring (to be selected)
-     * @param noOffspring           no. offspring solutions to be generated
      */
-    public Random(int noParentsPerOffspring, int noOffspring)
+    public Random(int noParentsPerOffspring)
     {
-        this(new Params(noParentsPerOffspring, noOffspring));
+        this(new Params(noParentsPerOffspring));
     }
 
 
     /**
-     * Execute random parent selection.
+     * Constructs array of parents (one element for one offspring to generate).
+     * The default (implicit) assumptions are as follows:
+     * - The number of parents to construct ({@link Parents}) equals the offspring size ({@link EA#getOffspringSize()}).
+     * - The parents are selected from the current mating pool in {@link SpecimensContainer#getMatingPool()}.
      *
-     * @param matingPool mating pool
-     * @param R          random number generator
+     * @param ea evolutionary algorithm
      * @return selected parents
      */
     @Override
-    public ArrayList<Parents> selectParents(ArrayList<Specimen> matingPool, IRandom R)
+    public ArrayList<Parents> selectParents(EA ea)
     {
-        ArrayList<Parents> parents = new ArrayList<>(_noOffspring);
-        for (int i = 0; i < _noOffspring; i++)
+        ArrayList<Parents> parents = new ArrayList<>(ea.getOffspringSize());
+        ArrayList<Specimen> matingPool = ea.getSpecimensContainer().getMatingPool();
+        IRandom R = ea.getR();
+
+        for (int i = 0; i < ea.getOffspringSize(); i++)
         {
             ArrayList<Specimen> specimens = new ArrayList<>(_noParentsPerOffspring);
             for (int j = 0; j < _noParentsPerOffspring; j++)

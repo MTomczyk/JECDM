@@ -22,11 +22,6 @@ public abstract class AbstractSelect implements ISelect
         public int _noParentsPerOffspring = 2;
 
         /**
-         * Number of offspring specimens that are to be generated
-         */
-        public int _noOffspring;
-
-        /**
          * Default constructor.
          */
         public Params()
@@ -37,23 +32,11 @@ public abstract class AbstractSelect implements ISelect
         /**
          * Parameterized constructor.
          *
-         * @param noOffspring no. offspring solutions to be generated
-         */
-        public Params(int noOffspring)
-        {
-            this(2, noOffspring);
-        }
-
-        /**
-         * Parameterized constructor.
-         *
          * @param noParentsPerOffspring no parents per offspring (to be selected)
-         * @param noOffspring           no. offspring solutions to be generated
          */
-        public Params(int noParentsPerOffspring, int noOffspring)
+        public Params(int noParentsPerOffspring)
         {
             _noParentsPerOffspring = noParentsPerOffspring;
-            _noOffspring = noOffspring;
         }
     }
 
@@ -65,7 +48,6 @@ public abstract class AbstractSelect implements ISelect
     public AbstractSelect(Params params)
     {
         _noParentsPerOffspring = params._noParentsPerOffspring;
-        _noOffspring = params._noOffspring;
     }
 
 
@@ -74,8 +56,4 @@ public abstract class AbstractSelect implements ISelect
      */
     protected final int _noParentsPerOffspring;
 
-    /**
-     * Number of offspring specimens that are to be generated.
-     */
-    protected final int _noOffspring;
 }

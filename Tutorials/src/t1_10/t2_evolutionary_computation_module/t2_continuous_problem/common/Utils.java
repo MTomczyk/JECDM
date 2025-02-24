@@ -102,7 +102,7 @@ public class Utils
         ContEABundle.Params pB = new ContEABundle.Params(kernels);
 
         // Use a tournament selection (the winner is selected based on the aux value; greater values are preferred)
-        Tournament.Params pTournament = new Tournament.Params(2, populationSize);
+        Tournament.Params pTournament = new Tournament.Params(2);
         pTournament._preferenceDirection = true; //  greater values are preferred
         pB._select = new Tournament(pTournament);
 

@@ -77,7 +77,7 @@ public class Utils
         pAB._construct = problemBundle._construct;
         pAB._reproduce = problemBundle._reproduce;
         pAB._evaluate = problemBundle._evaluate;
-        pAB._select = new Random(2, 1);
+        pAB._select = new Random(2);
 
         ObjectiveSpaceManager.Params pOS = ObjectiveSpaceManager.getInstantiatedParams(problemBundle, !dynamicObjectiveSpace,
                 dynamicObjectiveSpace, true, false, criteria);
@@ -147,7 +147,7 @@ public class Utils
         pAB._reproduce = problemBundle._reproduce;
         pAB._evaluate = problemBundle._evaluate;
 
-        pAB._select = new Tournament(2, offspringSize);
+        pAB._select = new Tournament(2);
 
         ObjectiveSpaceManager.Params pOS = ObjectiveSpaceManager.getInstantiatedParams(problemBundle, !dynamicObjectiveSpace,
                 dynamicObjectiveSpace, true,false, criteria);
@@ -215,7 +215,7 @@ public class Utils
         if (!dynamicObjectiveSpace) pAB._initialNormalizations = problemBundle._normalizations;
         else pAB._initialNormalizations = null;
 
-        pAB._select = new Random(2, goals.length);
+        pAB._select = new Random(2);
 
         NSGAIIIBundle algorithmBundle = new NSGAIIIBundle(pAB);
 
@@ -283,7 +283,7 @@ public class Utils
         pAB._distance = new Euclidean();
         pAB._th = th;
 
-        pAB._select = new Tournament(2, offspringSize);
+        pAB._select = new Tournament(2);
 
         ObjectiveSpaceManager.Params pOS = ObjectiveSpaceManager.getInstantiatedParams(problemBundle, !dynamicObjectiveSpace,
                 dynamicObjectiveSpace, true, false, criteria);

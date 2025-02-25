@@ -59,7 +59,7 @@ public class NSGASort extends AbstractSortPhase implements IPhase
     /**
      * Phase's main action.
      *
-     * @param ea evolutionary algorithm
+     * @param ea     evolutionary algorithm
      * @param report report on the executed action (to be filled)
      * @throws PhaseException the exception can be thrown and propagated higher
      */
@@ -114,5 +114,27 @@ public class NSGASort extends AbstractSortPhase implements IPhase
     protected void updateNormalizations(INormalization[] normalizations)
     {
         _normalizations = normalizations;
+    }
+
+
+    /**
+     * Setter for niche count threshold parameter.
+     *
+     * @param th niche count threshold
+     */
+    protected void setNicheCountThreshold(double th)
+    {
+        _NC.setNicheCountThreshold(th);
+    }
+
+
+    /**
+     * Getter for the current niche count threshold.
+     *
+     * @return current niche count threshold
+     */
+    protected double getNicheCountThreshold()
+    {
+        return _NC.getNicheCountThreshold();
     }
 }

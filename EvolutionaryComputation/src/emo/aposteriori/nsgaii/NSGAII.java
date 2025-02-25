@@ -114,4 +114,17 @@ public class NSGAII extends EA
         pEA._id = id;
         return new NSGAII(pEA);
     }
+
+    /**
+     * Auxiliary method for adjusting the population size. It also suitably alters the offspring size (should equal
+     * population size). Use with caution. It should not be invoked when executing an initialization or a generation
+     * but between these steps.
+     *
+     * @param populationSize new population size (set to 1 if the input is lesser)
+     */
+    public void adjustPopulationSize(int populationSize)
+    {
+        setPopulationSize(populationSize);
+        setOffspringSize(populationSize);
+    }
 }

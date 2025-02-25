@@ -454,6 +454,16 @@ public class EA
         return _populationSize;
     }
 
+    /**
+     * Setter for the population size.
+     *
+     * @param populationSize new population size
+     */
+    protected void setPopulationSize(int populationSize)
+    {
+        _populationSize = populationSize;
+    }
+
 
     /**
      * Getter for the offspring size.
@@ -463,6 +473,16 @@ public class EA
     public int getOffspringSize()
     {
         return _offspringSize;
+    }
+
+    /**
+     * Setter for the offspring size.
+     *
+     * @param offspringSize new offspring size
+     */
+    protected void setOffspringSize(int offspringSize)
+    {
+        _offspringSize = offspringSize;
     }
 
     /**

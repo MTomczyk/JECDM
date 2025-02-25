@@ -19,6 +19,11 @@ import space.distance.Euclidean;
 public class NSGA extends EA
 {
     /**
+     * NSGA bundle
+     */
+    protected NSGABundle _bundle;
+
+    /**
      * Parameterized constructor (private).
      *
      * @param p params container
@@ -122,6 +127,43 @@ public class NSGA extends EA
         pEA._offspringSize = populationSize;
         pEA._R = R;
         pEA._id = id;
-        return new NSGA(pEA);
+
+        NSGA nsga = new NSGA(pEA);
+        nsga._bundle = nsgaBundle;
+        return nsga;
+    }
+
+    /**
+     * Auxiliary method for adjusting the population size. It also suitably alters the offspring size (should equal
+     * population size). Use with caution. It should not be invoked when executing an initialization or a generation
+     * but between these steps.
+     *
+     * @param populationSize new population size (set to 1 if the input is lesser)
+     */
+    public void adjustPopulationSize(int populationSize)
+    {
+        setPopulationSize(populationSize);
+        setOffspringSize(populationSize);
+    }
+
+    /**
+     * Auxiliary method for adjusting niche count threshold. It should not be invoked when executing an initialization
+     * or a generation but between these steps.
+     *
+     * @param th new niche count threshold
+     */
+    public void adjustNicheCountThreshold(double th)
+    {
+        _bundle._nsgaSort.setNicheCountThreshold(th);
+    }
+
+    /**
+     * Getter for the current niche count threshold.
+     *
+     * @return current niche count threshold
+     */
+    public double getNicheCountThreshold()
+    {
+        return _bundle._nsgaSort.getNicheCountThreshold();
     }
 }

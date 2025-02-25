@@ -126,29 +126,4 @@ public class PhasesBundle
         phases[PhasesIDs.PHASE_UPDATE_OS] = B._finalizeStep;
         phases[PhasesIDs.PHASE_FINALIZE_STEP] = B._updateOS;
     }
-
-    /**
-     * Creates a bundle with nulled entries.
-     *
-     * @return phases bundle with nulled entries
-     */
-    public static PhasesBundle createNulledPhases()
-    {
-        PhasesBundle p = new PhasesBundle();
-        p._initStarts = null;
-        p._constructInitialPopulation = null;
-        p._assignSpecimenIDs = null;
-        p._evaluate = null;
-        p._sort = null;
-        p._initEnds = null;
-        p._prepareStep = null;
-        p._constructMatingPool = null;
-        p._selectParents = null;
-        p._reproduce = null;
-        p._merge = null;
-        p._remove = null;
-        p._finalizeStep = null;
-        p._updateOS = null;
-        return p;
-    }
 }

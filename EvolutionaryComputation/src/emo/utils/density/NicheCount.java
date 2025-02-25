@@ -24,12 +24,13 @@ public class NicheCount
     /**
      * Distance threshold (if the distance exceeds it, the NC value is considered 1).
      */
-    private final double _th;
+    private double _th;
 
     /**
      * Parameterized constructor.
+     *
      * @param distance distance function used
-     * @param th distance threshold (if the distance exceeds it, the NC value is considered 0)
+     * @param th       distance threshold (if the distance exceeds it, the NC value is considered 0)
      */
     public NicheCount(IDistance distance, double th)
     {
@@ -39,11 +40,11 @@ public class NicheCount
 
     /**
      * Calculates the niche count by considering only those specimens that are in the given front.
-     * @param front non-dominated front of specimens for which the niche counts will be calculated (indices pointing to the specimen-array elements)
-     * @param population current population
+     *
+     * @param front          non-dominated front of specimens for which the niche counts will be calculated (indices pointing to the specimen-array elements)
+     * @param population     current population
      * @param normalizations normalizations used to scale dimensions
      * @return niche count array; the array is of front length, and each front element (index) corresponds to each element of the returned array (niche count)
-     *
      */
     public double[] getNicheCountInFront(LinkedList<Integer> front,
                                          ArrayList<Specimen> population,
@@ -51,20 +52,20 @@ public class NicheCount
     {
         _distance.setNormalizations(normalizations);
 
-        double [] nc = new double[front.size()];
+        double[] nc = new double[front.size()];
 
-        double [][] dm = new double[front.size()][front.size()]; // distance matrix
-        double [] ae;
-        double [] be;
+        double[][] dm = new double[front.size()][front.size()]; // distance matrix
+        double[] ae;
+        double[] be;
         int i = -1;
 
-        for (Integer a: front)
+        for (Integer a : front)
         {
             i++;
             int j = -1;
             ae = population.get(a).getEvaluations();
 
-            for (Integer b: front)
+            for (Integer b : front)
             {
                 j++;
                 if (i == j) continue;
@@ -82,5 +83,25 @@ public class NicheCount
         }
 
         return nc;
+    }
+
+    /**
+     * Setter for niche count threshold parameter.
+     *
+     * @param th niche count threshold
+     */
+    public void setNicheCountThreshold(double th)
+    {
+        _th = th;
+    }
+
+    /**
+     * Getter for the current niche count threshold.
+     *
+     * @return current niche count threshold
+     */
+    public double getNicheCountThreshold()
+    {
+        return _th;
     }
 }

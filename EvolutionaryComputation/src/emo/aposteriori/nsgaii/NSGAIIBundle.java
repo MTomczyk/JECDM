@@ -34,7 +34,7 @@ public class NSGAIIBundle extends AbstractEMOBundle
     /**
      * Reference to the NSGA-II sorting procedure.
      */
-    public NSGAIISort _nsgaiiSort = null;
+    public NSGAIISort _nsgaiiSort;
 
     /**
      * Constructs the bundle of fields aiding in instantiating the NSGA-II algorithm.

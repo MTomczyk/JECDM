@@ -44,7 +44,7 @@ public class NSGABundle extends AbstractEMOBundle
     /**
      * Reference to the NSGA sorting phase.
      */
-    public NSGASort _nsgaSort = null;
+    protected NSGASort _nsgaSort;
 
     /**
      * Constructs the bundle of fields aiding in instantiating the NSGA algorithm.

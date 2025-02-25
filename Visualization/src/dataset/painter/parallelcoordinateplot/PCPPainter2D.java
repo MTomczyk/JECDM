@@ -53,6 +53,16 @@ public class PCPPainter2D extends Painter2D implements IPainter
     }
 
     /**
+     * Auxiliary method setting the minimum number of line data points required to draw a line (2 by default)
+     */
+    @Override
+    protected void instantiateMinNoLinePointsRequired()
+    {
+        _minNoLinePointsRequired = 1;
+    }
+
+
+    /**
      * The method clones the painter but ignores the rendering data.
      * The method supports data replacing.
      *

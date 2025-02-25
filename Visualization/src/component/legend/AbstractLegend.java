@@ -145,8 +145,9 @@ public abstract class AbstractLegend extends AbstractSwingComponent
             for (IDataSet ds : _PC.getDataSets())
             {
                 if (ds == null) continue;
-                if (ds.getName() == null) continue;
                 if (!ds.isDisplayableOnLegend()) continue;
+                if (ds.getLegendLabel() == null) continue;
+
                 _dimensions._noEntries++;
 
                 // Label-based adjustment

@@ -1,3 +1,8 @@
+[25.02.2025]
+- Bug in Visualization module: Data set name was not displayed on a legend for some data sets. Corrected.
+- Bug in Visualization module: Parallel coordinate point was not rendering a single data point. Corrected.
+- Bug in Visualization.plotswrapper.PlotsWrapperModel#replacePlotWith(int, AbstractPlot, boolean) method: method was incorrectly assigning interaction listeners for Plot3D. Corrected.
+
 [24.02.2025] Minor changes + one critical change in one interface (may result in incompatibilities in own codes)
 - EvolutionaryComputation: selection.ISelect interface changed; not the main method's signature is ArrayList<Parents> selectParents(EA ea) (therefore, it is generalized). The concrete implementations now derive suitable parameters from the evolutionary algorithm. Thus, the 'noOffspring' field from Tournament and Random selections is now removed (it is, by default, set as ea.getOffspringSize()).
 - Visualization: thread.QueueingSystem class added (wrapper)

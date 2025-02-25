@@ -6,7 +6,6 @@ import plot.AbstractPlot;
 import plotwrapper.AbstractPlotWrapper;
 import swing.keyboard.KeyUtils;
 import swing.swingworkerqueue.ExecutionBlock;
-import swing.swingworkerqueue.QueuedSwingWorker;
 import thread.QueueingSystem;
 import thread.swingtimer.reporters.AbstractPlotsWrapperReporter;
 import thread.swingworker.Animator;
@@ -389,6 +388,7 @@ public class PlotsWrapperController
 
         _M._wrappers[idx].getModel().getPlot().getController().setFocused(true);
         if (_interactor != null) _interactor.setActivePlot(_M._wrappers[idx].getModel().getPlot());
+
         _activePlotID = plotID;
     }
 

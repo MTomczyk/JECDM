@@ -1,6 +1,7 @@
 package frame;
 
 import color.Color;
+import com.jogamp.opengl.GLProfile;
 import container.Notification;
 import plot.AbstractPlot;
 import plotswrapper.AbstractPlotsWrapper;
@@ -300,6 +301,11 @@ public class Frame extends JFrame
     protected void instantiate(Params p)
     {
         Toolkit.getDefaultToolkit().setDynamicLayout(p._dynamicLayout);
+
+        // Must be called here. It resolves the following bug: When called within a SwingWorker (suppose you want to do
+        // so), retrieving the profile for the first time takes a lot of time. When calling during the frame
+        // initialization (for the first time), the retrieval is fast. Hence, the blow line.
+        GLProfile.get(GLProfile.GL2);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(p._width, p._height));

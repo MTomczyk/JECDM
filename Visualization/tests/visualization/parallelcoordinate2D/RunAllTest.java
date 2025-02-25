@@ -34,6 +34,7 @@ public class RunAllTest
             Test8_BlackScheme.main(args);
             //Test9_AnimatedChanges.main(args);
             Test10_Disable_DSs.main(args);
+            Test11_SingleDataPoints.main(args);
 
         } catch (Exception e)
         {

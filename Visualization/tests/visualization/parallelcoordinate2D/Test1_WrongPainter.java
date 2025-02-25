@@ -13,9 +13,8 @@ import scheme.WhiteScheme;
 /**
  * Tests basic architecture-related functionalities of classes responsible for plots visualization.
  * This test displays 1 plot ({@link plot.parallelcoordinate.ParallelCoordinatePlot2D}) on a frame.
- * Test parallel coordinate plot.
- *
- * Wrong painter is used (default). Expected outcome: bounds of the two vertical axes are updated, while the third is NaN.
+ * Test parallel coordinate plot. Wrong painter is used (default). Expected outcome: bounds of the two vertical axes
+ * are updated, while the third is NaN.
  *
  * @author MTomczyk
  */

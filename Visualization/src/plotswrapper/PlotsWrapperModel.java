@@ -131,29 +131,32 @@ public class PlotsWrapperModel
                 _C._queueingSystem.disableAddingExecutionBlocksToQueue(plotID); // disable plot for queue-based processing (synchronous; lock)
                 _C._queueingSystem.removeExecutionBlocksWithCallerType(plotID); // remove existing tasks associated with the plot (synchronous; lock)
 
+                _C.looseFocusToAllPlots(); // loose focus to all plots
+
                 // Wait until:
                 _C._queueingSystem.waitUntilTheFirstBlockIsNotOfCallerType(plotID);
 
+                // Swap here
                 _wrappers[plotID].replacePlotWith(newPlot, disposePrevious); // replace the plot in a wrapper
-                _C._interactor.setActivePlot(null); // set active plot to null
 
-                _wrappers[plotID].getController().instantiateListeners(); // disable background threads (for wrapper and plot)
 
-                _C._queueingSystem.enableAddingExecutionBlocksToQueue(plotID); // need to enable first to allow for receiving new tasks
+                _C._queueingSystem.enableAddingExecutionBlocksToQueue(plotID); // disable plot for queue-based processing (synchronous; lock)
+                _wrappers[plotID].getController().instantiateListeners();
+                _wrappers[plotID].getController().startBackgroundThreads();
 
-                _wrappers[plotID].getController().startBackgroundThreads(); // tart background tasks
                 _wrappers[plotID].getModel().getPlot().getModel().enableLayoutUpdates();
                 _wrappers[plotID].getModel().getPlot().getModel().enableSchemeUpdates();
 
-                // Enable the top-level listeners
                 _GC.getFrame().getController().enableListeners();
+
+                _C.requestFocusOn(plotID);
 
                 _GC.getFrame().revalidate();
                 _wrappers[plotID].updateScheme(null); // update own scheme
                 _GC.getFrame().updateLayout(); // update layout
 
+                notifyDisplayRangesChangedListeners();
                 updatePlotsIDSsOnScreenResize();
-                _C.requestFocusOn(plotID);
 
                 System.gc(); // suggest cleanup
             });

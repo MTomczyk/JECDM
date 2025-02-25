@@ -112,6 +112,11 @@ public abstract class AbstractPainter implements IPainter
     protected IArrowProjectionDataConstructor _eAPDC = null;
 
     /**
+     * Auxiliary field specifying the minimum number of line data points required to draw a line (2 by default)
+     */
+    protected int _minNoLinePointsRequired;
+
+    /**
      * Parameterized constructor.
      *
      * @param ms marker style
@@ -150,10 +155,19 @@ public abstract class AbstractPainter implements IPainter
         _as = as;
         _treatContiguousLinesAsBroken = treatContiguousLinesAsBroken;
         _gradientLineMinSegmentLength = gradientLineMinSegmentLength;
+        instantiateMinNoLinePointsRequired();
         instantiateAuxiliaryObjects();
         instantiateTimeStatistics();
         instantiateProjections();
         instantiateAuxiliaryProjections();
+    }
+
+    /**
+     * Auxiliary method setting the minimum number of line data points required to draw a line (2 by default)
+     */
+    protected void instantiateMinNoLinePointsRequired()
+    {
+        _minNoLinePointsRequired = 2;
     }
 
     /**
@@ -323,7 +337,7 @@ public abstract class AbstractPainter implements IPainter
             {
                 if (drawLines) // creates a break point (in line) + store current line
                 {
-                    if (linePoints > 1) // only valid sizes are passed
+                    if (linePoints >= _minNoLinePointsRequired) // only valid sizes are passed
                     {
                         // If the interpretation is changed: the number of line points must be even.
                         if ((_treatContiguousLinesAsBroken) && (linePoints % 2 == 1)) linePoints--;
@@ -373,7 +387,7 @@ public abstract class AbstractPainter implements IPainter
         }
 
         // another break point for the line (triggered at the end if the last segment is valid).
-        if ((drawLines) && (linePoints > 1))
+        if ((drawLines) && (linePoints >= _minNoLinePointsRequired))
         {
             // If the interpretation is changed: the number of line points must be even.
             if ((_treatContiguousLinesAsBroken) && (linePoints % 2 == 1)) linePoints--;
@@ -410,7 +424,7 @@ public abstract class AbstractPainter implements IPainter
     {
         _IDS._normalizedMarkers = new float[_IDS._noMarkerPoints * _IDS._noAttributes];
         _IDS._normalizedContiguousLines = new LinkedList<>();
-        if (_IDS._noLinePoints > 1)
+        if (_IDS._noLinePoints >= _minNoLinePointsRequired)
             for (Integer i : _IDS._noLinePointsInContiguousLines)
                 _IDS._normalizedContiguousLines.add(new float[i * _IDS._noAttributes]);
     }
@@ -435,8 +449,8 @@ public abstract class AbstractPainter implements IPainter
         ListIterator<float[]> lineIterator = _IDS._normalizedContiguousLines.listIterator();
 
         float[] normalizedLine = null;
-        // has to be satisfied and should contain only valid entries (len > 1 and their sum should equal total no. line points).
-        if (_IDS._noLinePoints > 1) normalizedLine = lineIterator.next();
+
+        if (_IDS._noLinePoints >= _minNoLinePointsRequired) normalizedLine = lineIterator.next();
 
         double[] pPoint = null;
         double[] nPoint = null;
@@ -460,7 +474,6 @@ public abstract class AbstractPainter implements IPainter
             {
                 if (p == null) continue; // has no meaning
 
-                // === marker ========================================
                 fillFromMarker = false;
 
                 if ((drawMarkers) && (pointNo >= _ms._startPaintingFrom))
@@ -477,6 +490,15 @@ public abstract class AbstractPainter implements IPainter
 
                 if (drawLines)
                 {
+                    // special case; exploited by, e.g., PCP
+                    // Just one point in the set. If this is executed, a block below
+                    // (associated with lines) will have no effect
+                    if ((arr.length == 1) && (_minNoLinePointsRequired == 1))
+                    {
+                        AbstractPainterUtils.fillNormalizedPoint(normalizedLine, lineIndex, p, DRM);
+                        lineIndex += _IDS._noAttributes;
+                    }
+
                     if (nPoint == null) nPoint = p; // first assignment (does not guarantee validity)
                     else // data can be filled
                     {
@@ -511,6 +533,7 @@ public abstract class AbstractPainter implements IPainter
                         lineIndex += _IDS._noAttributes;
                     }
                 }
+
                 pointNo++;
             }
         }
@@ -595,7 +618,7 @@ public abstract class AbstractPainter implements IPainter
     protected void fillProjectedLines(Dimension[] dimensions)
     {
         _IDS._projectedContiguousLines = new LinkedList<>();
-        if (_IDS._noLinePoints < 2) return;
+        if (_IDS._noLinePoints < _minNoLinePointsRequired) return;
         if (_IDS._normalizedContiguousLines == null) return;
         fillProjectedLines(dimensions, _IDS._normalizedContiguousLines, _IDS._projectedContiguousLines);
     }
@@ -624,6 +647,7 @@ public abstract class AbstractPainter implements IPainter
             for (int i = 0; i < projectedArray.length; i += _IDS._pSize)
             {
                 fillProjectedPoint(projectedArray, i, normalizedArray, normalizedOffset, dimensions, _IDS._pSize);
+
                 normalizedOffset += _IDS._noAttributes;
             }
         }

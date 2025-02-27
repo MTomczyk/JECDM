@@ -1,6 +1,7 @@
 package reproduction;
 
 import ea.EA;
+import exception.PhaseException;
 import population.Specimen;
 import population.SpecimensContainer;
 
@@ -25,6 +26,7 @@ public interface IReproduce
      *
      * @param ea evolutionary algorithm
      * @return offspring specimens
+     * @throws PhaseException the exception can be thrown and propagated higher
      */
-    ArrayList<Specimen> createOffspring(EA ea);
+    ArrayList<Specimen> createOffspring(EA ea) throws PhaseException;
 }

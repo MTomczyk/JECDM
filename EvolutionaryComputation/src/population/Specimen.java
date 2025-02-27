@@ -368,6 +368,7 @@ public class Specimen implements IAlternativeWrapper
     @Override
     public int hashCode()
     {
+        if (_id == null) return 0;
         return _id._hashCode;
     }
 
@@ -380,7 +381,7 @@ public class Specimen implements IAlternativeWrapper
     @Override
     public boolean equals(Object o)
     {
-        if (!(o instanceof Specimen)) return false;
-        return (_id.isEqual(((Specimen) o)._id));
+        if (!(o instanceof Specimen s)) return false;
+        return (_id.isEqual(s._id));
     }
 }

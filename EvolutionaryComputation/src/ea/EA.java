@@ -218,7 +218,7 @@ public class EA
     /**
      * Random number generator.
      */
-    protected final IRandom _R;
+    protected IRandom _R;
 
     /**
      * "Compute times" flag. If true: EA measures total execution time.
@@ -452,6 +452,16 @@ public class EA
     public int getPopulationSize()
     {
         return _populationSize;
+    }
+
+    /**
+     * Setter for criteria.
+     *
+     * @param criteria criteria
+     */
+    protected void setCriteria(Criteria criteria)
+    {
+        _criteria = criteria;
     }
 
     /**

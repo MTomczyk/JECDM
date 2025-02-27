@@ -86,6 +86,21 @@ public class SpecimenID
     /**
      * Checks if this object is the same as the other one provided.
      *
+     * @param obj other object
+     * @return true = both ids are the same; false = otherwise
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof SpecimenID id)) return false;
+        return isEqual(id);
+    }
+
+    /**
+     * Checks if this object is the same as the other one provided.
+     *
      * @param id id of the other specimen
      * @return true = both ids are the same; false = otherwise
      */

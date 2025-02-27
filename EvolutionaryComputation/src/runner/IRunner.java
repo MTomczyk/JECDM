@@ -70,4 +70,12 @@ public interface IRunner
      * @throws RunnerException exception can be captured when executing the evolutionary algorithm and propagated higher
      */
     void dispose() throws RunnerException;
+
+    /**
+     * Sets the number of steady-state repeats for a given EA (pointed by index). The method terminates
+     * if the internal steadyStateRepeats is null or the pointer is invalid.
+     * @param steadyStateRepeats new steady-state repeats number
+     * @param index index pointing to the EA
+     */
+    void setSteadyStateRepeatsFor(int steadyStateRepeats, int index);
 }

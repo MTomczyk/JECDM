@@ -63,7 +63,7 @@ public class Tournament extends AbstractSelect implements ISelect
         /**
          * Parameterized constructor.
          *
-         * @param size        tournament size
+         * @param size tournament size
          */
         public Params(int size)
         {
@@ -95,7 +95,7 @@ public class Tournament extends AbstractSelect implements ISelect
     private final boolean _preferenceDirection;
 
     /**
-     * If true, the selection is with replacement; false -> without replacement (without replacement -> the scope is
+     * If true, the selection is with replacement; false -> without replacement (without replacement: the scope is
      * a single tournament intending to select a single specimen-parent).
      * Also, if false, the tournament size is {@literal <}{@literal =} the mating pool size (assert).
      * Note that if false, it may negatively affect the execution time.
@@ -120,7 +120,7 @@ public class Tournament extends AbstractSelect implements ISelect
     /**
      * Parameterized constructor.
      *
-     * @param size        tournament size
+     * @param size tournament size
      */
     public Tournament(int size)
     {
@@ -280,6 +280,4 @@ public class Tournament extends AbstractSelect implements ISelect
         }
         return candidate;
     }
-
-
 }

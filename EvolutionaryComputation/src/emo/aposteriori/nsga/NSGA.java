@@ -4,6 +4,7 @@ import ea.EA;
 import os.ObjectiveSpaceManager;
 import phase.IConstruct;
 import phase.IEvaluate;
+import population.SpecimensContainer;
 import problem.moo.AbstractMOOProblemBundle;
 import random.IRandom;
 import reproduction.IReproduce;
@@ -136,7 +137,9 @@ public class NSGA extends EA
     /**
      * Auxiliary method for adjusting the population size. It also suitably alters the offspring size (should equal
      * population size). Use with caution. It should not be invoked when executing an initialization or a generation
-     * but between these steps.
+     * but between these steps. The method does not explicitly extend the population array in
+     * {@link SpecimensContainer#getPopulation()} nor truncate it. However, the default implementation of phases allows
+     * for automatically adapting to new population sizes during evolution.
      *
      * @param populationSize new population size (set to 1 if the input is lesser)
      */

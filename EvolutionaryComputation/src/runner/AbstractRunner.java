@@ -597,4 +597,19 @@ public abstract class AbstractRunner implements IRunner
         throw new RunnerException("Exception occurred when executing the '" + method + "' method (reason = " +
                 e.getMessage() + ")", this.getClass(), e);
     }
+
+    /**
+     * Sets the number of steady-state repeats for a given EA (pointed by index). The method terminates
+     * if the internal steadyStateRepeats is null or the pointer is invalid.
+     * @param steadyStateRepeats new steady-state repeats number
+     * @param index index pointing to the EA
+     */
+    @Override
+    public void setSteadyStateRepeatsFor(int steadyStateRepeats, int index)
+    {
+        if (_steadyStateRepeats == null) return;
+        if (index >= _steadyStateRepeats.length) return;
+        if (index < 0) return;
+        _steadyStateRepeats[index] = steadyStateRepeats;
+    }
 }

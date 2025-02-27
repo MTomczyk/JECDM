@@ -68,6 +68,8 @@ public abstract class AbstractGoalsManager
         instantiateGoalToSpecimenArrayIndex(p);
     }
 
+
+
     /**
      * Auxiliary method for instantiating {@link AbstractGoalsManager#_goalToSpecimenArrayIndex}.
      *

@@ -1,3 +1,6 @@
+[TODO]
+- EvolutionaryComputation: reproduction.IReproduce: the main method gained "throws PhaseException";
+
 [25.02.2025]
 - Bug in Visualization module: Data set name was not displayed on a legend for some data sets. Corrected.
 - Bug in Visualization module: Parallel coordinate point was not rendering a single data point. Corrected.

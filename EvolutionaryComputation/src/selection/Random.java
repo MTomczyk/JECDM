@@ -78,13 +78,22 @@ public class Random extends AbstractSelect implements ISelect
         IRandom R = ea.getR();
 
         for (int i = 0; i < ea.getOffspringSize(); i++)
-        {
-            ArrayList<Specimen> specimens = new ArrayList<>(_noParentsPerOffspring);
-            for (int j = 0; j < _noParentsPerOffspring; j++)
-                specimens.add(matingPool.get(R.nextInt(matingPool.size())));
-            Parents p = new Parents(specimens);
-            parents.add(p);
-        }
+            parents.add(selectParents(matingPool, R));
         return parents;
+    }
+
+    /**
+     * Auxiliary method signature for selecting one Parents object from an input specimens array.
+     *
+     * @param specimens input specimens array
+     * @param R         random number generator
+     * @return parents object
+     */
+    public Parents selectParents(ArrayList<Specimen> specimens, IRandom R)
+    {
+        ArrayList<Specimen> parents = new ArrayList<>(_noParentsPerOffspring);
+        for (int i = 0; i < _noParentsPerOffspring; i++)
+            parents.add(specimens.get(R.nextInt(specimens.size())));
+        return new Parents(parents);
     }
 }

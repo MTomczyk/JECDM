@@ -176,7 +176,8 @@ public class NSGAIII extends EA
     public void adjustOptimizationGoals(IGoal[] goals)
     {
         if ((goals == null) || (goals.length == 0)) return;
-
-
+        setPopulationSize(goals.length);
+        setOffspringSize(goals.length);
+        _goalsManager.restructure(new IGoal[][]{goals});
     }
 }

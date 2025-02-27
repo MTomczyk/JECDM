@@ -55,6 +55,7 @@ class MOEADGoalsManagerTest
         };
 
         MOEADGoalsManager GM = new MOEADGoalsManager(pG);
+        assertTrue(GM.validate());
 
         ArrayList<Alternative> alternatives = Alternative.getAlternativeArray("A", w);
 
@@ -177,6 +178,7 @@ class MOEADGoalsManagerTest
         GM.getFamilies()[0].replaceGoals(G);
         GM.establishNeighborhood();
         GM.makeBestAssignments(SC);
+        GM.updatePopulationAsImposedByAssignments(SC);
         //GM.determineUpdatesSequence(); do not need to call
         assignments = GM.getFamilies()[0].getAssignments();
 

@@ -62,6 +62,7 @@ public class IEMODGoalsUpdater<T extends AbstractValueInternalModel>
         F.replaceGoals(goals);
         _goalsManager.establishNeighborhood();
         _goalsManager.makeBestAssignments(ea.getSpecimensContainer());
+        _goalsManager.updatePopulationAsImposedByAssignments(ea.getSpecimensContainer());
     }
 
 }

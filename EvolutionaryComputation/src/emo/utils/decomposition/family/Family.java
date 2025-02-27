@@ -131,6 +131,7 @@ public class Family
      */
     public int getSize()
     {
+        if (_goals == null) return 0;
         return _goals.length;
     }
 

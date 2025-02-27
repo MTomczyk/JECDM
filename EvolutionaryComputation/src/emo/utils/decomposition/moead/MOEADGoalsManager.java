@@ -17,6 +17,7 @@ import random.IRandom;
 import space.normalization.INormalization;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Class providing various functionalities for maintaining/processing goals/assignments in a
@@ -113,7 +114,7 @@ public class MOEADGoalsManager extends AbstractGoalsManager
     /**
      * Similarity measures are used to establish a neighborhood (each for every family).
      */
-    private final ISimilarity[] _S;
+    private ISimilarity[] _S;
 
     /**
      * Neighborhood constructor: establishes the neighborhood.
@@ -138,6 +139,42 @@ public class MOEADGoalsManager extends AbstractGoalsManager
         _NC = p._neighborhoodConstructor;
         _neighborhoodSize = p._neighborhoodSize;
         _alloc = p._alloc;
+    }
+
+    /**
+     * Auxiliary method that restructures the families-related data based on the new goals matrix. Note that this
+     * implementation also reconstructs the neighborhood.
+     *
+     * @param goals        new goals matrix (each row correspond to a different family)
+     * @param similarities similarity measures used to build the neighborhood
+     */
+    protected void restructure(IGoal[][] goals, ISimilarity[] similarities)
+    {
+        super.restructure(goals);
+        _S = similarities;
+        establishNeighborhood();
+    }
+
+    /**
+     * Auxiliary method that restructures the families-related data based on the new goals matrix. Note that this
+     * implementation also reconstructs the neighborhood and makes the best initial assignments possible. In this process,
+     * new population array is constructed and uploaded to {@link SpecimensContainer} as new population.
+     *
+     * @param goals              new goals matrix (each row correspond to a different family)
+     * @param similarities       similarity measures used to build the neighborhood (1:1 correspondence with the input goals array)
+     * @param specimensContainer current specimen container
+     */
+    public void restructureAndMakeBestAssignments(IGoal[][] goals, ISimilarity[] similarities, SpecimensContainer specimensContainer)
+    {
+        restructure(goals, similarities);
+        if (specimensContainer != null)
+        {
+            makeBestAssignments(specimensContainer);
+            ArrayList<Specimen> newPopulation = new ArrayList<>(_totalNoGoals);
+            for (int i = 0; i < _totalNoGoals; i++) newPopulation.add(null);
+            specimensContainer.setPopulation(newPopulation);
+            updatePopulationAsImposedByAssignments(specimensContainer);
+        }
     }
 
 
@@ -238,8 +275,19 @@ public class MOEADGoalsManager extends AbstractGoalsManager
                 F.setAssignment(G.getID().getGoalArrayIndex(), assignment);
             }
         }
+    }
 
-        // update population
+    /**
+     * Auxiliary method that sets the population (SpecimenContainer.getPopulation()) as imposed by current assignments.
+     * Note that this method first nulls all entries in the current population.
+     *
+     * @param specimensContainer specimens container
+     */
+    public void updatePopulationAsImposedByAssignments(SpecimensContainer specimensContainer)
+    {
+        ArrayList<Specimen> population = specimensContainer.getPopulation();
+        Collections.fill(population, null);
+
         for (Family F : _F)
         {
             for (GoalWrapper G : F.getGoals())

@@ -23,6 +23,11 @@ import selection.Random;
 public class MOEAD extends EA
 {
     /**
+     * MOEA/D's goal manager.
+     */
+    private MOEADGoalsManager _goalsManager;
+
+    /**
      * Parameterized constructor (private).
      *
      * @param p params container
@@ -127,11 +132,33 @@ public class MOEAD extends EA
         MOEADBundle moeadBundle = new MOEADBundle(pB);
 
         // Create EA:
-        EA.Params pEA = new EA.Params(problem._criteria,  moeadBundle);
+        EA.Params pEA = new EA.Params(problem._criteria, moeadBundle);
         pEA._populationSize = goals.length;
         pEA._offspringSize = 1; // Important: offspring size = 1
         pEA._R = R;
         pEA._id = id;
-        return new MOEAD(pEA);
+        MOEAD moead = new MOEAD(pEA);
+        moead._goalsManager = pB._goalsManager;
+        return moead;
+    }
+
+    /**
+     * Auxiliary method for adjusting the optimization goals (thus, population size and other relevant fields).
+     * Use with caution. It should not be invoked when executing an initialization or a generation but between
+     * these steps (not even between steady-state repeats). The method does not explicitly extend the population array in
+     * {@link population.SpecimensContainer#getPopulation()} nor truncate it. However, the default implementation of
+     * phases allows for automatically adapting to new population sizes during evolution.
+     *
+     * @param goals      new optimization goals (the method terminates if null or empty)
+     * @param similarity similarity measure used to build the neighborhood
+     */
+    public void adjustOptimizationGoals(IGoal[] goals, ISimilarity similarity)
+    {
+        if ((goals == null) || (goals.length == 0)) return;
+        if (similarity == null) return;
+        setPopulationSize(goals.length);
+        setOffspringSize(1);
+        _goalsManager.restructureAndMakeBestAssignments(new IGoal[][]{goals}, new ISimilarity[]{similarity},
+                getSpecimensContainer());
     }
 }

@@ -65,6 +65,21 @@ public class NSGAIIIGoalsManager extends AbstractGoalsManager
     }
 
     /**
+     * Auxiliary method that restructures the families-related data based on the new goals matrix. Note that this
+     * implementation also implicitly forgets assignments, etc., as new data structures are created. It also, calls
+     * for {@link Family#instantiateDefaultAssignments()}.
+     *
+     * @param goals new goals matrix (each row correspond to a different family)
+     *
+     */
+    @Override
+    public void restructure(IGoal[][] goals)
+    {
+        super.restructure(goals);
+        if (_F != null) for (Family f : _F) f.instantiateDefaultAssignments();
+    }
+
+    /**
      * Method for performing the assignment step. It assigns each population member that is in the already passed fronts
      * or the ambiguous front to its closest goal. Additionally, the method sets the initial niche count based on the
      * solutions that will certainly be passed to the next generation (not in the ambiguous front).

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
@@ -67,6 +68,9 @@ class NSGAIIIGoalsManagerTest
 
         NSGAIIIGoalsManager.Params pGM = new NSGAIIIGoalsManager.Params(G);
         NSGAIIIGoalsManager GM = new NSGAIIIGoalsManager(pGM);
+
+        assertTrue(GM.validate());
+
         FNDSorting fND = new FNDSorting(new Dominance(Criteria.constructCriteria("C", 2, false)));
         LinkedList<LinkedList<Integer>> fronts = fND.getFrontAssignments(new Specimens(specimens), 3);
         assertEquals(2, fronts.size());
@@ -107,6 +111,5 @@ class NSGAIIIGoalsManagerTest
         assignments = GM.getAssignmentsWithMinimalNicheCount(true);
         assertEquals(1, assignments.size());
         assertEquals(1, assignments.getFirst().getSpecimens().size());
-
     }
 }

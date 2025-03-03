@@ -21,6 +21,8 @@ public class ProblemBundle extends AbstractProblemBundle
      * @param evaluate               Evaluates solutions
      * @param criteria               criteria array
      * @param utopia                 true utopia point for a test problem
+     * @param optimizationDirections optimization direction flags (for each objective); true indicates that the objective
+     *                               is to be maximized, false otherwise; if the array is null; the array is derived from the criteria object ({@link Criteria#getCriteriaTypes()})
      */
     private ProblemBundle(Problem problem,
                           IConstruct construct,

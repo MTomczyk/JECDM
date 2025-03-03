@@ -474,7 +474,6 @@ public class EA
         _populationSize = populationSize;
     }
 
-
     /**
      * Getter for the offspring size.
      *
@@ -545,18 +544,6 @@ public class EA
         return _computePhasesExecutionTimes;
     }
 
-
-    /**
-     * Getter for a phase with a specified ID.
-     *
-     * @param phaseID phase id (see {@link PhasesIDs}).
-     * @return "init starts" phase
-     */
-    public IPhase getPhase(int phaseID)
-    {
-        return _phases[phaseID];
-    }
-
     /**
      * Getter for the current steady-state repeat.
      *
@@ -619,8 +606,7 @@ public class EA
     }
 
     /**
-     * Getter for the decision support system (returns null if a method does not employ any).
-     * To be extended.
+     * Getter for the decision support system (returns null if a method does not employ any). To be extended.
      *
      * @return decision support system (null, if not employed)
      */

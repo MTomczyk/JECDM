@@ -22,7 +22,7 @@ public class MOOProblemBundle extends AbstractMOOProblemBundle
      * @param problem           problem id
      * @param construct         constructs the initial population
      * @param reproduce         creates offspring
-     * @param evaluate          Evaluates solutions
+     * @param evaluate          evaluates solutions
      * @param displayRanges     display ranges for a test problem used when performing visualization (they may not match the true utopia/nadir points)
      * @param paretoFrontBounds bounds for the Pareto front
      * @param normalizations    min-max normalizations for a test problem (min = true utopia point, max = true nadir point)

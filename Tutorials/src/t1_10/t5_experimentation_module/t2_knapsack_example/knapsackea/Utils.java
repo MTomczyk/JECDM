@@ -26,7 +26,7 @@ public class Utils
      * @return instance of {@link EA}.
      */
     @SuppressWarnings("DuplicatedCode")
-    public static EA getKnapsackEA(int populationSize, Data data, double capacity, boolean repairMode, IRandom R)
+    public static KnapsackEA getKnapsackEA(int populationSize, Data data, double capacity, boolean repairMode, IRandom R)
     {
         KnapsackEABundle.Params pB = new KnapsackEABundle.Params(data, capacity, repairMode, R);
         Tournament.Params pTournament = new Tournament.Params(2);
@@ -39,6 +39,6 @@ public class Utils
         pEA._R = R;
         pEA._populationSize = populationSize;
         pEA._offspringSize = populationSize;
-        return new EA(pEA);
+        return new KnapsackEA(pEA);
     }
 }

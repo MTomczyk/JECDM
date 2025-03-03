@@ -197,7 +197,7 @@ public abstract class AbstractEABundle
      */
     protected void instantiateInitEndsPhase(Params p)
     {
-        _phasesBundle._initEnds = null;
+        _phasesBundle._initEnds = new InitEnds();
     }
 
     /**

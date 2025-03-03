@@ -23,7 +23,6 @@ import java.util.HashMap;
  *
  * @author MTomczyk
  */
-@SuppressWarnings("CommentedOutCode")
 public class Tutorial2a
 {
     /**
@@ -43,7 +42,7 @@ public class Tutorial2a
         for (Integer it : items)
             dataMap.put(it, Data.getInstance(it, R, new Range(5.0d, 10.0d), new IntRange(2, 5)));
         // Items (values) viewed as string (will be required when defining scenarios)
-        String [] sItems = new String[items.length];
+        String[] sItems = new String[items.length];
         for (int i = 0; i < items.length; i++) sItems[i] = String.valueOf(items[i]);
 
 
@@ -159,7 +158,7 @@ public class Tutorial2a
         // steers the maximum number of rows in the results matrix. During the algorithm execution, if the allowed
         // capacity is overflowed, the data is flushed to the files, and the matrix is cleared. Overall, the smaller
         // the interval, the lesser the memory consumption, but the disc input operations are more frequently executed.
-         pSDCF._dataStoringInterval = 1000; // more than for any scenario (so does not affect)
+        pSDCF._dataStoringInterval = 1000; // more than for any scenario (so does not affect)
 
         // Create the factory:
         ScenarioDataContainerFactory SDCF = new ScenarioDataContainerFactory(pSDCF);
@@ -193,7 +192,9 @@ public class Tutorial2a
             //System.out.println(p._SDC.getInteger("INT_FOR_SCENARIO")); // returns 10 // scenario level
             //System.out.println(p._mapString.get("STR_FOR_TRIAL")); // returns "string value" // trial level
 
-            return Utils.getKnapsackEA(populationSize, data, capacity, repair, R1);
+            // 0.1 is added to capacity: sizes are expressed as integers; 0.1 is added to avoid numerical errors
+            // when adding sizes and comparing against integer-like capacity
+            return Utils.getKnapsackEA(populationSize, data, capacity + 0.1d, repair, R1);
         };
 
         // Default runner initializer is recommended. It:

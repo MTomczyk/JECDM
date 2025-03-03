@@ -1,8 +1,11 @@
-[TODO]
+[03.03.2025]
+- Tutorials: minor changes in t1_t20_t1.experimentation_module.t2_knapsack_example
 - EvolutionaryComputation: problem.moo.MOOProblemBundle: Default instantiable class added
 - EvolutionaryComputation: problem.ProblemBundle: Default instantiable class added
 - EvolutionaryComputation: problem.moo.AbstractMOOProblemBundle: Another constructor was added. It skips passing optimizationDirections array (it is derived via the criterion object).
 - EvolutionaryComputation: problem.AbstractProblemBundle: Another constructor was added. It skips passing optimizationDirections array (it is derived via the criterion object).
+- EvolutionaryComputation: init ends phase was occasionally not set by default to phase.InitEnds (default); Corrected.
+- EvolutionaryComputation: ea.EA.getPhases() method removed
 
 [27.02.2025]
 - EvolutionaryComputation: reproduction.IReproduce: the main method gained "throws PhaseException";

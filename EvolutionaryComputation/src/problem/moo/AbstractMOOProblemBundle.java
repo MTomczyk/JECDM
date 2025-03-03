@@ -51,7 +51,41 @@ public abstract class AbstractMOOProblemBundle extends AbstractProblemBundle
      * @param normalizations         min-max normalizations for a test problem (min = true utopia point, max = true nadir point)
      * @param utopia                 true utopia point for a test problem
      * @param nadir                  true nadir point for a test problem
-     * @param optimizationDirections optimization direction flags (for each objective); true indicates that the objective is to be maximized, false otherwise
+     * @param criteria               default criteria definitions
+     */
+    protected AbstractMOOProblemBundle(Problem problem,
+                                       IConstruct construct,
+                                       IReproduce reproduce,
+                                       IEvaluate evaluate,
+                                       Range[] displayRanges,
+                                       Range[] paretoFrontBounds,
+                                       INormalization[] normalizations,
+                                       double[] utopia,
+                                       double[] nadir,
+                                       Criteria criteria)
+    {
+        super(problem, construct, reproduce, evaluate, criteria, utopia, null);
+        _displayRanges = displayRanges;
+        _paretoFrontBounds = paretoFrontBounds;
+        _normalizations = normalizations;
+        _nadir = nadir;
+    }
+
+
+    /**
+     * Parameterized constructor.
+     *
+     * @param problem                problem id
+     * @param construct              constructs the initial population
+     * @param reproduce              creates offspring
+     * @param evaluate               Evaluates solutions
+     * @param displayRanges          display ranges for a test problem used when performing visualization (they may not match the true utopia/nadir points)
+     * @param paretoFrontBounds      bounds for the Pareto front
+     * @param normalizations         min-max normalizations for a test problem (min = true utopia point, max = true nadir point)
+     * @param utopia                 true utopia point for a test problem
+     * @param nadir                  true nadir point for a test problem
+     * @param optimizationDirections optimization direction flags (for each objective); true indicates that the objective is to be maximized, false otherwise;
+     *                               if the array is null; the array is derived from the criteria object ({@link Criteria#getCriteriaTypes()})
      * @param criteria               default criteria definitions
      */
     protected AbstractMOOProblemBundle(Problem problem,

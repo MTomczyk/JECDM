@@ -50,13 +50,35 @@ public abstract class AbstractProblemBundle
     /**
      * Parameterized constructor.
      *
+     * @param problem   problem id
+     * @param construct constructs the initial population
+     * @param reproduce creates offspring
+     * @param evaluate  Evaluates solutions
+     * @param criteria  criteria array
+     * @param utopia    true utopia point for a test problem
+     */
+    protected AbstractProblemBundle(Problem problem,
+                                    IConstruct construct,
+                                    IReproduce reproduce,
+                                    IEvaluate evaluate,
+                                    Criteria criteria,
+                                    double[] utopia)
+    {
+        this(problem, construct, reproduce, evaluate, criteria, utopia, null);
+    }
+
+
+    /**
+     * Parameterized constructor.
+     *
      * @param problem                problem id
      * @param construct              constructs the initial population
      * @param reproduce              creates offspring
      * @param evaluate               Evaluates solutions
      * @param criteria               criteria array
      * @param utopia                 true utopia point for a test problem
-     * @param optimizationDirections optimization direction flags (for each objective); true indicates that the objective is to be maximized, false otherwise
+     * @param optimizationDirections optimization direction flags (for each objective); true indicates that the objective is to be maximized, false otherwise;
+     *                               if the array is null; the array is derived from the criteria object ({@link Criteria#getCriteriaTypes()})
      */
     protected AbstractProblemBundle(Problem problem,
                                     IConstruct construct,
@@ -72,7 +94,9 @@ public abstract class AbstractProblemBundle
         _evaluate = evaluate;
         _criteria = criteria;
         _utopia = utopia;
-        _optimizationDirections = optimizationDirections;
+        if (optimizationDirections != null) _optimizationDirections = optimizationDirections;
+        else if (_criteria != null) _optimizationDirections = criteria.getCriteriaTypes();
+        else _optimizationDirections = null;
     }
 
     /**

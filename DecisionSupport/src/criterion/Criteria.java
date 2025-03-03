@@ -48,10 +48,10 @@ public class Criteria
      * Creates a criteria array.
      *
      * @param names criteria names (array length must equal the gains array length)
-     * @param gains       criteria ``gain'' flags (array length must equal the names array length)
+     * @param gains criteria ``gain'' flags (array length must equal the names array length)
      * @return a vector of length n of criteria.
      */
-    public static Criteria constructCriteria(String [] names, boolean [] gains)
+    public static Criteria constructCriteria(String[] names, boolean[] gains)
     {
         Criterion[] c = new Criterion[names.length];
         for (int i = 0; i < names.length; i++)
@@ -60,12 +60,14 @@ public class Criteria
     }
 
     /**
-     * Creates a vector of criteria types (boolean array).
+     * Auxiliary method for constructing boolean array indicating criteria types (true = gain is preferred; false otherwise).
+     * The method constructs and returns a new object each time it is called.
      *
-     * @return criteria types (gain flags)
+     * @return criteria types array (null if the number of criteria is 0 or the data is invalid)
      */
     public boolean[] getCriteriaTypes()
     {
+        if (_no == 0) return null;
         boolean[] types = new boolean[_no];
         for (int i = 0; i < _no; i++) if (_c[i].isGain()) types[i] = true;
         return types;
@@ -73,6 +75,7 @@ public class Criteria
 
     /**
      * Returns the string representation.
+     *
      * @return string representation
      */
     public String getStringRepresentation()
@@ -88,6 +91,7 @@ public class Criteria
 
     /**
      * Returns the string representation.
+     *
      * @return string representation
      */
     public String toString()

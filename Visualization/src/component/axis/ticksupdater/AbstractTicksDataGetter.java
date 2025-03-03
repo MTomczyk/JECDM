@@ -134,10 +134,13 @@ public abstract class AbstractTicksDataGetter implements ITicksDataGetter
     protected void createDefaultLocations()
     {
         _defaultLocations = new float[_noTicks];
-        float dl = 1.0f / (_noTicks - 1);
-        for (int i = 0; i < _noTicks - 1; i++)
-            _defaultLocations[i] = i * dl;
-        _defaultLocations[_noTicks - 1] = 1.0f;
+        if (_noTicks > 0)
+        {
+            float dl = 1.0f / (_noTicks - 1);
+            for (int i = 0; i < _noTicks - 1; i++)
+                _defaultLocations[i] = i * dl;
+            _defaultLocations[_noTicks - 1] = 1.0f;
+        }
     }
 
     /**

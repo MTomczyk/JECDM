@@ -1,3 +1,9 @@
+[TODO]
+- EvolutionaryComputation: problem.moo.MOOProblemBundle: Default instantiable class added
+- EvolutionaryComputation: problem.ProblemBundle: Default instantiable class added
+- EvolutionaryComputation: problem.moo.AbstractMOOProblemBundle: Another constructor was added. It skips passing optimizationDirections array (it is derived via the criterion object).
+- EvolutionaryComputation: problem.AbstractProblemBundle: Another constructor was added. It skips passing optimizationDirections array (it is derived via the criterion object).
+
 [27.02.2025]
 - EvolutionaryComputation: reproduction.IReproduce: the main method gained "throws PhaseException";
 - EvolutionaryComputation: utils.decomposition.moead.MOEADGoalsManager.makeBestAssignments() is decomposed into makeBestAssignments() and updatePopulationAsImposedByAssignments()

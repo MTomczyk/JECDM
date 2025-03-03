@@ -79,6 +79,4 @@ public class Data
         for (Integer i : tmpI) sI[idx++] = i;
         return new Data(items, v, s, sI);
     }
-
-
 }

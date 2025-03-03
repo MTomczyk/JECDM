@@ -11,7 +11,6 @@ import selection.Tournament;
  * @author MTomczyk
  */
 
-
 public class Utils
 {
     /**

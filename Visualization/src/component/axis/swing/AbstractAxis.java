@@ -305,6 +305,7 @@ abstract public class AbstractAxis extends AbstractSwingComponent implements IDi
         _lineStroke = getStroke(_lineWidth);
 
         if (_ticks != null)
+        {
             for (int i = 0; i < _ticksDataGetter.getNoTicks(); i++)
             {
                 _ticks[i]._lineStroke = getStroke(_ticks[i]._lineWidth);
@@ -314,6 +315,7 @@ abstract public class AbstractAxis extends AbstractSwingComponent implements IDi
                 _ticks[i]._labelFont._size.computeActualSize(reference);
                 _ticks[i]._labelFont.prepareFont();
             }
+        }
 
         _titleOffset.computeActualSize(reference);
         _titleFont._size.computeActualSize(reference);

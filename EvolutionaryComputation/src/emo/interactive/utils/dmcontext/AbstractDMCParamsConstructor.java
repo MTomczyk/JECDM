@@ -62,7 +62,7 @@ public abstract class AbstractDMCParamsConstructor implements IDMCParamsConstruc
         DMContext.Params pDMC = new DMContext.Params();
         pDMC._currentIteration = ea.getCurrentGeneration();
         if (ea.getObjectiveSpaceManager() == null) pDMC._currentOS = null;
-        else pDMC._currentOS = ea.getObjectiveSpaceManager()._os;
+        else pDMC._currentOS = ea.getObjectiveSpaceManager().getOS();
         pDMC._osChanged = _osChanged;
         _osChanged = false; // reset the flag
         pDMC._currentAlternativesSuperset = new Specimens(ea.getSpecimensContainer().getPopulation());

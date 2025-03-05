@@ -160,5 +160,6 @@ public class MOEAD extends EA
         setOffspringSize(1);
         _goalsManager.restructureAndMakeBestAssignments(new IGoal[][]{goals}, new ISimilarity[]{similarity},
                 getSpecimensContainer());
+        _goalsManager.determineUpdatesSequence(_R);
     }
 }

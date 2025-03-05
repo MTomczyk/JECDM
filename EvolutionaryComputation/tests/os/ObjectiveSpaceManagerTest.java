@@ -188,9 +188,9 @@ class ObjectiveSpaceManagerTest
         String msg = null;
         try
         {
-            assertNull(OSM._os._ranges);
-            assertNull(OSM._os._utopia);
-            assertNull(OSM._os._nadir);
+            assertNull(OSM.getOS()._ranges);
+            assertNull(OSM.getOS()._utopia);
+            assertNull(OSM.getOS()._nadir);
             assertNull(L._normalizations);
 
             SpecimensContainer SC = new SpecimensContainer();
@@ -206,22 +206,22 @@ class ObjectiveSpaceManagerTest
             assertEquals(0.8d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMin(), 0.000001d);
             assertEquals(0.8d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMax(), 0.000001d);
 
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(0.4d, OSM._os._ranges[0].getLeft(), 0.000001d);
-            assertEquals(0.4d, OSM._os._ranges[0].getRight(), 0.000001d);
-            assertEquals(0.0d, OSM._os._ranges[0].getInterval(), 0.000001d);
-            assertEquals(0.8d, OSM._os._ranges[1].getLeft(), 0.000001d);
-            assertEquals(0.8d, OSM._os._ranges[1].getRight(), 0.000001d);
-            assertEquals(0.0d, OSM._os._ranges[1].getInterval(), 0.000001d);
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(0.4d, OSM._os._utopia[0], 0.000001d);
-            assertEquals(0.8d, OSM._os._utopia[1], 0.000001d);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(0.4d, OSM._os._nadir[0], 0.000001d);
-            assertEquals(0.8d, OSM._os._nadir[1], 0.000001d);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(0.4d, OSM.getOS()._ranges[0].getLeft(), 0.000001d);
+            assertEquals(0.4d, OSM.getOS()._ranges[0].getRight(), 0.000001d);
+            assertEquals(0.0d, OSM.getOS()._ranges[0].getInterval(), 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._ranges[1].getLeft(), 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._ranges[1].getRight(), 0.000001d);
+            assertEquals(0.0d, OSM.getOS()._ranges[1].getInterval(), 0.000001d);
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(0.4d, OSM.getOS()._utopia[0], 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._utopia[1], 0.000001d);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(0.4d, OSM.getOS()._nadir[0], 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._nadir[1], 0.000001d);
 
             SC = new SpecimensContainer();
             SC.setPopulation(getSpecimens(new double[][]{{1.1d, 2.0d}, {1.6d, 1.9d}}));
@@ -236,22 +236,22 @@ class ObjectiveSpaceManagerTest
             assertEquals(1.9d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMin(), 0.000001d);
             assertEquals(2.0d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMax(), 0.000001d);
 
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(1.1d, OSM._os._ranges[0].getLeft(), 0.000001d);
-            assertEquals(1.6d, OSM._os._ranges[0].getRight(), 0.000001d);
-            assertEquals(0.5d, OSM._os._ranges[0].getInterval(), 0.000001d);
-            assertEquals(1.9d, OSM._os._ranges[1].getLeft(), 0.000001d);
-            assertEquals(2.0d, OSM._os._ranges[1].getRight(), 0.000001d);
-            assertEquals(0.1d, OSM._os._ranges[1].getInterval(), 0.000001d);
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(1.1d, OSM._os._utopia[0], 0.000001d);
-            assertEquals(1.9d, OSM._os._utopia[1], 0.000001d);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(1.6d, OSM._os._nadir[0], 0.000001d);
-            assertEquals(2.0d, OSM._os._nadir[1], 0.000001d);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(1.1d, OSM.getOS()._ranges[0].getLeft(), 0.000001d);
+            assertEquals(1.6d, OSM.getOS()._ranges[0].getRight(), 0.000001d);
+            assertEquals(0.5d, OSM.getOS()._ranges[0].getInterval(), 0.000001d);
+            assertEquals(1.9d, OSM.getOS()._ranges[1].getLeft(), 0.000001d);
+            assertEquals(2.0d, OSM.getOS()._ranges[1].getRight(), 0.000001d);
+            assertEquals(0.1d, OSM.getOS()._ranges[1].getInterval(), 0.000001d);
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(1.1d, OSM.getOS()._utopia[0], 0.000001d);
+            assertEquals(1.9d, OSM.getOS()._utopia[1], 0.000001d);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(1.6d, OSM.getOS()._nadir[0], 0.000001d);
+            assertEquals(2.0d, OSM.getOS()._nadir[1], 0.000001d);
 
         } catch (PhaseException e)
         {
@@ -279,9 +279,9 @@ class ObjectiveSpaceManagerTest
         String msg = null;
         try
         {
-            assertNull(OSM._os._ranges);
-            assertNull(OSM._os._utopia);
-            assertNull(OSM._os._nadir);
+            assertNull(OSM.getOS()._ranges);
+            assertNull(OSM.getOS()._utopia);
+            assertNull(OSM.getOS()._nadir);
             assertNull(L._normalizations);
 
             SpecimensContainer SC = new SpecimensContainer();
@@ -297,22 +297,22 @@ class ObjectiveSpaceManagerTest
             assertEquals(0.8d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMin(), 0.000001d);
             assertEquals(0.8d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMax(), 0.000001d);
 
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(0.4d, OSM._os._ranges[0].getLeft(), 0.000001d);
-            assertEquals(0.4d, OSM._os._ranges[0].getRight(), 0.000001d);
-            assertEquals(0.0d, OSM._os._ranges[0].getInterval(), 0.000001d);
-            assertEquals(0.8d, OSM._os._ranges[1].getLeft(), 0.000001d);
-            assertEquals(0.8d, OSM._os._ranges[1].getRight(), 0.000001d);
-            assertEquals(0.0d, OSM._os._ranges[1].getInterval(), 0.000001d);
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(0.4d, OSM._os._utopia[0], 0.000001d);
-            assertEquals(0.8d, OSM._os._utopia[1], 0.000001d);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(0.4d, OSM._os._nadir[0], 0.000001d);
-            assertEquals(0.8d, OSM._os._nadir[1], 0.000001d);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(0.4d, OSM.getOS()._ranges[0].getLeft(), 0.000001d);
+            assertEquals(0.4d, OSM.getOS()._ranges[0].getRight(), 0.000001d);
+            assertEquals(0.0d, OSM.getOS()._ranges[0].getInterval(), 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._ranges[1].getLeft(), 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._ranges[1].getRight(), 0.000001d);
+            assertEquals(0.0d, OSM.getOS()._ranges[1].getInterval(), 0.000001d);
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(0.4d, OSM.getOS()._utopia[0], 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._utopia[1], 0.000001d);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(0.4d, OSM.getOS()._nadir[0], 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._nadir[1], 0.000001d);
 
             SC = new SpecimensContainer();
             SC.setPopulation(getSpecimens(new double[][]{{1.1d, 2.0d}, {1.6d, 1.9d}}));
@@ -327,22 +327,22 @@ class ObjectiveSpaceManagerTest
             assertEquals(1.9d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMin(), 0.000001d);
             assertEquals(2.0d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMax(), 0.000001d);
 
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(1.1d, OSM._os._ranges[0].getLeft(), 0.000001d);
-            assertEquals(1.6d, OSM._os._ranges[0].getRight(), 0.000001d);
-            assertEquals(0.5d, OSM._os._ranges[0].getInterval(), 0.000001d);
-            assertEquals(1.9d, OSM._os._ranges[1].getLeft(), 0.000001d);
-            assertEquals(2.0d, OSM._os._ranges[1].getRight(), 0.000001d);
-            assertEquals(0.1d, OSM._os._ranges[1].getInterval(), 0.000001d);
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(1.6d, OSM._os._utopia[0], 0.000001d);
-            assertEquals(2.0d, OSM._os._utopia[1], 0.000001d);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(1.1d, OSM._os._nadir[0], 0.000001d);
-            assertEquals(1.9d, OSM._os._nadir[1], 0.000001d);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(1.1d, OSM.getOS()._ranges[0].getLeft(), 0.000001d);
+            assertEquals(1.6d, OSM.getOS()._ranges[0].getRight(), 0.000001d);
+            assertEquals(0.5d, OSM.getOS()._ranges[0].getInterval(), 0.000001d);
+            assertEquals(1.9d, OSM.getOS()._ranges[1].getLeft(), 0.000001d);
+            assertEquals(2.0d, OSM.getOS()._ranges[1].getRight(), 0.000001d);
+            assertEquals(0.1d, OSM.getOS()._ranges[1].getInterval(), 0.000001d);
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(1.6d, OSM.getOS()._utopia[0], 0.000001d);
+            assertEquals(2.0d, OSM.getOS()._utopia[1], 0.000001d);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(1.1d, OSM.getOS()._nadir[0], 0.000001d);
+            assertEquals(1.9d, OSM.getOS()._nadir[1], 0.000001d);
 
         } catch (PhaseException e)
         {
@@ -371,9 +371,9 @@ class ObjectiveSpaceManagerTest
         String msg = null;
         try
         {
-            assertNull(OSM._os._ranges);
-            assertNull(OSM._os._utopia);
-            assertNull(OSM._os._nadir);
+            assertNull(OSM.getOS()._ranges);
+            assertNull(OSM.getOS()._utopia);
+            assertNull(OSM.getOS()._nadir);
             assertNull(L._normalizations);
 
             SpecimensContainer SC = new SpecimensContainer();
@@ -389,22 +389,22 @@ class ObjectiveSpaceManagerTest
             assertEquals(0.8d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMin(), 0.000001d);
             assertEquals(4.0d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMax(), 0.000001d);
 
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(0.4d, OSM._os._ranges[0].getLeft(), 0.000001d);
-            assertEquals(3.0d, OSM._os._ranges[0].getRight(), 0.000001d);
-            assertEquals(2.6d, OSM._os._ranges[0].getInterval(), 0.000001d);
-            assertEquals(0.8d, OSM._os._ranges[1].getLeft(), 0.000001d);
-            assertEquals(4.0d, OSM._os._ranges[1].getRight(), 0.000001d);
-            assertEquals(3.2d, OSM._os._ranges[1].getInterval(), 0.000001d);
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(0.4d, OSM._os._utopia[0], 0.000001d);
-            assertEquals(0.8d, OSM._os._utopia[1], 0.000001d);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(3.0d, OSM._os._nadir[0], 0.000001d);
-            assertEquals(4.0d, OSM._os._nadir[1], 0.000001d);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(0.4d, OSM.getOS()._ranges[0].getLeft(), 0.000001d);
+            assertEquals(3.0d, OSM.getOS()._ranges[0].getRight(), 0.000001d);
+            assertEquals(2.6d, OSM.getOS()._ranges[0].getInterval(), 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._ranges[1].getLeft(), 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._ranges[1].getRight(), 0.000001d);
+            assertEquals(3.2d, OSM.getOS()._ranges[1].getInterval(), 0.000001d);
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(0.4d, OSM.getOS()._utopia[0], 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._utopia[1], 0.000001d);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(3.0d, OSM.getOS()._nadir[0], 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._nadir[1], 0.000001d);
 
             SC = new SpecimensContainer();
             SC.setPopulation(getSpecimens(new double[][]{{1.1d, 2.0d}, {1.6d, 1.9d}}));
@@ -419,22 +419,22 @@ class ObjectiveSpaceManagerTest
             assertEquals(0.8d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMin(), 0.000001d);
             assertEquals(2.0d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMax(), 0.000001d);
 
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(0.4d, OSM._os._ranges[0].getLeft(), 0.000001d);
-            assertEquals(1.6d, OSM._os._ranges[0].getRight(), 0.000001d);
-            assertEquals(1.2d, OSM._os._ranges[0].getInterval(), 0.000001d);
-            assertEquals(0.8d, OSM._os._ranges[1].getLeft(), 0.000001d);
-            assertEquals(2.0d, OSM._os._ranges[1].getRight(), 0.000001d);
-            assertEquals(1.2d, OSM._os._ranges[1].getInterval(), 0.000001d);
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(0.4d, OSM._os._utopia[0], 0.000001d);
-            assertEquals(0.8d, OSM._os._utopia[1], 0.000001d);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(1.6d, OSM._os._nadir[0], 0.000001d);
-            assertEquals(2.0d, OSM._os._nadir[1], 0.000001d);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(0.4d, OSM.getOS()._ranges[0].getLeft(), 0.000001d);
+            assertEquals(1.6d, OSM.getOS()._ranges[0].getRight(), 0.000001d);
+            assertEquals(1.2d, OSM.getOS()._ranges[0].getInterval(), 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._ranges[1].getLeft(), 0.000001d);
+            assertEquals(2.0d, OSM.getOS()._ranges[1].getRight(), 0.000001d);
+            assertEquals(1.2d, OSM.getOS()._ranges[1].getInterval(), 0.000001d);
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(0.4d, OSM.getOS()._utopia[0], 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._utopia[1], 0.000001d);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(1.6d, OSM.getOS()._nadir[0], 0.000001d);
+            assertEquals(2.0d, OSM.getOS()._nadir[1], 0.000001d);
 
         } catch (PhaseException e)
         {
@@ -462,9 +462,9 @@ class ObjectiveSpaceManagerTest
         String msg = null;
         try
         {
-            assertNull(OSM._os._ranges);
-            assertNull(OSM._os._utopia);
-            assertNull(OSM._os._nadir);
+            assertNull(OSM.getOS()._ranges);
+            assertNull(OSM.getOS()._utopia);
+            assertNull(OSM.getOS()._nadir);
             assertNull(L._normalizations);
 
             SpecimensContainer SC = new SpecimensContainer();
@@ -480,22 +480,22 @@ class ObjectiveSpaceManagerTest
             assertEquals(0.8d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMin(), 0.000001d);
             assertEquals(4.0d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMax(), 0.000001d);
 
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(0.4d, OSM._os._ranges[0].getLeft(), 0.000001d);
-            assertEquals(3.0d, OSM._os._ranges[0].getRight(), 0.000001d);
-            assertEquals(2.6d, OSM._os._ranges[0].getInterval(), 0.000001d);
-            assertEquals(0.8d, OSM._os._ranges[1].getLeft(), 0.000001d);
-            assertEquals(4.0d, OSM._os._ranges[1].getRight(), 0.000001d);
-            assertEquals(3.2d, OSM._os._ranges[1].getInterval(), 0.000001d);
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(0.4d, OSM._os._utopia[0], 0.000001d);
-            assertEquals(0.8d, OSM._os._utopia[1], 0.000001d);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(3.0d, OSM._os._nadir[0], 0.000001d);
-            assertEquals(4.0d, OSM._os._nadir[1], 0.000001d);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(0.4d, OSM.getOS()._ranges[0].getLeft(), 0.000001d);
+            assertEquals(3.0d, OSM.getOS()._ranges[0].getRight(), 0.000001d);
+            assertEquals(2.6d, OSM.getOS()._ranges[0].getInterval(), 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._ranges[1].getLeft(), 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._ranges[1].getRight(), 0.000001d);
+            assertEquals(3.2d, OSM.getOS()._ranges[1].getInterval(), 0.000001d);
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(0.4d, OSM.getOS()._utopia[0], 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._utopia[1], 0.000001d);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(3.0d, OSM.getOS()._nadir[0], 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._nadir[1], 0.000001d);
 
             SC = new SpecimensContainer();
             SC.setPopulation(getSpecimens(new double[][]{{1.1d, 2.0d}, {1.6d, 1.9d}}));
@@ -510,22 +510,22 @@ class ObjectiveSpaceManagerTest
             assertEquals(1.9d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMin(), 0.000001d);
             assertEquals(4.0d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMax(), 0.000001d);
 
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(1.1d, OSM._os._ranges[0].getLeft(), 0.000001d);
-            assertEquals(3.0d, OSM._os._ranges[0].getRight(), 0.000001d);
-            assertEquals(1.9d, OSM._os._ranges[0].getInterval(), 0.000001d);
-            assertEquals(1.9d, OSM._os._ranges[1].getLeft(), 0.000001d);
-            assertEquals(4.0d, OSM._os._ranges[1].getRight(), 0.000001d);
-            assertEquals(2.1d, OSM._os._ranges[1].getInterval(), 0.000001d);
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(1.1d, OSM._os._utopia[0], 0.000001d);
-            assertEquals(1.9d, OSM._os._utopia[1], 0.000001d);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(3.0d, OSM._os._nadir[0], 0.000001d);
-            assertEquals(4.0d, OSM._os._nadir[1], 0.000001d);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(1.1d, OSM.getOS()._ranges[0].getLeft(), 0.000001d);
+            assertEquals(3.0d, OSM.getOS()._ranges[0].getRight(), 0.000001d);
+            assertEquals(1.9d, OSM.getOS()._ranges[0].getInterval(), 0.000001d);
+            assertEquals(1.9d, OSM.getOS()._ranges[1].getLeft(), 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._ranges[1].getRight(), 0.000001d);
+            assertEquals(2.1d, OSM.getOS()._ranges[1].getInterval(), 0.000001d);
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(1.1d, OSM.getOS()._utopia[0], 0.000001d);
+            assertEquals(1.9d, OSM.getOS()._utopia[1], 0.000001d);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(3.0d, OSM.getOS()._nadir[0], 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._nadir[1], 0.000001d);
 
         } catch (PhaseException e)
         {
@@ -554,9 +554,9 @@ class ObjectiveSpaceManagerTest
         String msg = null;
         try
         {
-            assertNull(OSM._os._ranges);
-            assertNull(OSM._os._utopia);
-            assertNull(OSM._os._nadir);
+            assertNull(OSM.getOS()._ranges);
+            assertNull(OSM.getOS()._utopia);
+            assertNull(OSM.getOS()._nadir);
             assertNull(L._normalizations);
 
             SpecimensContainer SC = new SpecimensContainer();
@@ -572,22 +572,22 @@ class ObjectiveSpaceManagerTest
             assertEquals(0.8d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMin(), 0.000001d);
             assertEquals(4.0d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMax(), 0.000001d);
 
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(0.4d, OSM._os._ranges[0].getLeft(), 0.000001d);
-            assertEquals(3.0d, OSM._os._ranges[0].getRight(), 0.000001d);
-            assertEquals(2.6d, OSM._os._ranges[0].getInterval(), 0.000001d);
-            assertEquals(0.8d, OSM._os._ranges[1].getLeft(), 0.000001d);
-            assertEquals(4.0d, OSM._os._ranges[1].getRight(), 0.000001d);
-            assertEquals(3.2d, OSM._os._ranges[1].getInterval(), 0.000001d);
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(0.4d, OSM._os._utopia[0], 0.000001d);
-            assertEquals(0.8d, OSM._os._utopia[1], 0.000001d);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(3.0d, OSM._os._nadir[0], 0.000001d);
-            assertEquals(4.0d, OSM._os._nadir[1], 0.000001d);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(0.4d, OSM.getOS()._ranges[0].getLeft(), 0.000001d);
+            assertEquals(3.0d, OSM.getOS()._ranges[0].getRight(), 0.000001d);
+            assertEquals(2.6d, OSM.getOS()._ranges[0].getInterval(), 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._ranges[1].getLeft(), 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._ranges[1].getRight(), 0.000001d);
+            assertEquals(3.2d, OSM.getOS()._ranges[1].getInterval(), 0.000001d);
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(0.4d, OSM.getOS()._utopia[0], 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._utopia[1], 0.000001d);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(3.0d, OSM.getOS()._nadir[0], 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._nadir[1], 0.000001d);
 
             SC = new SpecimensContainer();
             SC.setPopulation(getSpecimens(new double[][]{{1.1d, 2.0d}, {1.6d, 1.9d}}));
@@ -602,22 +602,22 @@ class ObjectiveSpaceManagerTest
             assertEquals(0.8d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMin(), 0.000001d);
             assertEquals(4.0d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMax(), 0.000001d);
 
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(0.4d, OSM._os._ranges[0].getLeft(), 0.000001d);
-            assertEquals(3.0d, OSM._os._ranges[0].getRight(), 0.000001d);
-            assertEquals(2.6d, OSM._os._ranges[0].getInterval(), 0.000001d);
-            assertEquals(0.8d, OSM._os._ranges[1].getLeft(), 0.000001d);
-            assertEquals(4.0d, OSM._os._ranges[1].getRight(), 0.000001d);
-            assertEquals(3.2d, OSM._os._ranges[1].getInterval(), 0.000001d);
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(0.4d, OSM._os._utopia[0], 0.000001d);
-            assertEquals(0.8d, OSM._os._utopia[1], 0.000001d);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(3.0d, OSM._os._nadir[0], 0.000001d);
-            assertEquals(4.0d, OSM._os._nadir[1], 0.000001d);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(0.4d, OSM.getOS()._ranges[0].getLeft(), 0.000001d);
+            assertEquals(3.0d, OSM.getOS()._ranges[0].getRight(), 0.000001d);
+            assertEquals(2.6d, OSM.getOS()._ranges[0].getInterval(), 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._ranges[1].getLeft(), 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._ranges[1].getRight(), 0.000001d);
+            assertEquals(3.2d, OSM.getOS()._ranges[1].getInterval(), 0.000001d);
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(0.4d, OSM.getOS()._utopia[0], 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._utopia[1], 0.000001d);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(3.0d, OSM.getOS()._nadir[0], 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._nadir[1], 0.000001d);
 
         } catch (PhaseException e)
         {
@@ -645,9 +645,9 @@ class ObjectiveSpaceManagerTest
         String msg = null;
         try
         {
-            assertNull(OSM._os._ranges);
-            assertNull(OSM._os._utopia);
-            assertNull(OSM._os._nadir);
+            assertNull(OSM.getOS()._ranges);
+            assertNull(OSM.getOS()._utopia);
+            assertNull(OSM.getOS()._nadir);
             assertNull(L._normalizations);
 
             SpecimensContainer SC = new SpecimensContainer();
@@ -663,22 +663,22 @@ class ObjectiveSpaceManagerTest
             assertEquals(0.8d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMin(), 0.000001d);
             assertEquals(4.0d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMax(), 0.000001d);
 
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(0.4d, OSM._os._ranges[0].getLeft(), 0.000001d);
-            assertEquals(3.0d, OSM._os._ranges[0].getRight(), 0.000001d);
-            assertEquals(2.6d, OSM._os._ranges[0].getInterval(), 0.000001d);
-            assertEquals(0.8d, OSM._os._ranges[1].getLeft(), 0.000001d);
-            assertEquals(4.0d, OSM._os._ranges[1].getRight(), 0.000001d);
-            assertEquals(3.2d, OSM._os._ranges[1].getInterval(), 0.000001d);
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(3.0d, OSM._os._utopia[0], 0.000001d);
-            assertEquals(4.0d, OSM._os._utopia[1], 0.000001d);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(0.4d, OSM._os._nadir[0], 0.000001d);
-            assertEquals(0.8d, OSM._os._nadir[1], 0.000001d);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(0.4d, OSM.getOS()._ranges[0].getLeft(), 0.000001d);
+            assertEquals(3.0d, OSM.getOS()._ranges[0].getRight(), 0.000001d);
+            assertEquals(2.6d, OSM.getOS()._ranges[0].getInterval(), 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._ranges[1].getLeft(), 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._ranges[1].getRight(), 0.000001d);
+            assertEquals(3.2d, OSM.getOS()._ranges[1].getInterval(), 0.000001d);
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(3.0d, OSM.getOS()._utopia[0], 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._utopia[1], 0.000001d);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(0.4d, OSM.getOS()._nadir[0], 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._nadir[1], 0.000001d);
 
             SC = new SpecimensContainer();
             SC.setPopulation(getSpecimens(new double[][]{{1.1d, 2.0d}, {1.6d, 1.9d}}));
@@ -693,22 +693,22 @@ class ObjectiveSpaceManagerTest
             assertEquals(0.8d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMin(), 0.000001d);
             assertEquals(4.0d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMax(), 0.000001d);
 
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(0.4d, OSM._os._ranges[0].getLeft(), 0.000001d);
-            assertEquals(3.0d, OSM._os._ranges[0].getRight(), 0.000001d);
-            assertEquals(2.6d, OSM._os._ranges[0].getInterval(), 0.000001d);
-            assertEquals(0.8d, OSM._os._ranges[1].getLeft(), 0.000001d);
-            assertEquals(4.0d, OSM._os._ranges[1].getRight(), 0.000001d);
-            assertEquals(3.2d, OSM._os._ranges[1].getInterval(), 0.000001d);
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(3.0d, OSM._os._utopia[0], 0.000001d);
-            assertEquals(4.0d, OSM._os._utopia[1], 0.000001d);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(0.4d, OSM._os._nadir[0], 0.000001d);
-            assertEquals(0.8d, OSM._os._nadir[1], 0.000001d);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(0.4d, OSM.getOS()._ranges[0].getLeft(), 0.000001d);
+            assertEquals(3.0d, OSM.getOS()._ranges[0].getRight(), 0.000001d);
+            assertEquals(2.6d, OSM.getOS()._ranges[0].getInterval(), 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._ranges[1].getLeft(), 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._ranges[1].getRight(), 0.000001d);
+            assertEquals(3.2d, OSM.getOS()._ranges[1].getInterval(), 0.000001d);
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(3.0d, OSM.getOS()._utopia[0], 0.000001d);
+            assertEquals(4.0d, OSM.getOS()._utopia[1], 0.000001d);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(0.4d, OSM.getOS()._nadir[0], 0.000001d);
+            assertEquals(0.8d, OSM.getOS()._nadir[1], 0.000001d);
 
         } catch (PhaseException e)
         {
@@ -737,20 +737,20 @@ class ObjectiveSpaceManagerTest
         String msg = null;
         try
         {
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(1.0d, OSM._os._ranges[0].getLeft());
-            assertEquals(2.0d, OSM._os._ranges[0].getRight());
-            assertEquals(2.0d, OSM._os._ranges[1].getLeft());
-            assertEquals(3.0d, OSM._os._ranges[1].getRight());
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(1.0d, OSM._os._utopia[0]);
-            assertEquals(2.0d, OSM._os._utopia[1]);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(2.0d, OSM._os._nadir[0]);
-            assertEquals(3.0d, OSM._os._nadir[1]);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(1.0d, OSM.getOS()._ranges[0].getLeft());
+            assertEquals(2.0d, OSM.getOS()._ranges[0].getRight());
+            assertEquals(2.0d, OSM.getOS()._ranges[1].getLeft());
+            assertEquals(3.0d, OSM.getOS()._ranges[1].getRight());
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(1.0d, OSM.getOS()._utopia[0]);
+            assertEquals(2.0d, OSM.getOS()._utopia[1]);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(2.0d, OSM.getOS()._nadir[0]);
+            assertEquals(3.0d, OSM.getOS()._nadir[1]);
             assertNull(L._normalizations);
 
             SpecimensContainer SC = new SpecimensContainer();
@@ -766,22 +766,22 @@ class ObjectiveSpaceManagerTest
             assertEquals(2.0d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMin(), 0.000001d);
             assertEquals(3.8d, ((AbstractMinMaxNormalization) L._normalizations[1]).getMax(), 0.000001d);
 
-            assertNotNull(OSM._os._ranges);
-            assertEquals(2, OSM._os._ranges.length);
-            assertEquals(0.4d, OSM._os._ranges[0].getLeft(), 0.000001d);
-            assertEquals(2.0d, OSM._os._ranges[0].getRight(), 0.000001d);
-            assertEquals(1.6d, OSM._os._ranges[0].getInterval(), 0.000001d);
-            assertEquals(2.0d, OSM._os._ranges[1].getLeft(), 0.000001d);
-            assertEquals(3.8d, OSM._os._ranges[1].getRight(), 0.000001d);
-            assertEquals(1.8d, OSM._os._ranges[1].getInterval(), 0.000001d);
-            assertNotNull(OSM._os._utopia);
-            assertEquals(2, OSM._os._utopia.length);
-            assertEquals(0.4d, OSM._os._utopia[0], 0.000001d);
-            assertEquals(2.0d, OSM._os._utopia[1], 0.000001d);
-            assertNotNull(OSM._os._nadir);
-            assertEquals(2, OSM._os._nadir.length);
-            assertEquals(2.0d, OSM._os._nadir[0], 0.000001d);
-            assertEquals(3.8d, OSM._os._nadir[1], 0.000001d);
+            assertNotNull(OSM.getOS()._ranges);
+            assertEquals(2, OSM.getOS()._ranges.length);
+            assertEquals(0.4d, OSM.getOS()._ranges[0].getLeft(), 0.000001d);
+            assertEquals(2.0d, OSM.getOS()._ranges[0].getRight(), 0.000001d);
+            assertEquals(1.6d, OSM.getOS()._ranges[0].getInterval(), 0.000001d);
+            assertEquals(2.0d, OSM.getOS()._ranges[1].getLeft(), 0.000001d);
+            assertEquals(3.8d, OSM.getOS()._ranges[1].getRight(), 0.000001d);
+            assertEquals(1.8d, OSM.getOS()._ranges[1].getInterval(), 0.000001d);
+            assertNotNull(OSM.getOS()._utopia);
+            assertEquals(2, OSM.getOS()._utopia.length);
+            assertEquals(0.4d, OSM.getOS()._utopia[0], 0.000001d);
+            assertEquals(2.0d, OSM.getOS()._utopia[1], 0.000001d);
+            assertNotNull(OSM.getOS()._nadir);
+            assertEquals(2, OSM.getOS()._nadir.length);
+            assertEquals(2.0d, OSM.getOS()._nadir[0], 0.000001d);
+            assertEquals(3.8d, OSM.getOS()._nadir[1], 0.000001d);
 
 
         } catch (PhaseException e)

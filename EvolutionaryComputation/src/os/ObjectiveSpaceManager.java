@@ -18,6 +18,7 @@ import java.util.LinkedList;
  */
 public class ObjectiveSpaceManager
 {
+
     /**
      * Params container.
      */
@@ -150,7 +151,7 @@ public class ObjectiveSpaceManager
     /**
      * Objective space object.
      */
-    public ObjectiveSpace _os;
+    private ObjectiveSpace _os;
 
     /**
      * Auxiliary flag indicating that the data on the objective space has been changed.
@@ -263,6 +264,7 @@ public class ObjectiveSpaceManager
         update(specimensContainer, timestamp, true);
     }
 
+
     /**
      * Updates the knowledge on the objective space.
      *
@@ -340,5 +342,15 @@ public class ObjectiveSpaceManager
         }
 
         return _changed;
+    }
+
+    /**
+     * Getter for the current objective space object maintained by the manager.
+     *
+     * @return objective space object
+     */
+    public ObjectiveSpace getOS()
+    {
+        return _os;
     }
 }

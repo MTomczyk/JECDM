@@ -8,6 +8,7 @@ import reproduction.IReproduce;
 import space.Range;
 import space.normalization.INormalization;
 import space.normalization.minmax.Linear;
+import space.normalization.minmax.LinearWithFlip;
 
 /**
  * Class representing this packages problem bundle. Important note: Although this bundle concerns single-objective
@@ -88,7 +89,7 @@ public class ProblemBundle extends MOOProblemBundle
         };
 
         INormalization[] normalizations = new INormalization[]{
-                new Linear(paretoFrontBounds[0].getLeft(), paretoFrontBounds[0].getRight()),
+                new LinearWithFlip(paretoFrontBounds[0].getLeft(), paretoFrontBounds[0].getRight(), 1.0d),
                 new Linear(paretoFrontBounds[1].getLeft(), paretoFrontBounds[1].getRight())
         };
 

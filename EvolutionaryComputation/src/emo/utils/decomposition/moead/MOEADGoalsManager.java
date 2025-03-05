@@ -217,7 +217,7 @@ public class MOEADGoalsManager extends AbstractGoalsManager
     {
         _N = new Neighborhood[_F.length];
         for (int f = 0; f < _F.length; f++)
-            _N[f] = _NC.getNeighborhood(_F[f], _S[f], _neighborhoodSize);
+            _N[f] = _NC.getNeighborhood(_F[f], _S[f], Math.min(_neighborhoodSize, _F[f].getSize()));
     }
 
 

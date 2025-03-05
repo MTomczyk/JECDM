@@ -386,7 +386,7 @@ public class EA
     /**
      * Supportive method for calculating execution times. Starts measuring the execution time.
      */
-    private void startMeasuringTime()
+    protected void startMeasuringTime()
     {
         if (_computeExecutionTimes) _startTime = System.nanoTime();
     }
@@ -394,7 +394,7 @@ public class EA
     /**
      * Supportive method for calculating execution times. Stops measuring the execution time.
      */
-    private void stopMeasuringTime()
+    protected void stopMeasuringTime()
     {
         if (_computeExecutionTimes)
         {

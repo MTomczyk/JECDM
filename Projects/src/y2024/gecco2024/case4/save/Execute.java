@@ -54,22 +54,22 @@ public class Execute
         String fileName = "nsgaii_2d_generation_min_average"; // file name (without extension) for files to be generated
         String pathPrefix = "./Projects/src/y2024/gecco2024/case4/save/"; // prefix for paths for files to be generated (case folder)
         String heatmapTitle = "Expected earliest generation when found"; // heatmap tile
-        String xAxisTitle = "f1"; // title to be displayed on the x-axis
-        String yAxisTitle = "f2"; // title to be displayed on the y-axis
+        String xAxisTitle = "f1"; // title to be displayed on the X-axis
+        String yAxisTitle = "f2"; // title to be displayed on the Y-axis
 
         int trials = 200; // number of test runs
         int dimensions = 2; // number of dimensions
         int populationSize = 30; // population size
         int offspringSize = 30; // offspring size
         int generations = 201; // no. generations (stopping criterion); not 200, because 0th generation (construction of the initial population) also accounts
-        int xAxisDivisions = 200; // no. of divisions on the x-axis (discretization level, determines the total. no buckets for the heatmap)
-        int yAxisDivisions = 200; // no. of divisions on the y-axis (discretization level, determines the total. no buckets for the heatmap)
+        int xAxisDivisions = 200; // no. of divisions on the X-axis (discretization level, determines the total. no buckets for the heatmap)
+        int yAxisDivisions = 200; // no. of divisions on the Y-axis (discretization level, determines the total. no buckets for the heatmap)
         boolean printFPS = false; // can be used to report FPS for rendering
 
         float frameSize = 0.5f; // frame size; relative to screen size
 
-        Range xDisplayRange = new Range(0.0d, 2.0d); // display range for the x-axis (subspace to be discretized)
-        Range yDisplayRange = new Range(0.0d, 2.0d); // display range for the y-axis (subspace to be discretized)
+        Range xDisplayRange = new Range(0.0d, 2.0d); // display range for the X-axis (subspace to be discretized)
+        Range yDisplayRange = new Range(0.0d, 2.0d); // display range for the Y-axis (subspace to be discretized)
         Range heatmapDisplayRange = new Range(0.0d, generations - 1); // set the heatmap normalization bounds to (0, generations); generations is here the maximum possible bucket value
         Gradient gradient = Gradient.getViridisGradient(); // use the viridis gradient for the heatmap
 
@@ -82,10 +82,10 @@ public class Execute
         pHP._featureGetter = new Generation(); // set the feature getter: Generation = a solution contained in a bucked in a given generation and trial is evaluated as the generation number
         pHP._trialStatistics = new Min(); // determine the trial-bucket statistic as the minimum of the gathered samples
         pHP._finalStatistics = new Mean(); // determine the final-bucket statistic as the average of the collected minima
-        pHP._xAxisDivisions = xAxisDivisions; // set the number of x-axis divisions
-        pHP._xAxisDisplayRange = xDisplayRange; // set the heatmap objective space bound on the x-axis
-        pHP._yAxisDivisions = yAxisDivisions; // set the number of y-axis divisions
-        pHP._yAxisDisplayRange = yDisplayRange; // set the heatmap objective space bound on the y-axis
+        pHP._xAxisDivisions = xAxisDivisions; // set the number of X-axis divisions
+        pHP._xAxisDisplayRange = xDisplayRange; // set the heatmap objective space bound on the X-axis
+        pHP._yAxisDivisions = yAxisDivisions; // set the number of Y-axis divisions
+        pHP._yAxisDisplayRange = yDisplayRange; // set the heatmap objective space bound on the Y-axis
         pHP._eaFactory = () -> { // Factory object construct new instance of an EA.
 
             Problem problem = Problem.DTLZ2; // Problem ID selection: DTLZ2
@@ -110,7 +110,7 @@ public class Execute
 
             NSGAIIBundle algorithmBundle = new NSGAIIBundle(pAB); // construct the NSGA-II bundle
             EA.Params pEA = new EA.Params("NSGA-II", criteria); // instantiate the EA
-            PhasesBundle.copyPhasesFromBundleToEA(pEA, algorithmBundle._phasesBundle); // copy and paste EA phases from the NSGA-II bundle to the general EA instance
+            PhasesBundle.copyPhasesFromBundleToEA(algorithmBundle._phasesBundle, pEA); // copy and paste EA phases from the NSGA-II bundle to the general EA instance
             pEA._id = 0; // set EA id to zero
             pEA._R = R; //set the random number generator
             pEA._populationSize = populationSize; // set the population size
@@ -138,12 +138,12 @@ public class Execute
         PP[0]._heatmapDisplayRange = heatmapDisplayRange; // set the heatmap normalization bounds to (0, generations); generations is here the maximum possible bucket value
         PP[0]._heatmapTitle = heatmapTitle;
         PP[0]._bucketStyle = Bucket.SQUARE_2D; // Set marker style to square (the only type allowed).
-        PP[0]._xAxisTitle = xAxisTitle; // set the x-axis title
-        PP[0]._yAxisTitle = yAxisTitle; // set the y-axis title
-        PP[0]._xAxisDivisions = xAxisDivisions; // set the number of divisions on the x-axis accordingly to the experiment setting
-        PP[0]._yAxisDivisions = yAxisDivisions; // set the number of divisions on the y-axis accordingly to the experiment setting
+        PP[0]._xAxisTitle = xAxisTitle; // set the X-axis title
+        PP[0]._yAxisTitle = yAxisTitle; // set the Y-axis title
+        PP[0]._xAxisDivisions = xAxisDivisions; // set the number of divisions on the X-axis accordingly to the experiment setting
+        PP[0]._yAxisDivisions = yAxisDivisions; // set the number of divisions on the Y-axis accordingly to the experiment setting
         PP[0]._pDisplayRangesManager = DisplayRangesManager.Params.getFor2D(xDisplayRange, yDisplayRange); // instantiates
-        // the params for the display range manager (x and y-axis bounds).
+        // the params for the display range manager (X and Y-axis bounds).
 
         // Save the init file
         SaveInitFile saveInitFile = new SaveInitFile(FP, PP);

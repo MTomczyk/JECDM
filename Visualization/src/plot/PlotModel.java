@@ -471,6 +471,7 @@ public class PlotModel
         workers.add(da.createRenderUpdater(EventTypes.ON_RESIZE));
         workers.add(new CreateAndWrapScreenshot(_PC, screenshot));
         workers.add(new PlotDimensionsUpdater(_PC, px, py, pw, ph));
+        workers.add(new UpdateIDSAndRenderOnDemandUpdater(_PC));
         workers.add(new PlotVisibilityUpdater(_PC, true));
         workers.add(new CountDownLatchUpdater(screenshot._barrier));
         ExecutionBlock<Void, Void> block = new ExecutionBlock<>(_GC.getBlockTypeID(BlockTypes.CREATE_SCREENSHOT_ON_DEMAND), _PC.getPlotID(), workers);

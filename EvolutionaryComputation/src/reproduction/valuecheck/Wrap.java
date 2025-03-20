@@ -1,13 +1,11 @@
 package reproduction.valuecheck;
 
 /**
- * Absorb technique for repairing gene values (wrap around boundaries).
+ * Absorb technique for repairing decision vector values (wrap around boundaries).
  *
  * @author MTomczyk
  */
-
-
-public class Wrap implements IValueCheck
+public class Wrap extends AbstractValueCheck implements IValueCheck
 {
     /**
      * Checks and corrects int values.

@@ -13,8 +13,6 @@ import java.util.ArrayList;
  *
  * @author MTomczyk
  */
-
-
 public abstract class AbstractReproduce implements IReproduce
 {
     /**
@@ -61,6 +59,8 @@ public abstract class AbstractReproduce implements IReproduce
         }
         return offspring;
     }
+
+
 
     /**
      * Supportive method for constructing one offspring.

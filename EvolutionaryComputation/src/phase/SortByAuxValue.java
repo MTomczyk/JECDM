@@ -1,7 +1,5 @@
 package phase;
 
-import ea.EA;
-import exception.PhaseException;
 import population.SpecimensContainer;
 
 /**
@@ -9,9 +7,7 @@ import population.SpecimensContainer;
  *
  * @author MTomczyk
  */
-
-
-public class SortByAuxValue extends AbstractSortPhase implements IPhase
+public class SortByAuxValue extends Sort implements IPhase
 {
     /**
      * Parameterized constructor.
@@ -33,26 +29,6 @@ public class SortByAuxValue extends AbstractSortPhase implements IPhase
      */
     public SortByAuxValue(String name, boolean ascendingOrder)
     {
-        super(name);
-        _ascendingOrder = ascendingOrder;
-    }
-
-
-    /**
-     * If true, sorts in the ascending order. False: in descending order.
-     */
-    private final boolean _ascendingOrder;
-
-    /**
-     * Phase main action (sorts the specimens stored in {@link SpecimensContainer#getPopulation()} by first performance values).
-     *
-     * @param ea evolutionary algorithm
-     * @param report report on the executed action (to be filled)
-     * @throws PhaseException the exception can be thrown and propagated higher
-     */
-    @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
-    {
-        sort.Sort.sortByAuxValue(ea.getSpecimensContainer().getPopulation(), _ascendingOrder);
+        super(name, specimens -> sort.Sort.sortByAuxValue(specimens, ascendingOrder));
     }
 }

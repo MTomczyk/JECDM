@@ -1,5 +1,6 @@
 package emo.interactive.nemo.nemoii;
 
+import criterion.Criteria;
 import ea.AbstractInteractiveEA;
 import ea.EA;
 import interaction.feedbackprovider.dm.IDMFeedbackProvider;
@@ -9,14 +10,14 @@ import model.IPreferenceModel;
 import model.constructor.IConstructor;
 import model.internals.value.AbstractValueInternalModel;
 import os.ObjectiveSpaceManager;
-import phase.IConstruct;
-import phase.IEvaluate;
-import phase.PhasesBundle;
+import phase.*;
 import problem.moo.AbstractMOOProblemBundle;
+import problem.moo.MOOProblemBundle;
 import random.IRandom;
+import reproduction.DoubleReproduce;
 import reproduction.IReproduce;
 import selection.ISelect;
-import selection.Tournament;
+import selection.Random;
 import system.ds.DecisionSupportSystem;
 
 /**
@@ -38,19 +39,49 @@ public class NEMOII extends AbstractInteractiveEA
         super(p, dss);
     }
 
+    /**
+     * Creates the NEMO-II algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). The method is also coupled with the random selection
+     * of parents. Sets id to 0 and parameterizes the method to update the OS dynamically (uses utopia incumbent during
+     * the updates).
+     *
+     * @param populationSize          population size
+     * @param R                       the RGN
+     * @param problem                 problem bundle (provides criteria, specimen constructor, evaluator, and reproducer)
+     * @param interactionRule         interaction rule
+     * @param referenceSetConstructor reference set constructor
+     * @param dmFeedbackProvider      artificial decision maker (feedback provider)
+     * @param modelConstructor        model constructor (the number of goals it constructs should be greater/equal to the number of initial goals
+     * @param preferenceModel         definition of the preference model
+     * @param <T>                     form of the internal value model used to represent preferences
+     * @return NEMO-II algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMOII getNEMOII(int populationSize,
+                                                                          IRandom R,
+                                                                          AbstractMOOProblemBundle problem,
+                                                                          IRule interactionRule,
+                                                                          IReferenceSetConstructor referenceSetConstructor,
+                                                                          IDMFeedbackProvider dmFeedbackProvider,
+                                                                          IPreferenceModel<T> preferenceModel,
+                                                                          IConstructor<T> modelConstructor)
+    {
+        return getNEMOII(0, populationSize, true, false, R, problem,
+                interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, modelConstructor);
+    }
 
     /**
      * Creates the NEMO-II algorithm. It employs a default decision support system that involves one decision maker
      * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
-     * inconsistency handler = remove oldest; refiner = default). The method is also coupled with a random selection
-     * (of size two).
+     * inconsistency handler = remove oldest; refiner = default). The method is also coupled with the random selection
+     * of parents.
      *
      * @param id                      algorithm id
      * @param populationSize          population size
      * @param updateOSDynamically     if true, the OS will be updated dynamically; false = it will be fixed
      * @param useNadirIncumbent       if true, nadir incumbent will be used when updating OS
      * @param R                       the RGN
-     * @param problem                 problem bundle (provides criteria, normalizations (when fixed))
+     * @param problem                 problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
      * @param interactionRule         interaction rule
      * @param referenceSetConstructor reference set constructor
      * @param dmFeedbackProvider      artificial decision maker (feedback provider)
@@ -71,19 +102,134 @@ public class NEMOII extends AbstractInteractiveEA
                                                                           IPreferenceModel<T> preferenceModel,
                                                                           IConstructor<T> modelConstructor)
     {
-        Tournament.Params pT = new Tournament.Params();
-        pT._size = 5;
-        pT._preferenceDirection = false;
-        pT._noParentsPerOffspring = 2;
-
-        return getNEMOII(id, populationSize, updateOSDynamically, useNadirIncumbent, R, problem, new Tournament(pT), problem._construct,
+        return getNEMOII(id, populationSize, updateOSDynamically, useNadirIncumbent, R, problem, new Random(2), problem._construct,
                 problem._evaluate, problem._reproduce, interactionRule, referenceSetConstructor,
                 dmFeedbackProvider, preferenceModel, modelConstructor);
     }
 
+    /**
+     * Creates the NEMO-II algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). Sets id to 0 and parameterizes the method to update
+     * the OS dynamically (uses utopia incumbent during the updates).
+     *
+     * @param populationSize          population size
+     * @param R                       the RGN
+     * @param criteria                criteria
+     * @param select                  parents selector
+     * @param construct               specimens constructor
+     * @param evaluate                specimens evaluator
+     * @param reproduce               specimens reproducer
+     * @param interactionRule         interaction rule
+     * @param referenceSetConstructor reference set constructor
+     * @param dmFeedbackProvider      artificial decision maker (feedback provider)
+     * @param modelConstructor        model constructor (the number of goals it constructs should be greater/equal to the number of initial goals
+     * @param preferenceModel         definition of the preference model
+     * @param <T>                     form of the internal value model used to represent preferences
+     * @return NEMO-II algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMOII getNEMOII(int populationSize,
+                                                                          IRandom R,
+                                                                          Criteria criteria,
+                                                                          ISelect select,
+                                                                          DoubleConstruct.IConstruct construct,
+                                                                          DoubleEvaluate.IEvaluate evaluate,
+                                                                          DoubleReproduce.IReproduce reproduce,
+                                                                          IRule interactionRule,
+                                                                          IReferenceSetConstructor referenceSetConstructor,
+                                                                          IDMFeedbackProvider dmFeedbackProvider,
+                                                                          IPreferenceModel<T> preferenceModel,
+                                                                          IConstructor<T> modelConstructor)
+    {
+        return getNEMOII(0, populationSize, true, false, R,
+                MOOProblemBundle.getProblemBundle(criteria),
+                select, new DoubleConstruct(construct), new DoubleEvaluate(evaluate), new DoubleReproduce(reproduce),
+                interactionRule, referenceSetConstructor, dmFeedbackProvider,
+                preferenceModel, modelConstructor);
+    }
 
     /**
-     * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
+     * Creates the NEMO-II algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). Sets id to 0 and parameterizes the method to update
+     * the OS dynamically (uses utopia incumbent during the updates).
+     *
+     * @param populationSize          population size
+     * @param R                       the RGN
+     * @param problem                 problem bundle (provides criteria, normalizations (when fixed))
+     * @param select                  parents selector
+     * @param construct               specimens constructor
+     * @param evaluate                specimens evaluator
+     * @param reproduce               specimens reproducer
+     * @param interactionRule         interaction rule
+     * @param referenceSetConstructor reference set constructor
+     * @param dmFeedbackProvider      artificial decision maker (feedback provider)
+     * @param modelConstructor        model constructor (the number of goals it constructs should be greater/equal to the number of initial goals
+     * @param preferenceModel         definition of the preference model
+     * @param <T>                     form of the internal value model used to represent preferences
+     * @return NEMO-II algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMOII getNEMOII(int populationSize,
+                                                                          IRandom R,
+                                                                          AbstractMOOProblemBundle problem,
+                                                                          ISelect select,
+                                                                          DoubleConstruct.IConstruct construct,
+                                                                          DoubleEvaluate.IEvaluate evaluate,
+                                                                          DoubleReproduce.IReproduce reproduce,
+                                                                          IRule interactionRule,
+                                                                          IReferenceSetConstructor referenceSetConstructor,
+                                                                          IDMFeedbackProvider dmFeedbackProvider,
+                                                                          IPreferenceModel<T> preferenceModel,
+                                                                          IConstructor<T> modelConstructor)
+    {
+        return getNEMOII(0, populationSize, true, false, R, problem,
+                select, new DoubleConstruct(construct), new DoubleEvaluate(evaluate), new DoubleReproduce(reproduce),
+                interactionRule, referenceSetConstructor, dmFeedbackProvider,
+                preferenceModel, modelConstructor);
+    }
+
+    /**
+     * Creates the NEMO-II algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). Sets id to 0 and parameterizes the method to update
+     * the OS dynamically (uses utopia incumbent during the updates).
+     *
+     * @param populationSize          population size
+     * @param R                       the RGN
+     * @param problem                 problem bundle (provides criteria, normalizations (when fixed))
+     * @param select                  parents selector
+     * @param construct               specimens constructor
+     * @param evaluate                specimens evaluator
+     * @param reproduce               specimens reproducer
+     * @param interactionRule         interaction rule
+     * @param referenceSetConstructor reference set constructor
+     * @param dmFeedbackProvider      artificial decision maker (feedback provider)
+     * @param modelConstructor        model constructor (the number of goals it constructs should be greater/equal to the number of initial goals
+     * @param preferenceModel         definition of the preference model
+     * @param <T>                     form of the internal value model used to represent preferences
+     * @return NEMO-II algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMOII getNEMOII(int populationSize,
+                                                                          IRandom R,
+                                                                          AbstractMOOProblemBundle problem,
+                                                                          ISelect select,
+                                                                          IConstruct construct,
+                                                                          IEvaluate evaluate,
+                                                                          IReproduce reproduce,
+                                                                          IRule interactionRule,
+                                                                          IReferenceSetConstructor referenceSetConstructor,
+                                                                          IDMFeedbackProvider dmFeedbackProvider,
+                                                                          IPreferenceModel<T> preferenceModel,
+                                                                          IConstructor<T> modelConstructor)
+    {
+        return getNEMOII(0, populationSize, true, false, R, problem,
+                select, construct, evaluate, reproduce, interactionRule, referenceSetConstructor, dmFeedbackProvider,
+                preferenceModel, modelConstructor);
+    }
+
+
+    /**
+     * Creates the NEMO-II algorithm. It employs a default decision support system that involves one decision maker
      * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
      * inconsistency handler = remove oldest; refiner = default).
      *
@@ -131,7 +277,8 @@ public class NEMOII extends AbstractInteractiveEA
         pB._select = select;
 
         // Parameterize depending on the ``update OS dynamically'' flag.
-        if (updateOSDynamically) {
+        if (updateOSDynamically)
+        {
             // No initial normalizations:
             pB._initialNormalizations = null;
             ObjectiveSpaceManager.Params pOS = new ObjectiveSpaceManager.Params();
@@ -141,7 +288,8 @@ public class NEMOII extends AbstractInteractiveEA
             pOS._updateNadirUsingIncumbent = useNadirIncumbent;
             pB._osManager = new ObjectiveSpaceManager(pOS);
         }
-        else {
+        else
+        {
             // Set the initial normalizations (will be delivered to the object responsible for calculating crowding distances):
             pB._initialNormalizations = problem._normalizations;
             pB._osManager = null; // no os manager needed
@@ -153,7 +301,7 @@ public class NEMOII extends AbstractInteractiveEA
 
         // Create EA:
         EA.Params pEA = new EA.Params(problem._criteria, bundle);
-        PhasesBundle.copyPhasesFromBundleToEA(pEA, bundle._phasesBundle);
+        PhasesBundle.copyPhasesFromBundleToEA(bundle._phasesBundle, pEA);
         pEA._populationSize = populationSize;
         pEA._offspringSize = populationSize;
         pEA._R = R;

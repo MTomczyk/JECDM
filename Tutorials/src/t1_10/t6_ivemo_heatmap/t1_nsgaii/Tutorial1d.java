@@ -66,12 +66,12 @@ public class Tutorial1d
         pHP._featureGetter = new ConstantValue(1); // returns the feature (constant 1)
         pHP._trialStatistics = new Constant(1.0d); // set per-trial statistic (Constant = 1.0d; thus, feature has no effect)
         pHP._finalStatistics = new Sum(); // set final statistics (total no. trials in which found)
-        pHP._xAxisDivisions = xDix; // set the discretization level for x-axis
-        pHP._xAxisDisplayRange = xDR; // set considered bound on the objective space (x-axis)
-        pHP._yAxisDivisions = yDiv; // set the discretization level for y-axis
-        pHP._yAxisDisplayRange = yDR; // set considered bound on the objective space (y-axis)
-        pHP._zAxisDivisions = zDiv; // set the discretization level for z-axis
-        pHP._zAxisDisplayRange = zDR; // set considered bound on the objective space (z-axis)
+        pHP._xAxisDivisions = xDix; // set the discretization level for X-axis
+        pHP._xAxisDisplayRange = xDR; // set considered bound on the objective space (X-axis)
+        pHP._yAxisDivisions = yDiv; // set the discretization level for Y-axis
+        pHP._yAxisDisplayRange = yDR; // set considered bound on the objective space (Y-axis)
+        pHP._zAxisDivisions = zDiv; // set the discretization level for Z-axis
+        pHP._zAxisDisplayRange = zDR; // set considered bound on the objective space (Z-axis)
         Heatmap3DProcessor h3D = new Heatmap3DProcessor(pHP);
 
         // Execute processing:

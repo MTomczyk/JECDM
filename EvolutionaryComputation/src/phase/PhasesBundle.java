@@ -80,12 +80,55 @@ public class PhasesBundle
     public AbstractUpdateOSPhase _updateOS = null;
 
     /**
+     * Creates and returns a bundle instance with nulled phases.
+     *
+     * @return phases bundle
+     */
+    public static PhasesBundle getNulledInstance()
+    {
+        PhasesBundle pb = new PhasesBundle();
+        pb._initStarts = null;
+        pb._constructInitialPopulation = null;
+        pb._assignSpecimenIDs = null;
+        pb._evaluate = null;
+        pb._sort = null;
+        pb._initEnds = null;
+        pb._prepareStep = null;
+        pb._constructMatingPool = null;
+        pb._selectParents = null;
+        pb._reproduce = null;
+        pb._merge = null;
+        pb._remove = null;
+        pb._finalizeStep = null;
+        pb._updateOS = null;
+        return pb;
+    }
+
+    /**
+     * Creates and returns a bundle instance with most commonly used phases instantiated by default (see the code
+     * for details).
+     *
+     * @return phases bundle
+     */
+    public static PhasesBundle getDefaultInstance()
+    {
+        PhasesBundle pb = PhasesBundle.getNulledInstance();
+        pb._assignSpecimenIDs = new AssignSpecimensIDs();
+        pb._initEnds = new InitEnds();
+        pb._constructMatingPool = new ConstructMatingPool();
+        pb._merge = new Merge();
+        pb._remove = new Remove();
+        pb._finalizeStep = new FinalizeStep();
+        return pb;
+    }
+
+    /**
      * Supportive method that sets phases in {@link EA.Params} as imposed by the bundle object.
      *
-     * @param p {@link EA.Params} object to be passed to EA's constructor
      * @param B instantiated phases
+     * @param p {@link EA.Params} object to be passed to EA's constructor
      */
-    public static void copyPhasesFromBundleToEA(EA.Params p, PhasesBundle B)
+    public static void copyPhasesFromBundleToEA(PhasesBundle B, EA.Params p)
     {
         p._initStarts = B._initStarts;
         p._constructInitialPopulation = B._constructInitialPopulation;
@@ -115,7 +158,7 @@ public class PhasesBundle
         phases[PhasesIDs.PHASE_CONSTRUCT_INITIAL_POPULATION] = B._constructInitialPopulation;
         phases[PhasesIDs.PHASE_ASSIGN_SPECIMENS_IDS] = B._assignSpecimenIDs;
         phases[PhasesIDs.PHASE_EVALUATE] = B._evaluate;
-        phases[PhasesIDs.PHASE_SORT]  = B._sort;
+        phases[PhasesIDs.PHASE_SORT] = B._sort;
         phases[PhasesIDs.PHASE_INIT_ENDS] = B._initEnds;
         phases[PhasesIDs.PHASE_PREPARE_STEP] = B._prepareStep;
         phases[PhasesIDs.PHASE_CONSTRUCT_MATING_POOL] = B._constructMatingPool;

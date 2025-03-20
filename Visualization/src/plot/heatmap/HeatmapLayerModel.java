@@ -24,7 +24,7 @@ public class HeatmapLayerModel
     private volatile boolean _sortedMode = false;
 
     /**
-     * The number of divisions on axes (x-axis, y-axis, z-axis).
+     * The number of divisions on axes (X-axis, Y-axis, Z-axis).
      */
     private final int[] _divs;
 
@@ -35,9 +35,9 @@ public class HeatmapLayerModel
 
     /**
      * The normalizations are handled by {@link DisplayRangesManager}. It handles three (or four, depending on the dimensionality) display ranges:
-     * 0 - responsible for providing x-coordinates for buckets (in normalized space),
-     * 1 - responsible for providing y-coordinates for buckets (in normalized space),
-     * (2) - responsible for providing z-coordinates for buckets (in normalized space),
+     * 0 - responsible for providing X-coordinates for buckets (in normalized space),
+     * 1 - responsible for providing Y-coordinates for buckets (in normalized space),
+     * (2) - responsible for providing Z-coordinates for buckets (in normalized space),
      * 2 (3) - responsible for normalizing heatmap data.
      */
     private final DisplayRangesManager _heatmapDRM;
@@ -89,9 +89,9 @@ public class HeatmapLayerModel
     /**
      * Parameterized constructor.
      *
-     * @param xDiv            divisions along x-axis
-     * @param yDiv            divisions along y-axis
-     * @param zDiv            divisions along z-axis
+     * @param xDiv            divisions along X-axis
+     * @param yDiv            divisions along Y-axis
+     * @param zDiv            divisions along Z-axis
      * @param normalizers     can be used to provide a normalized used by {@link Heatmap2DLayer} to determine bucket coordinates in the normalized [0-1] space (x-coordinates, y-coordinate, z-coordinate) -- used construct non-uniform heatmaps, if the element is null, the default linear normalized is used, note that min/max values of the provided normalizer are always overwritten by 0/1.
      * @param dimensions      heatmap dimensionality (2 for 2D, 3 for 3D)
      * @param heatmapGradient gradient for the heatmap buckets
@@ -432,7 +432,7 @@ public class HeatmapLayerModel
     }
 
     /**
-     * Getter for the number of divisions on axes (x-axis, y-axis, z-axis).
+     * Getter for the number of divisions on axes (X-axis, Y-axis, Z-axis).
      *
      * @return the numbers of divisions on axes
      */

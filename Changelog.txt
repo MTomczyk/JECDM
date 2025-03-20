@@ -1,3 +1,22 @@
+[18.03.2025] Moderate changes. Some of them are described in "Tutorial 9: Facilitating the usage"
+- Experimentation: Experimentation: container.global.initializers.IRandomNumberGeneratorInitializer: The method's signature changed. Now, it comprises data on the calling scenario and trial. This way, a non-colliding seed may be derived without using the counter (based on the scenario ID, trial ID, and the total number of trials; see the DefaultRandomNumberGeneratorInitializer class), and it will be calculated as if no scenario/trial was disabled. Disabling, e.g., trials, would make RNGs be appointed seeds that are "flushed to the left" in the previous approach. Hence, repeating the execution of selected trials would generate colliding seeds across multiple executions of the experiment executor. Now, this issue will not arise unless the top-level fields, such as scenario definitions, are altered (it is preferred to use scenario/trial disabling conditions to adjust the experimental setup).
+- Visualization: color.palette: classes related to modeling color palettes are introduced. They will be further
+developed in the future.
+- Visualization: updater.DataPointsProcessor is added. It works similarly to the regular DataProcessor class, but
+allows performing per-points (data points) manipulations via an auxiliary object implementing a dedicated interface
+(see the class description)
+- Visualization: drmanager.DRMPFactory class added (display ranges manager params factory). It provides various static methods for initializing the params container for the display ranges manager.
+- Visualization: plot.Plot2DFactory, PCP2DFactory, Heatmap2DFactory, Heatmap3DFactory classes added. They support quickly initializing the plot objects.
+- EvolutionaryComputation: reproduction.valuecheck.IValueCheck, reproduction.operators.crossover.ICrossover, reproduction.operators.mutation.IMutate return types of the interface methods changed from void to their corresponding input types (e.g., input = int, return = int), and it is assumed that the returned objects are the input vectors. This change allows for combining the execution of different operators (nested method calls).
+- EvolutionaryComputation: phases.PhasesBundle.copyPhasesFromBundleToEA: changed signature (order of inputs changed).
+- EvolutionaryComputation: population.Specimen: setters for decision vectors were removed.
+- EvolutionaryComputation: emo.aposteriori: the default "_updateUtopiaUsingIncumbent" flags were switched to false.
+- EvolutionaryComputation: visualization.utils.ReferenceParetoFront added. This class provides means for instantiating data sets (for the visualization) portraying some common Pareto fronts. This class will be further developed in the future.
+- EvolutionaryComputation: phase.DoubleConstruct, DoubleEvaluate, reproduction.DoubleReproduce (similarly to Double: Int, Bool, and Chromosome. These are new implementations of the IConstruct, IEvaluate, and IReproduce interfaces. They delegate the individual, i.e., per-specimen tasks (i.e., evaluate a specimen), to auxiliary objects implementing straightforward interfaces (inner interfaces). These auxiliary objects can be supplied when instantiating the DoubleConstruct, etc., to allow quick definition (inline) of the process (e.g., evaluation rules).
+- EvolutionaryComputation:  emo.aposteriori and interactive: the primary algorithm classes (e.g., NSGA) were extended with new static methods for instantiating the methods.
+- EvolutionaryComputation:  emo.aposteriori and interactive: the primary algorithm classes (e.g., NSGA): the default parents selection policy was unified and set to Random.
+- Utils: a simple utils.The MathUtils class has been added and will be developed in the future. The intention is to use the framework's implementations of mathematical functions, thus minimizing the use of external libraries (e.g., Commons Math).
+
 [03.03.2025]
 - Tutorials: minor changes in t1_t20_t1.experimentation_module.t2_knapsack_example
 - EvolutionaryComputation: problem.moo.MOOProblemBundle: Default instantiable class added

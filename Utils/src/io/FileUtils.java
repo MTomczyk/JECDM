@@ -24,7 +24,7 @@ public class FileUtils
     public static Path getPathToJECDM() throws IOException
     {
         String cp = new File(".").getCanonicalPath();
-        int idx = cp.indexOf("JECDM" + File.separatorChar + "JECDM");
+        int idx = cp.indexOf("JECDM");
         return Paths.get(cp.substring(0, idx) + "JECDM" + File.separatorChar + "JECDM" + File.separatorChar);
     }
 

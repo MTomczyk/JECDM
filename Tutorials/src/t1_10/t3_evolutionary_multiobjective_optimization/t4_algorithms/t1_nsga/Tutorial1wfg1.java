@@ -162,7 +162,7 @@ public class Tutorial1wfg1
                 // create custom display range
                 pP._pDisplayRangesManager = new DisplayRangesManager.Params();
                 pP._pDisplayRangesManager._DR = new DisplayRangesManager.DisplayRange[M + 2]; // M + custom + X-axis
-                pP._pDisplayRangesManager._attIdx_to_drIdx = new Integer[M + 1]; // x-axis does not require mapping
+                pP._pDisplayRangesManager._attIdx_to_drIdx = new Integer[M + 1]; // X-axis does not require mapping
                 for (int dr = 0; dr < M; dr++)
                 {
                     pP._pDisplayRangesManager._DR[dr] = new DisplayRangesManager.DisplayRange(problem._displayRanges[dr], false);

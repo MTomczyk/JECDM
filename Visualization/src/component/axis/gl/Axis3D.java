@@ -376,6 +376,7 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
         }
 
         float[] ticksLoc = _ticksDataGetter.getTicksLocations().clone();
+
         int validTicks = 0;
         for (float f : ticksLoc)
             if (AbstractTicksDataGetter.isTickLockNormal(f)) validTicks++;
@@ -391,6 +392,7 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
             D._tp[pnt][0] = D._s[0] + v * DEB[0];
             D._tp[pnt][1] = D._s[1] + v * DEB[1];
             D._tp[pnt][2] = D._s[2] + v * DEB[2];
+
 
             float dt = _tickLength;
             float dtl = _tickLabelOffset;
@@ -421,6 +423,7 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
             D._dl[1] = D._s[1] + DEB[1] * 0.5f + D._dt[pnt][1] / norm * dl;
             D._dl[2] = D._s[2] + DEB[2] * 0.5f + D._dt[pnt][2] / norm * dl;
         }
+
         return D;
     }
 

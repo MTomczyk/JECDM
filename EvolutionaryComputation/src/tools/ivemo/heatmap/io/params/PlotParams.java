@@ -29,17 +29,17 @@ public class PlotParams extends AbstractPlot.Params
     public String _zAxisTitle;
 
     /**
-     * Number of divisions on the x-axis (used to construct buckets).
+     * Number of divisions on the X-axis (used to construct buckets).
      */
     public int _xAxisDivisions = -1;
 
     /**
-     * Number of divisions on the y-axis (used to construct buckets).
+     * Number of divisions on the Y-axis (used to construct buckets).
      */
     public int _yAxisDivisions = -1;
 
     /**
-     * Number of divisions on the y-axis (used to construct buckets).
+     * Number of divisions on the Y-axis (used to construct buckets).
      */
     public int _zAxisDivisions = -1;
 

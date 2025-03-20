@@ -2,6 +2,7 @@ package container.global.initializers;
 
 import random.IRandom;
 import random.MersenneTwister64;
+import scenario.Scenario;
 
 /**
  * Creates Mersenne Twister generator (64 bits). The RNG counter maintained and provided via {@link container.global.GlobalDataContainer}
@@ -14,13 +15,14 @@ public class DefaultRandomNumberGeneratorInitializer implements IRandomNumberGen
     /**
      * Main method.
      *
-     * @param currentCounterValue GDC increments the RNG counter each time a new instance is created; this input is
-     *                            a non-colliding integer value that can be used as a seed when instantiating the RNG
-     * @return random number generator instance
+     * @param scenario trial's scenario requesting the random number generator
+     * @param trialID  ID of a trial requesting the random number generator
+     * @param noTrials total number of trials per scenario
+     * @return random number generator
      */
-    @Override
-    public IRandom getRNG(int currentCounterValue)
+    public IRandom getRNG(Scenario scenario, int trialID, int noTrials)
     {
-        return new MersenneTwister64(currentCounterValue);
+        int seed = scenario.getID() * noTrials + trialID;
+        return new MersenneTwister64(seed);
     }
 }

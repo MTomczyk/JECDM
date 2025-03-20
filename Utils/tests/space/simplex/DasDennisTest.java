@@ -30,7 +30,7 @@ class DasDennisTest
                         {0.75d, 0.25d},
                         {1.0d, 0.0d},
                 };
-
+        assertNotNull(w);
         assertEquals(exp.length, w.size());
         for (int i = 0; i < 5; i++)
         {
@@ -46,7 +46,8 @@ class DasDennisTest
     @Test
     void getWeightVectors2()
     {
-        ArrayList<double[]> w = DasDennis.getWeightVectors(3, 4);
+        ArrayList<double[]> w1 = DasDennis.getWeightVectors(3, 4);
+        double [][] w2 = DasDennis.getWeightVectorsAsPrimitive(3, 4);
 
         double[][] exp = new double[][]
                 {
@@ -68,15 +69,23 @@ class DasDennisTest
                 };
 
 
-        assertEquals(15, w.size());
+        assertNotNull(w1);
+        assertNotNull(w2);
+        assertEquals(15, w1.size());
+        assertEquals(15, w2.length);
 
-        assertEquals(exp.length, w.size());
+        assertEquals(exp.length, w1.size());
+        assertEquals(exp.length, w2.length);
 
         for (int i = 0; i < 15; i++)
         {
-            assertEquals(exp[i][0], w.get(i)[0], 0.0000001d);
-            assertEquals(exp[i][1], w.get(i)[1], 0.0000001d);
-            assertEquals(exp[i][2], w.get(i)[2], 0.0000001d);
+            assertEquals(exp[i][0], w1.get(i)[0], 0.0000001d);
+            assertEquals(exp[i][1], w1.get(i)[1], 0.0000001d);
+            assertEquals(exp[i][2], w1.get(i)[2], 0.0000001d);
+
+            assertEquals(exp[i][0], w2[i][0], 0.0000001d);
+            assertEquals(exp[i][1], w2[i][1], 0.0000001d);
+            assertEquals(exp[i][2], w2[i][2], 0.0000001d);
         }
     }
 

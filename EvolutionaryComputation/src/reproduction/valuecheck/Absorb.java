@@ -1,20 +1,19 @@
 package reproduction.valuecheck;
 
 /**
- * Absorb technique for repairing gene values (absorb = set to lower or upper bound).
+ * Absorb technique for repairing decision vector values (absorb = set to lower or upper bound).
  *
  * @author MTomczyk
  */
-
-
-public class Absorb implements IValueCheck
+public class Absorb extends AbstractValueCheck implements IValueCheck
 {
 
     /**
      * Checks and corrects int values.
+     *
      * @param value value to be checked
-     * @param lb domain left bound
-     * @param rb domain right bound
+     * @param lb    domain left bound
+     * @param rb    domain right bound
      * @return corrected value
      */
     @Override
@@ -28,9 +27,10 @@ public class Absorb implements IValueCheck
 
     /**
      * Checks and corrects double values.
+     *
      * @param value value to be checked
-     * @param lb domain left bound
-     * @param rb domain right bound
+     * @param lb    domain left bound
+     * @param rb    domain right bound
      * @return corrected value
      */
     @Override

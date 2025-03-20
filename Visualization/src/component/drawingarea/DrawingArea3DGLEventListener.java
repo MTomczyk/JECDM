@@ -20,8 +20,6 @@ import java.awt.image.BufferedImage;
  */
 public class DrawingArea3DGLEventListener implements GLEventListener
 {
-
-
     /**
      * Determines the number of offscreen buffers used for rendering on the GPU.
      * Recommended = 2. Note that the painting is asynchronous and, thus, if = 1,

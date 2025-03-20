@@ -64,7 +64,7 @@ public class ScenariosGenerator
                 Value value = keyValues[i].getValues()[cp[scenario][i]];
                 kvs[i] = new KeyValue(key, value);
             }
-            scenarios[scenario] = new Scenario(kvs);
+            scenarios[scenario] = new Scenario(kvs, scenario);
         }
 
         return new Scenarios(keyValues, scenarios);

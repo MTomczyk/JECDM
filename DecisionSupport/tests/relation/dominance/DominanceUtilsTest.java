@@ -337,8 +337,7 @@ class DominanceUtilsTest
                         {1.0d, 3.0d}
                 };
 
-        Criteria c = Criteria.constructCriteria("C", 2, false);
-        c._c[0].setGain(true);
+        Criteria c = Criteria.constructCriteria(new String[]{"C1", "C2"}, new boolean[]{true, false});
         double[][] output = DominanceUtils.getNonDominatedVectors(input, c);
         assertEquals(2, output.length);
         assertEquals(4.0d, output[0][0], 0.0000001d);
@@ -363,8 +362,7 @@ class DominanceUtilsTest
                         {1.0d, 3.0d}
                 };
 
-        Criteria c = Criteria.constructCriteria("C", 2, false);
-        c._c[1].setGain(true);
+        Criteria c = Criteria.constructCriteria(new String[]{"C1", "C2"}, new boolean[]{false, true});
         double[][] output = DominanceUtils.getNonDominatedVectors(input, c);
         assertEquals(2, output.length);
         assertEquals(4.0d, output[0][0], 0.0000001d);
@@ -385,8 +383,7 @@ class DominanceUtilsTest
                         {4.0d, 4.0d},
                 };
 
-        Criteria c = Criteria.constructCriteria("C", 2, false);
-        c._c[0].setGain(true);
+        Criteria c = Criteria.constructCriteria("C", 2, true);
         double[][] output = DominanceUtils.getNonDominatedVectors(input, c);
         assertEquals(2, output.length);
         assertEquals(4.0d, output[0][0], 0.0000001d);
@@ -524,8 +521,7 @@ class DominanceUtilsTest
                         {1.0d, 3.0d}
                 };
 
-        Criteria c = Criteria.constructCriteria("C", 2, false);
-        c._c[0].setGain(true);
+        Criteria c = Criteria.constructCriteria(new String[]{"C1", "C2"}, new boolean[]{true, false});
         ArrayList<Alternative> output = DominanceUtils.getNonDominatedAlternatives(new Alternatives(Alternative.getAlternativeArray("A", input)), c);
         assertEquals(2, output.size());
         assertEquals(4.0d, output.get(0).getPerformanceVector()[0], 0.0000001d);
@@ -550,8 +546,7 @@ class DominanceUtilsTest
                         {1.0d, 3.0d}
                 };
 
-        Criteria c = Criteria.constructCriteria("C", 2, false);
-        c._c[1].setGain(true);
+        Criteria c = Criteria.constructCriteria(new String[]{"C1", "C2"}, new boolean[]{false, true});
         ArrayList<Alternative> output = DominanceUtils.getNonDominatedAlternatives(new Alternatives(Alternative.getAlternativeArray("A", input)), c);
         assertEquals(2, output.size());
         assertEquals(4.0d, output.get(0).getPerformanceVector()[0], 0.0000001d);
@@ -572,8 +567,7 @@ class DominanceUtilsTest
                         {4.0d, 4.0d},
                 };
 
-        Criteria c = Criteria.constructCriteria("C", 2, false);
-        c._c[0].setGain(true);
+        Criteria c = Criteria.constructCriteria("C", 2, true);
         ArrayList<Alternative> output = DominanceUtils.getNonDominatedAlternatives(new Alternatives(Alternative.getAlternativeArray("A", input)), c);
         assertEquals(2, output.size());
         assertEquals(4.0d, output.get(0).getPerformanceVector()[0], 0.0000001d);

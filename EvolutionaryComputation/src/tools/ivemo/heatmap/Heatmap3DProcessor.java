@@ -22,23 +22,23 @@ public class Heatmap3DProcessor extends AbstractHeatmapProcessor
     public static class Params extends AbstractHeatmapProcessor.Params
     {
         /**
-         * Z-axis display range used when dividing the objective space into buckets on the z-axis.
+         * Z-axis display range used when dividing the objective space into buckets on the Z-axis.
          */
         public Range _zAxisDisplayRange = null;
 
         /**
-         * Number of divisions on the z-axis (used to construct buckets).
+         * Number of divisions on the Z-axis (used to construct buckets).
          */
         public int _zAxisDivisions = 100;
     }
 
     /**
-     * Z-axis display range used when dividing the objective space into buckets on the z-axis.
+     * Z-axis display range used when dividing the objective space into buckets on the Z-axis.
      */
     protected Range _zAxisDisplayRange;
 
     /**
-     * Number of divisions on the z-axis (used to construct buckets).
+     * Number of divisions on the Z-axis (used to construct buckets).
      */
     protected int _zAxisDivisions;
 

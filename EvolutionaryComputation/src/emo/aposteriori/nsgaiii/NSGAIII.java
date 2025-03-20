@@ -1,13 +1,18 @@
 package emo.aposteriori.nsgaiii;
 
+import criterion.Criteria;
 import ea.EA;
 import emo.utils.decomposition.goal.IGoal;
 import emo.utils.decomposition.nsgaiii.*;
 import os.ObjectiveSpaceManager;
+import phase.DoubleConstruct;
+import phase.DoubleEvaluate;
 import phase.IConstruct;
 import phase.IEvaluate;
 import problem.moo.AbstractMOOProblemBundle;
+import problem.moo.MOOProblemBundle;
 import random.IRandom;
+import reproduction.DoubleReproduce;
 import reproduction.IReproduce;
 import selection.ISelect;
 import selection.Random;
@@ -36,7 +41,62 @@ public class NSGAIII extends EA
     }
 
     /**
-     * Creates the NSGA-III algorithm. The algorithm is coupled with a random selection.
+     * Creates the NSGA-III algorithm. Sets id to 0 and the algorithm is coupled with the random selection of parents.
+     *
+     * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
+     * @param R                   the RGN
+     * @param goals               optimization goals
+     * @param problem             problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(boolean updateOSDynamically,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem)
+    {
+        return getNSGAIII(0, updateOSDynamically, false, R, goals, problem);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. The algorithm is coupled with the random selection of parents.
+     *
+     * @param id                  algorithm id
+     * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
+     * @param R                   the RGN
+     * @param goals               optimization goals
+     * @param problem             problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(int id,
+                                     boolean updateOSDynamically,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem)
+    {
+        return getNSGAIII(id, updateOSDynamically, false, R, goals, problem, null);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. Sets id to 0 and the algorithm is coupled with the random selection of parents.
+     *
+     * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent   if true, nadir incumbent will be used when updating OS
+     * @param R                   the RGN
+     * @param goals               optimization goals
+     * @param problem             problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(boolean updateOSDynamically,
+                                     boolean useNadirIncumbent,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem)
+    {
+        return getNSGAIII(0, updateOSDynamically, useNadirIncumbent, R, goals, problem);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. The algorithm is coupled with the random selection of parents.
      *
      * @param id                  algorithm id
      * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
@@ -53,13 +113,171 @@ public class NSGAIII extends EA
                                      IGoal[] goals,
                                      AbstractMOOProblemBundle problem)
     {
-        ISelect select = new Random(2);
-        return getNSGAIII(id, updateOSDynamically, useNadirIncumbent, R, goals, problem, select,
-                problem._construct, problem._evaluate, problem._reproduce, new RandomAssignment(), new RandomSpecimen());
+        return getNSGAIII(id, updateOSDynamically, useNadirIncumbent, R, goals, problem, null);
     }
 
     /**
-     * Creates the NSGA-III algorithm. The algorithm is coupled with a random selection.
+     * Creates the NSGA-III algorithm. Sets id to 0 and the algorithm is coupled with the random selection of parents.
+     *
+     * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
+     * @param R                   the RGN
+     * @param goals               optimization goals
+     * @param problem             problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param osAdjuster          auxiliary object responsible for customizing objective space manager params container
+     *                            built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(boolean updateOSDynamically,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem,
+                                     ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNSGAIII(0, updateOSDynamically, R, goals, problem, osAdjuster);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. The algorithm is coupled with the random selection of parents.
+     *
+     * @param id                  algorithm id
+     * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
+     * @param R                   the RGN
+     * @param goals               optimization goals
+     * @param problem             problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param osAdjuster          auxiliary object responsible for customizing objective space manager params container
+     *                            built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(int id,
+                                     boolean updateOSDynamically,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem,
+                                     ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        ISelect select = new Random(2);
+        return getNSGAIII(id, updateOSDynamically, false, R, goals, problem, select,
+                problem._construct, problem._evaluate, problem._reproduce, new RandomAssignment(), new RandomSpecimen(), osAdjuster);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. Sets id to 0 and the algorithm is coupled with the random selection of parents.
+     *
+     * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent   if true, nadir incumbent will be used when updating OS
+     * @param R                   the RGN
+     * @param goals               optimization goals
+     * @param problem             problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param osAdjuster          auxiliary object responsible for customizing objective space manager params container
+     *                            built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(boolean updateOSDynamically,
+                                     boolean useNadirIncumbent,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem,
+                                     ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNSGAIII(0, updateOSDynamically, useNadirIncumbent, R, goals, problem, osAdjuster);
+    }
+
+
+    /**
+     * Creates the NSGA-III algorithm. The algorithm is coupled with the random selection of parents.
+     *
+     * @param id                  algorithm id
+     * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent   if true, nadir incumbent will be used when updating OS
+     * @param R                   the RGN
+     * @param goals               optimization goals
+     * @param problem             problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param osAdjuster          auxiliary object responsible for customizing objective space manager params container
+     *                            built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(int id,
+                                     boolean updateOSDynamically,
+                                     boolean useNadirIncumbent,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem,
+                                     ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        ISelect select = new Random(2);
+        return getNSGAIII(id, updateOSDynamically, useNadirIncumbent, R, goals, problem, select,
+                problem._construct, problem._evaluate, problem._reproduce, new RandomAssignment(), new RandomSpecimen(), osAdjuster);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. Sets id to 0 and the algorithm is coupled with the random selection of parents.
+     *
+     * @param updateOSDynamically  if true, the OS will be updated dynamically; false = it will be fixed
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param problem              problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(boolean updateOSDynamically,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem,
+                                     IAssignmentResolveTie assignmentResolveTie,
+                                     ISpecimenResolveTie specimenResolveTie)
+    {
+        return getNSGAIII(0, updateOSDynamically, R, goals, problem, assignmentResolveTie, specimenResolveTie);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. The algorithm is coupled with the random selection of parents.
+     *
+     * @param id                   algorithm id
+     * @param updateOSDynamically  if true, the OS will be updated dynamically; false = it will be fixed
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param problem              problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(int id,
+                                     boolean updateOSDynamically,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem,
+                                     IAssignmentResolveTie assignmentResolveTie,
+                                     ISpecimenResolveTie specimenResolveTie)
+    {
+        return getNSGAIII(id, updateOSDynamically, false, R, goals, problem, assignmentResolveTie, specimenResolveTie);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. Sets id to 0 and the algorithm is coupled with the random selection of parents.
+     *
+     * @param updateOSDynamically  if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent    if true, nadir incumbent will be used when updating OS
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param problem              problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(boolean updateOSDynamically,
+                                     boolean useNadirIncumbent,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem,
+                                     IAssignmentResolveTie assignmentResolveTie,
+                                     ISpecimenResolveTie specimenResolveTie)
+    {
+        return getNSGAIII(0, updateOSDynamically, useNadirIncumbent, R, goals, problem, assignmentResolveTie, specimenResolveTie);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. The algorithm is coupled with the random selection of parents.
      *
      * @param id                   algorithm id
      * @param updateOSDynamically  if true, the OS will be updated dynamically; false = it will be fixed
@@ -83,6 +301,266 @@ public class NSGAIII extends EA
         ISelect select = new Random(2);
         return getNSGAIII(id, updateOSDynamically, useNadirIncumbent, R, goals, problem, select,
                 problem._construct, problem._evaluate, problem._reproduce, assignmentResolveTie, specimenResolveTie);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. Sets the id to 0 the algorithm is coupled with the random selection of parents.
+     *
+     * @param updateOSDynamically  if true, the OS will be updated dynamically; false = it will be fixed
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param problem              problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @param osAdjuster           auxiliary object responsible for customizing objective space manager params container
+     *                             built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(boolean updateOSDynamically,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem,
+                                     IAssignmentResolveTie assignmentResolveTie,
+                                     ISpecimenResolveTie specimenResolveTie,
+                                     ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNSGAIII(0, updateOSDynamically, R, goals, problem, assignmentResolveTie, specimenResolveTie, osAdjuster);
+    }
+
+
+    /**
+     * Creates the NSGA-III algorithm. The algorithm is coupled with the random selection of parents.
+     *
+     * @param id                   algorithm id
+     * @param updateOSDynamically  if true, the OS will be updated dynamically; false = it will be fixed
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param problem              problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @param osAdjuster           auxiliary object responsible for customizing objective space manager params container
+     *                             built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(int id,
+                                     boolean updateOSDynamically,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem,
+                                     IAssignmentResolveTie assignmentResolveTie,
+                                     ISpecimenResolveTie specimenResolveTie,
+                                     ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNSGAIII(id, updateOSDynamically, false, R, goals, problem, assignmentResolveTie, specimenResolveTie, osAdjuster);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. Sets id to 0 and the algorithm is coupled with the random selection of parents.
+     *
+     * @param updateOSDynamically  if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent    if true, nadir incumbent will be used when updating OS
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param problem              problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @param osAdjuster           auxiliary object responsible for customizing objective space manager params container
+     *                             built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(boolean updateOSDynamically,
+                                     boolean useNadirIncumbent,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem,
+                                     IAssignmentResolveTie assignmentResolveTie,
+                                     ISpecimenResolveTie specimenResolveTie,
+                                     ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNSGAIII(0, updateOSDynamically, useNadirIncumbent, R, goals, problem, assignmentResolveTie, specimenResolveTie, osAdjuster);
+    }
+
+
+    /**
+     * Creates the NSGA-III algorithm. The algorithm is coupled with the random selection of parents.
+     *
+     * @param id                   algorithm id
+     * @param updateOSDynamically  if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent    if true, nadir incumbent will be used when updating OS
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param problem              problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @param osAdjuster           auxiliary object responsible for customizing objective space manager params container
+     *                             built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(int id,
+                                     boolean updateOSDynamically,
+                                     boolean useNadirIncumbent,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem,
+                                     IAssignmentResolveTie assignmentResolveTie,
+                                     ISpecimenResolveTie specimenResolveTie,
+                                     ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        ISelect select = new Random(2);
+        return getNSGAIII(id, updateOSDynamically, useNadirIncumbent, R, goals, problem, select,
+                problem._construct, problem._evaluate, problem._reproduce, assignmentResolveTie, specimenResolveTie, osAdjuster);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. Sets id to 0 and parameterizes the method to update the OS dynamically.
+     *
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param criteria             criteria
+     * @param select               parents selector
+     * @param construct            specimens constructor (creates decision double-vectors)
+     * @param evaluate             specimens evaluator (evaluates decision double-vectors)
+     * @param reproduce            specimens reproducer (creates offspring decision double-vectors)
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(IRandom R,
+                                     IGoal[] goals,
+                                     Criteria criteria,
+                                     ISelect select,
+                                     DoubleConstruct.IConstruct construct,
+                                     DoubleEvaluate.IEvaluate evaluate,
+                                     DoubleReproduce.IReproduce reproduce,
+                                     IAssignmentResolveTie assignmentResolveTie,
+                                     ISpecimenResolveTie specimenResolveTie)
+    {
+        return getNSGAIII(R, goals, criteria, select, construct, evaluate, reproduce, assignmentResolveTie, specimenResolveTie, null);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. Sets id to 0 and parameterizes the method to update the OS dynamically.
+     *
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param criteria             criteria
+     * @param select               parents selector
+     * @param construct            specimens constructor (creates decision double-vectors)
+     * @param evaluate             specimens evaluator (evaluates decision double-vectors)
+     * @param reproduce            specimens reproducer (creates offspring decision double-vectors)
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @param osAdjuster           auxiliary object responsible for customizing objective space manager params container
+     *                             built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(IRandom R,
+                                     IGoal[] goals,
+                                     Criteria criteria,
+                                     ISelect select,
+                                     DoubleConstruct.IConstruct construct,
+                                     DoubleEvaluate.IEvaluate evaluate,
+                                     DoubleReproduce.IReproduce reproduce,
+                                     IAssignmentResolveTie assignmentResolveTie,
+                                     ISpecimenResolveTie specimenResolveTie,
+                                     ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNSGAIII(true, false, R, goals, criteria, select, construct,
+                evaluate, reproduce, assignmentResolveTie, specimenResolveTie, osAdjuster);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. Sets id to 0.
+     *
+     * @param updateOSDynamically  if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent    if true, nadir incumbent will be used when updating OS
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param criteria             criteria
+     * @param select               parents selector
+     * @param construct            specimens constructor (creates decision double-vectors)
+     * @param evaluate             specimens evaluator (evaluates decision double-vectors)
+     * @param reproduce            specimens reproducer (creates offspring decision double-vectors)
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @param osAdjuster           auxiliary object responsible for customizing objective space manager params container
+     *                             built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(boolean updateOSDynamically,
+                                     boolean useNadirIncumbent,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     Criteria criteria,
+                                     ISelect select,
+                                     DoubleConstruct.IConstruct construct,
+                                     DoubleEvaluate.IEvaluate evaluate,
+                                     DoubleReproduce.IReproduce reproduce,
+                                     IAssignmentResolveTie assignmentResolveTie,
+                                     ISpecimenResolveTie specimenResolveTie,
+                                     ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNSGAIII(0, updateOSDynamically, useNadirIncumbent, R, goals,
+                MOOProblemBundle.getProblemBundle(criteria), select, new DoubleConstruct(construct),
+                new DoubleEvaluate(evaluate), new DoubleReproduce(reproduce), assignmentResolveTie,
+                specimenResolveTie, osAdjuster);
+    }
+
+
+    /**
+     * Creates the NSGA-III algorithm. Sets id to 0 and parameterizes the method to update the OS dynamically.
+     *
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param criteria             criteria
+     * @param select               parents selector
+     * @param construct            specimens constructor
+     * @param evaluate             specimens evaluator
+     * @param reproduce            specimens reproducer
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(IRandom R,
+                                     IGoal[] goals,
+                                     Criteria criteria,
+                                     ISelect select,
+                                     IConstruct construct,
+                                     IEvaluate evaluate,
+                                     IReproduce reproduce,
+                                     IAssignmentResolveTie assignmentResolveTie,
+                                     ISpecimenResolveTie specimenResolveTie)
+    {
+        return getNSGAIII(0, true, false, R, goals, MOOProblemBundle.getProblemBundle(criteria),
+                select, construct, evaluate, reproduce, assignmentResolveTie, specimenResolveTie);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm. Sets id to 0 and parameterizes the method to update the OS dynamically.
+     *
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param problem              problem bundle (provides criteria)
+     * @param select               parents selector
+     * @param construct            specimens constructor
+     * @param evaluate             specimens evaluator
+     * @param reproduce            specimens reproducer
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem,
+                                     ISelect select,
+                                     IConstruct construct,
+                                     IEvaluate evaluate,
+                                     IReproduce reproduce,
+                                     IAssignmentResolveTie assignmentResolveTie,
+                                     ISpecimenResolveTie specimenResolveTie)
+    {
+        return getNSGAIII(0, true, false, R, goals, problem, select, construct, evaluate,
+                reproduce, assignmentResolveTie, specimenResolveTie);
     }
 
     /**
@@ -115,6 +593,78 @@ public class NSGAIII extends EA
                                      IAssignmentResolveTie assignmentResolveTie,
                                      ISpecimenResolveTie specimenResolveTie)
     {
+        return getNSGAIII(id, updateOSDynamically, useNadirIncumbent, R, goals, problem, select, construct, evaluate,
+                reproduce, assignmentResolveTie, specimenResolveTie, null);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm.
+     *
+     * @param id                   algorithm id
+     * @param updateOSDynamically  if true, the OS will be updated dynamically; false = it will be fixed
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param problem              problem bundle (provides criteria, normalizations (when fixed))
+     * @param select               parents selector
+     * @param construct            specimens constructor
+     * @param evaluate             specimens evaluator
+     * @param reproduce            specimens reproducer
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @param osAdjuster           auxiliary object responsible for customizing objective space manager params container
+     *                             built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-III algorithm
+     */
+    public static NSGAIII getNSGAIII(int id,
+                                     boolean updateOSDynamically,
+                                     IRandom R,
+                                     IGoal[] goals,
+                                     AbstractMOOProblemBundle problem,
+                                     ISelect select,
+                                     IConstruct construct,
+                                     IEvaluate evaluate,
+                                     IReproduce reproduce,
+                                     IAssignmentResolveTie assignmentResolveTie,
+                                     ISpecimenResolveTie specimenResolveTie,
+                                     ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNSGAIII(id, updateOSDynamically, false, R, goals, problem, select, construct, evaluate,
+                reproduce, assignmentResolveTie, specimenResolveTie, osAdjuster);
+    }
+
+    /**
+     * Creates the NSGA-III algorithm.
+     *
+     * @param id                   algorithm id
+     * @param updateOSDynamically  if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent    if true, nadir incumbent will be used when updating OS
+     * @param R                    the RGN
+     * @param goals                optimization goals
+     * @param problem              problem bundle (provides criteria, normalizations (when fixed))
+     * @param select               parents selector
+     * @param construct            specimens constructor
+     * @param evaluate             specimens evaluator
+     * @param reproduce            specimens reproducer
+     * @param assignmentResolveTie object resolving the assignment selection ties
+     * @param specimenResolveTie   object resolving the specimen selection ties
+     * @param osAdjuster           auxiliary object responsible for customizing objective space manager params container
+     *                             built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-III algorithm
+     */
+    protected static NSGAIII getNSGAIII(int id,
+                                        boolean updateOSDynamically,
+                                        boolean useNadirIncumbent,
+                                        IRandom R,
+                                        IGoal[] goals,
+                                        AbstractMOOProblemBundle problem,
+                                        ISelect select,
+                                        IConstruct construct,
+                                        IEvaluate evaluate,
+                                        IReproduce reproduce,
+                                        IAssignmentResolveTie assignmentResolveTie,
+                                        ISpecimenResolveTie specimenResolveTie,
+                                        ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
         NSGAIIIGoalsManager.Params pManager = new NSGAIIIGoalsManager.Params(goals);
         NSGAIIIGoalsManager manager = new NSGAIIIGoalsManager(pManager);
 
@@ -129,8 +679,9 @@ public class NSGAIII extends EA
             ObjectiveSpaceManager.Params pOS = new ObjectiveSpaceManager.Params();
             pOS._criteria = problem._criteria;
             // Default incumbent strategy:
-            pOS._updateUtopiaUsingIncumbent = true;
+            pOS._updateUtopiaUsingIncumbent = false;
             pOS._updateNadirUsingIncumbent = useNadirIncumbent;
+            if (osAdjuster != null) osAdjuster.adjust(pOS);
             pB._osManager = new ObjectiveSpaceManager(pOS);
         }
         else

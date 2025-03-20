@@ -12,5 +12,6 @@
     <orderEntry type="module" module-name="Visualization" />
     <orderEntry type="module" module-name="Utils" />
     <orderEntry type="module" module-name="Experimentation" />
+    <orderEntry type="library" name="commons-math" level="project" />
   </component>
 </module>

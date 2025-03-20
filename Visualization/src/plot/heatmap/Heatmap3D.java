@@ -30,17 +30,17 @@ public class Heatmap3D extends Plot3D
     public static class Params extends Plot3D.Params
     {
         /**
-         * The number of divisions on the x-axis.
+         * The number of divisions on the X-axis.
          */
         public int _xDiv = 1;
 
         /**
-         * The number of divisions on the y-axis.
+         * The number of divisions on the Y-axis.
          */
         public int _yDiv = 1;
 
         /**
-         * The number of divisions on the z-axis.
+         * The number of divisions on the Z-axis.
          */
         public int _zDiv = 1;
 
@@ -56,17 +56,17 @@ public class Heatmap3D extends Plot3D
         public DisplayRangesManager.DisplayRange _heatmapDisplayRange;
 
         /**
-         * If true, the x-axis is customized so that every bucket has a tick (i.e., the number of ticks equals the number of divisions + ticks are centered).
+         * If true, the X-axis is customized so that every bucket has a tick (i.e., the number of ticks equals the number of divisions + ticks are centered).
          */
         public boolean _xAxisWithBoxTicks = false;
 
         /**
-         * If true, the y-axis is customized so that every bucket has a tick (i.e., the number of ticks equals the number of divisions + ticks are centered).
+         * If true, the Y-axis is customized so that every bucket has a tick (i.e., the number of ticks equals the number of divisions + ticks are centered).
          */
         public boolean _yAxisWithBoxTicks = false;
 
         /**
-         * If true, the z-axis is customized so that every bucket has a tick (i.e., the number of ticks equals the number of divisions + ticks are centered).
+         * If true, the Z-axis is customized so that every bucket has a tick (i.e., the number of ticks equals the number of divisions + ticks are centered).
          */
         public boolean _zAxisWithBoxTicks = false;
 
@@ -82,7 +82,7 @@ public class Heatmap3D extends Plot3D
 
 
         /**
-         * If true, the number of main depth grid lines (along z-axis) is set to match the number of buckets.
+         * If true, the number of main depth grid lines (along Z-axis) is set to match the number of buckets.
          */
         public boolean _depthGridLinesWithBoxTicks = true;
 

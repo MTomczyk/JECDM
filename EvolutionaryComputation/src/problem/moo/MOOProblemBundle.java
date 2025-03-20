@@ -45,7 +45,34 @@ public class MOOProblemBundle extends AbstractMOOProblemBundle
     }
 
     /**
-     * Construct and returns a problem bundle that does not involve default EA-related components.
+     * Constructs and returns a problem bundle that does not involve default EA-related components.
+     * Sets only the data supplied via this method.
+     *
+     * @param criteria default criteria definitions
+     * @return problem bundle
+     */
+    public static MOOProblemBundle getProblemBundle(Criteria criteria)
+    {
+        return getProblemBundle(null, null, null, null, null, criteria);
+    }
+
+    /**
+     * Constructs and returns a problem bundle that does not involve default EA-related components.
+     * Sets only the data supplied via this method.
+     *
+     * @param displayRanges display ranges for a test problem used when performing visualization (they may not match the true utopia/nadir points)
+     * @param criteria      default criteria definitions
+     * @return problem bundle
+     */
+    public static MOOProblemBundle getProblemBundle(Range[] displayRanges,
+                                                    Criteria criteria)
+    {
+        return getProblemBundle(displayRanges, null, null, null, null, criteria);
+    }
+
+    /**
+     * Constructs and returns a problem bundle that does not involve default EA-related components.
+     * Sets only the data supplied via this method.
      *
      * @param displayRanges     display ranges for a test problem used when performing visualization (they may not match the true utopia/nadir points)
      * @param paretoFrontBounds bounds for the Pareto front
@@ -62,7 +89,56 @@ public class MOOProblemBundle extends AbstractMOOProblemBundle
                                                     double[] nadir,
                                                     Criteria criteria)
     {
-        return new MOOProblemBundle(null, null, null, null, displayRanges, paretoFrontBounds, normalizations,
+        return getProblemBundle(null, null, null, displayRanges, paretoFrontBounds, normalizations,
                 utopia, nadir, criteria);
     }
+
+    /**
+     * Constructs and returns a problem bundle that does not involve default EA-related components.
+     * Sets only the data supplied via this method.
+     *
+     * @param construct constructs the initial population
+     * @param reproduce creates offspring
+     * @param evaluate  evaluates solutions
+     * @param criteria  default criteria definitions
+     * @return problem bundle
+     */
+    public static MOOProblemBundle getProblemBundle(IConstruct construct,
+                                                    IReproduce reproduce,
+                                                    IEvaluate evaluate,
+                                                    Criteria criteria)
+    {
+        return new MOOProblemBundle(null, construct, reproduce, evaluate, null, null, null,
+                null, null, criteria);
+    }
+
+    /**
+     * Constructs and returns a problem bundle that does not involve default EA-related components.
+     * Sets only the data supplied via this method.
+     *
+     * @param construct         constructs the initial population
+     * @param reproduce         creates offspring
+     * @param evaluate          evaluates solutions
+     * @param displayRanges     display ranges for a test problem used when performing visualization (they may not match the true utopia/nadir points)
+     * @param paretoFrontBounds bounds for the Pareto front
+     * @param normalizations    min-max normalizations for a test problem (min = true utopia point, max = true nadir point)
+     * @param utopia            true utopia point for a test problem
+     * @param nadir             true nadir point for a test problem
+     * @param criteria          default criteria definitions
+     * @return problem bundle
+     */
+    public static MOOProblemBundle getProblemBundle(IConstruct construct,
+                                                    IReproduce reproduce,
+                                                    IEvaluate evaluate,
+                                                    Range[] displayRanges,
+                                                    Range[] paretoFrontBounds,
+                                                    INormalization[] normalizations,
+                                                    double[] utopia,
+                                                    double[] nadir,
+                                                    Criteria criteria)
+    {
+        return new MOOProblemBundle(null, construct, reproduce, evaluate, displayRanges, paretoFrontBounds, normalizations,
+                utopia, nadir, criteria);
+    }
+
 }

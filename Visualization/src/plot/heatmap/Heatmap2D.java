@@ -28,12 +28,12 @@ public class Heatmap2D extends Plot2D
     public static class Params extends Plot2D.Params
     {
         /**
-         * The number of divisions on the x-axis.
+         * The number of divisions on the X-axis.
          */
         public int _xDiv = 1;
 
         /**
-         * The number of divisions on the y-axis.
+         * The number of divisions on the Y-axis.
          */
         public int _yDiv = 1;
 
@@ -49,12 +49,12 @@ public class Heatmap2D extends Plot2D
         public DisplayRangesManager.DisplayRange _heatmapDisplayRange = null;
 
         /**
-         * If true, the x-axis is customized so that every bucket has a tick (i.e., the number of ticks equals the number of divisions + ticks are centered).
+         * If true, the X-axis is customized so that every bucket has a tick (i.e., the number of ticks equals the number of divisions + ticks are centered).
          */
         public boolean _xAxisWithBoxTicks = false;
 
         /**
-         * If true, the y-axis is customized so that every bucket has a tick (i.e., the number of ticks equals the number of divisions + ticks are centered).
+         * If true, the Y-axis is customized so that every bucket has a tick (i.e., the number of ticks equals the number of divisions + ticks are centered).
          */
         public boolean _yAxisWithBoxTicks = false;
 

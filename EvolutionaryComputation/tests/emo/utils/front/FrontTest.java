@@ -111,8 +111,7 @@ class FrontTest
         ArrayList<Specimen> specimens = new ArrayList<>();
         for (int i = 0; i < e.length; i++)
             specimens.add(new Specimen(new SpecimenID(0, 0, 0, i), e[i]));
-        Criteria C = Criteria.constructCriteria("C", 2, false);
-        C._c[0].setGain(true);
+        Criteria C = Criteria.constructCriteria(new String[]{"C1", "C2"}, new boolean[]{true, false});
         Dominance D = new Dominance(C);
         Front F = new Front(D);
         LinkedList<Specimen> nds = F.getNonDominatedSpecimens(specimens);
@@ -143,8 +142,7 @@ class FrontTest
         ArrayList<Specimen> specimens = new ArrayList<>();
         for (int i = 0; i < e.length; i++)
             specimens.add(new Specimen(new SpecimenID(0, 0, 0, i), e[i]));
-        Criteria C = Criteria.constructCriteria("C", 2, false);
-        C._c[1].setGain(true);
+        Criteria C = Criteria.constructCriteria(new String[]{"C1", "C2"}, new boolean[]{false, true});
         Dominance D = new Dominance(C);
         Front F = new Front(D);
         LinkedList<Specimen> nds = F.getNonDominatedSpecimens(specimens);
@@ -171,8 +169,7 @@ class FrontTest
         ArrayList<Specimen> specimens = new ArrayList<>();
         for (int i = 0; i < e.length; i++)
             specimens.add(new Specimen(new SpecimenID(0, 0, 0, i), e[i]));
-        Criteria C = Criteria.constructCriteria("C", 2, false);
-        C._c[1].setGain(true);
+        Criteria C = Criteria.constructCriteria(new String[]{"C1", "C2"}, new boolean[]{false, true});
         Dominance D = new Dominance(C);
         Front F = new Front(D);
         LinkedList<Specimen> nds = F.getNonDominatedSpecimens(specimens);

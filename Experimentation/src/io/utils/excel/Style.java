@@ -1,7 +1,8 @@
 package io.utils.excel;
 
 import color.Color;
-import color.ColorPalettes;
+import color.palette.AbstractColorPalette;
+import color.palette.DefaultPalette;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xddf.usermodel.chart.MarkerStyle;
 import org.apache.poi.xddf.usermodel.chart.XDDFLineChartData;
@@ -122,7 +123,7 @@ public class Style
     /**
      * Line colors (for line plots; null = not used).
      */
-    public Color[] _lineColors = ColorPalettes._colors;
+    public AbstractColorPalette _lineColors = new DefaultPalette();
 
     /**
      * If true, the lines illustrated in charts are smoothened.
@@ -132,11 +133,11 @@ public class Style
     /**
      * Applies style to a line chart data series.
      *
-     * @param chart  chart
-     * @param series series
-     * @param title  series' title
+     * @param chart       chart
+     * @param series      series
+     * @param title       series' title
      * @param colorIndex  color index
-     * @param seriesIndex  series index
+     * @param seriesIndex series index
      */
     public void applyLineStyle(XSSFChart chart,
                                XDDFLineChartData.Series series,
@@ -151,12 +152,12 @@ public class Style
         CTSolidColorFillProperties fillProp = CTSolidColorFillProperties.Factory.newInstance();
         if (_lineColors != null)
         {
-            int color = colorIndex % _lineColors.length;
+            Color color = _lineColors.getColor(colorIndex);
             CTSRgbColor rgb = CTSRgbColor.Factory.newInstance();
             rgb.setVal(new byte[]{
-                    (byte) _lineColors[color].getRed(),
-                    (byte) _lineColors[color].getGreen(),
-                    (byte) _lineColors[color].getBlue()});
+                    (byte) color.getRed(),
+                    (byte) color.getGreen(),
+                    (byte) color.getBlue()});
             fillProp.setSrgbClr(rgb);
         }
 

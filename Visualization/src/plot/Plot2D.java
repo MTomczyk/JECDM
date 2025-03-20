@@ -76,8 +76,6 @@ public class Plot2D extends AbstractPlot
         return new DrawingArea2D(pD);
     }
 
-
-
     /**
      * Auxiliary method for instantiating plot axes.
      *

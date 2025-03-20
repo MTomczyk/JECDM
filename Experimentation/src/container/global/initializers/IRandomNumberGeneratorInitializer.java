@@ -2,6 +2,7 @@ package container.global.initializers;
 
 import container.global.GlobalDataContainer;
 import random.IRandom;
+import scenario.Scenario;
 
 /**
  * Interfaces for objects providing random number generators (called by {@link GlobalDataContainer}).
@@ -11,11 +12,12 @@ import random.IRandom;
 public interface IRandomNumberGeneratorInitializer
 {
     /**
-     * Main method.
+     * Main method. Called implicitly by {@link executor.ScenarioExecutor} when creating trial data containers.
      *
-     * @param currentCounterValue GDC increments the RNG counter each time a new instance is created; this input is
-     *                            a non-colliding integer value that can be used as a seed when instantiating the RNG
-     * @return random number generator instance
+     * @param scenario trial's scenario requesting the random number generator
+     * @param trialID  ID of a trial requesting the random number generator
+     * @param noTrials total number of trials per scenario
+     * @return random number generator
      */
-    IRandom getRNG(int currentCounterValue);
+    IRandom getRNG(Scenario scenario, int trialID, int noTrials);
 }

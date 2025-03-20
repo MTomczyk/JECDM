@@ -37,15 +37,22 @@ public class Scenario
     private boolean _disabled;
 
     /**
+     * Scenario identifier
+     */
+    private final int _id;
+
+    /**
      * Parameterized constructor.
      *
      * @param keyValues all considered keys and their linked (single) values (1:1 mapping)
+     * @param id        scenario identifier
      */
-    public Scenario(KeyValue[] keyValues)
+    public Scenario(KeyValue[] keyValues, int id)
     {
         _keyValues = keyValues;
         _keyValuesMap = new HashMap<>(keyValues.length);
         _disabled = false;
+        _id = id;
         for (KeyValue kv : keyValues)
         {
             _keyValuesMap.put(kv.getKey().toString(), kv.getValue());
@@ -123,7 +130,7 @@ public class Scenario
 
     /**
      * Provides quick access for a value representing a problem.
-     * If the scenario does not contain a problem-related key (see {@link Keys}), the method returns null.
+     * If the scenario does not contain a problem-related key (see {@link Keys#KEY_PROBLEM}), the method returns null.
      *
      * @return problem-related value, or null if not specified
      */
@@ -136,7 +143,7 @@ public class Scenario
 
     /**
      * Provides quick access for a string representing a problem.
-     * If the scenario does not contain a problem-related key (see {@link Keys}), the method returns null.
+     * If the scenario does not contain a problem-related key (see {@link Keys#KEY_PROBLEM}), the method returns null.
      *
      * @return problem-related value, or null if not specified
      */
@@ -149,7 +156,7 @@ public class Scenario
 
     /**
      * Provides quick access for a value representing an algorithm.
-     * If the scenario does not contain an algorithm-related key (see {@link Keys}), the method returns null.
+     * If the scenario does not contain an algorithm-related key (see {@link Keys#KEY_ALGORITHM}), the method returns null.
      *
      * @return algorithm-related value, or null if not specified
      */
@@ -162,7 +169,7 @@ public class Scenario
 
     /**
      * Provides quick access for a string representing an algorithm.
-     * If the scenario does not contain an algorithm-related key (see {@link Keys}), the method returns null.
+     * If the scenario does not contain an algorithm-related key (see {@link Keys#KEY_ALGORITHM}), the method returns null.
      *
      * @return algorithm-related value, or null if not specified
      */
@@ -175,7 +182,7 @@ public class Scenario
 
     /**
      * Provides quick access for a value representing the number of objectives considered.
-     * If the scenario does not contain an objectives-related key (see {@link Keys}), the method returns null.
+     * If the scenario does not contain an objectives-related key (see {@link Keys#KEY_OBJECTIVES}), the method returns null.
      *
      * @return objectives-related value, or null if not specified
      */
@@ -187,7 +194,7 @@ public class Scenario
 
     /**
      * Provides quick access for an integer representing the number of objective considered.
-     * If the scenario does not contain an objectives-related key (see {@link Keys}), the method returns null.
+     * If the scenario does not contain an objectives-related key (see {@link Keys#KEY_OBJECTIVES}), the method returns null.
      *
      * @return objectives-related value, or null if not specified
      */
@@ -200,7 +207,7 @@ public class Scenario
 
     /**
      * Provides quick access for a value representing the number of generations considered.
-     * If the scenario does not contain a generations-related key (see {@link Keys}), the method returns null.
+     * If the scenario does not contain a generations-related key (see {@link Keys#KEY_GENERATIONS}), the method returns null.
      *
      * @return generations-related value, or null if not specified
      */
@@ -212,7 +219,7 @@ public class Scenario
 
     /**
      * Provides quick access for an integer representing the number of generations considered.
-     * If the scenario does not contain a generations-related key (see {@link Keys}), the method returns null.
+     * If the scenario does not contain a generations-related key (see {@link Keys#KEY_GENERATIONS}), the method returns null.
      *
      * @return generations-related value, or null if not specified
      */
@@ -269,6 +276,7 @@ public class Scenario
     /**
      * An auxiliary method for deriving a sub-scenario for the current one that excludes one selected key.
      * If the requested key does not exist or is the only one in the current scenario, the method returns null.
+     * The constructed sub-scenario inherits this scenario's ID.
      *
      * @param keyToExclude (string representation)
      * @return sub-scenario
@@ -281,6 +289,16 @@ public class Scenario
         int idx = 0;
         for (KeyValue keyValue : _keyValues)
             if (!keyValue.getKey().toString().equals(keyToExclude)) kvs[idx++] = keyValue;
-        return new Scenario(kvs);
+        return new Scenario(kvs, _id);
+    }
+
+    /**
+     * Getter for the scenario ID.
+     *
+     * @return scenario ID
+     */
+    public int getID()
+    {
+        return _id;
     }
 }

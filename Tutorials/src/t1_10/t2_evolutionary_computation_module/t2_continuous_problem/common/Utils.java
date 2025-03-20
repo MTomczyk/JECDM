@@ -112,7 +112,7 @@ public class Utils
         // Create the EA params container:
         EA.Params pEA = new EA.Params(bundle._name, pB._criteria);
         // Transfer all phases from the bundle to EA:
-        PhasesBundle.copyPhasesFromBundleToEA(pEA, bundle._phasesBundle);
+        PhasesBundle.copyPhasesFromBundleToEA(bundle._phasesBundle, pEA);
         // Set EA id:
         pEA._id = 0;
         // Set the random number generator (accessible from the ea object)"

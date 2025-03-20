@@ -100,6 +100,32 @@ public class PrintUtils
     }
 
     /**
+     * Constructs a string representing a vector of booleans (separated by spaces).
+     * Represents the flags as ``T'' (true) and ``F'' (false).
+     *
+     * @param v booleans
+     * @return the constructed string
+     */
+    public static String getVectorOfBooleans(boolean[] v)
+    {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < v.length; i++)
+        {
+            if (i < v.length - 1)
+            {
+                if (v[i]) s.append("T ");
+                else s.append("F ");
+            }
+            else
+            {
+                if (v[i]) s.append("T");
+                else s.append("F");
+            }
+        }
+        return s.toString();
+    }
+
+    /**
      * Prints a string representing a vector of integers (separated by spaces).
      *
      * @param v integers
@@ -133,6 +159,7 @@ public class PrintUtils
 
     /**
      * Prints a string representing a vector of booleans (separated by spaces).
+     * Prints the flags as ``T'' (true) and ``F'' (false).
      *
      * @param v booleans
      */
@@ -154,8 +181,7 @@ public class PrintUtils
      */
     public static void print2dBooleans(boolean[][] v)
     {
-        for (boolean[] bs : v)
-            print1dBooleans(bs);
+        for (boolean[] bs : v) print1dBooleans(bs);
     }
 
     /**

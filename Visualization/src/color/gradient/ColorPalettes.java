@@ -16,7 +16,7 @@ public class ColorPalettes
      */
     public static color.gradient.Color getFromDefaultPalette(int i)
     {
-        return new color.gradient.Color(color.ColorPalettes.getFromDefaultPalette(i));
+        return new color.gradient.Color(color.palette.ColorPalettes.getFromDefaultPalette(i));
     }
 
 }

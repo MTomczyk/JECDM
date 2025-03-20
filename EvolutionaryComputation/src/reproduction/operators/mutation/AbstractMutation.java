@@ -83,10 +83,12 @@ public abstract class AbstractMutation extends AbstractOperator implements IMuta
      *
      * @param o decision vector to be mutated
      * @param R random number generator
+     * @return returns input vector
      */
     @Override
-    public void mutate(int[] o, IRandom R)
+    public int[] mutate(int[] o, IRandom R)
     {
+        return o;
     }
 
     /**
@@ -94,11 +96,12 @@ public abstract class AbstractMutation extends AbstractOperator implements IMuta
      *
      * @param o decision vector to be mutated
      * @param R random number generator
+     * @return returns input vector
      */
     @Override
-    public void mutate(double[] o, IRandom R)
+    public double[] mutate(double[] o, IRandom R)
     {
-
+        return o;
     }
 
     /**
@@ -106,10 +109,11 @@ public abstract class AbstractMutation extends AbstractOperator implements IMuta
      *
      * @param o decision vector to be mutated
      * @param R random number generator
+     * @return returns input vector
      */
     @Override
-    public void mutate(boolean[] o, IRandom R)
+    public boolean[] mutate(boolean[] o, IRandom R)
     {
-
+        return o;
     }
 }

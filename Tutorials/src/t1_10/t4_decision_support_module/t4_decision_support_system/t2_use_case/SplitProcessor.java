@@ -16,7 +16,7 @@ public class SplitProcessor extends AbstractDataProcessor implements IDataProces
      */
     public SplitProcessor()
     {
-        super(new Params(true, false));
+        super(new Params(true, Integer.MAX_VALUE, false));
     }
 
     /**

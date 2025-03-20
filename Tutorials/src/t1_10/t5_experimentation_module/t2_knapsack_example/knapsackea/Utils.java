@@ -34,7 +34,7 @@ public class Utils
         pB._select = new Tournament(pTournament);
         KnapsackEABundle bundle = new KnapsackEABundle(pB);
         EA.Params pEA = new EA.Params(bundle._name, pB._criteria);
-        PhasesBundle.copyPhasesFromBundleToEA(pEA, bundle._phasesBundle);
+        PhasesBundle.copyPhasesFromBundleToEA(bundle._phasesBundle, pEA);
         pEA._id = 0;
         pEA._R = R;
         pEA._populationSize = populationSize;

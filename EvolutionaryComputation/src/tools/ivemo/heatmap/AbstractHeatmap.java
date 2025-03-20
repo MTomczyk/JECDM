@@ -23,22 +23,22 @@ public abstract class AbstractHeatmap
         public boolean _notify = true;
 
         /**
-         * X-axis display range used when dividing the objective space into buckets on the x-axis.
+         * X-axis display range used when dividing the objective space into buckets on the X-axis.
          */
         public Range _xAxisDisplayRange = null;
 
         /**
-         * Number of divisions on the x-axis (used to construct buckets).
+         * Number of divisions on the X-axis (used to construct buckets).
          */
         public int _xAxisDivisions = 100;
 
         /**
-         * X-axis display range used when dividing the objective space into buckets on the x-axis.
+         * X-axis display range used when dividing the objective space into buckets on the X-axis.
          */
         public Range _yAxisDisplayRange = null;
 
         /**
-         * Number of divisions on the y-axis (used to construct buckets).
+         * Number of divisions on the Y-axis (used to construct buckets).
          */
         public int _yAxisDivisions = 100;
     }
@@ -55,22 +55,22 @@ public abstract class AbstractHeatmap
     protected boolean _notify;
 
     /**
-     * X-axis display range used when dividing the objective space into buckets on the x-axis.
+     * X-axis display range used when dividing the objective space into buckets on the X-axis.
      */
     protected Range _xAxisDisplayRange;
 
     /**
-     * Number of divisions on the x-axis (used to construct buckets).
+     * Number of divisions on the X-axis (used to construct buckets).
      */
     protected int _xAxisDivisions;
 
     /**
-     * X-axis display range used when dividing the objective space into buckets on the x-axis.
+     * X-axis display range used when dividing the objective space into buckets on the X-axis.
      */
     protected Range _yAxisDisplayRange;
 
     /**
-     * Number of divisions on the y-axis (used to construct buckets).
+     * Number of divisions on the Y-axis (used to construct buckets).
      */
     protected int _yAxisDivisions;
 

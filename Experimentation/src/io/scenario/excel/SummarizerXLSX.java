@@ -1,5 +1,6 @@
 package io.scenario.excel;
 
+import color.Color;
 import exception.ScenarioException;
 import executor.ScenariosSummarizer;
 import indicator.IIndicator;
@@ -36,14 +37,12 @@ public class SummarizerXLSX extends AbstractExcelSummarizer implements IScenario
     /**
      * Default constructor.
      *
-     * @param style                   provides some basic customization options
+     * @param style provides some basic customization options
      */
     public SummarizerXLSX(Style style)
     {
         this("", "", null, null, null, null, false, 0, false, style);
     }
-
-
 
 
     /**
@@ -158,10 +157,8 @@ public class SummarizerXLSX extends AbstractExcelSummarizer implements IScenario
         XDDFSolidFillProperties fill = new XDDFSolidFillProperties();
         if (_excel._style._lineColors != null)
         {
-            XDDFColor color = XDDFColor.from(
-                    _excel._style._lineColors[0].getRed(),
-                    _excel._style._lineColors[0].getGreen(),
-                    _excel._style._lineColors[0].getBlue());
+            Color cp = _excel._style._lineColors.getColor(0);
+            XDDFColor color = XDDFColor.from(cp.getRed(), cp.getGreen(), cp.getBlue());
             fill.setColor(color);
         }
 

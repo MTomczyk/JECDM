@@ -35,7 +35,7 @@ class ScenarioDisablingConditionsTest
         assertEquals("", msg);
         assertNotNull(kvs);
         assertEquals(1, kvs.getValues().length);
-        Scenario scenario = new Scenario(new KeyValue[]{new KeyValue(kvs.getKey(), kvs.getValues()[0])});
+        Scenario scenario = new Scenario(new KeyValue[]{new KeyValue(kvs.getKey(), kvs.getValues()[0])}, 0);
         assertFalse(SDC.shouldBeDisabled(scenario));
     }
 
@@ -58,7 +58,7 @@ class ScenarioDisablingConditionsTest
         assertEquals("", msg);
         assertNotNull(kvs);
         assertEquals(1, kvs.getValues().length);
-        Scenario scenario = new Scenario(new KeyValue[]{new KeyValue(kvs.getKey(), kvs.getValues()[0])});
+        Scenario scenario = new Scenario(new KeyValue[]{new KeyValue(kvs.getKey(), kvs.getValues()[0])}, 0);
         assertTrue(SDC.shouldBeDisabled(scenario));
     }
 
@@ -83,7 +83,7 @@ class ScenarioDisablingConditionsTest
         assertNotNull(kvs);
         assertEquals(2, kvs.getValues().length);
         Scenario scenario = new Scenario(new KeyValue[]{new KeyValue(kvs.getKey(), kvs.getValues()[0]),
-                new KeyValue(kvs.getKey(), kvs.getValues()[1])});
+                new KeyValue(kvs.getKey(), kvs.getValues()[1])}, 0);
         assertTrue(SDC.shouldBeDisabled(scenario));
     }
 }

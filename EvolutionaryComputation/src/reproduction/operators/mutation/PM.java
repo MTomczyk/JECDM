@@ -18,7 +18,7 @@ public class PM extends AbstractMutation implements IMutate
         /**
          * Parameterized constructor.
          *
-         * @param probability probability of executing the flip
+         * @param probability       probability of executing the flip
          * @param distributionIndex distribution index
          */
         public Params(double probability, double distributionIndex)
@@ -53,7 +53,7 @@ public class PM extends AbstractMutation implements IMutate
     /**
      * Parameterized constructor. The wrap procedure {@link reproduction.valuecheck.Wrap} is used to constrain variable bounds to [0, 1].
      *
-     * @param probability probability of executing the flip
+     * @param probability       probability of executing the flip
      * @param distributionIndex distribution index
      */
     public PM(double probability, double distributionIndex)
@@ -64,7 +64,7 @@ public class PM extends AbstractMutation implements IMutate
     /**
      * Returns an object instance that does not perform value check (the variable values are not bounded)
      *
-     * @param probability probability of executing the flip
+     * @param probability       probability of executing the flip
      * @param distributionIndex distribution index
      * @return PM operator for unconstrained variables
      */
@@ -76,9 +76,9 @@ public class PM extends AbstractMutation implements IMutate
     /**
      * Returns an object instance that performs value check (the variable values are bounded to [0, 1])
      *
-     * @param probability probability of executing the flip
+     * @param probability       probability of executing the flip
      * @param distributionIndex distribution index
-     * @param valueCheck  procedure used to check the values
+     * @param valueCheck        procedure used to check the values
      * @return PM operator for unconstrained variables
      */
     public static PM getConstrained(double probability, double distributionIndex, IValueCheck valueCheck)
@@ -90,11 +90,13 @@ public class PM extends AbstractMutation implements IMutate
 
     /**
      * Execute PM (doubles only).
+     *
      * @param o decision vector to be mutated
      * @param R random number generator
+     * @return returns input vector
      */
     @Override
-    public void mutate(double[] o, IRandom R)
+    public double[] mutate(double[] o, IRandom R)
     {
         for (int i = 0; i < o.length; i++)
             if (R.nextDouble() < _probability)
@@ -106,7 +108,8 @@ public class PM extends AbstractMutation implements IMutate
                 {
                     double b = 2.0d * v + (1.0d - 2.0d * v) * (Math.pow(1.0d - o[i], (_distributionIndex + 1.0d)));
                     delta = Math.pow(b, (1.0 / (_distributionIndex + 1.0d))) - 1.0d;
-                } else
+                }
+                else
                 {
                     double b = 2.0d * (1.0d - v) + 2.0d * (v - 0.5) * (Math.pow(o[i], (_distributionIndex + 1.0d)));
                     delta = 1.0 - Math.pow(b, (1.0 / (_distributionIndex + 1.0d)));
@@ -114,6 +117,7 @@ public class PM extends AbstractMutation implements IMutate
 
                 o[i] = applyDoubleBoundCorrection(o[i] + delta, i);
             }
+        return o;
     }
 
 }

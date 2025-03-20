@@ -7,8 +7,6 @@ package updater;
  *
  * @author MTomczyk
  */
-
-
 public class CyclicDataSource extends AbstractSource implements IDataSource
 {
     /**

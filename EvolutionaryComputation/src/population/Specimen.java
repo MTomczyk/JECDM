@@ -166,56 +166,52 @@ public class Specimen implements IAlternativeWrapper
     }
 
     /**
-     * Getter for the integer decision vector (stored in the first gene in the chromosome (default)).
-     *
-     * @return decision vector (integers); if the decision vector is not instantiated, the method returns null;
-     */
-    public int[] getIntDecisionVector()
-    {
-        if (_chromosome == null) return null;
-        if (_chromosome._genes == null) return null;
-        if (_chromosome._genes.length == 0) return null;
-        return _chromosome._genes[0]._iv;
-    }
-
-    /**
-     * Setter for the integer decision vector (stored in the first gene in the chromosome (default)).
-     *
-     * @param iv decision vector (integers); if the internal data is not instantiated, the method returns null;
-     */
-    public void setIntDecisionVector(int[] iv)
-    {
-        if (_chromosome == null) return;
-        if (_chromosome._genes == null) return;
-        if (_chromosome._genes.length == 0) return;
-        _chromosome._genes[0]._iv = iv;
-    }
-
-    /**
      * Getter for the double decision vector (stored in the first gene in the chromosome (default)).
      *
      * @return decision vector (doubles); if the decision vector is not instantiated, the method returns null;
      */
     public double[] getDoubleDecisionVector()
     {
-        if (_chromosome == null) return null;
-        if (_chromosome._genes == null) return null;
-        if (_chromosome._genes.length == 0) return null;
-        return _chromosome._genes[0]._dv;
+        return getDoubleDecisionVector(0);
     }
 
     /**
-     * Setter for the double decision vector (stored in the first gene in the chromosome (default)).
+     * Getter for the double decision vector (stored in the specified gene).
      *
-     * @param dv decision vector (doubles); if the internal data is not instantiated, the method returns null;
+     * @param gene gene index
+     * @return decision vector (doubles); if the decision vector is not instantiated, the method returns null;
      */
-    public void setDoubleDecisionVector(double[] dv)
+    public double[] getDoubleDecisionVector(int gene)
     {
-        if (_chromosome == null) return;
-        if (_chromosome._genes == null) return;
-        if (_chromosome._genes.length == 0) return;
-        _chromosome._genes[0]._dv = dv;
+        if (_chromosome == null) return null;
+        if (_chromosome._genes == null) return null;
+        if (_chromosome._genes.length <= gene) return null;
+        return _chromosome._genes[gene]._dv;
     }
+
+    /**
+     * Getter for the integer decision vector (stored in the first gene in the chromosome (default)).
+     *
+     * @return decision vector (integers); if the decision vector is not instantiated, the method returns null;
+     */
+    public int[] getIntDecisionVector()
+    {
+        return getIntDecisionVector(0);
+    }
+
+    /**
+     * Getter for the integer decision vector (stored in the specified gene).
+     *
+     * @param gene gene index
+     * @return decision vector (integers); if the decision vector is not instantiated, the method returns null;
+     */
+    public int[] getIntDecisionVector(int gene)
+    {
+        if (_chromosome == null) return null;
+        if (_chromosome._genes == null) return null;
+        return _chromosome._genes[gene]._iv;
+    }
+
 
     /**
      * Getter for the boolean decision vector (stored in the first gene in the chromosome (default)).
@@ -231,17 +227,19 @@ public class Specimen implements IAlternativeWrapper
     }
 
     /**
-     * Setter for the boolean decision vector (stored in the first gene in the chromosome (default)).
+     * Getter for the boolean decision vector (stored in the specified gene).
      *
-     * @param bv decision vector (booleans); if the internal data is not instantiated, the method returns null;
+     * @param gene gene index
+     * @return decision vector (booleans); if the decision vector is not instantiated, the method returns null;
      */
-    public void setBooleanDecisionVector(boolean[] bv)
+    public boolean[] getBooleanDecisionVector(int gene)
     {
-        if (_chromosome == null) return;
-        if (_chromosome._genes == null) return;
-        if (_chromosome._genes.length == 0) return;
-        _chromosome._genes[0]._bv = bv;
+        if (_chromosome == null) return null;
+        if (_chromosome._genes == null) return null;
+        if (_chromosome._genes.length <= gene) return null;
+        return _chromosome._genes[gene]._bv;
     }
+
 
     /**
      * Setter for the chromosome.

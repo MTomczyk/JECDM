@@ -130,7 +130,7 @@ public class Executor3D extends AbstractExecutor
      * Applies translation (moving camera sideways).
      *
      * @param d  movement distance.
-     * @param dy modifier for the y-axis angle (0.0f = no modifier is applied)
+     * @param dy modifier for the Y-axis angle (0.0f = no modifier is applied)
      */
     protected void moveSide(float d, float dy)
     {
@@ -143,7 +143,7 @@ public class Executor3D extends AbstractExecutor
      * Applies translation moving camera up/down.
      *
      * @param d  movement distance.
-     * @param dx modifier for the x-axis angle (0.0f = no modifier is applied)
+     * @param dx modifier for the X-axis angle (0.0f = no modifier is applied)
      */
     protected void moveUp(float d, float dx)
     {

@@ -11,11 +11,11 @@ public class Criterion
     /**
      * Criterion name.
      */
-    private String _name;
+    private final String _name;
     /**
      * Criterion type, gain = true (the more, the better); false otherwise.
      */
-    private boolean _gain;
+    private final boolean _gain;
 
     /**
      * The identification number.
@@ -48,16 +48,6 @@ public class Criterion
     }
 
     /**
-     * Setter for name.
-     *
-     * @param name criterion name
-     */
-    public void setName(String name)
-    {
-        _name = name;
-    }
-
-    /**
      * Getter for criterion type.
      *
      * @return criterion type
@@ -67,15 +57,6 @@ public class Criterion
         return _gain;
     }
 
-    /**
-     * Setter for gain.
-     *
-     * @param gain criterion type
-     */
-    public void setGain(boolean gain)
-    {
-        _gain = gain;
-    }
 
     /**
      * Getter for criterion id.
@@ -108,6 +89,4 @@ public class Criterion
     {
         return _id;
     }
-
-
 }

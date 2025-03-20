@@ -75,6 +75,7 @@ public class Chromosome
 
     /**
      * Retrieves doubles from the first gene object.
+     *
      * @return doubles from the first gene object
      */
     public double[] getDoubles()
@@ -83,7 +84,19 @@ public class Chromosome
     }
 
     /**
+     * Retrieves doubles from the specified gene object.
+     *
+     * @param gene gene index
+     * @return doubles from the specified gene object
+     */
+    public double[] getDoubles(int gene)
+    {
+        return _genes[gene]._dv;
+    }
+
+    /**
      * Retrieves ints from the first gene object.
+     *
      * @return ints from the first gene object
      */
     public int[] getIntegers()
@@ -92,12 +105,35 @@ public class Chromosome
     }
 
     /**
+     * Retrieves ints from the specified gene object.
+     *
+     * @param gene gene index
+     * @return ints from the specified gene object
+     */
+    public int[] getIntegers(int gene)
+    {
+        return _genes[gene]._iv;
+    }
+
+    /**
      * Retrieves booleans from the first gene object.
+     *
      * @return booleans from the first gene object
      */
     public boolean[] getBooleans()
     {
         return _genes[0]._bv;
+    }
+
+    /**
+     * Retrieves booleans from the specified gene object.
+     *
+     * @param gene gene index
+     * @return booleans from the specified gene object
+     */
+    public boolean[] getBooleans(int gene)
+    {
+        return _genes[gene]._bv;
     }
 
     /**

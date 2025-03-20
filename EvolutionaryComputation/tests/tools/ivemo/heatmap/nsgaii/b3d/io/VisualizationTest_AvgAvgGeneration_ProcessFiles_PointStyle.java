@@ -91,7 +91,7 @@ class VisualizationTest_AvgAvgGeneration_ProcessFiles_PointStyle
             pAB._select = new Tournament(pT);
             NSGAIIBundle algorithmBundle = new NSGAIIBundle(pAB);
             EA.Params pEA = new EA.Params("NSGA-II", criteria);
-            PhasesBundle.copyPhasesFromBundleToEA(pEA, algorithmBundle._phasesBundle);
+            PhasesBundle.copyPhasesFromBundleToEA(algorithmBundle._phasesBundle, pEA);
             pEA._id = 0;
             pEA._R = R;
             pEA._populationSize = populationSize;

@@ -117,7 +117,7 @@ public class HV extends AbstractPerformanceIndicator implements IPerformanceIndi
          */
         public Params(int M, INormalization[] normalizations, double[] rp)
         {
-            this(M, normalizations, rp, true, PolicyForNonDominating.IGNORE, true, true, 1.0E-9);
+            this(M, normalizations, rp, true, PolicyForNonDominating.IGNORE, true, true, 1.0E-6);
         }
 
         /**

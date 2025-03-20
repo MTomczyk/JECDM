@@ -24,6 +24,8 @@ import tools.ivemo.heatmap.Heatmap2DProcessor;
 import tools.ivemo.heatmap.Heatmap3DProcessor;
 import tools.ivemo.heatmap.feature.Generation;
 
+import java.util.Objects;
+
 /**
  * This tutorial showcases how to employ {@link Heatmap2DProcessor} for analysis.
  * Case: MOEA/D, 3D, average mean generation when found.
@@ -50,7 +52,7 @@ public class Tutorial2c
         int zDiv = 100;
         int trials = 100;
         int cuts = 15; // no cuts for DND method
-        int SSR = DasDennis.getWeightVectors(3, cuts).size(); // get the number of steady-state repeats
+        int SSR = DasDennis.getNoProblems(3, cuts); // get the number of steady-state repeats
         System.out.println(SSR);
 
         // Considered bounds for the analysis for both dimensions (in objective/performance space):
@@ -64,6 +66,7 @@ public class Tutorial2c
         pHP._eaFactory = () -> {
             // MOEA/D applied to DTLZ2:
             AbstractMOOProblemBundle problem = AbstractMOOProblemBundle.getBundle(Problem.DTLZ2, 3);
+            assert problem != null;
             IGoal[] goals = GoalsFactory.getLNormsDND(3, cuts, Double.POSITIVE_INFINITY, problem._normalizations);
             return MOEAD.getMOEAD(0, false, false, R, goals,
                     problem, new Euclidean(), 10);
@@ -76,12 +79,12 @@ public class Tutorial2c
         pHP._featureGetter = new Generation(); // returns the feature (generation number when captured)
         pHP._trialStatistics = new Min(); // set per-trial statistic (mean = average of the reported generations)
         pHP._finalStatistics = new Mean(); // set final statistics (average of per-trial results)
-        pHP._xAxisDivisions = xDix; // set the discretization level for x-axis
-        pHP._xAxisDisplayRange = xDR; // set considered bound on the objective space (x-axis)
-        pHP._yAxisDivisions = yDiv; // set the discretization level for y-axis
-        pHP._yAxisDisplayRange = yDR; // set considered bound on the objective space (y-axis)
-        pHP._zAxisDivisions = zDiv; // set the discretization level for z-axis
-        pHP._zAxisDisplayRange = zDR; // set considered bound on the objective space (z-axis)
+        pHP._xAxisDivisions = xDix; // set the discretization level for X-axis
+        pHP._xAxisDisplayRange = xDR; // set considered bound on the objective space (X-axis)
+        pHP._yAxisDivisions = yDiv; // set the discretization level for Y-axis
+        pHP._yAxisDisplayRange = yDR; // set considered bound on the objective space (Y-axis)
+        pHP._zAxisDivisions = zDiv; // set the discretization level for Z-axis
+        pHP._zAxisDisplayRange = zDR; // set considered bound on the objective space (Z-axis)
         Heatmap3DProcessor h3D = new Heatmap3DProcessor(pHP);
 
         // Execute processing:

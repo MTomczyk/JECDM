@@ -15,7 +15,6 @@ import space.normalization.minmax.Linear;
  */
 public class DisplayRangesManager
 {
-
     /**
      * Container-like class representing a display range linked to some dimension/attribute/objective/etc.
      */
@@ -159,6 +158,21 @@ public class DisplayRangesManager
             if (_normalizer != null) normalizer = _normalizer.getClone();
             return new DisplayRange(r, _updateDynamically, _updateFromScratch, normalizer);
         }
+
+        /**
+         * Display range constructor.
+         *
+         * @param R                 range for the display range (can be null if the display range is to be updated dynamically)
+         * @param updateDynamically if true, the display range is to be updated dynamically, false = otherwise
+         * @param updateFromScratch if true, the display range is rebuilt from scratch if updated dynamically (false = current range is used as a base for the update)
+         * @return parameterized display range
+         */
+        public static DisplayRange getParameterizedDisplayRange(Range R, boolean updateDynamically, boolean updateFromScratch)
+        {
+            DisplayRangesManager.DisplayRange dr = new DisplayRangesManager.DisplayRange(R, updateDynamically, updateFromScratch);
+            if ((R != null)) dr._normalizer.setMinMax(R.getLeft(), R.getRight());
+            return dr;
+        }
     }
 
     /**
@@ -249,14 +263,40 @@ public class DisplayRangesManager
         /**
          * Parameterized constructor (sets the display ranges as provided).
          *
-         * @param range         ranges to be set
+         * @param ranges        ranges to be set
          * @param dynamicUpdate dynamic update flag set (incumbents will be used if true)
          */
-        public Params(Range[] range, boolean dynamicUpdate)
+        public Params(Range[] ranges, boolean dynamicUpdate)
         {
-            _DR = new DisplayRange[range.length];
-            for (int i = 0; i < range.length; i++)
-                _DR[i] = new DisplayRange(range[i], dynamicUpdate, false);
+            _DR = new DisplayRange[ranges.length];
+            for (int i = 0; i < ranges.length; i++)
+                _DR[i] = new DisplayRange(ranges[i], dynamicUpdate, false);
+            createDefaultMapping(ranges.length);
+        }
+
+        /**
+         * Parameterized constructor (sets the display ranges as provided).
+         *
+         * @param ranges         ranges to be set
+         * @param dynamicUpdates dynamic update flags (correspond 1:1 with the ranges)
+         */
+        public Params(Range[] ranges, boolean[] dynamicUpdates)
+        {
+            _DR = new DisplayRange[ranges.length];
+            for (int i = 0; i < ranges.length; i++)
+                _DR[i] = new DisplayRange(ranges[i], dynamicUpdates[i], false);
+            createDefaultMapping(ranges.length);
+        }
+
+        /**
+         * Auxiliary method for instantiating default attribute:DR mapping.
+         *
+         * @param n the number of display ranges
+         */
+        protected void createDefaultMapping(int n)
+        {
+            _attIdx_to_drIdx = new Integer[n];
+            for (int i = 0; i < n; i++) _attIdx_to_drIdx[i] = i;
         }
 
         /**
@@ -266,7 +306,7 @@ public class DisplayRangesManager
          */
         public static Params getFor2D()
         {
-            return getFor2D(null, true, false, null, true, false);
+            return DRMPFactory.getFor2D();
         }
 
         /**
@@ -278,7 +318,7 @@ public class DisplayRangesManager
          */
         public static Params getFor2D(Range xDisplayRange, Range yDisplayRange)
         {
-            return getFor2D(xDisplayRange, false, false, yDisplayRange, false, false);
+            return DRMPFactory.getFor2D(xDisplayRange, yDisplayRange);
         }
 
         /**
@@ -295,14 +335,9 @@ public class DisplayRangesManager
         public static Params getFor2D(Range xDisplayRange, boolean updateDynamicallyX, boolean updateXFromScratch,
                                       Range yDisplayRange, boolean updateDynamicallyY, boolean updateYFromScratch)
         {
-            Params p = new Params();
-            p._DR = new DisplayRange[2];
-            p._DR[0] = getParameterizedDisplayRange(xDisplayRange, updateDynamicallyX, updateXFromScratch);
-            p._DR[1] = getParameterizedDisplayRange(yDisplayRange, updateDynamicallyY, updateYFromScratch);
-            p._attIdx_to_drIdx = new Integer[]{0, 1};
-            return p;
+            return DRMPFactory.getFor2D(xDisplayRange, updateDynamicallyX, updateXFromScratch, yDisplayRange,
+                    updateDynamicallyY, updateYFromScratch);
         }
-
 
         /**
          * Params getter. Sets display ranges to null and allows them to be updated dynamically.
@@ -311,8 +346,7 @@ public class DisplayRangesManager
          */
         public static Params getFor3D()
         {
-            return getFor3D(null, true, false, null,
-                    true, false, null, true, false);
+            return DRMPFactory.getFor3D();
         }
 
         /**
@@ -325,9 +359,7 @@ public class DisplayRangesManager
          */
         public static Params getFor3D(Range xDisplayRange, Range yDisplayRange, Range zDisplayRange)
         {
-            return getFor3D(xDisplayRange, false, false,
-                    yDisplayRange, false, false,
-                    zDisplayRange, false, false);
+            return DRMPFactory.getFor3D(xDisplayRange, yDisplayRange, zDisplayRange);
         }
 
         /**
@@ -348,13 +380,8 @@ public class DisplayRangesManager
                                       Range yDisplayRange, boolean updateDynamicallyY, boolean updateYFromScratch,
                                       Range zDisplayRange, boolean updateDynamicallyZ, boolean updateZFromScratch)
         {
-            Params p = new Params();
-            p._DR = new DisplayRange[3];
-            p._DR[0] = getParameterizedDisplayRange(xDisplayRange, updateDynamicallyX, updateXFromScratch);
-            p._DR[1] = getParameterizedDisplayRange(yDisplayRange, updateDynamicallyY, updateYFromScratch);
-            p._DR[2] = getParameterizedDisplayRange(zDisplayRange, updateDynamicallyZ, updateZFromScratch);
-            p._attIdx_to_drIdx = new Integer[]{0, 1, 2};
-            return p;
+            return DRMPFactory.getFor3D(xDisplayRange, updateDynamicallyX, updateXFromScratch, yDisplayRange,
+                    updateDynamicallyY, updateYFromScratch, zDisplayRange, updateDynamicallyZ, updateZFromScratch);
         }
 
 
@@ -369,10 +396,7 @@ public class DisplayRangesManager
          */
         public static Params getFor4D(Range xDisplayRange, Range yDisplayRange, Range zDisplayRange, Range aDisplayRange)
         {
-            return getFor4D(xDisplayRange, false, false,
-                    yDisplayRange, false, false,
-                    zDisplayRange, false, false,
-                    aDisplayRange, false, false);
+            return DRMPFactory.getFor4D(xDisplayRange, yDisplayRange, zDisplayRange, aDisplayRange);
         }
 
         /**
@@ -397,19 +421,13 @@ public class DisplayRangesManager
                                       Range zDisplayRange, boolean updateDynamicallyZ, boolean updateZFromScratch,
                                       Range aDisplayRange, boolean updateDynamicallyA, boolean updateAFromScratch)
         {
-            Params p = new Params();
-            p._DR = new DisplayRange[4];
-            p._DR[0] = getParameterizedDisplayRange(xDisplayRange, updateDynamicallyX, updateXFromScratch);
-            p._DR[1] = getParameterizedDisplayRange(yDisplayRange, updateDynamicallyY, updateYFromScratch);
-            p._DR[2] = getParameterizedDisplayRange(zDisplayRange, updateDynamicallyZ, updateZFromScratch);
-            p._DR[3] = getParameterizedDisplayRange(aDisplayRange, updateDynamicallyA, updateAFromScratch);
-            p._attIdx_to_drIdx = new Integer[]{0, 1, 2, 3};
-            return p;
+            return DRMPFactory.getFor4D(xDisplayRange, updateDynamicallyX, updateXFromScratch, yDisplayRange,
+                    updateDynamicallyY, updateYFromScratch, zDisplayRange, updateDynamicallyZ, updateZFromScratch,
+                    aDisplayRange, updateDynamicallyA, updateAFromScratch);
         }
 
         /**
-         * Params getter for the convergence plot.
-         * Sets display ranges to null and allows them to be updated dynamically.
+         * Params getter for the convergence plot. Sets display ranges to null and allows them to be updated dynamically.
          * The third (upper bound) and the fourth (lower bound) attribute are mapped on the second display range that
          * should be linked to Y-axis.
          *
@@ -417,14 +435,13 @@ public class DisplayRangesManager
          */
         public static Params getForConvergencePlot2D()
         {
-            return getForConvergencePlot2D(null, true, false, null, true, false);
+            return DRMPFactory.getForConvergencePlot2D();
         }
 
         /**
-         * Params getter for the converge plot.
-         * Sets display ranges as provided and prohibits their update.
-         * The third (upper bound) and the fourth (lower bound) attribute are mapped on the second display range that
-         * should be linked to Y-axis.
+         * Params getter for the converge plot. Sets display ranges as provided and prohibits their update. The third
+         * (upper bound) and the fourth (lower bound) attribute are mapped on the second display range that should be
+         * linked to Y-axis.
          *
          * @param xDisplayRange display range for X-axis
          * @param yDisplayRange display range for Y-axis
@@ -432,14 +449,12 @@ public class DisplayRangesManager
          */
         public static Params getForConvergencePlot2D(Range xDisplayRange, Range yDisplayRange)
         {
-            return getForConvergencePlot2D(xDisplayRange, false, false, yDisplayRange, false, false);
+            return DRMPFactory.getForConvergencePlot2D(xDisplayRange, yDisplayRange);
         }
 
         /**
-         * Params getter for the convergence plot.
-         * Sets display ranges as provided.
-         * The first display ranges are devoted to Y-axes (parallel coordinates).
-         * The last display range is fixed and auxiliary, and is linked to X-axis ([0, 1] range).
+         * Params getter for the converge plot. Sets display ranges as provided. The third (upper bound) and the fourth
+         * (lower bound) attribute are mapped on the second display range that should be linked to Y-axis.
          *
          * @param xDisplayRange      initial display range for X-axis
          * @param yDisplayRange      initial display range for Y-axis
@@ -452,33 +467,27 @@ public class DisplayRangesManager
         public static Params getForConvergencePlot2D(Range xDisplayRange, boolean updateDynamicallyX, boolean updateXFromScratch,
                                                      Range yDisplayRange, boolean updateDynamicallyY, boolean updateYFromScratch)
         {
-            Params p = new Params();
-            p._DR = new DisplayRange[2];
-            p._DR[0] = getParameterizedDisplayRange(xDisplayRange, updateDynamicallyX, updateXFromScratch);
-            p._DR[1] = getParameterizedDisplayRange(yDisplayRange, updateDynamicallyY, updateYFromScratch);
-            p._attIdx_to_drIdx = new Integer[]{0, 1, 1, 1};
-            p._explicitlyCopyMappingFromAttToDr = true;
-            return p;
+            return DRMPFactory.getForConvergencePlot2D(xDisplayRange, updateDynamicallyX, updateXFromScratch,
+                    yDisplayRange, updateDynamicallyY, updateYFromScratch);
         }
 
         /**
-         * Params getter for the parallel coordinate plot.
-         * The ranges are unknown but are allowed to be updated dynamically.
-         * The first display ranges are devoted to Y-axes (parallel coordinates).
-         * The last display range is fixed and auxiliary, and is linked to X-axis ([0, 1] range).
+         * Params getter for the parallel coordinate plot. The ranges are unknown but are allowed to be updated
+         * dynamically. The first "dimensions" display ranges are devoted to Y-axes (parallel coordinates). The last
+         * (extra) display range is fixed and auxiliary, and is linked to X-axis ([0, 1] range).
          *
          * @param dimensions number of dimension  (np. parallel coordinate lines); should be at least 1
          * @return params container
          */
         public static Params getForParallelCoordinatePlot2D(int dimensions)
         {
-            return getForParallelCoordinatePlot2D(dimensions, null, true, false);
+            return DRMPFactory.getForParallelCoordinatePlot2D(dimensions);
         }
 
         /**
-         * Params getter for the parallel coordinate plot (sets ``update from scratch'' flags to false).
-         * Sets display ranges as provided. The first display ranges are devoted to Y-axes (parallel coordinates).
-         * The last display range is fixed and auxiliary, and is linked to X-axis ([0, 1] range).
+         * Params getter for the parallel coordinate plot (sets ``update from scratch'' flags to false). Sets display
+         * ranges as provided. The first "dimensions" display ranges are devoted to Y-axes (parallel coordinates). The
+         * last (extra) display range is fixed and auxiliary, and is linked to X-axis ([0, 1] range).
          *
          * @param dimensions        number of dimension  (np. parallel coordinate lines); should be at least 1
          * @param yDisplayRange     initial display range (applied to each dimension)
@@ -487,13 +496,13 @@ public class DisplayRangesManager
          */
         public static Params getForParallelCoordinatePlot2D(int dimensions, Range yDisplayRange, boolean updateDynamically)
         {
-            return getForParallelCoordinatePlot2D(dimensions, yDisplayRange, updateDynamically, false);
+            return DRMPFactory.getForParallelCoordinatePlot2D(dimensions, yDisplayRange, updateDynamically);
         }
 
         /**
-         * Params getter for the parallel coordinate plot.
-         * Sets display ranges as provided. The first display ranges are devoted to Y-axes (parallel coordinates).
-         * The last display range is fixed and auxiliary, and is linked to X-axis ([0, 1] range).
+         * Params getter for the parallel coordinate plot. Sets display ranges as provided. The first "dimensions"
+         * display ranges are devoted to Y-axes (parallel coordinates). The last display range is fixed and auxiliary,
+         * and is linked to X-axis ([0, 1] range).
          *
          * @param dimensions        number of dimension  (np. parallel coordinate lines); should be at least 1
          * @param yDisplayRange     initial display range (applied to each dimension)
@@ -503,23 +512,13 @@ public class DisplayRangesManager
          */
         public static Params getForParallelCoordinatePlot2D(int dimensions, Range yDisplayRange, boolean updateDynamically, boolean updateFromScratch)
         {
-            Range[] r = new Range[dimensions];
-            boolean[] ud = new boolean[dimensions];
-            boolean[] us = new boolean[dimensions];
-            for (int i = 0; i < dimensions; i++)
-            {
-                if (yDisplayRange != null) r[i] = yDisplayRange.getClone();
-                else r[i] = null;
-                ud[i] = updateDynamically;
-                us[i] = updateFromScratch;
-            }
-            return getForParallelCoordinatePlot2D(dimensions, r, ud, us);
+            return DRMPFactory.getForParallelCoordinatePlot2D(dimensions, yDisplayRange, updateDynamically, updateFromScratch);
         }
 
         /**
          * Params getter for the parallel coordinate plot (sets ``update from scratch'' flags to false).
-         * Sets display ranges as provided. The first display ranges are devoted to Y-axes (parallel coordinates).
-         * The last display range is fixed and auxiliary, and is linked to X-axis ([0, 1] range).
+         * Sets display ranges as provided. The first "dimensions" display ranges are devoted to Y-axes (parallel
+         * coordinates). The last (extra) display range is fixed and auxiliary, and is linked to X-axis ([0, 1] range).
          *
          * @param dimensions        number of dimension  (np. parallel coordinate lines); should be at least 1
          * @param yDisplayRanges    initial display ranges per dimension
@@ -528,13 +527,13 @@ public class DisplayRangesManager
          */
         public static Params getForParallelCoordinatePlot2D(int dimensions, Range[] yDisplayRanges, boolean[] updateDynamically)
         {
-            return getForParallelCoordinatePlot2D(dimensions, yDisplayRanges, updateDynamically, new boolean[updateDynamically.length]);
+            return DRMPFactory.getForParallelCoordinatePlot2D(dimensions, yDisplayRanges, updateDynamically);
         }
 
         /**
-         * Params getter for the parallel coordinate plot.
-         * Sets display ranges as provided. The first display ranges are devoted to Y-axes (parallel coordinates).
-         * The last display range is fixed and auxiliary, and is linked to X-axis ([0, 1] range).
+         * Params getter for the parallel coordinate plot. Sets display ranges as provided.
+         * The first "dimensions" display ranges are devoted to Y-axes (parallel coordinates).
+         * The last (extra) display range is fixed and auxiliary, and is linked to X-axis ([0, 1] range).
          *
          * @param dimensions        number of dimension  (np. parallel coordinate lines); should be at least 1
          * @param yDisplayRanges    initial display ranges per dimension
@@ -544,32 +543,7 @@ public class DisplayRangesManager
          */
         public static Params getForParallelCoordinatePlot2D(int dimensions, Range[] yDisplayRanges, boolean[] updateDynamically, boolean[] updateFromScratch)
         {
-            Params p = new Params();
-            p._DR = new DisplayRange[dimensions + 1];
-            p._attIdx_to_drIdx = new Integer[dimensions];
-            p._explicitlyCopyMappingFromAttToDr = true;
-            for (int i = 0; i < dimensions; i++)
-            {
-                p._DR[i] = new DisplayRange(yDisplayRanges[i], updateDynamically[i], updateFromScratch[i]);
-                p._attIdx_to_drIdx[i] = i;
-            }
-            p._DR[dimensions] = new DisplayRangesManager.DisplayRange(Range.getNormalRange(), false, false);
-            return p;
-        }
-
-        /**
-         * Display range constructor.
-         *
-         * @param R                 range for the display range (can be null if the display range is to be updated dynamically)
-         * @param updateDynamically if true, the display range is to be updated dynamically, false = otherwise
-         * @param updateFromScratch if true, the display range is rebuilt from scratch if updated dynamically (false = current range is used as a base for the update)
-         * @return parameterized display range
-         */
-        private static DisplayRange getParameterizedDisplayRange(Range R, boolean updateDynamically, boolean updateFromScratch)
-        {
-            DisplayRange dr = new DisplayRange(R, updateDynamically, updateFromScratch);
-            if ((R != null)) dr._normalizer.setMinMax(R.getLeft(), R.getRight());
-            return dr;
+            return DRMPFactory.getForParallelCoordinatePlot2D(dimensions, yDisplayRanges, updateDynamically, updateFromScratch);
         }
     }
 
@@ -638,27 +612,6 @@ public class DisplayRangesManager
                 }
             }
         }
-    }
-
-    /**
-     * Can be used to create a series of display ranges with specified properties.
-     *
-     * @param n                 the number of display ranges to generate
-     * @param R                 ranges (the same for all dimensions, the object will be cloned; can also be null when the range is to be updated dynamically)
-     * @param updateDynamically if true, display range is dynamically updated when anew data set is examined (given the linked dimension)
-     * @param updateFromScratch if true and the {@link DisplayRange#_updateDynamically} flag is true, the display range is updated considering also the past data. If false, the display range is recalculated from scratch.=
-     * @return n display ranges
-     */
-    public static DisplayRange[] getDisplayRanges(int n, Range R, boolean updateDynamically, boolean updateFromScratch)
-    {
-        DisplayRange[] drs = new DisplayRange[n];
-        for (int i = 0; i < n; i++)
-        {
-            Range r = null;
-            if (R != null) r = R.getClone();
-            drs[i] = new DisplayRange(r, updateDynamically, updateFromScratch);
-        }
-        return drs;
     }
 
     /**
@@ -953,9 +906,9 @@ public class DisplayRangesManager
     }
 
     /**
-     * Auxiliary method returning current display range for x-axis.
+     * Auxiliary method returning current display range for X-axis.
      *
-     * @return display range for the x-axis
+     * @return display range for the X-axis
      */
     public DisplayRange getDisplayRangeForXAxis()
     {
@@ -963,9 +916,9 @@ public class DisplayRangesManager
     }
 
     /**
-     * Auxiliary method returning current display range for y-axis.
+     * Auxiliary method returning current display range for Y-axis.
      *
-     * @return display range for the y-axis
+     * @return display range for the Y-axis
      */
     public DisplayRange getDisplayRangeForYAxis()
     {
@@ -973,9 +926,9 @@ public class DisplayRangesManager
     }
 
     /**
-     * Auxiliary method returning current display range for z-axis.
+     * Auxiliary method returning current display range for Z-axis.
      *
-     * @return display range for the z-axis
+     * @return display range for the Z-axis
      */
     public DisplayRange getDisplayRangeForZAxis()
     {

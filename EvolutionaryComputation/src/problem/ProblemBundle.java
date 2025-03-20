@@ -37,9 +37,22 @@ public class ProblemBundle extends AbstractProblemBundle
 
     /**
      * Construct and returns a problem bundle that does not involve default EA-related components.
+     * Sets only the data that is supplied via this method.
      *
-     * @param criteria               criteria array
-     * @param utopia                 true utopia point for a test problem
+     * @param criteria criteria array
+     * @return problem bundle
+     */
+    public static ProblemBundle getProblemBundle(Criteria criteria)
+    {
+        return getProblemBundle(criteria, null);
+    }
+
+    /**
+     * Construct and returns a problem bundle that does not involve default EA-related components.
+     * Sets only the data that is supplied via this method.
+     *
+     * @param criteria criteria array
+     * @param utopia   true utopia point for a test problem
      * @return problem bundle
      */
     public static ProblemBundle getProblemBundle(Criteria criteria, double[] utopia)

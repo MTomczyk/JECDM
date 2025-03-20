@@ -17,9 +17,17 @@ abstract public class AbstractDataProcessor implements IDataProcessor
     public static class Params
     {
         /**
-         * If true: current data captures all data collected throughout subsequent calls; false = represents only the most recently submitted data.
+         * If true: current data captures all data collected throughout subsequent calls; false = represents only
+         * the most recently submitted data.
          */
         public boolean _cumulative;
+
+        /**
+         * Limit for the accumulated data arrays. In the case of exceeding the threshold, the oldest entry is removed.
+         * In the case when the flag "interlace nulls" is true, the last two oldest entries are
+         * removed (without checking if a single removal would be enough to satisfy the threshold limit)
+         */
+        public int _cumulativeLimit;
 
         /**
          * If true: The list elements will be interlaced by nulls (i.e., one double[][], one null, and so on). This flag
@@ -42,19 +50,24 @@ abstract public class AbstractDataProcessor implements IDataProcessor
          */
         public Params(boolean cumulative)
         {
-            this(cumulative, false);
+            this(cumulative, Integer.MAX_VALUE, false);
         }
 
         /**
          * Parameterized constructor.
          *
-         * @param cumulative     if true: current data captures all data collected throughout subsequent calls; false = represents only the most recently submitted data
-         * @param interlaceNulls if true: The list elements will be interlaced by nulls (i.e., one double[][], one null, and so on); this flag may be helpful when the intention is to illustrate line segments (nulls are considered breaks in lines)
+         * @param cumulative      if true: current data captures all data collected throughout subsequent calls; false = represents only the most recently submitted data
+         * @param cumulativeLimit limit for the accumulated data arrays. In the case of exceeding the threshold, the oldest
+         *                        entry is removed; in the case when the flag "interlace nulls" is true,
+         *                        the last two oldest entries are removed (without checking if a single removal would be
+         *                        enough to satisfy the threshold limit)
+         * @param interlaceNulls  if true: The list elements will be interlaced by nulls (i.e., one double[][], one null, and so on); this flag may be helpful when the intention is to illustrate line segments (nulls are considered breaks in lines)
          */
-        public Params(boolean cumulative, boolean interlaceNulls)
+        public Params(boolean cumulative, int cumulativeLimit, boolean interlaceNulls)
         {
             _cumulative = cumulative;
             _interlaceNulls = interlaceNulls;
+            _cumulativeLimit = cumulativeLimit;
         }
     }
 
@@ -62,6 +75,12 @@ abstract public class AbstractDataProcessor implements IDataProcessor
      * If true: current data captures all data collected throughout the optimization process; false = only data for the current time-stamp is used.
      */
     protected final boolean _cumulative;
+
+    /**
+     * Limit for the accumulated data arrays. In the case of exceeding the threshold, the oldest entry is removed. In the
+     * case when the flag "interlace nulls" is true, the last two oldest entries are removed.
+     */
+    private final int _cumulativeLimit;
 
     /**
      * If true: The list elements will be interlaced by nulls (i.e., one double[][], one null, and so on). This flag
@@ -90,6 +109,7 @@ abstract public class AbstractDataProcessor implements IDataProcessor
         _cumulative = p._cumulative;
         _interlaceNulls = p._interlaceNulls;
         if (_cumulative) _cumulatedData = new LinkedList<>();
+        _cumulativeLimit = p._cumulativeLimit;
     }
 
 
@@ -106,6 +126,12 @@ abstract public class AbstractDataProcessor implements IDataProcessor
         {
             _cumulatedData.add(processed);
             if (_interlaceNulls) _cumulatedData.add(null);
+            if (_cumulatedData.size() > _cumulativeLimit)
+            {
+                _cumulatedData.removeFirst();
+                if (_interlaceNulls) _cumulatedData.removeFirst();
+            }
+
         }
         _currentData = processed;
     }

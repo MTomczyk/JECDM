@@ -24,6 +24,41 @@ import space.normalization.minmax.Linear;
 public class WFGBundle extends AbstractMOOProblemBundle
 {
     /**
+     * Auxiliary interface for providing crossover operators in-line.
+     */
+    public interface ICrossoverConstructor
+    {
+        /**
+         * The main method's signature.
+         *
+         * @param problem problem
+         * @param M       the number of objectives
+         * @param k       the number of position-related parameters (should be divisible by M - 1)
+         * @param l       the number of distance-related parameters (any number, except for WFG3 and 4 for which must be divisible by 2)
+         * @return crossover operator
+         */
+        ICrossover getCrossover(Problem problem, int M, int k, int l);
+    }
+
+    /**
+     * Auxiliary interface for providing mutation operators in-line.
+     */
+    public interface IMutationConstructor
+    {
+        /**
+         * The main method's signature.
+         *
+         * @param problem problem
+         * @param M       the number of objectives
+         * @param k       the number of position-related parameters (should be divisible by M - 1)
+         * @param l       the number of distance-related parameters (any number, except for WFG3 and 4 for which must be divisible by 2)
+         * @return crossover operator
+         */
+        IMutate getMutation(Problem problem, int M, int k, int l);
+    }
+
+
+    /**
      * Parameterized constructor.
      *
      * @param problem                problem id
@@ -55,6 +90,43 @@ public class WFGBundle extends AbstractMOOProblemBundle
     }
 
     /**
+     * Getter for the default bundle for DTLZ problems. The number of position- and distance-related parameters
+     * is set to default (as imposed by {@link WFGBundle#getRecommendedNOPositionRelatedParameters(Problem, int)} and
+     * {@link WFGBundle#getRecommendedNODistanceRelatedParameters(Problem, int)})
+     *
+     * @param problem problem id
+     * @param M       the number of considered objectives
+     * @return bundle
+     */
+    public static WFGBundle getBundle(Problem problem, int M)
+    {
+        return getBundle(problem, M, getRecommendedNOPositionRelatedParameters(problem, M),
+                getRecommendedNODistanceRelatedParameters(problem, M), null, null);
+    }
+
+    /**
+     * Getter for the default bundle for DTLZ problems. The number of position- and distance-related parameters
+     * is set to default (as imposed by {@link WFGBundle#getRecommendedNOPositionRelatedParameters(Problem, int)} and
+     * {@link WFGBundle#getRecommendedNODistanceRelatedParameters(Problem, int)})
+     *
+     * @param problem              problem id
+     * @param M                    the number of considered objectives
+     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the crossover
+     *                             operator (otherwise the default operators are used; see the code)
+     * @param mutationConstructor  auxiliary object that, when provided (can be null), is used to construct the mutation
+     *                             operator (otherwise the default operators are used; see the code)
+     * @return bundle
+     */
+    public static WFGBundle getBundle(Problem problem, int M,
+                                      WFGBundle.ICrossoverConstructor crossoverConstructor,
+                                      WFGBundle.IMutationConstructor mutationConstructor)
+    {
+        return getBundle(problem, M, getRecommendedNOPositionRelatedParameters(problem, M),
+                getRecommendedNODistanceRelatedParameters(problem, M), crossoverConstructor, mutationConstructor);
+    }
+
+
+    /**
      * Getter for the default bundle for DTLZ problems.
      *
      * @param problem problem id
@@ -64,6 +136,26 @@ public class WFGBundle extends AbstractMOOProblemBundle
      * @return bundle
      */
     public static WFGBundle getBundle(Problem problem, int M, int k, int l)
+    {
+        return getBundle(problem, M, k, l, null, null);
+    }
+
+    /**
+     * Getter for the default bundle for DTLZ problems.
+     *
+     * @param problem              problem id
+     * @param M                    the number of considered objectives
+     * @param k                    the number of position-related parameters (should be divisible by M - 1)
+     * @param l                    the number of distance-related parameters (any number, except for WFG3 and 4 for which must be divisible by 2)
+     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the crossover
+     *                             operator (otherwise the default operators are used; see the code)
+     * @param mutationConstructor  auxiliary object that, when provided (can be null), is used to construct the mutation
+     *                             operator (otherwise the default operators are used; see the code)
+     * @return bundle
+     */
+    public static WFGBundle getBundle(Problem problem, int M, int k, int l,
+                                      WFGBundle.ICrossoverConstructor crossoverConstructor,
+                                      WFGBundle.IMutationConstructor mutationConstructor)
     {
         WFGEvaluate evaluator;
         switch (problem)
@@ -93,11 +185,12 @@ public class WFGBundle extends AbstractMOOProblemBundle
             default -> evaluator = new WFG1(M, k, l, 0.02d);
         }
 
-        return getBundle(problem, evaluator, M, k, l);
+        return getBundle(problem, evaluator, M, k, l, crossoverConstructor, mutationConstructor);
     }
 
+
     /**
-     * Getter for the default bundle for DTLZ problems.
+     * Getter for the default bundle for WFG problems.
      *
      * @param problem  problem id
      * @param evaluate evaluator object responsible for evaluating solutions in line with WFG test suite
@@ -108,10 +201,35 @@ public class WFGBundle extends AbstractMOOProblemBundle
      */
     public static WFGBundle getBundle(Problem problem, WFGEvaluate evaluate, int M, int k, int l)
     {
+        return getBundle(problem, evaluate, M, k, l, null, null);
+    }
+
+    /**
+     * Getter for the default bundle for WFG problems.
+     *
+     * @param problem              problem id
+     * @param evaluate             evaluator object responsible for evaluating solutions in line with WFG test suite
+     * @param M                    the number of considered objectives
+     * @param k                    the number of position-related parameters (should be divisible by M - 1)
+     * @param l                    the number of distance-related parameters (any number, except for WFG3 and 4 for which must be divisible by 2)
+     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the crossover
+     *                             operator (otherwise the default operators are used; see the code)
+     * @param mutationConstructor  auxiliary object that, when provided (can be null), is used to construct the mutation
+     *                             operator (otherwise the default operators are used; see the code)
+     * @return bundle
+     */
+    public static WFGBundle getBundle(Problem problem, WFGEvaluate evaluate, int M, int k, int l,
+                                      WFGBundle.ICrossoverConstructor crossoverConstructor,
+                                      WFGBundle.IMutationConstructor mutationConstructor)
+    {
         evaluate.instantiateEvaluator();
         IConstruct construct = new Construct(k, l);
-        ICrossover crossover = new SBX(new SBX.Params(1.0d, 20.0d));
-        IMutate mutate = new PM(new PM.Params(1.0d / ((double) k + l), 20.0d));
+        ICrossover crossover;
+        if (crossoverConstructor != null) crossover = crossoverConstructor.getCrossover(problem, M, k, l);
+        else crossover = new SBX(new SBX.Params(1.0d, 20.0d));
+        IMutate mutate;
+        if (mutationConstructor != null) mutate = mutationConstructor.getMutation(problem, M, k, l);
+        else mutate = new PM(new PM.Params(1.0d / ((double) k + l), 20.0d));
         IReproduce reproduce = new Reproduce(M, k, l, crossover, mutate);
         Range[] displayRanges = getDisplayRanges(problem, M);
         Range[] paretoFrontBounds = getParetoFrontBounds(problem, M);

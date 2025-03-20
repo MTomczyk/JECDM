@@ -194,6 +194,15 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
      */
     private int[] _trialIDs;
 
+
+    /**
+     * This number represents how many times an algorithm will be run when executing a scenario (number of test/trial
+     * runs). The greater the number, the greater the credibility of the results (but also the greater the total
+     * execution time of the experiment). Note that the {@link AbstractGlobalDataContainer#_trialIDs} may be a subset
+     * of IDs limited by this field.
+     */
+    private int _noTrials;
+
     /**
      * Path to the main folder where the results will be stored.
      */
@@ -311,6 +320,7 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
         instantiateRNGInitializer(_p);
         instantiateScenarios(_p);
         instantiateScenarioDisablingConditions(_p);
+        instantiateNoTrials(_p);
         instantiateTrialDisablingConditions(_p);
         instantiateTrialIDs(_p);
         instantiateNoThreads(_p);
@@ -329,11 +339,14 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
     /**
      * Called by {@link container.scenario.ScenarioDataContainerFactory} when creating per-trial RNGs.
      *
+     * @param scenario trial's scenario requesting the random number generator
+     * @param trialID  ID of a trial requesting the random number generator
      * @return random number generator instance
      */
-    public IRandom requestRandomNumberGenerator()
+    public IRandom requestRandomNumberGenerator(Scenario scenario, int trialID)
     {
-        return _RNGI.getRNG(_requestedRandomNumberGenerators++);
+        _requestedRandomNumberGenerators++;
+        return _RNGI.getRNG(scenario, trialID, _noTrials);
     }
 
     /**
@@ -347,7 +360,8 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
         _requestedRandomNumberGenerators = 0;
         _RNGI = p._RNGI;
 
-        if (_RNGI == null) {
+        if (_RNGI == null)
+        {
             throw new GlobalException("The random number generator initializer is not provided", this.getClass());
         }
     }
@@ -361,10 +375,12 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
      */
     private void instantiateScenarios(Params p) throws GlobalException
     {
-        try {
+        try
+        {
             KeyValues[] kv = instantiateScenarioKeyValues(p);
             _scenarios = ScenariosGenerator.getScenarios(kv, getAllowedCharacters(), p._keyValuesOrder);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             throw new GlobalException(e.getMessage(), this.getClass(), e);
         }
     }
@@ -390,6 +406,16 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
             for (ScenarioDisablingConditions sdc : _scenarioDisablingConditions)
                 if (sdc == null)
                     throw new GlobalException("One of the scenario disabling conditions is null", this.getClass());
+    }
+
+    /**
+     * Instantiates the total number of trials.
+     *
+     * @param p params container
+     */
+    private void instantiateNoTrials(Params p)
+    {
+        _noTrials = p._noTrials;
     }
 
     /**
@@ -429,7 +455,8 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
 
         // the remaining exception cases are handled by ScenarioGenerator
         KeyValues[] kv = new KeyValues[p._scenarioKeys.length];
-        for (int i = 0; i < p._scenarioKeys.length; i++) {
+        for (int i = 0; i < p._scenarioKeys.length; i++)
+        {
             String abbrev = Key.getKeyAbbreviation(p._scenarioKeys[i], p._scenarioKeysAbbreviations, i);
             kv[i] = KeyValues.getInstance(p._scenarioKeys[i], abbrev, p._scenarioValues[i], null);
         }
@@ -474,7 +501,8 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
         for (Integer id : validIds) _trialIDs[idx++] = id;
 
         Set<Integer> ids = new HashSet<>(_trialIDs.length);
-        for (int id : _trialIDs) {
+        for (int id : _trialIDs)
+        {
             if (ids.contains(id)) throw new GlobalException("Trial ID = " + id + " is not unique", this.getClass());
             ids.add(id);
         }

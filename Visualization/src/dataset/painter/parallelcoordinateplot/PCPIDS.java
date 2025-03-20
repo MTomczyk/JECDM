@@ -16,7 +16,7 @@ public class PCPIDS extends IDS
     public float[] _pX = null;
 
     /**
-     * Normalized x-axis ticks locations.
+     * Normalized X-axis ticks locations.
      */
     public float [] _pT = null;
 

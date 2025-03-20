@@ -85,7 +85,7 @@ public class Flip extends AbstractMutation implements IMutate
     /**
      * Parameterized constructor (uses a default flip threshold of 1).
      *
-     * @param probability    probability of mutation
+     * @param probability probability of mutation
      */
     public Flip(double probability)
     {
@@ -118,12 +118,14 @@ public class Flip extends AbstractMutation implements IMutate
      * Flips integers.
      *
      * @param o decision vector to be mutated
+     * @return returns input vector
      */
     @Override
-    public void mutate(int[] o, IRandom R)
+    public int[] mutate(int[] o, IRandom R)
     {
         for (int i = 0; i < o.length; i++)
             if (R.nextDouble() < _probability) o[i] = _upperIntThreshold - o[i];
+        return o;
     }
 
     /**
@@ -131,12 +133,14 @@ public class Flip extends AbstractMutation implements IMutate
      *
      * @param o decision vector to be mutated
      * @param R random number generator
+     * @return returns input vector
      */
     @Override
-    public void mutate(double[] o, IRandom R)
+    public double[] mutate(double[] o, IRandom R)
     {
         for (int i = 0; i < o.length; i++)
             if (R.nextDouble() < _probability) o[i] = _upperDoubleThreshold - o[i];
+        return o;
     }
 
     /**
@@ -144,11 +148,13 @@ public class Flip extends AbstractMutation implements IMutate
      *
      * @param o decision vector to be mutated
      * @param R random number generator
+     * @return returns input vector
      */
     @Override
-    public void mutate(boolean[] o, IRandom R)
+    public boolean[] mutate(boolean[] o, IRandom R)
     {
         for (int i = 0; i < o.length; i++)
             if (R.nextDouble() < _probability) o[i] = !o[i];
+        return o;
     }
 }

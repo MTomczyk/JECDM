@@ -55,7 +55,7 @@ public class EA
             _name = bundle._name;
             _criteria = criteria;
             _osManager = bundle._osManager;
-            PhasesBundle.copyPhasesFromBundleToEA(this, bundle._phasesBundle);
+            PhasesBundle.copyPhasesFromBundleToEA(bundle._phasesBundle, this);
         }
 
 

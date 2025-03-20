@@ -91,20 +91,20 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
             case LEFT, RIGHT ->
             {
                 _notAssociatedDisplayRangeID = 0;
-                _associatedFirstDisplayRangeID = 1; // y-axis
-                _associatedSecondDisplayRangeID = 2; // z-axis
+                _associatedFirstDisplayRangeID = 1; // Y-axis
+                _associatedSecondDisplayRangeID = 2; // Z-axis
             }
             case FRONT, BACK ->
             {
-                _associatedFirstDisplayRangeID = 0; // x-axis
-                _associatedSecondDisplayRangeID = 1; // y-axis
+                _associatedFirstDisplayRangeID = 0; // X-axis
+                _associatedSecondDisplayRangeID = 1; // Y-axis
                 _notAssociatedDisplayRangeID = 2;
             }
             default -> // as bottom or top
             {
-                _associatedFirstDisplayRangeID = 0; // x-axis
+                _associatedFirstDisplayRangeID = 0; // X-axis
                 _notAssociatedDisplayRangeID = 1;
-                _associatedSecondDisplayRangeID = 2; // z-axis
+                _associatedSecondDisplayRangeID = 2; // Z-axis
             }
         }
     }
@@ -342,7 +342,7 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
      * The method properly identifies whether the first or the second ticks data getter is linked to the questioned axis
      * and makes a replacement. If the x-dimension is not relevant to this pane, the assignment is not made.
      *
-     * @param xTicksDataGetter new ticks data getter for the x-axis
+     * @param xTicksDataGetter new ticks data getter for the X-axis
      */
     public void setXTicksDataGetter(ITicksDataGetter xTicksDataGetter)
     {
@@ -357,7 +357,7 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
      * The method properly identifies whether the first or the second ticks data getter is linked to the questioned axis
      * and makes a replacement. If the y-dimension is not relevant to this pane, the assignment is not made.
      *
-     * @param yTicksDataGetter new ticks data getter for the y-axis
+     * @param yTicksDataGetter new ticks data getter for the Y-axis
      */
     public void setYTicksDataGetter(ITicksDataGetter yTicksDataGetter)
     {
@@ -372,7 +372,7 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
      * The method properly identifies whether the first or the second ticks data getter is linked to the questioned axis
      * and makes a replacement. If the z-dimension is not relevant to this pane, the assignment is not made.
      *
-     * @param zTicksDataGetter new ticks data getter for the z-axis
+     * @param zTicksDataGetter new ticks data getter for the Z-axis
      */
     public void setZTicksDataGetter(ITicksDataGetter zTicksDataGetter)
     {
@@ -383,9 +383,10 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
     }
 
     /**
-     * Returns the x-dimensions tick data getter. If the pane is not linked to the x-axis, the method returns null.
+     * Returns the x-dimensions tick data getter. If the pane is not linked to the x-dimension, the method returns null.
+     * Note: this tick data getter is employed to determine grid lines locations.
      *
-     * @return ticks data getter of the pane, linked to the x-axis
+     * @return ticks data getter of the pane, linked to the x-dimension
      */
     public ITicksDataGetter getXTicksDataGetter()
     {
@@ -395,9 +396,10 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
     }
 
     /**
-     * Returns the x-dimensions tick data getter. If the pane is not linked to the x-axis, the method returns null.
+     * Returns the x-dimensions tick data getter. If the pane is not linked to the x-dimension, the method returns null.
+     * Note: this tick data getter is employed to determine grid lines locations.
      *
-     * @return ticks data getter of the pane, linked to the x-axis
+     * @return ticks data getter of the pane, linked to the x-dimension
      */
     public ITicksDataGetter getYTicksDataGetter()
     {
@@ -407,9 +409,10 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
     }
 
     /**
-     * Returns the z-dimensions tick data getter. If the pane is not linked to the z-axis, the method returns null.
+     * Returns the z-dimensions tick data getter. If the pane is not linked to the z-dimension, the method returns null.
+     * Note: this tick data getter is employed to determine grid lines locations.
      *
-     * @return ticks data getter of the pane, linked to the z-axis
+     * @return ticks data getter of the pane, linked to the z-dimension
      */
     public ITicksDataGetter getZTicksDataGetter()
     {

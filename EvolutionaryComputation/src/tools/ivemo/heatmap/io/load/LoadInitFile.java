@@ -358,15 +358,15 @@ public class LoadInitFile implements ILoad
     {
         if (_PP[i]._dimensions == 2)
         {
-            if (!typesUsed[0]) throw new Exception("No x-axis data provided in #" + (i + 1) + " dataset");
-            if (!typesUsed[1]) throw new Exception("No y-axis data provided in #" + (i + 1) + " dataset");
-            if (typesUsed[2]) throw new Exception("Redundant z-axis data provided in #" + (i + 1) + " dataset");
+            if (!typesUsed[0]) throw new Exception("No X-axis data provided in #" + (i + 1) + " dataset");
+            if (!typesUsed[1]) throw new Exception("No Y-axis data provided in #" + (i + 1) + " dataset");
+            if (typesUsed[2]) throw new Exception("Redundant Z-axis data provided in #" + (i + 1) + " dataset");
         }
         else
         {
-            if (!typesUsed[0]) throw new Exception("No x-axis data provided in #" + (i + 1) + " dataset");
-            if (!typesUsed[1]) throw new Exception("No y-axis data provided in #" + (i + 1) + " dataset");
-            if (!typesUsed[2]) throw new Exception("No z-axis data provided in #" + (i + 1) + " dataset");
+            if (!typesUsed[0]) throw new Exception("No X-axis data provided in #" + (i + 1) + " dataset");
+            if (!typesUsed[1]) throw new Exception("No Y-axis data provided in #" + (i + 1) + " dataset");
+            if (!typesUsed[2]) throw new Exception("No Z-axis data provided in #" + (i + 1) + " dataset");
         }
     }
 

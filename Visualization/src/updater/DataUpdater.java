@@ -7,7 +7,6 @@ import plotswrapper.AbstractPlotsWrapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Objects;
 
 
 /**
@@ -82,6 +81,12 @@ public class DataUpdater
         public ProcessorToPlots[] _processorToPlots;
 
         /**
+         * Auxiliary object that performs the final plot data set update. Can be implemented to customize the final processing.
+         * If null, the default implementation is used (calls {@link plot.PlotModel#setDataSets(ArrayList, boolean)}).
+         */
+        public IUpdateCaller _updateCaller = null;
+
+        /**
          * Reference to the "plots wrapper".
          */
         protected final AbstractPlotsWrapper _plotsWrapper;
@@ -107,9 +112,8 @@ public class DataUpdater
         }
 
         /**
-         * Parameterized constructor (protected).
-         * Assumes that there is just one data source and the output is explicitly passed as data set to the
-         * only plot with id = 0.
+         * Parameterized constructor (protected). Assumes that there is just one data source and the output is
+         * explicitly passed as data set to the only plot with id = 0.
          *
          * @param plotsWrapper     reference to the plots wrapper
          * @param dataSource       data source
@@ -121,9 +125,8 @@ public class DataUpdater
         }
 
         /**
-         * Parameterized constructor (protected).
-         * Assumes that there is just one data source and the output is explicitly passed as data set to the
-         * only plot with id = 0.
+         * Parameterized constructor (protected). Assumes that there is just one data source and the output is
+         * explicitly passed as data set to the only plot with id = 0.
          *
          * @param plotsWrapper     reference to the plots wrapper
          * @param dataSource       data source
@@ -136,9 +139,8 @@ public class DataUpdater
         }
 
         /**
-         * Parameterized constructor (protected).
-         * Assumes that there is just one data source and the output is explicitly passed as data set to the
-         * several plots with IDs starting from 0.
+         * Parameterized constructor (protected). Assumes that there is just one data source and the output is
+         * explicitly passed as data set to the several plots with IDs starting from 0.
          *
          * @param plotsWrapper      reference to the plots wrapper
          * @param dataSource        data source
@@ -150,9 +152,8 @@ public class DataUpdater
         }
 
         /**
-         * Parameterized constructor (protected).
-         * Assumes that there is just one data source and the output is explicitly passed as data set to the
-         * several plots with IDs starting from 0.
+         * Parameterized constructor (protected). Assumes that there is just one data source and the output is
+         * explicitly passed as data set to the several plots with IDs starting from 0.
          *
          * @param plotsWrapper      reference to the plots wrapper
          * @param dataSource        data source
@@ -170,7 +171,6 @@ public class DataUpdater
             for (int i = 0; i < referenceDataSets.length; i++) ids[i] = i;
             _processorToPlots[0] = new ProcessorToPlots(ids, referenceDataSets);
         }
-
     }
 
     /**
@@ -215,6 +215,12 @@ public class DataUpdater
 
 
     /**
+     * Auxiliary object that performs the final plot data set update. Can be implemented to customize the final processing.
+     * If null, the default implementation is used (calls {@link plot.PlotModel#setDataSets(ArrayList, boolean)}).
+     */
+    private IUpdateCaller _updateCaller;
+
+    /**
      * Parameterized constructor.
      *
      * @param p params container
@@ -228,6 +234,8 @@ public class DataUpdater
         _processorToPlots = p._processorToPlots;
         _plotsWrapper = p._plotsWrapper;
         _callForUpdateDisplayRanges = p._callForUpdateDisplayRanges;
+        _updateCaller = p._updateCaller;
+        if (_updateCaller == null) _updateCaller = new DefaultUpdateCaller();
 
         String validity = checkValidity();
         if (validity != null) throw new Exception(validity);
@@ -245,6 +253,17 @@ public class DataUpdater
                 _plotsToDSs.get(plot).add(new ProcessorAndDataSet(processor, reference));
             }
         }
+    }
+
+    /**
+     * Setter for the auxiliary object that performs the final plot data set update. Can be implemented to customize
+     * the final processing.
+     *
+     * @param updateCaller update caller
+     */
+    public void setUpdateCaller(IUpdateCaller updateCaller)
+    {
+        _updateCaller = updateCaller;
     }
 
     /**
@@ -272,9 +291,8 @@ public class DataUpdater
     }
 
     /**
-     * Builder for the simple data updater.
-     * Assumes that there is just one data source and the output is explicitly passed as data set to the
-     * several plots with IDs starting from 0.
+     * Builder for the simple data updater. Assumes that there is just one data source and the output is explicitly
+     * passed as data set to the several plots with IDs starting from 0.
      *
      * @param plotsWrapper      reference to the plots wrapper
      * @param dataSource        data source
@@ -284,13 +302,12 @@ public class DataUpdater
      */
     public static DataUpdater getDataUpdaterLinkedWithMultiplePlots(AbstractPlotsWrapper plotsWrapper, IDataSource dataSource, IDataSet[] referenceDataSets) throws Exception
     {
-        return new DataUpdater(new Params(plotsWrapper, dataSource, referenceDataSets));
+        return DataUpdaterFactory.getDataUpdaterLinkedWithMultiplePlots(plotsWrapper, dataSource, referenceDataSets);
     }
 
     /**
-     * Builder for the simple data updater.
-     * Assumes that there is just one data source and the output is explicitly passed as data set to the
-     * only plot with id = 0.
+     * Builder for the simple data updater. Assumes that there is just one data source and the output is explicitly
+     * passed as data set to the only plot with id = 0.
      *
      * @param plotsWrapper     reference to the plots wrapper
      * @param dataSource       data source
@@ -300,13 +317,12 @@ public class DataUpdater
      */
     public static DataUpdater getSimpleDataUpdater(AbstractPlotsWrapper plotsWrapper, IDataSource dataSource, IDataSet referenceDataSet) throws Exception
     {
-        return new DataUpdater(new Params(plotsWrapper, dataSource, referenceDataSet));
+        return DataUpdaterFactory.getSimpleDataUpdater(plotsWrapper, dataSource, referenceDataSet);
     }
 
     /**
-     * Builder for the simple data updater.
-     * Assumes that there is just one data source and the output is explicitly passed through the given processor
-     * as data set to the only plot with id = 0.
+     * Builder for the simple data updater. Assumes that there is just one data source and the output is explicitly
+     * passed through the given processor as data set to the only plot with id = 0.
      *
      * @param plotsWrapper     reference to the plots wrapper
      * @param dataSource       data source
@@ -426,7 +442,7 @@ public class DataUpdater
                 boolean request = true;
                 if ((_callForUpdateDisplayRanges != null) && (_callForUpdateDisplayRanges.containsKey(key)))
                     request = _callForUpdateDisplayRanges.get(key);
-                key.getModel().setDataSets(newDSs, request, true);
+                _updateCaller.update(key.getModel(), newDSs, request, true);
             });
         }
     }

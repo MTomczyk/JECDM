@@ -69,12 +69,12 @@ public class AbstractPlot extends AbstractSwingComponent
         public boolean _drawAuxGridlines = true;
 
         /**
-         * If true, x-axis is drawn; false otherwise.
+         * If true, X-axis is drawn; false otherwise.
          */
         public boolean _drawXAxis = true;
 
         /**
-         * If true, y-axis is drawn; false otherwise.
+         * If true, Y-axis is drawn; false otherwise.
          */
         public boolean _drawYAxis = true;
 
@@ -418,6 +418,22 @@ public class AbstractPlot extends AbstractSwingComponent
                 _primaryDrawingArea.height);
         if (g != null) g.dispose();
     }
+
+
+    /**
+     * Method for drawing the element.
+     *
+     * @param g Java AWT Graphics context
+     */
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        g.setColor(null);
+        g.fillRect(0, 0, getWidth(), getHeight()); // resets background
+        drawBackground(g);
+        drawBorder(g);
+    }
+
 
     /**
      * Returns the model (MVC).

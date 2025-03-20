@@ -167,7 +167,7 @@ public class Tutorial4dtlz2
                 // create custom display range
                 pP._pDisplayRangesManager = new DisplayRangesManager.Params();
                 pP._pDisplayRangesManager._DR = new DisplayRangesManager.DisplayRange[M[i] + 2]; // M + custom + X-axis
-                pP._pDisplayRangesManager._attIdx_to_drIdx = new Integer[M[i] + 1]; // x-axis does not require mapping
+                pP._pDisplayRangesManager._attIdx_to_drIdx = new Integer[M[i] + 1]; // X-axis does not require mapping
                 for (int dr = 0; dr < M[i]; dr++)
                 {
                     pP._pDisplayRangesManager._DR[dr] = new DisplayRangesManager.DisplayRange(problems[i]._displayRanges[dr], false);

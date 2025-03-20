@@ -93,9 +93,10 @@ public class Gaussian extends AbstractMutation implements IMutate
      *
      * @param o decision vector to be mutated
      * @param R random number generator
+     * @return returns input vector
      */
     @Override
-    public void mutate(double[] o, IRandom R)
+    public double [] mutate(double[] o, IRandom R)
     {
         for (int i = 0; i < o.length; i++)
             if (R.nextDouble() < _probability)
@@ -103,6 +104,7 @@ public class Gaussian extends AbstractMutation implements IMutate
                 double delta = R.nextGaussian() * _std;
                 o[i] = applyDoubleBoundCorrection(o[i] + delta, i);
             }
+        return o;
     }
 
 }

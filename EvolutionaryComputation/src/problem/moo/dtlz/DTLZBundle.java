@@ -32,6 +32,38 @@ public class DTLZBundle extends AbstractMOOProblemBundle
     private static final double _DTLZ7_const = 0.859400856644724;
 
     /**
+     * Auxiliary interface for providing crossover operators in-line.
+     */
+    public interface ICrossoverConstructor
+    {
+        /**
+         * The main method's signature.
+         *
+         * @param problem problem
+         * @param M       the number of objectives
+         * @param D       the number of distance-related parameters
+         * @return crossover operator
+         */
+        ICrossover getCrossover(Problem problem, int M, int D);
+    }
+
+    /**
+     * Auxiliary interface for providing mutation operators in-line.
+     */
+    public interface IMutationConstructor
+    {
+        /**
+         * The main method's signature.
+         *
+         * @param problem problem
+         * @param M       the number of objectives
+         * @param D       the number of distance-related parameters
+         * @return crossover operator
+         */
+        IMutate getMutation(Problem problem, int M, int D);
+    }
+
+    /**
      * Parameterized constructor.
      *
      * @param problem                problem id
@@ -62,6 +94,19 @@ public class DTLZBundle extends AbstractMOOProblemBundle
     }
 
     /**
+     * Getter for the default bundle for DTLZ problems. Sets the number of distance-related attributes to default
+     * (as imposed by {@link DTLZBundle#getRecommendedNODistanceRelatedParameters(Problem, int)}).
+     *
+     * @param problem problem id
+     * @param M       the number of considered objectives
+     * @return bundle
+     */
+    public static DTLZBundle getBundle(Problem problem, int M)
+    {
+        return getBundle(problem, M, getRecommendedNODistanceRelatedParameters(problem, M), null, null);
+    }
+
+    /**
      * Getter for the default bundle for DTLZ problems.
      *
      * @param problem problem id
@@ -70,6 +115,44 @@ public class DTLZBundle extends AbstractMOOProblemBundle
      * @return bundle
      */
     public static DTLZBundle getBundle(Problem problem, int M, int D)
+    {
+        return getBundle(problem, M, D, null, null);
+    }
+
+    /**
+     * Getter for the default bundle for DTLZ problems. Sets the number of distance-related attributes to default
+     * (as imposed by {@link DTLZBundle#getRecommendedNODistanceRelatedParameters(Problem, int)}).
+     *
+     * @param problem              problem id
+     * @param M                    the number of considered objectives
+     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the crossover
+     *                             operator (otherwise the default operators are used; see the code)
+     * @param mutationConstructor  auxiliary object that, when provided (can be null), is used to construct the mutation
+     *                             operator (otherwise the default operators are used; see the code)
+     * @return bundle
+     */
+    public static DTLZBundle getBundle(Problem problem, int M,
+                                       ICrossoverConstructor crossoverConstructor,
+                                       IMutationConstructor mutationConstructor)
+    {
+        return getBundle(problem, M, getRecommendedNODistanceRelatedParameters(problem, M), crossoverConstructor, mutationConstructor);
+    }
+
+    /**
+     * Getter for the default bundle for DTLZ problems.
+     *
+     * @param problem              problem id
+     * @param M                    the number of considered objectives
+     * @param D                    the number of distance-related variable
+     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the crossover
+     *                             operator (otherwise the default operators are used; see the code)
+     * @param mutationConstructor  auxiliary object that, when provided (can be null), is used to construct the mutation
+     *                             operator (otherwise the default operators are used; see the code)
+     * @return bundle
+     */
+    public static DTLZBundle getBundle(Problem problem, int M, int D,
+                                       ICrossoverConstructor crossoverConstructor,
+                                       IMutationConstructor mutationConstructor)
     {
         IConstruct construct = new Construct(M, D);
         IEvaluate evaluate;
@@ -84,8 +167,13 @@ public class DTLZBundle extends AbstractMOOProblemBundle
 
             default -> evaluate = new DTLZ1(M, D);
         }
-        ICrossover crossover = new SBX(new SBX.Params(1.0d, 20.0d));
-        IMutate mutate = new PM(new PM.Params(1.0d / ((double) D + M - 1), 20.0d));
+        ICrossover crossover;
+        if (crossoverConstructor != null) crossover = crossoverConstructor.getCrossover(problem, M, D);
+        else crossover = new SBX(new SBX.Params(1.0d, 20.0d));
+
+        IMutate mutate;
+        if (mutationConstructor != null) mutate = mutationConstructor.getMutation(problem, M, D);
+        else mutate = new PM(new PM.Params(1.0d / ((double) D + M - 1), 20.0d));
         IReproduce reproduce = new Reproduce(M, D, crossover, mutate);
         Range[] displayRanges = getDisplayRanges(problem, M);
         Range[] paretoFrontBounds = getParetoFrontBounds(problem, M);

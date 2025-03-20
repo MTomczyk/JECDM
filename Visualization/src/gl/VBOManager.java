@@ -335,7 +335,8 @@ public class VBOManager
         gl.glBufferData(GL2.GL_ARRAY_BUFFER, _data._allocatedData[0], _data._vB, GL2.GL_STATIC_DRAW);
 
         gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, _bufferIds[1]);
-        if (_data._useIntIndices) gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, _data._allocatedData[1], _data._iBi, GL2.GL_STATIC_DRAW);
+        if (_data._useIntIndices)
+            gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, _data._allocatedData[1], _data._iBi, GL2.GL_STATIC_DRAW);
         else gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, _data._allocatedData[1], _data._iBs, GL2.GL_STATIC_DRAW);
 
         if (_data._cB != null)
@@ -348,8 +349,8 @@ public class VBOManager
         _data._dataMustBeReallocated = false;
         _data._dataUpdateRequest = false;
 
-    //    gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
-    //    gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, 0);
+        //    gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
+        //    gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, 0);
 
         //gl.glBindVertexArray(0);
     }
@@ -397,8 +398,10 @@ public class VBOManager
             for (int d = 0; d < noIndices.length; d++)
             {
                 if (offsets[d] < 0) continue;
-                if (_data._useIntIndices) gl.glDrawElements(_drawingMode, noIndices[d], GL2.GL_UNSIGNED_INT, (long) offsets[d] * Buffers.SIZEOF_INT);
-                else gl.glDrawElements(_drawingMode, noIndices[d], GL2.GL_UNSIGNED_SHORT, (long) offsets[d] * Buffers.SIZEOF_SHORT);
+                if (_data._useIntIndices)
+                    gl.glDrawElements(_drawingMode, noIndices[d], GL2.GL_UNSIGNED_INT, (long) offsets[d] * Buffers.SIZEOF_INT);
+                else
+                    gl.glDrawElements(_drawingMode, noIndices[d], GL2.GL_UNSIGNED_SHORT, (long) offsets[d] * Buffers.SIZEOF_SHORT);
             }
         }
         else
@@ -419,32 +422,36 @@ public class VBOManager
     /**
      * Prepares the data to be updated in VBO.
      *
-     * @param bufferData buffer data (vertices, indices, colors)
+     * @param bufferData   buffer data (vertices, indices, colors)
      * @param vertexStride vertex stride for the vertex array
-     * @param colorStride color stride for the optional color array
+     * @param colorStride  color stride for the optional color array
      */
     public void initDataUpdate(BufferData bufferData, int vertexStride, int colorStride)
     {
         if (bufferData._indicesInt != null)
-            initDataUpdate(bufferData._vertices, bufferData._indicesInt, bufferData._colors, vertexStride,colorStride);
-        else initDataUpdate(bufferData._vertices, bufferData._indicesShort, bufferData._colors, vertexStride,colorStride);
+            initDataUpdate(bufferData._vertices, bufferData._indicesInt, bufferData._colors, vertexStride, colorStride);
+        else
+            initDataUpdate(bufferData._vertices, bufferData._indicesShort, bufferData._colors, vertexStride, colorStride);
     }
 
     /**
      * Prepares the data to be updated in VBO.
      *
-     * @param vertices vertices
-     * @param indices  indices (shorts)
-     * @param colors   vertex colors (can be null -> color attribute not passed)
+     * @param vertices     vertices
+     * @param indices      indices (shorts)
+     * @param colors       vertex colors (can be null -> color attribute not passed)
      * @param vertexStride vertex stride for the vertex array
-     * @param colorStride color stride for the optional color array
+     * @param colorStride  color stride for the optional color array
      */
+    @SuppressWarnings("DuplicatedCode")
     public void initDataUpdate(float[] vertices, short[] indices, float[] colors, int vertexStride, int colorStride)
     {
         Data newData = getShortDataInstance(vertices, indices, colors);
         newData._vertexStride = vertexStride;
         newData._colorStride = colorStride;
-        newData._dataMustBeReallocated = newData.determineRealloc(_data);
+        // First condition (in the case of multiple update calls, force realloc)
+        if ((_data != null) && (_data._dataMustBeReallocated)) newData._dataMustBeReallocated = true;
+        else newData._dataMustBeReallocated = newData.determineRealloc(_data);
         newData._initializeRequest = false;
         newData._dataUpdateRequest = true;
         _data = newData;
@@ -453,18 +460,21 @@ public class VBOManager
     /**
      * Prepares the data to be updated in VBO.
      *
-     * @param vertices vertices
-     * @param indices  indices (ints)
-     * @param colors   vertex colors (can be null -> color attribute not passed)
+     * @param vertices     vertices
+     * @param indices      indices (ints)
+     * @param colors       vertex colors (can be null -> color attribute not passed)
      * @param vertexStride vertex stride for the vertex array
-     * @param colorStride color stride for the optional color array
+     * @param colorStride  color stride for the optional color array
      */
+    @SuppressWarnings("DuplicatedCode")
     public void initDataUpdate(float[] vertices, int[] indices, float[] colors, int vertexStride, int colorStride)
     {
         Data newData = getIntDataInstance(vertices, indices, colors);
         newData._vertexStride = vertexStride;
         newData._colorStride = colorStride;
-        newData._dataMustBeReallocated = newData.determineRealloc(_data);
+        // First condition (in the case of multiple update calls, force realloc)
+        if ((_data != null) && (_data._dataMustBeReallocated)) newData._dataMustBeReallocated = true;
+        else newData._dataMustBeReallocated = newData.determineRealloc(_data);
         newData._initializeRequest = false;
         newData._dataUpdateRequest = true;
         _data = newData;

@@ -13,7 +13,7 @@ import org.apache.commons.rng.simple.RandomSource;
  */
 
 
-public class MersenneTwister64 implements IRandom
+public class MersenneTwister64 extends AbstractRandomNumberGenerator implements IRandom
 {
     /**
      * Mersenne Twister.
@@ -32,6 +32,7 @@ public class MersenneTwister64 implements IRandom
      */
     public MersenneTwister64(long seed)
     {
+        super(seed);
         _mt = RandomSource.MT.create(new long[]{seed});
         _gaussianSampler = GaussianSampler.of(ZigguratSampler.NormalizedGaussian.of(_mt), 0, 1.0);
     }
@@ -48,15 +49,44 @@ public class MersenneTwister64 implements IRandom
     }
 
     /**
-     * Generates random integer from [0, n) bound.
+     * Generates array of random integer (unbounded).
      *
-     * @param n right boundary
+     * @param n array length
      * @return generated integer
      */
     @Override
-    public int nextInt(int n)
+    public int[] nextInts(int n)
     {
-        return _mt.nextInt(n);
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) a[i] = nextInt();
+        return a;
+    }
+
+    /**
+     * Generates random integer from [0, b) bound.
+     *
+     * @param b right bound
+     * @return generated integer
+     */
+    @Override
+    public int nextInt(int b)
+    {
+        return _mt.nextInt(b);
+    }
+
+    /**
+     * Generates array of random integers from [0, b) bound.
+     *
+     * @param n array length
+     * @param b right (upper) bound
+     * @return generated integer
+     */
+    @Override
+    public int[] nextInts(int n, int b)
+    {
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) a[i] = nextInt(b);
+        return a;
     }
 
     /**
@@ -71,6 +101,20 @@ public class MersenneTwister64 implements IRandom
     }
 
     /**
+     * Generates array of random doubles derived from a Gaussian distribution (exp. = 0, std. = 1).
+     *
+     * @param n array length
+     * @return array of generated numbers
+     */
+    @Override
+    public double[] nextGaussians(int n)
+    {
+        double[] a = new double[n];
+        for (int i = 0; i < n; i++) a[i] = nextGaussian();
+        return a;
+    }
+
+    /**
      * Generates random double from [0, 1] bound.
      *
      * @return generated number
@@ -79,6 +123,20 @@ public class MersenneTwister64 implements IRandom
     public double nextDouble()
     {
         return _mt.nextDouble();
+    }
+
+    /**
+     * Generates array of random double from [0, 1] bound.
+     *
+     * @param n array length
+     * @return generated number
+     */
+    @Override
+    public double[] nextDoubles(int n)
+    {
+        double[] a = new double[n];
+        for (int i = 0; i < a.length; i++) a[i] = nextDouble();
+        return a;
     }
 
     /**
@@ -93,6 +151,20 @@ public class MersenneTwister64 implements IRandom
     }
 
     /**
+     * Generates array of random float from [0, 1] bound.
+     *
+     * @param n array length
+     * @return array of generated floats
+     */
+    @Override
+    public float[] nextFloats(int n)
+    {
+        float[] a = new float[n];
+        for (int i = 0; i < n; i++) a[i] = nextFloat();
+        return a;
+    }
+
+    /**
      * Generates true/false flag randomly.
      *
      * @return generated flag
@@ -101,6 +173,20 @@ public class MersenneTwister64 implements IRandom
     public boolean nextBoolean()
     {
         return _mt.nextBoolean();
+    }
+
+    /**
+     * Generates array of random true/false flags.
+     *
+     * @param n array length
+     * @return array of generated flags
+     */
+    @Override
+    public boolean[] nextBooleans(int n)
+    {
+        boolean[] a = new boolean[n];
+        for (int i = 0; i < n; i++) a[i] = nextBoolean();
+        return a;
     }
 
 

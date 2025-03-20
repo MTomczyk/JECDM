@@ -1,12 +1,15 @@
 package tools;
 
-import color.gradient.Color;
-import color.gradient.ColorPalettes;
+import color.Color;
+import color.palette.AbstractColorPalette;
+import color.palette.DefaultPalette;
 import dataset.DSFactory2D;
 import dataset.IDataSet;
 import dataset.painter.style.LineStyle;
 import drmanager.DisplayRangesManager;
 import frame.Frame;
+import plot.IPlotParamsAdjuster;
+import plot.ISchemeAdjuster;
 import plot.Plot2D;
 import popupmenu.RightClickPopupMenu;
 import popupmenu.item.SaveAsImage;
@@ -186,7 +189,6 @@ public class ConvergencePlotFromXLSX
         }
     }
 
-
     /**
      * Returns an instantiated params container for Plot 2D.
      * Note that further layout adjustments can be achieved by modifying the scheme object.
@@ -195,6 +197,20 @@ public class ConvergencePlotFromXLSX
      * @return params container for plot 2D.
      */
     public static Plot2D.Params getParamsContainerForConvergencePlotFromXLSX(Params p)
+    {
+        return getParamsContainerForConvergencePlotFromXLSX(p, null, null);
+    }
+
+    /**
+     * Returns an instantiated params container for Plot 2D.
+     * Note that further layout adjustments can be achieved by modifying the scheme object.
+     *
+     * @param p                  params container
+     * @param schemeAdjuster     optional scheme adjuster (executed just after the default scheme parameterization is done; can be null if not used)
+     * @param plotParamsAdjuster optional plot params adjuster (executed just before the return call; can be null if not used)
+     * @return params container for plot 2D.
+     */
+    public static Plot2D.Params getParamsContainerForConvergencePlotFromXLSX(Params p, ISchemeAdjuster schemeAdjuster, IPlotParamsAdjuster<Plot2D.Params> plotParamsAdjuster)
     {
         Plot2D.Params pP = new Plot2D.Params();
         pP._scheme = new WhiteScheme();
@@ -223,6 +239,8 @@ public class ConvergencePlotFromXLSX
         pP._scheme.rescale(p._axesTicksFontSizeRescale, SizeFields.AXIS_X_TICK_LABEL_FONT_SIZE_RELATIVE_MULTIPLIER);
         pP._scheme.rescale(p._axesTicksFontSizeRescale, SizeFields.AXIS_Y_TICK_LABEL_FONT_SIZE_RELATIVE_MULTIPLIER);
 
+        if (schemeAdjuster != null) schemeAdjuster.adjust(pP._scheme);
+        if (plotParamsAdjuster != null) plotParamsAdjuster.adjust(pP);
         return pP;
     }
 
@@ -253,8 +271,8 @@ public class ConvergencePlotFromXLSX
      * @param dataSets           data sets obtained via {@link ConvergencePlotFromXLSX#parseDataSetsFromXLSX(String, DataMatrixCoordinates, DataSetData[], Float)}
      * @param width              frame width
      * @param widthHeightRatio   width/height ratio (greater than 0)
-     * @param xAxisDecimalFormat decimal format for x-axis ticks (e.g. "0.00")
-     * @param yAxisDecimalFormat decimal format for y-axis ticks (e.g. "0.00")
+     * @param xAxisDecimalFormat decimal format for X-axis ticks (e.g. "0.00")
+     * @param yAxisDecimalFormat decimal format for Y-axis ticks (e.g. "0.00")
      * @return frame
      */
     public static Frame getFrame(Plot2D.Params pP,
@@ -264,8 +282,31 @@ public class ConvergencePlotFromXLSX
                                  String xAxisDecimalFormat,
                                  String yAxisDecimalFormat)
     {
+        return getFrame(pP, dataSets, width, (int) (width / widthHeightRatio), xAxisDecimalFormat, yAxisDecimalFormat);
+    }
+
+    /**
+     * Creates a suitably adjusted frame that visualizes a convergence plot.
+     * The method also:
+     * - sets axes number formats to decimals.
+     * - adds a right click popup menu with "save as image" option
+     *
+     * @param pP                 plot 2D params container obtained via {@link ConvergencePlotFromXLSX#getParamsContainerForConvergencePlotFromXLSX(Params)}
+     * @param dataSets           data sets obtained via {@link ConvergencePlotFromXLSX#parseDataSetsFromXLSX(String, DataMatrixCoordinates, DataSetData[], Float)}
+     * @param width              frame width
+     * @param height             frame height
+     * @param xAxisDecimalFormat decimal format for X-axis ticks (e.g. "0.00")
+     * @param yAxisDecimalFormat decimal format for Y-axis ticks (e.g. "0.00")
+     * @return frame
+     */
+    public static Frame getFrame(Plot2D.Params pP,
+                                 ArrayList<IDataSet> dataSets,
+                                 int width,
+                                 int height,
+                                 String xAxisDecimalFormat,
+                                 String yAxisDecimalFormat)
+    {
         Plot2D plot2D = new Plot2D(pP);
-        float height = (float) width / widthHeightRatio;
         Frame frame = new Frame(plot2D, width, Projection.getP(height));
 
         plot2D.getModel().setDataSets(dataSets);
@@ -275,7 +316,6 @@ public class ConvergencePlotFromXLSX
         RightClickPopupMenu menu = new RightClickPopupMenu();
         menu.addItem(new SaveAsImage());
         plot2D.getController().addRightClickPopupMenu(menu);
-
         return frame;
     }
 
@@ -295,6 +335,7 @@ public class ConvergencePlotFromXLSX
         return parseDataSetsFromXLSX(path, dmc, dataSetData, null);
     }
 
+
     /**
      * The method for loaded a data matrix from an XLSX file (excel) and parses them into data sets suited
      * for the convergence plot. Note that the parsed Excel file is not validated (use must ensure that valid data exists).
@@ -309,6 +350,48 @@ public class ConvergencePlotFromXLSX
                                                             DataMatrixCoordinates dmc,
                                                             DataSetData[] dataSetData,
                                                             Float envelopeTransparency)
+    {
+        return parseDataSetsFromXLSX(path, dmc, dataSetData, envelopeTransparency, 1.0f);
+    }
+
+    /**
+     * The method for loaded a data matrix from an XLSX file (excel) and parses them into data sets suited
+     * for the convergence plot. Note that the parsed Excel file is not validated (use must ensure that valid data exists).
+     *
+     * @param path                 absolute path to the file (includes prefix)
+     * @param dmc                  data matrix coordinates in the Excel file
+     * @param dataSetData          coordinates-related data for establishing data sets used by the plot (not used if null)
+     * @param envelopeTransparency envelope color transparency level (spanned over primary upper and lower bounds, null if not used)
+     * @param lw                   data set line width
+     * @return data table (null, if a file cannot be loaded)
+     */
+    public static ArrayList<IDataSet> parseDataSetsFromXLSX(String path,
+                                                            DataMatrixCoordinates dmc,
+                                                            DataSetData[] dataSetData,
+                                                            Float envelopeTransparency,
+                                                            float lw)
+    {
+        return parseDataSetsFromXLSX(path, dmc, dataSetData, envelopeTransparency, lw, new DefaultPalette());
+    }
+
+    /**
+     * The method for loaded a data matrix from an XLSX file (excel) and parses them into data sets suited
+     * for the convergence plot. Note that the parsed Excel file is not validated (use must ensure that valid data exists).
+     *
+     * @param path                 absolute path to the file (includes prefix)
+     * @param dmc                  data matrix coordinates in the Excel file
+     * @param dataSetData          coordinates-related data for establishing data sets used by the plot (not used if null)
+     * @param envelopeTransparency envelope color transparency level (spanned over primary upper and lower bounds, null if not used)
+     * @param lw                   data set line width
+     * @param colorPalette         palette providing colors for data sets to be depicted
+     * @return data table (null, if a file cannot be loaded)
+     */
+    public static ArrayList<IDataSet> parseDataSetsFromXLSX(String path,
+                                                            DataMatrixCoordinates dmc,
+                                                            DataSetData[] dataSetData,
+                                                            Float envelopeTransparency,
+                                                            float lw,
+                                                            AbstractColorPalette colorPalette)
     {
         ArrayList<IDataSet> dataSets = new ArrayList<>(dataSetData.length);
         Double[][] data = DataMatrixFromXLSX.getDoubleData(path, dmc);
@@ -348,12 +431,12 @@ public class ConvergencePlotFromXLSX
                 }
             }
 
-            Color color = ColorPalettes.getFromDefaultPalette(i);
+            Color color = colorPalette.getColor(i);
             color.Color envelopeColor = null;
             if (envelopeTransparency != null)
-                envelopeColor = color.getColor(0.0f).getTransparentInstance(envelopeTransparency);
+                envelopeColor = color.getTransparentInstance(envelopeTransparency);
             IDataSet ds = DSFactory2D.getDSForConvergencePlot(dataSetData[i]._name, d,
-                    new LineStyle(1.0f, color, 0.5f), envelopeColor);
+                    new LineStyle(lw, new color.gradient.Color(color), 0.01f), envelopeColor);
             dataSets.add(ds);
         }
 

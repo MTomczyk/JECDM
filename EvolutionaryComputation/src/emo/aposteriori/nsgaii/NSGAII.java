@@ -1,20 +1,26 @@
 package emo.aposteriori.nsgaii;
 
+import criterion.Criteria;
 import ea.EA;
 import os.ObjectiveSpaceManager;
+import phase.DoubleConstruct;
+import phase.DoubleEvaluate;
 import phase.IConstruct;
 import phase.IEvaluate;
 import problem.moo.AbstractMOOProblemBundle;
+import problem.moo.MOOProblemBundle;
 import random.IRandom;
+import reproduction.DoubleReproduce;
 import reproduction.IReproduce;
 import selection.ISelect;
-import selection.Tournament;
+import selection.Random;
 
 /**
  * Provides means for creating an instance of NSGA-II.
  *
  * @author MTomczyk
  */
+@SuppressWarnings("DuplicatedCode")
 public class NSGAII extends EA
 {
     /**
@@ -27,9 +33,25 @@ public class NSGAII extends EA
         super(p);
     }
 
+    /**
+     * Creates the NSGA-II algorithm. Sets id to 0 and the algorithm is coupled with the random selection of parents.
+     *
+     * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
+     * @param populationSize      population size
+     * @param R                   the RGN
+     * @param problem             problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @return NSGA-II algorithm
+     */
+    public static NSGAII getNSGAII(boolean updateOSDynamically,
+                                   int populationSize,
+                                   IRandom R,
+                                   AbstractMOOProblemBundle problem)
+    {
+        return getNSGAII(0, updateOSDynamically, populationSize, R, problem);
+    }
 
     /**
-     * Creates the NSGA-II algorithm. The algorithm is coupled with a tournament selection of size 2.
+     * Creates the NSGA-II algorithm. The algorithm is coupled with a random selection.
      *
      * @param id                  algorithm id
      * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
@@ -44,10 +66,122 @@ public class NSGAII extends EA
                                    IRandom R,
                                    AbstractMOOProblemBundle problem)
     {
-        ISelect select = new Tournament(new Tournament.Params(2, false));
-        return getNSGAII(id, updateOSDynamically, populationSize, R, problem, select, problem._construct, problem._evaluate, problem._reproduce);
+        return getNSGAII(id, updateOSDynamically, populationSize, R, problem, null);
     }
 
+    /**
+     * Creates the NSGA-II algorithm. Sets id to 0 and the algorithm is coupled with the random selection of parents.
+     *
+     * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
+     * @param populationSize      population size
+     * @param R                   the RGN
+     * @param problem             problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param osAdjuster          auxiliary object responsible for customizing objective space manager params container
+     *                            built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-II algorithm
+     */
+    public static NSGAII getNSGAII(boolean updateOSDynamically,
+                                   int populationSize,
+                                   IRandom R,
+                                   AbstractMOOProblemBundle problem,
+                                   ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNSGAII(0, updateOSDynamically, populationSize, R, problem, osAdjuster);
+    }
+
+    /**
+     * Creates the NSGA-II algorithm. The algorithm is coupled with the random selection of parents.
+     *
+     * @param id                  algorithm id
+     * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
+     * @param populationSize      population size
+     * @param R                   the RGN
+     * @param problem             problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param osAdjuster          auxiliary object responsible for customizing objective space manager params container
+     *                            built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-II algorithm
+     */
+    public static NSGAII getNSGAII(int id,
+                                   boolean updateOSDynamically,
+                                   int populationSize,
+                                   IRandom R,
+                                   AbstractMOOProblemBundle problem,
+                                   ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        ISelect select = new Random(2);
+        return getNSGAII(id, updateOSDynamically, populationSize, R, problem, select, problem._construct, problem._evaluate, problem._reproduce, osAdjuster);
+    }
+
+    /**
+     * Creates the NSGA-II algorithm. Sets id to 0 and parameterizes the method to update the OS dynamically.
+     *
+     * @param populationSize population size
+     * @param R              the RGN
+     * @param criteria       criteria
+     * @param select         parents selector
+     * @param construct      specimens constructor (creates decision double-vectors)
+     * @param evaluate       specimens evaluator (evaluates decision double-vectors)
+     * @param reproduce      specimens reproducer (creates offspring decision double-vectors)
+     * @return NSGA-II algorithm
+     */
+    public static NSGAII getNSGAII(int populationSize,
+                                   IRandom R,
+                                   Criteria criteria,
+                                   ISelect select,
+                                   DoubleConstruct.IConstruct construct,
+                                   DoubleEvaluate.IEvaluate evaluate,
+                                   DoubleReproduce.IReproduce reproduce)
+    {
+        return getNSGAII(0, true, populationSize, R, MOOProblemBundle.getProblemBundle(criteria),
+                select, new DoubleConstruct(construct), new DoubleEvaluate(evaluate), new DoubleReproduce(reproduce));
+    }
+
+    /**
+     * Creates the NSGA-II algorithm. Sets id to 0 and parameterizes the method to update the OS dynamically.
+     *
+     * @param populationSize population size
+     * @param R              the RGN
+     * @param criteria       criteria
+     * @param select         parents selector
+     * @param construct      specimens constructor
+     * @param evaluate       specimens evaluator
+     * @param reproduce      specimens reproducer
+     * @return NSGA-II algorithm
+     */
+    public static NSGAII getNSGAII(int populationSize,
+                                   IRandom R,
+                                   Criteria criteria,
+                                   ISelect select,
+                                   IConstruct construct,
+                                   IEvaluate evaluate,
+                                   IReproduce reproduce)
+    {
+        return getNSGAII(0, true, populationSize, R, MOOProblemBundle.getProblemBundle(criteria),
+                select, construct, evaluate, reproduce);
+    }
+
+    /**
+     * Creates the NSGA-II algorithm. Sets id to 0 and parameterizes the method to update the OS dynamically.
+     *
+     * @param populationSize population size
+     * @param R              the RGN
+     * @param problem        problem bundle (provides criteria)
+     * @param select         parents selector
+     * @param construct      specimens constructor
+     * @param evaluate       specimens evaluator
+     * @param reproduce      specimens reproducer
+     * @return NSGA-II algorithm
+     */
+    public static NSGAII getNSGAII(int populationSize,
+                                   IRandom R,
+                                   AbstractMOOProblemBundle problem,
+                                   ISelect select,
+                                   IConstruct construct,
+                                   IEvaluate evaluate,
+                                   IReproduce reproduce)
+    {
+        return getNSGAII(0, true, populationSize, R, problem, select, construct, evaluate, reproduce);
+    }
 
     /**
      * Creates the NSGA-II algorithm.
@@ -73,6 +207,64 @@ public class NSGAII extends EA
                                    IEvaluate evaluate,
                                    IReproduce reproduce)
     {
+        return getNSGAII(id, updateOSDynamically, populationSize, R, problem, select, construct, evaluate, reproduce, null);
+    }
+
+    /**
+     * Creates the NSGA-II algorithm. Sets id to 0.
+     *
+     * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
+     * @param populationSize      population size
+     * @param R                   the RGN
+     * @param problem             problem bundle (provides criteria, normalizations (when fixed))
+     * @param select              parents selector
+     * @param construct           specimens constructor
+     * @param evaluate            specimens evaluator
+     * @param reproduce           specimens reproducer
+     * @param osAdjuster          auxiliary object responsible for customizing objective space manager params container
+     *                            built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-II algorithm
+     */
+    public static NSGAII getNSGAII(boolean updateOSDynamically,
+                                   int populationSize,
+                                   IRandom R,
+                                   AbstractMOOProblemBundle problem,
+                                   ISelect select,
+                                   IConstruct construct,
+                                   IEvaluate evaluate,
+                                   IReproduce reproduce,
+                                   ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNSGAII(0, updateOSDynamically, populationSize, R, problem, select, construct, evaluate, reproduce, osAdjuster);
+    }
+
+    /**
+     * Creates the NSGA-II algorithm.
+     *
+     * @param id                  algorithm id
+     * @param updateOSDynamically if true, the OS will be updated dynamically; false = it will be fixed
+     * @param populationSize      population size
+     * @param R                   the RGN
+     * @param problem             problem bundle (provides criteria, normalizations (when fixed))
+     * @param select              parents selector
+     * @param construct           specimens constructor
+     * @param evaluate            specimens evaluator
+     * @param reproduce           specimens reproducer
+     * @param osAdjuster          auxiliary object responsible for customizing objective space manager params container
+     *                            built when is set to updateOSDynamically (can be null; not used)
+     * @return NSGA-II algorithm
+     */
+    public static NSGAII getNSGAII(int id,
+                                   boolean updateOSDynamically,
+                                   int populationSize,
+                                   IRandom R,
+                                   AbstractMOOProblemBundle problem,
+                                   ISelect select,
+                                   IConstruct construct,
+                                   IEvaluate evaluate,
+                                   IReproduce reproduce,
+                                   ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
         // Instantiate the bundle:
         NSGAIIBundle.Params pB = new NSGAIIBundle.Params(problem._criteria);
 
@@ -84,8 +276,9 @@ public class NSGAII extends EA
             ObjectiveSpaceManager.Params pOS = new ObjectiveSpaceManager.Params();
             pOS._criteria = problem._criteria;
             // Default incumbent strategy:
-            pOS._updateUtopiaUsingIncumbent = true;
+            pOS._updateUtopiaUsingIncumbent = false;
             pOS._updateNadirUsingIncumbent = false;
+            if (osAdjuster != null) osAdjuster.adjust(pOS);
             pB._osManager = new ObjectiveSpaceManager(pOS);
         }
         else

@@ -14,22 +14,25 @@ public interface IMutate
      *
      * @param o decision vector to be mutated
      * @param R random number generator
+     * @return returns input vector
      */
-    void mutate(int[] o, IRandom R);
+    int[] mutate(int[] o, IRandom R);
 
     /**
      * Method declaration for mutating double decision vector.
      *
      * @param o decision vector to be mutated
      * @param R random number generator
+     * @return returns input vector
      */
-    void mutate(double[] o, IRandom R);
+    double[] mutate(double[] o, IRandom R);
 
     /**
      * Method declaration for mutating boolean decision vector.
      *
      * @param o decision vector to be mutated
      * @param R random number generator
+     * @return returns input vector
      */
-    void mutate(boolean[] o, IRandom R);
+    boolean[] mutate(boolean[] o, IRandom R);
 }

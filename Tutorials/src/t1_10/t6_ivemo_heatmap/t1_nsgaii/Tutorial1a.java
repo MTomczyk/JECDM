@@ -64,10 +64,10 @@ public class Tutorial1a
         pHP._featureGetter = new Generation(); // returns the feature (generation number when captured)
         pHP._trialStatistics = new Min(); // set per-trial statistic (mean = average of the reported generations)
         pHP._finalStatistics = new Mean(); // set final statistics (average of per-trial results)
-        pHP._xAxisDivisions = xDix; // set the discretization level for x-axis
-        pHP._xAxisDisplayRange = xDR; // set considered bound on the objective space (x-axis)
-        pHP._yAxisDivisions = yDiv; // set the discretization level for y-axis
-        pHP._yAxisDisplayRange = yDR; // set considered bound on the objective space (y-axis)
+        pHP._xAxisDivisions = xDix; // set the discretization level for X-axis
+        pHP._xAxisDisplayRange = xDR; // set considered bound on the objective space (X-axis)
+        pHP._yAxisDivisions = yDiv; // set the discretization level for Y-axis
+        pHP._yAxisDisplayRange = yDR; // set considered bound on the objective space (Y-axis)
         Heatmap2DProcessor h2D = new Heatmap2DProcessor(pHP);
 
         // Execute processing:

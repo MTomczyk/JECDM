@@ -67,8 +67,8 @@ class HeatmapUpdater extends QueuedSwingWorker<Void, Void>
      *
      * @param layerModel         heatmap layer model
      * @param data               data to be processed
-     * @param xDiv               no. divisions on the x-axis
-     * @param yDiv               no. divisions on the y-axis
+     * @param xDiv               no. divisions on the X-axis
+     * @param yDiv               no. divisions on the Y-axis
      * @param requiresPresorting if true, the additional preprocessing is done: the buckets are sorted in ascending order of their values; imposes higher preprocessing time but improves filtering efficiency
      */
     public HeatmapUpdater(HeatmapLayerModel layerModel,
@@ -93,9 +93,9 @@ class HeatmapUpdater extends QueuedSwingWorker<Void, Void>
      *
      * @param layerModel         heatmap layer model
      * @param data               data to be processed
-     * @param xDiv               no. divisions on the x-axis
-     * @param yDiv               no. divisions on the y-axis
-     * @param zDiv               no. divisions on the z-axis
+     * @param xDiv               no. divisions on the X-axis
+     * @param yDiv               no. divisions on the Y-axis
+     * @param zDiv               no. divisions on the Z-axis
      * @param requiresPresorting if true, the additional preprocessing is done: the buckets are sorted in ascending order of their values; imposes higher preprocessing time but improves filtering efficiency
      */
     public HeatmapUpdater(HeatmapLayerModel layerModel,
@@ -121,9 +121,9 @@ class HeatmapUpdater extends QueuedSwingWorker<Void, Void>
      *
      * @param layerModel   heatmap layer model
      * @param dimensions   heatmap dimensionality
-     * @param xDiv         no. divisions on the x-axis
-     * @param yDiv         no. divisions on the y-axis
-     * @param zDiv         no. divisions on the z-axis
+     * @param xDiv         no. divisions on the X-axis
+     * @param yDiv         no. divisions on the Y-axis
+     * @param zDiv         no. divisions on the Z-axis
      * @param sortedCoords data points (buckets) represented as an array sorted based on bucket values; it is assumed that either regular data matrix or this array is not null; if this array is not null, it is used for processing; the use of this array is motivated by enabling more efficient data processing (but at a higher preprocessing cost, though)
      * @param sortedValues buckets' values sorted and stored as an array; optionally used with ``sorted coords'' field
      */

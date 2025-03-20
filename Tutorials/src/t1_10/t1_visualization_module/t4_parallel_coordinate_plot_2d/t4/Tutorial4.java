@@ -64,7 +64,7 @@ public class Tutorial4
         pP._pDisplayRangesManager._DR[dims] = new DisplayRangesManager.DisplayRange(null, true); // custom
         pP._pDisplayRangesManager._DR[dims + 1] = new DisplayRangesManager.DisplayRange(Range.getNormalRange(), false); // for X-axis
         pP._pDisplayRangesManager._attIdx_to_drIdx = new Integer[dims + 1];
-        for (int i = 0; i < dims + 1; i++) pP._pDisplayRangesManager._attIdx_to_drIdx[i] = i; // the x-axis does not require mapping
+        for (int i = 0; i < dims + 1; i++) pP._pDisplayRangesManager._attIdx_to_drIdx[i] = i; // the X-axis does not require mapping
 
         // The colorbar is linked to the custom display range:
         pP._colorbar = new Colorbar(Gradient.getPlasmaGradient(), "COLORBAR", new FromDisplayRange(pP._pDisplayRangesManager._DR[dims], 10));

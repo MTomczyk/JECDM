@@ -62,7 +62,7 @@ public class Plot3D extends AbstractPlot
         public float _aspectRatio = 1.0f;
 
         /**
-         * If true, z-axis is drawn; false otherwise.
+         * If true, Z-axis is drawn; false otherwise.
          */
         public boolean _drawZAxis = true;
 

@@ -42,8 +42,8 @@ public class HeatmapDataProcessor
     /**
      * Processed data for 2D heatmaps.
      *
-     * @param xDiv No. divisions on the plot x-axis.
-     * @param yDiv No. divisions on the plot y-axis.
+     * @param xDiv No. divisions on the plot X-axis.
+     * @param yDiv No. divisions on the plot Y-axis.
      * @param data Data matrix (2D or 3D; if 2D, it is wrapped as data[1] entry).
      * @return processed data (coords sorted according to their values).
      */
@@ -55,9 +55,9 @@ public class HeatmapDataProcessor
     /**
      * Processed data for 3D heatmaps.
      *
-     * @param xDiv No. divisions on the plot x-axis.
-     * @param yDiv No. divisions on the plot y-axis.
-     * @param zDiv No. divisions on the plot z-axis.
+     * @param xDiv No. divisions on the plot X-axis.
+     * @param yDiv No. divisions on the plot Y-axis.
+     * @param zDiv No. divisions on the plot Z-axis.
      * @param data Data matrix (2D or 3D; if 2D, it is wrapped as data[1] entry).
      * @return processed data (coords sorted according to their values).
      */
@@ -69,9 +69,9 @@ public class HeatmapDataProcessor
     /**
      * Main method for data processing. Values equal to Double.NEGATIVE_INFINITY are skipped (considered as no entry).
      *
-     * @param xDiv No. divisions on the plot x-axis.
-     * @param yDiv No. divisions on the plot y-axis.
-     * @param zDiv No. divisions on the plot z-axis.
+     * @param xDiv No. divisions on the plot X-axis.
+     * @param yDiv No. divisions on the plot Y-axis.
+     * @param zDiv No. divisions on the plot Z-axis.
      * @param data Data matrix (2D or 3D; if 2D, it is wrapped as data[1] entry).
      * @return processed data (coords sorted according to their values).
      */

@@ -1,13 +1,15 @@
-package container;
+package container.global;
 
-import container.global.GlobalDataContainer;
 import exception.GlobalException;
 import org.junit.jupiter.api.Test;
 import scenario.KeyValues;
 import scenario.Keys;
+import scenario.Scenario;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Contains various tests for {@link GlobalDataContainer} class.
@@ -322,5 +324,50 @@ class GlobalDataContainerTest
             msg = e.getMessage();
         }
         assertEquals("The reporting interval should not be negative if the monitor thread is used", msg);
+    }
+
+    /**
+     * Test 13 (test random number generator initializer)
+     */
+    @Test
+    void test13()
+    {
+        GlobalDataContainer.Params p = new GlobalDataContainer.Params();
+        p._scenarioKeys = new String[]{Keys.KEY_PROBLEM, Keys.KEY_OBJECTIVES};
+        p._scenarioValues = new String[][]{{"DTLZ2", "DTLZ3"}, {"2", "3", "4"}};
+        p._noTrials = 5;
+        p._noThreads = 4;
+        p._mainPath = "path";
+        p._useMonitorThread = true;
+        p._monitorReportingInterval = 1;
+        GlobalDataContainer GDC = new GlobalDataContainer(p);
+
+        String msg = null;
+        try
+        {
+            GDC.instantiateData(null);
+        } catch (Exception e)
+        {
+            msg = e.getMessage();
+        }
+
+        assertNull(msg);
+
+        Scenario[] scenarios = GDC.getScenarios().getScenarios();
+        Set<Long> set = new HashSet<>();
+        for (int s = 0; s < scenarios.length; s++)
+        {
+            assertEquals(s, scenarios[s].getID());
+            for (int t = 0; t < p._noTrials; t++)
+            {
+                long expected = (long) s * p._noTrials + t;
+                assertEquals(expected, GDC.requestRandomNumberGenerator(scenarios[s], t).getSeed());
+                assertFalse(set.contains(expected));
+                set.add(expected);
+                System.out.println(s + " " + t + " " + (s * p._noTrials + t));
+            }
+        }
+
+        assertEquals(scenarios.length * p._noTrials, set.size());
     }
 }

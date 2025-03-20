@@ -51,6 +51,14 @@ public class Random extends AbstractSelect implements ISelect
     }
 
     /**
+     * Default constructor. Assumes that there are always two parents to be selected per one offspring to be constructed.
+     */
+    public Random()
+    {
+        this(2);
+    }
+
+    /**
      * Parameterized constructor.
      *
      * @param noParentsPerOffspring no parents per offspring (to be selected)

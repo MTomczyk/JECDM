@@ -651,7 +651,7 @@ public class DrawingArea3D extends AbstractDrawingArea implements GLInit
      */
     public void setTicksDataGetterForXAxes(ITicksDataGetter ticksDataGetter)
     {
-        Notification.printNotification(_GC, _PC, _name + " [id = " + PlotContainer.getID(_PC) + "]: set ticks data getter for x-axes method called");
+        Notification.printNotification(_GC, _PC, _name + " [id = " + PlotContainer.getID(_PC) + "]: set ticks data getter for X-axes method called");
         setTicksDataGetterAxes(ticksDataGetter, 0);
     }
 
@@ -662,7 +662,7 @@ public class DrawingArea3D extends AbstractDrawingArea implements GLInit
      */
     public void setTicksDataGetterForYAxes(ITicksDataGetter ticksDataGetter)
     {
-        Notification.printNotification(_GC, _PC, _name + " [id = " + PlotContainer.getID(_PC) + "]: set ticks data getter for y-axes method called");
+        Notification.printNotification(_GC, _PC, _name + " [id = " + PlotContainer.getID(_PC) + "]: set ticks data getter for Y-axes method called");
         setTicksDataGetterAxes(ticksDataGetter, 1);
     }
 
@@ -673,7 +673,7 @@ public class DrawingArea3D extends AbstractDrawingArea implements GLInit
      */
     public void setTicksDataGetterForZAxes(ITicksDataGetter ticksDataGetter)
     {
-        Notification.printNotification(_GC, _PC, _name + " [id = " + PlotContainer.getID(_PC) + "]: set ticks data getter for z-axes method called");
+        Notification.printNotification(_GC, _PC, _name + " [id = " + PlotContainer.getID(_PC) + "]: set ticks data getter for Z-axes method called");
         setTicksDataGetterAxes(ticksDataGetter, 2);
     }
 
@@ -695,7 +695,6 @@ public class DrawingArea3D extends AbstractDrawingArea implements GLInit
         }
     }
 
-
     /**
      * Assigns new labels to those axes that are associated with the X-axis.
      *
@@ -703,7 +702,7 @@ public class DrawingArea3D extends AbstractDrawingArea implements GLInit
      */
     public void setLabelsForXAxes(String[] labels)
     {
-        Notification.printNotification(_GC, _PC, _name + " [id = " + PlotContainer.getID(_PC) + "]: set labels for x-axes method called");
+        Notification.printNotification(_GC, _PC, _name + " [id = " + PlotContainer.getID(_PC) + "]: set labels for X-axes method called");
         setLabelsForAxes(labels, 0);
     }
 
@@ -714,7 +713,7 @@ public class DrawingArea3D extends AbstractDrawingArea implements GLInit
      */
     public void setLabelsForYAxes(String[] labels)
     {
-        Notification.printNotification(_GC, _PC, _name + " [id = " + PlotContainer.getID(_PC) + "]: set labels for y-axes method called");
+        Notification.printNotification(_GC, _PC, _name + " [id = " + PlotContainer.getID(_PC) + "]: set labels for Y-axes method called");
         setLabelsForAxes(labels, 1);
     }
 
@@ -725,7 +724,7 @@ public class DrawingArea3D extends AbstractDrawingArea implements GLInit
      */
     public void setLabelsForZAxes(String[] labels)
     {
-        Notification.printNotification(_GC, _PC, _name + " [id = " + PlotContainer.getID(_PC) + "]: set labels for z-axes method called");
+        Notification.printNotification(_GC, _PC, _name + " [id = " + PlotContainer.getID(_PC) + "]: set labels for Z-axes method called");
         setLabelsForAxes(labels, 2);
     }
 

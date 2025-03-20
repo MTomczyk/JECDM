@@ -834,7 +834,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      * object that may be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name       data set name
-     * @param dimensions the number of dimensions (parallel y-axes)
+     * @param dimensions the number of dimensions (parallel Y-axes)
      * @param ms         marker style (either ms or ls can be null)
      * @param ls         line style (either ms or ls can be null)
      * @return parameterized data set object
@@ -854,7 +854,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      * object that may be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name       data set name
-     * @param dimensions the number of dimensions (parallel y-axes)
+     * @param dimensions the number of dimensions (parallel Y-axes)
      * @param ms         marker style (either ms or ls can be null)
      * @return parameterized data set object
      */
@@ -873,7 +873,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      * object that may be treated as a reference for {@link updater.DataUpdater}.
      *
      * @param name       data set name
-     * @param dimensions the number of dimensions (parallel y-axes)
+     * @param dimensions the number of dimensions (parallel Y-axes)
      * @param ls         line style (either ms or ls can be null)
      * @return parameterized data set object
      */
@@ -890,7 +890,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      * reserved for the X-axis. Consequently, the M-element tuple can be extended by additional (custom) elements.
      *
      * @param name       data set name
-     * @param dimensions the number of dimensions (parallel y-axes)
+     * @param dimensions the number of dimensions (parallel Y-axes)
      * @param data       input data point
      * @param ms         marker style (either ms or ls can be null)
      * @param ls         line style (either ms or ls can be null)
@@ -909,7 +909,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      * reserved for the X-axis. Consequently, the M-element tuple can be extended by additional (custom) elements.
      *
      * @param name       data set name
-     * @param dimensions the number of dimensions (parallel y-axes)
+     * @param dimensions the number of dimensions (parallel Y-axes)
      * @param data       input data point
      * @param ms         marker style (either ms or ls can be null)
      * @param ls         line style (either ms or ls can be null)

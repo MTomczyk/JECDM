@@ -18,6 +18,18 @@ import java.util.LinkedList;
  */
 public class ObjectiveSpaceManager
 {
+    /**
+     * Auxiliary interface for adjusting params container.
+     */
+    public interface IParamsAdjuster
+    {
+        /**
+         * The main method's signature.
+         *
+         * @param p params container whose fields are to be adjusted
+         */
+        void adjust(Params p);
+    }
 
     /**
      * Params container.
@@ -53,7 +65,7 @@ public class ObjectiveSpaceManager
         /**
          * Initial objective space object (can be null).
          */
-        public final ObjectiveSpace _os;
+        public ObjectiveSpace _os;
 
         /**
          * Array of "objective space changed" listeners (can be null; will be set by a dedicated method in {@link ea.AbstractEABundle}).
@@ -292,13 +304,11 @@ public class ObjectiveSpaceManager
             }
         }
 
-
         // if "update globally", the current utopia/nadir are to be compared with historical data
         if ((_updateUtopiaUsingIncumbent) && (_os != null))
             update(os._utopia, os._nadir, _os._utopia);
         if ((_updateNadirUsingIncumbent) && (_os != null))
             update(os._utopia, os._nadir, _os._nadir);
-
 
         // build ranges based on the computed utopia and nadir points
         for (int i = 0; i < cs; i++)

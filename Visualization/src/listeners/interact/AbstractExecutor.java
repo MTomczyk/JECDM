@@ -154,9 +154,9 @@ public abstract class AbstractExecutor
     }
 
     /**
-     * Sets a-axis rotation.
+     * Sets X-axis rotation.
      *
-     * @param rx new x-axis rotation
+     * @param rx new X-axis rotation
      */
     protected void setXAxisCameraRotation(float rx)
     {
@@ -166,7 +166,7 @@ public abstract class AbstractExecutor
     /**
      * Sets a-axis rotation.
      *
-     * @param ry new y-axis rotation
+     * @param ry new Y-axis rotation
      */
     protected void setYAxisCameraRotation(float ry)
     {
@@ -174,9 +174,9 @@ public abstract class AbstractExecutor
     }
 
     /**
-     * Sets a-axis rotation.
+     * Sets Y-axis rotation.
      *
-     * @param rx new x-axis rotation
+     * @param rx new Y-axis rotation
      */
     protected void setXAxisObjectRotation(float rx)
     {
@@ -186,7 +186,7 @@ public abstract class AbstractExecutor
     /**
      * Sets a-axis rotation.
      *
-     * @param ry new y-axis rotation
+     * @param ry new Y-axis rotation
      */
     protected void setYAxisObjectRotation(float ry)
     {
@@ -196,12 +196,12 @@ public abstract class AbstractExecutor
     /**
      * Supportive method setting mouse-related fields.
      *
-     * @param x         mouse current x-position
-     * @param y         mouse current y-position
-     * @param rCAnchorX Anchored (stored) x-axis camera rotation
-     * @param rCAnchorY Anchored (stored) y-axis camera rotation
-     * @param rOAnchorX Anchored (stored) x-axis object rotation
-     * @param rOAnchorY Anchored (stored) y-axis object rotation
+     * @param x         mouse current X-position
+     * @param y         mouse current Y-position
+     * @param rCAnchorX Anchored (stored) X-axis camera rotation
+     * @param rCAnchorY Anchored (stored) Y-axis camera rotation
+     * @param rOAnchorX Anchored (stored) X-axis object rotation
+     * @param rOAnchorY Anchored (stored) Y-axis object rotation
      */
     protected void setMouseXYData(int x, int y, float rCAnchorX, float rCAnchorY, float rOAnchorX, float rOAnchorY)
     {

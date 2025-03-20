@@ -35,7 +35,7 @@ public class PCPPainter2D extends Painter2D implements IPainter
     private PCPIDS _pcpProjection;
 
     /**
-     * Considered dimensionality (the number of parallel y-axes).
+     * Considered dimensionality (the number of parallel Y-axes).
      */
     private final int _dimensions;
 

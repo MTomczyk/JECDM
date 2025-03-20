@@ -20,6 +20,17 @@ public class Criteria
     /**
      * Parameterized constructor.
      *
+     * @param criterion criterion
+     */
+    protected Criteria(Criterion criterion)
+    {
+        _c = new Criterion[]{criterion};
+        _no = 1;
+    }
+
+    /**
+     * Parameterized constructor.
+     *
      * @param criteria criteria array
      */
     protected Criteria(Criterion[] criteria)
@@ -28,27 +39,40 @@ public class Criteria
         _no = criteria.length;
     }
 
+
     /**
-     * Creates a criteria array.
+     * Creates a criteria object (consisting of a single criterion).
      *
-     * @param prefixName common prefix for names of all criteria. E.g., if prefixName = "C", then the names are "C0", "C1", "C2", and so on.
-     * @param n          the number of objects (criteria) to create.
-     * @param gain       criteria type
+     * @param name criterion name
+     * @param gain criterion type (gain = true (the more, the better); false otherwise)
      * @return a vector of length n of criteria.
      */
-    public static Criteria constructCriteria(String prefixName, int n, boolean gain)
+    public static Criteria constructCriterion(String name, boolean gain)
+    {
+        return new Criteria(new Criterion(name, gain, 0));
+    }
+
+    /**
+     * Creates a criteria object.
+     *
+     * @param prefix common prefix for criteria names. E.g., if prefixName = "C", then the names are "C0", "C1", "C2", and so on.
+     * @param n      the number of objects (criteria) to create.
+     * @param gain   criteria type (gain = true (the more, the better); false otherwise)
+     * @return a vector of length n of criteria.
+     */
+    public static Criteria constructCriteria(String prefix, int n, boolean gain)
     {
         Criterion[] c = new Criterion[n];
         for (int i = 0; i < n; i++)
-            c[i] = new Criterion(String.format("%s%d", prefixName, i), gain, i);
+            c[i] = new Criterion(String.format("%s%d", prefix, i), gain, i);
         return new Criteria(c);
     }
 
     /**
-     * Creates a criteria array.
+     * Creates a criteria object..
      *
      * @param names criteria names (array length must equal the gains array length)
-     * @param gains criteria ``gain'' flags (array length must equal the names array length)
+     * @param gains criteria ``gain'' flags (array length must equal the names array length; gain = true (the more, the better); false otherwise)
      * @return a vector of length n of criteria.
      */
     public static Criteria constructCriteria(String[] names, boolean[] gains)

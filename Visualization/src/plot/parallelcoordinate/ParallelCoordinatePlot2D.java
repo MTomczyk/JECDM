@@ -35,8 +35,6 @@ import java.text.DecimalFormat;
  *
  * @author MTomczyk
  */
-
-
 public class ParallelCoordinatePlot2D extends Plot2D
 {
     /**

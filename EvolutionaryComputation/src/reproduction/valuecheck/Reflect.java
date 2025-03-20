@@ -1,13 +1,11 @@
 package reproduction.valuecheck;
 
 /**
- * Absorb technique for repairing gene values (reflect from the boundary).
+ * Absorb technique for repairing decision vector values (reflect from the boundary).
  *
  * @author MTomczyk
  */
-
-
-public class Reflect implements IValueCheck
+public class Reflect extends AbstractValueCheck implements IValueCheck
 {
     /**
      * Checks and corrects int values.

@@ -185,7 +185,7 @@ public class Utils
 
         // create ea instance
         EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        PhasesBundle.copyPhasesFromBundleToEA(pEA, algorithmBundle._phasesBundle);
+        PhasesBundle.copyPhasesFromBundleToEA(algorithmBundle._phasesBundle, pEA);
         pEA._id = id;
         pEA._R = R;
         pEA._populationSize = goals.length;
@@ -264,7 +264,7 @@ public class Utils
 
         // create ea instance
         EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        PhasesBundle.copyPhasesFromBundleToEA(pEA, algorithmBundle._phasesBundle);
+        PhasesBundle.copyPhasesFromBundleToEA(algorithmBundle._phasesBundle, pEA);
         pEA._id = id;
         pEA._R = R;
         pEA._populationSize = populationSize;
@@ -344,7 +344,7 @@ public class Utils
 
         // create ea instance
         EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        PhasesBundle.copyPhasesFromBundleToEA(pEA, algorithmBundle._phasesBundle);
+        PhasesBundle.copyPhasesFromBundleToEA(algorithmBundle._phasesBundle, pEA);
         pEA._id = id;
         pEA._R = R;
         pEA._populationSize = populationSize;
@@ -435,7 +435,7 @@ public class Utils
 
         // create ea instance
         EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        PhasesBundle.copyPhasesFromBundleToEA(pEA, algorithmBundle._phasesBundle);
+        PhasesBundle.copyPhasesFromBundleToEA(algorithmBundle._phasesBundle, pEA);
         pEA._id = id;
         pEA._R = R;
         pEA._populationSize = populationSize;
@@ -527,7 +527,7 @@ public class Utils
 
         // create ea instance
         EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        PhasesBundle.copyPhasesFromBundleToEA(pEA, algorithmBundle._phasesBundle);
+        PhasesBundle.copyPhasesFromBundleToEA(algorithmBundle._phasesBundle, pEA);
         pEA._id = id;
         pEA._R = R;
         pEA._populationSize = populationSize;

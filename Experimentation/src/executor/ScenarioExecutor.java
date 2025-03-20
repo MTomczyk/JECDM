@@ -252,7 +252,7 @@ public class ScenarioExecutor extends AbstractExecutor
         ArrayList<TrialExecutor> executors = new ArrayList<>(_SDC.getGDC().getNoEnabledTrials());
         for (int id : _SDC.getGDC().getTrialIDs())
         {
-            IRandom R = _SDC.getGDC().requestRandomNumberGenerator(); // request RNG (synchronous)
+            IRandom R = _SDC.getGDC().requestRandomNumberGenerator(_SDC.getScenario(), id); // request RNG (synchronous)
             executors.add(new TrialExecutor(_SDC, _TDCF, id, R, latch, _log));
         }
         return executors;

@@ -9,7 +9,7 @@ import utils.Projection;
 
 /**
  * Organizes the layout as {@link BaseLayoutManager}.
- * However, it organizes all vertical axes along the x-axis.
+ * However, it organizes all vertical axes along the X-axis.
  *
  * @author MTomczyk
  */

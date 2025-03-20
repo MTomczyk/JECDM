@@ -1,5 +1,6 @@
 package emo.interactive.iemod;
 
+import criterion.Criteria;
 import ea.AbstractInteractiveEA;
 import ea.EA;
 import emo.utils.decomposition.alloc.Uniform;
@@ -13,10 +14,14 @@ import model.IPreferenceModel;
 import model.constructor.IConstructor;
 import model.internals.value.AbstractValueInternalModel;
 import os.ObjectiveSpaceManager;
+import phase.DoubleConstruct;
+import phase.DoubleEvaluate;
 import phase.IConstruct;
 import phase.IEvaluate;
 import problem.moo.AbstractMOOProblemBundle;
+import problem.moo.MOOProblemBundle;
 import random.IRandom;
+import reproduction.DoubleReproduce;
 import reproduction.IReproduce;
 import selection.ISelect;
 import selection.Random;
@@ -46,17 +51,55 @@ public class IEMOD extends AbstractInteractiveEA
         _goalsManager = bundle._goalsManager;
     }
 
+
     /**
      * Creates the IEMO/D algorithm. It employs a default decision support system that involves one decision maker
      * (model and feedback provider), single interaction rule, and single reference set constructor (inconsistency
-     * handler = remove oldest; refiner = default). The method is also coupled with a random selection.
+     * handler = remove oldest; refiner = default). The method is also coupled with the random selection of parents.
+     * Sets id to 0 and parameterizes the method to update the OS dynamically (uses utopia incumbent during the updates).
+     *
+     * @param R                       the RGN
+     * @param goals                   optimization goals
+     * @param problem                 problem bundle (provides criteria, specimen constructor, evaluator, and reproducer)
+     * @param similarity              object used to quantify similarity between two optimization goals
+     * @param neighborhoodSize        neighborhood size for IEMO/D
+     * @param interactionRule         interaction rule
+     * @param referenceSetConstructor reference set constructor
+     * @param dmFeedbackProvider      artificial decision maker (feedback provider)
+     * @param modelConstructor        model constructor (the number of goals it constructs should be greater/equal to the number of initial goals
+     * @param preferenceModel         definition of the preference model
+     * @param <T>                     form of the internal value model used to represent preferences
+     * @return IEMO/D algorithm
+     */
+    public static <T extends AbstractValueInternalModel> IEMOD getIEMOD(IRandom R,
+                                                                        IGoal[] goals,
+                                                                        AbstractMOOProblemBundle problem,
+                                                                        ISimilarity similarity,
+                                                                        int neighborhoodSize,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        IConstructor<T> modelConstructor)
+    {
+        // IMPORTANT: create just 1 offspring (1 offspring in one steady-state repeat)
+        ISelect select = new Random(2);
+        return getIEMOD(0, true, false, R, goals, problem, select,
+                problem._construct, problem._evaluate, problem._reproduce, similarity, neighborhoodSize,
+                interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, modelConstructor);
+    }
+
+    /**
+     * Creates the IEMO/D algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (inconsistency
+     * handler = remove oldest; refiner = default). The method is also coupled with the random selection of parents.
      *
      * @param id                      algorithm id
      * @param updateOSDynamically     if true, the OS will be updated dynamically; false = it will be fixed
      * @param useNadirIncumbent       if true, nadir incumbent will be used when updating OS
      * @param R                       the RGN
      * @param goals                   optimization goals
-     * @param problem                 problem bundle
+     * @param problem                 problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
      * @param similarity              object used to quantify similarity between two optimization goals
      * @param neighborhoodSize        neighborhood size for IEMO/D
      * @param interactionRule         interaction rule
@@ -92,7 +135,142 @@ public class IEMOD extends AbstractInteractiveEA
     /**
      * Creates the IEMO/D algorithm. It employs a default decision support system that involves one decision maker
      * (model and feedback provider), single interaction rule, and single reference set constructor. (inconsistency
-     * handler = remove oldest; refiner = default)
+     * handler = remove oldest; refiner = default). Sets id to 0 and parameterizes the method to update the OS
+     * dynamically (uses utopia incumbent during the updates).
+     *
+     * @param R                       the RGN
+     * @param goals                   initial optimization goals
+     * @param criteria                criteria
+     * @param select                  parents selector
+     * @param construct               specimens constructor
+     * @param evaluate                specimens evaluator
+     * @param reproduce               specimens reproducer
+     * @param similarity              object used to quantify similarity between two optimization goals
+     * @param neighborhoodSize        neighborhood size for IEMO/D
+     * @param interactionRule         interaction rule
+     * @param referenceSetConstructor reference set constructor
+     * @param dmFeedbackProvider      artificial decision maker (feedback provider)
+     * @param modelConstructor        model constructor (the number of goals it constructs should be greater/equal to the number of initial goals
+     * @param preferenceModel         definition of the preference model
+     * @param <T>                     form of the internal value model used to represent preferences
+     * @return IEMO/D algorithm
+     */
+    public static <T extends AbstractValueInternalModel> IEMOD getIEMOD(IRandom R,
+                                                                        IGoal[] goals,
+                                                                        Criteria criteria,
+                                                                        ISelect select,
+                                                                        DoubleConstruct.IConstruct construct,
+                                                                        DoubleEvaluate.IEvaluate evaluate,
+                                                                        DoubleReproduce.IReproduce reproduce,
+                                                                        ISimilarity similarity,
+                                                                        int neighborhoodSize,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        IConstructor<T> modelConstructor)
+    {
+        return getIEMOD(0, true, false, R, goals,
+                MOOProblemBundle.getProblemBundle(criteria), select, new DoubleConstruct(construct),
+                new DoubleEvaluate(evaluate), new DoubleReproduce(reproduce),
+                similarity, neighborhoodSize, interactionRule, referenceSetConstructor,
+                dmFeedbackProvider, preferenceModel, modelConstructor);
+    }
+
+
+    /**
+     * Creates the IEMO/D algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor. (inconsistency
+     * handler = remove oldest; refiner = default). Sets id to 0 and parameterizes the method to update the OS
+     * dynamically (uses utopia incumbent during the updates).
+     *
+     * @param R                       the RGN
+     * @param goals                   initial optimization goals
+     * @param problem                 problem bundle (provides criteria)
+     * @param select                  parents selector
+     * @param construct               specimens constructor
+     * @param evaluate                specimens evaluator
+     * @param reproduce               specimens reproducer
+     * @param similarity              object used to quantify similarity between two optimization goals
+     * @param neighborhoodSize        neighborhood size for IEMO/D
+     * @param interactionRule         interaction rule
+     * @param referenceSetConstructor reference set constructor
+     * @param dmFeedbackProvider      artificial decision maker (feedback provider)
+     * @param modelConstructor        model constructor (the number of goals it constructs should be greater/equal to the number of initial goals
+     * @param preferenceModel         definition of the preference model
+     * @param <T>                     form of the internal value model used to represent preferences
+     * @return IEMO/D algorithm
+     */
+    public static <T extends AbstractValueInternalModel> IEMOD getIEMOD(IRandom R,
+                                                                        IGoal[] goals,
+                                                                        AbstractMOOProblemBundle problem,
+                                                                        ISelect select,
+                                                                        DoubleConstruct.IConstruct construct,
+                                                                        DoubleEvaluate.IEvaluate evaluate,
+                                                                        DoubleReproduce.IReproduce reproduce,
+                                                                        ISimilarity similarity,
+                                                                        int neighborhoodSize,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        IConstructor<T> modelConstructor)
+    {
+        return getIEMOD(0, true, false, R, goals, problem, select,
+                new DoubleConstruct(construct), new DoubleEvaluate(evaluate), new DoubleReproduce(reproduce),
+                similarity, neighborhoodSize, interactionRule, referenceSetConstructor,
+                dmFeedbackProvider, preferenceModel, modelConstructor);
+    }
+
+
+    /**
+     * Creates the IEMO/D algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor. (inconsistency
+     * handler = remove oldest; refiner = default). Sets id to 0 and parameterizes the method to update the OS
+     * dynamically (uses utopia incumbent during the updates).
+     *
+     * @param R                       the RGN
+     * @param goals                   initial optimization goals
+     * @param problem                 problem bundle (provides criteria, normalizations (when fixed))
+     * @param select                  parents selector
+     * @param construct               specimens constructor
+     * @param evaluate                specimens evaluator
+     * @param reproduce               specimens reproducer
+     * @param similarity              object used to quantify similarity between two optimization goals
+     * @param neighborhoodSize        neighborhood size for IEMO/D
+     * @param interactionRule         interaction rule
+     * @param referenceSetConstructor reference set constructor
+     * @param dmFeedbackProvider      artificial decision maker (feedback provider)
+     * @param modelConstructor        model constructor (the number of goals it constructs should be greater/equal to the number of initial goals
+     * @param preferenceModel         definition of the preference model
+     * @param <T>                     form of the internal value model used to represent preferences
+     * @return IEMO/D algorithm
+     */
+    public static <T extends AbstractValueInternalModel> IEMOD getIEMOD(IRandom R,
+                                                                        IGoal[] goals,
+                                                                        AbstractMOOProblemBundle problem,
+                                                                        ISelect select,
+                                                                        IConstruct construct,
+                                                                        IEvaluate evaluate,
+                                                                        IReproduce reproduce,
+                                                                        ISimilarity similarity,
+                                                                        int neighborhoodSize,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        IConstructor<T> modelConstructor)
+    {
+        return getIEMOD(0, true, false, R, goals, problem, select, construct,
+                evaluate, reproduce, similarity, neighborhoodSize, interactionRule, referenceSetConstructor,
+                dmFeedbackProvider, preferenceModel, modelConstructor);
+    }
+
+
+    /**
+     * Creates the IEMO/D algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor. (inconsistency
+     * handler = remove oldest; refiner = default).
      *
      * @param id                      algorithm id
      * @param updateOSDynamically     if true, the OS will be updated dynamically; false = it will be fixed

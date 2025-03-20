@@ -64,10 +64,10 @@ public class Tutorial1b
         pHP._featureGetter = new ConstantValue(1); // returns the feature (constant 1)
         pHP._trialStatistics = new Constant(1.0d); // set per-trial statistic (Constant = 1.0d; thus, feature has no effect)
         pHP._finalStatistics = new Sum(); // set final statistics (total no. trials in which found)
-        pHP._xAxisDivisions = xDix; // set the discretization level for x-axis
-        pHP._xAxisDisplayRange = xDR; // set considered bound on the objective space (x-axis)
-        pHP._yAxisDivisions = yDiv; // set the discretization level for y-axis
-        pHP._yAxisDisplayRange = yDR; // set considered bound on the objective space (y-axis)
+        pHP._xAxisDivisions = xDix; // set the discretization level for X-axis
+        pHP._xAxisDisplayRange = xDR; // set considered bound on the objective space (X-axis)
+        pHP._yAxisDivisions = yDiv; // set the discretization level for Y-axis
+        pHP._yAxisDisplayRange = yDR; // set considered bound on the objective space (Y-axis)
         Heatmap2DProcessor h2D = new Heatmap2DProcessor(pHP);
 
         // Execute processing:

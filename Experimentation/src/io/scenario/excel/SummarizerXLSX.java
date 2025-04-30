@@ -206,7 +206,7 @@ public class SummarizerXLSX extends AbstractExcelSummarizer implements IScenario
     }
 
     /**
-     * Returns the file suffix (.xlsx)
+     * Returns the file suffix (includes .xlsx)
      *
      * @return file suffix
      */

@@ -522,8 +522,7 @@ public class AbstractPlot extends AbstractSwingComponent
                         g2c.dispose();
                     }
                     g2.dispose();
-                }
-                else
+                } else
                 {
                     Graphics2D g2 = screenshot.createGraphics();
                     paint(g2);
@@ -535,7 +534,6 @@ public class AbstractPlot extends AbstractSwingComponent
             System.out.println("Error occurred when creating a screenshot (message = " + e.getMessage() + ")");
             return null;
         }
-
         return screenshot;
     }
 }

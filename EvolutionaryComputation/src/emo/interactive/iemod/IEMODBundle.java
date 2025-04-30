@@ -86,9 +86,39 @@ public class IEMODBundle extends AbstractEMOInteractiveBundle
                                                                                   IPreferenceModel<T> preferenceModel,
                                                                                   IConstructor<T> modelConstructor)
         {
+            return getDefault(criteria, goalsManager, DM, interactionRule, referenceSetConstructor, dmFeedbackProvider,
+                    preferenceModel, modelConstructor, null);
+        }
 
+        /**
+         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
+         * feedback provider, and one interaction rule.
+         *
+         * @param criteria                considered criteria
+         * @param goalsManager            goals manager
+         * @param DM                      decision maker's identifier
+         * @param interactionRule         interaction rule
+         * @param referenceSetConstructor reference set constructor
+         * @param dmFeedbackProvider      DM-based feedback provider
+         * @param preferenceModel         preference model used
+         * @param modelConstructor        model instance constructor
+         * @param dssAdjuster             auxiliary DSS params adjuster (can be null, if not used); adjustment is done after the default initialization
+         * @param <T>                     internal preference model definition
+         * @return params container
+         */
+        public static <T extends AbstractValueInternalModel> Params<T> getDefault(Criteria criteria,
+                                                                                  MOEADGoalsManager goalsManager,
+                                                                                  String DM,
+                                                                                  IRule interactionRule,
+                                                                                  IReferenceSetConstructor referenceSetConstructor,
+                                                                                  IDMFeedbackProvider dmFeedbackProvider,
+                                                                                  IPreferenceModel<T> preferenceModel,
+                                                                                  IConstructor<T> modelConstructor,
+                                                                                  DecisionSupportSystem.IParamsAdjuster dssAdjuster)
+        {
             DecisionSupportSystem.Params pDSS = DSSParamsProvider.getForSingleDecisionMakerSingleModelArtificialProvider(criteria,
                     DM, interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, modelConstructor);
+            if (dssAdjuster != null) dssAdjuster.adjust(pDSS);
             return getDefault(criteria, goalsManager, new IEMODGoalsUpdater<>(preferenceModel, goalsManager), pDSS);
         }
 
@@ -100,8 +130,8 @@ public class IEMODBundle extends AbstractEMOInteractiveBundle
          * @param goalsManager goals manager
          * @param goalsUpdater object responsible for updating the optimization goals
          * @param pDSS         params container used to establish the decision support system
+         * @param <T>          internal value model
          * @return params container
-         * @param <T> internal value model
          */
         public static <T extends AbstractValueInternalModel> Params<T> getDefault(Criteria criteria,
                                                                                   MOEADGoalsManager goalsManager,

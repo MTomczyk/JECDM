@@ -26,6 +26,19 @@ import java.time.LocalDateTime;
 public class DecisionSupportSystem
 {
     /**
+     * Simple params adjuster (can be used in various implementations to adjust {@link Params} being parameterized).
+     */
+    public interface IParamsAdjuster
+    {
+        /**
+         * The main method.
+         *
+         * @param p params container being parameterized
+         */
+        void adjust(Params p);
+    }
+
+    /**
      * Params container.
      */
     public static class Params

@@ -11,5 +11,7 @@
     <orderEntry type="module" module-name="EvolutionaryComputation" />
     <orderEntry type="module" module-name="DecisionSupport" />
     <orderEntry type="module" module-name="Visualization" />
+    <orderEntry type="module" module-name="Experimentation" />
+    <orderEntry type="library" name="poi" level="project" />
   </component>
 </module>

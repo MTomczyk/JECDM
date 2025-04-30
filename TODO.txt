@@ -33,3 +33,4 @@ Visualization:
 Experimentation
 - Mechanisms for surpassing original names of the indicators
 - Option for automatically saving the summary in txt
+- Customizing the monitor thread logs + logging performance measurement time

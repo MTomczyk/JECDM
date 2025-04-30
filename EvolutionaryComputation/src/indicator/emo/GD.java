@@ -5,12 +5,11 @@ import population.Specimen;
 import space.distance.IDistance;
 import java.util.ArrayList;
 /**
- * Implementation of the Generational Distance indicator.
+ * Implementation of the Generational Distance indicator. This implementation quantifies distances to the PF based on
+ * the provided set of reference Pareto optimal solutions. Thus, the obtained results are approximations.
  *
  * @author MTomczyk
  */
-
-
 public class GD extends AbstractReferenceSetBased implements IPerformanceIndicator
 {
     /**

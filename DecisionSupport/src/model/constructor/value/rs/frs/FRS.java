@@ -30,7 +30,9 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
         /**
          * Limit for the number of samples the FRS method is allowed to generate. Should be positive and greater (or equal)
          * than {@link Params#_feasibleSamplesToGenerate}. In the case of value violation, it is set to 1 or
-         * {@link Params#_feasibleSamplesToGenerate} (whatever is greater).
+         * {@link Params#_feasibleSamplesToGenerate} (whatever is greater). IMPORTANT NOTE: this field has no effect if
+         * {@link Params#_iterationsLimit} is provided via params container. The implementation of this interface is
+         * used, if not null, to dynamically adjust the number of iterations a sampler is allowed to run.
          */
         public int _samplingLimit = 1000000;
 
@@ -83,8 +85,13 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
     protected void mainConstructModels(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
         if (initializeStep(bundle, preferenceInformation)) return;
+        int attempts;
+        if (_iterationsLimit != null)
+            attempts = Math.max(0, _iterationsLimit.getIterations(_dmContext, preferenceInformation,
+                    bundle, _feasibleSamplesToGenerate));
+        else attempts = Math.max(0, _samplingLimit);
 
-        for (int t = 0; t < _samplingLimit; t++)
+        for (int t = 0; t < attempts; t++)
         {
             executeStep(bundle, preferenceInformation);
             if (_toGenerate == 0) break;

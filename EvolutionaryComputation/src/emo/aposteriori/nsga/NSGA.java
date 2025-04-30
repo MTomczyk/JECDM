@@ -315,10 +315,9 @@ public class NSGA extends EA
         }
         else
         {
-            // Set the initial normalizations (will be delivered to the object responsible for calculating niche counts):
+            // Set the initial normalizations
             pB._initialNormalizations = problem._normalizations;
-            pB._osManager = null; // no os manager needed
-            // Adjust the distance function:
+            pB._osManager = ObjectiveSpaceManager.getFixedInstance(problem);
             pB._distance.setNormalizations(problem._normalizations);
         }
 

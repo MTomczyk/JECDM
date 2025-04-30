@@ -9,6 +9,7 @@ import model.constructor.IConstructor;
 import model.constructor.Report;
 import model.constructor.random.IRandomModel;
 import model.constructor.value.rs.frs.FRS;
+import model.constructor.value.rs.iterationslimit.IIterationsLimit;
 import model.internals.value.AbstractValueInternalModel;
 import random.IRandom;
 
@@ -29,6 +30,12 @@ public abstract class AbstractRejectionSampling<T extends AbstractValueInternalM
      */
     public static class Params<T extends AbstractValueInternalModel>
     {
+        /**
+         * The limit for the number of attempts to improve the set of generated models.
+         * Can be conditional (see {@link IIterationsLimit}).
+         */
+        public IIterationsLimit _iterationsLimit = null;
+
         /**
          * Random model generator.
          */
@@ -76,6 +83,12 @@ public abstract class AbstractRejectionSampling<T extends AbstractValueInternalM
     }
 
     /**
+     * The limit for the number of attempts to improve the set of generated models.
+     * Can be conditional (see {@link IIterationsLimit}).
+     */
+    protected final IIterationsLimit _iterationsLimit;
+
+    /**
      * Random model generator.
      */
     protected final IRandomModel<T> _RM;
@@ -118,6 +131,7 @@ public abstract class AbstractRejectionSampling<T extends AbstractValueInternalM
     public AbstractRejectionSampling(String name, Params<T> p)
     {
         super(name, p._compatibilityAnalyzer);
+        _iterationsLimit = p._iterationsLimit;
         _RM = p._RM;
         _inconsistencyThreshold = p._inconsistencyThreshold;
         _validateAlreadyExistingSamplesFirst = p._validateAlreadyExistingSamplesFirst;

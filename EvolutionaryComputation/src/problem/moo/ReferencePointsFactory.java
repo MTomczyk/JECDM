@@ -58,7 +58,8 @@ public class ReferencePointsFactory
         IGoal[] goals = GoalsFactory.getPointLineProjectionsDND(M, 10, bundle._normalizations);
         // IGoal [] goals = FamilyFactory.getLNorms(0, M, 10, 4.0d, bundle._normalizations).getGoals();
         //double[][] rps = ReferencePointsFactory.getRandomReferencePoints(problem, n, M, R);
-        double[][] rps = ReferencePointsFactory.getFilteredReferencePoints(problem, n, M, R, goals);
+        //double[][] rps = ReferencePointsFactory.getFilteredReferencePoints(problem, n, M, R, goals);
+        double[][] rps = ReferencePointsFactory.getUniformRandomRPsOnConvexSphere(2.0d, n, M, R);
 
         IDataSet ds;
         if (M == 2) ds = DataSet.getFor2D("RPs", rps, new MarkerStyle(1.0f, Color.RED, Marker.CIRCLE));
@@ -103,8 +104,99 @@ public class ReferencePointsFactory
         frame.setVisible(true);
     }
 
+
+    /**
+     * This method generates random reference points on a concave and spherical Pareto front. The sphere is located in
+     * the center of the coordinate space, and points belonging to its first quarter are sampled only.
+     * Important note: This method generates points that are (randomly) uniformly distributed on the sphere.
+     *
+     * @param n the number of points to sample
+     * @param M the number of objectives
+     * @param R Random number generator
+     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null, if the input is invalid
+     */
+    public static double[][] getUniformRandomRPsOnConcaveSphere(int n, int M, IRandom R)
+    {
+        return getUniformRandomRPsOnConcaveSphere(1.0d, n, M, R);
+    }
+
+    /**
+     * This method generates random reference points on a concave and spherical Pareto front. The sphere is located in
+     * the center of the coordinate space, and points belonging to its first quarter are sampled only.
+     * Important note: This method generates points that are (randomly) uniformly distributed on the sphere.
+     *
+     * @param r sphere radius
+     * @param n the number of points to sample
+     * @param M the number of objectives
+     * @param R Random number generator
+     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null, if the input is invalid
+     */
+    public static double[][] getUniformRandomRPsOnConcaveSphere(double r, int n, int M, IRandom R)
+    {
+        if (R == null) return null;
+        if (n < 1) return null;
+        if (M < 2) return null;
+        if (Double.compare(r, 0.0) <= 0) return null;
+
+        IShape[] shapes = new IShape[M];
+        for (int m = 0; m < M; m++) shapes[m] = new Concave(m, M);
+        double div = Math.PI / 2.0d;
+
+        double[][] p = new double[n][M];
+        for (int i = 0; i < n; i++)
+        {
+            double[] x = new double[M - 1];
+            x[M - 2] = R.nextDouble();
+            for (int j = 0; j < M - 2; j++)
+            {
+                double ct = R.nextDouble();
+                x[j] = Math.acos(ct);
+                x[j] /= (div);
+            }
+            for (int j = 0; j < M; j++) p[i][j] = r * shapes[j].getShape(x);
+        }
+        return p;
+    }
+
+    /**
+     * This method generates random reference points on a convex and spherical Pareto front. The sphere is located in
+     * the [radius,...,radius]-vector of the coordinate space, and points belonging to its first quarter are sampled only.
+     * Important note: This method generates points that are (randomly) uniformly distributed on the sphere.
+     *
+     * @param n the number of points to sample
+     * @param M the number of objectives
+     * @param R Random number generator
+     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null, if the input is invalid
+     */
+    public static double[][] getUniformRandomRPsOnConvexSphere(int n, int M, IRandom R)
+    {
+        return getUniformRandomRPsOnConvexSphere(1.0d, n, M, R);
+    }
+
+    /**
+     * This method generates random reference points on a convex and spherical Pareto front. The sphere is located in
+     * the [radius,...,radius]-vector of the coordinate space, and points belonging to its first quarter are sampled only.
+     * Important note: This method generates points that are (randomly) uniformly distributed on the sphere.
+     *
+     * @param r sphere radius
+     * @param n the number of points to sample
+     * @param M the number of objectives
+     * @param R Random number generator
+     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null, if the input is invalid
+     */
+    public static double[][] getUniformRandomRPsOnConvexSphere(double r, int n, int M, IRandom R)
+    {
+        double[][] p = getUniformRandomRPsOnConcaveSphere(r, n, M, R);
+        if (p == null) return null;
+        for (double[] v : p)
+            for (int j = 0; j < v.length; j++) v[j] = r - v[j];
+        return p;
+    }
+
     /**
      * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective space)
+     * The points are drawn randomly, by generating uniformly distributed decision vectors (which may not lead to a uniform
+     * distribution in the objective space).
      *
      * @param problem problem ID
      * @param n       number of solutions to generate
@@ -237,7 +329,6 @@ public class ReferencePointsFactory
     {
         IShape[] shapes = new IShape[M];
         for (int m = 0; m < M; m++) shapes[m] = new Concave(m, M);
-
 
         double[][] p = new double[n][M];
         for (int i = 0; i < n; i++)

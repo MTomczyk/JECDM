@@ -1,5 +1,6 @@
 package plot;
 
+import color.Color;
 import component.AbstractSwingComponent;
 import component.drawingarea.AbstractDrawingArea;
 import container.ComponentsContainer;
@@ -449,10 +450,39 @@ public class PlotModel
      * @param h               new plot height for the screenshot
      * @param useAlphaChannel if true, alpha channel is used; false otherwise
      * @return initially empty wrapper for the buffered image (the image will be set by the workers); additionally,
-     * the method creates a count-down latch with a size of 1 and passes it via the returned object;  a thread
-     * creating a render will call its countDown() upon screenshot creation,  thus allowing for thread synchronization
+     * the method creates a count-down latch with a size of 1 and passes it via the returned object; the barrier's
+     * countDown() method must be called, otherwise, the plot processing will be frozen; a thread creating a render
+     * will call its countDown() upon screenshot creation, thus allowing for thread synchronization
      */
     public Screenshot requestScreenshotCreation(int w, int h, boolean useAlphaChannel)
+    {
+        return requestScreenshotCreation(w, h, useAlphaChannel, null);
+    }
+
+
+    /**
+     * Auxiliary method that helps automatically create a screenshot. The processing involves:
+     * (1) disabling plot visibility,
+     * (2) setting projection bounds,
+     * (3) updating IDS structures,
+     * (4) creating a render,
+     * (6) creating a screenshot (synchronously),
+     * (7) restoring the plot size,
+     * (8) restoring plot visibility,
+     * (9) calling countDown on the barrier.
+     *
+     * @param w               new plot width for the screenshot
+     * @param h               new plot height for the screenshot
+     * @param useAlphaChannel if true, alpha channel is used; false otherwise
+     * @param clipToFilColor  if not null, the created screenshot is clipped so that its depicted object occupies all
+     *                        image; it is done by removing the first/last columns/rows whose all pixels match the given
+     *                        color (RGB channels are compared and optionally A, if the image supports it)
+     * @return initially empty wrapper for the buffered image (the image will be set by the workers); additionally,
+     * the method creates a count-down latch with a size of 1 and passes it via the returned object; the barrier's
+     * countDown() method must be called, otherwise, the plot processing will be frozen; a thread creating a render
+     * will call its countDown() upon screenshot creation, thus allowing for thread synchronization
+     */
+    public Screenshot requestScreenshotCreation(int w, int h, boolean useAlphaChannel, Color clipToFilColor)
     {
         if (_CC.getDrawingArea() == null) return null;
 
@@ -469,7 +499,7 @@ public class PlotModel
         workers.add(new PlotDimensionsUpdater(_PC, px, py, w, h));
         workers.add(da.createIDSUpdater(EventTypes.ON_RESIZE));
         workers.add(da.createRenderUpdater(EventTypes.ON_RESIZE));
-        workers.add(new CreateAndWrapScreenshot(_PC, screenshot));
+        workers.add(new CreateAndWrapScreenshot(_PC, screenshot, clipToFilColor));
         workers.add(new PlotDimensionsUpdater(_PC, px, py, pw, ph));
         workers.add(new UpdateIDSAndRenderOnDemandUpdater(_PC));
         workers.add(new PlotVisibilityUpdater(_PC, true));
@@ -506,6 +536,39 @@ public class PlotModel
         _dataSets = dataSets;
     }
 
+    /**
+     * Auxiliary method that updates the projection: translation (implementation dependent)
+     *
+     * @param tx translation along x-dimension
+     * @param ty translation along y-dimension
+     * @param tz translation along z-dimension
+     */
+    protected void updateCameraTranslation(float tx, float ty, float tz)
+    {
+
+    }
+
+    /**
+     * Auxiliary method that updates the projection: camera rotation (implementation dependent)
+     *
+     * @param rx rotation along x-dimension
+     * @param ry rotation along y-dimension
+     */
+    protected void updateCameraRotation(float rx, float ry)
+    {
+
+    }
+
+    /**
+     * Auxiliary method that updates the projection: plot rotation (implementation dependent)
+     *
+     * @param rx rotation along x-dimension
+     * @param ry rotation along y-dimension
+     */
+    protected void updatePlotRotation(float rx, float ry)
+    {
+
+    }
 
     /**
      * Getter for the data sets.

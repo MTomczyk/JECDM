@@ -46,15 +46,4 @@ public class StandardDeviation extends AbstractStatistic implements IStatistic
     {
         return Math.sqrt(_var.calculate(v));
     }
-
-    /**
-     * Auxiliary method for retrieving the string representation ("VAR").
-     *
-     * @return string representation ("VAR")
-     */
-    public String getName()
-    {
-        return toString();
-    }
-
 }

@@ -142,7 +142,15 @@ public class DataMatrixFromXLSX
                 else if (cells[r][c].getCellType() == CellType.NUMERIC)
                     data[r][c] = String.valueOf(cells[r][c].getNumericCellValue());
                 else if (cells[r][c].getCellType() == CellType.FORMULA)
-                    data[r][c] = String.valueOf(cells[r][c].getNumericCellValue());
+                {
+                    if (cells[r][c].getCachedFormulaResultType().equals(CellType.STRING))
+                        data[r][c] = cells[r][c].getStringCellValue();
+                    else
+                    {
+                        double value = cells[r][c].getNumericCellValue();
+                        data[r][c] = String.valueOf(value);
+                    }
+                }
                 else if (cells[r][c].getCellType() == CellType.STRING) data[r][c] = cells[r][c].getStringCellValue();
             }
         }

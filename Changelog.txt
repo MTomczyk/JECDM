@@ -1,3 +1,25 @@
+[30.04.2025] This update is mainly dedicated to the "Tutorial 10: Evolutionary Rejection Sampling" tutorial document
+- Visualization: line width property can be set via a scheme for 3D components Cube, Axes, and Panes (seek suitable fields, e.g., PANE3D_TOP_LINES_WIDTH).
+- Visualization: plot.plotModel.requestScreenshotCreation(...):  option (parameter) for clipping the created screenshot is added; the screenshot is clipped so that its depicted object occupies all the image; it is done by removing the first/last columns/rows whose all pixels match the given color.
+- Visualization: minor fixes linked to arrow rendering
+- Visualization: Plot3D.getModel(): auxiliary method for adjusting plot projection added (updateProjectionTranslation, updateCameraRotation, updatePlotrRotation)
+- EvolutionaryComputation: New Evolutionary Rejection Sampling (ERS) method added (see the tutorial)
+- EvolutionaryComputation: visualization.utils.getFlat2DPF (and similar) methods added (construct flat, normalized reference Pareto fronts).
+- EvolutionaryComputation: problem.moo.ReferencePointsFactory: getUniformRandomRPsOnConcaveSphere(...) method (and similar) added; they allow for constructing reference points that are sampled uniformly on convex/concave spheres
+- EvolutionaryComputation: reproduction.operators.crossover.OnSimplexCombination and reproduction.operators.mutation.OnSimplexMutation added
+- EvolutionaryComputation: ObjectiveSpaceManager gained a mode: _deriveNadirFromVectorsFormingUtopia (nadir is built from objective vectors forming the utopia)
+- EvolutionaryComputation: utils.GenerationsLimits: an auxiliary class that allows for concisely determining generations limits for various problems is added
+- EvolutionaryComputation: utils.ReferencePointsOnParetoFront: an auxiliary class that allows for concisely creating and wrapping Pareto optimal reference points (generated randomly)
+- EvolutionaryComputation: interactive: the primary algorithm classes (e.g., IEMOD) were extended with new static methods for instantiating the algorithms.
+- EvolutionaryComputation: the primary algorithm classes (e.g., NSGA-II, IEMO/D, etc.): now the methods are instantiated with a fixed ObjectiveSpaceManager if they are to run without dynamically updating the OS bounds (previously, the manager was set to null); the manager will not be instantiated if the MOO problem and its utopia and nadir points are not delivered
+- Utils: statistics.Min/Max/Mean/StandardDeviationIgnoreNegatives added
+- Experimentation: tools.LatexTableFromXLSX: cell pre and postprocessing option added
+- Experimentation: io.scenario: TrialsResultsXLSX summarizer added; it fills data matrix by explicitly copying results from the trial level without performing the summary (the resulting matrices are of generations x trials size; per indicator)
+- DecisionSupport: model.similarity.ISimilarity added (concept of similarity between internal models is added along with example implementations)
+- DecisionSupport: model.constructor.value.rs.ers.ERS added (Evolutionary Rejection Sampling)
+- DecisionSupport: model.constructor.value.rs.ers.ERS and ..frs.FRS: both extend AbstractRejectionSampling class
+- DecisionSupport: model.constructor.value.rs.ers.ERS and ..frs.FRS: iterations limit of both can be flexibly adjusted by implementing IIterationLimit and providing via Params container
+
 [18.03.2025] Moderate changes. Some of them are described in "Tutorial 9: Facilitating the usage"
 - Experimentation: Experimentation: container.global.initializers.IRandomNumberGeneratorInitializer: The method's signature changed. Now, it comprises data on the calling scenario and trial. This way, a non-colliding seed may be derived without using the counter (based on the scenario ID, trial ID, and the total number of trials; see the DefaultRandomNumberGeneratorInitializer class), and it will be calculated as if no scenario/trial was disabled. Disabling, e.g., trials, would make RNGs be appointed seeds that are "flushed to the left" in the previous approach. Hence, repeating the execution of selected trials would generate colliding seeds across multiple executions of the experiment executor. Now, this issue will not arise unless the top-level fields, such as scenario definitions, are altered (it is preferred to use scenario/trial disabling conditions to adjust the experimental setup).
 - Visualization: color.palette: classes related to modeling color palettes are introduced. They will be further
@@ -13,8 +35,8 @@ allows performing per-points (data points) manipulations via an auxiliary object
 - EvolutionaryComputation: emo.aposteriori: the default "_updateUtopiaUsingIncumbent" flags were switched to false.
 - EvolutionaryComputation: visualization.utils.ReferenceParetoFront added. This class provides means for instantiating data sets (for the visualization) portraying some common Pareto fronts. This class will be further developed in the future.
 - EvolutionaryComputation: phase.DoubleConstruct, DoubleEvaluate, reproduction.DoubleReproduce (similarly to Double: Int, Bool, and Chromosome. These are new implementations of the IConstruct, IEvaluate, and IReproduce interfaces. They delegate the individual, i.e., per-specimen tasks (i.e., evaluate a specimen), to auxiliary objects implementing straightforward interfaces (inner interfaces). These auxiliary objects can be supplied when instantiating the DoubleConstruct, etc., to allow quick definition (inline) of the process (e.g., evaluation rules).
-- EvolutionaryComputation:  emo.aposteriori and interactive: the primary algorithm classes (e.g., NSGA) were extended with new static methods for instantiating the methods.
-- EvolutionaryComputation:  emo.aposteriori and interactive: the primary algorithm classes (e.g., NSGA): the default parents selection policy was unified and set to Random.
+- EvolutionaryComputation: emo.aposteriori and interactive: the primary algorithm classes (e.g., NSGA) were extended with new static methods for instantiating the methods.
+- EvolutionaryComputation: emo.aposteriori and interactive: the primary algorithm classes (e.g., NSGA): the default parents selection policy was unified and set to Random.
 - Utils: a simple utils.The MathUtils class has been added and will be developed in the future. The intention is to use the framework's implementations of mathematical functions, thus minimizing the use of external libraries (e.g., Commons Math).
 
 [03.03.2025]

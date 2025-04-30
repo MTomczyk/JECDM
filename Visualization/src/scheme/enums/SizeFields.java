@@ -752,4 +752,68 @@ public enum SizeFields
      */
     FONT_3D_QUALITY_UPSCALING,
 
+    /**
+     * Cube 3D lines width.
+     */
+    CUBE3D_LINES_WIDTH,
+
+    /**
+     * Pane 3D (front) lines width (fixed).
+     */
+    PANE3D_FRONT_LINES_WIDTH,
+
+    /**
+     * Pane 3D (back) lines width (fixed).
+     */
+    PANE3D_BACK_LINES_WIDTH,
+
+    /**
+     * Pane 3D (left) line width (fixed).
+     */
+    PANE3D_LEFT_LINES_WIDTH,
+
+    /**
+     * Pane 3D (right) lines width (fixed).
+     */
+    PANE3D_RIGHT_LINES_WIDTH,
+
+    /**
+     * Pane 3D (top) lines width (fixed).
+     */
+    PANE3D_TOP_LINES_WIDTH,
+
+    /**
+     * Pane 3D (bottom) lines width (fixed).
+     */
+    PANE3D_BOTTOM_LINES_WIDTH,
+
+    /**
+     * Axis 3D (X) tick line width (fixed).
+     */
+    AXIS3D_X_TICK_LINE_WIDTH,
+
+    /**
+     * Axis 3D (X) main line width (fixed).
+     */
+    AXIS3D_X_MAIN_LINE_WIDTH,
+
+    /**
+     * Axis 3D (Y) tick line width (fixed).
+     */
+    AXIS3D_Y_TICK_LINE_WIDTH,
+
+    /**
+     * Axis 3D (Y) main line width (fixed).
+     */
+    AXIS3D_Y_MAIN_LINE_WIDTH,
+
+    /**
+     * Axis 3D (Z) tick line width (fixed).
+     */
+    AXIS3D_Z_TICK_LINE_WIDTH,
+
+    /**
+     * Axis 3D (Z) main line width (fixed).
+     */
+    AXIS3D_Z_MAIN_LINE_WIDTH,
 }

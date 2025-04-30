@@ -163,6 +163,21 @@ public class DataSetData
     }
 
     /**
+     * This method creates an object suitably parameterized for handling data comprising x-coordinates and y-coordinates.
+     *
+     * @param name     data set name
+     * @param xIndex   index of the column associated with data set x-coordinate values (starting
+     *                 from 0, points to a row in the already derived from Excel data matrix)
+     * @param yIndex   index of the column associated with data set y-coordinate values (starting
+     *                 from 0, points to a row in the already derived from Excel data matrix)
+     * @return suitably parameterized object
+     */
+    public static DataSetData getData(String name, int xIndex, int yIndex)
+    {
+        return new DataSetData(name, xIndex, yIndex, null, null, 0.0f, 0.0f);
+    }
+
+    /**
      * This method checks if the primary deviations are used (upper and lower points must not be null)
      *
      * @return true, if the primary deviations are used; false otherwise

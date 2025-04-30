@@ -38,7 +38,7 @@ public class LatexTableFromXLSX
         boolean _useEndLineSymbol = true;
 
         /**
-         * If true, commas in string are replaced with dots.
+         * If true, commas in strings are replaced with dots.
          */
         boolean _replaceCommasWithDots = true;
 
@@ -80,6 +80,22 @@ public class LatexTableFromXLSX
          * the first cell in the pointed series.
          */
         public MultiRow[] _multiRows = null;
+
+        /**
+         * Optional cell preprocessor. When used, processed cells (strings) are preprocessed as imposed by this
+         * implementation. It is triggered at the beginning of single-cell processing, i.e., before, e.g., applying
+         * decimal precision to numerical values or wrapping the value with dollars. See the implementation of
+         * {@link LatexTableFromXLSX#getText(String, Params)}
+         */
+        public ICellPreprocessor _preProcessor = null;
+
+        /**
+         * Optional cell postprocessor. When used, processed cells (strings) are postprocessed as imposed by this
+         * implementation. It is triggered at the end of single-cell processing, i.e., after, e.g., applying
+         * decimal precision to numerical values or wrapping the value with dollars. See the implementation of
+         * {@link LatexTableFromXLSX#getText(String, Params)}
+         */
+        public ICellPostprocessor _postProcessor = null;
 
         /**
          * Default constructor.
@@ -205,7 +221,7 @@ public class LatexTableFromXLSX
      * @param p    params container
      * @return text (null, if a file cannot be loaded)
      */
-    public static String[] getText(String[][] data, Params p)
+    protected static String[] getText(String[][] data, Params p)
     {
         if (data == null) return null;
 
@@ -292,22 +308,34 @@ public class LatexTableFromXLSX
 
                 boolean numerical = true;
 
+                String ps = s;
+                if (p._preProcessor != null) ps = p._preProcessor.process(s, i, j);
+
+                boolean containsComma = ps.contains(",");
+
                 try
                 {
-                    double d = Double.parseDouble(s);
+                    double d = Double.parseDouble(ps.replace(',', '.'));
                     if ((p._decimalPrecisionForNumericalInColumns != null) && (j < dFormats.length))
-                        s = String.format(dFormats[j], d);
+                        ps = String.format(dFormats[j], d);
                     else if ((p._decimalPrecisionForNumericalInRows != null) && (i < dFormats.length))
-                        s = String.format(dFormats[i], d);
-                    else s = String.valueOf(d);
+                        ps = String.format(dFormats[i], d);
+                    else ps = String.valueOf(d);
                 } catch (NumberFormatException e)
                 {
                     numerical = false;
                 }
 
-                if ((!s.isEmpty()) && (numerical) && (p._wrapNumericalWithDollars))
-                    sb.append('$').append(s).append('$');
-                else sb.append(s);
+                // bring back comma
+                if ((numerical) && (containsComma)) ps = ps.replace('.', ',');
+
+                if ((!ps.isEmpty()) && (numerical) && (p._wrapNumericalWithDollars))
+                    ps = "$" + ps + "$";
+
+                if (p._postProcessor != null)
+                    ps = p._postProcessor.process(s, ps, i, j);
+
+                sb.append(ps);
 
                 if ((j < C - 1) && (!ignoreSeparator.contains(i * C + j))) sb.append(p._separator);
             }

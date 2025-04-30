@@ -137,4 +137,56 @@ public class Plot3DModel extends PlotModel
     {
         return _GLCC;
     }
+
+
+    /**
+     * Auxiliary method that updates the projection: translation.
+     *
+     * @param tx translation along x-dimension
+     * @param ty translation along y-dimension
+     * @param tz translation along z-dimension
+     */
+    @Override
+    public void updateCameraTranslation(float tx, float ty, float tz)
+    {
+        if (_C._interactListener != null)
+        {
+            _C._interactListener.getTranslation()[0] = tx;
+            _C._interactListener.getTranslation()[1] = ty;
+            _C._interactListener.getTranslation()[2] = tz;
+        }
+    }
+
+    /**
+     * Auxiliary method that updates the projection: camera rotation.
+     *
+     * @param rx rotation along x-dimension
+     * @param ry rotation along y-dimension
+     */
+    @Override
+    public void updateCameraRotation(float rx, float ry)
+    {
+        if (_C._interactListener != null)
+        {
+            _C._interactListener.getCameraRotation()[0] = rx;
+            _C._interactListener.getCameraRotation()[1] = ry;
+        }
+
+    }
+
+    /**
+     * Auxiliary method that updates the projection: plot rotation.
+     *
+     * @param rx rotation along x-dimension
+     * @param ry rotation along y-dimension
+     */
+    @Override
+    public void updatePlotRotation(float rx, float ry)
+    {
+        if (_C._interactListener != null)
+        {
+            _C._interactListener.getObjectRotation()[0] = rx;
+            _C._interactListener.getObjectRotation()[1] = ry;
+        }
+    }
 }

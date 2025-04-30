@@ -80,17 +80,28 @@ public abstract class AbstractExcelSummarizer extends AbstractExcelSaver impleme
     @Override
     public void pushData(double[] trialResults, double[] statistics, int generation) throws ScenarioException
     {
+        pushData(statistics, generation);
+    }
+
+    /**
+     * Writes the data values (row).
+     *
+     * @param data       data values
+     * @param generation current generation number
+     * @throws ScenarioException scenario-level exception can be thrown
+     */
+    protected void pushData(double[] data, int generation) throws ScenarioException
+    {
         Row row = _excel._sheets[_activeSheet].createRow(1 + generation);
         Cell cell = row.createCell(0);
         if (_excel._contentStyle != null) cell.setCellStyle(_excel._contentStyle);
         cell.setCellValue(generation);
 
-        for (int s = 0; s < statistics.length; s++)
+        for (int s = 0; s < data.length; s++)
         {
             cell = row.createCell(1 + s);
             if (_excel._contentStyle != null) cell.setCellStyle(_excel._contentStyle);
-            cell.setCellValue(statistics[s]);
+            cell.setCellValue(data[s]);
         }
-
     }
 }

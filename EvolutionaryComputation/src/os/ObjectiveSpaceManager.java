@@ -6,7 +6,6 @@ import ea.EATimestamp;
 import exception.PhaseException;
 import population.*;
 import problem.moo.AbstractMOOProblemBundle;
-import space.os.ObjectiveSpace;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -58,6 +57,12 @@ public class ObjectiveSpaceManager
         public boolean _updateNadirUsingIncumbent = false;
 
         /**
+         * If true, the nadir point is explicitly built from those objective vectors that form the utopia point
+         * (thus, e.g., the flag {@link ObjectiveSpaceManager#_updateNadirUsingIncumbent} will have no effect if this flag is true).
+         */
+        public boolean _deriveNadirFromVectorsFormingUtopia = false;
+
+        /**
          * Considered criteria.
          */
         public Criteria _criteria;
@@ -98,6 +103,16 @@ public class ObjectiveSpaceManager
         public Params(ObjectiveSpace os)
         {
             _os = os;
+        }
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param os wrapped objective space
+         */
+        public Params(space.os.ObjectiveSpace os)
+        {
+            _os = new ObjectiveSpace(os);
         }
     }
 
@@ -156,6 +171,12 @@ public class ObjectiveSpaceManager
     private final boolean _updateNadirUsingIncumbent;
 
     /**
+     * If true, the nadir point is explicitly built from those objective vectors that form the utopia point
+     * (thus, e.g., the flag {@link ObjectiveSpaceManager#_updateNadirUsingIncumbent} will have no effect if this flag is true).
+     */
+    public final boolean _deriveNadirFromVectorsFormingUtopia;
+
+    /**
      * Considered criteria.
      */
     private final Criteria _criteria;
@@ -191,6 +212,24 @@ public class ObjectiveSpaceManager
     private ISpecimenGetter[] _specimenGetters;
 
     /**
+     * Returns a fixed object instance (updates are disabled).
+     * The initial and fixed objective space is set as imposed by the input problem's utopia and nadir points.
+     *
+     * @param problemBundle MOO problem bundle
+     * @return fixed object instance (null, if problem or its points are null)
+     */
+    public static ObjectiveSpaceManager getFixedInstance(AbstractMOOProblemBundle problemBundle)
+    {
+        if (problemBundle == null) return null;
+        if (problemBundle._utopia == null) return null;
+        if (problemBundle._nadir == null) return null;
+        ObjectiveSpaceManager.Params pOS = new Params();
+        pOS._os = new ObjectiveSpace(problemBundle._utopia, problemBundle._nadir);
+        pOS._doNotUpdateOS = true;
+        return new ObjectiveSpaceManager(pOS);
+    }
+
+    /**
      * Parameterized constructor.
      *
      * @param p params container
@@ -204,6 +243,7 @@ public class ObjectiveSpaceManager
         _os = p._os;
         _updateUtopiaUsingIncumbent = p._updateUtopiaUsingIncumbent;
         _updateNadirUsingIncumbent = p._updateNadirUsingIncumbent;
+        _deriveNadirFromVectorsFormingUtopia = p._deriveNadirFromVectorsFormingUtopia;
         _changed = false;
         _storeTimestamps = p._storeTimestamps;
         _specimenGetters = p._specimenGetters;
@@ -240,26 +280,31 @@ public class ObjectiveSpaceManager
     }
 
     /**
-     * Potentially updates utopia/nadir points based on the candidate point
+     * Potentially updates utopia/nadir points based on the candidate point.
      *
-     * @param u utopia point
-     * @param n nadir point
-     * @param e candidate point
+     * @param u           utopia point (can be null, not used for the update)
+     * @param n           nadir point (can be null, not used for the update)
+     * @param e           candidate point
+     * @param formsUtopia contains references to objective vector forming the utopia point (1:1 indexing with criteria id)
      */
-    private void update(double[] u, double[] n, double[] e)
+    private void update(double[] u, double[] n, double[] e, double[][] formsUtopia)
     {
         if (e == null) return;
         for (int i = 0; i < _criteria._no; i++)
         {
             if (_criteria._c[i].isGain())
             {
-                if (Double.compare(e[i], u[i]) > 0) u[i] = e[i];
-                if (Double.compare(e[i], n[i]) < 0) n[i] = e[i];
+                if ((u != null) && (Double.compare(e[i], u[i]) > 0)) u[i] = e[i];
+                if ((_deriveNadirFromVectorsFormingUtopia) && (Double.compare(e[i], formsUtopia[i][i]) > 0))
+                    formsUtopia[i] = e;
+                if ((n != null) && (Double.compare(e[i], n[i]) < 0)) n[i] = e[i];
             }
             else
             {
-                if (Double.compare(e[i], u[i]) < 0) u[i] = e[i];
-                if (Double.compare(e[i], n[i]) > 0) n[i] = e[i];
+                if ((u != null) && (Double.compare(e[i], u[i]) < 0)) u[i] = e[i];
+                if ((_deriveNadirFromVectorsFormingUtopia) && (Double.compare(e[i], formsUtopia[i][i]) < 0))
+                    formsUtopia[i] = e;
+                if ((n != null) && (Double.compare(e[i], n[i]) > 0)) n[i] = e[i];
             }
         }
     }
@@ -290,8 +335,30 @@ public class ObjectiveSpaceManager
     {
         if (_doNotUpdateOS) return false;
 
+        // IMPORTANT NOTE: the processing operates on references to original vectors; thus,
+        // no modifications of them are allowed (cloning is not used)
+
         ObjectiveSpace os = ObjectiveSpace.getOSMaximallySpanned(_criteria.getCriteriaTypes()); // worst-case spanned os
         int cs = _criteria._no;
+
+        if (_deriveNadirFromVectorsFormingUtopia)
+        {
+            os._vectorsFormingUtopiaPoint = new double[_criteria._no][];
+            if ((_updateUtopiaUsingIncumbent) && (_os != null) && (_os._vectorsFormingUtopiaPoint != null)) // if incumbent is used
+            {
+                for (int i = 0; i < _criteria._no; i++)
+                    os._vectorsFormingUtopiaPoint[i] = _os._vectorsFormingUtopiaPoint[i].clone(); // clone here
+            }
+            else // fill with defaults
+            {
+                for (int i = 0; i < _criteria._no; i++)
+                {
+                    os._vectorsFormingUtopiaPoint[i] = new double[_criteria._no];
+                    if (_criteria._c[i].isGain()) os._vectorsFormingUtopiaPoint[i][i] = Double.NEGATIVE_INFINITY;
+                    else os._vectorsFormingUtopiaPoint[i][i] = Double.POSITIVE_INFINITY;
+                }
+            }
+        }
 
         if (specimensContainer != null)
         {
@@ -300,15 +367,35 @@ public class ObjectiveSpaceManager
                 if (sg == null) continue;
                 ArrayList<Specimen> specimens = sg.getSpecimens(specimensContainer);
                 if (specimens == null) continue;
-                for (Specimen s : specimens) update(os._utopia, os._nadir, s.getEvaluations());
+                for (Specimen s : specimens)
+                    update(os._utopia, os._nadir, s.getEvaluations(), os._vectorsFormingUtopiaPoint);
             }
         }
 
         // if "update globally", the current utopia/nadir are to be compared with historical data
         if ((_updateUtopiaUsingIncumbent) && (_os != null))
-            update(os._utopia, os._nadir, _os._utopia);
+            update(os._utopia, null, _os._utopia, os._vectorsFormingUtopiaPoint);
         if ((_updateNadirUsingIncumbent) && (_os != null))
-            update(os._utopia, os._nadir, _os._nadir);
+            update(null, os._nadir, _os._nadir, os._vectorsFormingUtopiaPoint);
+
+        // Derive nadir from utopia, previous nadir may be overwritten
+        if (_deriveNadirFromVectorsFormingUtopia)
+        {
+            for (int i = 0; i < _criteria._no; i++)
+                if (_criteria._c[i].isGain()) os._nadir[i] = Double.POSITIVE_INFINITY;
+                else os._nadir[i] = Double.NEGATIVE_INFINITY;
+
+            for (int i = 0; i < _criteria._no; i++)
+            {
+                for (int k = 0; k < _criteria._no; k++)
+                {
+                    if ((_criteria._c[i].isGain()) && (Double.compare(os._vectorsFormingUtopiaPoint[k][i], os._nadir[i]) < 0))
+                        os._nadir[i] = os._vectorsFormingUtopiaPoint[k][i];
+                    else if ((!_criteria._c[i].isGain()) && (Double.compare(os._vectorsFormingUtopiaPoint[k][i], os._nadir[i]) > 0))
+                        os._nadir[i] = os._vectorsFormingUtopiaPoint[k][i];
+                }
+            }
+        }
 
         // build ranges based on the computed utopia and nadir points
         for (int i = 0; i < cs; i++)
@@ -347,9 +434,7 @@ public class ObjectiveSpaceManager
 
         // notify the listeners about the change
         if ((_changed) && (_listeners != null))
-        {
             for (IOSChangeListener cl : _listeners) cl.action(_ea, os, previous);
-        }
 
         return _changed;
     }

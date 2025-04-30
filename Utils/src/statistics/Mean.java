@@ -35,5 +35,4 @@ public class Mean extends AbstractStatistic implements IStatistic
         for (double c : v) s += c;
         return s / v.length;
     }
-
 }

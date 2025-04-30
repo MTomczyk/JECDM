@@ -41,9 +41,9 @@ public class Max extends AbstractStatistic implements IStatistic
      *
      * @return string representation ("MAX")
      */
+    @Override
     public String getName()
     {
         return toString();
     }
-
 }

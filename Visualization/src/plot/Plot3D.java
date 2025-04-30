@@ -224,5 +224,26 @@ public class Plot3D extends AbstractPlot
         return drawingArea3D;
     }
 
+    /**
+     * Getter for plot model.
+     *
+     * @return plot model
+     */
+    @Override
+    public Plot3DModel getModel()
+    {
+        return _M3D;
+    }
+
+    /**
+     * Getter for plot controller.
+     *
+     * @return plot controller
+     */
+    @Override
+    public Plot3DController getController()
+    {
+        return _C3D;
+    }
 
 }

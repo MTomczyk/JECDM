@@ -54,11 +54,31 @@ public class DCEMOBundle extends AbstractKTSConeBundle
          * @return params container
          */
         public static DCEMOBundle.Params getDefault(Criteria criteria, String DM, IRule interactionRule,
-                                                              IReferenceSetConstructor referenceSetConstructor,
-                                                              IDMFeedbackProvider dmFeedbackProvider)
+                                                    IReferenceSetConstructor referenceSetConstructor,
+                                                    IDMFeedbackProvider dmFeedbackProvider)
+        {
+            return getDefault(criteria, DM, interactionRule, referenceSetConstructor, dmFeedbackProvider, null);
+        }
+
+        /**
+         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
+         * feedback provider, and one interaction rule.
+         *
+         * @param criteria                considered criteria
+         * @param DM                      decision maker's identifier
+         * @param interactionRule         interaction rule
+         * @param referenceSetConstructor reference set constructor
+         * @param dmFeedbackProvider      DM-based feedback provider
+         * @param dssAdjuster             auxiliary DSS params adjuster (can be null, if not used); adjustment is done after the default initialization
+         * @return params container
+         */
+        public static DCEMOBundle.Params getDefault(Criteria criteria, String DM, IRule interactionRule,
+                                                    IReferenceSetConstructor referenceSetConstructor,
+                                                    IDMFeedbackProvider dmFeedbackProvider,
+                                                    DecisionSupportSystem.IParamsAdjuster dssAdjuster)
         {
             AbstractKTSConeBundle.Params pA = AbstractKTSConeBundle.Params.getDefault("DCEMO", criteria, DM, interactionRule,
-                    referenceSetConstructor, dmFeedbackProvider);
+                    referenceSetConstructor, dmFeedbackProvider, dssAdjuster);
             return new Params(pA);
         }
 

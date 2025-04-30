@@ -46,8 +46,8 @@ public class NEMO0 extends AbstractInteractiveEA
      * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
      * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
      * inconsistency handler = remove oldest; refiner = default). The method is also coupled with the random selection
-     *  of parents Sets id to 0 and parameterizes the method to update the OS dynamically (uses utopia incumbent during
-     *  the updates).
+     * of parents Sets id to 0 and parameterizes the method to update the OS dynamically (uses utopia incumbent during
+     * the updates).
      *
      * @param populationSize                 population size
      * @param R                              the RGN
@@ -72,6 +72,78 @@ public class NEMO0 extends AbstractInteractiveEA
         return getNEMO0(0, populationSize, true, false, R, problem,
                 interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel,
                 representativeModelConstructor);
+    }
+
+    /**
+     * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). The method is also coupled with the random selection
+     * of parents Sets id to 0 and parameterizes the method to update the OS dynamically (uses utopia incumbent during
+     * the updates).
+     *
+     * @param populationSize                 population size
+     * @param R                              the RGN
+     * @param problem                        problem bundle (provides criteria, specimen constructor, evaluator, and reproducer)
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
+     * @param osAdjuster                     auxiliary object responsible for customizing objective space manager params container
+     *                                       built when is set to updateOSDynamically (can be null; not used)
+     * @param <T>                            form of the internal value model used to represent preferences
+     * @return NEMO-0 algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int populationSize,
+                                                                        IRandom R,
+                                                                        AbstractMOOProblemBundle problem,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        RepresentativeModel<T> representativeModelConstructor,
+                                                                        ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNEMO0(0, populationSize, true, false, R, problem,
+                interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel,
+                representativeModelConstructor, osAdjuster);
+    }
+
+    /**
+     * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). The method is also coupled with the random selection
+     * of parents Sets id to 0 and parameterizes the method to update the OS dynamically (uses utopia incumbent during
+     * the updates).
+     *
+     * @param populationSize                 population size
+     * @param R                              the RGN
+     * @param problem                        problem bundle (provides criteria, specimen constructor, evaluator, and reproducer)
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
+     * @param osAdjuster                     auxiliary object responsible for customizing objective space manager params container
+     *                                       built when is set to updateOSDynamically (can be null, if not used)
+     * @param dssAdjuster                    auxiliary DSS params adjuster (can be null, if not used); adjustment is done after the default initialization
+     * @param <T>                            form of the internal value model used to represent preferences
+     * @return NEMO-0 algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int populationSize,
+                                                                        IRandom R,
+                                                                        AbstractMOOProblemBundle problem,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        RepresentativeModel<T> representativeModelConstructor,
+                                                                        ObjectiveSpaceManager.IParamsAdjuster osAdjuster,
+                                                                        DecisionSupportSystem.IParamsAdjuster dssAdjuster)
+    {
+        return getNEMO0(0, populationSize, true, false, R, problem,
+                interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel,
+                representativeModelConstructor, osAdjuster, dssAdjuster);
     }
 
     /**
@@ -114,6 +186,90 @@ public class NEMO0 extends AbstractInteractiveEA
     /**
      * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
      * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). The method is also coupled with the random selection
+     * of parents
+     *
+     * @param id                             algorithm id
+     * @param populationSize                 population size
+     * @param updateOSDynamically            if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent              if true, nadir incumbent will be used when updating OS
+     * @param R                              the RGN
+     * @param problem                        problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
+     * @param osAdjuster                     auxiliary object responsible for customizing objective space manager params container
+     *                                       built when is set to updateOSDynamically (can be null, if not used)
+     * @param <T>                            form of the internal value model used to represent preferences
+     * @return NEMO-0 algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int id,
+                                                                        int populationSize,
+                                                                        boolean updateOSDynamically,
+                                                                        boolean useNadirIncumbent,
+                                                                        IRandom R,
+                                                                        AbstractMOOProblemBundle problem,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        RepresentativeModel<T> representativeModelConstructor,
+                                                                        ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNEMO0(id, populationSize, updateOSDynamically, useNadirIncumbent, R, problem,
+                new Random(2), problem._construct, problem._evaluate, problem._reproduce,
+                interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel,
+                representativeModelConstructor, osAdjuster);
+    }
+
+    /**
+     * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). The method is also coupled with the random selection
+     * of parents
+     *
+     * @param id                             algorithm id
+     * @param populationSize                 population size
+     * @param updateOSDynamically            if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent              if true, nadir incumbent will be used when updating OS
+     * @param R                              the RGN
+     * @param problem                        problem bundle (provides criteria, normalizations (when fixed), specimen constructor, evaluator, and reproducer)
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
+     * @param osAdjuster                     auxiliary object responsible for customizing objective space manager params container
+     *                                       built when is set to updateOSDynamically (can be null, if not used)
+     * @param dssAdjuster                    auxiliary DSS params adjuster (can be null, if not used); adjustment is done after the default initialization
+     * @param <T>                            form of the internal value model used to represent preferences
+     * @return NEMO-0 algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int id,
+                                                                        int populationSize,
+                                                                        boolean updateOSDynamically,
+                                                                        boolean useNadirIncumbent,
+                                                                        IRandom R,
+                                                                        AbstractMOOProblemBundle problem,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        RepresentativeModel<T> representativeModelConstructor,
+                                                                        ObjectiveSpaceManager.IParamsAdjuster osAdjuster,
+                                                                        DecisionSupportSystem.IParamsAdjuster dssAdjuster)
+    {
+        return getNEMO0(id, populationSize, updateOSDynamically, useNadirIncumbent, R, problem,
+                new Random(2), problem._construct, problem._evaluate, problem._reproduce,
+                interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel,
+                representativeModelConstructor, osAdjuster, dssAdjuster);
+    }
+
+    /**
+     * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
      * inconsistency handler = remove oldest; refiner = default). Sets id to 0 and parameterizes the method to update
      * the OS dynamically (uses utopia incumbent during the updates).
      *
@@ -149,6 +305,94 @@ public class NEMO0 extends AbstractInteractiveEA
                 MOOProblemBundle.getProblemBundle(criteria), select, new DoubleConstruct(construct), new DoubleEvaluate(evaluate),
                 new DoubleReproduce(reproduce), interactionRule, referenceSetConstructor, dmFeedbackProvider,
                 preferenceModel, representativeModelConstructor);
+    }
+
+    /**
+     * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). Sets id to 0 and parameterizes the method to update
+     * the OS dynamically (uses utopia incumbent during the updates).
+     *
+     * @param populationSize                 population size
+     * @param R                              the RGN
+     * @param criteria                       criteria
+     * @param select                         parents selector
+     * @param construct                      specimens constructor
+     * @param evaluate                       specimens evaluator
+     * @param reproduce                      specimens reproducer
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
+     * @param osAdjuster                     auxiliary object responsible for customizing objective space manager params container
+     *                                       built when is set to updateOSDynamically (can be null, if not used)
+     * @param <T>                            form of the internal value model used to represent preferences
+     * @return NEMO-0 algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int populationSize,
+                                                                        IRandom R,
+                                                                        Criteria criteria,
+                                                                        ISelect select,
+                                                                        DoubleConstruct.IConstruct construct,
+                                                                        DoubleEvaluate.IEvaluate evaluate,
+                                                                        DoubleReproduce.IReproduce reproduce,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        RepresentativeModel<T> representativeModelConstructor,
+                                                                        ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNEMO0(0, populationSize, true, false, R,
+                MOOProblemBundle.getProblemBundle(criteria), select, new DoubleConstruct(construct), new DoubleEvaluate(evaluate),
+                new DoubleReproduce(reproduce), interactionRule, referenceSetConstructor, dmFeedbackProvider,
+                preferenceModel, representativeModelConstructor, osAdjuster);
+    }
+
+    /**
+     * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). Sets id to 0 and parameterizes the method to update
+     * the OS dynamically (uses utopia incumbent during the updates).
+     *
+     * @param populationSize                 population size
+     * @param R                              the RGN
+     * @param criteria                       criteria
+     * @param select                         parents selector
+     * @param construct                      specimens constructor
+     * @param evaluate                       specimens evaluator
+     * @param reproduce                      specimens reproducer
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
+     * @param osAdjuster                     auxiliary object responsible for customizing objective space manager params container
+     *                                       built when is set to updateOSDynamically (can be null, if not used)
+     * @param dssAdjuster                    auxiliary DSS params adjuster (can be null, if not used); adjustment is done after the default initialization
+     * @param <T>                            form of the internal value model used to represent preferences
+     * @return NEMO-0 algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int populationSize,
+                                                                        IRandom R,
+                                                                        Criteria criteria,
+                                                                        ISelect select,
+                                                                        DoubleConstruct.IConstruct construct,
+                                                                        DoubleEvaluate.IEvaluate evaluate,
+                                                                        DoubleReproduce.IReproduce reproduce,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        RepresentativeModel<T> representativeModelConstructor,
+                                                                        ObjectiveSpaceManager.IParamsAdjuster osAdjuster,
+                                                                        DecisionSupportSystem.IParamsAdjuster dssAdjuster)
+    {
+        return getNEMO0(0, populationSize, true, false, R,
+                MOOProblemBundle.getProblemBundle(criteria), select, new DoubleConstruct(construct), new DoubleEvaluate(evaluate),
+                new DoubleReproduce(reproduce), interactionRule, referenceSetConstructor, dmFeedbackProvider,
+                preferenceModel, representativeModelConstructor, osAdjuster, dssAdjuster);
     }
 
     /**
@@ -209,6 +453,94 @@ public class NEMO0 extends AbstractInteractiveEA
      * @param dmFeedbackProvider             artificial decision maker (feedback provider)
      * @param representativeModelConstructor representative model constructor
      * @param preferenceModel                definition of the preference model
+     * @param osAdjuster                     auxiliary object responsible for customizing objective space manager params container
+     *                                       built when is set to updateOSDynamically (can be null, if not used)
+     * @param <T>                            form of the internal value model used to represent preferences
+     * @return NEMO-0 algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int populationSize,
+                                                                        IRandom R,
+                                                                        AbstractMOOProblemBundle problem,
+                                                                        ISelect select,
+                                                                        DoubleConstruct.IConstruct construct,
+                                                                        DoubleEvaluate.IEvaluate evaluate,
+                                                                        DoubleReproduce.IReproduce reproduce,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        RepresentativeModel<T> representativeModelConstructor,
+                                                                        ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNEMO0(0, populationSize, true, false, R, problem, select,
+                new DoubleConstruct(construct), new DoubleEvaluate(evaluate),
+                new DoubleReproduce(reproduce), interactionRule, referenceSetConstructor, dmFeedbackProvider,
+                preferenceModel, representativeModelConstructor, osAdjuster);
+    }
+
+    /**
+     * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). Sets id to 0 and parameterizes the method to update
+     * the OS dynamically (uses utopia incumbent during the updates).
+     *
+     * @param populationSize                 population size
+     * @param R                              the RGN
+     * @param problem                        problem bundle (provides criteria)
+     * @param select                         parents selector
+     * @param construct                      specimens constructor
+     * @param evaluate                       specimens evaluator
+     * @param reproduce                      specimens reproducer
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
+     * @param osAdjuster                     auxiliary object responsible for customizing objective space manager params container
+     *                                       built when is set to updateOSDynamically (can be null, if not used)
+     * @param dssAdjuster                    auxiliary DSS params adjuster (can be null, if not used); adjustment is done after the default initialization
+     * @param <T>                            form of the internal value model used to represent preferences
+     * @return NEMO-0 algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int populationSize,
+                                                                        IRandom R,
+                                                                        AbstractMOOProblemBundle problem,
+                                                                        ISelect select,
+                                                                        DoubleConstruct.IConstruct construct,
+                                                                        DoubleEvaluate.IEvaluate evaluate,
+                                                                        DoubleReproduce.IReproduce reproduce,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        RepresentativeModel<T> representativeModelConstructor,
+                                                                        ObjectiveSpaceManager.IParamsAdjuster osAdjuster,
+                                                                        DecisionSupportSystem.IParamsAdjuster dssAdjuster)
+    {
+        return getNEMO0(0, populationSize, true, false, R, problem, select,
+                new DoubleConstruct(construct), new DoubleEvaluate(evaluate),
+                new DoubleReproduce(reproduce), interactionRule, referenceSetConstructor, dmFeedbackProvider,
+                preferenceModel, representativeModelConstructor, osAdjuster, dssAdjuster);
+    }
+
+    /**
+     * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). Sets id to 0 and parameterizes the method to update
+     * the OS dynamically (uses utopia incumbent during the updates).
+     *
+     * @param populationSize                 population size
+     * @param R                              the RGN
+     * @param problem                        problem bundle (provides criteria)
+     * @param select                         parents selector
+     * @param construct                      specimens constructor
+     * @param evaluate                       specimens evaluator
+     * @param reproduce                      specimens reproducer
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
      * @param <T>                            form of the internal value model used to represent preferences
      * @return NEMO-0 algorithm
      */
@@ -228,6 +560,92 @@ public class NEMO0 extends AbstractInteractiveEA
         return getNEMO0(0, populationSize, true, false, R, problem, select,
                 construct, evaluate, reproduce, interactionRule, referenceSetConstructor, dmFeedbackProvider,
                 preferenceModel, representativeModelConstructor);
+    }
+
+    /**
+     * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). Sets id to 0 and parameterizes the method to update
+     * the OS dynamically (uses utopia incumbent during the updates).
+     *
+     * @param populationSize                 population size
+     * @param R                              the RGN
+     * @param problem                        problem bundle (provides criteria)
+     * @param select                         parents selector
+     * @param construct                      specimens constructor
+     * @param evaluate                       specimens evaluator
+     * @param reproduce                      specimens reproducer
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
+     * @param osAdjuster                     auxiliary object responsible for customizing objective space manager params container
+     *                                       built when is set to updateOSDynamically (can be null, if not used)
+     * @param <T>                            form of the internal value model used to represent preferences
+     * @return NEMO-0 algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int populationSize,
+                                                                        IRandom R,
+                                                                        AbstractMOOProblemBundle problem,
+                                                                        ISelect select,
+                                                                        IConstruct construct,
+                                                                        IEvaluate evaluate,
+                                                                        IReproduce reproduce,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        RepresentativeModel<T> representativeModelConstructor,
+                                                                        ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNEMO0(0, populationSize, true, false, R, problem, select,
+                construct, evaluate, reproduce, interactionRule, referenceSetConstructor, dmFeedbackProvider,
+                preferenceModel, representativeModelConstructor, osAdjuster);
+    }
+
+    /**
+     * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default). Sets id to 0 and parameterizes the method to update
+     * the OS dynamically (uses utopia incumbent during the updates).
+     *
+     * @param populationSize                 population size
+     * @param R                              the RGN
+     * @param problem                        problem bundle (provides criteria)
+     * @param select                         parents selector
+     * @param construct                      specimens constructor
+     * @param evaluate                       specimens evaluator
+     * @param reproduce                      specimens reproducer
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
+     * @param osAdjuster                     auxiliary object responsible for customizing objective space manager params container
+     *                                       built when is set to updateOSDynamically (can be null, if not used)
+     * @param dssAdjuster                    auxiliary DSS params adjuster (can be null, if not used); adjustment is done after the default initialization
+     * @param <T>                            form of the internal value model used to represent preferences
+     * @return NEMO-0 algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int populationSize,
+                                                                        IRandom R,
+                                                                        AbstractMOOProblemBundle problem,
+                                                                        ISelect select,
+                                                                        IConstruct construct,
+                                                                        IEvaluate evaluate,
+                                                                        IReproduce reproduce,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        RepresentativeModel<T> representativeModelConstructor,
+                                                                        ObjectiveSpaceManager.IParamsAdjuster osAdjuster,
+                                                                        DecisionSupportSystem.IParamsAdjuster dssAdjuster)
+    {
+        return getNEMO0(0, populationSize, true, false, R, problem, select,
+                construct, evaluate, reproduce, interactionRule, referenceSetConstructor, dmFeedbackProvider,
+                preferenceModel, representativeModelConstructor, osAdjuster, dssAdjuster);
     }
 
 
@@ -270,9 +688,106 @@ public class NEMO0 extends AbstractInteractiveEA
                                                                         IPreferenceModel<T> preferenceModel,
                                                                         RepresentativeModel<T> representativeModelConstructor)
     {
+        return getNEMO0(id, populationSize, updateOSDynamically, useNadirIncumbent, R, problem, select, construct, evaluate,
+                reproduce, interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel,
+                representativeModelConstructor, null);
+    }
+
+
+    /**
+     * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default).
+     *
+     * @param id                             algorithm id
+     * @param populationSize                 population size
+     * @param updateOSDynamically            if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent              if true, nadir incumbent will be used when updating OS
+     * @param R                              the RGN
+     * @param problem                        problem bundle (provides criteria, normalizations (when fixed))
+     * @param select                         parents selector
+     * @param construct                      specimens constructor
+     * @param evaluate                       specimens evaluator
+     * @param reproduce                      specimens reproducer
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
+     * @param osAdjuster                     auxiliary object responsible for customizing objective space manager params container
+     *                                       built when is set to updateOSDynamically (can be null, if not used)
+     * @param <T>                            form of the internal value model used to represent preferences
+     * @return NEMO-0 algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int id,
+                                                                        int populationSize,
+                                                                        boolean updateOSDynamically,
+                                                                        boolean useNadirIncumbent,
+                                                                        IRandom R,
+                                                                        AbstractMOOProblemBundle problem,
+                                                                        ISelect select,
+                                                                        IConstruct construct,
+                                                                        IEvaluate evaluate,
+                                                                        IReproduce reproduce,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        RepresentativeModel<T> representativeModelConstructor,
+                                                                        ObjectiveSpaceManager.IParamsAdjuster osAdjuster)
+    {
+        return getNEMO0(id, populationSize, updateOSDynamically, useNadirIncumbent, R, problem, select,
+                construct, evaluate, reproduce, interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel,
+                representativeModelConstructor, osAdjuster, null);
+    }
+
+    /**
+     * Creates the NEMO-0 algorithm. It employs a default decision support system that involves one decision maker
+     * (model and feedback provider), single interaction rule, and single reference set constructor (representative model;
+     * inconsistency handler = remove oldest; refiner = default).
+     *
+     * @param id                             algorithm id
+     * @param populationSize                 population size
+     * @param updateOSDynamically            if true, the OS will be updated dynamically; false = it will be fixed
+     * @param useNadirIncumbent              if true, nadir incumbent will be used when updating OS
+     * @param R                              the RGN
+     * @param problem                        problem bundle (provides criteria, normalizations (when fixed))
+     * @param select                         parents selector
+     * @param construct                      specimens constructor
+     * @param evaluate                       specimens evaluator
+     * @param reproduce                      specimens reproducer
+     * @param interactionRule                interaction rule
+     * @param referenceSetConstructor        reference set constructor
+     * @param dmFeedbackProvider             artificial decision maker (feedback provider)
+     * @param representativeModelConstructor representative model constructor
+     * @param preferenceModel                definition of the preference model
+     * @param osAdjuster                     auxiliary object responsible for customizing objective space manager params container
+     *                                       built when is set to updateOSDynamically (can be null, if not used)
+     * @param dssAdjuster                    auxiliary DSS params adjuster (can be null, if not used); adjustment is done after the default initialization
+     * @param <T>                            form of the internal value model used to represent preferences
+     * @return NEMO-0 algorithm
+     */
+    public static <T extends AbstractValueInternalModel> NEMO0 getNEMO0(int id,
+                                                                        int populationSize,
+                                                                        boolean updateOSDynamically,
+                                                                        boolean useNadirIncumbent,
+                                                                        IRandom R,
+                                                                        AbstractMOOProblemBundle problem,
+                                                                        ISelect select,
+                                                                        IConstruct construct,
+                                                                        IEvaluate evaluate,
+                                                                        IReproduce reproduce,
+                                                                        IRule interactionRule,
+                                                                        IReferenceSetConstructor referenceSetConstructor,
+                                                                        IDMFeedbackProvider dmFeedbackProvider,
+                                                                        IPreferenceModel<T> preferenceModel,
+                                                                        RepresentativeModel<T> representativeModelConstructor,
+                                                                        ObjectiveSpaceManager.IParamsAdjuster osAdjuster,
+                                                                        DecisionSupportSystem.IParamsAdjuster dssAdjuster)
+    {
         NEMO0Bundle.Params pB = NEMO0Bundle.Params.getDefault(problem._criteria,
                 "DM", interactionRule, referenceSetConstructor, dmFeedbackProvider,
-                preferenceModel, representativeModelConstructor);
+                preferenceModel, representativeModelConstructor, dssAdjuster);
 
         pB._construct = construct;
         pB._reproduce = reproduce;
@@ -289,13 +804,14 @@ public class NEMO0 extends AbstractInteractiveEA
             // Default incumbent strategy:
             pOS._updateUtopiaUsingIncumbent = true;
             pOS._updateNadirUsingIncumbent = useNadirIncumbent;
+            if (osAdjuster != null) osAdjuster.adjust(pOS);
             pB._osManager = new ObjectiveSpaceManager(pOS);
         }
         else
         {
-            // Set the initial normalizations (will be delivered to the object responsible for calculating crowding distances):
+            // Set the initial normalizations
             pB._initialNormalizations = problem._normalizations;
-            pB._osManager = null; // no os manager needed
+            pB._osManager = ObjectiveSpaceManager.getFixedInstance(problem);
         }
 
         pB._name = "NEMO-0";

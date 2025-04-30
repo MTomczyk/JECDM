@@ -22,6 +22,37 @@ public class Plot3DFactory
      * - makes the background transparent (drawing area and plot),
      * - sets the axes labels number format to decimal.
      *
+     * @param xLabel         X-axis label
+     * @param yLabel         Y-axis label
+     * @param zLabel         Z-axis label
+     * @param xyzLimit       upper limits for the display ranges
+     * @param fsr            rescaling factor used for all font-based objects
+     * @param schemeAdjuster can be supplied to adjust the scheme on the fly (can be null); executed at the end
+     *                       of the customization of the plot params container (after all fields are set by default)
+     * @return instantiated plot 2D
+     */
+    public static Plot3D getPlot(String xLabel,
+                                 String yLabel,
+                                 String zLabel,
+                                 double xyzLimit,
+                                 float fsr,
+                                 ISchemeAdjuster schemeAdjuster)
+    {
+        return getPlot(WhiteScheme.getForPlot3D(), xLabel, yLabel, zLabel,
+                DRMPFactory.getFor3D(xyzLimit, xyzLimit, xyzLimit),
+                5, 5, 5,
+                null, null, null,
+                fsr, schemeAdjuster, null, null);
+    }
+
+    /**
+     * Creates a simple 3D plot. It:
+     * - uses a white scheme,
+     * - sets the display ranges to fixed (non-dynamic) values: [0, xyLimit (parameter)],
+     * - sets the font to Times New Roman,
+     * - makes the background transparent (drawing area and plot),
+     * - sets the axes labels number format to decimal.
+     *
      * @param xLabel   X-axis label
      * @param yLabel   Y-axis label
      * @param zLabel   Z-axis label
@@ -447,9 +478,58 @@ public class Plot3DFactory
                                  IPlotParamsAdjuster<Plot3D.Params> plotParamsAdjuster,
                                  IPostPlotCreationAdjuster<Plot3D> postPlotCreationAdjuster)
     {
+        return getPlot(scheme, xLabel, yLabel, zLabel, pDRM, xNoTicks, yNoTicks, zNoTicks, xAxisTicksLabelsFormat,
+                yAxisTicksLabelsFormat, zAxisTicksLabelsFormat, fsr, 1.0f, schemeAdjuster,
+                plotParamsAdjuster, postPlotCreationAdjuster);
+    }
+
+    /**
+     * Creates a simple 3D plot. It:
+     * - sets the font to Times New Roman,
+     * - makes the background transparent (drawing area and plot),
+     * - sets the axes labels number format to decimal.
+     *
+     * @param scheme                   plot scheme
+     * @param xLabel                   X-axis label
+     * @param yLabel                   Y-axis label
+     * @param zLabel                   Z-axis label
+     * @param pDRM                     display ranges manager params container
+     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
+     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
+     * @param zNoTicks                 adjusts the number of ticks for the Z-axis and the number of corresponding depth grid lines
+     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
+     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
+     * @param zAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Z-axis; null if not used)
+     * @param fsr                      rescaling factor used for all font-based objects
+     * @param lw                       adjust line width for the Cube, Axes, and Panes objects (1.0f is a default value)
+     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the end
+     *                                 of the customization of the plot params container (after all fields are set by default)
+     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at the end
+     *                                 of the customization of the plot params container (after all fields are set by default)
+     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be null);
+     *                                 executed just before returning the plot
+     * @return instantiated plot 2D
+     */
+    public static Plot3D getPlot(AbstractScheme scheme,
+                                 String xLabel,
+                                 String yLabel,
+                                 String zLabel,
+                                 DisplayRangesManager.Params pDRM,
+                                 int xNoTicks,
+                                 int yNoTicks,
+                                 int zNoTicks,
+                                 String xAxisTicksLabelsFormat,
+                                 String yAxisTicksLabelsFormat,
+                                 String zAxisTicksLabelsFormat,
+                                 float fsr,
+                                 float lw,
+                                 ISchemeAdjuster schemeAdjuster,
+                                 IPlotParamsAdjuster<Plot3D.Params> plotParamsAdjuster,
+                                 IPostPlotCreationAdjuster<Plot3D> postPlotCreationAdjuster)
+    {
         Plot3D.Params pP = new Plot3D.Params();
         pP._useAlphaChannel = true;
-        AbstractFactory.performCommonParameterization3D(pP, scheme, xLabel, yLabel, zLabel, pDRM, fsr, schemeAdjuster, plotParamsAdjuster);
+        AbstractFactory.performCommonParameterization3D(pP, scheme, xLabel, yLabel, zLabel, pDRM, fsr, lw, schemeAdjuster, plotParamsAdjuster);
         Plot3D plot3D = new Plot3D(pP);
         AbstractFactory.adjustAxes3D(plot3D, xAxisTicksLabelsFormat, yAxisTicksLabelsFormat, zAxisTicksLabelsFormat,
                 xNoTicks, yNoTicks, zNoTicks);

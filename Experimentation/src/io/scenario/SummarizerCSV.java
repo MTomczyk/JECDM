@@ -153,7 +153,7 @@ public class SummarizerCSV extends SummarizerTXT implements IScenarioSaver
 
 
     /**
-     * Returns the file suffix (.csv)
+     * Returns the file suffix (includes .csv)
      *
      * @return file suffix
      */

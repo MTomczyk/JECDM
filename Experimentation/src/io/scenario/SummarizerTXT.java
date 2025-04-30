@@ -68,7 +68,7 @@ public class SummarizerTXT extends AbstractScenarioSaver implements IScenarioSav
     }
 
     /**
-     * Returns the file suffix (.txt)
+     * Returns the file suffix (includes .txt)
      *
      * @return file suffix
      */

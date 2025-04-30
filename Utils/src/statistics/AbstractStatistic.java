@@ -22,7 +22,6 @@ public class AbstractStatistic implements IStatistic
      */
     private final String _name;
 
-
     /**
      * Calculates the statistic.
      *

@@ -19,9 +19,9 @@ public interface ISimilarity
     double calculateSimilarity(IGoal A, IGoal B);
 
     /**
-     * Used to determine is less/more means closer/further.
+     * Used to determine is less/more means closer (more similar)/further.
      *
-     * @return true, if smaller values mean closer; false otherwise.
+     * @return true, if smaller values mean closer (more similar); false otherwise.
      */
     boolean isLessMeaningCloser();
 }

@@ -23,6 +23,10 @@ import java.util.ListIterator;
 class AbstractPainterUtils
 {
     /**
+     * Auxiliary shifting modifier.
+     */
+    private static final float ARROW_SHIFT = 1.0E-5f;
+    /**
      * Calculates the normalized point (in the display space) and accordingly fills the normalized data array.
      *
      * @param array      array to be filled
@@ -275,6 +279,7 @@ class AbstractPainterUtils
     {
         float[] dv = new float[ids._pSize];
         for (int i = 0; i < ids._pSize; i++) dv[i] = lines[eOffset + i] - lines[bOffset + i];
+        float oL = Vector.getLength(dv); // get the original length
         Vector.normalize(dv);
 
         if (bAPDC != null)
@@ -282,6 +287,8 @@ class AbstractPainterUtils
             float length = bAPDC.getModifiedLength(as._bas, GC, PC);
             float width = bAPDC.getModifiedWidth(as._bas, GC, PC);
             for (int i = 0; i < ids._pSize; i++) lines[bOffset + i] += (dv[i] * length / 2.0f);
+            if ((eAPDC == null) && (Double.compare(length / 2.0f, oL) > 0))
+                for (int i = 0; i < ids._pSize; i++) lines[eOffset + i] = lines[bOffset + i] + dv[i] * ARROW_SHIFT;
             bAPDC.fillArrowProjectedDataArray(ids._baIDS._arrowProjectedData, bpOffset, lines, bOffset, dv,
                     length, width, as._bas._arrow);
         }
@@ -290,6 +297,8 @@ class AbstractPainterUtils
             float length = eAPDC.getModifiedLength(as._eas, GC, PC);
             float width = eAPDC.getModifiedWidth(as._eas, GC, PC);
             for (int i = 0; i < ids._pSize; i++) lines[eOffset + i] -= (dv[i] * length / 2.0f);
+            if ((bAPDC == null) && (Double.compare(length / 2.0f, oL) > 0))
+                for (int i = 0; i < ids._pSize; i++) lines[bOffset + i] = lines[eOffset + i] - dv[i] * ARROW_SHIFT;
             eAPDC.fillArrowProjectedDataArray(ids._eaIDS._arrowProjectedData, epOffset, lines, eOffset, dv,
                     length, width, as._eas._arrow);
         }

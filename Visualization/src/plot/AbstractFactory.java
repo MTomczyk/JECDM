@@ -307,8 +307,9 @@ abstract class AbstractFactory
      *
      * @param scheme scheme to be used
      * @param fsr    rescaling factor used for all font-based objects
+     * @param lw     adjust line width for the Cube, Axes, and Panes objects (1.0f is a default value)
      */
-    protected static void performCommonParameterization3D(AbstractScheme scheme, float fsr)
+    protected static void performCommonParameterization3D(AbstractScheme scheme, float fsr, float lw)
     {
         scheme._colors.put(ColorFields.PLOT_BACKGROUND, null);
 
@@ -327,6 +328,22 @@ abstract class AbstractFactory
         scheme._sizes.put(SizeFields.MARGIN_BOTTOM_SIZE_FIXED, 0.0f);
         scheme._sizes.put(SizeFields.MARGIN_LEFT_RELATIVE_SIZE_MULTIPLIER, 0.0f);
         scheme._sizes.put(SizeFields.MARGIN_LEFT_SIZE_FIXED, 0.0f);
+
+        scheme._sizes.put(SizeFields.CUBE3D_LINES_WIDTH, lw);
+
+        scheme._sizes.put(SizeFields.PANE3D_FRONT_LINES_WIDTH, lw);
+        scheme._sizes.put(SizeFields.PANE3D_BACK_LINES_WIDTH, lw);
+        scheme._sizes.put(SizeFields.PANE3D_LEFT_LINES_WIDTH, lw);
+        scheme._sizes.put(SizeFields.PANE3D_RIGHT_LINES_WIDTH, lw);
+        scheme._sizes.put(SizeFields.PANE3D_BOTTOM_LINES_WIDTH, lw);
+        scheme._sizes.put(SizeFields.PANE3D_TOP_LINES_WIDTH, lw);
+
+        scheme._sizes.put(SizeFields.AXIS3D_X_TICK_LINE_WIDTH, lw);
+        scheme._sizes.put(SizeFields.AXIS3D_X_MAIN_LINE_WIDTH, lw);
+        scheme._sizes.put(SizeFields.AXIS3D_Y_TICK_LINE_WIDTH, lw);
+        scheme._sizes.put(SizeFields.AXIS3D_Y_MAIN_LINE_WIDTH, lw);
+        scheme._sizes.put(SizeFields.AXIS3D_Z_TICK_LINE_WIDTH, lw);
+        scheme._sizes.put(SizeFields.AXIS3D_Z_MAIN_LINE_WIDTH, lw);
     }
 
 
@@ -343,6 +360,7 @@ abstract class AbstractFactory
      * @param zLabel             Z-axis label
      * @param pDRM               display ranges manager params container
      * @param fsr                rescaling factor used for all font-based objects
+     * @param lw                 adjust line width for the Cube, Axes, and Panes objects (1.0f is a default value)
      * @param schemeAdjuster     can be supplied to adjust the scheme on fly (can be null)
      * @param plotParamsAdjuster can be supplied to adjust the plot params on fly (can be null)
      * @param <T>                params container class
@@ -354,11 +372,12 @@ abstract class AbstractFactory
                                                                                     String zLabel,
                                                                                     DisplayRangesManager.Params pDRM,
                                                                                     float fsr,
+                                                                                    float lw,
                                                                                     ISchemeAdjuster schemeAdjuster,
                                                                                     IPlotParamsAdjuster<T> plotParamsAdjuster)
     {
         performCommonParameterization(pP, scheme, xLabel, yLabel, pDRM, fsr);
-        performCommonParameterization3D(scheme, fsr);
+        performCommonParameterization3D(scheme, fsr, lw);
         pP._zAxisTitle = zLabel;
         if (schemeAdjuster != null) schemeAdjuster.adjust(scheme);
         if (plotParamsAdjuster != null) plotParamsAdjuster.adjust(pP);
@@ -378,6 +397,7 @@ abstract class AbstractFactory
      * @param zLabel             Z-axis label
      * @param pDRM               display ranges manager params container
      * @param fsr                rescaling factor used for all font-based objects
+     * @param lw                 adjust line width for the Cube, Axes, and Panes objects (1.0f is a default value)
      * @param schemeAdjuster     can be supplied to adjust the scheme on fly (can be null)
      * @param plotParamsAdjuster can be supplied to adjust the plot params on fly (can be null)
      * @param <T>                params container class
@@ -389,11 +409,12 @@ abstract class AbstractFactory
                                                                                               String zLabel,
                                                                                               DisplayRangesManager.Params pDRM,
                                                                                               float fsr,
+                                                                                              float lw,
                                                                                               ISchemeAdjuster schemeAdjuster,
                                                                                               IPlotParamsAdjuster<T> plotParamsAdjuster)
     {
         performCommonParameterization(pP, scheme, xLabel, yLabel, pDRM, fsr);
-        performCommonParameterization3D(scheme, fsr);
+        performCommonParameterization3D(scheme, fsr, lw);
         scheme._sizes.put(SizeFields.MARGIN_RIGHT_RELATIVE_SIZE_MULTIPLIER, 0.25f);
         pP._zAxisTitle = zLabel;
         if (schemeAdjuster != null) schemeAdjuster.adjust(scheme);

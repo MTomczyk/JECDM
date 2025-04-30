@@ -185,6 +185,15 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
      */
     private String[] _tickLabels;
 
+    /**
+     * Tick line width (null, if not used)
+     */
+    private Float _tickLineWidth;
+
+    /**
+     * Main line width (null, if not used)
+     */
+    private Float _mainLineWidth;
 
     /**
      * Parameterized constructor.
@@ -455,6 +464,21 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
 
         _fontQualityUpscaling = scheme.getSizes(_surpassedSizes, SizeFields.FONT_3D_QUALITY_UPSCALING);
 
+        if (_associatedDisplayRangeID == 0)
+        {
+            _tickLineWidth = scheme.getSizes(_surpassedSizes, SizeFields.AXIS3D_X_TICK_LINE_WIDTH);
+            _mainLineWidth = scheme.getSizes(_surpassedSizes, SizeFields.AXIS3D_X_MAIN_LINE_WIDTH);
+        }
+        else if (_associatedDisplayRangeID == 1)
+        {
+            _tickLineWidth = scheme.getSizes(_surpassedSizes, SizeFields.AXIS3D_Y_TICK_LINE_WIDTH);
+            _mainLineWidth = scheme.getSizes(_surpassedSizes, SizeFields.AXIS3D_Y_MAIN_LINE_WIDTH);
+        }
+        else if (_associatedDisplayRangeID == 2)
+        {
+            _tickLineWidth = scheme.getSizes(_surpassedSizes, SizeFields.AXIS3D_Z_TICK_LINE_WIDTH);
+            _mainLineWidth = scheme.getSizes(_surpassedSizes, SizeFields.AXIS3D_Z_MAIN_LINE_WIDTH);
+        }
         updateBuffers();
     }
 
@@ -469,7 +493,12 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
         gl.glLineWidth(1.0f);
 
         if (_lineColor != null) gl.glColor4f(_lineColor._r, _lineColor._g, _lineColor._b, _lineColor._a);
+        if (_mainLineWidth != null) gl.glLineWidth(_mainLineWidth);
         super.draw(gl);
+
+        if (_tickLineWidth != null) gl.glLineWidth(_tickLineWidth);
+        else gl.glLineWidth(1.0f);
+
 
         if (_tickLabels != null)
         {
@@ -510,6 +539,7 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
             }
         }
 
+        if (_tickLineWidth != null) gl.glLineWidth(1.0f);
 
         // draw ax labels
         if (_title != null)
@@ -680,6 +710,8 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
         _titleOffsetField = null;
         _tickLabelFontScaleField = null;
         _titleFontScaleField = null;
+        _mainLineWidth = null;
+        _tickLineWidth = null;
         _D = null;
     }
 
@@ -712,7 +744,10 @@ public class Axis3D extends AbstractVBOComponent implements IVBOComponent, IDisp
      *
      * @return ticks data getter
      */
-    public ITicksDataGetter getTicksDataGetter() {return _ticksDataGetter;}
+    public ITicksDataGetter getTicksDataGetter()
+    {
+        return _ticksDataGetter;
+    }
 
     /**
      * Returns display range id associated with this axis (0 = X, 1 = Y, 2 = Z).

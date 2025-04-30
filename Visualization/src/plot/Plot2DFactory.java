@@ -59,6 +59,27 @@ public class Plot2DFactory
      * - makes the background transparent,
      * - sets the axes labels number format to decimal.
      *
+     * @param xLabel         X-axis label
+     * @param yLabel         Y-axis label
+     * @param xyLimit        upper limits for the display ranges
+     * @param fsr            rescaling factor used for all font-based objects
+     * @param schemeAdjuster can be supplied to adjust the scheme on the fly (can be null); executed at the end
+     *                       of the customization of the plot params container (after all fields are set by default)
+     * @return instantiated plot 2D
+     */
+    public static Plot2D getPlot(String xLabel, String yLabel, double xyLimit, float fsr, ISchemeAdjuster schemeAdjuster)
+    {
+        return getPlot(xLabel, yLabel, xyLimit, fsr, schemeAdjuster, null);
+    }
+
+    /**
+     * Creates a simple 2D plot. It:
+     * - uses a white scheme,
+     * - sets the display ranges to fixed (non-dynamic) values: [0, xyLimit (parameter)],
+     * - sets the font to Times New Roman,
+     * - makes the background transparent,
+     * - sets the axes labels number format to decimal.
+     *
      * @param xLabel             X-axis label
      * @param yLabel             Y-axis label
      * @param xyLimit            upper limits for the display ranges
@@ -383,15 +404,15 @@ public class Plot2DFactory
      * - makes the background transparent,
      * - sets the axes labels number format to decimal.
      *
-     * @param scheme                   plot scheme
-     * @param xLabel                   X-axis label
-     * @param yLabel                   Y-axis label
-     * @param pDRM                     display ranges manager params container
-     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
-     * @param fsr                      rescaling factor used for all font-based objects
+     * @param scheme                 plot scheme
+     * @param xLabel                 X-axis label
+     * @param yLabel                 Y-axis label
+     * @param pDRM                   display ranges manager params container
+     * @param xNoTicks               adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
+     * @param yNoTicks               adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
+     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
+     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
+     * @param fsr                    rescaling factor used for all font-based objects
      * @return instantiated plot 2D
      */
     public static Plot2D getPlot(AbstractScheme scheme,

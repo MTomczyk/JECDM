@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 
 /**
- * Implementation of the Inverted Generational Distance indicator.
+ * Implementation of the Inverted Generational Distance indicator. This implementation quantifies distances to the PF
+ * based on the provided set of reference Pareto optimal solutions. Thus, the obtained results are approximations.
  *
  * @author MTomczyk
  */

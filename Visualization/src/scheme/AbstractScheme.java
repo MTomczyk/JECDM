@@ -368,6 +368,22 @@ public abstract class AbstractScheme
         _sizes.put(SizeFields.AXIS3D_Z_TITLE_OFFSET, 0.2f);
 
         _sizes.put(SizeFields.FONT_3D_QUALITY_UPSCALING, 2.0f);
+
+        _sizes.put(SizeFields.CUBE3D_LINES_WIDTH, null);
+
+        _sizes.put(SizeFields.PANE3D_FRONT_LINES_WIDTH, null);
+        _sizes.put(SizeFields.PANE3D_BACK_LINES_WIDTH, null);
+        _sizes.put(SizeFields.PANE3D_LEFT_LINES_WIDTH, null);
+        _sizes.put(SizeFields.PANE3D_RIGHT_LINES_WIDTH, null);
+        _sizes.put(SizeFields.PANE3D_TOP_LINES_WIDTH, null);
+        _sizes.put(SizeFields.PANE3D_BOTTOM_LINES_WIDTH, null);
+
+        _sizes.put(SizeFields.AXIS3D_X_TICK_LINE_WIDTH, null);
+        _sizes.put(SizeFields.AXIS3D_X_MAIN_LINE_WIDTH, null);
+        _sizes.put(SizeFields.AXIS3D_Y_TICK_LINE_WIDTH, null);
+        _sizes.put(SizeFields.AXIS3D_Y_MAIN_LINE_WIDTH, null);
+        _sizes.put(SizeFields.AXIS3D_Z_TICK_LINE_WIDTH, null);
+        _sizes.put(SizeFields.AXIS3D_Z_MAIN_LINE_WIDTH, null);
     }
 
     /**

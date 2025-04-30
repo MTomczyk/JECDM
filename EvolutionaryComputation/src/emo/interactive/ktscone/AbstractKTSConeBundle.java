@@ -70,11 +70,33 @@ public abstract class AbstractKTSConeBundle extends AbstractEMOInteractiveBundle
                                                                  IReferenceSetConstructor referenceSetConstructor,
                                                                  IDMFeedbackProvider dmFeedbackProvider)
         {
+            return getDefault(name, criteria, DM, interactionRule, referenceSetConstructor, dmFeedbackProvider, null);
+        }
+
+        /**
+         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
+         * feedback provider, and one interaction rule.
+         *
+         * @param name                    name of the EA
+         * @param criteria                considered criteria
+         * @param DM                      decision maker's identifier
+         * @param interactionRule         interaction rule
+         * @param referenceSetConstructor reference set constructor
+         * @param dmFeedbackProvider      DM-based feedback provider
+         * @param dssAdjuster             auxiliary DSS params adjuster (can be null, if not used); adjustment is done after the default initialization
+         * @return params container
+         */
+        protected static AbstractKTSConeBundle.Params getDefault(String name, Criteria criteria, String DM,
+                                                                 IRule interactionRule,
+                                                                 IReferenceSetConstructor referenceSetConstructor,
+                                                                 IDMFeedbackProvider dmFeedbackProvider,
+                                                                 DecisionSupportSystem.IParamsAdjuster dssAdjuster)
+        {
             IPreferenceModel<KTSCone> preferenceModel = new model.definitions.KTSCone();
             IConstructor<KTSCone> constructor = new model.constructor.value.KTSCone();
-
             DecisionSupportSystem.Params pDSS = DSSParamsProvider.getForSingleDecisionMakerSingleModelArtificialProvider(criteria,
                     DM, interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, constructor);
+            if (dssAdjuster != null) dssAdjuster.adjust(pDSS);
             return getDefault(name, criteria, pDSS);
         }
 
@@ -126,6 +148,7 @@ public abstract class AbstractKTSConeBundle extends AbstractEMOInteractiveBundle
 
     /**
      * Auxiliary method for retrieving OS changed listeners (facilitates customization by the class extensions).
+     *
      * @param p params container
      * @return OS changed listeners.
      */
@@ -145,6 +168,7 @@ public abstract class AbstractKTSConeBundle extends AbstractEMOInteractiveBundle
     @Override
     protected void registerInitialNormalizations(AbstractEABundle.Params p)
     {
-        if (p._initialNormalizations != null) ((NSGAIISort) _phasesBundle._sort).updateNormalizations(p._initialNormalizations);
+        if (p._initialNormalizations != null)
+            ((NSGAIISort) _phasesBundle._sort).updateNormalizations(p._initialNormalizations);
     }
 }

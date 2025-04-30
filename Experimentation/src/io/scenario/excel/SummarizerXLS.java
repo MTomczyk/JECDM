@@ -92,7 +92,7 @@ public class SummarizerXLS extends AbstractExcelSummarizer implements IScenarioS
     }
 
     /**
-     * Returns the file suffix (.xls)
+     * Returns the file suffix (includes .xls)
      *
      * @return file suffix
      */

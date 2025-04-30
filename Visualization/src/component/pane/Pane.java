@@ -14,6 +14,7 @@ import listeners.auxiliary.IDisplayRangesChangedListener;
 import scheme.AbstractScheme;
 import scheme.enums.Align;
 import scheme.enums.ColorFields;
+import scheme.enums.SizeFields;
 import space.Dimension;
 import space.Range;
 
@@ -64,6 +65,11 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
      * Auxiliary object for getting ticks location (equivalent to grid lines locations); for display range associated with the second available dimension.
      */
     private ITicksDataGetter _secondTicksDataGetter;
+
+    /**
+     * Grid lines line width (null, if not used).
+     */
+    private Float _lineWidth = null;
 
     /**
      * Parameterized constructor.
@@ -171,14 +177,14 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
     /**
      * Auxiliary method helping to retrieve buffer data for gridlines.
      *
-     * @param ID1 id of one of the active dimensions
-     * @param ID2 id of the other active dimensions
-     * @param left additional transformation data
-     * @param right additional transformation data
+     * @param ID1    id of one of the active dimensions
+     * @param ID2    id of the other active dimensions
+     * @param left   additional transformation data
+     * @param right  additional transformation data
      * @param bottom additional transformation data
-     * @param top additional transformation data
-     * @param shift additional transformation data
-     * @param tdg selected tick data getter
+     * @param top    additional transformation data
+     * @param shift  additional transformation data
+     * @param tdg    selected tick data getter
      * @return buffer data for VBO
      */
     private BufferData getGridData(int ID1, int ID2, float left, float right, float bottom,
@@ -230,7 +236,6 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
         if ((_gridFirst != null) && (_gridFirst.isUpdateRequested())) return true;
         return (_gridSecond != null) && (_gridSecond.isUpdateRequested());
     }
-
 
 
     /**
@@ -291,8 +296,18 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
         if (_lineColor != null)
         {
             gl.glColor4f(_lineColor._r, _lineColor._g, _lineColor._b, _lineColor._a);
-            if (_gridFirst != null) _gridFirst.render(gl);
-            if (_gridSecond != null) _gridSecond.render(gl);
+            if (_gridFirst != null)
+            {
+                if (_lineWidth != null) gl.glLineWidth(_lineWidth);
+                _gridFirst.render(gl);
+                if (_lineWidth != null) gl.glLineWidth(1.0f);
+            }
+            if (_gridSecond != null)
+            {
+                if (_lineWidth != null) gl.glLineWidth(_lineWidth);
+                _gridSecond.render(gl);
+                if (_lineWidth != null) gl.glLineWidth(1.0f);
+            }
         }
 
     }
@@ -308,6 +323,13 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
         super.updateScheme(scheme);
         _backgroundColor = scheme.getColors(_surpassedColors, ColorFields.PANE_3D_BACKGROUND);
         _lineColor = scheme.getColors(_surpassedColors, ColorFields.PANE_3D_LINE);
+
+        if (_align.equals(Align.FRONT)) _lineWidth = scheme.getSizes(_surpassedSizes, SizeFields.PANE3D_FRONT_LINES_WIDTH);
+        else if (_align.equals(Align.BACK)) _lineWidth = scheme.getSizes(_surpassedSizes, SizeFields.PANE3D_BACK_LINES_WIDTH);
+        else if (_align.equals(Align.LEFT)) _lineWidth = scheme.getSizes(_surpassedSizes, SizeFields.PANE3D_LEFT_LINES_WIDTH);
+        else if (_align.equals(Align.RIGHT)) _lineWidth = scheme.getSizes(_surpassedSizes, SizeFields.PANE3D_RIGHT_LINES_WIDTH);
+        else if (_align.equals(Align.TOP)) _lineWidth = scheme.getSizes(_surpassedSizes, SizeFields.PANE3D_TOP_LINES_WIDTH);
+        else if (_align.equals(Align.BOTTOM)) _lineWidth = scheme.getSizes(_surpassedSizes, SizeFields.PANE3D_BOTTOM_LINES_WIDTH);
     }
 
     /**
@@ -335,6 +357,9 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
             _gridSecond.dispose(gl);
             _gridSecond = null;
         }
+
+        _lineWidth = null;
+        _align = null;
     }
 
     /**
@@ -420,7 +445,6 @@ public class Pane extends AbstractVBOComponent implements IVBOComponent, IDispla
         else if (_associatedSecondDisplayRangeID == 2) return _secondTicksDataGetter;
         return null;
     }
-
 
 
     /**

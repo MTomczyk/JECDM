@@ -47,7 +47,7 @@ public class Refiner
          */
         public static Params getDefault()
         {
-            return getDefault(0.0001d);
+            return getDefault(1.0E-4);
         }
 
 

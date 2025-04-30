@@ -10,6 +10,7 @@ import gl.VBOManager;
 import gl.vboutils.VBOUtils;
 import scheme.AbstractScheme;
 import scheme.enums.ColorFields;
+import scheme.enums.SizeFields;
 import space.Dimension;
 
 /**
@@ -36,6 +37,11 @@ public class Cube extends AbstractVBOComponent implements IVBOComponent
     private Color _edgeColor = null;
 
     /**
+     * Line width (null, if not used).
+     */
+    private Float _lineWidth;
+
+    /**
      * Can be called to draw object.
      *
      * @param gl open gl rendering context
@@ -50,7 +56,9 @@ public class Cube extends AbstractVBOComponent implements IVBOComponent
         if (_vbo != null)
         {
             gl.glColor4f(_edgeColor._r, _edgeColor._g, _edgeColor._b, _edgeColor._a);
+            if (_lineWidth != null) gl.glLineWidth(_lineWidth);
             _vbo.render(gl);
+            if (_lineWidth != null) gl.glLineWidth(1.0f);
         }
     }
 
@@ -64,6 +72,7 @@ public class Cube extends AbstractVBOComponent implements IVBOComponent
     {
         super.updateScheme(scheme);
         _edgeColor = scheme.getColors(_surpassedColors, ColorFields.CUBE_3D_EDGE);
+        _lineWidth = scheme.getSizes(_surpassedSizes, SizeFields.CUBE3D_LINES_WIDTH);
     }
 
     /**
@@ -72,9 +81,21 @@ public class Cube extends AbstractVBOComponent implements IVBOComponent
     @Override
     public void createBuffers()
     {
-        Dimension [] D = _PC.getDrawingArea().getRenderingData().getCopyOfProjectionBounds();
+        Dimension[] D = _PC.getDrawingArea().getRenderingData().getCopyOfProjectionBounds();
         float[] vertices = VBOUtils.getCuboidVertices(D);
-        short [] indices = VBOUtils._cuboidIndices;
+        short[] indices = VBOUtils._cuboidIndices;
         _vbo = new VBOManager(vertices, indices, null, GL2.GL_LINES, 3, 0);
+    }
+
+    /**
+     * Can be called to clear memory.
+     */
+    @Override
+    @SuppressWarnings("DuplicatedCode")
+    public void dispose()
+    {
+        super.dispose();
+        _lineWidth = null;
+        _edgeColor = null;
     }
 }

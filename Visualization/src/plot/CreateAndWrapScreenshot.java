@@ -1,5 +1,6 @@
 package plot;
 
+import color.Color;
 import container.PlotContainer;
 import swing.swingworkerqueue.QueuedSwingWorker;
 import utils.Screenshot;
@@ -24,15 +25,25 @@ class CreateAndWrapScreenshot extends QueuedSwingWorker<Void, Void>
     private final Screenshot _screenshot;
 
     /**
+     * If not null, the created screenshot is clipped so that its depicted object occupies all image; it is done by
+     * removing the first/last columns/rows whose all pixels match the given color (RGBA format is compared).
+     */
+    private final Color _clipToFilColor;
+
+    /**
      * Parameterized constructor.
      *
-     * @param PC         reference to the plot container
-     * @param screenshot reference to the screenshot wrapper
+     * @param PC             reference to the plot container
+     * @param screenshot     reference to the screenshot wrapper
+     * @param clipToFilColor if not null, the created screenshot is clipped so that its depicted object occupies all
+     *                       image; it is done by removing the first/last columns/rows whose all pixels match the given
+     *                       color (RGB channels are compared and optionally A, if the image supports it)
      */
-    public CreateAndWrapScreenshot(PlotContainer PC, Screenshot screenshot)
+    public CreateAndWrapScreenshot(PlotContainer PC, Screenshot screenshot, Color clipToFilColor)
     {
         _PC = PC;
         _screenshot = screenshot;
+        _clipToFilColor = clipToFilColor;
     }
 
     /**
@@ -44,6 +55,7 @@ class CreateAndWrapScreenshot extends QueuedSwingWorker<Void, Void>
     protected Void doInBackground()
     {
         _screenshot._image = _PC.getPlot().getPlotScreenshot(_screenshot._useAlphaChannel);
+        if (_clipToFilColor != null) _screenshot.clipToFit(_clipToFilColor);
 
         notifyTermination();
         return null;

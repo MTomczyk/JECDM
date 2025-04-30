@@ -493,9 +493,9 @@ public class MOEAD extends EA
         }
         else
         {
-            // Set the initial normalizations (will be delivered to the object responsible for calculating crowding distances):
+            // Set the initial normalizations
             pB._initialNormalizations = problem._normalizations;
-            pB._osManager = null; // no os manager needed
+            pB._osManager = ObjectiveSpaceManager.getFixedInstance(problem);
             manager.updateNormalizations(pB._initialNormalizations); // update normalizations
         }
 

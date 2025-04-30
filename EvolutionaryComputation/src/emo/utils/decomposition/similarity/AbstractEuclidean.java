@@ -34,9 +34,9 @@ public abstract class AbstractEuclidean implements ISimilarity
     }
 
     /**
-     * Used to determine is less/more means closer/further.
+     * Used to determine is less/more means closer (more similar)/further.
      *
-     * @return true, if smaller values mean closer; false otherwise.
+     * @return true, if smaller values mean closer (more similar); false otherwise.
      */
     @Override
     public boolean isLessMeaningCloser()

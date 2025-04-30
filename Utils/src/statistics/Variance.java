@@ -60,15 +60,4 @@ public class Variance extends AbstractStatistic implements IStatistic
         if (_unbiased) return dev / (double) (v.length - 1);
         else return dev / (double) v.length;
     }
-
-    /**
-     * Auxiliary method for retrieving the string representation ("VAR").
-     *
-     * @return string representation ("VAR")
-     */
-    public String getName()
-    {
-        return toString();
-    }
-
 }

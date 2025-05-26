@@ -1,3 +1,17 @@
+[TODO; in progress] tutorial on RNG to be added
+- Visualization: Axes' titles now can be changed after instantiation
+- Visualization: DSFactory2D and 3D: the method for constructing data set can now be supplied with data set and painter params container adjusters, which allow for adjusting the objects being built during initialization
+- Visualization: scheme.AbstractScheme.getInstance() method removed (getClone() is now supported only)
+- Visualization: GridPlots: This wrapper is now founded on GridBagLayout instead of GridLayout; when instantiating, an implementation of its inner IConstraintsAdjuster interface can be passed via constructor to suitably adjust the layout (e.g., the relative spacing of plots; see the JavaDoc)
+- Utils: random.MersenneTwister64: 32 bit version was used instead of 64, corrected
+- Utils: random.IRandom: implementations now have the possibility to deploy streams, or advanced versions of the class instance (which may be helpful when parallelizing computations)
+- Utils: utils.ArrayUtils class added (the initial version allows for concise creation of arrays ([]))
+- Experimentation: container.global.initializers.IRandomNumberGeneratorInitializer: new implementation called FromStreamsInitializer is added; new implementation called DefaultRandomNumberGeneratorInitializer: the class now can be parameterized to deploy RNGs of a desired type
+- Experimentation: container.global.initializers.IRandomNumberGeneratorInitializer: new implementation called FromStreamsInitializer is added; new implementation called FromStreamsInitializer is added; it allows for pre-constructing RNG streams, which are then suitably associated with the trials being processed (the constructed RNGs must be splittable or jumpable, see the implementation details)
+- Experimentation: minor factorization related to exception throwing/handling
+- Tutorials: t11_20.t11_rngs_and_new_visualization_options tutorial added.
+- EvolutionaryComputation: reproduction.operators: Simple generic interfaces for operators are added: ICrossover<T> and IMutate<T> (also, IWeightsReproducer)
+
 [30.04.2025] This update is mainly dedicated to the "Tutorial 10: Evolutionary Rejection Sampling" tutorial document
 - Visualization: line width property can be set via a scheme for 3D components Cube, Axes, and Panes (seek suitable fields, e.g., PANE3D_TOP_LINES_WIDTH).
 - Visualization: plot.plotModel.requestScreenshotCreation(...):  option (parameter) for clipping the created screenshot is added; the screenshot is clipped so that its depicted object occupies all the image; it is done by removing the first/last columns/rows whose all pixels match the given color.

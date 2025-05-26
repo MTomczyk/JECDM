@@ -40,6 +40,7 @@ import model.constructor.IConstructor;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
 import model.constructor.value.rs.frs.FRS;
+import model.constructor.value.rs.iterationslimit.Constant;
 import model.definitions.LNorm;
 import problem.Problem;
 import problem.moo.AbstractMOOProblemBundle;
@@ -289,7 +290,7 @@ public class ContainersGetter
             else
             {
                 constructor = ERSFactory.getDefaultForLNorms(PS,
-                        (N, M1, Hs) -> 50000,
+                        new Constant(50000),
                         M, Double.POSITIVE_INFINITY, problemBundle._normalizations,
                         new LNormOnSimplex(Double.POSITIVE_INFINITY, 0.2d, 0.2d), 2, initialModels);
             }

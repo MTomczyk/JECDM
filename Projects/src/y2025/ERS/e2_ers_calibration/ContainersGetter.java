@@ -23,8 +23,8 @@ import model.constructor.value.rs.ers.IterableERS;
 import model.constructor.value.rs.ers.comparators.MostSimilarWithTieResolving;
 import model.constructor.value.rs.ers.evolutionary.EvolutionaryModelConstructor;
 import model.constructor.value.rs.ers.evolutionary.IOffspringConstructor;
-import model.constructor.value.rs.ers.iterationslimit.Constant;
 import model.constructor.value.rs.frs.IterableFRS;
+import model.constructor.value.rs.iterationslimit.Constant;
 import model.internals.value.scalarizing.LNorm;
 import model.similarity.lnorm.Euclidean;
 import random.MersenneTwister32;
@@ -237,11 +237,11 @@ public class ContainersGetter
                 double crossoverStd = Double.parseDouble(s[1]) / 10.0d;
                 double mutationStd = Double.parseDouble(s[2]) / 10.0d;
 
-                IterableERS.Params<LNorm> pERS = new IterableERS.Params<>(new LNormGenerator(M, alpha), M);
+                IterableERS.Params<LNorm> pERS = new IterableERS.Params<>(new LNormGenerator(M, alpha));
                 pERS._similarity = new Euclidean();
                 pERS._feasibleSamplesToGenerate = N;
                 pERS._kMostSimilarNeighbors = 3;
-                pERS._improvementAttemptsLimit = new Constant(samplingLimit);
+                pERS._iterationsLimit = new Constant(samplingLimit);
                 pERS._comparator = new MostSimilarWithTieResolving<>();
                 pERS._inconsistencyThreshold = 0;
                 pERS._compatibilityAnalyzer = new CompatibilityAnalyzer();

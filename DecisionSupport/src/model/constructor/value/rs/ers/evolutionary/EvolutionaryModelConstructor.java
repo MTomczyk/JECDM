@@ -70,7 +70,6 @@ public class EvolutionaryModelConstructor<T extends AbstractValueInternalModel>
             p1Idx = tmp;
         }
 
-
         int cIdx = 0;
         ListIterator<SortedModel<T>> it = modelsQueue.getQueue().listIterator();
         SortedModel<T> model;

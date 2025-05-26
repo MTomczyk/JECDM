@@ -155,4 +155,36 @@ public class ArrayUtils
         for (int i = 0; i < n; i++) a[i] = valueConstructor.getValue(i);
         return a;
     }
+
+    /**
+     * Auxiliary method for creating an array filled with a fixed boolean (the same for each array element).
+     *
+     * @param n        array size
+     * @param constant constant value
+     * @return constructed array (null, if array size is less than 0)
+     */
+    public static boolean[] getBooleanArray(int n, boolean constant)
+    {
+        if (n < 0) return null;
+        boolean[] a = new boolean[n];
+        Arrays.fill(a, constant);
+        return a;
+    }
+
+    /**
+     * Auxiliary method for creating an array filled with boolean values specified via {@link IValueConstructor}.
+     *
+     * @param n                array size
+     * @param valueConstructor value constructor
+     * @return constructed array (null, if array size is less than 0 or the value constructor is not provided)
+     */
+    public static boolean[] getBooleanArray(int n, IValueConstructor<Boolean> valueConstructor)
+    {
+        if (n < 0) return null;
+        if (valueConstructor == null) return null;
+        boolean[] a = new boolean[n];
+        for (int i = 0; i < n; i++) a[i] = valueConstructor.getValue(i);
+        return a;
+    }
+
 }

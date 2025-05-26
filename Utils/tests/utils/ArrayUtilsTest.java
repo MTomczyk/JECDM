@@ -70,6 +70,33 @@ class ArrayUtilsTest
             assertNotNull(a);
             assertEquals(0, a.length);
         }
+
+        {
+            Boolean[] a = ArrayUtils.getArray(-1, true);
+            assertNull(a);
+            a = ArrayUtils.getArray(2, true);
+            assertNotNull(a);
+            assertEquals(2, a.length);
+            assertTrue(a[0]);
+            assertTrue(a[1]);
+            a = ArrayUtils.getArray(0, false);
+            assertNotNull(a);
+            assertEquals(0, a.length);
+
+            a = ArrayUtils.getArray(-1, Boolean.class, i -> i % 2 == 0);
+            assertNull(a);
+            a = ArrayUtils.getArray(-1, null);
+            assertNull(a);
+            a = ArrayUtils.getArray(3, Boolean.class, i -> i % 2 == 0);
+            assertNotNull(a);
+            assertEquals(3, a.length);
+            assertTrue(a[0]);
+            assertFalse(a[1]);
+            assertTrue(a[2]);
+            a = ArrayUtils.getArray(0, Boolean.class, i -> i % 2 == 0);
+            assertNotNull(a);
+            assertEquals(0, a.length);
+        }
     }
 
     /**
@@ -169,6 +196,40 @@ class ArrayUtilsTest
             assertEquals(2, a[1], 1.0E-6);
             assertEquals(4, a[2], 1.0E-6);
             a = ArrayUtils.getDoubleArray(0, i -> (double) 2 * i);
+            assertNotNull(a);
+            assertEquals(0, a.length);
+        }
+    }
+
+    /**
+     * Tests array construction (boolean primitive).
+     */
+    @Test
+    void getArrayBoolean()
+    {
+        {
+            boolean[] a = ArrayUtils.getBooleanArray(-1, true);
+            assertNull(a);
+            a = ArrayUtils.getBooleanArray(2, true);
+            assertNotNull(a);
+            assertEquals(2, a.length);
+            assertTrue(a[0]);
+            assertTrue(a[1]);
+            a = ArrayUtils.getBooleanArray(0, false);
+            assertNotNull(a);
+            assertEquals(0, a.length);
+
+            a = ArrayUtils.getBooleanArray(-1, i -> i % 2 == 0);
+            assertNull(a);
+            a = ArrayUtils.getBooleanArray(-1, null);
+            assertNull(a);
+            a = ArrayUtils.getBooleanArray(3, i -> i % 2 == 0);
+            assertNotNull(a);
+            assertEquals(3, a.length);
+            assertTrue(a[0]);
+            assertFalse(a[1]);
+            assertTrue(a[2]);
+            a = ArrayUtils.getBooleanArray(0, i -> i % 2 == 0);
             assertNotNull(a);
             assertEquals(0, a.length);
         }

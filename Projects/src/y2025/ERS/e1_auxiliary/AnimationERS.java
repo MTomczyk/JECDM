@@ -17,7 +17,7 @@ import dataset.painter.style.enums.Marker;
 import exception.TrialException;
 import model.constructor.value.rs.ers.evolutionary.EvolutionaryModelConstructor;
 import model.constructor.value.rs.ers.evolutionary.IOffspringConstructor;
-import model.constructor.value.rs.ers.iterationslimit.Constant;
+import model.constructor.value.rs.iterationslimit.Constant;
 import decisionsupport.operators.LNormOnSimplex;
 import dmcontext.DMContext;
 import drmanager.DRMPFactory;
@@ -112,8 +112,8 @@ public class AnimationERS
 
         IPreferenceModel<LNorm> model = new model.definitions.LNorm(); // preference model definition
         // ERS sampler
-        IterableERS.Params<LNorm> pERS = new IterableERS.Params<>(new LNormGenerator(M, Double.POSITIVE_INFINITY, problemBundle._normalizations), 3);
-        pERS._improvementAttemptsLimit = new Constant(5000);
+        IterableERS.Params<LNorm> pERS = new IterableERS.Params<>(new LNormGenerator(M, Double.POSITIVE_INFINITY, problemBundle._normalizations));
+        pERS._iterationsLimit = new Constant(5000);
         pERS._passModels = true;
         pERS._similarity = new model.similarity.lnorm.Euclidean();
         pERS._feasibleSamplesToGenerate = goals.length;
@@ -414,7 +414,7 @@ public class AnimationERS
                 boolean screenshotTaken = false;
                 CompatibilityAnalyzer CA = new CompatibilityAnalyzer();
 
-                int limit = Math.max(0, pERS._improvementAttemptsLimit.getIterations(goals.length, 3, 3));
+                int limit = Math.max(0, pERS._iterationsLimit.getIterations(dmContext, preferenceInformation, report, goals.length));
                 for (int i = 0; i < limit; i++)
                 {
                     LNorm sampled = ers.executeStep(report, preferenceInformation);

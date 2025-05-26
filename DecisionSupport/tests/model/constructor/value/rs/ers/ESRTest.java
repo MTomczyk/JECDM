@@ -9,7 +9,7 @@ import model.constructor.Report;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
 import model.constructor.value.rs.ers.comparators.MostSimilarWithTieResolving;
-import model.constructor.value.rs.ers.iterationslimit.Constant;
+import model.constructor.value.rs.iterationslimit.Constant;
 import model.constructor.value.rs.frs.FRS;
 import model.internals.value.scalarizing.LNorm;
 import model.similarity.lnorm.Euclidean;
@@ -46,12 +46,12 @@ class ESRTest
         for (int i = 0; i < 3; i++)
         {
             IRandomModel<LNorm> RM = new LNormGenerator(2, Double.POSITIVE_INFINITY);
-            ERS.Params<LNorm> params = new ERS.Params<>(RM, 3);
+            ERS.Params<LNorm> params = new ERS.Params<>(RM);
             params._similarity = new Euclidean();
             params._kMostSimilarNeighbors = 3;
             params._comparator = new MostSimilarWithTieResolving<>();
             params._feasibleSamplesToGenerate = toGenerate;
-            params._improvementAttemptsLimit = new Constant(100000);
+            params._iterationsLimit = new Constant(100000);
             params._inconsistencyThreshold = it[i];
             params._validateAlreadyExistingSamplesFirst = false;
             ERS<LNorm> frs = new ERS<>(params);
@@ -127,12 +127,12 @@ class ESRTest
         for (int i = 0; i < 3; i++)
         {
             IRandomModel<LNorm> RM = new LNormGenerator(2, Double.POSITIVE_INFINITY);
-            ERS.Params<LNorm> params = new ERS.Params<>(RM, 3);
+            ERS.Params<LNorm> params = new ERS.Params<>(RM);
             params._similarity = new Euclidean();
             params._kMostSimilarNeighbors = 3;
             params._comparator = new MostSimilarWithTieResolving<>();
             params._feasibleSamplesToGenerate = toGenerate;
-            params._improvementAttemptsLimit =  new Constant(100000);
+            params._iterationsLimit =  new Constant(100000);
             params._inconsistencyThreshold = it[i];
             params._validateAlreadyExistingSamplesFirst = false;
             ERS<LNorm> frs = new ERS<>(params);
@@ -238,12 +238,12 @@ class ESRTest
         for (int i = 0; i < 3; i++)
         {
             IRandomModel<LNorm> RM = new LNormGenerator(2, Double.POSITIVE_INFINITY);
-            ERS.Params<LNorm> params = new ERS.Params<>(RM, 3);
+            ERS.Params<LNorm> params = new ERS.Params<>(RM);
             params._similarity = new Euclidean();
             params._kMostSimilarNeighbors = 3;
             params._comparator = new MostSimilarWithTieResolving<>();
             params._feasibleSamplesToGenerate = toGenerate;
-            params._improvementAttemptsLimit =  new Constant(100000);
+            params._iterationsLimit =  new Constant(100000);
             params._inconsistencyThreshold = it[i];
             params._validateAlreadyExistingSamplesFirst = true;
             ERS<LNorm> frs = new ERS<>(params);
@@ -349,12 +349,12 @@ class ESRTest
         {
 
             IRandomModel<LNorm> RM = new LNormGenerator(2, 1.0d);
-            ERS.Params<LNorm> params = new ERS.Params<>(RM , 3);
+            ERS.Params<LNorm> params = new ERS.Params<>(RM);
             params._similarity = new Euclidean();
             params._kMostSimilarNeighbors = 3;
             params._comparator = new MostSimilarWithTieResolving<>();
             params._feasibleSamplesToGenerate = toGenerate;
-            params._improvementAttemptsLimit =  new Constant(100000);
+            params._iterationsLimit =  new Constant(100000);
             params._inconsistencyThreshold = it[i];
             params._validateAlreadyExistingSamplesFirst = true;
             ERS<LNorm> frs = new ERS<>(params);

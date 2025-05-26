@@ -1,17 +1,15 @@
 package model.constructor.value.rs.ers;
 
+import model.constructor.value.rs.ers.comparators.MostSimilarWithTieResolving;
+import model.constructor.value.rs.ers.evolutionary.EvolutionaryModelConstructor;
+import model.similarity.ISimilarity;
 import exeption.ConstructorException;
 import history.PreferenceInformationWrapper;
 import model.constructor.IConstructor;
 import model.constructor.Report;
 import model.constructor.random.IRandomModel;
 import model.constructor.value.rs.AbstractRejectionSampling;
-import model.constructor.value.rs.ers.comparators.MostSimilarWithTieResolving;
-import model.constructor.value.rs.ers.evolutionary.EvolutionaryModelConstructor;
-import model.constructor.value.rs.ers.iterationslimit.ConstantZeroWhenNoFeedback;
-import model.constructor.value.rs.ers.iterationslimit.IImprovementAttemptsLimit;
 import model.internals.value.AbstractValueInternalModel;
-import model.similarity.ISimilarity;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -39,12 +37,6 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
     public static class Params<T extends AbstractValueInternalModel> extends AbstractRejectionSampling.Params<T>
     {
         /**
-         * The limit for the number of attempts to improve the distribution of generated models.
-         * Can be conditional (see {@link IImprovementAttemptsLimit}).
-         */
-        public IImprovementAttemptsLimit _improvementAttemptsLimit = new ConstantZeroWhenNoFeedback(1000);
-
-        /**
          * Represents the number of k most-similar neighbors kept per each model.
          */
         public int _kMostSimilarNeighbors = 5;
@@ -66,28 +58,15 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
         public EvolutionaryModelConstructor<T> _EMC = null;
 
         /**
-         * Considered space dimensionality.
-         */
-        public final int _M;
-
-        /**
          * Parameterized constructor.
          *
          * @param initialModelsConstructor random model generator
-         * @param M                        the number of objectives (criteria)
          */
-        public Params(IRandomModel<T> initialModelsConstructor, int M)
+        public Params(IRandomModel<T> initialModelsConstructor)
         {
             super(initialModelsConstructor);
-            _M = M;
         }
     }
-
-    /**
-     * The limit for the number of attempts to improve the distribution of generated models.
-     * Can be conditional (see {@link IImprovementAttemptsLimit}).
-     */
-    private final IImprovementAttemptsLimit _improvementAttemptsLimit;
 
     /**
      * Reference to the report viewed as {@link model.constructor.value.rs.ers.Report}.
@@ -106,11 +85,6 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
     private final EvolutionaryModelConstructor<T> _EMC;
 
     /**
-     * Considered space dimensionality.
-     */
-    private final int _M;
-
-    /**
      * Parameterized constructor.
      *
      * @param p params container
@@ -118,11 +92,9 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
     public ERS(Params<T> p)
     {
         super("ERS", p);
-        _improvementAttemptsLimit = p._improvementAttemptsLimit;
         _modelsQueue = new ModelsQueue<>(_feasibleSamplesToGenerate, p._kMostSimilarNeighbors,
                 p._compatibilityAnalyzer, p._comparator, p._similarity);
         _EMC = p._EMC;
-        _M = p._M;
     }
 
     /**
@@ -159,14 +131,9 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
     protected void mainConstructModels(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
         if (initializeStep(bundle, preferenceInformation)) return;
-        int attempts = Math.max(0, _improvementAttemptsLimit.getIterations(_feasibleSamplesToGenerate, _M,
-                preferenceInformation.size()));
-
-        for (int t = 0; t < attempts; t++)
-        {
-            executeStep(bundle, preferenceInformation);
-        }
-
+        int attempts = Math.max(0, _iterationsLimit.getIterations(_dmContext, preferenceInformation,
+                bundle, _feasibleSamplesToGenerate));
+        for (int t = 0; t < attempts; t++) executeStep(bundle, preferenceInformation);
         finalizeStep(bundle, preferenceInformation);
     }
 

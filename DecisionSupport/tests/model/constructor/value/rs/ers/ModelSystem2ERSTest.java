@@ -14,7 +14,7 @@ import model.IPreferenceModel;
 import model.constructor.IConstructor;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.rs.ers.iterationslimit.Constant;
+import model.constructor.value.rs.iterationslimit.Constant;
 import model.internals.value.scalarizing.LNorm;
 import model.similarity.lnorm.Euclidean;
 import org.junit.jupiter.api.Test;
@@ -48,8 +48,8 @@ class ModelSystem2ERSTest
         IPreferenceModel<LNorm> preferenceModel = new model.definitions.LNorm();
         IRandomModel<LNorm> randomModel = new LNormGenerator(2, Double.POSITIVE_INFINITY);
         IRandom R = new MersenneTwister64(0);
-        ERS.Params<LNorm> pERS = new ERS.Params<>(randomModel, 3);
-        pERS._improvementAttemptsLimit = new Constant(100000);
+        ERS.Params<LNorm> pERS = new ERS.Params<>(randomModel);
+        pERS._iterationsLimit = new Constant(100000);
         pERS._similarity = new Euclidean();
         int toSample = 100;
         pERS._feasibleSamplesToGenerate = 100;
@@ -164,7 +164,7 @@ class ModelSystem2ERSTest
         assertEquals(0, report._report._modelsRejectedBetweenIterations, 1.0E-1);
 
         assertEquals(1.0d, report._report._successRateInConstructing, 1.0E-1);
-        assertEquals(toSample + pERS._improvementAttemptsLimit.getIterations(0, 0, 0), report._report._acceptedNewlyConstructedModels, 1.0E-1);
+        assertEquals(toSample + pERS._iterationsLimit.getIterations(dmContext, wrapped, report._report, 0), report._report._acceptedNewlyConstructedModels, 1.0E-1);
         assertEquals(0, report._report._rejectedNewlyConstructedModels, 1.0E-1);
 
         assertTrue(report._report._constructionElapsedTime > 0);
@@ -198,8 +198,8 @@ class ModelSystem2ERSTest
         IPreferenceModel<LNorm> preferenceModel = new model.definitions.LNorm();
         IRandomModel<LNorm> randomModel = new LNormGenerator(2, Double.POSITIVE_INFINITY);
         IRandom R = new MersenneTwister64(0);
-        ERS.Params<LNorm> pERS = new ERS.Params<>(randomModel, 3);
-        pERS._improvementAttemptsLimit = new Constant(100000);
+        ERS.Params<LNorm> pERS = new ERS.Params<>(randomModel);
+        pERS._iterationsLimit = new Constant(100000);
         pERS._similarity = new Euclidean();
         int toSample = 100;
         pERS._feasibleSamplesToGenerate = 100;
@@ -314,7 +314,7 @@ class ModelSystem2ERSTest
         assertEquals(0, report._report._modelsRejectedBetweenIterations, 1.0E-1);
 
         assertEquals(1.0d, report._report._successRateInConstructing, 1.0E-1);
-        assertEquals(toSample + pERS._improvementAttemptsLimit.getIterations(0, 0, 0), report._report._acceptedNewlyConstructedModels, 1.0E-1);
+        assertEquals(toSample + pERS._iterationsLimit.getIterations(dmContext, wrapped, report._report, 0), report._report._acceptedNewlyConstructedModels, 1.0E-1);
         assertEquals(0, report._report._rejectedNewlyConstructedModels, 1.0E-1);
 
         assertTrue(report._report._constructionElapsedTime > 0);

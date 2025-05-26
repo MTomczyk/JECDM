@@ -4,7 +4,7 @@ import compatibility.CompatibilityAnalyzer;
 import model.constructor.value.rs.ers.comparators.MostSimilarWithTieResolving;
 import model.constructor.value.rs.ers.evolutionary.EvolutionaryModelConstructor;
 import model.constructor.value.rs.ers.evolutionary.IOffspringConstructor;
-import model.constructor.value.rs.ers.iterationslimit.IImprovementAttemptsLimit;
+import model.constructor.value.rs.iterationslimit.IIterationsLimit;
 import model.similarity.lnorm.Euclidean;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
@@ -23,7 +23,7 @@ public class ERSFactory
      * {@link LNorm} (see the code to see how the parameters are set).
      *
      * @param feasibleSamplesToGenerate required no. of feasible samples to generate
-     * @param improvementAttemptsLimit  limit for the improvement attempts (can be conditional, see {@link IImprovementAttemptsLimit})
+     * @param improvementAttemptsLimit  limit for the improvement attempts (can be conditional, see {@link IIterationsLimit})
      * @param criteria                  the number of criteria
      * @param alpha                     pre-fixed compensation level for generated L-norms
      * @param normalizations            normalization objects used to suitably rescale the evaluated points (can be null; not used)
@@ -33,7 +33,7 @@ public class ERSFactory
      * @return parameterized evolutionary rejection sampling object
      */
     public static model.constructor.value.rs.ers.ERS<LNorm> getDefaultForLNorms(int feasibleSamplesToGenerate,
-                                                                                IImprovementAttemptsLimit improvementAttemptsLimit,
+                                                                                IIterationsLimit improvementAttemptsLimit,
                                                                                 int criteria,
                                                                                 double alpha,
                                                                                 INormalization[] normalizations,
@@ -43,8 +43,8 @@ public class ERSFactory
 
     {
         IRandomModel<LNorm> RM = new LNormGenerator(criteria, alpha, normalizations);
-        model.constructor.value.rs.ers.ERS.Params<LNorm> pERS = new model.constructor.value.rs.ers.ERS.Params<>(RM, criteria);
-        pERS._improvementAttemptsLimit = improvementAttemptsLimit;
+        model.constructor.value.rs.ers.ERS.Params<LNorm> pERS = new model.constructor.value.rs.ers.ERS.Params<>(RM);
+        pERS._iterationsLimit = improvementAttemptsLimit;
         pERS._inconsistencyThreshold = feasibleSamplesToGenerate - 1;
         pERS._feasibleSamplesToGenerate = feasibleSamplesToGenerate;
         pERS._initialModels = initialModels;

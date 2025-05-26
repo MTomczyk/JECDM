@@ -1,17 +1,3 @@
-[TODO; in progress] tutorial on RNG to be added
-- Visualization: Axes' titles now can be changed after instantiation
-- Visualization: DSFactory2D and 3D: the method for constructing data set can now be supplied with data set and painter params container adjusters, which allow for adjusting the objects being built during initialization
-- Visualization: scheme.AbstractScheme.getInstance() method removed (getClone() is now supported only)
-- Visualization: GridPlots: This wrapper is now founded on GridBagLayout instead of GridLayout; when instantiating, an implementation of its inner IConstraintsAdjuster interface can be passed via constructor to suitably adjust the layout (e.g., the relative spacing of plots; see the JavaDoc)
-- Utils: random.MersenneTwister64: 32 bit version was used instead of 64, corrected
-- Utils: random.IRandom: implementations now have the possibility to deploy streams, or advanced versions of the class instance (which may be helpful when parallelizing computations)
-- Utils: utils.ArrayUtils class added (the initial version allows for concise creation of arrays ([]))
-- Experimentation: container.global.initializers.IRandomNumberGeneratorInitializer: new implementation called FromStreamsInitializer is added; new implementation called DefaultRandomNumberGeneratorInitializer: the class now can be parameterized to deploy RNGs of a desired type
-- Experimentation: container.global.initializers.IRandomNumberGeneratorInitializer: new implementation called FromStreamsInitializer is added; new implementation called FromStreamsInitializer is added; it allows for pre-constructing RNG streams, which are then suitably associated with the trials being processed (the constructed RNGs must be splittable or jumpable, see the implementation details)
-- Experimentation: minor factorization related to exception throwing/handling
-- Tutorials: t11_20.t11_rngs_and_new_visualization_options tutorial added.
-- EvolutionaryComputation: reproduction.operators: Simple generic interfaces for operators are added: ICrossover<T> and IMutate<T> (also, IWeightsReproducer)
-
 [30.04.2025] This update is mainly dedicated to the "Tutorial 10: Evolutionary Rejection Sampling" tutorial document
 - Visualization: line width property can be set via a scheme for 3D components Cube, Axes, and Panes (seek suitable fields, e.g., PANE3D_TOP_LINES_WIDTH).
 - Visualization: plot.plotModel.requestScreenshotCreation(...):  option (parameter) for clipping the created screenshot is added; the screenshot is clipped so that its depicted object occupies all the image; it is done by removing the first/last columns/rows whose all pixels match the given color.
@@ -30,6 +16,9 @@
 - Experimentation: tools.LatexTableFromXLSX: cell pre and postprocessing option added
 - Experimentation: io.scenario: TrialsResultsXLSX summarizer added; it fills data matrix by explicitly copying results from the trial level without performing the summary (the resulting matrices are of generations x trials size; per indicator)
 - DecisionSupport: model.similarity.ISimilarity added (concept of similarity between internal models is added along with example implementations)
+- DecisionSupport: model.constructor.value.rs.ers.ERS added (Evolutionary Rejection Sampling)
+- DecisionSupport: model.constructor.value.rs.ers.ERS and ..frs.FRS: both extend AbstractRejectionSampling class
+- DecisionSupport: model.constructor.value.rs.ers.ERS and ..frs.FRS: iterations limit of both can be flexibly adjusted by implementing IIterationLimit and providing via Params container
 
 [18.03.2025] Moderate changes. Some of them are described in "Tutorial 9: Facilitating the usage"
 - Experimentation: Experimentation: container.global.initializers.IRandomNumberGeneratorInitializer: The method's signature changed. Now, it comprises data on the calling scenario and trial. This way, a non-colliding seed may be derived without using the counter (based on the scenario ID, trial ID, and the total number of trials; see the DefaultRandomNumberGeneratorInitializer class), and it will be calculated as if no scenario/trial was disabled. Disabling, e.g., trials, would make RNGs be appointed seeds that are "flushed to the left" in the previous approach. Hence, repeating the execution of selected trials would generate colliding seeds across multiple executions of the experiment executor. Now, this issue will not arise unless the top-level fields, such as scenario definitions, are altered (it is preferred to use scenario/trial disabling conditions to adjust the experimental setup).

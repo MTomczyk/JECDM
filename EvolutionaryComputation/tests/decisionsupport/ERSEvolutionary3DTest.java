@@ -11,7 +11,7 @@ import model.constructor.value.rs.ers.ModelsQueue;
 import model.constructor.value.rs.ers.comparators.MostSimilarWithTieResolving;
 import model.constructor.value.rs.ers.evolutionary.EvolutionaryModelConstructor;
 import model.constructor.value.rs.ers.evolutionary.IOffspringConstructor;
-import model.constructor.value.rs.ers.iterationslimit.Constant;
+import model.constructor.value.rs.iterationslimit.Constant;
 import model.similarity.lnorm.Euclidean;
 import dmcontext.DMContext;
 import drmanager.DisplayRangesManager;
@@ -62,8 +62,8 @@ class ERSEvolutionary3DTest
                 new Alternative("A4", new double[]{0.7d, 0.2d, 0.1d}))));
 
 
-        ERS.Params<LNorm> pERS = new ERS.Params<>(RM, 3);
-        pERS._improvementAttemptsLimit = new Constant(10000);
+        ERS.Params<LNorm> pERS = new ERS.Params<>(RM);
+        pERS._iterationsLimit = new Constant(10000);
         pERS._comparator = new MostSimilarWithTieResolving<>();
         pERS._kMostSimilarNeighbors = 3;
         pERS._similarity = new Euclidean();

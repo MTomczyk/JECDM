@@ -13,7 +13,7 @@ import history.PreferenceInformationWrapper;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
 import model.constructor.value.rs.ers.comparators.MostSimilarWithTieResolving;
-import model.constructor.value.rs.ers.iterationslimit.Constant;
+import model.constructor.value.rs.iterationslimit.Constant;
 import model.internals.value.scalarizing.LNorm;
 import model.similarity.lnorm.Euclidean;
 import plot.Plot3D;
@@ -57,8 +57,8 @@ class ERSRandom3DTest
                 new Alternative("A4", new double[]{0.7d, 0.2d, 0.1d}))));
 
 
-        ERS.Params<LNorm> pERS = new ERS.Params<>(RM, 3);
-        pERS._improvementAttemptsLimit = new Constant(100000);
+        ERS.Params<LNorm> pERS = new ERS.Params<>(RM);
+        pERS._iterationsLimit = new Constant(100000);
         pERS._comparator = new MostSimilarWithTieResolving<>();
         pERS._kMostSimilarNeighbors = 3;
         pERS._similarity = new Euclidean();

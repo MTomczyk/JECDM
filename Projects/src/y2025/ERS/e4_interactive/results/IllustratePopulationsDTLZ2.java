@@ -31,6 +31,7 @@ import model.constructor.IConstructor;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
 import model.constructor.value.rs.frs.FRS;
+import model.constructor.value.rs.iterationslimit.Constant;
 import model.internals.value.scalarizing.LNorm;
 import plot.Plot3D;
 import plot.Plot3DFactory;
@@ -147,7 +148,7 @@ public class IllustratePopulationsDTLZ2
             else
             {
                 constructor = ERSFactory.getDefaultForLNorms(populationSize,
-                        (N, M1, Hs) -> 50000, 3, Double.POSITIVE_INFINITY, problemBundle._normalizations,
+                        new Constant(50000), 3, Double.POSITIVE_INFINITY, problemBundle._normalizations,
                         new LNormOnSimplex(Double.POSITIVE_INFINITY, 0.2d, 0.2d), 2, initialModels);
             }
 

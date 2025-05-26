@@ -20,7 +20,7 @@ import model.IPreferenceModel;
 import model.constructor.random.LNormGenerator;
 import model.constructor.value.rs.ers.ERS;
 import model.constructor.value.rs.ers.Report;
-import model.constructor.value.rs.ers.iterationslimit.Constant;
+import model.constructor.value.rs.iterationslimit.Constant;
 import model.constructor.value.rs.frs.FRS;
 import model.internals.value.scalarizing.LNorm;
 import plot.Plot3D;

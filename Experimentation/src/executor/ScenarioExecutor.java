@@ -246,8 +246,9 @@ public class ScenarioExecutor extends AbstractExecutor
      * @param latch reference to the count-down latch that will be reduced by the monitor thread after all executors
      *              finish their processing
      * @return the collection of trial executors (runnables) to be processed via a thread pool executor
+     * @throws ScenarioException scenario exception can be thrown and propagated higher
      */
-    protected ArrayList<TrialExecutor> constructTrialExecutors(CountDownLatch latch)
+    protected ArrayList<TrialExecutor> constructTrialExecutors(CountDownLatch latch) throws ScenarioException
     {
         ArrayList<TrialExecutor> executors = new ArrayList<>(_SDC.getGDC().getNoEnabledTrials());
         for (int id : _SDC.getGDC().getTrialIDs())
@@ -274,7 +275,7 @@ public class ScenarioExecutor extends AbstractExecutor
         {
             boolean created = file.mkdirs();
             if (!created)
-                throw new ScenarioException("The scenario-related folder was not created", this.getClass(), _SDC.getScenario());
+                throw new ScenarioException("The scenario-related folder was not created", null, this.getClass(), _SDC.getScenario());
         }
     }
 

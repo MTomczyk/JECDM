@@ -5,8 +5,6 @@ package scheme;
  *
  * @author MTomczyk
  */
-
-
 public class WhiteScheme extends AbstractScheme
 {
     /**
@@ -29,14 +27,17 @@ public class WhiteScheme extends AbstractScheme
     }
 
     /**
-     * Factory-like method for constructing scheme instance (to be overwritten).
+     * Method for cloning the scheme.
+     *
+     * @return scheme instance
      */
     @Override
-    public AbstractScheme getInstance()
+    public WhiteScheme getClone()
     {
-        return new WhiteScheme();
+        WhiteScheme whiteScheme = new WhiteScheme();
+        whiteScheme.setFieldsAsIn(this);
+        return whiteScheme;
     }
-
 
     /**
      * This method creates a white scheme that is well-suited to plot 3D. The changes are as follows:

@@ -42,7 +42,9 @@ public class DMContext
 
         /**
          * Normalization builder that will be used to generate normalization objects using the OSs (if null,
-         * the standard linear builder will be used ({@link StandardLinearBuilder})).
+         * the standard linear builder will be used ({@link StandardLinearBuilder})). Important note: it is
+         * recommended that all normalization functions built via this object extend
+         * {@link space.normalization.minmax.AbstractMinMaxNormalization}.
          */
         public INormalizationBuilder _normalizationBuilder;
 
@@ -104,7 +106,8 @@ public class DMContext
     private final ObjectiveSpace _currentOS;
 
     /**
-     * Normalizations object that can be used to rescale (normalize) the current objective space.
+     * Normalizations object that can be used to rescale (normalize) the current objective space. Important note: it is
+     * recommended that all normalization functions extend {@link space.normalization.minmax.AbstractMinMaxNormalization}.
      */
     private final INormalization[] _normalizationsCurrentOS;
 

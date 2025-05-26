@@ -1,7 +1,9 @@
 package container.global;
 
 import exception.GlobalException;
+import exception.ScenarioException;
 import org.junit.jupiter.api.Test;
+import random.AbstractRandomNumberGenerator;
 import scenario.KeyValues;
 import scenario.Keys;
 import scenario.Scenario;
@@ -354,20 +356,29 @@ class GlobalDataContainerTest
         assertNull(msg);
 
         Scenario[] scenarios = GDC.getScenarios().getScenarios();
-        Set<Long> set = new HashSet<>();
-        for (int s = 0; s < scenarios.length; s++)
+        try
         {
-            assertEquals(s, scenarios[s].getID());
-            for (int t = 0; t < p._noTrials; t++)
+            Set<Long> set = new HashSet<>();
+            for (int s = 0; s < scenarios.length; s++)
             {
-                long expected = (long) s * p._noTrials + t;
-                assertEquals(expected, GDC.requestRandomNumberGenerator(scenarios[s], t).getSeed());
-                assertFalse(set.contains(expected));
-                set.add(expected);
-                System.out.println(s + " " + t + " " + (s * p._noTrials + t));
+                assertEquals(s, scenarios[s].getID());
+                for (int t = 0; t < p._noTrials; t++)
+                {
+                    long expected = (long) s * p._noTrials + t;
+                    Object o = ((AbstractRandomNumberGenerator) GDC.requestRandomNumberGenerator(scenarios[s], t)).getSeed();
+                    long[] seeds = (long[]) o;
+                    assertEquals(expected, seeds[0]);
+                    assertFalse(set.contains(expected));
+                    set.add(expected);
+                    System.out.println(s + " " + t + " " + (s * p._noTrials + t));
+                }
             }
+            assertEquals(scenarios.length * p._noTrials, set.size());
+        } catch (ScenarioException e)
+        {
+            msg = e.getMessage();
         }
 
-        assertEquals(scenarios.length * p._noTrials, set.size());
+        assertNull(msg);
     }
 }

@@ -10,9 +10,7 @@ import model.internals.value.scalarizing.LNorm;
  *
  * @author MTomczyk
  */
-public class Cos extends
-        AbstractCosSimilarity<LNorm>
-        implements ISimilarity<LNorm>
+public class Cos extends AbstractCosSimilarity<LNorm> implements ISimilarity<LNorm>
 {
     /**
      * Quantifies similarity between two models.

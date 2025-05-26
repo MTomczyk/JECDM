@@ -31,6 +31,67 @@ import java.util.ListIterator;
 public class Painter3D extends AbstractPainter implements IPainter, IVBOComponent
 {
     /**
+     * Auxiliary interface for classes responsible for performing params container adjustments.
+     */
+    public interface IParamsAdjuster
+    {
+        /**
+         * The main method.
+         *
+         * @param p params container to be adjusted
+         */
+        void adjust(Painter3D.Params p);
+    }
+
+    /**
+     * Params container
+     */
+    public static class Params extends AbstractPainter.Params
+    {
+        /**
+         * If true, the fourth channel is used when defining the colors. False otherwise.
+         */
+        public boolean _useAlpha;
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param ms       marker style
+         * @param ls       line style
+         * @param as       arrow styles (beginning and ending)
+         * @param useAlpha if true, the fourth channel is used when defining the colors, false otherwise
+         */
+        public Params(MarkerStyle ms, LineStyle ls, ArrowStyles as, boolean useAlpha)
+        {
+            this(ms, ls, as, false, 0.005f, useAlpha);
+        }
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param ms                           marker style
+         * @param ls                           line style
+         * @param as                           arrow styles (beginning and ending)
+         * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
+         *                                     each double [][] data segment as one contiguous line (when using a line style),
+         *                                     the data is considered to be a series of independent lines whose coordinates
+         *                                     occupy each subsequent pair of double [] vectors in the data segment
+         * @param gradientLineMinSegmentLength Determines the minimal segment line used when constructing gradient line
+         *                                     (discretization level, the lower the value, the greater the discretization
+         *                                     but also computational resources used); the interpretation is
+         *                                     implementation-dependent; default: percent value of an average screen
+         *                                     dimension (in pixels)
+         * @param useAlpha                     if true, the fourth channel is used when defining the colors, false otherwise.
+         */
+        public Params(MarkerStyle ms, LineStyle ls, ArrowStyles as, boolean treatContiguousLinesAsBroken,
+                      float gradientLineMinSegmentLength, boolean useAlpha)
+        {
+            super(ms, ls, as, treatContiguousLinesAsBroken, gradientLineMinSegmentLength);
+            _useAlpha = useAlpha;
+        }
+    }
+
+    /**
      * Reference to the projection data (additional reference is kept to avoid casting).
      */
     private IDS3D _3dProjection;
@@ -73,42 +134,13 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
     /**
      * Parameterized constructor.
      *
-     * @param ms       marker style
-     * @param ls       line style
-     * @param useAlpha if true, the fourth channel is used when defining the colors
+     * @param p params container
      */
-    public Painter3D(MarkerStyle ms, LineStyle ls, boolean useAlpha)
+    public Painter3D(Params p)
     {
-        this(ms, ls, null, useAlpha, false, 0.005f);
-    }
-
-    /**
-     * Parameterized constructor.
-     *
-     * @param ms                           marker style
-     * @param ls                           line style
-     * @param as                           arrow styles (beginning and ending)
-     * @param useAlpha                     if true, the fourth channel is used when defining the colors
-     * @param treatContiguousLinesAsBroken    if true, the default interpretation of raw data is changed. Instead of treating
-     *                                     each double [][] data segment as one contiguous line (when using a line style),
-     *                                     the data is considered to be a series of independent lines whose coordinates
-     *                                     occupy each subsequent pair of double [] vectors in the data segment
-     * @param gradientLineMinSegmentLength Determines the minimal segment line used when constructing gradient line
-     *                                     (discretization level, the lower the value, the greater the discretization
-     *                                     but also computational resources used); the interpretation is
-     *                                     implementation-dependent; default: percent value of an average screen
-     *                                     dimension (in pixels)
-     */
-    public Painter3D(MarkerStyle ms,
-                     LineStyle ls,
-                     ArrowStyles as,
-                     boolean useAlpha,
-                     boolean treatContiguousLinesAsBroken,
-                     float gradientLineMinSegmentLength)
-    {
-        super(ms, ls, as, treatContiguousLinesAsBroken, gradientLineMinSegmentLength);
-        _useAlpha = useAlpha;
-        if (useAlpha) _colorStride = 4;
+        super(p);
+        _useAlpha = p._useAlpha;
+        if (_useAlpha) _colorStride = 4;
         else _colorStride = 3;
     }
 
@@ -128,7 +160,7 @@ public class Painter3D extends AbstractPainter implements IPainter, IVBOComponen
         if (_ls != null) ls = _ls.getClone();
         ArrowStyles as = null;
         if (_as != null) as = _as.getClone();
-        return new Painter3D(ms, ls, as, _useAlpha, _treatContiguousLinesAsBroken, _gradientLineMinSegmentLength);
+        return new Painter3D(new Params(ms, ls, as, _treatContiguousLinesAsBroken, _gradientLineMinSegmentLength, _useAlpha));
     }
 
     /**

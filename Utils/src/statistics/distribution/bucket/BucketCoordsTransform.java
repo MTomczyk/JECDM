@@ -20,8 +20,8 @@ public class BucketCoordsTransform extends AbstractBucketCoords
     /**
      * Parameterized constructor.
      *
-     * @param dim the number of dimensions considered.
-     * @param div the number of divisions (discretization level) per dimension.
+     * @param dim the number of dimensions considered
+     * @param div the number of divisions (discretization level) per dimension
      * @param T   transformation function
      */
     public BucketCoordsTransform(int dim, int div, ITransform T)
@@ -33,9 +33,9 @@ public class BucketCoordsTransform extends AbstractBucketCoords
     /**
      * Parameterized constructor.
      *
-     * @param dim the number of dimensions considered.
-     * @param div the number of divisions (discretization level) per dimension.
-     * @param r   bounds for dimensions.
+     * @param dim the number of dimensions considered
+     * @param div the number of divisions (discretization level) per dimension
+     * @param r   bounds for dimensions
      * @param T   transformation function
      */
     public BucketCoordsTransform(int dim, int div, Range r, ITransform T)
@@ -47,9 +47,9 @@ public class BucketCoordsTransform extends AbstractBucketCoords
     /**
      * Parameterized constructor.
      *
-     * @param dim the number of dimensions considered.
-     * @param div the number of divisions (discretization level) per dimension.
-     * @param r   bounds for dimensions.
+     * @param dim the number of dimensions considered
+     * @param div the number of divisions (discretization level) per dimension
+     * @param r   bounds for dimensions
      * @param T   transformation function
      */
     public BucketCoordsTransform(int dim, int[] div, Range[] r, ITransform T)

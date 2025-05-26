@@ -408,18 +408,18 @@ public class ScenariosSummarizer extends ExperimentPerformer
     {
         if (savers == null)
         {
-            throw new ScenarioException("Reference scenario savers are not provided (the array is null)", this.getClass(), scenario);
+            throw new ScenarioException("Reference scenario savers are not provided (the array is null)", null, this.getClass(), scenario);
         }
         if (savers.isEmpty())
-            throw new ScenarioException("Reference scenario savers are not provided (the array is empty)", this.getClass(), scenario);
+            throw new ScenarioException("Reference scenario savers are not provided (the array is empty)", null, this.getClass(), scenario);
         for (IScenarioSaver s : savers)
             if (s == null)
-                throw new ScenarioException("One of the provided scenario savers is null", this.getClass(), scenario);
+                throw new ScenarioException("One of the provided scenario savers is null", null, this.getClass(), scenario);
         Set<String> names = new HashSet<>(savers.size());
         for (IScenarioSaver s : savers)
         {
             if (names.contains(s.getFileSuffix()))
-                throw new ScenarioException("Scenario savers' suffixes are not unique (" + s.getFileSuffix() + ")", this.getClass(), scenario);
+                throw new ScenarioException("Scenario savers' suffixes are not unique (" + s.getFileSuffix() + ")", null, this.getClass(), scenario);
             names.add(s.getFileSuffix());
         }
     }

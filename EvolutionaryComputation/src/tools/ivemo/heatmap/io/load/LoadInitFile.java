@@ -36,14 +36,24 @@ public class LoadInitFile implements ILoad
     public PlotParams[] _PP;
 
     /**
-     * Supported schemes (name -> object mapping).
+     * Supported schemes for 2D visualization (name -> object mapping).
      */
-    private final HashMap<String, AbstractScheme> _supportedSchemes;
+    private final HashMap<String, AbstractScheme> _supportedSchemes2D;
 
     /**
-     * Default scheme object.
+     * Supported schemes for 3D visualization (name -> object mapping).
      */
-    private final AbstractScheme _defaultScheme;
+    private final HashMap<String, AbstractScheme> _supportedSchemes3D;
+
+    /**
+     * Default scheme object for 2D visualization.
+     */
+    private final AbstractScheme _defaultScheme2D;
+
+    /**
+     * Default scheme object for 3D visualization.
+     */
+    private final AbstractScheme _defaultScheme3D;
 
     /**
      * Supported gradients (name -> object mapping).
@@ -60,10 +70,14 @@ public class LoadInitFile implements ILoad
      */
     public LoadInitFile()
     {
-        _supportedSchemes = new HashMap<>(2);
-        AbstractScheme[] schemes = new AbstractScheme[]{new WhiteScheme(), new BlackScheme()};
-        for (AbstractScheme s : schemes) _supportedSchemes.put(s.getName().toLowerCase(), s);
-        _defaultScheme = new WhiteScheme();
+        _supportedSchemes2D = new HashMap<>(2);
+        _supportedSchemes3D = new HashMap<>(2);
+        AbstractScheme[] schemes2D = new AbstractScheme[]{new WhiteScheme(), new BlackScheme()};
+        AbstractScheme[] schemes3D = new AbstractScheme[]{WhiteScheme.getForPlot3D(), BlackScheme.getForPlot3D()};
+        for (AbstractScheme s : schemes2D) _supportedSchemes2D.put(s.getName().toLowerCase(), s);
+        for (AbstractScheme s : schemes3D) _supportedSchemes3D.put(s.getName().toLowerCase(), s);
+        _defaultScheme2D = new WhiteScheme();
+        _defaultScheme3D = WhiteScheme.getForPlot3D();
 
         _supportedGradients = new HashMap<>(10);
         Gradient[] gradients = new Gradient[]{
@@ -186,14 +200,12 @@ public class LoadInitFile implements ILoad
                     if (s.equals("p"))
                     {
                         _PP[i]._bucketStyle = Bucket.POINT_3D;
-                        System.out.println("HERE");
                         // conditionally check point size
                         Node ps = nnm.getNamedItem("ps");
                         if (ps != null) _PP[i]._pointSize = Float.parseFloat(ps.getNodeValue());
                     }
                 }
-            }
-            else
+            } else
             {
                 if (_PP[i]._dimensions == 2) _PP[i]._bucketStyle = Bucket.SQUARE_2D;
                 else _PP[i]._bucketStyle = Bucket.CUBE_3D;
@@ -204,12 +216,24 @@ public class LoadInitFile implements ILoad
             Node scheme = nnm.getNamedItem("scheme");
             if (scheme != null)
             {
-                String s = scheme.getNodeValue();
-                AbstractScheme candidate = _supportedSchemes.get(s);
-                if (candidate == null) _PP[i]._scheme = _defaultScheme.getInstance();
-                else _PP[i]._scheme = candidate.getInstance();
+                if (_PP[i]._dimensions == 2)
+                {
+                    String s = scheme.getNodeValue();
+                    AbstractScheme candidate = _supportedSchemes2D.get(s);
+                    if (candidate == null) _PP[i]._scheme = _defaultScheme2D.getClone();
+                    else _PP[i]._scheme = candidate.getClone();
+                } else if (_PP[i]._dimensions == 3)
+                {
+                    String s = scheme.getNodeValue();
+                    AbstractScheme candidate = _supportedSchemes3D.get(s);
+                    if (candidate == null) _PP[i]._scheme = _defaultScheme3D.getClone();
+                    else _PP[i]._scheme = candidate.getClone();
+                }
+            } else
+            {
+                if (_PP[i]._dimensions == 2) _PP[i]._scheme = _defaultScheme2D.getClone();
+                else if (_PP[i]._dimensions == 3) _PP[i]._scheme = _defaultScheme3D.getClone();
             }
-            else _PP[i]._scheme = _defaultScheme.getInstance();
         }
 
 
@@ -253,13 +277,11 @@ public class LoadInitFile implements ILoad
                 {
                     axType = 1;
                     typesUsed[1] = true;
-                }
-                else if (t.equals("z"))
+                } else if (t.equals("z"))
                 {
                     axType = 2;
                     typesUsed[2] = true;
-                }
-                else typesUsed[0] = true;
+                } else typesUsed[0] = true;
             }
 
             {
@@ -269,8 +291,7 @@ public class LoadInitFile implements ILoad
                     if (axType == 0) _PP[i]._xAxisTitle = title.getNodeValue();
                     else if (axType == 1) _PP[i]._yAxisTitle = title.getNodeValue();
                     else _PP[i]._zAxisTitle = title.getNodeValue();
-                }
-                else
+                } else
                 {
                     if (axType == 0) _PP[i]._xAxisTitle = null;
                     else if (axType == 1) _PP[i]._yAxisTitle = null;
@@ -361,8 +382,7 @@ public class LoadInitFile implements ILoad
             if (!typesUsed[0]) throw new Exception("No X-axis data provided in #" + (i + 1) + " dataset");
             if (!typesUsed[1]) throw new Exception("No Y-axis data provided in #" + (i + 1) + " dataset");
             if (typesUsed[2]) throw new Exception("Redundant Z-axis data provided in #" + (i + 1) + " dataset");
-        }
-        else
+        } else
         {
             if (!typesUsed[0]) throw new Exception("No X-axis data provided in #" + (i + 1) + " dataset");
             if (!typesUsed[1]) throw new Exception("No Y-axis data provided in #" + (i + 1) + " dataset");

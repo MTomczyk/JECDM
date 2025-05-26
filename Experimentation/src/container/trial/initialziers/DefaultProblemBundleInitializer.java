@@ -29,7 +29,7 @@ public class DefaultProblemBundleInitializer implements IProblemBundleInitialize
 
         } catch (Exception e)
         {
-            throw new TrialException(e.getMessage(), this.getClass(), p._SDC.getScenario(), p._trialID);
+            throw new TrialException(e.getMessage(), null, this.getClass(), p._SDC.getScenario(), p._trialID);
         }
     }
 }

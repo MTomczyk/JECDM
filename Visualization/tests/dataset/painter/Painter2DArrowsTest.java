@@ -63,7 +63,7 @@ class Painter2DArrowsTest
                     Data data = new Data(d);
 
                     GlobalContainer GC = new GlobalContainer(null, false);
-                    AbstractPainter painter = new Painter2D(null, lss[i], ass[j], mode, 0.005f);
+                    AbstractPainter painter = new Painter2D(new Painter2D.Params(null, lss[i], ass[j], mode, 0.005f));
                     painter.setData(data);
                     painter.setContainers(GC, null);
                     painter.beginDataProcessing(true);
@@ -102,8 +102,8 @@ class Painter2DArrowsTest
             Data data = new Data(d);
 
             GlobalContainer GC = new GlobalContainer(null, false);
-            AbstractPainter painter = new Painter2D(null, new LineStyle(1.0f, Color.BLACK),
-                    new ArrowStyles(new ArrowStyle(1.0f, 1.0f, Color.BLACK)), mode, 0.005f);
+            AbstractPainter painter = new Painter2D(new Painter2D.Params(null, new LineStyle(1.0f, Color.BLACK),
+                    new ArrowStyles(new ArrowStyle(1.0f, 1.0f, Color.BLACK)), mode, 0.005f));
             painter.setData(data);
             painter.setContainers(GC, null);
             painter.beginDataProcessing(true);
@@ -149,8 +149,8 @@ class Painter2DArrowsTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, false);
-        AbstractPainter painter = new Painter2D(null, new LineStyle(1.0f, Color.BLACK),
-                new ArrowStyles(new ArrowStyle(1.0f, 1.0f, Color.BLACK)), true, 0.005f);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(null, new LineStyle(1.0f, Color.BLACK),
+                new ArrowStyles(new ArrowStyle(1.0f, 1.0f, Color.BLACK)), true, 0.005f));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);
@@ -192,8 +192,8 @@ class Painter2DArrowsTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, false);
-        AbstractPainter painter = new Painter2D(null, new LineStyle(1.0f, Color.BLACK),
-                new ArrowStyles(new ArrowStyle(1.0f, 1.0f, Color.BLACK)), true, 0.005f);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(null, new LineStyle(1.0f, Color.BLACK),
+                new ArrowStyles(new ArrowStyle(1.0f, 1.0f, Color.BLACK)), true, 0.005f));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);
@@ -225,8 +225,8 @@ class Painter2DArrowsTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, false);
-        AbstractPainter painter = new Painter2D(null, new LineStyle(1.0f, Color.BLACK),
-                new ArrowStyles(new ArrowStyle(1.0f, 1.0f, Color.BLACK)), true, 0.005f);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(null, new LineStyle(1.0f, Color.BLACK),
+                new ArrowStyles(new ArrowStyle(1.0f, 1.0f, Color.BLACK)), true, 0.005f));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);

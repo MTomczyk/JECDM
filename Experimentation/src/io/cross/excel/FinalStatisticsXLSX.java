@@ -27,7 +27,7 @@ public class FinalStatisticsXLSX extends AbstractFinalStatistics implements ICro
      * Default constructor.
      *
      * @param level the level of cross-analysis (should be at least 2)
-     * @param style                   provides some basic customization options
+     * @param style provides some basic customization options
      */
     public FinalStatisticsXLSX(int level, Style style)
     {
@@ -91,9 +91,11 @@ public class FinalStatisticsXLSX extends AbstractFinalStatistics implements ICro
      * @return new object instance
      * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
      */
+    @Override
     public ICrossSaver getInstance(String path, String filename, CrossedScenarios crossedScenarios) throws CrossedScenariosException
     {
-        if (_level < 2) throw new CrossedScenariosException("The 1-level cross comparison is no supported", this.getClass(), crossedScenarios);
+        if (_level < 2)
+            throw new CrossedScenariosException("The 1-level cross comparison is no supported", null, this.getClass(), crossedScenarios);
         return new FinalStatisticsXLSX(path, filename, crossedScenarios, _level, _excel._useStreaming,
                 _excel._flushEvery, _excel._useTempFilesCompression, _excel._style);
     }

@@ -6,6 +6,8 @@ import drmanager.DisplayRangesManager;
 import space.Dimension;
 import thread.swingworker.EventTypes;
 
+import java.util.LinkedList;
+
 /**
  * Dummy data set representation (for debugging).
  *
@@ -16,13 +18,24 @@ public class DummyDataSet extends AbstractDataSet implements IDataSet
     /**
      * Parameterized constructor.
      *
-     * @param name         data set name
-     * @param data         data
+     * @param name data set name
+     * @param data data
      */
     public DummyDataSet(String name, double[][] data)
     {
-        super(new Data(data), new Painter2D(null, null));
+        super(new DataSet.Params("Dummy", new Data(data), new Painter2D(new Painter2D.Params(null, null, null))));
         _name = name;
+    }
+
+    /**
+     * Not implemented.
+     *
+     * @param data null
+     */
+    @Override
+    public IDataSet wrapAround(LinkedList<double[][]> data)
+    {
+        return null;
     }
 
     /**

@@ -3,6 +3,7 @@ package y2025.ERS.e2_ers_calibration;
 import compatibility.CompatibilityAnalyzer;
 import container.Containers;
 import container.global.GlobalDataContainer;
+import container.global.initializers.DefaultRandomNumberGeneratorInitializer;
 import container.scenario.ScenarioDataContainerFactory;
 import container.trial.TrialDataContainerFactory;
 import decisionsupport.operators.LNormOnSimplex;
@@ -26,12 +27,15 @@ import model.constructor.value.rs.ers.iterationslimit.Constant;
 import model.constructor.value.rs.frs.IterableFRS;
 import model.internals.value.scalarizing.LNorm;
 import model.similarity.lnorm.Euclidean;
+import random.MersenneTwister32;
 import scenario.CrossedSetting;
 import statistics.*;
 import statistics.tests.ITest;
 import statistics.tests.NoTimesNonNegative;
 import statistics.tests.TStudent;
-import y2025.ERS.common.*;
+import y2025.ERS.common.Common;
+import y2025.ERS.common.EAWrapperIterableSampler;
+import y2025.ERS.common.PCsDataContainer;
 import y2025.ERS.common.indicators.*;
 import y2025.ERS.e1_auxiliary.GeneratePCsData;
 
@@ -140,6 +144,8 @@ public class ContainersGetter
                 TStudent.getPairedTest(true),
         }, 5, 1.0E-5));
 
+        pGDC._RNGI = new DefaultRandomNumberGeneratorInitializer(MersenneTwister32::new);
+
 
         // Create global data container
         GlobalDataContainer GDC = new GlobalDataContainer(pGDC);
@@ -205,7 +211,7 @@ public class ContainersGetter
             } catch (PreferenceModelException e)
             {
                 throw new TrialException("Could not create preference information (" + e.getMessage() + ")", null,
-                        p._SDC.getScenario(), p._trialID);
+                        (Class<?>) null, p._SDC.getScenario(), p._trialID);
             }
 
             LNorm[] initialModels = Common.getInitialRandomModels(N, M, alpha, R1);

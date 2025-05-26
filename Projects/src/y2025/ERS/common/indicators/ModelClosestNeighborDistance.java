@@ -54,7 +54,7 @@ public class ModelClosestNeighborDistance extends AbstractIndicator implements I
     public double evaluate(EA ea) throws TrialException
     {
         if (!(ea instanceof EAWrapperIterableSampler<?> eaWrapper))
-            throw new TrialException("Invalid EA type", null, _scenario, _trialID);
+            throw new TrialException("Invalid EA type", null, (Class<?>) null, _scenario, _trialID);
 
         Report<? extends AbstractValueInternalModel> report = eaWrapper.getReport();
         ArrayList<? extends AbstractValueInternalModel> models = report._models;

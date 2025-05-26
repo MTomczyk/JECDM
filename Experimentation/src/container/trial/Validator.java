@@ -48,7 +48,7 @@ public class Validator
     protected void validateRunner(IRunner runner) throws TrialException
     {
         if (runner == null)
-            throw new TrialException("The Runner is not instantiated", this.getClass(), _scenario, _trialID);
+            throw new TrialException("The Runner is not instantiated", null, this.getClass(), _scenario, _trialID);
     }
 
     /**
@@ -60,7 +60,7 @@ public class Validator
     protected void validateEA(EA ea) throws TrialException
     {
         if (ea == null)
-            throw new TrialException("The Evolutionary Algorithm is not instantiated", this.getClass(), _scenario, _trialID);
+            throw new TrialException("The Evolutionary Algorithm is not instantiated", null, this.getClass(), _scenario, _trialID);
     }
 
     /**
@@ -71,19 +71,21 @@ public class Validator
      */
     protected void validateTrialSavers(LinkedList<ITrialSaver> trialSavers) throws TrialException
     {
-        if (trialSavers == null) throw new TrialException("The trial savers are not provided (the list is null)", this
-                .getClass(), _scenario, _trialID);
-        if (trialSavers.isEmpty()) throw new TrialException("The trial savers are not provided (the list is empty)", this
-                .getClass(), _scenario, _trialID);
+        if (trialSavers == null)
+            throw new TrialException("The trial savers are not provided (the list is null)", null, this
+                    .getClass(), _scenario, _trialID);
+        if (trialSavers.isEmpty())
+            throw new TrialException("The trial savers are not provided (the list is empty)", null, this
+                    .getClass(), _scenario, _trialID);
 
         Set<String> suffixes = new HashSet<>();
         for (ITrialSaver ts : trialSavers)
         {
             if (ts == null)
-                throw new TrialException("One of the file savers is null", this.getClass(), _scenario, _trialID);
+                throw new TrialException("One of the file savers is null", null, this.getClass(), _scenario, _trialID);
             if (suffixes.contains(ts.getFileSuffix()))
                 throw new TrialException("The trial savers' file suffixes are not unique (" + ts.getFileSuffix() + " is duplicated)",
-                        this.getClass(), _scenario, _trialID);
+                        null, this.getClass(), _scenario, _trialID);
             suffixes.add(ts.getFileSuffix());
         }
     }

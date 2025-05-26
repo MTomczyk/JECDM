@@ -104,15 +104,15 @@ public class CrossedScenarios
     public void validate(Scenarios scenarios) throws GlobalException
     {
         if (_comparedKeyValues == null)
-            throw new GlobalException("The compared key-values are no provided (the array is null)", this.getClass());
+            throw new GlobalException("The compared key-values are no provided (the array is null)", null, this.getClass());
         if (_comparedKeyValues.length == 0)
-            throw new GlobalException("The compared key-values are no provided (the array is empty)", this.getClass());
+            throw new GlobalException("The compared key-values are no provided (the array is empty)", null, this.getClass());
         if (_comparedKeyValues.length != _level)
-            throw new GlobalException("The number of provided compared key-values differs from the level", this.getClass());
+            throw new GlobalException("The number of provided compared key-values differs from the level", null, this.getClass());
 
         for (KeyValues kv : _comparedKeyValues)
             if (kv == null)
-                throw new GlobalException("One of the provided compared key-values is null", this.getClass());
+                throw new GlobalException("One of the provided compared key-values is null", null, this.getClass());
 
         Set<Key> usedKeys = new HashSet<>();
         if (_fixedKeyValues != null)
@@ -120,46 +120,46 @@ public class CrossedScenarios
         for (KeyValues kv : _comparedKeyValues) usedKeys.add(kv.getKey());
         if (usedKeys.size() != scenarios.getOrderedKeyValues().length)
             throw new GlobalException("The total number of keys is not valid (used = " + usedKeys.size() + "; existing = "
-                    + scenarios.getOrderedKeyValues().length + ")", this.getClass());
+                    + scenarios.getOrderedKeyValues().length + ")", null, this.getClass());
 
         int expectedFixed = scenarios.getOrderedKeyValues().length - _comparedKeyValues.length;
         if (expectedFixed < 0)
-            throw new GlobalException("The expected number of fixed key-values is negative)", this.getClass());
+            throw new GlobalException("The expected number of fixed key-values is negative)", null, this.getClass());
 
         if (expectedFixed > 0)
         {
             if (_fixedKeyValues == null)
-                throw new GlobalException("The fixed key-values are no provided (the array is null)", this.getClass());
+                throw new GlobalException("The fixed key-values are no provided (the array is null)", null, this.getClass());
             if (_fixedKeyValues.length == 0)
-                throw new GlobalException("The fixed key-values are no provided (the array is empty)", this.getClass());
+                throw new GlobalException("The fixed key-values are no provided (the array is empty)", null, this.getClass());
             for (KeyValue kv : _fixedKeyValues)
                 if (kv == null)
-                    throw new GlobalException("One of the provided fixed key-values is null", this.getClass());
+                    throw new GlobalException("One of the provided fixed key-values is null", null, this.getClass());
         }
 
         if (_referenceScenarios == null)
-            throw new GlobalException("The reference scenarios are not provided (the array is null)", this.getClass());
+            throw new GlobalException("The reference scenarios are not provided (the array is null)", null, this.getClass());
         int expected = 1;
         for (KeyValues kv : _comparedKeyValues) expected *= kv.getValues().length;
         if (expected != _referenceScenarios.length)
             throw new GlobalException("Expected number of crossed scenarios = " + expected + " and does not equal the " +
-                    "number of maintained reference scenarios = " + _referenceScenarios.length, this.getClass());
+                    "number of maintained reference scenarios = " + _referenceScenarios.length, null, this.getClass());
 
         for (KeyValues kv : scenarios.getOrderedKeyValues())
         {
             if (!usedKeys.contains(kv.getKey()))
-                throw new GlobalException("The key = " + kv.getKey() + " is not provided", this.getClass());
+                throw new GlobalException("The key = " + kv.getKey() + " is not provided", null, this.getClass());
         }
 
         if (_fixedKeyValues != null)
         {
             for (KeyValue kv : _fixedKeyValues)
                 if (!scenarios.getKeyValuesMap().containsKey(kv.getKey().toString()))
-                    throw new GlobalException("The key = " + kv.getKey() + " is not used in the original experimental scenarios", this.getClass());
+                    throw new GlobalException("The key = " + kv.getKey() + " is not used in the original experimental scenarios", null, this.getClass());
         }
         for (KeyValues kv : _comparedKeyValues)
             if (!scenarios.getKeyValuesMap().containsKey(kv.getKey().toString()))
-                throw new GlobalException("The key = " + kv.getKey() + " is not used in the original experimental scenarios", this.getClass());
+                throw new GlobalException("The key = " + kv.getKey() + " is not used in the original experimental scenarios", null, this.getClass());
 
         if (_fixedKeyValues != null)
         {
@@ -167,7 +167,7 @@ public class CrossedScenarios
             {
                 if (!scenarios.getKeyValuesMap().get(kv.getKey().toString()).getValueMap().containsKey(kv.getValue().toString()))
                     throw new GlobalException("The value = " + kv.getValue() + " for the key = " + kv.getKey() + " is not " +
-                            "used in the original experimental scenarios", this.getClass());
+                            "used in the original experimental scenarios", null, this.getClass());
             }
         }
 
@@ -177,7 +177,7 @@ public class CrossedScenarios
             for (Value v : kv.getValues())
                 if (!valueMap.containsKey(v.toString()))
                     throw new GlobalException("The value = " + v + " for the key = " + kv.getKey() + " is not " +
-                            "used in the original experimental scenarios", this.getClass());
+                            "used in the original experimental scenarios", null, this.getClass());
         }
     }
 

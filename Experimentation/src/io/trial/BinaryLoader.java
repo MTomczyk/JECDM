@@ -84,7 +84,7 @@ public class BinaryLoader extends AbstractTrialLoader implements ITrialLoader
     {
         File file = new File(_fullPath);
         if (file.isDirectory())
-            throw new TrialException("The path points to a directory, not a file", this.getClass(), _scenario, _trialID);
+            throw new TrialException("The path points to a directory, not a file", null, this.getClass(), _scenario, _trialID);
 
         try
         {

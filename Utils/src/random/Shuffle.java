@@ -14,7 +14,7 @@ public class Shuffle<T>
     /**
      * Random number generator.
      */
-    private final IRandom _rg;
+    private final IRandom _R;
 
     /**
      * Default constructor.
@@ -31,7 +31,7 @@ public class Shuffle<T>
      */
     public Shuffle(IRandom rg)
     {
-        _rg = rg;
+        _R = rg;
     }
 
     /**
@@ -43,7 +43,7 @@ public class Shuffle<T>
     {
         for (int i = input.size() - 1; i >= 0; i--)
         {
-            int p = _rg.nextInt(i + 1);
+            int p = _R.nextInt(i + 1);
             T tmp = input.get(p);
             for (int j = p; j < i; j++)
                 input.set(j, input.get(j + 1));
@@ -60,7 +60,7 @@ public class Shuffle<T>
     {
         for (int i = input.length - 1; i >= 0; i--)
         {
-            int p = _rg.nextInt(i + 1);
+            int p = _R.nextInt(i + 1);
             T tmp = input[p];
             System.arraycopy(input, p + 1, input, p, i - p);
             input[i] = tmp;
@@ -74,20 +74,20 @@ public class Shuffle<T>
      */
     public void shuffle(int[] input)
     {
-        shuffle(input, _rg);
+        shuffle(input, _R);
     }
 
     /**
      * Shuffles objects stored in an array (uniform distribution).
      *
      * @param input input array
-     * @param rg    random number generator
+     * @param R    random number generator
      */
-    public void shuffle(int[] input, IRandom rg)
+    public void shuffle(int[] input, IRandom R)
     {
         for (int i = input.length - 1; i >= 0; i--)
         {
-            int p = rg.nextInt(i + 1);
+            int p = R.nextInt(i + 1);
             int tmp = input[p];
             System.arraycopy(input, p + 1, input, p, i - p);
             input[i] = tmp;

@@ -1,5 +1,7 @@
 package random;
 
+import java.util.stream.Stream;
+
 /**
  * Wrapper for random number generators.
  *
@@ -117,9 +119,59 @@ public interface IRandom
     int getIdxWithProbability(double[] p);
 
     /**
-     * Returns the seed used to initialize the object.
+     * Method for indicating whether the concrete implementation supports performing jumps; for parallel computations
+     * (see {@link IRandom#createInstanceViaJump()}).
      *
-     * @return the seed
+     * @return true, if object is jumble; false otherwise
      */
-    long getSeed();
+    boolean isJumpable();
+
+    /**
+     * The method is supposed create object instance with advanced state. The method should return null
+     * if {@link IRandom#isJumpable()} returns false.
+     *
+     * @return object clone with advanced state (null, if the object is not jumpable)
+     */
+    IRandom createInstanceViaJump();
+
+    /**
+     * The method is supposed create object instance with advanced state. The method should return null
+     * if {@link IRandom#isJumpable()} returns false.
+     *
+     * @param streamSize stream size (the number of clones to construct)
+     * @return object clones with advanced state (null, if the object is not jumpable)
+     */
+    Stream<IRandom> createInstancesViaJumps(int streamSize);
+
+    /**
+     * Method for indicating whether the concrete implementation supports performing the split of the random number
+     * generator; for parallel computations (see {@link IRandom#createSplitInstance()}).
+     *
+     * @return true, if object is splittable; false otherwise
+     */
+    boolean isSplittable();
+
+    /**
+     * The method is supposed create split instance of the object. The method should return null
+     * if {@link IRandom#isSplittable()} returns false.
+     *
+     * @return split object (null, if the object is not splittable)
+     */
+    IRandom createSplitInstance();
+
+    /**
+     * The method is supposed create split instance of the object. The method should return null
+     * if {@link IRandom#isSplittable()} returns false.
+     *
+     * @param streamSize stream size (the number of clones to construct)
+     * @return split object (null, if the object is not splittable)
+     */
+    Stream<IRandom> createSplitInstances(int streamSize);
+
+    /**
+     * Returns string representation of the random number generator.
+     * @return string representation of the random number generator
+     */
+    @Override
+    String toString();
 }

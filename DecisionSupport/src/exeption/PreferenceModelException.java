@@ -17,7 +17,20 @@ public class PreferenceModelException extends AbstractException
      */
     public PreferenceModelException(String message, Class<?> handler)
     {
-        this(message, handler, null);
+        this(message, handler, (Class<?>) null);
+    }
+
+
+    /**
+     * Parameterized constructor
+     *
+     * @param message exception message
+     * @param handler class that handled the exception
+     * @param source exception source
+     */
+    public PreferenceModelException(String message, Class<?> handler, Class<?> source)
+    {
+        super(message, handler, source);
     }
 
     /**

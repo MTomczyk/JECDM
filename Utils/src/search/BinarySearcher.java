@@ -24,6 +24,15 @@ public class BinarySearcher
     private int _ci;
 
     /**
+     * Parameterized constructor. Sets the default bounds for indices to 0, 1.
+     */
+    public BinarySearcher()
+    {
+        this(0, 1);
+    }
+
+
+    /**
      * Parameterized constructor. Bounds for indices to be examined have to be provided.
      *
      * @param li lower bound

@@ -57,6 +57,16 @@ public abstract class AbstractScheme
     }
 
     /**
+     * Method for cloning the scheme.
+     *
+     * @return scheme instance
+     */
+    public AbstractScheme getClone()
+    {
+        return null;
+    }
+
+    /**
      * Instantiates default colors.
      */
     protected void setColors()
@@ -642,27 +652,7 @@ public abstract class AbstractScheme
         return "Abstract";
     }
 
-    /**
-     * Factory-like method for constructing scheme instance (to be overwritten).
-     *
-     * @return scheme instance
-     */
-    public AbstractScheme getInstance()
-    {
-        return null;
-    }
 
-    /**
-     * Factory-like method for constructing a cloned object (to be overwritten).
-     *
-     * @return scheme instance
-     */
-    public AbstractScheme getClone()
-    {
-        AbstractScheme scheme = getInstance();
-        scheme.setFieldsAsIn(this);
-        return scheme;
-    }
 
     /**
      * Auxiliary method that sets fields' values as in other object.

@@ -15,8 +15,8 @@ public class CrossedSetting
     /**
      * Parameterized constructor.
      *
-     * @param comparedKeys                raw (string) representation of keys to be compared
-     * @param comparedValues              raw (string) representation of values to be compared (one array for each key)
+     * @param comparedKeys   raw (string) representation of keys to be compared
+     * @param comparedValues raw (string) representation of values to be compared (one array for each key)
      */
     public CrossedSetting(String[] comparedKeys, String[][] comparedValues)
     {
@@ -73,30 +73,30 @@ public class CrossedSetting
     public void instantiateSetting(Scenarios scenarios) throws GlobalException
     {
         if (_comparedKeys == null)
-            throw new GlobalException("No keys are provided (the array is null)", this.getClass());
+            throw new GlobalException("No keys are provided (the array is null)", null, this.getClass());
         if (_comparedKeys.length == 0)
-            throw new GlobalException("No keys are provided (the array is empty)", this.getClass());
+            throw new GlobalException("No keys are provided (the array is empty)", null, this.getClass());
         for (String s : _comparedKeys)
-            if (s == null) throw new GlobalException("One of the keys provided is null", this.getClass());
+            if (s == null) throw new GlobalException("One of the keys provided is null", null, this.getClass());
         if (_comparedValues == null)
-            throw new GlobalException("No values are provided (the array is null)", this.getClass());
+            throw new GlobalException("No values are provided (the array is null)", null, this.getClass());
         if (_comparedValues.length == 0)
-            throw new GlobalException("No values are provided (the array is empty)", this.getClass());
+            throw new GlobalException("No values are provided (the array is empty)", null, this.getClass());
         if (_comparedKeys.length != _comparedValues.length)
-            throw new GlobalException("The number of keys to be compared differs from the number of value arrays", this.getClass());
+            throw new GlobalException("The number of keys to be compared differs from the number of value arrays", null, this.getClass());
 
         _comparedKeyValues = new KeyValues[_comparedKeys.length];
         for (int i = 0; i < _comparedKeys.length; i++)
         {
             if (_comparedValues[i] == null)
-                throw new GlobalException("The value array for key = " + _comparedKeys[i] + " is not provided (the array is null)", this.getClass());
+                throw new GlobalException("The value array for key = " + _comparedKeys[i] + " is not provided (the array is null)", null, this.getClass());
             if (_comparedValues[i].length == 0)
-                throw new GlobalException("The value array for key = " + _comparedKeys[i] + " is not provided (the array is empty)", this.getClass());
+                throw new GlobalException("The value array for key = " + _comparedKeys[i] + " is not provided (the array is empty)", null, this.getClass());
 
             String reqKey = _comparedKeys[i].toUpperCase();
             KeyValues matched = scenarios.getKeyValuesMap().get(reqKey);
             if (matched == null)
-                throw new GlobalException("Could not find a matching key = " + reqKey + " in maintained scenarios", this.getClass());
+                throw new GlobalException("Could not find a matching key = " + reqKey + " in maintained scenarios", null, this.getClass());
 
             Value[] values = new Value[_comparedValues[i].length];
             for (int j = 0; j < _comparedValues[i].length; j++)
@@ -104,7 +104,7 @@ public class CrossedSetting
                 String reqVal = _comparedValues[i][j].toUpperCase();
                 values[j] = matched.getValueMap().get(reqVal);
                 if (values[j] == null) throw new GlobalException("Could not find a matching value = " + reqVal +
-                        " for key = " + reqKey + " in maintained scenarios", this.getClass());
+                        " for key = " + reqKey + " in maintained scenarios", null, this.getClass());
             }
             _comparedKeyValues[i] = new KeyValues(matched.getKey(), values);
         }

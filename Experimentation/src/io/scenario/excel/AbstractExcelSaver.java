@@ -156,7 +156,7 @@ public abstract class AbstractExcelSaver extends AbstractScenarioSaver implement
     @Override
     public void pushData(double[] trialResults, double[] statistics, int generation) throws ScenarioException
     {
-        throw new ScenarioException("The \"push data\" method is not implemented", this.getClass(), _scenario);
+        throw new ScenarioException("The \"push data\" method is not implemented", null, this.getClass(), _scenario);
     }
 
     /**

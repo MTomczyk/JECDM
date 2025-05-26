@@ -79,7 +79,7 @@ public class TLPITrialWrapper
     {
         if (!_loaders.containsKey(trialID))
             throw new ScenarioException("There are no loaders for a requested trial ID =" + trialID,
-                    this.getClass(), scenario);
+                    null, this.getClass(), scenario);
         return _loaders.get(trialID);
     }
 

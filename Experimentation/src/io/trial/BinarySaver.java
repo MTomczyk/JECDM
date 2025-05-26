@@ -59,8 +59,7 @@ public class BinarySaver extends AbstractTrialSaver implements ITrialSaver
         try
         {
             return new BinarySaver(path, filename, scenario, trialID);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             throw new TrialException(e.getMessage(), this.getClass(), e, _scenario, _trialID);
         }
@@ -108,15 +107,15 @@ public class BinarySaver extends AbstractTrialSaver implements ITrialSaver
     public void store(double[] data, int offset, int length) throws TrialException
     {
         if (data == null)
-            throw new TrialException("The data is not provided (the array is null)", this.getClass(), _scenario, _trialID);
+            throw new TrialException("The data is not provided (the array is null)", null, this.getClass(), _scenario, _trialID);
         if (data.length == 0)
-            throw new TrialException("The data is not provided (the array is empty)", this.getClass(), _scenario, _trialID);
+            throw new TrialException("The data is not provided (the array is empty)", null, this.getClass(), _scenario, _trialID);
         if (length < 1)
-            throw new TrialException("The length should not be less than 1", this.getClass(), _scenario, _trialID);
+            throw new TrialException("The length should not be less than 1", null, this.getClass(), _scenario, _trialID);
         if (offset < 0)
-            throw new TrialException("The offset should not be less than 0", this.getClass(), _scenario, _trialID);
+            throw new TrialException("The offset should not be less than 0", null, this.getClass(), _scenario, _trialID);
         if (offset + length > data.length)
-            throw new TrialException("The offset + length exceeds the input data length", this.getClass(), _scenario, _trialID);
+            throw new TrialException("The offset + length exceeds the input data length", null, this.getClass(), _scenario, _trialID);
 
         byte[] bytes = new byte[8 * length]; // 8 bytes per value
         ByteBuffer buffer = ByteBuffer.wrap(bytes);

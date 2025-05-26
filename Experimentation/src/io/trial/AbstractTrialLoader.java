@@ -31,7 +31,7 @@ public abstract class AbstractTrialLoader extends AbstractTrialIO implements ITr
      *
      * @param path     full path to the folder where the file should be stored (without a path separator)
      * @param filename the filename (without the suffix, e.g., extension)
-     * @param trialID ID of a trial being currently processed
+     * @param trialID  ID of a trial being currently processed
      * @return full path
      */
     @Override
@@ -53,7 +53,7 @@ public abstract class AbstractTrialLoader extends AbstractTrialIO implements ITr
     @Override
     public ITrialLoader getInstance(String path, String filename, Scenario scenario, int trialID) throws TrialException
     {
-        throw new TrialException("The \"get instance\" method is not implemented", this.getClass(), _scenario, _trialID);
+        throw new TrialException("The \"get instance\" method is not implemented", null, this.getClass(), _scenario, _trialID);
     }
 
     /**
@@ -75,7 +75,7 @@ public abstract class AbstractTrialLoader extends AbstractTrialIO implements ITr
     @Override
     public void load() throws TrialException
     {
-        throw new TrialException("The \"load\" method is not implemented", this.getClass(), _scenario, _trialID);
+        throw new TrialException("The \"load\" method is not implemented", null, this.getClass(), _scenario, _trialID);
     }
 
     /**
@@ -86,9 +86,9 @@ public abstract class AbstractTrialLoader extends AbstractTrialIO implements ITr
      * @throws TrialException trail-level exception can be thrown
      */
     @Override
-    public double [] retrieve(int size) throws TrialException
+    public double[] retrieve(int size) throws TrialException
     {
-        throw new TrialException("The \"retrieve\" method is not implemented", this.getClass(), _scenario, _trialID);
+        throw new TrialException("The \"retrieve\" method is not implemented", null, this.getClass(), _scenario, _trialID);
     }
 
     /**
@@ -99,7 +99,7 @@ public abstract class AbstractTrialLoader extends AbstractTrialIO implements ITr
     @Override
     public void close() throws TrialException
     {
-        throw new TrialException("The \"close\" method is not implemented", this.getClass(), _scenario, _trialID);
+        throw new TrialException("The \"close\" method is not implemented", null, this.getClass(), _scenario, _trialID);
     }
 
 }

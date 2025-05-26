@@ -15,8 +15,6 @@ import space.Dimension;
 import thread.swingworker.EventTypes;
 
 import java.awt.event.ComponentEvent;
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * Abstract class representation of a data set.
@@ -26,14 +24,76 @@ import java.util.LinkedList;
 public abstract class AbstractDataSet implements IDataSet
 {
     /**
+     * Params container.
+     */
+    public static class Params
+    {
+        /**
+         * Data to be visualized.
+         */
+        public Data _data;
+        ;
+
+        /**
+         * Painter used to depict the data.
+         */
+        protected IPainter _painter;
+
+        /**
+         * Data set name.
+         */
+        public String _name;
+
+        /**
+         * Data set legend label (if null, the name is used).
+         */
+        public String _legendLabel = null;
+
+        /**
+         * If true, the data set is displayable on legend, false otherwise.
+         */
+        public volatile boolean _displayableOnLegend = true;
+
+        /**
+         * If true, the data set rendering is skipped
+         */
+        public volatile boolean _skipRendering = false;
+
+        /**
+         * Auxiliary mask that tell whether the update of the i-th display range should be skipped.
+         * Can return null (not used). Obviously, the mask has no effect when updating display ranges is globally disabled.
+         */
+        public boolean[] _skipDisplayRangeUpdateMask = null;
+
+        /**
+         * Flag indicating if the IDS updates should be skipped.
+         */
+        public boolean _skipIDSUpdates = false;
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param name    data set name
+         * @param data    data to be visualized
+         * @param painter painter used to depict the data
+         */
+        public Params(String name, Data data, IPainter painter)
+        {
+            _data = data;
+            _painter = painter;
+            _name = name;
+        }
+    }
+
+    /**
      * Data set name.
      */
-    protected String _name = "";
+    protected String _name;
 
     /**
      * Data set legend label (if null, the name is used).
      */
-    protected String _legendLabel = "";
+    protected String _legendLabel;
 
     /**
      * Current data to be displayed.
@@ -58,12 +118,12 @@ public abstract class AbstractDataSet implements IDataSet
     /**
      * If true, the data set is displayable on legend, false otherwise.
      */
-    protected volatile boolean _displayableOnLegend = true;
+    protected volatile boolean _displayableOnLegend;
 
     /**
      * If true, the data set rendering is skipped
      */
-    protected volatile boolean _skipRendering = false;
+    protected volatile boolean _skipRendering;
 
     /**
      * Auxiliary mask that tell whether the update of the i-th display range should be skipped.
@@ -77,39 +137,24 @@ public abstract class AbstractDataSet implements IDataSet
     protected boolean _skipIDSUpdates;
 
     /**
-     * This method creates a new data set object.
-     * All the fields are cloned except for the data to be depicted.
-     * This data is provided as the input. The method may be useful when, e.g., using plots to animate the data
-     * (frequent calls for {@link plot.PlotModel#setDataSets(ArrayList, boolean)} would be required).
-     *
-     * @param data input data to be displayed.
-     */
-    public IDataSet wrapAround(LinkedList<double[][]> data)
-    {
-        IPainter painter = _painter.getEmptyClone();
-        DataSet DS = new DataSet(_name, new Data(data), painter);
-        DS._GC = _GC;
-        DS._PC = _PC;
-        DS._legendLabel = _legendLabel;
-        DS._skipRendering = _skipRendering;
-        DS._displayableOnLegend = _displayableOnLegend;
-        if (_skipDisplayRangeUpdateMask == null) DS.setSkipDisplayRangesUpdateMasks(null);
-        else DS.setSkipDisplayRangesUpdateMasks(_skipDisplayRangeUpdateMask.clone());
-        return DS;
-    }
-
-
-    /**
      * Parameterized constructor.
      *
-     * @param data    data to be rendered
-     * @param painter object used for data rendering
+     * @param p params container
      */
-    public AbstractDataSet(Data data, IPainter painter)
+    protected AbstractDataSet(Params p)
     {
-        _data = data;
-        _painter = painter;
-        _skipIDSUpdates = false;
+        _data = p._data;
+        _painter = p._painter;
+        _name = p._name;
+        _legendLabel = p._legendLabel;
+        _skipDisplayRangeUpdateMask = p._skipDisplayRangeUpdateMask;
+        _skipIDSUpdates = p._skipIDSUpdates;
+        _displayableOnLegend = p._displayableOnLegend;
+        _skipRendering = p._skipRendering;
+
+        _painter.setData(_data);
+        _painter.setDataSet(this);
+        _painter.setName("Painter of (" + _name + ")");
     }
 
 

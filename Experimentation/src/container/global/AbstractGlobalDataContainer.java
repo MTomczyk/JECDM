@@ -6,6 +6,7 @@ import container.AbstractDataContainer;
 import container.global.initializers.DefaultRandomNumberGeneratorInitializer;
 import container.global.initializers.IRandomNumberGeneratorInitializer;
 import exception.GlobalException;
+import exception.ScenarioException;
 import executor.TrialExecutor;
 import io.cross.ICrossSaver;
 import io.scenario.IScenarioSaver;
@@ -324,6 +325,7 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
         instantiateTrialDisablingConditions(_p);
         instantiateTrialIDs(_p);
         instantiateNoThreads(_p);
+        instantiateRNGStreams(_p);
         instantiateMainPath(_p);
         instantiateUseMonitorThreadFlag(_p);
         instantiateMonitorReportingDelay(_p);
@@ -342,11 +344,23 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
      * @param scenario trial's scenario requesting the random number generator
      * @param trialID  ID of a trial requesting the random number generator
      * @return random number generator instance
+     * @throws ScenarioException exception can be thrown and propagated higher
      */
-    public IRandom requestRandomNumberGenerator(Scenario scenario, int trialID)
+    public IRandom requestRandomNumberGenerator(Scenario scenario, int trialID) throws ScenarioException
     {
         _requestedRandomNumberGenerators++;
         return _RNGI.getRNG(scenario, trialID, _noTrials);
+    }
+
+    /**
+     * Called when starting instantiating a scenario to request RNG streams creation.
+     *
+     * @param scenario scenario being processed
+     * @throws ScenarioException scenario exception can be thrown and propagated higher
+     */
+    public void requestStreamsCreationDuringSDCInit(Scenario scenario) throws ScenarioException
+    {
+        _RNGI.requestStreamsCreationDuringSDCInit(scenario, _noTrials);
     }
 
     /**
@@ -362,10 +376,21 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
 
         if (_RNGI == null)
         {
-            throw new GlobalException("The random number generator initializer is not provided", this.getClass());
+            throw new GlobalException("The random number generator initializer is not provided", null, this.getClass());
         }
     }
 
+    /**
+     * Instantiates the RNG streams.
+     *
+     * @param p params container
+     * @throws GlobalException exception will be thrown when the RNG streams cannot be instantiated
+     */
+    private void instantiateRNGStreams(Params p) throws GlobalException
+    {
+        // scenarios and trials are already instantiated
+        _RNGI.requestStreamsCreationDuringGDCInit(_scenarios.getScenarios().length, _noTrials);
+    }
 
     /**
      * Instantiates definitions of all considered experimental scenarios.
@@ -405,7 +430,7 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
         if (_scenarioDisablingConditions != null)
             for (ScenarioDisablingConditions sdc : _scenarioDisablingConditions)
                 if (sdc == null)
-                    throw new GlobalException("One of the scenario disabling conditions is null", this.getClass());
+                    throw new GlobalException("One of the scenario disabling conditions is null", null, this.getClass());
     }
 
     /**
@@ -445,13 +470,13 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
     protected KeyValues[] instantiateScenarioKeyValues(Params p) throws GlobalException
     {
         if (p._scenarioKeys == null)
-            throw new GlobalException("Scenario keys are not provided (the array is null)", this.getClass());
+            throw new GlobalException("Scenario keys are not provided (the array is null)", null, this.getClass());
         if (p._scenarioKeys.length == 0)
-            throw new GlobalException("Scenario keys are not provided (the array is empty)", this.getClass());
+            throw new GlobalException("Scenario keys are not provided (the array is empty)", null, this.getClass());
         if (p._scenarioValues == null)
-            throw new GlobalException("Scenario values are not provided (the array is null)", this.getClass());
+            throw new GlobalException("Scenario values are not provided (the array is null)", null, this.getClass());
         if (p._scenarioValues.length != p._scenarioKeys.length)
-            throw new GlobalException("The number of scenario keys differs from the length of the array containing scenario values", this.getClass());
+            throw new GlobalException("The number of scenario keys differs from the length of the array containing scenario values", null, this.getClass());
 
         // the remaining exception cases are handled by ScenarioGenerator
         KeyValues[] kv = new KeyValues[p._scenarioKeys.length];
@@ -476,7 +501,7 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
         if ((p._r != null) && (_p._r._noThreads != null)) _noThreads = _p._r._noThreads; // takes priority
         else _noThreads = p._noThreads;
         if (_noThreads < 1)
-            throw new GlobalException("The number of threads should be not less than 1", this.getClass());
+            throw new GlobalException("The number of threads should be not less than 1", null, this.getClass());
     }
 
     /**
@@ -488,13 +513,13 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
     private void instantiateTrialIDs(Params p) throws GlobalException
     {
         if (p._noTrials < 1)
-            throw new GlobalException("The number of trials should be not less than 1", this.getClass());
+            throw new GlobalException("The number of trials should be not less than 1", null, this.getClass());
         LinkedList<Integer> validIds = new LinkedList<>();
         for (int i = 0; i < p._noTrials; i++)
             if ((_trialDisablingConditions == null) || (!_trialDisablingConditions.isTrialDisabled(i)))
                 validIds.add(i);
 
-        if (validIds.isEmpty()) throw new GlobalException("Trial IDs is an empty list", this.getClass());
+        if (validIds.isEmpty()) throw new GlobalException("Trial IDs is an empty list", null, this.getClass());
 
         _trialIDs = new int[validIds.size()];
         int idx = 0;
@@ -503,7 +528,8 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
         Set<Integer> ids = new HashSet<>(_trialIDs.length);
         for (int id : _trialIDs)
         {
-            if (ids.contains(id)) throw new GlobalException("Trial ID = " + id + " is not unique", this.getClass());
+            if (ids.contains(id))
+                throw new GlobalException("Trial ID = " + id + " is not unique", null, this.getClass());
             ids.add(id);
         }
     }
@@ -517,7 +543,8 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
      */
     private void instantiateMainPath(Params p) throws GlobalException
     {
-        if (p._mainPath == null) throw new GlobalException("The main path is not provided (is null)", this.getClass());
+        if (p._mainPath == null)
+            throw new GlobalException("The main path is not provided (is null)", null, this.getClass());
         _mainPath = p._mainPath;
     }
 
@@ -541,7 +568,7 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
     protected void instantiateMonitorReportingDelay(Params p) throws GlobalException
     {
         if ((p._useMonitorThread) && (p._monitorReportingInterval < 0))
-            throw new GlobalException("The reporting interval should not be negative if the monitor thread is used", this.getClass());
+            throw new GlobalException("The reporting interval should not be negative if the monitor thread is used", null, this.getClass());
         _monitorReportingInterval = p._monitorReportingInterval;
     }
 

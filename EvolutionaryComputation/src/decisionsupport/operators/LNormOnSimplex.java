@@ -13,9 +13,8 @@ import space.normalization.INormalization;
  * This class implements {@link IOffspringConstructor} and is dedicated to reproducing L-norms
  * ({@link LNorm}). Specifically, it produces an offspring by crossing-over the parent
  * models' weight vectors and mutating the output. The following operators are used:
- * {@link OnSimplexCombination} (crossover) and
- * {@link OnSimplexSimplexMutation} (mutation). It is also assumed that the
- * compensation level alpha for the resulting L-norm is pre-fixed.
+ * {@link OnSimplexCombination} (crossover) and {@link OnSimplexSimplexMutation} (mutation).
+ * It is also assumed that the compensation level alpha for the resulting L-norm is pre-fixed.
  *
  * @author MTomczyk
  */
@@ -26,20 +25,16 @@ public class LNormOnSimplex implements IOffspringConstructor<LNorm>
      */
     private final double _alpha;
 
-    /**
-     * Crossover operator used.
-     */
-    private final OnSimplexCombination _crossover;
-
-    /**
-     * Mutation operator used.
-     */
-    private final OnSimplexSimplexMutation _mutation;
 
     /**
      * Optional fixed normalizations used when instantiating models.
      */
     private final INormalization[] _normalizations;
+
+    /**
+     * Weights reproducer object.
+     */
+    private final OnSimplexWeightsReproducer _wr;
 
     /**
      * Parameterized constructor.
@@ -65,9 +60,8 @@ public class LNormOnSimplex implements IOffspringConstructor<LNorm>
     public LNormOnSimplex(double alpha, double cStd, double mScale, INormalization[] normalizations)
     {
         _alpha = alpha;
-        _crossover = new OnSimplexCombination(cStd);
-        _mutation = new OnSimplexSimplexMutation(mScale);
         _normalizations = normalizations;
+        _wr = new OnSimplexWeightsReproducer(cStd, mScale);
     }
 
     /**
@@ -83,10 +77,7 @@ public class LNormOnSimplex implements IOffspringConstructor<LNorm>
     @Override
     public LNorm getModel(SortedModel<LNorm> p1, SortedModel<LNorm> p2, DMContext dmContext)
     {
-        double[] w1 = p1._model.getWeights();
-        double[] w2 = p2._model.getWeights();
-        double[] o = _crossover.crossover(w1, w2, dmContext.getR());
-        _mutation.mutate(o, dmContext.getR());
+        double[] o =_wr.getWeights(p1._model, p2._model, dmContext.getR());
         if (_normalizations != null) return new LNorm(o, _alpha, _normalizations);
         return new LNorm(o, _alpha, dmContext.getNormalizationsCurrentOS());
     }

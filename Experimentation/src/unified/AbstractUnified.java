@@ -113,7 +113,7 @@ public class AbstractUnified<T>
                     if (i < requestedNames.length - 1) suffix.append(", ");
                 }
                 suffix.append(")");
-                throw new CrossedScenariosException(errorMessage + suffix, this.getClass(), crossedScenarios);
+                throw new CrossedScenariosException(errorMessage + suffix, null, this.getClass(), crossedScenarios);
             }
 
             ArrayList<T> newOrder = new ArrayList<>(_entities.size());

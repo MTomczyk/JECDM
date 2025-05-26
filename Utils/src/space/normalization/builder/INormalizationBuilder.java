@@ -14,8 +14,16 @@ public interface INormalizationBuilder
 {
     /**
      * Builds an array of normalization objects based on the input objective space.
+     *
      * @param OS objective space
      * @return array of normalization objects
      */
     INormalization[] getNormalizations(ObjectiveSpace OS);
+
+    /**
+     * Should return the lowest possible class in hierarchy which all objects returned by {@link INormalization} extend.
+     *
+     * @return class
+     */
+    Class<?> getBuiltSuperclass();
 }

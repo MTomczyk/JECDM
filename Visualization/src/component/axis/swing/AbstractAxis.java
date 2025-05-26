@@ -371,8 +371,7 @@ abstract public class AbstractAxis extends AbstractSwingComponent implements IDi
                 _DV._dtl[i][1] = -_ticks[i]._labelOffset._actualSize;
             }
 
-        }
-        else if (_align == Align.RIGHT)
+        } else if (_align == Align.RIGHT)
         {
             _DV._s[0] = _translationVector[0];
             _DV._e[0] = _translationVector[0];
@@ -385,8 +384,7 @@ abstract public class AbstractAxis extends AbstractSwingComponent implements IDi
                 _DV._dtl[i][0] = _ticks[i]._labelOffset._actualSize;
                 _DV._dtl[i][1] = 0.0f;
             }
-        }
-        else if (_align == Align.BOTTOM)
+        } else if (_align == Align.BOTTOM)
         {
             _DV._s[0] = _translationVector[0];
             _DV._s[1] = _translationVector[1];
@@ -451,20 +449,17 @@ abstract public class AbstractAxis extends AbstractSwingComponent implements IDi
                 float x = _DV._s[0] - _titleOffset._actualSize;
                 float y = _DV._s[1] - _primaryDrawingArea.height / 2.0f + (float) d.getWidth() / 2.0f + (float) d.getMinX() / 2.0f;
                 Font.drawRotatedString(g2d, _title, x, y, (float) (-Math.PI / 2.0f));
-            }
-            else if (_align == Align.RIGHT)
+            } else if (_align == Align.RIGHT)
             {
                 float x = _DV._s[0] + _titleOffset._actualSize;
                 float y = _DV._s[1] - _primaryDrawingArea.height / 2.0f - (float) d.getWidth() / 2.0f - (float) d.getMinX() / 2.0f;
                 Font.drawRotatedString(g2d, _title, x, y, (float) (Math.PI / 2.0f));
-            }
-            else if (_align == Align.BOTTOM)
+            } else if (_align == Align.BOTTOM)
             {
                 float x = _DV._s[0] + _primaryDrawingArea.width / 2.0f - (float) d.getWidth() / 2.0f - (float) d.getMinX() / 2.0f;
                 float y = _DV._s[1] + _titleOffset._actualSize + (float) dRef.getHeight();
                 g.drawString(_title, Projection.getP(x), Projection.getP(y));
-            }
-            else if (_align == Align.TOP)
+            } else if (_align == Align.TOP)
             {
                 float x = _DV._s[0] + _primaryDrawingArea.width / 2.0f - (float) d.getWidth() / 2.0f - (float) d.getMinX() / 2.0f;
                 float y = _DV._s[1] - _titleOffset._actualSize;
@@ -508,6 +503,16 @@ abstract public class AbstractAxis extends AbstractSwingComponent implements IDi
             if (l[i] == null) continue;
             _ticks[i]._label = l[i];
         }
+    }
+
+    /**
+     * Setter for axis title.
+     *
+     * @param title axis title
+     */
+    public void setTitle(String title)
+    {
+        _title = title;
     }
 
     /**

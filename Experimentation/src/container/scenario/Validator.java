@@ -49,7 +49,7 @@ public class Validator
     protected void validateGenerations(int generations) throws ScenarioException
     {
         if (generations < 1)
-            throw new ScenarioException("The generations number for data storing is lesser than 1 (" + generations + ")", this.getClass(), _scenario);
+            throw new ScenarioException("The generations number for data storing is lesser than 1 (" + generations + ")", null, this.getClass(), _scenario);
     }
 
     /**
@@ -61,7 +61,7 @@ public class Validator
     protected void validateSteadyStateRepeats(int steadyStateRepeats) throws ScenarioException
     {
         if (steadyStateRepeats < 1)
-            throw new ScenarioException("The steady-state repeats number for data storing is lesser than 1 (" + steadyStateRepeats + ")", this.getClass(), _scenario);
+            throw new ScenarioException("The steady-state repeats number for data storing is lesser than 1 (" + steadyStateRepeats + ")", null, this.getClass(), _scenario);
     }
 
 
@@ -75,7 +75,7 @@ public class Validator
     {
         if (dataStoreInterval < 1)
             throw new ScenarioException("The generation interval for data storing is lesser than 1 (" + dataStoreInterval + ")",
-                    this.getClass(), _scenario);
+                    null, this.getClass(), _scenario);
     }
 
     /**
@@ -88,7 +88,7 @@ public class Validator
     {
         if (dataLoadingInterval < 1)
             throw new ScenarioException("The generation interval for data loading is lesser than 1 (" + dataLoadingInterval + ")",
-                    this.getClass(), _scenario);
+                    null, this.getClass(), _scenario);
     }
 
 
@@ -102,21 +102,21 @@ public class Validator
     protected void validateIndicators(IIndicator[] indicators, AbstractGlobalDataContainer GDC) throws ScenarioException
     {
         if (indicators == null)
-            throw new ScenarioException("The performance indicators are not provided (the array is null)", this.getClass(), _scenario);
+            throw new ScenarioException("The performance indicators are not provided (the array is null)", null, this.getClass(), _scenario);
         if (indicators.length == 0)
-            throw new ScenarioException("The performance indicators are not provided (the array is empty)", this.getClass(), _scenario);
+            throw new ScenarioException("The performance indicators are not provided (the array is empty)", null, this.getClass(), _scenario);
 
         Set<String> names = new HashSet<>();
         for (IIndicator indicator : indicators)
         {
             if (indicator.getName() == null)
-                throw new ScenarioException("Name of one of the indicators is not provided (null)", this.getClass(), _scenario);
+                throw new ScenarioException("Name of one of the indicators is not provided (null)", null, this.getClass(), _scenario);
             else if (indicator.getName().isEmpty())
-                throw new ScenarioException("Name of one of the indicators is not provided (empty string)", this.getClass(), _scenario);
+                throw new ScenarioException("Name of one of the indicators is not provided (empty string)", null, this.getClass(), _scenario);
 
             if (names.contains(indicator.getName()))
                 throw new ScenarioException("The indicator = " + indicator.getName() + " is not unique",
-                        this.getClass(), _scenario);
+                        null, this.getClass(), _scenario);
             names.add(indicator.getName());
         }
         Set<Character> characters = GDC.getAllowedCharacters();
@@ -124,7 +124,7 @@ public class Validator
         for (IIndicator indicator : indicators)
         {
             if (!FileUtils.isAlphanumeric(indicator.getName(), characters))
-                throw new ScenarioException("The indicator = " + indicator.getName() + " contains forbidden characters", this.getClass(), _scenario);
+                throw new ScenarioException("The indicator = " + indicator.getName() + " contains forbidden characters", null, this.getClass(), _scenario);
         }
     }
 
@@ -140,21 +140,21 @@ public class Validator
         if (!_validateStatisticFunctions) return;
 
         if (statistics == null)
-            throw new ScenarioException("The statistic functions are not provided (the array is null)", this.getClass(), _scenario);
+            throw new ScenarioException("The statistic functions are not provided (the array is null)", null, this.getClass(), _scenario);
         if (statistics.length == 0)
-            throw new ScenarioException("The statistic functions are not provided (the array is empty)", this.getClass(), _scenario);
+            throw new ScenarioException("The statistic functions are not provided (the array is empty)", null, this.getClass(), _scenario);
 
         Set<String> names = new HashSet<>();
         for (IStatistic statistic : statistics)
         {
             if (statistic.getName() == null)
-                throw new ScenarioException("Name of one of the statistic functions is not provided (null)", this.getClass(), _scenario);
+                throw new ScenarioException("Name of one of the statistic functions is not provided (null)", null, this.getClass(), _scenario);
             else if (statistic.getName().isEmpty())
-                throw new ScenarioException("Name of one of the statistic functions is not provided (empty string)", this.getClass(), _scenario);
+                throw new ScenarioException("Name of one of the statistic functions is not provided (empty string)", null, this.getClass(), _scenario);
 
             if (names.contains(statistic.getName()))
                 throw new ScenarioException("The statistic function = " + statistic.getName() + " is not unique",
-                        this.getClass(), _scenario);
+                        null, this.getClass(), _scenario);
             names.add(statistic.getName());
         }
         Set<Character> characters = GDC.getAllowedCharacters();
@@ -162,7 +162,7 @@ public class Validator
         for (IStatistic statistic : statistics)
         {
             if (!FileUtils.isAlphanumeric(statistic.getName(), characters))
-                throw new ScenarioException("The statistic function = " + statistic.getName() + " contains forbidden characters", this.getClass(), _scenario);
+                throw new ScenarioException("The statistic function = " + statistic.getName() + " contains forbidden characters", null, this.getClass(), _scenario);
         }
     }
 

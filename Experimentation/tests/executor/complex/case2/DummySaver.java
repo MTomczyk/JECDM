@@ -73,7 +73,7 @@ class DummySaver extends AbstractScenarioSaver implements IScenarioSaver
     @Override
     public void create() throws ScenarioException
     {
-      throw new ScenarioException("Dummy exception (create)", this.getClass(), _scenario);
+      throw new ScenarioException("Dummy exception (create)",  null, this.getClass(), _scenario);
     }
 
     /**

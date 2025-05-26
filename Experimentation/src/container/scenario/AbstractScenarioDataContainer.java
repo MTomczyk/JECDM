@@ -215,12 +215,25 @@ public abstract class AbstractScenarioDataContainer extends AbstractDataContaine
         instantiateReferenceBinaryLoader(p);
         instantiateBinaryLoaders(p);
 
+        requestStreamsCreationDuringSDCInit(p._scenario);
+
         p._validator.validateDataStoringInterval(_dataStoringInterval);
         p._validator.validateDataLoadingInterval(_dataLoadingInterval);
         p._validator.validateGenerations(_generations);
         p._validator.validateSteadyStateRepeats(_steadyStateRepeats);
         p._validator.validateIndicators(_indicators, _GDC);
         p._validator.validateStatisticFunctions(_statisticFunctions, _GDC);
+    }
+
+    /**
+     * Called when starting instantiating a scenario to request RNG streams creation.
+     *
+     * @param scenario scenario being processed
+     * @throws ScenarioException scenario exception can be thrown and propagated higher
+     */
+    private void requestStreamsCreationDuringSDCInit(Scenario scenario) throws ScenarioException
+    {
+        _GDC.requestStreamsCreationDuringSDCInit(scenario);
     }
 
     /**

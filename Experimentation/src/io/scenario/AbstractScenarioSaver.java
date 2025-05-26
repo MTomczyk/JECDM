@@ -82,7 +82,7 @@ public abstract class AbstractScenarioSaver extends AbstractIO implements IScena
     @Override
     public IScenarioSaver getInstance(String path, String filename, Scenario scenario, int[] trialIDs, IIndicator[] indicators, IStatistic[] statistics) throws ScenarioException
     {
-        throw new ScenarioException("The \"get instance\" method is not implemented", this.getClass(), _scenario);
+        throw new ScenarioException("The \"get instance\" method is not implemented", null, this.getClass(), _scenario);
     }
 
     /**
@@ -106,7 +106,7 @@ public abstract class AbstractScenarioSaver extends AbstractIO implements IScena
     @Override
     public void create() throws ScenarioException
     {
-        throw new ScenarioException("The \"create\" method is not implemented", this.getClass(), _scenario);
+        throw new ScenarioException("The \"create\" method is not implemented", null, this.getClass(), _scenario);
     }
 
     /**
@@ -139,7 +139,7 @@ public abstract class AbstractScenarioSaver extends AbstractIO implements IScena
     @Override
     public void pushData(double[] trialResults, double[] statistics, int generation) throws ScenarioException
     {
-        throw new ScenarioException("The \"push data\" method is not implemented", this.getClass(), _scenario);
+        throw new ScenarioException("The \"push data\" method is not implemented", null, this.getClass(), _scenario);
     }
 
     /**
@@ -162,7 +162,7 @@ public abstract class AbstractScenarioSaver extends AbstractIO implements IScena
     @Override
     public void close() throws ScenarioException
     {
-        throw new ScenarioException("The \"close\" method is not implemented", this.getClass(), _scenario);
+        throw new ScenarioException("The \"close\" method is not implemented", null, this.getClass(), _scenario);
     }
 
 }

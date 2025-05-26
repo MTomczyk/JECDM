@@ -117,7 +117,7 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
     @Override
     public ICrossSaver getInstance(String path, String filename, CrossedScenarios crossedScenarios) throws CrossedScenariosException
     {
-        throw new CrossedScenariosException("The \"get instance\" method is not implemented", this.getClass(), crossedScenarios);
+        throw new CrossedScenariosException("The \"get instance\" method is not implemented",  null, this.getClass(), crossedScenarios);
     }
 
 
@@ -178,7 +178,7 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
     @Override
     public void create() throws CrossedScenariosException
     {
-        throw new CrossedScenariosException("The \"create\" method is not implemented", this.getClass(), _crossedScenarios);
+        throw new CrossedScenariosException("The \"create\" method is not implemented",  null, this.getClass(), _crossedScenarios);
     }
 
 
@@ -252,7 +252,7 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
     @Override
     public void pushData(double[] trialResults, double[] statistics, int generation) throws ScenarioException
     {
-        throw new ScenarioException("The \"push data\" method is not implemented", this.getClass(), _scenario);
+        throw new ScenarioException("The \"push data\" method is not implemented", null, this.getClass(), _scenario);
     }
 
     /**
@@ -263,7 +263,7 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
     @Override
     public void notifyIndicatorProcessingEnds() throws CrossedScenariosException
     {
-        throw new CrossedScenariosException("The \"notify indicator processing ends\" method is not implemented", this.getClass(), _crossedScenarios);
+        throw new CrossedScenariosException("The \"notify indicator processing ends\" method is not implemented",  null, this.getClass(), _crossedScenarios);
     }
 
 
@@ -275,7 +275,7 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
     @Override
     public void notifyScenarioProcessingEnds() throws CrossedScenariosException
     {
-        throw new CrossedScenariosException("The \"notify scenario processing ends\" method is not implemented", this.getClass(), _crossedScenarios);
+        throw new CrossedScenariosException("The \"notify scenario processing ends\" method is not implemented",  null, this.getClass(), _crossedScenarios);
     }
 
     /**
@@ -284,7 +284,7 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
     @Override
     public void notifyProcessingEnds() throws CrossedScenariosException
     {
-        throw new CrossedScenariosException("The \"notify processing ends\" method is not implemented", this.getClass(), _crossedScenarios);
+        throw new CrossedScenariosException("The \"notify processing ends\" method is not implemented", null, this.getClass(), _crossedScenarios);
     }
 
     /**
@@ -295,7 +295,7 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
     @Override
     public void close() throws CrossedScenariosException
     {
-        throw new CrossedScenariosException("The \"close\" method is not implemented", this.getClass(), _crossedScenarios);
+        throw new CrossedScenariosException("The \"close\" method is not implemented",  null, this.getClass(), _crossedScenarios);
     }
 
     /**

@@ -6,27 +6,37 @@ package exception;
  *
  * @author MTomczyk
  */
-
-
 public class GlobalException extends AbstractExperimentationException
 {
     /**
      * Parameterized exception.
      *
-     * @param msg exception message
-     * @param handler          class that handled the exception
+     * @param msg     exception message
+     * @param handler class that handled the exception (can be null)
      */
     public GlobalException(String msg, Class<?> handler)
     {
-        this(msg, handler, null);
+        this(msg, handler, (Throwable) null);
     }
 
     /**
      * Parameterized exception.
      *
-     * @param msg exception message
-     * @param handler          class that handled the exception
-     * @param cause            can be null; if provided, additional information can be retrieved
+     * @param msg     exception message
+     * @param handler class that handled the exception (can be null)
+     * @param source  source of exception (can be null)
+     */
+    public GlobalException(String msg, Class<?> handler, Class<?> source)
+    {
+        super(msg, handler, source, null, null, null, null);
+    }
+
+    /**
+     * Parameterized exception.
+     *
+     * @param msg     exception message
+     * @param handler class that handled the exception (can be null)
+     * @param cause   can be null; if provided, additional information can be retrieved (can be null)
      */
     public GlobalException(String msg, Class<?> handler, Throwable cause)
     {

@@ -135,9 +135,9 @@ public abstract class AbstractExcelFinalRanker extends AbstractExcelSaver implem
             for (ITest t : tests)
             {
                 if (t == null)
-                    throw new CrossedScenariosException("One of the statistical tests is not provided (is null)", this.getClass(), crossedScenarios);
+                    throw new CrossedScenariosException("One of the statistical tests is not provided (is null)", null, this.getClass(), crossedScenarios);
                 if (names.contains(t.toString()))
-                    throw new CrossedScenariosException("Statistical tests = " + t + " is not unique", this.getClass(), crossedScenarios);
+                    throw new CrossedScenariosException("Statistical tests = " + t + " is not unique", null, this.getClass(), crossedScenarios);
                 names.add(t.toString());
             }
         }

@@ -3,6 +3,7 @@ package executor.complex.case4;
 import ea.EA;
 import exception.TrialException;
 import indicator.IIndicator;
+import random.AbstractRandomNumberGenerator;
 import scenario.Scenario;
 
 /**
@@ -38,7 +39,9 @@ class SeedIndicator implements IIndicator
     @Override
     public double evaluate(EA ea) throws TrialException
     {
-        return ea.getR().getSeed();
+        Object o = ((AbstractRandomNumberGenerator) ea.getR()).getSeed();
+        long[] s = (long[]) o;
+        return s[0];
     }
 
     /**

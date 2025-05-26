@@ -30,6 +30,47 @@ import java.util.ListIterator;
 public class PCPPainter2D extends Painter2D implements IPainter
 {
     /**
+     * Params container
+     */
+    public static class Params extends Painter2D.Params
+    {
+        /**
+         * Considered dimensionality (the number of parallel Y-axes).
+         */
+        public int _dimensions;
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param ms         marker style
+         * @param ls         line style
+         * @param dimensions considered dimensionality (the number of parallel Y-axes)
+         */
+        public Params(MarkerStyle ms, LineStyle ls, int dimensions)
+        {
+            this(ms, ls, dimensions, 0.005f);
+        }
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param ms                           marker style
+         * @param ls                           line style
+         * @param dimensions                   considered dimensionality (the number of parallel Y-axes)
+         * @param gradientLineMinSegmentLength Determines the minimal segment line used when constructing gradient line
+         *                                     (discretization level, the lower the value, the greater the discretization
+         *                                     but also computational resources used); the interpretation is
+         *                                     implementation-dependent; default: percent value of an average screen
+         *                                     dimension (in pixels)
+         */
+        public Params(MarkerStyle ms, LineStyle ls, int dimensions, float gradientLineMinSegmentLength)
+        {
+            super(ms, ls, null, false, gradientLineMinSegmentLength);
+            _dimensions = dimensions;
+        }
+    }
+
+    /**
      * Reference to the projection data (additional reference is kept to avoid casting).
      */
     private PCPIDS _pcpProjection;
@@ -42,14 +83,12 @@ public class PCPPainter2D extends Painter2D implements IPainter
     /**
      * Parameterized constructor.
      *
-     * @param ms marker style
-     * @param ls line style
-     * @param dimensions the number of parallel coordinate axes
+     * @param p params container
      */
-    public PCPPainter2D(MarkerStyle ms, LineStyle ls, int dimensions)
+    public PCPPainter2D(Params p)
     {
-        super(ms, ls);
-        _dimensions = dimensions;
+        super(p);
+        _dimensions = p._dimensions;
     }
 
     /**
@@ -75,7 +114,7 @@ public class PCPPainter2D extends Painter2D implements IPainter
         if (_ms != null) ms = _ms.getClone();
         LineStyle ls = null;
         if (_ls != null) ls = _ls.getClone();
-        return new PCPPainter2D(ms, ls, _dimensions);
+        return new PCPPainter2D(new Params(ms, ls, _dimensions));
     }
 
 

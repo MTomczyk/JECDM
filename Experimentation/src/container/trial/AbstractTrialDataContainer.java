@@ -227,7 +227,7 @@ public abstract class AbstractTrialDataContainer extends AbstractDataContainer
             }
         if (!contains)
             throw new TrialException("The TDC is not supplied with a binary saver",
-                    this.getClass(), _SDC.getScenario(), _trialID);
+                    null, this.getClass(), _SDC.getScenario(), _trialID);
     }
 
     /**

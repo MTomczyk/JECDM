@@ -207,9 +207,9 @@ public class Utils
             {
                 // Problem bundle should be available:
                 if (p._problemBundle == null)
-                    throw new TrialException("Problem is unavailable", this.getClass(), p._SDC.getScenario(), p._trialID);
+                    throw new TrialException("Problem is unavailable", null, this.getClass(), p._SDC.getScenario(), p._trialID);
                 if (!(p._problemBundle instanceof AbstractMOOProblemBundle problemBundle))
-                    throw new TrialException("Problem is not MOO", this.getClass(), p._SDC.getScenario(), p._trialID);
+                    throw new TrialException("Problem is not MOO", null, this.getClass(), p._SDC.getScenario(), p._trialID);
 
                 String algorithm = p._SDC.getScenario().getAlgorithm();
                 int objectives = p._SDC.getObjectives();

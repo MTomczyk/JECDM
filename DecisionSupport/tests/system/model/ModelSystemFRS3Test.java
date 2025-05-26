@@ -21,7 +21,9 @@ import model.internals.value.scalarizing.LNorm;
 import org.junit.jupiter.api.Test;
 import preference.indirect.PairwiseComparison;
 import random.IRandom;
+import random.MersenneTwister32;
 import random.MersenneTwister64;
+import random.XoRoShiRo128PP;
 import space.Range;
 import space.os.ObjectiveSpace;
 
@@ -46,7 +48,7 @@ class ModelSystemFRS3Test
     {
         IPreferenceModel<LNorm> preferenceModel = new model.definitions.LNorm();
         IRandomModel<LNorm> randomModel = new LNormGenerator(2, Double.POSITIVE_INFINITY);
-        IRandom R = new MersenneTwister64(0);
+        IRandom R = new XoRoShiRo128PP(0);
         FRS.Params<LNorm> pFRS = new FRS.Params<>(randomModel);
         pFRS._samplingLimit = 10000000;
         int toSample = 100000;
@@ -156,13 +158,13 @@ class ModelSystemFRS3Test
         assertNull(report._reportOnInconsistencyHandling);
         assertFalse(report._report._inconsistencyDetected);
         assertEquals(toSample, report._report._models.size());
-        assertEquals(0.0d, report._report._successRateInPreserving, 0.01d);
-        assertEquals(0, report._report._modelsPreservedBetweenIterations, 0.01d);
-        assertEquals(0, report._report._modelsRejectedBetweenIterations, 0.01d);
+        assertEquals(0.0d, report._report._successRateInPreserving, 1.0E-2);
+        assertEquals(0, report._report._modelsPreservedBetweenIterations, 1.0E-201d);
+        assertEquals(0, report._report._modelsRejectedBetweenIterations, 1.0E-2);
 
-        assertEquals(2.0d / 3.0d, report._report._successRateInConstructing, 0.01d);
-        assertEquals(toSample, report._report._acceptedNewlyConstructedModels, 0.01d);
-        assertEquals(1.0d / 2.0d, (double) report._report._rejectedNewlyConstructedModels / report._report._acceptedNewlyConstructedModels, 0.01d);
+        assertEquals(2.0d / 3.0d, report._report._successRateInConstructing, 1.0E-2);
+        assertEquals(toSample, report._report._acceptedNewlyConstructedModels, 1.0E-2);
+        assertEquals(1.0d / 2.0d, (double) report._report._rejectedNewlyConstructedModels / report._report._acceptedNewlyConstructedModels, 1.0E-2);
 
         assertTrue(report._report._constructionElapsedTime > 0);
         assertTrue(report._report._normalizationsWereUpdated);
@@ -232,13 +234,13 @@ class ModelSystemFRS3Test
         assertNull(report._reportOnInconsistencyHandling);
         assertFalse(report._report._inconsistencyDetected);
         assertEquals(toSample, report._report._models.size());
-        assertEquals(0.5d, report._report._successRateInPreserving, 0.01d);
-        assertEquals(0.5d, (double) report._report._modelsPreservedBetweenIterations / toSample, 0.01d);
-        assertEquals(0.5d, (double) report._report._modelsRejectedBetweenIterations / toSample, 0.01d);
+        assertEquals(0.5d, report._report._successRateInPreserving, 1.0E-2);
+        assertEquals(0.5d, (double) report._report._modelsPreservedBetweenIterations / toSample, 1.0E-2);
+        assertEquals(0.5d, (double) report._report._modelsRejectedBetweenIterations / toSample, 1.0E-2);
 
-        assertEquals(1.0d / 3.0d, report._report._successRateInConstructing, 0.01d);
-        assertEquals(0.5d, (double) report._report._acceptedNewlyConstructedModels / toSample, 0.01d);
-        assertEquals(0.5d, (double) report._report._acceptedNewlyConstructedModels / report._report._rejectedNewlyConstructedModels, 0.01d);
+        assertEquals(1.0d / 3.0d, report._report._successRateInConstructing, 1.0E-2);
+        assertEquals(0.5d, (double) report._report._acceptedNewlyConstructedModels / toSample, 1.0E-2);
+        assertEquals(0.5d, (double) report._report._acceptedNewlyConstructedModels / report._report._rejectedNewlyConstructedModels, 1.0E-2);
 
         for (LNorm lNorm : report._report._models)
         {
@@ -354,12 +356,12 @@ class ModelSystemFRS3Test
             assertNotNull(m._models);
             assertEquals(toSample, m._models.size());
             assertTrue(m._constructionElapsedTime > 0);
-            assertEquals(0.0d, m._successRateInPreserving, 0.0000001d);
+            assertEquals(0.0d, m._successRateInPreserving, 1.0E-6);
             assertEquals(0, m._modelsPreservedBetweenIterations);
             assertEquals(0, m._modelsRejectedBetweenIterations);
-            assertEquals(2.0d / 3.0d, m._successRateInConstructing, 0.01d);
+            assertEquals(2.0d / 3.0d, m._successRateInConstructing, 1.0E-2);
             assertEquals(toSample, m._acceptedNewlyConstructedModels);
-            assertEquals(2.0d, (double) m._acceptedNewlyConstructedModels / m._rejectedNewlyConstructedModels, 0.01d);
+            assertEquals(2.0d, (double) m._acceptedNewlyConstructedModels / m._rejectedNewlyConstructedModels, 1.0E-2);
             assertFalse(m._normalizationsWereUpdated);
 
             for (LNorm lNorm : m._models)
@@ -384,13 +386,13 @@ class ModelSystemFRS3Test
             assertEquals(toSample, m._models.size());
             assertTrue(m._constructionElapsedTime > 0);
 
-            assertEquals(0.5d, m._successRateInPreserving, 0.01d);
-            assertEquals(0.5d, (double) m._modelsPreservedBetweenIterations / toSample, 0.01d);
-            assertEquals(0.5d, (double) m._modelsRejectedBetweenIterations / toSample, 0.01d);
+            assertEquals(0.5d, m._successRateInPreserving, 1.0E-2);
+            assertEquals(0.5d, (double) m._modelsPreservedBetweenIterations / toSample, 1.0E-2);
+            assertEquals(0.5d, (double) m._modelsRejectedBetweenIterations / toSample, 1.0E-2);
 
-            assertEquals(1.0d / 3.0d, m._successRateInConstructing, 0.01d);
-            assertEquals(0.5d, (double) m._acceptedNewlyConstructedModels / toSample, 0.01d);
-            assertEquals(0.5d, (double) m._acceptedNewlyConstructedModels / m._rejectedNewlyConstructedModels, 0.01d);
+            assertEquals(1.0d / 3.0d, m._successRateInConstructing, 1.0E-2);
+            assertEquals(0.5d, (double) m._acceptedNewlyConstructedModels / toSample, 1.0E-2);
+            assertEquals(0.5d, (double) m._acceptedNewlyConstructedModels / m._rejectedNewlyConstructedModels, 1.0E-2);
 
             assertFalse(m._normalizationsWereUpdated);
 

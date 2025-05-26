@@ -7,6 +7,7 @@ import model.constructor.Report;
 import model.constructor.random.IRandomModel;
 import model.internals.value.AbstractValueInternalModel;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -89,7 +90,8 @@ public class IterableERS<T extends AbstractValueInternalModel> extends ERS<T> im
         // update bundle
         if (_passModels)
         {
-            bundle._models.clear();
+            if (bundle._models == null) bundle._models = new ArrayList<>(getModelsQueue().getQueue().size());
+            else bundle._models.clear();
             for (SortedModel<T> t : getModelsQueue().getQueue())
                 if (t._isCompatible) bundle._models.add(t._model);
         }

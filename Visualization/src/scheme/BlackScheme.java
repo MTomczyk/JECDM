@@ -9,8 +9,6 @@ import scheme.enums.ColorFields;
  *
  * @author MTomczyk
  */
-
-
 public class BlackScheme extends AbstractScheme
 {
     /**
@@ -114,14 +112,17 @@ public class BlackScheme extends AbstractScheme
     }
 
     /**
-     * Factory-like method for constructing scheme instance (to be overwritten).
+     * Method for cloning the scheme.
+     *
+     * @return scheme instance
      */
     @Override
-    public AbstractScheme getInstance()
+    public BlackScheme getClone()
     {
-        return new BlackScheme();
+        BlackScheme blackScheme = new BlackScheme();
+        blackScheme.setFieldsAsIn(this);
+        return blackScheme;
     }
-
 
     /**
      * This method creates a black scheme that is well-suited to plot 3D. The changes are as follows:

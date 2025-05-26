@@ -223,7 +223,7 @@ public abstract class AbstractFinalStatistics extends AbstractExcelSaver impleme
     {
         if (statistics.length != _currentStatistics.length)
             throw new ScenarioException("The number of statistics differs from the number of statistic functions reported",
-                    this.getClass(), _scenario);
+                    null, this.getClass(), _scenario);
         if (generation == _lastGeneration)
         {
             for (int s = 0; s < statistics.length; s++)

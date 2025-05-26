@@ -31,6 +31,79 @@ import java.util.ListIterator;
 public abstract class AbstractPainter implements IPainter
 {
     /**
+     * Params container.
+     */
+    public static class Params
+    {
+        /**
+         * Marker style used when depicting data points.
+         */
+        public MarkerStyle _ms;
+
+        /**
+         * Line style used when illustrating lines.
+         */
+        public LineStyle _ls;
+
+        /**
+         * Arrow styles (beginning and ending) used when illustrating arrows.
+         */
+        public ArrowStyles _as;
+
+        /**
+         * If true, the default interpretation of raw data is changed. Instead of treating each double [][] data segment
+         * as one contiguous line (when using a line style), the data is considered to be a series of independent lines whose
+         * coordinates occupy each subsequent pair of double [] vectors in the data segment.
+         */
+        public boolean _treatContiguousLinesAsBroken;
+
+        /**
+         * Determines the minimal segment line used when constructing gradient line (discretization level, the lower the value,
+         * the greater the discretization but also computational resources used). The interpretation is implementation-dependent.
+         * Default: percent value of an average screen dimension (in pixels).
+         */
+        public float _gradientLineMinSegmentLength;
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param ms marker style
+         * @param ls line style
+         * @param as arrow styles (beginning and ending)
+         */
+        public Params(MarkerStyle ms, LineStyle ls, ArrowStyles as)
+        {
+            this(ms, ls, as, false, 0.005f);
+        }
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param ms                           marker style
+         * @param ls                           line style
+         * @param as                           arrow styles (beginning and ending)
+         * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
+         *                                     each double [][] data segment as one contiguous line (when using a line style),
+         *                                     the data is considered to be a series of independent lines whose coordinates
+         *                                     occupy each subsequent pair of double [] vectors in the data segment
+         * @param gradientLineMinSegmentLength Determines the minimal segment line used when constructing gradient line
+         *                                     (discretization level, the lower the value, the greater the discretization
+         *                                     but also computational resources used); the interpretation is
+         *                                     implementation-dependent; default: percent value of an average screen
+         *                                     dimension (in pixels)
+         */
+        public Params(MarkerStyle ms, LineStyle ls, ArrowStyles as, boolean treatContiguousLinesAsBroken,
+                      float gradientLineMinSegmentLength)
+        {
+            _ms = ms;
+            _ls = ls;
+            _as = as;
+            _treatContiguousLinesAsBroken = treatContiguousLinesAsBroken;
+            _gradientLineMinSegmentLength = gradientLineMinSegmentLength;
+        }
+    }
+
+    /**
      * Parent data set possessing the painter.
      */
     protected IDataSet _ds;
@@ -119,42 +192,15 @@ public abstract class AbstractPainter implements IPainter
     /**
      * Parameterized constructor.
      *
-     * @param ms marker style
-     * @param ls line style
+     * @param p params container
      */
-    protected AbstractPainter(MarkerStyle ms, LineStyle ls)
+    protected AbstractPainter(Params p)
     {
-        this(ms, ls, null, false, 0.005f);
-    }
-
-
-    /**
-     * Parameterized constructor.
-     *
-     * @param ms                           marker style
-     * @param ls                           line style
-     * @param as                           arrow styles (beginning and ending)
-     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
-     *                                     each double [][] data segment as one contiguous line (when using a line style),
-     *                                     the data is considered to be a series of independent lines whose coordinates
-     *                                     occupy each subsequent pair of double [] vectors in the data segment
-     * @param gradientLineMinSegmentLength Determines the minimal segment line used when constructing gradient line
-     *                                     (discretization level, the lower the value, the greater the discretization
-     *                                     but also computational resources used); the interpretation is
-     *                                     implementation-dependent; default: percent value of an average screen
-     *                                     dimension (in pixels)
-     */
-    protected AbstractPainter(MarkerStyle ms,
-                              LineStyle ls,
-                              ArrowStyles as,
-                              boolean treatContiguousLinesAsBroken,
-                              float gradientLineMinSegmentLength)
-    {
-        _ms = ms;
-        _ls = ls;
-        _as = as;
-        _treatContiguousLinesAsBroken = treatContiguousLinesAsBroken;
-        _gradientLineMinSegmentLength = gradientLineMinSegmentLength;
+        _ms = p._ms;
+        _ls = p._ls;
+        _as = p._as;
+        _treatContiguousLinesAsBroken = p._treatContiguousLinesAsBroken;
+        _gradientLineMinSegmentLength = p._gradientLineMinSegmentLength;
         instantiateMinNoLinePointsRequired();
         instantiateAuxiliaryObjects();
         instantiateTimeStatistics();

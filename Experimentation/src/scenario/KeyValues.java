@@ -72,21 +72,22 @@ public class KeyValues
      */
     public static KeyValues getInstance(String key, String abb, String[] values, boolean[] disabled) throws GlobalException
     {
-        if (key == null) throw new GlobalException("No key is provided", KeyValues.class);
-        if (key.isEmpty()) throw new GlobalException("The key is an empty string", KeyValues.class);
-        if (abb == null) throw new GlobalException("No key abbreviation is provided", KeyValues.class);
-        if (abb.isEmpty()) throw new GlobalException("The key abbreviation is an empty string", KeyValues.class);
+        if (key == null) throw new GlobalException("No key is provided", null, KeyValues.class);
+        if (key.isEmpty()) throw new GlobalException("The key is an empty string", null, KeyValues.class);
+        if (abb == null) throw new GlobalException("No key abbreviation is provided", null, KeyValues.class);
+        if (abb.isEmpty()) throw new GlobalException("The key abbreviation is an empty string", null, KeyValues.class);
         if (values == null)
-            throw new GlobalException("The values for the key = " + key + " are not provided (the array is null)", KeyValues.class);
+            throw new GlobalException("The values for the key = " + key + " are not provided (the array is null)", null, KeyValues.class);
         if (values.length == 0)
-            throw new GlobalException("The values for the key = " + key + " are not provided (the array is empty)", KeyValues.class);
+            throw new GlobalException("The values for the key = " + key + " are not provided (the array is empty)", null, KeyValues.class);
         for (String v : values)
-            if (v == null) throw new GlobalException("The value for the key = " + key + " is null", KeyValues.class);
+            if (v == null)
+                throw new GlobalException("The value for the key = " + key + " is null", null, KeyValues.class);
         for (String v : values)
             if (v.isEmpty())
-                throw new GlobalException("The value for the key = " + key + " is an empty string", KeyValues.class);
+                throw new GlobalException("The value for the key = " + key + " is an empty string", null, KeyValues.class);
         if ((disabled != null) && (disabled.length != values.length))
-            throw new GlobalException("The disable flags array for the key = " + key + " is of different length than the values array", KeyValues.class);
+            throw new GlobalException("The disable flags array for the key = " + key + " is of different length than the values array", null, KeyValues.class);
 
         Value[] vs = new Value[values.length];
         boolean[] d = new boolean[values.length];

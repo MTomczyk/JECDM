@@ -31,7 +31,7 @@ public class CompatibleModels extends AbstractIndicator implements IIndicator
     @Override
     public double evaluate(EA ea) throws TrialException
     {
-        if (!(ea instanceof EAWrapperIterableSampler<?> eaWrapper)) throw new TrialException("Invalid EA type", null, _scenario, _trialID);
+        if (!(ea instanceof EAWrapperIterableSampler<?> eaWrapper)) throw new TrialException("Invalid EA type", null, (Class<?>) null, _scenario, _trialID);
         Report<?> report = eaWrapper.getReport();
         return report._models.size();
     }

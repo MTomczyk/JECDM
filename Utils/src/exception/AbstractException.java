@@ -81,10 +81,12 @@ public abstract class AbstractException extends Exception
      */
     public String getDetailedReasonMessage()
     {
+        String hName = null;
+        if (_handler != null) hName = _handler.getName();
         if ((_line != null) && (_source != null))
-            return "(handler = " + _handler.getName() + ", line in throwing class = " + _line + ", throwing class = "
+            return "(handler = " + hName + ", line in throwing class = " + _line + ", throwing class = "
                     + _source + ", reason = " + getMessage() + ")";
-        return "(handler = " + _handler.getName() + ", reason = " + getMessage() + ")";
+        return "(handler = " + hName + ", reason = " + getMessage() + ")";
     }
 
     /**

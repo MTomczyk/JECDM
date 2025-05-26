@@ -60,10 +60,11 @@ public class FinalStatisticsXLS extends AbstractFinalStatistics implements ICros
      * @return new object instance
      * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
      */
+    @Override
     public ICrossSaver getInstance(String path, String filename, CrossedScenarios crossedScenarios) throws CrossedScenariosException
     {
         if (_level < 2)
-            throw new CrossedScenariosException("The 1-level cross comparison is no supported", this.getClass(), crossedScenarios);
+            throw new CrossedScenariosException("The 1-level cross comparison is no supported", null, this.getClass(), crossedScenarios);
         return new FinalStatisticsXLS(path, filename, crossedScenarios, _level, _excel._style);
     }
 

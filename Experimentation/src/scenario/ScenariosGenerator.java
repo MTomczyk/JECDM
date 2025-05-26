@@ -86,14 +86,14 @@ public class ScenariosGenerator
     private static void validate(KeyValues[] keyValues, Set<Character> allowedCharacters, int[] keyValuesOrder) throws GlobalException
     {
         if (keyValues == null)
-            throw new GlobalException("The key-values are not specified (the array is null)", ScenariosGenerator.class);
+            throw new GlobalException("The key-values are not specified (the array is null)", null, ScenariosGenerator.class);
         if (keyValues.length == 0)
-            throw new GlobalException("The key-values are not specified (the array is empty)", ScenariosGenerator.class);
+            throw new GlobalException("The key-values are not specified (the array is empty)", null, ScenariosGenerator.class);
         for (KeyValues kv : keyValues)
             if (kv == null)
-                throw new GlobalException("One of the provided key-values is not specified (is null)", ScenariosGenerator.class);
+                throw new GlobalException("One of the provided key-values is not specified (is null)", null, ScenariosGenerator.class);
         if ((keyValuesOrder != null) && (keyValues.length != keyValuesOrder.length))
-            throw new GlobalException("The number of provided custom orders is of a different size than the key-values array length", ScenariosGenerator.class);
+            throw new GlobalException("The number of provided custom orders is of a different size than the key-values array length", null, ScenariosGenerator.class);
 
         // check keys and their abbreviations
         Set<Key> keys = new HashSet<>(keyValues.length);
@@ -102,22 +102,22 @@ public class ScenariosGenerator
         for (KeyValues kv : keyValues)
         {
             if (keys.contains(kv.getKey()))
-                throw new GlobalException("The key = " + kv.getKey() + " is not unique", ScenariosGenerator.class);
+                throw new GlobalException("The key = " + kv.getKey() + " is not unique", null, ScenariosGenerator.class);
             keys.add(kv.getKey());
             if (abbreviations.contains(kv.getKey().getAbbreviation()))
-                throw new GlobalException("The key abbreviation = " + kv.getKey().getAbbreviation() + " is not unique", ScenariosGenerator.class);
+                throw new GlobalException("The key abbreviation = " + kv.getKey().getAbbreviation() + " is not unique", null, ScenariosGenerator.class);
             abbreviations.add(kv.getKey().getAbbreviation());
         }
 
         for (KeyValues kv : keyValues)
         {
             if (!FileUtils.isAlphanumeric(kv.getKey().getLabel(), allowedCharacters))
-                throw new GlobalException("The key = " + kv.getKey() + " contains forbidden characters", ScenariosGenerator.class);
+                throw new GlobalException("The key = " + kv.getKey() + " contains forbidden characters", null, ScenariosGenerator.class);
             if (!FileUtils.isAlphanumeric(kv.getKey().getAbbreviation(), allowedCharacters))
-                throw new GlobalException("The key abbreviation = " + kv.getKey().getAbbreviation() + " contains forbidden characters", ScenariosGenerator.class);
+                throw new GlobalException("The key abbreviation = " + kv.getKey().getAbbreviation() + " contains forbidden characters", null, ScenariosGenerator.class);
             for (Value v : kv.getValues())
                 if (!FileUtils.isAlphanumeric(v.getValue(), allowedCharacters))
-                    throw new GlobalException("The value = " + v.getValue() + " of the key = " + kv.getKey() + " contains forbidden characters", ScenariosGenerator.class);
+                    throw new GlobalException("The value = " + v.getValue() + " of the key = " + kv.getKey() + " contains forbidden characters", null, ScenariosGenerator.class);
         }
     }
 

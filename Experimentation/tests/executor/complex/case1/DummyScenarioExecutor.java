@@ -2,6 +2,7 @@ package executor.complex.case1;
 
 import container.scenario.AbstractScenarioDataContainer;
 import container.trial.TrialDataContainerFactory;
+import exception.ScenarioException;
 import executor.ScenarioExecutor;
 import executor.TrialExecutor;
 import random.IRandom;
@@ -58,9 +59,10 @@ public class DummyScenarioExecutor extends ScenarioExecutor
      * @param latch reference to the count-down latch that will be reduced by the monitor thread after all executors
      *              finish their processing
      * @return the collection of trial executors (runnables) to be processed via a thread pool executor
+     * @throws ScenarioException scenario exception can be thrown and propagated higher
      */
     @Override
-    protected ArrayList<TrialExecutor> constructTrialExecutors(CountDownLatch latch)
+    protected ArrayList<TrialExecutor> constructTrialExecutors(CountDownLatch latch) throws ScenarioException
     {
         ArrayList<TrialExecutor> executors = new ArrayList<>(_SDC.getGDC().getNoEnabledTrials());
         for (int id : _SDC.getGDC().getTrialIDs())

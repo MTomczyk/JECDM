@@ -25,6 +25,73 @@ import java.util.ListIterator;
 public class Painter2D extends AbstractPainter implements IPainter
 {
     /**
+     * Auxiliary interface for classes responsible for performing params container adjustments.
+     */
+    public interface IParamsAdjuster
+    {
+        /**
+         * The main method.
+         *
+         * @param p params container to be adjusted
+         */
+        void adjust(Params p);
+    }
+
+
+    /**
+     * Params container
+     */
+    public static class Params extends AbstractPainter.Params
+    {
+        /**
+         * Parameterized constructor.
+         *
+         * @param ms marker style
+         * @param ls line style
+         */
+        public Params(MarkerStyle ms, LineStyle ls)
+        {
+            this(ms, ls, null);
+        }
+
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param ms marker style
+         * @param ls line style
+         * @param as arrow styles (beginning and ending)
+         */
+        public Params(MarkerStyle ms, LineStyle ls, ArrowStyles as)
+        {
+            this(ms, ls, as, false, 0.005f);
+        }
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param ms                           marker style
+         * @param ls                           line style
+         * @param as                           arrow styles (beginning and ending)
+         * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
+         *                                     each double [][] data segment as one contiguous line (when using a line style),
+         *                                     the data is considered to be a series of independent lines whose coordinates
+         *                                     occupy each subsequent pair of double [] vectors in the data segment
+         * @param gradientLineMinSegmentLength Determines the minimal segment line used when constructing gradient line
+         *                                     (discretization level, the lower the value, the greater the discretization
+         *                                     but also computational resources used); the interpretation is
+         *                                     implementation-dependent; default: percent value of an average screen
+         *                                     dimension (in pixels)
+         */
+        public Params(MarkerStyle ms, LineStyle ls, ArrowStyles as, boolean treatContiguousLinesAsBroken,
+                      float gradientLineMinSegmentLength)
+        {
+            super(ms, ls, as, treatContiguousLinesAsBroken, gradientLineMinSegmentLength);
+        }
+    }
+
+
+    /**
      * Java awt graphics context.
      */
     protected Graphics _G;
@@ -32,37 +99,11 @@ public class Painter2D extends AbstractPainter implements IPainter
     /**
      * Parameterized constructor.
      *
-     * @param ms marker style
-     * @param ls line style
+     * @param p params container
      */
-    public Painter2D(MarkerStyle ms, LineStyle ls)
+    public Painter2D(Params p)
     {
-        this(ms, ls, null, false, 0.005f);
-    }
-
-    /**
-     * Parameterized constructor.
-     *
-     * @param ms                           marker style
-     * @param ls                           line style
-     * @param as                           arrow styles (beginning and ending)
-     * @param treatContiguousLinesAsBroken if true, the default interpretation of raw data is changed. Instead of treating
-     *                                     each double [][] data segment as one contiguous line (when using a line style),
-     *                                     the data is considered to be a series of independent lines whose coordinates
-     *                                     occupy each subsequent pair of double [] vectors in the data segment
-     * @param gradientLineMinSegmentLength Determines the minimal segment line used when constructing gradient line
-     *                                     (discretization level, the lower the value, the greater the discretization
-     *                                     but also computational resources used); the interpretation is
-     *                                     implementation-dependent; default: percent value of an average screen
-     *                                     dimension (in pixels)
-     */
-    public Painter2D(MarkerStyle ms,
-                     LineStyle ls,
-                     ArrowStyles as,
-                     boolean treatContiguousLinesAsBroken,
-                     float gradientLineMinSegmentLength)
-    {
-        super(ms, ls, as, treatContiguousLinesAsBroken, gradientLineMinSegmentLength);
+        super(p);
     }
 
     /**
@@ -81,7 +122,7 @@ public class Painter2D extends AbstractPainter implements IPainter
         if (_ls != null) ls = _ls.getClone();
         ArrowStyles as = null;
         if (_as != null) as = _as.getClone();
-        return new Painter2D(ms, ls, as, _treatContiguousLinesAsBroken, _gradientLineMinSegmentLength);
+        return new Painter2D(new Params(ms, ls, as, _treatContiguousLinesAsBroken, _gradientLineMinSegmentLength));
     }
 
     /**

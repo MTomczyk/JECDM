@@ -109,7 +109,6 @@ public class IntegerDivider
                 d--;
                 a++;
             }
-
         }
 
         return r;

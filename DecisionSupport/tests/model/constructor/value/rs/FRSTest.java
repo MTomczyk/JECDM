@@ -34,7 +34,7 @@ class FRSTest
     @Test
     void mainConstructModels1()
     {
-        int toGenerate = 100000;
+        int toGenerate = 1000000;
         int[] it = new int[]{0, toGenerate - 1, toGenerate};
         boolean[] inc = new boolean[]{false, false, true};
         IRandom R = new MersenneTwister64(0);
@@ -110,7 +110,7 @@ class FRSTest
     @Test
     void mainConstructModels2()
     {
-        int toGenerate = 100000;
+        int toGenerate = 1000000;
         int[] it = new int[]{0, toGenerate - 1, toGenerate};
         boolean[] inc = new boolean[]{false, false, true};
 
@@ -219,7 +219,7 @@ class FRSTest
     @Test
     void mainConstructModels3()
     {
-        int toGenerate = 100000;
+        int toGenerate = 1000000;
         int[] it = new int[]{0, toGenerate - 1, toGenerate};
         boolean[] inc = new boolean[]{false, false, true};
 
@@ -327,7 +327,7 @@ class FRSTest
     @Test
     void mainConstructModels4()
     {
-        int toGenerate = 100000;
+        int toGenerate = 1000000;
 
         IRandomModel<LNorm> RM = new LNormGenerator(2, 1.0d);
         FRS.Params<LNorm> params = new FRS.Params<>(RM);
@@ -387,7 +387,7 @@ class FRSTest
     @Test
     void mainConstructModels5()
     {
-        int toGenerate = 100000;
+        int toGenerate = 1000000;
         int[] it = new int[]{0, toGenerate - 1, toGenerate};
         boolean[] inc = new boolean[]{false, false, true};
 
@@ -465,7 +465,7 @@ class FRSTest
     @Test
     void mainConstructModels6()
     {
-        int toGenerate = 100000;
+        int toGenerate = 1000000;
 
         IRandom R = new MersenneTwister64(0);
         IRandomModel<LNorm> RM = new LNormGenerator(2, Double.POSITIVE_INFINITY);

@@ -11,8 +11,7 @@ import model.internals.value.scalarizing.LNorm;
  *
  * @author MTomczyk
  */
-public class Euclidean extends AbstractEuclideanSimilarity<LNorm>
-        implements ISimilarity<LNorm>
+public class Euclidean extends AbstractEuclideanSimilarity<LNorm> implements ISimilarity<LNorm>
 {
     /**
      * Quantifies similarity between two models.

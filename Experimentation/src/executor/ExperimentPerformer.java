@@ -378,7 +378,7 @@ public class ExperimentPerformer extends AbstractExecutor
      */
     protected void validateGDC() throws GlobalException
     {
-        if (_GDC == null) throw new GlobalException("Global Data Container is not provided", this.getClass());
+        if (_GDC == null) throw new GlobalException("Global Data Container is not provided", null, this.getClass());
     }
 
     /**
@@ -389,7 +389,7 @@ public class ExperimentPerformer extends AbstractExecutor
     protected void validateSDCF() throws GlobalException
     {
         if (_SDCF == null)
-            throw new GlobalException("Scenario Data Container Factory is not provided", this.getClass());
+            throw new GlobalException("Scenario Data Container Factory is not provided", null, this.getClass());
     }
 
     /**
@@ -399,7 +399,8 @@ public class ExperimentPerformer extends AbstractExecutor
      */
     protected void validateTDCF() throws GlobalException
     {
-        if (_TDCF == null) throw new GlobalException("Trial Data Container Factory is not provided", this.getClass());
+        if (_TDCF == null)
+            throw new GlobalException("Trial Data Container Factory is not provided", null, this.getClass());
     }
 
 
@@ -422,7 +423,7 @@ public class ExperimentPerformer extends AbstractExecutor
         if (!file.exists())
         {
             boolean created = file.mkdir();
-            if (!created) throw new GlobalException("Could not create the main folder", this.getClass());
+            if (!created) throw new GlobalException("Could not create the main folder", null, this.getClass());
         }
 
         _log.log("The main folder is created (" + _GDC.getMainPath() + ")", Level.Global, _indent);

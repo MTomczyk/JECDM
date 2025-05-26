@@ -33,6 +33,52 @@ import java.util.ListIterator;
 public class ConvergencePlotPainter2D extends Painter2D implements IPainter
 {
     /**
+     * Params container
+     */
+    public static class Params extends Painter2D.Params
+    {
+        /**
+         * Envelope color.
+         */
+        public Color _envelopeColor;
+
+        /**
+         * Considered dimensionality (the number of parallel Y-axes).
+         */
+        public int _dimensions;
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param ms            marker style
+         * @param ls            line style
+         * @param envelopeColor envelopeColor (can be null, if line color is used for the envelope)
+         */
+        public Params(MarkerStyle ms, LineStyle ls, Color envelopeColor)
+        {
+            this(ms, ls, envelopeColor, 0.005f);
+        }
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param ms                           marker style
+         * @param ls                           line style
+         * @param envelopeColor                envelopeColor (can be null, if line color is used for the envelope)
+         * @param gradientLineMinSegmentLength Determines the minimal segment line used when constructing gradient line
+         *                                     (discretization level, the lower the value, the greater the discretization
+         *                                     but also computational resources used); the interpretation is
+         *                                     implementation-dependent; default: percent value of an average screen
+         *                                     dimension (in pixels)
+         */
+        public Params(MarkerStyle ms, LineStyle ls, Color envelopeColor, float gradientLineMinSegmentLength)
+        {
+            super(ms, ls, null, false, gradientLineMinSegmentLength);
+            _envelopeColor = envelopeColor;
+        }
+    }
+
+    /**
      * Envelope color.
      */
     protected Color _envelopeColor;
@@ -45,25 +91,12 @@ public class ConvergencePlotPainter2D extends Painter2D implements IPainter
     /**
      * Parameterized constructor.
      *
-     * @param ms marker style
-     * @param ls line style
+     * @param p params container
      */
-    public ConvergencePlotPainter2D(MarkerStyle ms, LineStyle ls)
+    public ConvergencePlotPainter2D(Params p)
     {
-        this(ms, ls, null);
-    }
-
-    /**
-     * Parameterized constructor.
-     *
-     * @param ms            marker style
-     * @param ls            line style
-     * @param envelopeColor envelopeColor (can be null -> line color is used)
-     */
-    public ConvergencePlotPainter2D(MarkerStyle ms, LineStyle ls, Color envelopeColor)
-    {
-        super(ms, ls);
-        _envelopeColor = envelopeColor;
+        super(p);
+        _envelopeColor = p._envelopeColor;
     }
 
     /**
@@ -79,7 +112,7 @@ public class ConvergencePlotPainter2D extends Painter2D implements IPainter
         if (_ms != null) ms = _ms.getClone();
         LineStyle ls = null;
         if (_ls != null) ls = _ls.getClone();
-        return new ConvergencePlotPainter2D(ms, ls, _envelopeColor);
+        return new ConvergencePlotPainter2D(new Params(ms, ls, _envelopeColor));
     }
 
     /**

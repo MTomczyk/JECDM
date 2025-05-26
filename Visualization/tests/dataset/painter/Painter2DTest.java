@@ -52,7 +52,7 @@ class Painter2DTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, true);
-        AbstractPainter painter = new Painter2D(ms, ls);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(ms, ls));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);
@@ -148,7 +148,7 @@ class Painter2DTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, true);
-        AbstractPainter painter = new Painter2D(ms, ls);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(ms, ls));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);
@@ -205,7 +205,7 @@ class Painter2DTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, true);
-        AbstractPainter painter = new Painter2D(ms, ls);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(ms, ls));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);
@@ -252,7 +252,7 @@ class Painter2DTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, true);
-        AbstractPainter painter = new Painter2D(ms, ls);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(ms, ls));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);
@@ -329,7 +329,7 @@ class Painter2DTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, true);
-        AbstractPainter painter = new Painter2D(ms, ls);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(ms, ls));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);
@@ -381,7 +381,7 @@ class Painter2DTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, true);
-        AbstractPainter painter = new Painter2D(ms, ls);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(ms, ls));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);
@@ -449,7 +449,7 @@ class Painter2DTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, true);
-        AbstractPainter painter = new Painter2D(ms, ls);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(ms, ls));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);
@@ -513,7 +513,7 @@ class Painter2DTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, true);
-        AbstractPainter painter = new Painter2D(ms, ls);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(ms, ls));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);
@@ -576,7 +576,7 @@ class Painter2DTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, true);
-        AbstractPainter painter = new Painter2D(ms, ls);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(ms, ls));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);
@@ -638,7 +638,7 @@ class Painter2DTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, true);
-        AbstractPainter painter = new Painter2D(ms, ls);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(ms, ls));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);
@@ -739,7 +739,7 @@ class Painter2DTest
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, true);
-        AbstractPainter painter = new Painter2D(ms, ls);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(ms, ls));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);
@@ -835,18 +835,18 @@ class Painter2DTest
         LineStyle ls = new LineStyle(1.0f, Color.RED);
 
         LinkedList<double[][]> d = new LinkedList<>();
-        d.add(new double[][]{{0.0d, -2.0f, 0.0f, -2.0f, 0.0f, 0.0f}, {0.0d, -1.9f,  0.0f, -1.9f,  0.0f,  0.0f}});
+        d.add(new double[][]{{0.0d, -2.0f, 0.0f, -2.0f, 0.0f, 0.0f}, {0.0d, -1.9f, 0.0f, -1.9f, 0.0f, 0.0f}});
         d.add(null);
-        d.add(new double[][]{{0.0d, -1.5f,  0.0f, -1.5f,  0.0f,  0.0f}});
-        d.add(new double[][]{{0.0d, 1.0f,  0.0f, -1.0f,  0.0f,  0.0f}, {0.0d, 0.5f,  0.0f, 0.5f,  0.0f,  0.0f}, {0.0d, 1.0f,  0.0f, 1.0f,  0.0f,  0.0f}});
+        d.add(new double[][]{{0.0d, -1.5f, 0.0f, -1.5f, 0.0f, 0.0f}});
+        d.add(new double[][]{{0.0d, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f}, {0.0d, 0.5f, 0.0f, 0.5f, 0.0f, 0.0f}, {0.0d, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f}});
         d.add(null);
         d.add(null);
-        d.add(new double[][]{{0.0d, 2.0f,  0.0f, 2.0f,  0.0f,  0.0f}});
+        d.add(new double[][]{{0.0d, 2.0f, 0.0f, 2.0f, 0.0f, 0.0f}});
 
         Data data = new Data(d);
 
         GlobalContainer GC = new GlobalContainer(null, true);
-        AbstractPainter painter = new Painter2D(ms, ls);
+        AbstractPainter painter = new Painter2D(new Painter2D.Params(ms, ls));
         painter.setData(data);
         painter.setContainers(GC, null);
         painter.beginDataProcessing(true);

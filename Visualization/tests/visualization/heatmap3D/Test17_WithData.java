@@ -50,8 +50,7 @@ public class Test17_WithData
         pP._xAxisTitle = "X - dimension";
         pP._yAxisTitle = "Y - dimension";
         pP._zAxisTitle = "Z - dimension";
-        pP._scheme = new WhiteScheme();
-
+        pP._scheme = WhiteScheme.getForPlot3D();
 
         Range RX = Range.getNormalRange();
         Range RY = Range.getNormalRange();
@@ -93,9 +92,6 @@ public class Test17_WithData
         frame.getModel().getPlotsWrapper().getController().addReporter(new IDSRecalculationTimesReporter(frame.getModel().getGlobalContainer()));
         frame.getModel().getPlotsWrapper().getController().addReporter(new RenderGenerationTimesReporter(frame.getModel().getGlobalContainer()));
 
-        plot.getComponentsContainer().getMargins().getSurpassedSizes().put(SizeFields.MARGIN_TOP_RELATIVE_SIZE_MULTIPLIER, 0.1f);
-        plot.getComponentsContainer().getMargins().getSurpassedSizes().put(SizeFields.MARGIN_LEFT_RELATIVE_SIZE_MULTIPLIER, 0.1f);
-        plot.getComponentsContainer().getMargins().getSurpassedSizes().put(SizeFields.MARGIN_BOTTOM_RELATIVE_SIZE_MULTIPLIER, 0.1f);
         plot.getComponentsContainer().getMargins().getSurpassedSizes().put(SizeFields.MARGIN_RIGHT_RELATIVE_SIZE_MULTIPLIER, 0.3f);
         frame.updateScheme();
         frame.updateLayout();

@@ -53,7 +53,7 @@ public abstract class AbstractTrialSaver extends AbstractTrialIO implements ITri
     @Override
     public ITrialSaver getInstance(String path, String filename, Scenario scenario, int trialID) throws TrialException
     {
-        throw new TrialException("The \"get instance\" method is not implemented", this.getClass(), _scenario, _trialID);
+        throw new TrialException("The \"get instance\" method is not implemented", null, this.getClass(), _scenario, _trialID);
     }
 
     /**
@@ -75,7 +75,7 @@ public abstract class AbstractTrialSaver extends AbstractTrialIO implements ITri
     @Override
     public void create() throws TrialException
     {
-        throw new TrialException("The \"create\" method is not implemented", this.getClass(), _scenario, _trialID);
+        throw new TrialException("The \"create\" method is not implemented", null, this.getClass(), _scenario, _trialID);
     }
 
     /**
@@ -89,7 +89,7 @@ public abstract class AbstractTrialSaver extends AbstractTrialIO implements ITri
     @Override
     public void store(double[] data, int offset, int length) throws TrialException
     {
-        throw new TrialException("The \"store\" method is not implemented", this.getClass(), _scenario, _trialID);
+        throw new TrialException("The \"store\" method is not implemented", null, this.getClass(), _scenario, _trialID);
     }
 
     /**
@@ -100,7 +100,7 @@ public abstract class AbstractTrialSaver extends AbstractTrialIO implements ITri
     @Override
     public void close() throws TrialException
     {
-        throw new TrialException("The \"close\" method is not implemented", this.getClass(), _scenario, _trialID);
+        throw new TrialException("The \"close\" method is not implemented", null, this.getClass(), _scenario, _trialID);
 
     }
 }

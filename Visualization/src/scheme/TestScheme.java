@@ -32,15 +32,6 @@ public class TestScheme extends AbstractScheme
         return "TestScheme";
     }
 
-    /**
-     * Factory-like method for constructing scheme instance (to be overwritten).
-     */
-    @Override
-    public AbstractScheme getInstance()
-    {
-        return new TestScheme();
-    }
-
 
     /**
      * Instantiates alignments.

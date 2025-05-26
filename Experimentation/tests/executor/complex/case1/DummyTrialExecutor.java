@@ -63,7 +63,7 @@ public class DummyTrialExecutor extends TrialExecutor implements Callable<TrialS
     protected void run() throws TrialException
     {
         if ((_throwException != null) && (_throwException.length > _trialID) && (_throwException[_trialID]))
-            throw new TrialException("Dummy exception is thrown", this.getClass(), _SDC.getScenario(), _trialID);
+            throw new TrialException("Dummy exception is thrown", null, this.getClass(), _SDC.getScenario(), _trialID);
 
         int generations = _SDC.getGenerations();
 
@@ -74,7 +74,7 @@ public class DummyTrialExecutor extends TrialExecutor implements Callable<TrialS
                 Thread.sleep(_delay);
             } catch (InterruptedException e)
             {
-                throw new TrialException(e.getMessage(), this.getClass(), _SDC.getScenario(), _trialID);
+                throw new TrialException(e.getMessage(), null, this.getClass(), _SDC.getScenario(), _trialID);
             }
             _currentGeneration = g;
         }

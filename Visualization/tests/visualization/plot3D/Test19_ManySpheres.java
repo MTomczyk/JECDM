@@ -42,7 +42,7 @@ public class Test19_ManySpheres
         pP._drawZAxis = true;
         pP._drawLegend = false;
         pP._useAlphaChannel = false;
-        pP._scheme = new WhiteScheme();
+        pP._scheme = WhiteScheme.getForPlot3D();
 
         pP._xAxisTitle = "X-axis";
         pP._yAxisTitle = "Y-axis";

@@ -160,8 +160,8 @@ public class Plot3DModel extends PlotModel
     /**
      * Auxiliary method that updates the projection: camera rotation.
      *
-     * @param rx rotation along x-dimension
-     * @param ry rotation along y-dimension
+     * @param rx rotation along x-dimension (in degrees)
+     * @param ry rotation along y-dimension (in degrees)
      */
     @Override
     public void updateCameraRotation(float rx, float ry)
@@ -177,8 +177,8 @@ public class Plot3DModel extends PlotModel
     /**
      * Auxiliary method that updates the projection: plot rotation.
      *
-     * @param rx rotation along x-dimension
-     * @param ry rotation along y-dimension
+     * @param rx rotation along x-dimension (in degrees)
+     * @param ry rotation along y-dimension (in degrees)
      */
     @Override
     public void updatePlotRotation(float rx, float ry)

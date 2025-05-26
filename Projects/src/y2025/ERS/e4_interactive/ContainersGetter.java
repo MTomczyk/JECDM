@@ -4,6 +4,7 @@ import alternative.AbstractAlternatives;
 import alternative.Alternative;
 import container.Containers;
 import container.global.GlobalDataContainer;
+import container.global.initializers.DefaultRandomNumberGeneratorInitializer;
 import container.scenario.ScenarioDataContainerFactory;
 import container.trial.TrialDataContainerFactory;
 import decisionsupport.ERSFactory;
@@ -42,6 +43,7 @@ import model.constructor.value.rs.frs.FRS;
 import model.definitions.LNorm;
 import problem.Problem;
 import problem.moo.AbstractMOOProblemBundle;
+import random.MersenneTwister32;
 import y2025.ERS.common.PCsDataContainer;
 import random.IRandom;
 import random.MersenneTwister64;
@@ -180,6 +182,8 @@ public class ContainersGetter
         pGDC._referenceScenarioSavers.add(new TrialsResultsXLSX());
         pGDC._extraAllowedCharacters = new Character[]{'_', '.', '-'}; // add extra allowed characters for processing
 
+        pGDC._RNGI = new DefaultRandomNumberGeneratorInitializer(MersenneTwister32::new);
+
         // Create global data container
         GlobalDataContainer GDC = new GlobalDataContainer(pGDC);
 
@@ -255,9 +259,9 @@ public class ContainersGetter
         pTDCF._eaInitializer = (R1, p) -> {
             // Problem bundle should be available:
             if (p._problemBundle == null)
-                throw new TrialException("Problem is unavailable", ContainersGetter.class, p._SDC.getScenario(), p._trialID);
+                throw new TrialException("Problem is unavailable", null, ContainersGetter.class, p._SDC.getScenario(), p._trialID);
             if (!(p._problemBundle instanceof AbstractMOOProblemBundle problemBundle))
-                throw new TrialException("Problem is not MOO", ContainersGetter.class, p._SDC.getScenario(), p._trialID);
+                throw new TrialException("Problem is not MOO", null, ContainersGetter.class, p._SDC.getScenario(), p._trialID);
 
             String name = p._SDC.getScenario().getKeyValuesMap().get("SAMPLER").getValue();
             int M = p._SDC.getScenario().getObjectives();

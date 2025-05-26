@@ -166,22 +166,28 @@ public class CrossSummarizer extends ExperimentPerformer
         _log.log("Partitioning reference cross-savers", Level.Global, _indent);
         HashMap<Integer, LinkedList<ICrossSaver>> pRefCrossSavers = generatePartitionedReferenceCrossSavers();
 
-        for (int cs = 0; cs < CSs.length; cs++) {
+        for (int cs = 0; cs < CSs.length; cs++)
+        {
             CrossedScenariosSummary css = _crossSummary.getCrossedScenariosSummaries()[cs];
-            try {
+            try
+            {
                 LinkedList<ICrossSaver> referenceSavers = pRefCrossSavers.get(CSs[cs].getLevel());
-                if ((referenceSavers == null) || (referenceSavers.isEmpty())) {
+                if ((referenceSavers == null) || (referenceSavers.isEmpty()))
+                {
                     throw new GlobalException("Could not determine the reference cross-savers for crossed scenarios = " +
-                            CSs[cs].getStringRepresentation() + " (level = " + CSs[cs].getLevel() + ")", this.getClass());
+                            CSs[cs].getStringRepresentation() + " (level = " + CSs[cs].getLevel() + ")", null, this.getClass());
                 }
 
-                try {
+                try
+                {
                     processCrossedScenario(CSs[cs], referenceSavers, css);
-                } catch (CrossedScenariosException e) {
+                } catch (CrossedScenariosException e)
+                {
                     throw new GlobalException(e.getMessage(), this.getClass(), e);
                 }
 
-            } catch (GlobalException e) {
+            } catch (GlobalException e)
+            {
                 _log.log("Could not process crossed scenarios " + e.getDetailedReasonMessage(), Level.Global, _indent);
                 terminatedScenarios++;
                 css.setStartTimestamp(LocalDateTime.now());
@@ -237,13 +243,16 @@ public class CrossSummarizer extends ExperimentPerformer
         LinkedList<String[]> crossedScenariosExceptionMessages = new LinkedList<>();
 
 
-        for (int s = 0; s < crossedScenarios.getReferenceScenariosSorted().length; s++) {
+        for (int s = 0; s < crossedScenarios.getReferenceScenariosSorted().length; s++)
+        {
 
-            try {
+            try
+            {
                 Scenario scenario = crossedScenarios.getReferenceScenariosSorted()[s];
                 _log.log("Processing scenario = " + scenario, Level.CrossedScenarios, _indent);
 
-                if ((scenario.isDisabled()) || (checkScenarioDisablingConditions(scenario))) {
+                if ((scenario.isDisabled()) || (checkScenarioDisablingConditions(scenario)))
+                {
                     _log.log("Skipping scenario = " + scenario, Level.CrossedScenarios, _indent);
                     skippedScenarios++;
                     continue;
@@ -252,7 +261,8 @@ public class CrossSummarizer extends ExperimentPerformer
                 savers.notifyScenarioProcessingBegins(scenario, SDCs[s]);
                 processScenario(savers, scenario, SDCs[s], crossedScenarios);
                 savers.notifyScenarioProcessingEnds();
-            } catch (CrossedScenariosException e) {
+            } catch (CrossedScenariosException e)
+            {
                 terminatedScenarios++;
                 crossedScenariosExceptionMessages.add(_log.getTerminationMessage(e));
                 continue;
@@ -291,21 +301,25 @@ public class CrossSummarizer extends ExperimentPerformer
 
         _log.log("Loading binary files", Level.CrossedScenarios, _indent);
         TLPITrialWrapper loaders = getAndOpenBinaryLoaders(SDC);
-        if (loaders == null) {
+        if (loaders == null)
+        {
             closeBinaryLoaders(SDC.getBinaryLoaders());
-            throw new CrossedScenariosException("Could not load binary files", this.getClass(), crossedScenarios);
+            throw new CrossedScenariosException("Could not load binary files",  null, this.getClass(), crossedScenarios);
         }
 
         int generations = SDC.getGenerations();
 
-        for (int indicatorID = 0; indicatorID < SDC.getIndicators().length; indicatorID++) {
+        for (int indicatorID = 0; indicatorID < SDC.getIndicators().length; indicatorID++)
+        {
             IIndicator indicator = SDC.getIndicators()[indicatorID];
             if (!notifySaversIndicatorProcessingBegins(crossSavers, indicator)) break;
 
-            try {
+            try
+            {
                 Utils.loadAndPushBinaryData(_GDC, loaders, pusher, scenario, SDC, generations, indicatorID, indicator);
 
-            } catch (ScenarioException e) {
+            } catch (ScenarioException e)
+            {
                 _log.log("Could not push data to files for indicator = " + indicator.getName() +
                         " " + e.getDetailedReasonMessage(), Level.Scenario, _indent);
                 break;
@@ -316,7 +330,7 @@ public class CrossSummarizer extends ExperimentPerformer
 
         _log.log("Closing binary files", Level.CrossedScenarios, _indent);
         if (!closeBinaryLoaders(loaders))
-            throw new CrossedScenariosException("Could not close binary files", this.getClass(), crossedScenarios);
+            throw new CrossedScenariosException("Could not close binary files",  null, this.getClass(), crossedScenarios);
     }
 
     /**
@@ -328,9 +342,11 @@ public class CrossSummarizer extends ExperimentPerformer
      */
     private boolean notifySaversIndicatorProcessingBegins(CrossSavers crossSavers, IIndicator indicator)
     {
-        try {
+        try
+        {
             crossSavers.notifyIndicatorProcessingBegins(indicator);
-        } catch (CrossedScenariosException e) {
+        } catch (CrossedScenariosException e)
+        {
             _log.log("Error occurred when notifying savers (indicator processing begins) = " + indicator.getName() +
                     " " + e.getDetailedReasonMessage(), Level.Scenario, _indent);
             return false;
@@ -346,9 +362,11 @@ public class CrossSummarizer extends ExperimentPerformer
      */
     private boolean notifySaversIndicatorProcessingEnds(CrossSavers crossSavers)
     {
-        try {
+        try
+        {
             crossSavers.notifyIndicatorProcessingEnds();
-        } catch (CrossedScenariosException e) {
+        } catch (CrossedScenariosException e)
+        {
             _log.log("Error occurred when notifying savers (indicator processing ends)" +
                     " " + e.getDetailedReasonMessage(), Level.Scenario, _indent);
             return false;
@@ -365,10 +383,12 @@ public class CrossSummarizer extends ExperimentPerformer
     private TLPITrialWrapper getAndOpenBinaryLoaders(AbstractScenarioDataContainer SDC)
     {
         TLPITrialWrapper loaders = SDC.getBinaryLoaders();
-        try {
+        try
+        {
             _log.log("Opening per-trial binary files", Level.Scenario, _indent);
             loaders.openAllFiles();
-        } catch (TrialException e) {
+        } catch (TrialException e)
+        {
             _log.log("Binary loaders could not be opened " + e.getDetailedReasonMessage(), Level.Scenario, _indent);
             return null;
         }
@@ -383,10 +403,12 @@ public class CrossSummarizer extends ExperimentPerformer
      */
     private boolean closeBinaryLoaders(TLPITrialWrapper loaders)
     {
-        try {
+        try
+        {
             _log.log("Closing per-trial binary files", Level.Scenario, _indent);
             loaders.closeAllFiles();
-        } catch (TrialException e) {
+        } catch (TrialException e)
+        {
             _log.log("Binary loaders could not be closed " + e.getDetailedReasonMessage(), Level.Scenario, _indent);
             return false;
         }
@@ -407,11 +429,14 @@ public class CrossSummarizer extends ExperimentPerformer
     {
         AbstractScenarioDataContainer[] SDCs =
                 new AbstractScenarioDataContainer[crossedScenarios.getReferenceScenariosSorted().length];
-        for (int s = 0; s < crossedScenarios.getReferenceScenariosSorted().length; s++) {
-            try {
+        for (int s = 0; s < crossedScenarios.getReferenceScenariosSorted().length; s++)
+        {
+            try
+            {
                 Scenario scenario = crossedScenarios.getReferenceScenariosSorted()[s];
                 SDCs[s] = _SDCF.getInstance(_GDC, scenario, new Validator(scenario, true));
-            } catch (ScenarioException e) {
+            } catch (ScenarioException e)
+            {
                 throw new CrossedScenariosException(e.getMessage(), this.getClass(), e, crossedScenarios);
             }
         }
@@ -437,17 +462,21 @@ public class CrossSummarizer extends ExperimentPerformer
         LinkedList<String> skippedSavers = new LinkedList<>();
         crossedScenariosSummary.setSkippedSavers(skippedSavers);
 
-        for (ICrossSaver cs : referenceSavers) {
-            if (cs.shouldBeSkipped(crossedScenarios)) {
+        for (ICrossSaver cs : referenceSavers)
+        {
+            if (cs.shouldBeSkipped(crossedScenarios))
+            {
                 _log.log("Skipping getting saver's instance (" + cs.getDefaultName() + ")", Level.CrossedScenarios, _indent);
                 skippedSavers.add(cs.getDefaultName());
                 continue;
             }
 
-            try {
+            try
+            {
                 ICrossSaver saver = cs.getInstance(path, crossedScenarios.getStringRepresentation(), crossedScenarios);
                 savers.add(saver);
-            } catch (CrossedScenariosException e) {
+            } catch (CrossedScenariosException e)
+            {
                 _log.log("Was not able to instantiate saver (" + cs.getDefaultName() + ")", Level.CrossedScenarios, _indent);
                 skippedSavers.add(cs.getDefaultName());
             }
@@ -463,7 +492,8 @@ public class CrossSummarizer extends ExperimentPerformer
     private HashMap<Integer, LinkedList<ICrossSaver>> generatePartitionedReferenceCrossSavers()
     {
         HashMap<Integer, LinkedList<ICrossSaver>> p = new HashMap<>();
-        for (ICrossSaver cs : _GDC.getReferenceCrossSavers()) {
+        for (ICrossSaver cs : _GDC.getReferenceCrossSavers())
+        {
             int lv = cs.getDedicatedLevel();
             if (!p.containsKey(lv)) p.put(lv, new LinkedList<>());
             p.get(lv).add(cs);
@@ -482,18 +512,20 @@ public class CrossSummarizer extends ExperimentPerformer
     {
         String path = _GDC.getMainPath() + File.separatorChar + _GDC.getCrossedFolderName();
         File file = new File(path);
-        if (!file.exists()) {
+        if (!file.exists())
+        {
             boolean created = file.mkdir();
             if (!created)
-                throw new CrossedScenariosException("Could not create the the folder = " + path, this.getClass(), crossedScenarios);
+                throw new CrossedScenariosException("Could not create the the folder = " + path,  null, this.getClass(), crossedScenarios);
         }
 
         path = path + File.separatorChar + crossedScenarios.getStringRepresentation();
         file = new File(path);
-        if (!file.exists()) {
+        if (!file.exists())
+        {
             boolean created = file.mkdir();
             if (!created)
-                throw new CrossedScenariosException("Could not create the the folder = " + path, this.getClass(), crossedScenarios);
+                throw new CrossedScenariosException("Could not create the the folder = " + path,  null, this.getClass(), crossedScenarios);
         }
 
         _log.log("The folder for storing results of " + crossedScenarios.getStringRepresentation() +
@@ -513,16 +545,18 @@ public class CrossSummarizer extends ExperimentPerformer
     {
         CrossedScenariosGenerator generator = new CrossedScenariosGenerator();
         CrossedScenarios[] CSs;
-        try {
+        try
+        {
             CSs = generator.generateCrossedScenarios(_GDC.getScenarios(), crossedSettings);
-        } catch (GlobalException e) {
+        } catch (GlobalException e)
+        {
             throw new GlobalException("Crossed scenarios could not be generated " + e.getDetailedReasonMessage(), this.getClass(), e);
         }
 
         if (CSs == null)
-            throw new GlobalException("There are no crossed scenarios to be processed (the array is null)", this.getClass());
+            throw new GlobalException("There are no crossed scenarios to be processed (the array is null)", null, this.getClass());
         if (CSs.length == 0)
-            throw new GlobalException("There are no crossed scenarios to be processed (the array is empty)", this.getClass());
+            throw new GlobalException("There are no crossed scenarios to be processed (the array is empty)", null, this.getClass());
 
         return CSs;
     }
@@ -536,10 +570,13 @@ public class CrossSummarizer extends ExperimentPerformer
     private CrossedSetting[] getValidCrossedSettings() throws GlobalException
     {
         LinkedList<CrossedSetting> validCrossedSettings = new LinkedList<>();
-        for (CrossedSetting cs : _GDC.getCrossedSettings()) {
-            try {
+        for (CrossedSetting cs : _GDC.getCrossedSettings())
+        {
+            try
+            {
                 cs.instantiateSetting(_GDC.getScenarios());
-            } catch (GlobalException e) {
+            } catch (GlobalException e)
+            {
                 _log.log("Could not instantiate crossed settings " + e.getDetailedReasonMessage(), Level.Global, _indent);
                 continue;
             }
@@ -547,7 +584,7 @@ public class CrossSummarizer extends ExperimentPerformer
         }
 
         if (validCrossedSettings.isEmpty())
-            throw new GlobalException("No valid crossed settings were identified", this.getClass());
+            throw new GlobalException("No valid crossed settings were identified", null, this.getClass());
 
         CrossedSetting[] crossedSettings = new CrossedSetting[validCrossedSettings.size()];
         int idx = 0;
@@ -563,29 +600,31 @@ public class CrossSummarizer extends ExperimentPerformer
     private void validate() throws GlobalException
     {
         if (_GDC.getCrossedFolderName() == null) throw new GlobalException("The name of the folder for storing the " +
-                "results of cross-analysis is not provided (the string is null)", this.getClass());
+                "results of cross-analysis is not provided (the string is null)", null, this.getClass());
         if (_GDC.getCrossedFolderName().isEmpty()) throw new GlobalException("The name of the folder for storing the " +
-                "results of cross-analysis is not provided (the string is empty)", this.getClass());
+                "results of cross-analysis is not provided (the string is empty)", null, this.getClass());
         if (_GDC.getCrossedSettings() == null)
-            throw new GlobalException("Crossed settings are not provided (the array is null)", this.getClass());
+            throw new GlobalException("Crossed settings are not provided (the array is null)", null, this.getClass());
         if (_GDC.getCrossedSettings().length == 0)
-            throw new GlobalException("Crossed settings are not provided (the array is empty)", this.getClass());
+            throw new GlobalException("Crossed settings are not provided (the array is empty)", null, this.getClass());
         for (CrossedSetting cs : _GDC.getCrossedSettings())
-            if (cs == null) throw new GlobalException("One of the provided crossed settings is null", this.getClass());
+            if (cs == null)
+                throw new GlobalException("One of the provided crossed settings is null", null, this.getClass());
         if (_GDC.getReferenceCrossSavers() == null)
-            throw new GlobalException("Reference cross-savers are not provided (the array is null)", this.getClass());
+            throw new GlobalException("Reference cross-savers are not provided (the array is null)", null, this.getClass());
         if (_GDC.getReferenceCrossSavers().isEmpty())
-            throw new GlobalException("Reference cross-savers are not provided (the array is empty)", this.getClass());
+            throw new GlobalException("Reference cross-savers are not provided (the array is empty)", null, this.getClass());
 
         for (ICrossSaver s : _GDC.getReferenceCrossSavers())
             if (s == null)
-                throw new GlobalException("One of the provided cross-savers is null", this.getClass());
+                throw new GlobalException("One of the provided cross-savers is null", null, this.getClass());
 
         Set<String> names = new HashSet<>(_GDC.getReferenceCrossSavers().size());
-        for (ICrossSaver s : _GDC.getReferenceCrossSavers()) {
+        for (ICrossSaver s : _GDC.getReferenceCrossSavers())
+        {
             if (names.contains(s.getFileSuffix()))
                 throw new GlobalException("Cross savers' suffixes are not unique (" + s.getFileSuffix() + ")",
-                        this.getClass());
+                        null, this.getClass());
             names.add(s.getFileSuffix());
         }
 

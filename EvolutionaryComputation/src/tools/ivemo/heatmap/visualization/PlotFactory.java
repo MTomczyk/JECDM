@@ -87,7 +87,7 @@ public class PlotFactory
      */
     private static void doBasicParameterization(AbstractPlot.Params pp, PlotParams PP)
     {
-        pp._scheme = PP._scheme.getInstance(); // set scheme and customize
+        pp._scheme = PP._scheme.getClone(); // set scheme and customize
         pp._scheme._sizes.put(SizeFields.MARGIN_RIGHT_RELATIVE_SIZE_MULTIPLIER, 0.2f);
         pp._scheme._aligns.put(AlignFields.TITLE, Align.TOP);
         pp._title = PP._title;

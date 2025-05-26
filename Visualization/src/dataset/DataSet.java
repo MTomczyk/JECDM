@@ -6,6 +6,7 @@ import dataset.painter.Painter2D;
 import dataset.painter.style.LineStyle;
 import dataset.painter.style.MarkerStyle;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -15,6 +16,37 @@ import java.util.LinkedList;
  */
 public class DataSet extends AbstractDataSet implements IDataSet
 {
+    /**
+     * Auxiliary interface for classes responsible for performing params container adjustments.
+     */
+    public interface IParamsAdjuster
+    {
+        /**
+         * The main method.
+         *
+         * @param p params container to be adjusted
+         */
+        void adjust(Params p);
+    }
+
+    /**
+     * Params container.
+     */
+    public static class Params extends AbstractDataSet.Params
+    {
+        /**
+         * Parameterized constructor.
+         *
+         * @param name    data set name
+         * @param data    data to be visualized
+         * @param painter painter used to depict the data
+         */
+        public Params(String name, Data data, IPainter painter)
+        {
+            super(name, data, painter);
+        }
+    }
+
     /**
      * Parameterized constructor (for 2D plots; protected access: it is recommended that painter object creation is handled by
      * the static builders).
@@ -190,7 +222,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     protected DataSet(String name, double[][] data, MarkerStyle ms, LineStyle ls)
     {
-        this(name, data, new Painter2D(ms, ls));
+        this(name, new Data(data), new Painter2D(new Painter2D.Params(ms, ls, null)));
     }
 
     /**
@@ -204,7 +236,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     protected DataSet(String name, LinkedList<double[][]> data, MarkerStyle ms, LineStyle ls)
     {
-        this(name, data, new Painter2D(ms, ls));
+        this(name, new Data(data), new Painter2D(new Painter2D.Params(ms, ls, null)));
     }
 
     /**
@@ -218,43 +250,7 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     protected DataSet(String name, Data data, MarkerStyle ms, LineStyle ls)
     {
-        this(name, data, new Painter2D(ms, ls));
-    }
-
-    /**
-     * Parameterized constructor (protected access: it is recommended that painter object creation is handled by
-     * the static builders).
-     *
-     * @param name    data set name
-     * @param data    data
-     * @param painter object responsible for rendering
-     */
-    protected DataSet(String name, double[][] data, IPainter painter)
-    {
-        super(new Data(data), painter);
-        _name = name;
-        _legendLabel = name;
-        _painter.setData(_data);
-        _painter.setDataSet(this);
-        _painter.setName("Painter of (" + _name + ")");
-    }
-
-    /**
-     * Parameterized constructor (protected access: it is recommended that painter object creation is handled by
-     * the static builders).
-     *
-     * @param name    data set name
-     * @param data    data
-     * @param painter object responsible for rendering
-     */
-    protected DataSet(String name, LinkedList<double[][]> data, IPainter painter)
-    {
-        super(new Data(data), painter);
-        _name = name;
-        _legendLabel = name;
-        _painter.setData(_data);
-        _painter.setDataSet(this);
-        _painter.setName("Painter of (" + _name + ")");
+        this(name, data, new Painter2D(new Painter2D.Params(ms, ls, null)));
     }
 
     /**
@@ -267,13 +263,46 @@ public class DataSet extends AbstractDataSet implements IDataSet
      */
     protected DataSet(String name, Data data, IPainter painter)
     {
-        super(data, painter);
-        _name = name;
-        _legendLabel = name;
-        _painter.setData(_data);
-        _painter.setDataSet(this);
-        _painter.setName("Painter of (" + _name + ")");
+        this(new Params(name, data, painter));
     }
+
+    /**
+     * Parameterized constructor (protected access: it is recommended that painter object creation is handled by
+     * data set constructor).
+     *
+     * @param p params container
+     */
+    protected DataSet(Params p)
+    {
+        super(p);
+    }
+
+    /**
+     * This method creates a new data set object. All the fields are cloned except for the data to be depicted.
+     * This data is provided as the input. The method may be useful when, e.g., using plots to animate the data
+     * (frequent calls for {@link plot.PlotModel#setDataSets(ArrayList, boolean)} would be required).
+     *
+     * @param data input data to be displayed.
+     */
+    public IDataSet wrapAround(LinkedList<double[][]> data)
+    {
+        IPainter painter = _painter.getEmptyClone();
+        DataSet DS = new DataSet(new Params(_name, new Data(data), painter));
+        DS._GC = _GC;
+        DS._PC = _PC;
+        DS._legendLabel = _legendLabel;
+        DS._skipRendering = _skipRendering;
+        DS._displayableOnLegend = _displayableOnLegend;
+        if (_skipDisplayRangeUpdateMask == null) DS.setSkipDisplayRangesUpdateMasks(null);
+        else DS.setSkipDisplayRangesUpdateMasks(_skipDisplayRangeUpdateMask.clone());
+        return DS;
+    }
+
+
+    // =================================================================================================================
+    // =================================================================================================================
+    // =================================================================================================================
+    // Excluded from future development:
 
     /**
      * Builder for a data set that should be rendered using a 2D plot. This constructor does not allow providing data to

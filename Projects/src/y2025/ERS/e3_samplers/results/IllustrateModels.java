@@ -20,6 +20,7 @@ import model.IPreferenceModel;
 import model.constructor.random.LNormGenerator;
 import model.constructor.value.rs.ers.ERS;
 import model.constructor.value.rs.ers.Report;
+import model.constructor.value.rs.ers.evolutionary.Tournament;
 import model.constructor.value.rs.iterationslimit.Constant;
 import model.constructor.value.rs.frs.FRS;
 import model.internals.value.scalarizing.LNorm;
@@ -207,7 +208,7 @@ public class IllustrateModels
             // Instantiate ERS
             ERS<LNorm> ers = ERSFactory.getDefaultForLNorms(100, new Constant(50000),
                     3, alphas[scenario], null, new LNormOnSimplex(alphas[scenario], 0.2d, 0.2d),
-                    2, null);
+                    new Tournament<>(2), null);
 
             FRS.Params<LNorm> pFRS = new FRS.Params<>(new LNormGenerator(3, alphas[scenario], null));
             pFRS._feasibleSamplesToGenerate = 100;

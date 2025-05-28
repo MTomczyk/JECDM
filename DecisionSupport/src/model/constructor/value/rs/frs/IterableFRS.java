@@ -5,7 +5,6 @@ import history.PreferenceInformationWrapper;
 import model.constructor.IConstructor;
 import model.constructor.Report;
 import model.constructor.random.IRandomModel;
-import model.constructor.value.rs.frs.FRS;
 import model.internals.value.AbstractValueInternalModel;
 
 import java.util.LinkedList;

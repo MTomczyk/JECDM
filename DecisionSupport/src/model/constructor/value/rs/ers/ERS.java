@@ -213,7 +213,7 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
     {
         T model;
         if (_EMC == null) model = _RM.generateModel(_R); // use random model generator
-        else model = _EMC.getModel(_modelsQueue, _dmContext); // use evolutionary generator
+        else model = _EMC.getModel(_dmContext, this); // use evolutionary generator
 
         boolean compatible = _modelsQueue.insertModel(model, preferenceInformation);
         if (compatible) bundle._acceptedNewlyConstructedModels++;

@@ -17,6 +17,7 @@ import dataset.painter.style.enums.Marker;
 import exception.TrialException;
 import model.constructor.value.rs.ers.evolutionary.EvolutionaryModelConstructor;
 import model.constructor.value.rs.ers.evolutionary.IOffspringConstructor;
+import model.constructor.value.rs.ers.evolutionary.Tournament;
 import model.constructor.value.rs.iterationslimit.Constant;
 import decisionsupport.operators.LNormOnSimplex;
 import dmcontext.DMContext;
@@ -120,7 +121,7 @@ public class AnimationERS
         pERS._initialModels = new LNorm[goals.length];
         IOffspringConstructor<LNorm> offspringConstructor = new LNormOnSimplex(Double.POSITIVE_INFINITY,
                 0.1d, 0.1d);
-        pERS._EMC = new EvolutionaryModelConstructor<>(offspringConstructor, 2);
+        pERS._EMC = new EvolutionaryModelConstructor<>(offspringConstructor, new Tournament<>(2));
         for (int i = 0; i < goals.length; i++)
             pERS._initialModels[i] = new LNorm(goals[i].getParams()[0].clone(), goals[i].getParams()[1][0]);
         IterableERS<LNorm> ers = new IterableERS<>(pERS);

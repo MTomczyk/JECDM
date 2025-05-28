@@ -1,12 +1,11 @@
 package model.constructor.value.rs.ers.evolutionary;
 
 import dmcontext.DMContext;
-import model.constructor.value.rs.ers.ModelsQueue;
+import model.constructor.value.rs.ers.ERS;
 import model.constructor.value.rs.ers.SortedModel;
 import model.internals.value.AbstractValueInternalModel;
-import random.IRandom;
 
-import java.util.ListIterator;
+import java.util.ArrayList;
 
 
 /**
@@ -25,68 +24,32 @@ public class EvolutionaryModelConstructor<T extends AbstractValueInternalModel>
     private final IOffspringConstructor<T> _offspringConstructor;
 
     /**
-     * Size of the tournament (tournament selection).
+     * Object responsible for selecting parents for reproduction.
      */
-    private final int _ts;
+    private final IParentsSelector<T> _parentsSelector;
 
     /**
      * Parameterized constructor.
      *
      * @param offspringConstructor offspring constructor object
-     * @param ts                   size of the tournament (tournament selection).
+     * @param parentsSelector      object responsible for selecting parents for reproduction
      */
-    public EvolutionaryModelConstructor(IOffspringConstructor<T> offspringConstructor, int ts)
+    public EvolutionaryModelConstructor(IOffspringConstructor<T> offspringConstructor, IParentsSelector<T> parentsSelector)
     {
         _offspringConstructor = offspringConstructor;
-        _ts = Math.max(ts, 1);
+        _parentsSelector = parentsSelector;
     }
 
     /**
      * Creates a new model. The process is in the spirit of evolutionary computation.
      *
-     * @param modelsQueue models queue
-     * @param dmContext   current decision-making context
+     * @param dmContext current decision-making context
+     * @param ers       parent, top-level object
      * @return new model (offspring)
      */
-    public T getModel(ModelsQueue<T> modelsQueue, DMContext dmContext)
+    public T getModel(DMContext dmContext, ERS<T> ers)
     {
-        int l = modelsQueue.getQueue().size();
-        IRandom R = dmContext.getR();
-        int p1Idx = Integer.MAX_VALUE;
-        int p2Idx = Integer.MAX_VALUE;
-        for (int i = 0; i < _ts; i++)
-        {
-            int c = R.nextInt(l);
-            if (c < p1Idx) p1Idx = c;
-            c = R.nextInt(l);
-            if (c < p2Idx) p2Idx = c;
-        }
-
-        // swap to keep 1 < 2 (order of parents should not matter)
-        if (p2Idx < p1Idx)
-        {
-            int tmp = p2Idx;
-            p2Idx = p1Idx;
-            p1Idx = tmp;
-        }
-
-        int cIdx = 0;
-        ListIterator<SortedModel<T>> it = modelsQueue.getQueue().listIterator();
-        SortedModel<T> model;
-        SortedModel<T> m1 = null;
-        SortedModel<T> m2 = null;
-
-        while (it.hasNext())
-        {
-            model = it.next();
-            if (cIdx == p1Idx) m1 = model;
-            if (cIdx == p2Idx)
-            {
-                m2 = model;
-                break;
-            }
-            cIdx++;
-        }
-        return _offspringConstructor.getModel(m1, m2, dmContext);
+        ArrayList<SortedModel<T>> parents = _parentsSelector.getParents(dmContext, ers);
+        return _offspringConstructor.getModel(dmContext, parents);
     }
 }

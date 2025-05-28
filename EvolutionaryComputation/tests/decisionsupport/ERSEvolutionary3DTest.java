@@ -11,6 +11,7 @@ import model.constructor.value.rs.ers.ModelsQueue;
 import model.constructor.value.rs.ers.comparators.MostSimilarWithTieResolving;
 import model.constructor.value.rs.ers.evolutionary.EvolutionaryModelConstructor;
 import model.constructor.value.rs.ers.evolutionary.IOffspringConstructor;
+import model.constructor.value.rs.ers.evolutionary.Tournament;
 import model.constructor.value.rs.iterationslimit.Constant;
 import model.similarity.lnorm.Euclidean;
 import dmcontext.DMContext;
@@ -71,7 +72,7 @@ class ERSEvolutionary3DTest
         pERS._inconsistencyThreshold = 0;
         IOffspringConstructor<LNorm> offspringConstructor = new LNormOnSimplex(Double.POSITIVE_INFINITY,
                 0.05d, 0.05d);
-        pERS._EMC = new EvolutionaryModelConstructor<>(offspringConstructor, 2);
+        pERS._EMC = new EvolutionaryModelConstructor<>(offspringConstructor, new Tournament<>(2));
         ERS<LNorm> ERS = new ERS<>(pERS);
 
         DMContext dmContext = new DMContext(null, null, null, null, false, 0,

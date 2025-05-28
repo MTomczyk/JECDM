@@ -4,6 +4,8 @@ import dmcontext.DMContext;
 import model.constructor.value.rs.ers.SortedModel;
 import model.internals.value.AbstractValueInternalModel;
 
+import java.util.ArrayList;
+
 /**
  * Simple interface employed by {@link EvolutionaryModelConstructor} when constructing a model.
  * The underlying process is assumed to be in the spirit of evolutionary algorithms.
@@ -13,14 +15,13 @@ import model.internals.value.AbstractValueInternalModel;
 public interface IOffspringConstructor<T extends AbstractValueInternalModel>
 {
     /**
-     * Signature for the main method responsible for producing a new (offspring) model given two selected ones (parents).
+     * Signature for the main method responsible for producing a new (offspring) model given selected ones (parents).
      * The parents are wrapped via {@link model.constructor.value.rs.ers.SortedModel}
      * (derived from {@link model.constructor.value.rs.ers.ModelsQueue}).
      *
-     * @param p1        the first model (parent 1)
-     * @param p2        the second model (parent 2)
      * @param dmContext current decision-making context
+     * @param parents   selected parents
      * @return new model (offspring)
      */
-    T getModel(SortedModel<T> p1, SortedModel<T> p2, DMContext dmContext);
+    T getModel(DMContext dmContext, ArrayList<SortedModel<T>> parents);
 }

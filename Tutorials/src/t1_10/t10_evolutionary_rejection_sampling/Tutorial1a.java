@@ -24,6 +24,7 @@ import model.constructor.random.LNormGenerator;
 import model.constructor.value.rs.ers.ERS;
 import model.constructor.value.rs.ers.comparators.MostSimilarWithTieResolving;
 import model.constructor.value.rs.ers.evolutionary.EvolutionaryModelConstructor;
+import model.constructor.value.rs.ers.evolutionary.Tournament;
 import model.constructor.value.rs.iterationslimit.ConstantZeroWhenNoFeedback;
 import model.internals.value.scalarizing.LNorm;
 import plot.Plot3D;
@@ -105,7 +106,8 @@ public class Tutorial1a
         // - use a tournament selection of size = 2
         // - use OnSimplexCombination crossover operator with std = 0.2
         // - use OnSimplexMutation operator with std = 0.2
-        pERS._EMC = new EvolutionaryModelConstructor<>(new LNormOnSimplex(Double.POSITIVE_INFINITY, 0.2d, 0.2d), 2);
+        pERS._EMC = new EvolutionaryModelConstructor<>(new LNormOnSimplex(Double.POSITIVE_INFINITY, 0.2d, 0.2d),
+                new Tournament<>(2));
 
         // Comparator used: maximizes distance at 1-nn, in the case of a tie, checks 2-nn, and so on, until the tie is resolved.
         pERS._comparator = new MostSimilarWithTieResolving<>();

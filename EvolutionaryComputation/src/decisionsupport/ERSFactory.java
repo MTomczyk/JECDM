@@ -1,14 +1,15 @@
 package decisionsupport;
 
 import compatibility.CompatibilityAnalyzer;
+import model.constructor.random.IRandomModel;
+import model.constructor.random.LNormGenerator;
 import model.constructor.value.rs.ers.comparators.MostSimilarWithTieResolving;
 import model.constructor.value.rs.ers.evolutionary.EvolutionaryModelConstructor;
 import model.constructor.value.rs.ers.evolutionary.IOffspringConstructor;
+import model.constructor.value.rs.ers.evolutionary.IParentsSelector;
 import model.constructor.value.rs.iterationslimit.IIterationsLimit;
-import model.similarity.lnorm.Euclidean;
-import model.constructor.random.IRandomModel;
-import model.constructor.random.LNormGenerator;
 import model.internals.value.scalarizing.LNorm;
+import model.similarity.lnorm.Euclidean;
 import space.normalization.INormalization;
 
 /**
@@ -28,7 +29,7 @@ public class ERSFactory
      * @param alpha                     pre-fixed compensation level for generated L-norms
      * @param normalizations            normalization objects used to suitably rescale the evaluated points (can be null; not used)
      * @param offspringConstructor      offspring constructor
-     * @param ts                        tournament size used in the tournament selection (see {@link EvolutionaryModelConstructor})
+     * @param parentsSelector           object responsible for selecting parents for reproduction
      * @param initialModels             initial models
      * @return parameterized evolutionary rejection sampling object
      */
@@ -38,7 +39,7 @@ public class ERSFactory
                                                                                 double alpha,
                                                                                 INormalization[] normalizations,
                                                                                 IOffspringConstructor<LNorm> offspringConstructor,
-                                                                                int ts,
+                                                                                IParentsSelector<LNorm> parentsSelector,
                                                                                 LNorm[] initialModels)
 
     {
@@ -53,7 +54,8 @@ public class ERSFactory
         pERS._similarity = new Euclidean();
         pERS._compatibilityAnalyzer = new CompatibilityAnalyzer();
         pERS._validateAlreadyExistingSamplesFirst = true;
-        if (offspringConstructor != null) pERS._EMC = new EvolutionaryModelConstructor<>(offspringConstructor, ts);
+        if (offspringConstructor != null)
+            pERS._EMC = new EvolutionaryModelConstructor<>(offspringConstructor, parentsSelector);
         return new model.constructor.value.rs.ers.ERS<>(pERS);
     }
 }

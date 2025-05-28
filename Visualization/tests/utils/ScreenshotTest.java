@@ -2,8 +2,6 @@ package utils;
 
 import color.Color;
 import org.junit.jupiter.api.Test;
-import random.IRandom;
-import random.MersenneTwister64;
 
 import java.awt.image.BufferedImage;
 

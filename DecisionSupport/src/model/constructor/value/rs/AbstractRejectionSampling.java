@@ -9,7 +9,6 @@ import model.constructor.IConstructor;
 import model.constructor.Report;
 import model.constructor.random.IRandomModel;
 import model.constructor.value.rs.frs.FRS;
-import model.constructor.value.rs.iterationslimit.ConstantZeroWhenNoFeedback;
 import model.constructor.value.rs.iterationslimit.IIterationsLimit;
 import model.internals.value.AbstractValueInternalModel;
 import random.IRandom;

@@ -30,6 +30,7 @@ import model.IPreferenceModel;
 import model.constructor.IConstructor;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
+import model.constructor.value.rs.ers.evolutionary.Tournament;
 import model.constructor.value.rs.frs.FRS;
 import model.constructor.value.rs.iterationslimit.Constant;
 import model.internals.value.scalarizing.LNorm;
@@ -144,12 +145,12 @@ public class IllustratePopulationsDTLZ2
                 pFRS._inconsistencyThreshold = populationSize - 1;
                 pFRS._samplingLimit = 1000000000; // 10^9
                 constructor = new FRS<>(pFRS);
-            }
-            else
+            } else
             {
                 constructor = ERSFactory.getDefaultForLNorms(populationSize,
                         new Constant(50000), 3, Double.POSITIVE_INFINITY, problemBundle._normalizations,
-                        new LNormOnSimplex(Double.POSITIVE_INFINITY, 0.2d, 0.2d), 2, initialModels);
+                        new LNormOnSimplex(Double.POSITIVE_INFINITY, 0.2d, 0.2d), new Tournament<>(2),
+                        initialModels);
             }
 
 
@@ -249,20 +250,17 @@ public class IllustratePopulationsDTLZ2
                     plot3D.getModel().updateCameraTranslation(-0.02173f, -0.00012f, 1.13473f);
                     plot3D.getModel().updatePlotRotation(357.37225f, 44.54361f);
                     plot3D.getModel().updateCameraRotation(335.27576f, 353.59756f);
-                }
-                else if (phase == 5)
+                } else if (phase == 5)
                 {
                     plot3D.getModel().updateCameraTranslation(0.12091f, -0.13884f, 0.71682f);
                     plot3D.getModel().updatePlotRotation(319.16205f, 37.22654f);
                     plot3D.getModel().updateCameraRotation(330.78046f, 0.54878f);
-                }
-                else if (phase == 6)
+                } else if (phase == 6)
                 {
                     plot3D.getModel().updateCameraTranslation(0.10379f, -0.20208f, 0.19788f);
                     plot3D.getModel().updatePlotRotation(357.37225f, 44.54361f);
                     plot3D.getModel().updateCameraRotation(329.09470f, 357.25610f);
-                }
-                else if (phase > 6)
+                } else if (phase > 6)
                 {
                     plot3D.getModel().updateCameraTranslation(0.10815f, -0.21378f, 0.12451f);
                     plot3D.getModel().updatePlotRotation(357.37225f, 44.54361f);

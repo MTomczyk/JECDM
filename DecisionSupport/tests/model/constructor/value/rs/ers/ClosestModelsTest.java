@@ -39,7 +39,7 @@ class ClosestModelsTest
             LNorm m = new LNorm(new double[]{0.7d, 0.3d}, Double.POSITIVE_INFINITY);
             sim1 = similarity.calculateSimilarity(reference, m);
             assertTrue(cms.canAlterTheQueue(sim1));
-            cms.insert(m, 1, sim1);
+            cms.insert(new SortedModel<>(0, 0, true, m, 0.0d), 1, sim1);
             assertEquals(1, cms.getNoStoredModels());
             assertEquals(1, cms._ids[0]);
             assertEquals(sim1, cms._similarities[0], 1.0E-5);
@@ -53,7 +53,7 @@ class ClosestModelsTest
             LNorm m = new LNorm(new double[]{0.6d, 0.4d}, Double.POSITIVE_INFINITY);
             double sim = similarity.calculateSimilarity(reference, m);
             assertTrue(cms.canAlterTheQueue(sim));
-            cms.insert(m, 2, sim);
+            cms.insert(new SortedModel<>(0, 0, true, m, 0.0d), 2, sim);
             assertEquals(1, cms.getNoStoredModels());
             assertEquals(2, cms._ids[0]);
             assertEquals(sim, cms._similarities[0], 1.0E-5);
@@ -80,7 +80,7 @@ class ClosestModelsTest
             LNorm m = new LNorm(new double[]{0.7d, 0.3d}, Double.POSITIVE_INFINITY);
             sim1 = similarity.calculateSimilarity(reference, m);
             assertTrue(cms.canAlterTheQueue(sim1));
-            cms.insert(m, 1, sim1);
+            cms.insert(new SortedModel<>(0, 0, true, m, 0.0d), 1, sim1);
             assertEquals(1, cms.getNoStoredModels());
             assertEquals(1, cms._ids[0]);
             assertEquals(sim1, cms._similarities[0], 1.0E-5);
@@ -89,7 +89,7 @@ class ClosestModelsTest
             LNorm m = new LNorm(new double[]{0.8d, 0.2d}, Double.POSITIVE_INFINITY);
             sim2 = similarity.calculateSimilarity(reference, m);
             assertTrue(cms.canAlterTheQueue(sim2));
-            cms.insert(m, 2, sim2);
+            cms.insert(new SortedModel<>(0, 0, true, m, 0.0d), 2, sim2);
             assertEquals(2, cms.getNoStoredModels());
             assertEquals(1, cms._ids[0]);
             assertEquals(2, cms._ids[1]);
@@ -100,7 +100,7 @@ class ClosestModelsTest
             LNorm m = new LNorm(new double[]{0.5d, 0.5d}, Double.POSITIVE_INFINITY);
             sim3 = similarity.calculateSimilarity(reference, m);
             assertTrue(cms.canAlterTheQueue(sim3));
-            cms.insert(m, 3, sim3);
+            cms.insert(new SortedModel<>(0, 0, true, m, 0.0d), 3, sim3);
             assertEquals(2, cms.getNoStoredModels());
             assertEquals(3, cms._ids[0]);
             assertEquals(1, cms._ids[1]);
@@ -134,7 +134,7 @@ class ClosestModelsTest
                     {
                         LNorm model = new LNorm(WeightsGenerator.getNormalizedWeightVector(m, R), Double.POSITIVE_INFINITY);
                         double s = similarity.calculateSimilarity(reference, model);
-                        if (cms.canAlterTheQueue(s)) cms.insert(model, i, s);
+                        if (cms.canAlterTheQueue(s)) cms.insert(new SortedModel<>(0, 0, true, model, 0.0d), i, s);
                         packages.add(new ModelPackage<>(model, i, s));
                     }
                     assertEquals(k, cms.getNoStoredModels());

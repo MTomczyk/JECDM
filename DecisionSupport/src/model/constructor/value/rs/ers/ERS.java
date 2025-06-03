@@ -17,12 +17,12 @@ import java.util.LinkedList;
 /**
  * This class represents an evolutionary-based rejection sampling procedure for generating uniformly distributed
  * preference model instances compatible with the decision maker's feedback. Its description can be found in
- * TODO (link to the preprint). In short, its central element is an efficient fixed-size queue that keeps the sampled
- * models sorted. The default sorting criterion (comparator) is implemented as {@link MostSimilarWithTieResolving}
- * (it is recommended to use it). First, the comparator assumes that compatible models are favored in the queue over
- * incompatible ones. Among the latter, the procedure favors those with lesser incompatibility scores, calculated in the
- * spirit of the most discriminative function approach
- * (see {@link compatibility.CompatibilityAnalyzer#calculateTheMostDiscriminativeCompatibilityWithValueModel(LinkedList,
+ * <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5279824">this paper</a> (preprint; TODO to be updated
+ * when published). In short, its central element is an efficient fixed-size queue that keeps the sampled models sorted.
+ * The default sorting criterion (comparator) is implemented as {@link MostSimilarWithTieResolving} (it is recommended
+ * to use it). First, the comparator assumes that compatible models are favored in the queue over incompatible ones.
+ * Among the latter, the procedure favors those with lesser incompatibility scores, calculated in the spirit of the most
+ * discriminative function approach (see {@link compatibility.CompatibilityAnalyzer#calculateTheMostDiscriminativeCompatibilityWithValueModel(LinkedList,
  * AbstractValueInternalModel)}). Regarding the compatible models, the queue prioritizes those that maximize their
  * distance to the closest neighbor (another model). In the case of equality, similarities to the next nearest neighbors
  * are compared, etc. Note that the similarity measure can be customized (see {@link ISimilarity}).

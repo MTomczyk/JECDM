@@ -182,7 +182,7 @@ public class ModelsQueue<T extends AbstractValueInternalModel>
                 s = _similarity.calculateSimilarity(model._model, m._model);
                 _simM[model._id][m._id] = s;
             }
-            if (model._closestModels.canAlterTheQueue(s)) model._closestModels.insert(m._model, m._id, s);
+            if (model._closestModels.canAlterTheQueue(s)) model._closestModels.insert(m, m._id, s);
         }
     }
 
@@ -250,11 +250,11 @@ public class ModelsQueue<T extends AbstractValueInternalModel>
 
                 _simT[m._id] = _similarity.calculateSimilarity(model, m._model);
                 if (candidateModel._closestModels.canAlterTheQueue(_simT[m._id]))
-                    candidateModel._closestModels.insert(m._model, m._id, _simT[m._id]);
+                    candidateModel._closestModels.insert(m, m._id, _simT[m._id]);
 
                 if (m._closestModels.canAlterTheQueue(_simT[m._id]))
                 {
-                    m._closestModels.insert(candidateModel._model, candidateModel._id, _simT[m._id]);
+                    m._closestModels.insert(candidateModel, candidateModel._id, _simT[m._id]);
                     toAdd.add(m); // to add
                     listIterator.remove();   // remove from the queue (needs to be added again)
                 }

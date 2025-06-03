@@ -23,6 +23,7 @@ import model.constructor.value.rs.ers.IterableERS;
 import model.constructor.value.rs.ers.comparators.MostSimilarWithTieResolving;
 import model.constructor.value.rs.ers.evolutionary.EvolutionaryModelConstructor;
 import model.constructor.value.rs.ers.evolutionary.IOffspringConstructor;
+import model.constructor.value.rs.ers.evolutionary.Tournament;
 import model.constructor.value.rs.frs.IterableFRS;
 import model.constructor.value.rs.iterationslimit.Constant;
 import model.internals.value.scalarizing.LNorm;
@@ -238,7 +239,7 @@ public class ContainersGetter
                 pERS._inconsistencyThreshold = 0;
                 pERS._compatibilityAnalyzer = new CompatibilityAnalyzer();
                 IOffspringConstructor<LNorm> offspringConstructor = new LNormOnSimplex(alpha, crossoverStd, mutationStd);
-                pERS._EMC = new EvolutionaryModelConstructor<>(offspringConstructor, 2);
+                pERS._EMC = new EvolutionaryModelConstructor<>(offspringConstructor, new Tournament<>(2));
                 pERS._initialModels = initialModels;
                 sampler = new IterableERS<>(pERS);
             }

@@ -33,7 +33,7 @@ class EvolutionaryModelConstructorTest
     @Test
     void getModel1()
     {
-        int trials = 10000;
+        int trials = 100000;
         IRandom R = new MersenneTwister64(0);
         DMContext dmc = new DMContext(null, null, null, null, false, 0, null, R);
 
@@ -91,7 +91,7 @@ class EvolutionaryModelConstructorTest
     @Test
     void getModel2()
     {
-        int trials = 10000;
+        int trials = 100000;
         IRandom R = new MersenneTwister64(0);
         DMContext dmc = new DMContext(null, null, null, null, false, 0, null, R);
 

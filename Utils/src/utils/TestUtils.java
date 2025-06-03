@@ -1,6 +1,7 @@
 package utils;
 
 import exception.AbstractException;
+import org.junit.jupiter.api.Assertions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,8 +33,7 @@ public class TestUtils
      * @param exp            the expected message (can be null)
      * @param messageTrigger a trigger that can produce an exception message
      */
-    public static
-    void compare(String exp, IExceptionMessageTrigger messageTrigger)
+    public static void compare(String exp, IExceptionMessageTrigger messageTrigger)
     {
         String msg = null;
         try
@@ -43,17 +43,17 @@ public class TestUtils
         {
             msg = e.getMessage();
         }
-        assertEquals(exp, msg);
+        Assertions.assertEquals(exp, msg);
     }
 
     /**
-     * Performs simple matrix comparison.
+     * Performs simple matrix comparison (assert equals).
      *
      * @param exp       expected matrix
-     * @param res       outcome matrix
+     * @param res       examined matrix
      * @param tolerance tolerance level
      */
-    public static void compare(double[][] exp, double[][] res, double tolerance)
+    public static void assertEquals(double[][] exp, double[][] res, double tolerance)
     {
         if (exp == null)
         {
@@ -61,17 +61,37 @@ public class TestUtils
             return;
         }
         else assertNotNull(res);
-        assertEquals(exp.length, res.length);
+        Assertions.assertEquals(exp.length, res.length);
         for (int i = 0; i < exp.length; i++)
         {
             if (exp[i] == null)
                 assertNull(res[i]);
             else
             {
-                assertEquals(exp[i].length, res[i].length);
+                Assertions.assertEquals(exp[i].length, res[i].length);
                 for (int j = 0; j < exp[i].length; j++)
-                    assertEquals(exp[i][j], res[i][j], tolerance);
+                    Assertions.assertEquals(exp[i][j], res[i][j], tolerance);
             }
         }
+    }
+
+    /**
+     * Performs simple vector comparison (assert equals).
+     *
+     * @param exp       expected matrix
+     * @param res       examined matrix
+     * @param tolerance tolerance level
+     */
+    public static void assertEquals(double[] exp, double[] res, double tolerance)
+    {
+        if (exp == null)
+        {
+            assertNull(res);
+            return;
+        }
+        else assertNotNull(res);
+        Assertions.assertEquals(exp.length, res.length);
+        for (int i = 0; i < exp.length; i++)
+            Assertions.assertEquals(exp[i], res[i], tolerance);
     }
 }

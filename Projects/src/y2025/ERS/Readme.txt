@@ -1,0 +1,2 @@
+This project is considered a supplement to the article ``Efficient Preference Learning Algorithm for Interactive
+Evolutionary Multi-Objective Optimization'' (preprint: http://ssrn.com/abstract=5279824 TODO to be updated when published).

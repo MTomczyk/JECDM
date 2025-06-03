@@ -9,6 +9,8 @@ import dmcontext.DMContext;
 import model.internals.value.scalarizing.LNorm;
 import space.normalization.INormalization;
 
+import java.util.ArrayList;
+
 /**
  * This class implements {@link IOffspringConstructor} and is dedicated to reproducing L-norms
  * ({@link LNorm}). Specifically, it produces an offspring by crossing-over the parent
@@ -69,15 +71,14 @@ public class LNormOnSimplex implements IOffspringConstructor<LNorm>
      * The parents are wrapped via {@link SortedModel}
      * (derived from {@link ModelsQueue}).
      *
-     * @param p1        the first model (parent 1)
-     * @param p2        the second model (parent 2)
      * @param dmContext current decision-making context
+     * @param parents   selected parents
      * @return new model (offspring)
      */
     @Override
-    public LNorm getModel(SortedModel<LNorm> p1, SortedModel<LNorm> p2, DMContext dmContext)
+    public LNorm getModel(DMContext dmContext, ArrayList<SortedModel<LNorm>> parents)
     {
-        double[] o =_wr.getWeights(p1._model, p2._model, dmContext.getR());
+        double[] o =_wr.getWeights(parents.get(0)._model, parents.get(1)._model, dmContext.getR());
         if (_normalizations != null) return new LNorm(o, _alpha, _normalizations);
         return new LNorm(o, _alpha, dmContext.getNormalizationsCurrentOS());
     }

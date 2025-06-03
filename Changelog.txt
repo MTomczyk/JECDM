@@ -1,4 +1,5 @@
-[TODO; in progress] tutorial on RNG to be added
+[03.06.2025] This update is mainly dedicated to the "Tutorial 11: Minor update on random number generators" tutorial document
+- Tutorials: t11_20.t11_rgns tutorial added.
 - Visualization: Axes' titles now can be changed after instantiation
 - Visualization: DSFactory2D and 3D: the method for constructing data set can now be supplied with data set and painter params container adjusters, which allow for adjusting the objects being built during initialization
 - Visualization: scheme.AbstractScheme.getInstance() method removed (getClone() is now supported only)
@@ -9,7 +10,6 @@
 - Experimentation: container.global.initializers.IRandomNumberGeneratorInitializer: new implementation called FromStreamsInitializer is added; new implementation called DefaultRandomNumberGeneratorInitializer: the class now can be parameterized to deploy RNGs of a desired type
 - Experimentation: container.global.initializers.IRandomNumberGeneratorInitializer: new implementation called FromStreamsInitializer is added; new implementation called FromStreamsInitializer is added; it allows for pre-constructing RNG streams, which are then suitably associated with the trials being processed (the constructed RNGs must be splittable or jumpable, see the implementation details)
 - Experimentation: minor factorization related to exception throwing/handling
-- Tutorials: t11_20.t11_rngs_and_new_visualization_options tutorial added.
 - EvolutionaryComputation: reproduction.operators: Simple generic interfaces for operators are added: ICrossover<T> and IMutate<T> (also, IWeightsReproducer)
 
 [30.04.2025] This update is mainly dedicated to the "Tutorial 10: Evolutionary Rejection Sampling" tutorial document

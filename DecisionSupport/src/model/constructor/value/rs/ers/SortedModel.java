@@ -40,15 +40,15 @@ public class SortedModel<T extends AbstractValueInternalModel>
      *
      * @param id                  model unique id
      * @param k                   size of the closest models queue (k-closest goals kept)
-     * @param isLessMeaningClose  if true, smaller similarities means closer; false otherwise
+     * @param isLessMeaningCloser  if true, smaller similarities means closer; false otherwise
      * @param model               model to be wrapped
      * @param compatibilityDegree compatibility with the preference information
      */
-    public SortedModel(int id, int k, boolean isLessMeaningClose, T model, double compatibilityDegree)
+    public SortedModel(int id, int k, boolean isLessMeaningCloser, T model, double compatibilityDegree)
     {
         _id = id;
         _model = model;
-        _closestModels = new ClosestModels<>(k, isLessMeaningClose);
+        _closestModels = new ClosestModels<>(k, isLessMeaningCloser);
         updateCompatibilityDegree(compatibilityDegree);
     }
 

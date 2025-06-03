@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class ClosestModels<T extends AbstractValueInternalModel>
 {
     /**
-     * Closest models (most similar).
+     * Closest models (most similar; wrapped via sorted models).
      */
-    public final ArrayList<T> _models;
+    public final ArrayList<SortedModel<T>> _models;
 
     /**
      * Model unique ID (implementation dependent);
@@ -75,11 +75,11 @@ public class ClosestModels<T extends AbstractValueInternalModel>
      * IMPORTANT NOTE: do not call if {@link ClosestModels#canAlterTheQueue(double)} returns false (call the latter method
      * to check if to call insert).
      *
-     * @param model      model to be inserted
+     * @param model      model to be inserted (wrapped via sorted model)
      * @param id         model id (implementation dependent)
      * @param similarity model similarity
      */
-    public void insert(T model, int id, double similarity)
+    public void insert(SortedModel<T> model, int id, double similarity)
     {
         if (_storedModels < _k) _storedModels++;
 

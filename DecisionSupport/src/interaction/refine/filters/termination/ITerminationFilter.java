@@ -14,9 +14,9 @@ public interface ITerminationFilter
     /**
      * The method verifying whether the reference sets construction process should be terminated.
      *
-     * @param dmContext          current decision-making context
+     * @param dmContext current decision-making context
      * @return filter's indications
-     * @throws RefinerException exception can be thrown and propagated higher
+     * @throws RefinerException the exception can be thrown 
      */
     TerminationResult shouldTerminate(DMContext dmContext) throws RefinerException;
 }

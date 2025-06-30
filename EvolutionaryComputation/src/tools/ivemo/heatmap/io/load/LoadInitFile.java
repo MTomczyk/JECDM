@@ -166,7 +166,7 @@ public class LoadInitFile implements ILoad
      *
      * @param i      index of the currently processed DS
      * @param dsList node list containing nodes linked do data sets
-     * @throws Exception exception can be thrown (e.g., when the input data is invalid)
+     * @throws Exception the exception can be thrown (e.g., when the input data is invalid)
      */
     protected void processDataSet(int i, NodeList dsList) throws Exception
     {
@@ -373,7 +373,7 @@ public class LoadInitFile implements ILoad
      *
      * @param i         data set id
      * @param typesUsed flags indicating which axes were successfully parsed ([x, y, z]).
-     * @throws Exception exception can be thrown (e.g., when the input data is invalid)
+     * @throws Exception the exception can be thrown (e.g., when the input data is invalid)
      */
     protected void checkTypes(int i, boolean[] typesUsed) throws Exception
     {

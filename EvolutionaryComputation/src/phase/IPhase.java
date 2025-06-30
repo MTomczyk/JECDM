@@ -15,7 +15,7 @@ public interface IPhase
      *
      * @param ea evolutionary algorithm
      * @return report on the executed action
-     * @throws PhaseException the exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     PhaseReport perform(EA ea) throws PhaseException;
 

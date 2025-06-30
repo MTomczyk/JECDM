@@ -132,7 +132,7 @@ public abstract class AbstractModule
      * Auxiliary method for registering the current decision-making context.
      *
      * @param dmContext current decision-making context
-     * @throws ModuleException the exception can be thrown and propagated higher
+     * @throws ModuleException the exception can be thrown 
      */
     protected void registerDecisionMakingContext(DMContext dmContext) throws ModuleException
     {
@@ -157,7 +157,7 @@ public abstract class AbstractModule
     /**
      * Auxiliary method for unregistering the current decision-making context
      *
-     * @throws ModuleException the exception can be thrown and propagated higher
+     * @throws ModuleException the exception can be thrown 
      */
     protected void unregisterDecisionMakingContext() throws ModuleException
     {

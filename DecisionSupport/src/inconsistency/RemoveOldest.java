@@ -33,7 +33,7 @@ public class RemoveOldest<T extends AbstractInternalModel> extends AbstractIncon
      * Parameterized constructor.
      *
      * @param storeAllStates if true, all the model bundles (states) generated during consistency reintroduction
-     *                                      are collected and returned in a report.
+     *                       are collected and returned in a report.
      */
     public RemoveOldest(boolean storeAllStates)
     {
@@ -43,26 +43,21 @@ public class RemoveOldest<T extends AbstractInternalModel> extends AbstractIncon
     /**
      * The method for reintroducing consistency.
      *
-     * @param modelBundle bundle result of the attempt to construct models (see {@link Report}),
-     *                    it is assumed that this bundle indicates inconsistency ({@link Report#_inconsistencyDetected}).
-     * @param constructor object used to construct the model given the preference information stored in the history object (see {@link History}).
+     * @param modelBundle           bundle result of the attempt to construct models (see {@link Report}),
+     *                              it is assumed that this bundle indicates inconsistency ({@link Report#_inconsistencyDetected}).
+     * @param constructor           object used to construct the model given the preference information stored in the history object (see {@link History}).
      * @param preferenceInformation current preference information (copied from the model system) that can be modified to reintroduce consistency (altered set should be stored in the report);
      *                              the list is derived via {@link History#getPreferenceInformationCopy()}, thus it is valid (e.g., preference statements are ordered from the oldest to the newest)
      * @return the method should try to reintroduce consistency (e.g., by altering the constructor definition or history
      * of preference elicitation); the result should be provided via the report object
-     * @throws InconsistencyHandlerException the preference model exception can be thrown and propagated higher
+     * @throws InconsistencyHandlerException the preference model exception can be thrown 
      */
     @Override
     public inconsistency.Report<T> reintroduceConsistency(Report<T> modelBundle,
                                                           IConstructor<T> constructor,
                                                           LinkedList<PreferenceInformationWrapper> preferenceInformation) throws InconsistencyHandlerException
     {
-        if (!modelBundle._inconsistencyDetected)
-            throw new InconsistencyHandlerException("Called for inconsistency reintroduction, but the input model bundle reports consistency", this.getClass());
-
-        if (preferenceInformation.isEmpty())
-            throw new InconsistencyHandlerException("The history of preference elicitation is empty (no reason to reintroduce consistency)", this.getClass());
-
+        doBasicValidation(modelBundle, preferenceInformation);
 
         inconsistency.Report<T> report = new inconsistency.Report<>(_dmContext);
         long startTime = System.nanoTime();
@@ -130,7 +125,7 @@ public class RemoveOldest<T extends AbstractInternalModel> extends AbstractIncon
 
         report._attempts = currentAttempt;
         report._consistentState = new State<>(currentReport, new LinkedList<>(preferenceInformation), currentAttempt);
-        report._processingTime = (System.nanoTime() - startTime) / 1000000;
+        report._processingTime = (double) (System.nanoTime() - startTime) / 1000000.0d;
         return report;
     }
 
@@ -139,11 +134,10 @@ public class RemoveOldest<T extends AbstractInternalModel> extends AbstractIncon
      *
      * @param constructor constructor object
      * @param removed     removed preference example
-     * @throws InconsistencyHandlerException exception can be thrown and propagated higher
+     * @throws InconsistencyHandlerException exception can be thrown 
      */
     private void notifyAboutRemovedPreferenceInformation(IConstructor<T> constructor, PreferenceInformationWrapper removed) throws InconsistencyHandlerException
     {
-
         LinkedList<PreferenceInformationWrapper> forNotification = new LinkedList<>();
         forNotification.add(removed);
         try
@@ -161,7 +155,7 @@ public class RemoveOldest<T extends AbstractInternalModel> extends AbstractIncon
      *
      * @param constructor constructor object
      * @param added       added preference example
-     * @throws InconsistencyHandlerException exception can be thrown and propagated higher
+     * @throws InconsistencyHandlerException exception can be thrown 
      */
     private void notifyAboutAddedPreferenceInformation(IConstructor<T> constructor, PreferenceInformationWrapper added) throws InconsistencyHandlerException
     {
@@ -177,68 +171,5 @@ public class RemoveOldest<T extends AbstractInternalModel> extends AbstractIncon
         }
     }
 
-    /**
-     * Auxiliary method for notifying about the beginning of the attempt to reintroduce consistency.
-     *
-     * @param constructor constructor object
-     * @throws InconsistencyHandlerException exception can be thrown and propagated higher
-     */
-    private void notifyAboutAttemptBeginning(IConstructor<T> constructor) throws InconsistencyHandlerException
-    {
-        try
-        {
-            constructor.notifyConsistencyReintroductionAttemptBegins();
-        } catch (ConstructorException e)
-        {
-            throw new InconsistencyHandlerException("Notification on the beginning of the attempt to reintroduce consistency failed " + e.getDetailedReasonMessage(), this.getClass(), e);
-        }
-    }
 
-
-    /**
-     * Auxiliary method for notifying about the ending of the attempt to reintroduce consistency.
-     *
-     * @param constructor constructor object
-     * @throws InconsistencyHandlerException exception can be thrown and propagated higher
-     */
-    private void notifyAboutAttemptEnding(IConstructor<T> constructor) throws InconsistencyHandlerException
-    {
-        try
-        {
-            constructor.notifyConsistencyReintroductionAttemptBegins();
-        } catch (ConstructorException e)
-        {
-            throw new InconsistencyHandlerException("Notification on the ending of the attempt to reintroduce consistency failed " + e.getDetailedReasonMessage(), this.getClass(), e);
-        }
-    }
-
-    /**
-     * Supportive method that constructs candidate model bundle.
-     *
-     * @param constructor          constructor object
-     * @param candidateHistoryCopy current state's preference information
-     * @param report               report to be filled
-     * @param currentAttempt       current attempt number
-     * @return candidate model
-     * @throws InconsistencyHandlerException exception can be thrown and propagated higher
-     */
-    private Report<T> getCandidateBundle(IConstructor<T> constructor,
-                                         LinkedList<PreferenceInformationWrapper> candidateHistoryCopy,
-                                         inconsistency.Report<T> report,
-                                         int currentAttempt) throws InconsistencyHandlerException
-    {
-        Report<T> candidateState;
-        try
-        {
-            candidateState = constructor.constructModels(candidateHistoryCopy);
-        } catch (ConstructorException e)
-        {
-            throw new InconsistencyHandlerException("Failed to construct a new model bundle " + e.getDetailedReasonMessage(), this.getClass(), e);
-        }
-
-        if (_storeAllStates)
-            report._states.add(new State<>(candidateState, new LinkedList<>(candidateHistoryCopy), currentAttempt));
-
-        return candidateState;
-    }
 }

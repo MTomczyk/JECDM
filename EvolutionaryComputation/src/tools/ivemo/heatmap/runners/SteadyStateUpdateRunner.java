@@ -28,7 +28,7 @@ public class SteadyStateUpdateRunner extends AbstractUpdateRunner
      *
      * @param generation        generation number
      * @param steadyStateRepeat steady-state repeat number
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     @Override
     public void postExecuteSingleSteadyStateRepeat(EA ea, int generation, int steadyStateRepeat) throws RunnerException

@@ -1,3 +1,18 @@
+[30.06.2025] This update introduces several moderate changes (see below) and includes a new tutorial: "A tool for generating reference pairwise comparisons for benchmarking interactive methods."
+- Framework: From now on, the library is additionally available as a Jar, which can be downloaded from the project's home page (only the most recent versions will be kept on the server).
+- Framework: From now on, the sources of the tutorials can be viewed and examined on the project's home page.
+- Framework: From now on, the library version number includes the date associated with the push to the repository (e.g., 1.04.30.06.2025; i.e., the last three elements represent the day, month, and year).
+- A new tutorial: "Tutorial 12: A tool for generating reference pairwise comparisons for benchmarking interactive methods," was added.
+- Polyrun library added as a part of this project.
+- IMPORTANT: Experimentation: names (getFileSuffix) of several Excel-based results analyzers (e.g., io.cross.excel.FinalStatisticsXLSX) changed (see the source codes).
+- Experimentation: io.cross.excel: A few new analyzers added: GenerationRankerXLS (or XLSX) and GenerationStatisticsXLS (or XLSX). They perform similarly to their "Final..." counterparts but concern presenting results attained by the examined methods at specified generations.
+- Experimentation: Results analyzers in io.cross: Minor update in processing; the implementations were exhaustively creating new cell styles (CellStyle), even when the styles for different cells were supposed to be the same. It ultimately led to errors when parsing large input data sets. This bug is now fixed.
+- DecisionSupport: system.AbstractReport: changes _processingTime from long to double to introduce more precision.
+- DecisionSupport: relation.PO: This class represents a relation of potential optimality, and it introduces some basic functionalities.
+- DecisionSupport: model.constructor.abstractConstructor.getReport() changed into instantiateReport().
+- DecisionSupport: model.constructor.value.rs.ers: Minor tweaks. E.g. ERS now measures after how many iterations a desired number of compatible models has been found.
+- Utils: statistics: a few new statistics added (e.g., MinInRange).
+
 [03.06.2025] This update is mainly dedicated to the "Tutorial 11: Minor update on random number generators" tutorial document
 - Tutorials: t11_20.t11_rgns tutorial added.
 - Visualization: Axes' titles now can be changed after instantiation
@@ -12,7 +27,7 @@
 - Experimentation: minor factorization related to exception throwing/handling
 - EvolutionaryComputation: reproduction.operators: Simple generic interfaces for operators are added: ICrossover<T> and IMutate<T> (also, IWeightsReproducer)
 
-[30.04.2025] This update is mainly dedicated to the "Tutorial 10: Evolutionary Rejection Sampling" tutorial document
+[30.04.2025] This update is mainly dedicated to the "ge" tutorial document
 - Visualization: line width property can be set via a scheme for 3D components Cube, Axes, and Panes (seek suitable fields, e.g., PANE3D_TOP_LINES_WIDTH).
 - Visualization: plot.plotModel.requestScreenshotCreation(...):  option (parameter) for clipping the created screenshot is added; the screenshot is clipped so that its depicted object occupies all the image; it is done by removing the first/last columns/rows whose all pixels match the given color.
 - Visualization: minor fixes linked to arrow rendering

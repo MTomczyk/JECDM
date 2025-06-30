@@ -51,7 +51,7 @@ class AbstractPairsConstructor implements IReferenceSetConstructor
      * @param dmContext            current decision-making context
      * @param filteredAlternatives filtered alternatives (passed the termination and reduction steps)
      * @return constructed reference set (or sets)
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     @Override
     public LinkedList<ReferenceSet> constructReferenceSets(DMContext dmContext, AbstractAlternatives<?> filteredAlternatives) throws ReferenceSetsConstructorException
@@ -77,7 +77,7 @@ class AbstractPairsConstructor implements IReferenceSetConstructor
      * @param filteredAlternatives filtered alternatives (passed the termination and reduction steps)
      * @param p                    iteration number
      * @return constructed reference set (or sets)
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     protected ReferenceSet constructSet(DMContext dmContext, AbstractAlternatives<?> filteredAlternatives, int p) throws ReferenceSetsConstructorException
     {
@@ -90,7 +90,7 @@ class AbstractPairsConstructor implements IReferenceSetConstructor
      *
      * @param filteredAlternatives filtered alternatives (passed the termination and reduction steps)
      * @return this implementation always returns 2
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     @Override
     public int getExpectedSize(AbstractAlternatives<?> filteredAlternatives) throws ReferenceSetsConstructorException
@@ -105,7 +105,7 @@ class AbstractPairsConstructor implements IReferenceSetConstructor
      * @param a1        the first alternative
      * @param a2        the second alternative
      * @return true if the pair is valid, false otherwise
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     protected boolean validatePair(DMContext dmContext, Alternative a1, Alternative a2) throws ReferenceSetsConstructorException
     {

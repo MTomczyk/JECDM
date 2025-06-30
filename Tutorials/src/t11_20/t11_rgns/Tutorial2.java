@@ -28,7 +28,7 @@ public class Tutorial2
         // Create GDC via params container, as usual:
         GlobalDataContainer.Params pGDC = new GlobalDataContainer.Params();
 
-        // [...] Here comes required configuration
+        // [...] Here comes some configuration
 
         // Configure Random Number Generator Initializer (RNGI):
         {
@@ -60,7 +60,7 @@ public class Tutorial2
                  * This method can be implemented to create streams during GDC initialization.
                  * @param noScenarios total number of scenarios (should include even disabled ones)
                  * @param noTrials    total number of trials per scenario
-                 * @throws GlobalException an exception can be thrown and can be handled by the executor
+                 * @throws GlobalException the exception can be thrown and can be handled by the executor
                  */
                 @Override
                 public void requestStreamsCreationDuringGDCInit(int noScenarios, int noTrials) throws GlobalException
@@ -72,7 +72,7 @@ public class Tutorial2
                  * This method can be implemented to create streams during SDC initialization.
                  * @param scenario scenario being processed
                  * @param noTrials total number of trials per scenario
-                 * @throws ScenarioException an exception can be thrown and can be handled by the executor
+                 * @throws ScenarioException the exception can be thrown and can be handled by the executor
                  */
                 @Override
                 public void requestStreamsCreationDuringSDCInit(Scenario scenario, int noTrials) throws ScenarioException
@@ -86,7 +86,7 @@ public class Tutorial2
                  * @param trialID  ID of a trial requesting the random number generator
                  * @param noTrials total number of trials per scenario
                  * @return a dedicated RNG instance
-                 * @throws ScenarioException an exception can be thrown and can be handled by the executor
+                 * @throws ScenarioException the exception can be thrown and can be handled by the executor
                  */
                 @Override
                 public IRandom getRNG(Scenario scenario, int trialID, int noTrials) throws ScenarioException
@@ -95,6 +95,5 @@ public class Tutorial2
                 }
             };
         }
-
     }
 }

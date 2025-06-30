@@ -193,7 +193,7 @@ public class PreferenceElicitationModule extends AbstractModule
      *
      * @param dmContext current decision-making context
      * @return report on the process execution
-     * @throws ModuleException the exception can be thrown and propagated higher
+     * @throws ModuleException the exception can be thrown 
      */
     public Report executeProcess(DMContext dmContext) throws ModuleException
     {
@@ -210,7 +210,7 @@ public class PreferenceElicitationModule extends AbstractModule
         if (!triggerInteractionsResult._shouldInteract)
         {
             unregisterDecisionMakingContext();
-            report._processingTime = (System.nanoTime() - startTime) / 1000000;
+            report._processingTime = (double) (System.nanoTime() - startTime) / 1000000.0d;
             report._interactionStatus = Status.INTERACTION_WAS_NOT_TRIGGERED;
             return report;
         }
@@ -238,7 +238,7 @@ public class PreferenceElicitationModule extends AbstractModule
             notifyPreferenceElicitationEnds(dmContext);
             unregisterDecisionMakingContext();
 
-            report._processingTime = (System.nanoTime() - startTime) / 1000000;
+            report._processingTime = (double) (System.nanoTime() - startTime) / 1000000.0d;
             report._interactionStatus = st;
             return report;
         }
@@ -264,7 +264,7 @@ public class PreferenceElicitationModule extends AbstractModule
         notifyPreferenceElicitationEnds(dmContext);
         unregisterDecisionMakingContext();
 
-        report._processingTime = (System.nanoTime() - startTime) / 1000000;
+        report._processingTime = (double) (System.nanoTime() - startTime) / 1000000.0d;
         report._interactionStatus = Status.PROCESS_ENDED_SUCCESSFULLY;
         return report;
     }
@@ -273,7 +273,7 @@ public class PreferenceElicitationModule extends AbstractModule
      * Method for notifying that the preference elicitation begins.
      *
      * @param dmContext current decision-making context
-     * @throws ModuleException the exception can be thrown and propagated higher
+     * @throws ModuleException the exception can be thrown 
      */
     public void notifyPreferenceElicitationBegins(DMContext dmContext) throws ModuleException
     {
@@ -297,7 +297,7 @@ public class PreferenceElicitationModule extends AbstractModule
      * Method for notifying that the preference elicitation failed.
      *
      * @param dmContext current decision-making context
-     * @throws ModuleException the exception can be thrown and propagated higher
+     * @throws ModuleException the exception can be thrown 
      */
     public void notifyPreferenceElicitationFailed(DMContext dmContext) throws ModuleException
     {
@@ -320,7 +320,7 @@ public class PreferenceElicitationModule extends AbstractModule
      * Method for notifying that the preference elicitation ends.
      *
      * @param dmContext current decision-making context
-     * @throws ModuleException the exception can be thrown and propagated higher
+     * @throws ModuleException the exception can be thrown 
      */
     public void notifyPreferenceElicitationEnds(DMContext dmContext) throws ModuleException
     {
@@ -344,7 +344,7 @@ public class PreferenceElicitationModule extends AbstractModule
      * Method for notifying about the most recent preference information.
      *
      * @param feedback container for the received feedback
-     * @throws ModuleException the exception can be thrown and propagated higher
+     * @throws ModuleException the exception can be thrown 
      */
     public void notifyAboutTheMostRecentPreferenceInformation(interaction.feedbackprovider.Result feedback) throws ModuleException
     {
@@ -382,7 +382,7 @@ public class PreferenceElicitationModule extends AbstractModule
      *
      * @param dmContext current decision-making context
      * @return the indication whether to interact stored in {@link interaction.trigger.Result}
-     * @throws ModuleException the exception can be thrown and propagated higher
+     * @throws ModuleException the exception can be thrown 
      */
     public interaction.trigger.Result shouldTriggerTheInteractions(DMContext dmContext) throws ModuleException
     {
@@ -405,7 +405,7 @@ public class PreferenceElicitationModule extends AbstractModule
      *
      * @param dmContext current decision-making context
      * @return obtained reference sets (wrapped using {@link interaction.reference.Result})
-     * @throws ModuleException the exception can be thrown and propagated higher
+     * @throws ModuleException the exception can be thrown 
      */
     public interaction.reference.Result constructReferenceSets(DMContext dmContext) throws ModuleException
     {
@@ -452,7 +452,7 @@ public class PreferenceElicitationModule extends AbstractModule
     {
         interaction.reference.Result result = new interaction.reference.Result(dmContext, refiningResult);
         result._status = status;
-        result._processingTime = 0;
+        result._processingTime = 0.0d;
         result._terminatedDueToNotEnoughAlternatives = false;
         result._terminatedDueToNotEnoughAlternativesMessage = null;
         result._referenceSetsContainer = null;

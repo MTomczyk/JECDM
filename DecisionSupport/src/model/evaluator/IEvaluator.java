@@ -22,7 +22,7 @@ public interface IEvaluator<T extends IInternalModel>
      * evaluated via {@link IEvaluator#evaluateAlternatives(AbstractAlternatives, ArrayList)}.
      *
      * @param alternatives alternatives to be evaluated
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     void registerAlternativesSuperset(AbstractAlternatives<?> alternatives) throws PreferenceModelException;
 
@@ -40,7 +40,7 @@ public interface IEvaluator<T extends IInternalModel>
      * @param alternative the alternative to be evaluated
      * @param models      internal models used for evaluation
      * @return attained score
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     double evaluate(Alternative alternative, ArrayList<T> models) throws PreferenceModelException;
 
@@ -50,7 +50,7 @@ public interface IEvaluator<T extends IInternalModel>
      * @param alternatives alternatives to be evaluated
      * @param models       internal models used for evaluation
      * @return attained scores (each element corresponds to a different alternative, 1:1 connection) wrapped via {@link EvaluationResult}
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     EvaluationResult evaluateAlternatives(AbstractAlternatives<?> alternatives, ArrayList<T> models) throws PreferenceModelException;
 }

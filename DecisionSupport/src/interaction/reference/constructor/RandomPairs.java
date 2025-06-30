@@ -88,7 +88,7 @@ public class RandomPairs extends AbstractPairsConstructor implements IReferenceS
      * @param filteredAlternatives filtered alternatives (passed the termination and reduction steps)
      * @param p                    iteration number
      * @return constructed reference set (returns null if the method was not able to construct a valid set)
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     @Override
     protected ReferenceSet constructSet(DMContext dmContext, AbstractAlternatives<?> filteredAlternatives, int p) throws ReferenceSetsConstructorException

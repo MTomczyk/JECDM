@@ -48,7 +48,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
      * Auxiliary method that can be used to register the current decision-making context {@link DMContext}.
      *
      * @param dmContext decision-making context
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void registerDecisionMakingContext(DMContext dmContext) throws ConstructorException
@@ -60,7 +60,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
     /**
      * Method for notifying that the preference elicitation begins.
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyPreferenceElicitationBegins() throws ConstructorException
@@ -72,7 +72,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
     /**
      * Method for notifying that the preference elicitation failed (e.g., when there were no reasonable alternatives for comparison).
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     public void notifyPreferenceElicitationFailed() throws ConstructorException
     {
@@ -84,7 +84,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
      * Method for notifying on the most recent preference information provided by the decision maker.
      *
      * @param preferenceInformation preference information (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyAboutMostRecentPreferenceInformation(LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
@@ -96,7 +96,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
     /**
      * Method for notifying that the preference elicitation ends.
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyPreferenceElicitationEnds() throws ConstructorException
@@ -108,7 +108,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
     /**
      * Method for notifying that the internal models construction begins.
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyModelsConstructionBegins() throws ConstructorException
@@ -121,7 +121,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
     /**
      * Method for notifying that the internal models construction ends.
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyModelsConstructionEnds() throws ConstructorException
@@ -133,7 +133,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
     /**
      * Method for notifying that the consistency reintroduction begins.
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyConsistencyReintroductionBegins() throws ConstructorException
@@ -145,7 +145,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
     /**
      * Method for notifying about the beginning of an attempt to reintroduce consistency (one construction process is called in one attempt)
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyConsistencyReintroductionAttemptBegins() throws ConstructorException
@@ -159,7 +159,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
      * Method for notifying about preference examples removed from the initial set when attempting to reinstate consistency.
      *
      * @param removedPreferenceInformation removed preference examples (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyAboutRemovedPreferenceInformation(LinkedList<PreferenceInformationWrapper> removedPreferenceInformation) throws ConstructorException
@@ -173,7 +173,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
      * Method for notifying about preference examples added from the preference examples set when attempting to reinstate consistency.
      *
      * @param addedPreferenceInformation added preference examples (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyAboutAddedPreferenceInformation(LinkedList<PreferenceInformationWrapper> addedPreferenceInformation) throws ConstructorException
@@ -185,7 +185,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
     /**
      * Method for notifying about the ending of an attempt to reintroduce consistency (one construction process is called in one attempt)
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyConsistencyReintroductionAttemptEnds() throws ConstructorException
@@ -197,7 +197,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
     /**
      * Method for notifying that the consistency reintroduction ends.
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyConsistencyReintroductionEnds() throws ConstructorException
@@ -210,7 +210,7 @@ public abstract class AbstractWrappedConstructor<T extends AbstractInternalModel
     /**
      * Unregisters the decision-making context
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void unregisterDecisionMakingContext() throws ConstructorException

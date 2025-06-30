@@ -30,7 +30,7 @@ public class FrameFactory
      * @param PP           loaded plot params
      * @param sortedCoords heatmap data entries (coordinates) sorted in ascending order of values (each row per one plot)
      * @return frame object
-     * @throws Exception exception can be thrown (e.g., when the input data is invalid)
+     * @throws Exception the exception can be thrown (e.g., when the input data is invalid)
      */
     public static Frame getFrame(FrameParams FP, PlotParams[] PP, Coords[][] sortedCoords) throws Exception
     {

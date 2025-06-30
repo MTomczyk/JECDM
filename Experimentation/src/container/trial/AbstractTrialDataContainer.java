@@ -199,7 +199,7 @@ public abstract class AbstractTrialDataContainer extends AbstractDataContainer
      * The method for instantiating the performance indicators.
      *
      * @param p params container
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     private void instantiatePerformanceIndicators(Params p) throws TrialException
     {
@@ -236,7 +236,7 @@ public abstract class AbstractTrialDataContainer extends AbstractDataContainer
      * in different files). These clones are stored in array, where each element directly corresponds to one saver.
      *
      * @param p params container
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     private void instantiateTrialSaversPerIndicator(Params p) throws TrialException
     {
@@ -254,7 +254,7 @@ public abstract class AbstractTrialDataContainer extends AbstractDataContainer
      *
      * @param R random number generator
      * @param p params container
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     protected void instantiateEA(IRandom R, Params p) throws TrialException
     {
@@ -265,7 +265,7 @@ public abstract class AbstractTrialDataContainer extends AbstractDataContainer
      * The method instantiates the runner (object responsible for conducting the evolutionary process).
      *
      * @param p params container
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     protected void instantiateRunner(Params p) throws TrialException
     {
@@ -277,7 +277,7 @@ public abstract class AbstractTrialDataContainer extends AbstractDataContainer
      * The method for instantiating the result matrix.
      *
      * @param p params container
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     public void instantiateResults(Params p) throws TrialException
     {
@@ -295,7 +295,7 @@ public abstract class AbstractTrialDataContainer extends AbstractDataContainer
     /**
      * Auxiliary method for creating trial-level results files.
      *
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     public void createResultsFiles() throws TrialException
     {
@@ -308,7 +308,7 @@ public abstract class AbstractTrialDataContainer extends AbstractDataContainer
      * @param results current results matrix (rows = linked to indicators, columns = linked to generations)
      * @param offset  determines the offset in the columns (starting index)
      * @param length  determines the number of columns involved in data saving
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     public void pushResults(double[][] results, int offset, int length) throws TrialException
     {
@@ -319,7 +319,7 @@ public abstract class AbstractTrialDataContainer extends AbstractDataContainer
     /**
      * Auxiliary method for closing trial-level results files (closes, e.g., FileOutputStreams).
      *
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     public void closeResultsFiles() throws TrialException
     {

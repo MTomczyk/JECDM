@@ -72,7 +72,7 @@ public class FileUtils
      * @param br            instantiated buffered reader
      * @param appendNewline if true, is parsed line is additionally ended with the new line symbol
      * @return lines (list)
-     * @throws IOException IO exception can be thrown
+     * @throws IOException the IO exception can be thrown
      */
     public static LinkedList<String> getLines(BufferedReader br, boolean appendNewline) throws IOException
     {

@@ -19,7 +19,7 @@ public interface IEAInitializer
      *          a generator should be used throughout the experimentation
      * @param p params container
      * @return per-trial evolutionary algorithm
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     EA instantiateEA(IRandom R, AbstractTrialDataContainer.Params p) throws TrialException;
 }

@@ -34,7 +34,7 @@ public class KTSCone extends AbstractConstructor<model.internals.value.scalarizi
      *
      * @param bundle                bundle result object to be filled (provided via wrappers)
      * @param preferenceInformation the decision maker's preference information stored
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     protected void mainConstructModels(Report<model.internals.value.scalarizing.KTSCone> bundle,
                                        LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException

@@ -18,7 +18,20 @@ public class InconsistencyHandlerException extends AbstractException
      */
     public InconsistencyHandlerException(String message, Class<?> handler)
     {
-        this(message, handler, null);
+        super(message, handler);
+    }
+
+
+    /**
+     * Parameterized constructor
+     *
+     * @param message exception message
+     * @param handler class that caught the exception
+     * @param source  exception source
+     */
+    public InconsistencyHandlerException(String message, Class<?> handler, Class<?> source)
+    {
+        super(message, handler, source);
     }
 
     /**

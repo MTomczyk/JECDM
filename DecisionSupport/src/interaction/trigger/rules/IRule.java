@@ -16,7 +16,7 @@ public interface IRule
      *
      * @param dmContext current decision-making context
      * @return true, if the rule favors interaction, false otherwise
-     * @throws TriggerException the exception can be thrown and propagated higher
+     * @throws TriggerException the exception can be thrown 
      */
     boolean shouldInteract(DMContext dmContext) throws TriggerException;
 

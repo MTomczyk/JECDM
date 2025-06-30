@@ -2,10 +2,12 @@ This document contains loose ideas on future updates:
 
 Decision Support:
 - For the preference elicitation: allow the DM(s) to resign from providing feedback (after reference sets are shown).
+- ERS method: reporting the success rate on inserting models built into the queue
 
 Evolutionary Computation:
 - Introducing the archive functionality (SpecimenContainer).
-- Multiple RNGs for possible in-EA multithreading (each thread should have a different generator)
+- Phases: allow providing custom pre-post actions (simple one-method interfaces; lambda methods; stacked on the list or passed via arrays)
+- Phases: simple customizable phase; passing own implementations via list to instantiate EA's processing
 - Simple EA for generic regression.
 
 Visualization:
@@ -28,7 +30,7 @@ Visualization:
 - Marker size based on attribute value (use of DR)
 - Heatmap2D: providing values in buckets
 - Providing initial projection data as an input (for 3D)
-- New data sets: arrows and labels
+- New data sets: labels
 
 Experimentation
 - Mechanisms for surpassing original names of the indicators

@@ -73,9 +73,8 @@ public class Table
      * Applies cell style to all cells. Important note: all cell styles are defined as new objects (input clones)
      *
      * @param cellStyle cell style to be set
-     * @param wb        workbook
      */
-    public void applyCellStyleClones(CellStyle cellStyle, Workbook wb)
+    public void applyCellStyle(CellStyle cellStyle)
     {
         if (_cell == null) return;
         for (Cell[] cells : _cell)
@@ -84,9 +83,7 @@ public class Table
             for (Cell cell : cells)
             {
                 if (cell == null) continue;
-                CellStyle newStyle = wb.createCellStyle();
-                newStyle.cloneStyleFrom(cellStyle);
-                cell.setCellStyle(newStyle);
+                cell.setCellStyle(cellStyle);
             }
         }
     }
@@ -168,17 +165,22 @@ public class Table
     /**
      * Apples chessboard backgrounds (every second segment).
      *
-     * @param x     starting X-coordinate
-     * @param y     starting Y-coordinates
-     * @param dxs   delta-x (widths) for segments
-     * @param dys   delta-y (height) for segments
-     * @param color color for the chessboard
+     * @param x         starting X-coordinate
+     * @param y         starting Y-coordinates
+     * @param dxs       delta-x (widths) for segments
+     * @param dys       delta-y (height) for segments
+     * @param cellStyle new cell style to apply
+     * @param color     color for the chessboard
      */
-    public void applyChessboard(int x, int y, int[] dxs, int[] dys, short color)
+    public void applyChessboard(int x, int y, int[] dxs, int[] dys, CellStyle cellStyle, short color)
     {
         boolean startGrey = true;
         boolean grey;
         int sX = x;
+
+        cellStyle.setFillForegroundColor(color);
+        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
         for (int dx : dxs)
         {
             startGrey = !startGrey;
@@ -186,7 +188,7 @@ public class Table
             int sY = y;
             for (int dy : dys)
             {
-                if (grey) applyBackground(sX, sY, dx, dy, color);
+                if (grey) applyCellStyleToCells(sX, sY, dx, dy, cellStyle);
                 grey = !grey;
                 sY += dy;
             }

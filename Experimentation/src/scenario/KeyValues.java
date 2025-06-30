@@ -57,6 +57,18 @@ public class KeyValues
         return getInstance(Keys.KEY_OBJECTIVES, Keys.KEY_OBJECTIVES_ABB, values, disabled);
     }
 
+    /**
+     * Allows retrieving the object instance.
+     *
+     * @param key   key/label/feature (will be converted to upper case)
+     * @param value key's realization (each one will be converted to upper case)
+     * @return object instance
+     * @throws GlobalException the exception is thrown when the input data is invalid (e.g., nulls, empty strings, etc.)
+     */
+    public static KeyValues getInstance(String key, String value) throws GlobalException
+    {
+        return getInstance(key, key, new String[]{value}, null);
+    }
 
     /**
      * Allows retrieving the object instance.

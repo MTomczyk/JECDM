@@ -19,7 +19,7 @@ public class UnifiedStatistics extends AbstractUnified<IStatistic>
      * @param SDCs                   instantiated scenario data containers
      * @param unifiedStatisticsNames optional statistic functions names bypassed via {@link container.global.AbstractGlobalDataContainer}
      * @param crossedScenarios       crossed scenarios being currently processed
-     * @throws CrossedScenariosException crossed scenarios exception can be thrown and propagated higher
+     * @throws CrossedScenariosException crossed scenarios exception can be thrown 
      */
     public UnifiedStatistics(AbstractScenarioDataContainer[] SDCs,
                              String[] unifiedStatisticsNames,

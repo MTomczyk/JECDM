@@ -81,7 +81,7 @@ public class ModelSystem<T extends AbstractInternalModel>
      * Parameterized constructor.
      *
      * @param p params container
-     * @throws ModelSystemException model system exception can be thrown and propagated higher
+     * @throws ModelSystemException the model system exception can be thrown 
      */
     public ModelSystem(Params<T> p) throws ModelSystemException
     {
@@ -103,7 +103,7 @@ public class ModelSystem<T extends AbstractInternalModel>
      * Parameterized constructor.
      *
      * @param modelBundle model bundle used to parameterize the system
-     * @throws ModelSystemException model system exception can be thrown and propagated higher
+     * @throws ModelSystemException the model system exception can be thrown 
      */
     public ModelSystem(system.ds.ModelBundle<T> modelBundle) throws ModelSystemException
     {
@@ -126,7 +126,7 @@ public class ModelSystem<T extends AbstractInternalModel>
      * Auxiliary method that can be used to register the current decision-making context {@link DMContext}.
      *
      * @param dmContext current decision-making context
-     * @throws ModelSystemException model system exception can be thrown and propagated higher
+     * @throws ModelSystemException the model system exception can be thrown 
      */
     public void registerDecisionMakingContext(DMContext dmContext) throws ModelSystemException
     {
@@ -145,7 +145,7 @@ public class ModelSystem<T extends AbstractInternalModel>
     /**
      * Auxiliary method that can be used to unregister the current decision-making context {@link DMContext}.
      *
-     * @throws ModelSystemException model system exception can be thrown and propagated higher
+     * @throws ModelSystemException the model system exception can be thrown 
      */
     public void unregisterDecisionMakingContext() throws ModelSystemException
     {
@@ -164,7 +164,7 @@ public class ModelSystem<T extends AbstractInternalModel>
     /**
      * Method for notifying that the preference elicitation begins.
      *
-     * @throws ModelSystemException the exception can be thrown and propagated higher
+     * @throws ModelSystemException the exception can be thrown 
      */
     public void notifyPreferenceElicitationBegins() throws ModelSystemException
     {
@@ -181,7 +181,7 @@ public class ModelSystem<T extends AbstractInternalModel>
      * Method for notifying about the most recent preference information provided by the decision maker.
      *
      * @param preferenceInformation preference information (provided via wrapper)
-     * @throws ModelSystemException model system exception can be thrown and propagated higher
+     * @throws ModelSystemException model system exception can be thrown 
      */
     public void notifyAboutMostRecentPreferenceInformation(LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ModelSystemException
     {
@@ -201,7 +201,7 @@ public class ModelSystem<T extends AbstractInternalModel>
     /**
      * Method for notifying that the preference elicitation failed (e.g., when there were no reasonable alternatives for comparison).
      *
-     * @throws ModelSystemException model system exception can be thrown and propagated higher
+     * @throws ModelSystemException model system exception can be thrown 
      */
     public void notifyPreferenceElicitationFailed() throws ModelSystemException
     {
@@ -217,7 +217,7 @@ public class ModelSystem<T extends AbstractInternalModel>
     /**
      * Method for notifying that the preference elicitation ends.
      *
-     * @throws ModelSystemException model system exception can be thrown and propagated higher
+     * @throws ModelSystemException model system exception can be thrown 
      */
     public void notifyPreferenceElicitationEnds() throws ModelSystemException
     {
@@ -234,7 +234,7 @@ public class ModelSystem<T extends AbstractInternalModel>
      * The main method for updating the model given the history of preference elicitation.
      *
      * @return report on the model update
-     * @throws ModelSystemException model system exception can be thrown and propagated higher
+     * @throws ModelSystemException model system exception can be thrown 
      */
     public system.model.Report<T> updateModel() throws ModelSystemException
     {
@@ -283,7 +283,7 @@ public class ModelSystem<T extends AbstractInternalModel>
             throw new ModelSystemException("Could not update the preference model " + e.getDetailedReasonMessage(), this.getClass(), e);
         }
 
-        report._processingTime = (System.nanoTime() - startTime) / 1000000;
+        report._processingTime = (double) (System.nanoTime() - startTime) / 1000000.0d;
         return report;
     }
 
@@ -295,7 +295,7 @@ public class ModelSystem<T extends AbstractInternalModel>
      *
      * @param alternative the alternative to be evaluated
      * @return attained score
-     * @throws ModelSystemException model system exception can be thrown and propagated higher
+     * @throws ModelSystemException model system exception can be thrown 
      */
     public double evaluate(Alternative alternative) throws ModelSystemException
     {
@@ -314,7 +314,7 @@ public class ModelSystem<T extends AbstractInternalModel>
      *
      * @param alternatives alternatives to be evaluated
      * @return attained scores (each element corresponds to a different alternative, 1:1 connection with registered alternatives)
-     * @throws ModelSystemException model system exception can be thrown and propagated higher
+     * @throws ModelSystemException model system exception can be thrown 
      */
     public EvaluationResult evaluateAlternatives(AbstractAlternatives<?> alternatives) throws ModelSystemException
     {
@@ -357,6 +357,16 @@ public class ModelSystem<T extends AbstractInternalModel>
     public IConstructor<T> getModelConstructor()
     {
         return _modelConstructor;
+    }
+
+    /**
+     * Getter for the inconsistency handler.
+     *
+     * @return inconsistency handler
+     */
+    public IInconsistencyHandler<T> getInconsistencyHandler()
+    {
+        return _inconsistencyHandler;
     }
 
     /**

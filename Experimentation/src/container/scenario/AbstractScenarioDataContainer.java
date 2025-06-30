@@ -229,7 +229,7 @@ public abstract class AbstractScenarioDataContainer extends AbstractDataContaine
      * Called when starting instantiating a scenario to request RNG streams creation.
      *
      * @param scenario scenario being processed
-     * @throws ScenarioException scenario exception can be thrown and propagated higher
+     * @throws ScenarioException scenario exception can be thrown 
      */
     private void requestStreamsCreationDuringSDCInit(Scenario scenario) throws ScenarioException
     {

@@ -70,7 +70,7 @@ public abstract class AbstractTrialLoader extends AbstractTrialIO implements ITr
     /**
      * The implementation should create a file (and overwrite it if already exists) and instantiate the output stream.
      *
-     * @throws TrialException trail-level exception can be thrown (e.g., then the requested path is invalid)
+     * @throws TrialException the trail-level exception can be thrown  (e.g., then the requested path is invalid)
      */
     @Override
     public void load() throws TrialException
@@ -83,7 +83,7 @@ public abstract class AbstractTrialLoader extends AbstractTrialIO implements ITr
      *
      * @param size determines the number of elements to load (e.g., doubles)
      * @return elements loaded
-     * @throws TrialException trail-level exception can be thrown
+     * @throws TrialException the trail-level exception can be thrown 
      */
     @Override
     public double[] retrieve(int size) throws TrialException
@@ -94,7 +94,7 @@ public abstract class AbstractTrialLoader extends AbstractTrialIO implements ITr
     /**
      * The implementation should close the maintained output stream.
      *
-     * @throws TrialException trail-level exception can be thrown
+     * @throws TrialException the trail-level exception can be thrown 
      */
     @Override
     public void close() throws TrialException

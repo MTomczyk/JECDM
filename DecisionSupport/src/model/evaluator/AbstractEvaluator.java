@@ -25,7 +25,7 @@ public class AbstractEvaluator<T extends IInternalModel> implements IEvaluator<T
      * evaluated via {@link IEvaluator#evaluateAlternatives(AbstractAlternatives, ArrayList)}.
      *
      * @param alternativesSuperset alternatives to be evaluated
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     @Override
     public void registerAlternativesSuperset(AbstractAlternatives<?>  alternativesSuperset) throws PreferenceModelException
@@ -51,7 +51,7 @@ public class AbstractEvaluator<T extends IInternalModel> implements IEvaluator<T
      * @param alternative the alternative to be evaluated
      * @param models      internal models used for evaluation
      * @return attained score
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     @Override
     public double evaluate(Alternative alternative, ArrayList<T> models) throws PreferenceModelException
@@ -69,7 +69,7 @@ public class AbstractEvaluator<T extends IInternalModel> implements IEvaluator<T
      * @param alternatives alternatives to be evaluated
      * @param models       internal models used for evaluation
      * @return attained scores (each element corresponds to a different alternative, 1:1 connection)
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     @Override
     public EvaluationResult evaluateAlternatives(AbstractAlternatives<?> alternatives, ArrayList<T> models) throws PreferenceModelException
@@ -87,7 +87,7 @@ public class AbstractEvaluator<T extends IInternalModel> implements IEvaluator<T
      * @param alternatives alternatives to be evaluated
      * @param models       internal models used for evaluation
      * @return attained scores (each element corresponds to a different alternative, 1:1 connection)
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     protected EvaluationResult preEvaluationPhase(AbstractAlternatives<?> alternatives, ArrayList<T> models) throws PreferenceModelException
     {
@@ -102,7 +102,7 @@ public class AbstractEvaluator<T extends IInternalModel> implements IEvaluator<T
      * @param ER evaluation result to be filled
      * @param alternatives alternatives to be evaluated
      * @param models       internal models used for evaluation
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     protected void mainEvaluationPhase(EvaluationResult ER, AbstractAlternatives<?> alternatives, ArrayList<T> models) throws PreferenceModelException
     {
@@ -118,7 +118,7 @@ public class AbstractEvaluator<T extends IInternalModel> implements IEvaluator<T
      * @param alternatives alternatives to be evaluated
      * @param models       internal models used for evaluation
      * @return attained scores (each element corresponds to a different alternative, 1:1 connection)
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     protected EvaluationResult postEvaluationPhase(EvaluationResult ER, AbstractAlternatives<?> alternatives, ArrayList<T> models) throws PreferenceModelException
     {

@@ -33,7 +33,7 @@ public class ReferenceSets
      * @param A the first input
      * @param B the second input
      * @return joint set
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     public static ReferenceSets createJointSet(ReferenceSets A, ReferenceSets B) throws ReferenceSetsConstructorException
     {
@@ -69,7 +69,7 @@ public class ReferenceSets
      * @param noSets        represents the total number of constructed reference sets
      * @param uniqueSizes   stores the unique reference sets' sizes
      * @param referenceSets map connecting a reference size with a list of associated reference sets
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     public ReferenceSets(int noSets, int[] uniqueSizes, HashMap<Integer, LinkedList<ReferenceSet>> referenceSets)
             throws ReferenceSetsConstructorException

@@ -88,7 +88,7 @@ public class AbstractUpdateRunner extends Runner implements IRunner
     /**
      * Updates data using the initial population.
      *
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     @Override
     public void postInitPhase() throws RunnerException

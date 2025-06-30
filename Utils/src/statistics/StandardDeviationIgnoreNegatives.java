@@ -19,7 +19,7 @@ public class StandardDeviationIgnoreNegatives extends AbstractStatistic implemen
      * Calculates the statistic. Returns 0 if no data is provided or all samples are negative.
      *
      * @param v input array
-     * @return statistics
+     * @return statistic
      */
     @Override
     public double calculate(double[] v)

@@ -26,7 +26,7 @@ public interface ICrossSaver
      * @param filename         the filename (without the suffix, e.g., extension)
      * @param crossedScenarios crossed scenarios being currently processed
      * @return new object instance
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown 
      */
     ICrossSaver getInstance(String path, String filename, CrossedScenarios crossedScenarios) throws CrossedScenariosException;
 
@@ -41,7 +41,7 @@ public interface ICrossSaver
     /**
      * Method for notifying the savers that the processing begins (prior to executing any scenario).
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown 
      */
     void notifyProcessingBegins() throws CrossedScenariosException;
 
@@ -50,7 +50,7 @@ public interface ICrossSaver
      *
      * @param scenario scenario that is to be processed
      * @param SDC      scenario data container linked to the scenario being currently processed (read-only)
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown 
      */
     void notifyScenarioProcessingBegins(Scenario scenario, AbstractScenarioDataContainer SDC) throws CrossedScenariosException;
 
@@ -58,14 +58,14 @@ public interface ICrossSaver
      * A method for notifying the saver that the processing of indicator-related data begins.
      *
      * @param indicator indicator
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown
+     * @throws CrossedScenariosException the crossed-scenarios-level exception thrown be thrown
      */
     void notifyIndicatorProcessingBegins(IIndicator indicator) throws CrossedScenariosException;
 
     /**
      * A method for notifying the saver that the processing of indicator-related data ends.
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown
      */
     void notifyIndicatorProcessingEnds() throws CrossedScenariosException;
 
@@ -79,14 +79,14 @@ public interface ICrossSaver
      * @param trialResults raw trial results
      * @param statistics   statistics calculated from trial results (1:1 mapping with statistic objects stored in {@link container.scenario.AbstractScenarioDataContainer})
      * @param generation   current generation number
-     * @throws ScenarioException scenario-level exception can be thrown
+     * @throws ScenarioException the scenario-level exception can be thrown 
      */
     void pushData(double[] trialResults, double[] statistics, int generation) throws ScenarioException;
 
     /**
      * Method for notifying the savers that the processing ends.
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown 
      */
     void notifyScenarioProcessingEnds() throws CrossedScenariosException;
 
@@ -94,7 +94,7 @@ public interface ICrossSaver
     /**
      * Method for notifying the savers that the processing begins (after all scenarios are processed).
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown 
      */
     void notifyProcessingEnds() throws CrossedScenariosException;
 
@@ -123,14 +123,14 @@ public interface ICrossSaver
     /**
      * The implementation should create a file (and overwrite it if already exists) and instantiate the output stream.
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown 
      */
     void create() throws CrossedScenariosException;
 
     /**
      * The implementation should close the maintained output stream.
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast 
      */
     void close() throws CrossedScenariosException;
 

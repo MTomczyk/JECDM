@@ -60,7 +60,7 @@ public abstract class AbstractPreferenceModel<T extends IInternalModel> implemen
      * Auxiliary method that can be used to register the current decision-making context {@link DMContext}.
      *
      * @param dmContext decision-making context
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     @Override
     public void registerDecisionMakingContext(DMContext dmContext) throws PreferenceModelException
@@ -73,7 +73,7 @@ public abstract class AbstractPreferenceModel<T extends IInternalModel> implemen
     /**
      * Unregisters the decision-making context
      *
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     @Override
     public void unregisterDecisionMakingContext() throws PreferenceModelException
@@ -88,7 +88,7 @@ public abstract class AbstractPreferenceModel<T extends IInternalModel> implemen
      *
      * @param alternative the alternative to be evaluated
      * @return attained score
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     @Override
     public double evaluate(Alternative alternative) throws PreferenceModelException
@@ -104,7 +104,7 @@ public abstract class AbstractPreferenceModel<T extends IInternalModel> implemen
      * The main method for evaluating alternatives. The evaluation is delegated to {@link IEvaluator}.
      *
      * @return attained scores (each element corresponds to a different alternative, 1:1 connection with registered alternatives)
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     @Override
     public EvaluationResult evaluateAlternatives(AbstractAlternatives<?> alternatives) throws PreferenceModelException

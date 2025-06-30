@@ -99,7 +99,7 @@ public class CrossSummarizer extends ExperimentPerformer
     @Override
     protected void doInitLog()
     {
-        _log.log("Cross examination starts starts", Level.Global, _indent);
+        _log.log("Cross examination starts", Level.Global, _indent);
     }
 
 
@@ -142,7 +142,7 @@ public class CrossSummarizer extends ExperimentPerformer
      * The main method for processing cross scenarios.
      *
      * @param summary summary object to be filled throughout the execution
-     * @throws GlobalException global exception can be thrown and propagated higher
+     * @throws GlobalException the global exception can be thrown 
      */
     @Override
     protected void processScenarios(Summary summary) throws GlobalException
@@ -210,7 +210,7 @@ public class CrossSummarizer extends ExperimentPerformer
      * @param crossedScenarios        the crossed scenarios to be processed
      * @param referenceSavers         reference file savers
      * @param crossedScenariosSummary scenario summary object to be filled
-     * @throws CrossedScenariosException the global-level exception can be thrown and propagated higher
+     * @throws CrossedScenariosException the global-level exception can be thrown 
      */
     private void processCrossedScenario(CrossedScenarios crossedScenarios,
                                         LinkedList<ICrossSaver> referenceSavers,
@@ -290,7 +290,7 @@ public class CrossSummarizer extends ExperimentPerformer
      * @param scenario         scenario being processed
      * @param SDC              scenario data container linked to the scenario being processed
      * @param crossedScenarios crossed scenarios
-     * @throws CrossedScenariosException crossed scenarios exception can be thrown and propagated higher
+     * @throws CrossedScenariosException crossed scenarios exception can be thrown 
      */
     private void processScenario(CrossSavers crossSavers,
                                  Scenario scenario,
@@ -422,7 +422,7 @@ public class CrossSummarizer extends ExperimentPerformer
      *
      * @param crossedScenarios input crossed scenarios
      * @return scenario data containers
-     * @throws CrossedScenariosException crossed scenarios exception can be thrown and propagated higher
+     * @throws CrossedScenariosException crossed scenarios exception can be thrown 
      */
     private AbstractScenarioDataContainer[] getInstantiatedScenarioDataContainers(CrossedScenarios crossedScenarios)
             throws CrossedScenariosException
@@ -451,7 +451,7 @@ public class CrossSummarizer extends ExperimentPerformer
      * @param crossedScenarios        crossed scenarios being currently processed
      * @param crossedScenariosSummary crossed scenarios summary
      * @return wrapper for the cross saves
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown and propagated higher
+     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown 
      */
     private CrossSavers getCrossSavers(LinkedList<ICrossSaver> referenceSavers,
                                        String path,
@@ -506,7 +506,7 @@ public class CrossSummarizer extends ExperimentPerformer
      *
      * @param crossedScenarios crossed scenarios being processed
      * @return the path leading to the folder where the results of the crossed scenarios should be stored
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown and propagated higher
+     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown 
      */
     private String createCrossedScenarioFolder(CrossedScenarios crossedScenarios) throws CrossedScenariosException
     {
@@ -539,7 +539,7 @@ public class CrossSummarizer extends ExperimentPerformer
      *
      * @param crossedSettings validated crossed settings
      * @return crossed scenarios to be processed
-     * @throws GlobalException global-level exception can be thrown and propagated higher.
+     * @throws GlobalException global-level exception can be thrown .
      */
     private CrossedScenarios[] getCrossedScenarios(CrossedSetting[] crossedSettings) throws GlobalException
     {
@@ -565,7 +565,7 @@ public class CrossSummarizer extends ExperimentPerformer
      * Auxiliary method for retrieving valid cross settings.
      *
      * @return validated crossed settings
-     * @throws GlobalException global-level exception can be thrown and propagated higher.
+     * @throws GlobalException global-level exception can be thrown .
      */
     private CrossedSetting[] getValidCrossedSettings() throws GlobalException
     {
@@ -595,7 +595,7 @@ public class CrossSummarizer extends ExperimentPerformer
     /**
      * Auxiliary method for validating some of the settings.
      *
-     * @throws GlobalException global-level exception can be thrown and propagated higher.
+     * @throws GlobalException global-level exception can be thrown .
      */
     private void validate() throws GlobalException
     {

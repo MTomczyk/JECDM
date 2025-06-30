@@ -29,7 +29,7 @@ class Utils
      * @param generations the total number of generations the methods were run for
      * @param indicatorID id (array index) of the indicator being currently processed
      * @param indicator   indicator being currently processed
-     * @throws ScenarioException scenario-level exception can be called and passed higher
+     * @throws ScenarioException the scenario-level exception can be thrown and passed higher
      */
     protected static void loadAndPushBinaryData(AbstractGlobalDataContainer GDC,
                                                 TLPITrialWrapper loaders,

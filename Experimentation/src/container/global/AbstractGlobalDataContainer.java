@@ -229,7 +229,7 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
      * [A-Z], [0-9] characters; the reason is to mitigate potential errors caused, e.g., when creating folders based
      * on the keys' names; nonetheless, if needed, some extra allowed character can be provided via this array.
      */
-    private Character[] _allowedCharacters;
+    private Character[] _extraAllowedCharacters;
 
     /**
      * Auxiliary field (can be null, not used) that provides a series of disabling conditions for scenarios.
@@ -344,7 +344,7 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
      * @param scenario trial's scenario requesting the random number generator
      * @param trialID  ID of a trial requesting the random number generator
      * @return random number generator instance
-     * @throws ScenarioException exception can be thrown and propagated higher
+     * @throws ScenarioException exception can be thrown 
      */
     public IRandom requestRandomNumberGenerator(Scenario scenario, int trialID) throws ScenarioException
     {
@@ -356,7 +356,7 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
      * Called when starting instantiating a scenario to request RNG streams creation.
      *
      * @param scenario scenario being processed
-     * @throws ScenarioException scenario exception can be thrown and propagated higher
+     * @throws ScenarioException scenario exception can be thrown 
      */
     public void requestStreamsCreationDuringSDCInit(Scenario scenario) throws ScenarioException
     {
@@ -580,7 +580,7 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
      */
     private void instantiateAllowedCharacters(Params p)
     {
-        _allowedCharacters = p._extraAllowedCharacters;
+        _extraAllowedCharacters = p._extraAllowedCharacters;
     }
 
 
@@ -797,9 +797,9 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
      */
     public Set<Character> getAllowedCharacters()
     {
-        if (_allowedCharacters == null) return null;
+        if (_extraAllowedCharacters == null) return null;
         Set<Character> characters = new HashSet<>();
-        Collections.addAll(characters, _allowedCharacters);
+        Collections.addAll(characters, _extraAllowedCharacters);
         return characters;
     }
 
@@ -843,7 +843,7 @@ public abstract class AbstractGlobalDataContainer extends AbstractDataContainer
         _noThreads = 0;
         _trialIDs = null;
         _mainPath = null;
-        _allowedCharacters = null;
+        _extraAllowedCharacters = null;
         _scenarioDisablingConditions = null;
         _crossedSettings = null;
         _crossedFolderName = null;

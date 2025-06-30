@@ -6,6 +6,7 @@ import io.cross.ICrossSaver;
 import io.utils.excel.Excel;
 import io.utils.excel.Style;
 import io.utils.excel.Table;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
@@ -71,15 +72,22 @@ public abstract class AbstractExcelSaver extends AbstractCrossSaver implements I
     /**
      * Parameterized constructor.
      *
-     * @param path             full path to the folder where the file should be stored (without a path separator)
-     * @param filename         the filename (without the suffix, e.g., extension)
-     * @param crossedScenarios crossed scenarios being currently processed
-     * @param style            provides some basic customization options
-     * @param level            the level of cross-analysis (should be at least 2)
+     * @param path                         full path to the folder where the file should be stored (without a path separator)
+     * @param filename                     the filename (without the suffix, e.g., extension)
+     * @param crossedScenarios             crossed scenarios being currently processed
+     * @param style                        provides some basic customization options
+     * @param summarizeResultsInGeneration if not null, the data summary will concern results attained in this specified
+     *                                     generation number (instead of the last generation)
+     * @param level                        the level of cross-analysis (should be at least 2)
      */
-    public AbstractExcelSaver(String path, String filename, CrossedScenarios crossedScenarios, Style style, int level)
+    public AbstractExcelSaver(String path,
+                              String filename,
+                              CrossedScenarios crossedScenarios,
+                              Style style,
+                              Integer summarizeResultsInGeneration,
+                              int level)
     {
-        super(path, filename, crossedScenarios, level);
+        super(path, filename, crossedScenarios, summarizeResultsInGeneration, level);
         instantiateExcel(style);
     }
 
@@ -97,7 +105,7 @@ public abstract class AbstractExcelSaver extends AbstractCrossSaver implements I
     /**
      * The implementation creates the workbook object
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown (e.g., then the requested path is invalid)
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown (e.g., then the requested path is invalid)
      */
     @Override
     public void create() throws CrossedScenariosException
@@ -147,7 +155,7 @@ public abstract class AbstractExcelSaver extends AbstractCrossSaver implements I
     /**
      * The implementation flushes the data to the actual file and closes the outputs.
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown 
      */
     @Override
     public void close() throws CrossedScenariosException
@@ -191,7 +199,9 @@ public abstract class AbstractExcelSaver extends AbstractCrossSaver implements I
         Table table = new Table(x, y, w, h, sheet);
         if (_excel._doFormatting)
         {
-            table.applyCellStyleClones(_excel._contentStyle, _excel._workbook);
+            CellStyle newStyle = _excel._workbook.createCellStyle();
+            newStyle.cloneStyleFrom(_excel._contentStyle);
+            table.applyCellStyle(newStyle);
             table.makeBlank(0, 0, w, h);
             table.applyBackground(0, 0, w, h, _excel._style._tableFillForegroundColor);
             table.applyBorder(0, 0, w, h, _excel._style._tableBorderColor, _excel._style._tableBorderStyle);

@@ -19,7 +19,7 @@ abstract sealed class AbstractConstruct implements IConstruct permits DoubleCons
      *
      * @param ea evolutionary algorithm
      * @return specimen array
-     * @throws PhaseException exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     protected ArrayList<Specimen> createSpecimenArray(EA ea) throws PhaseException
     {

@@ -23,7 +23,7 @@ public interface IConstruct
      *
      * @param ea evolutionary algorithm
      * @return specimen array
-     * @throws PhaseException the exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     ArrayList<Specimen> createInitialPopulation(EA ea) throws PhaseException;
 }

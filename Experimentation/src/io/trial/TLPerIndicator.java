@@ -26,7 +26,7 @@ public class TLPerIndicator
      * @param path            full path to the folder where the result files are stored (without a path separator)
      * @param scenario        scenario being currently processed
      * @param trialID         ID of the test run being currently processed
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     public TLPerIndicator(ITrialLoader referenceLoader,
                           IIndicator[] indicators,
@@ -51,7 +51,7 @@ public class TLPerIndicator
      * @param size determines the number of elements to load (by default = doubles)
      * @return loaded data stored as a two-dimensional matrix, where the first dimension is linked to different loaders,
      * while the latter to data with a specified size
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     public double[][] retrieve(int size) throws TrialException
     {
@@ -65,7 +65,7 @@ public class TLPerIndicator
     /**
      * Auxiliary method for opening the trial-level results files.
      *
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     public void openResultsFiles() throws TrialException
     {
@@ -75,7 +75,7 @@ public class TLPerIndicator
     /**
      * Auxiliary method for closing trial-level results files (closes, e.g., FileOutputStreams).
      *
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     public void closeResultsFiles() throws TrialException
     {

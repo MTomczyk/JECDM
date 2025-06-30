@@ -62,7 +62,6 @@ public class Tutorial1
                 System.out.println("    Random doubles for instance = " + (++instance) + " : "
                         + PrintUtils.getVectorOfDoubles(d, 4));
             }
-
         }
     }
 }

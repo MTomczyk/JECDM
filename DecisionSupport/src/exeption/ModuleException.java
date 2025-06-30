@@ -18,8 +18,22 @@ public class ModuleException extends AbstractException
      */
     public ModuleException(String message, Class<?> handler)
     {
-        this(message, handler, null);
+        this(message, handler, (Throwable) null);
     }
+
+
+    /**
+     * Parameterized constructor
+     *
+     * @param message exception message
+     * @param handler class that caught the exception
+     * @param source  exception source
+     */
+    public ModuleException(String message, Class<?> handler, Class<?> source)
+    {
+        super(message, handler, source);
+    }
+
 
     /**
      * Parameterized constructor

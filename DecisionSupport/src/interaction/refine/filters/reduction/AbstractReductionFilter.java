@@ -19,7 +19,7 @@ public class AbstractReductionFilter implements IReductionFilter
     /**
      * Parameterized constructor.
      *
-     * @param name                 filter name
+     * @param name filter name
      */
     public AbstractReductionFilter(String name)
     {
@@ -29,10 +29,10 @@ public class AbstractReductionFilter implements IReductionFilter
     /**
      * Default implementation passes all alternatives (via new array).
      *
-     * @param dmContext          current decision-making context
+     * @param dmContext    current decision-making context
      * @param processedSet upper (super) set
      * @return input alternatives wrapped via a new array
-     * @throws RefinerException exception can be thrown and propagated higher
+     * @throws RefinerException the exception can be thrown 
      */
     @Override
     public AbstractAlternatives<?> reduce(DMContext dmContext, AbstractAlternatives<?> processedSet) throws RefinerException
@@ -44,9 +44,9 @@ public class AbstractReductionFilter implements IReductionFilter
     /**
      * Auxiliary method for performing basic validation.
      *
-     * @param dmContext          current decision-making context
+     * @param dmContext    current decision-making context
      * @param alternatives processed superset of alternatives
-     * @throws RefinerException exception can be thrown and propagated higher
+     * @throws RefinerException the exception can be thrown 
      */
     protected void validate(DMContext dmContext, AbstractAlternatives<?> alternatives) throws RefinerException
     {

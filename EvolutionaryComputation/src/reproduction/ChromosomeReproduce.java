@@ -59,7 +59,7 @@ public class ChromosomeReproduce implements IReproduce
      *
      * @param ea evolutionary algorithm
      * @return offspring array
-     * @throws PhaseException an exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     @Override
     public ArrayList<Specimen> createOffspring(EA ea) throws PhaseException

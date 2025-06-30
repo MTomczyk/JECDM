@@ -13,7 +13,7 @@ public interface IRunner
     /**
      * Initializes EAs. Default implementation: the method runs pre, main, and post-init phases (in the given order).
      *
-     * @throws RunnerException exception can be captured when executing the evolutionary algorithm and propagated higher
+     * @throws RunnerException the exception can be captured when executing the evolutionary algorithm 
      */
     void init() throws RunnerException;
 
@@ -21,7 +21,7 @@ public interface IRunner
      * Executes the evolution (from scratch, i.e., calls inits etc.) for the specified number of generations.
      *
      * @param generations specified number of generations (the same for each evolutionary algorithm)
-     * @throws RunnerException exception can be captured when executing the evolutionary algorithm and propagated higher
+     * @throws RunnerException the exception can be captured when executing the evolutionary algorithm 
      */
     void executeEvolution(int generations) throws RunnerException;
 
@@ -30,7 +30,7 @@ public interface IRunner
      *
      * @param generations specified number of generations; each element corresponds to a different evolutionary algorithm
      *                    (1:1) mapping; hence, the array length should equal the number of algorithms
-     * @throws RunnerException exception can be captured when executing the evolutionary algorithm and propagated higher
+     * @throws RunnerException the exception can be captured when executing the evolutionary algorithm 
      */
     void executeEvolution(int[] generations) throws RunnerException;
 
@@ -42,7 +42,7 @@ public interface IRunner
      *                         note that the generation counter starts from 0);
      *                         this field excludes those EAs who have reached their generation limit;
      *                         can be null -> not used
-     * @throws RunnerException exception can be captured when executing the evolutionary algorithm and propagated higher
+     * @throws RunnerException the exception can be captured when executing the evolutionary algorithm 
      */
     void executeSingleGeneration(int generation, int[] generationLimits) throws RunnerException;
 
@@ -53,21 +53,21 @@ public interface IRunner
      * @param ea                evolutionary algorithm whose single steady-state repeat is to be executed
      * @param generation        current generation number
      * @param steadyStateRepeat steady-state repeat number
-     * @throws RunnerException exception can be captured when executing the evolutionary algorithm and propagated higher
+     * @throws RunnerException the exception can be captured when executing the evolutionary algorithm 
      */
     void executeSingleSteadyStateRepeat(EA ea, int generation, int steadyStateRepeat) throws RunnerException;
 
     /**
      * Stops simulations. Default implementation: the method runs pre, main, and post init phases (in the given order).
      *
-     * @throws RunnerException exception can be captured when executing the evolutionary algorithm and propagated higher
+     * @throws RunnerException the exception can be captured when executing the evolutionary algorithm 
      */
     void stop() throws RunnerException;
 
     /**
      * Optional method for terminating the execution and clearing data.
      *
-     * @throws RunnerException exception can be captured when executing the evolutionary algorithm and propagated higher
+     * @throws RunnerException the exception can be captured when executing the evolutionary algorithm 
      */
     void dispose() throws RunnerException;
 

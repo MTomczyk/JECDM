@@ -64,7 +64,7 @@ public class ModelsUpdaterModule extends AbstractModule
      *
      * @param dmContext current decision-making context
      * @return report on the process execution
-     * @throws ModuleException the exception can be thrown and propagated higher
+     * @throws ModuleException the exception can be thrown 
      */
     public Report executeProcess(DMContext dmContext) throws ModuleException
     {
@@ -102,7 +102,7 @@ public class ModelsUpdaterModule extends AbstractModule
 
         unregisterDecisionMakingContext();
 
-        report._processingTime = (System.nanoTime() - startTime) / 1000000;
+        report._processingTime = (double) (System.nanoTime() - startTime) / 1000000.0d;
         return report;
     }
 

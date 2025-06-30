@@ -35,7 +35,7 @@ public class ContEvaluator implements IEvaluate
      * Evaluates specimens.
      *
      * @param specimens array of specimens to be evaluated
-     * @throws PhaseException the exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     @Override
     public void evaluateSpecimens(ArrayList<Specimen> specimens) throws PhaseException

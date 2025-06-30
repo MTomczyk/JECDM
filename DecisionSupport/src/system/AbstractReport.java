@@ -16,7 +16,7 @@ public abstract class AbstractReport
     /**
      * Indicates the processing time (in ms).
      */
-    public long _processingTime;
+    public double _processingTime;
 
     /**
      * Timestamp (iteration).

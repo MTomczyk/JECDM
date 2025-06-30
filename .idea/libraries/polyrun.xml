@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="polyrun">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/polyrun/polyrun.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

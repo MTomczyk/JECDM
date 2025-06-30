@@ -7,7 +7,8 @@ import io.utils.excel.Style;
 import scenario.CrossedScenarios;
 
 /**
- * Extension of {@link AbstractExcelConvergence} for xls files (1997-2003 Excel).
+ * Extension of {@link AbstractExcelConvergence} for xls files (1997-2003 Excel). Produces a file with the
+ * "_convergence_" + _level + "D.xls" suffix.
  *
  * @author MTomczyk
  */
@@ -59,7 +60,7 @@ public class ConvergenceXLS extends AbstractExcelConvergence implements ICrossSa
      * @param filename         the filename (without the suffix, e.g., extension)
      * @param crossedScenarios crossed scenarios being currently processed
      * @return new object instance
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be cast 
      */
     @Override
     public ICrossSaver getInstance(String path, String filename, CrossedScenarios crossedScenarios) throws CrossedScenariosException
@@ -68,14 +69,14 @@ public class ConvergenceXLS extends AbstractExcelConvergence implements ICrossSa
     }
 
     /**
-     * Returns the file suffix (_convergence + level + D.xlsx)
+     * Returns the file suffix.
      *
      * @return file suffix
      */
     @Override
     public String getFileSuffix()
     {
-        return "_convergence" + _level + "D.xls";
+        return "_convergence_" + _level + "D.xls";
     }
 
     /**

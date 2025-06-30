@@ -83,7 +83,7 @@ public class TrialPoolExecutor
     /**
      * Clears the data.
      *
-     * @throws ScenarioException scenario exception can be thrown and propagated to the global executor
+     * @throws ScenarioException the scenario exception can be thrown and propagated to the global executor
      */
     public void dispose() throws ScenarioException
     {

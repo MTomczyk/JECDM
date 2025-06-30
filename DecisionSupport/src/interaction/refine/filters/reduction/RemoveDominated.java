@@ -29,7 +29,7 @@ public class RemoveDominated extends AbstractReductionFilter implements IReducti
      * @param dmContext          current decision-making context
      * @param processedSet upper (super) set
      * @return alternatives that passed the filter tests (are valid and can be processed further), it should be a subset of the input set (recommended to make it a different object than the input)
-     * @throws RefinerException exception can be thrown and propagated higher
+     * @throws RefinerException the exception can be thrown 
      */
     @Override
     public AbstractAlternatives<?> reduce(DMContext dmContext, AbstractAlternatives<?> processedSet) throws RefinerException

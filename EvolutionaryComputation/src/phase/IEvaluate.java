@@ -25,7 +25,7 @@ public interface IEvaluate
      * {@link Specimen#setAuxScore(double)}; see {@link Alternative#getAuxScores()}.
      *
      * @param specimens array of specimens to be evaluated
-     * @throws PhaseException the exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     void evaluateSpecimens(ArrayList<Specimen> specimens) throws PhaseException;
 }

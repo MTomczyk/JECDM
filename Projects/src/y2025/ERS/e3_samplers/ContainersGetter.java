@@ -32,7 +32,7 @@ import random.MersenneTwister32;
 import scenario.CrossedSetting;
 import statistics.*;
 import statistics.tests.ITest;
-import statistics.tests.NoTimesNonNegative;
+import statistics.NoTimesNonNegative;
 import statistics.tests.TStudent;
 import y2025.ERS.common.*;
 import y2025.ERS.common.indicators.*;
@@ -71,7 +71,7 @@ public class ContainersGetter
      * Main method for creating the containers.
      *
      * @return containers
-     * @throws Exception exception can be thrown and propagated higher
+     * @throws Exception the exception can be thrown 
      */
     public static Containers getContainers() throws Exception
     {
@@ -231,6 +231,7 @@ public class ContainersGetter
                 double mutationStd = Double.parseDouble(s[2]) / 10.0d;
 
                 IterableERS.Params<LNorm> pERS = new IterableERS.Params<>(new LNormGenerator(M, alpha));
+                pERS._passModels = false;
                 pERS._similarity = new Euclidean();
                 pERS._feasibleSamplesToGenerate = N;
                 pERS._kMostSimilarNeighbors = 3;

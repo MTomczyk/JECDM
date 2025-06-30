@@ -52,7 +52,7 @@ final public class BoolConstruct extends AbstractConstruct implements IConstruct
      *
      * @param ea evolutionary algorithm
      * @return specimen array
-     * @throws PhaseException an exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     @Override
     public ArrayList<Specimen> createInitialPopulation(EA ea) throws PhaseException

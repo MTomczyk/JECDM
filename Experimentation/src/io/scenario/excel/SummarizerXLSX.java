@@ -4,7 +4,7 @@ import color.Color;
 import exception.ScenarioException;
 import executor.ScenariosSummarizer;
 import indicator.IIndicator;
-import io.cross.excel.AbstractFinalStatistics;
+import io.cross.excel.AbstractExcelGenerationStatistics;
 import io.scenario.IScenarioSaver;
 import io.utils.excel.Style;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -19,7 +19,7 @@ import scenario.Scenario;
 import statistics.IStatistic;
 
 /**
- * Extension of {@link AbstractFinalStatistics} for xls files (2007+ Excel).
+ * Extension of {@link AbstractExcelGenerationStatistics} for xls files (2007+ Excel).
  *
  * @author MTomczyk
  */
@@ -102,7 +102,7 @@ public class SummarizerXLSX extends AbstractExcelSummarizer implements IScenario
      * @param indicators performance indicators employed when assessing the performance of EAs.
      * @param statistics statistic functions used to aggregate the data
      * @return new object instance
-     * @throws ScenarioException scenario-level exception can be cast and propagated higher
+     * @throws ScenarioException the scenario-level exception can be cast 
      */
     @Override
     public IScenarioSaver getInstance(String path, String filename, Scenario scenario, int[] trialIDs, IIndicator[] indicators, IStatistic[] statistics) throws ScenarioException

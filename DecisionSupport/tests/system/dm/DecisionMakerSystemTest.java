@@ -380,7 +380,7 @@ class DecisionMakerSystemTest
             };
 
             idx = 0;
-            long auxTime = 0;
+            double auxTime = 0;
             for (State<?> st : iReport._states)
             {
                 if (idx != 0) auxTime += st._report._constructionElapsedTime;
@@ -431,7 +431,7 @@ class DecisionMakerSystemTest
             };
 
             idx = 0;
-            long auxTime = 0;
+            double auxTime = 0;
             for (State<?> st : iReport._states)
             {
                 if (idx != 0) auxTime += st._report._constructionElapsedTime;
@@ -601,7 +601,7 @@ class DecisionMakerSystemTest
             };
 
             idx = 0;
-            long auxTime = 0;
+            double auxTime = 0;
             for (State<?> st : iReport._states)
             {
                 if (idx != 0) auxTime += st._report._constructionElapsedTime;

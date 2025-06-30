@@ -15,7 +15,7 @@ public class ComponentUtils
      * Sets frame icon to framework's (seeks through the resources folder).
      *
      * @param frame frame object whose icon will be set
-     * @throws Exception exception can be thrown (e.g., when the icon file cannot be located)
+     * @throws Exception the exception can be thrown  (e.g., when the icon file cannot be located)
      */
     public static void initIcon(JFrame frame) throws Exception
     {

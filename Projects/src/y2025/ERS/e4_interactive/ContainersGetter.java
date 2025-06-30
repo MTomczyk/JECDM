@@ -91,7 +91,7 @@ public class ContainersGetter
      * Main method for creating the containers.
      *
      * @return containers
-     * @throws Exception exception can be thrown and propagated higher
+     * @throws Exception the exception can be thrown 
      */
     @SuppressWarnings("DataFlowIssue")
     public static Containers getContainers() throws Exception

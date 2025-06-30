@@ -25,7 +25,7 @@ public class Max extends AbstractStatistic implements IStatistic
      * Calculates the statistics (max). Returns 0 if no data is provided.
      *
      * @param v input array
-     * @return statistics
+     * @return statistic
      */
     @Override
     public double calculate(double[] v)

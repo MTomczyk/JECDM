@@ -25,7 +25,7 @@ public interface IScenarioSaver
      * @param indicators performance indicators employed when assessing the performance of EAs.
      * @param statistics statistic functions used to aggregate the data
      * @return new object instance
-     * @throws ScenarioException scenario-level exception can be cast and propagated higher
+     * @throws ScenarioException the scenario-level exception can be cast 
      */
     IScenarioSaver getInstance(String path,
                                String filename,
@@ -44,7 +44,7 @@ public interface IScenarioSaver
     /**
      * The implementation should create a file (and overwrite it if already exists) and instantiate the output stream.
      *
-     * @throws ScenarioException scenario-level exception can be thrown (e.g., then the requested path is invalid)
+     * @throws ScenarioException the scenario-level exception can be thrown (e.g., then the requested path is invalid)
      */
     void create() throws ScenarioException;
 

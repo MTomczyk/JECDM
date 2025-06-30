@@ -20,7 +20,7 @@ public interface ICommonFeedbackProvider
      * Auxiliary method for registering the decision makers (should be called before {@link ICommonFeedbackProvider#getFeedback(ReferenceSetsContainer)}).
      *
      * @param DMs the decision maker to be registered
-     * @throws FeedbackProviderException the exception can be thrown and propagated higher
+     * @throws FeedbackProviderException the exception can be thrown 
      */
     void registerDMs(DM [] DMs) throws FeedbackProviderException;
 
@@ -33,7 +33,7 @@ public interface ICommonFeedbackProvider
      * Auxiliary method for registering the current decision-making context (should be called before {@link IDMFeedbackProvider#getFeedback(ReferenceSets)}).
      *
      * @param dmContext current decision-making context
-     * @throws FeedbackProviderException the exception can be thrown and propagated higher
+     * @throws FeedbackProviderException the exception can be thrown 
      */
     void registerDecisionMakingContext(DMContext dmContext) throws FeedbackProviderException;
 
@@ -45,7 +45,7 @@ public interface ICommonFeedbackProvider
     /**
      * Auxiliary validation method.
      *
-     * @throws FeedbackProviderException the exception can be thrown and propagated higher
+     * @throws FeedbackProviderException the exception can be thrown 
      */
     void validate() throws FeedbackProviderException;
 
@@ -55,7 +55,7 @@ public interface ICommonFeedbackProvider
      *
      * @param referenceSetsContainer reference sets container that provides all reference sets
      * @return feedback (wrapped via {@link CommonResult}).
-     * @throws FeedbackProviderException the exception can be thrown and propagated higher
+     * @throws FeedbackProviderException the exception can be thrown 
      */
     CommonResult getFeedback(ReferenceSetsContainer referenceSetsContainer) throws FeedbackProviderException;
 }

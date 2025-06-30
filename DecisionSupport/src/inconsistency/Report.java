@@ -38,7 +38,7 @@ public class Report<T extends AbstractInternalModel> extends AbstractReport
      *
      * @param dmContext current decision-making context
      */
-    protected Report(DMContext dmContext)
+    public Report(DMContext dmContext)
     {
         super(dmContext);
     }

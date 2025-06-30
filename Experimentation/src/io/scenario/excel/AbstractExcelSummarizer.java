@@ -40,7 +40,7 @@ public abstract class AbstractExcelSummarizer extends AbstractExcelSaver impleme
      *
      * @param indicator   indicator
      * @param generations number of generations
-     * @throws ScenarioException scenario-level exception can be thrown
+     * @throws ScenarioException the  scenario-level exception can be thrown 
      */
     @Override
     public void notifyIndicatorProcessingBegins(IIndicator indicator, int generations) throws ScenarioException

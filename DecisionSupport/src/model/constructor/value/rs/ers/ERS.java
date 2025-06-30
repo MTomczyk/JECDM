@@ -18,14 +18,15 @@ import java.util.LinkedList;
  * This class represents an evolutionary-based rejection sampling procedure for generating uniformly distributed
  * preference model instances compatible with the decision maker's feedback. Its description can be found in
  * <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5279824">this paper</a> (preprint; TODO to be updated
- * when published). In short, its central element is an efficient fixed-size queue that keeps the sampled models sorted.
- * The default sorting criterion (comparator) is implemented as {@link MostSimilarWithTieResolving} (it is recommended
- * to use it). First, the comparator assumes that compatible models are favored in the queue over incompatible ones.
- * Among the latter, the procedure favors those with lesser incompatibility scores, calculated in the spirit of the most
- * discriminative function approach (see {@link compatibility.CompatibilityAnalyzer#calculateTheMostDiscriminativeCompatibilityWithValueModel(LinkedList,
+ * when published). In short, its central element is an efficient fixed-size queue that keeps the sampled models
+ * sorted. The default sorting criterion (comparator) is implemented as {@link MostSimilarWithTieResolving} (it is
+ * recommended to use it). First, the comparator assumes that compatible models are favored in the queue over
+ * incompatible ones. Among the latter, the procedure favors those with lesser incompatibility scores, calculated in
+ * the spirit of the most discriminative function approach (see
+ * {@link compatibility.CompatibilityAnalyzer#calculateTheMostDiscriminativeCompatibilityWithValueModel(LinkedList,
  * AbstractValueInternalModel)}). Regarding the compatible models, the queue prioritizes those that maximize their
- * distance to the closest neighbor (another model). In the case of equality, similarities to the next nearest neighbors
- * are compared, etc. Note that the similarity measure can be customized (see {@link ISimilarity}).
+ * distance to the closest neighbor (another model). In the case of equality, similarities to the next nearest
+ * neighbors are compared, etc. Note that the similarity measure can be customized (see {@link ISimilarity}).
  *
  * @author MTomczyk
  */
@@ -40,6 +41,13 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
          * Represents the number of k most-similar neighbors kept per each model.
          */
         public int _kMostSimilarNeighbors = 5;
+
+        /**
+         * If true, the model pool will be refilled (rewritten) from the queue, if possible. It will be triggered only
+         * during the init phase and only when (i) the model pool size is less than the queue size and the
+         * _validateAlreadyExistingSamplesFirst flag is set to true.
+         */
+        public boolean _refillModelsFromQueue = false;
 
         /**
          * Comparator used to sort the models (see the default {@link MostSimilarWithTieResolving}).
@@ -85,6 +93,18 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
     private final EvolutionaryModelConstructor<T> _EMC;
 
     /**
+     * If true, the model pool will be refilled (rewritten) from the queue, if possible. It will be triggered only
+     * during the init phase and only when (i) the model pool size is less than the queue size and the
+     * _validateAlreadyExistingSamplesFirst flag is set to true.
+     */
+    private final boolean _refillModelsFromQueue;
+
+    /**
+     * No. executed attempts in the most recent model construction method call.
+     */
+    private int _attempts;
+
+    /**
      * Parameterized constructor.
      *
      * @param p params container
@@ -95,15 +115,16 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
         _modelsQueue = new ModelsQueue<>(_feasibleSamplesToGenerate, p._kMostSimilarNeighbors,
                 p._compatibilityAnalyzer, p._comparator, p._similarity);
         _EMC = p._EMC;
+        _refillModelsFromQueue = p._refillModelsFromQueue;
     }
 
     /**
-     * Auxiliary method for creating report instance.
+     * Auxiliary method for creating and internally setting a report instance.
      *
      * @return report instance
      */
     @Override
-    protected Report<T> getReportInstance()
+    protected Report<T> instantiateReport()
     {
         _ersReport = new model.constructor.value.rs.ers.Report<>(_dmContext);
         return _ersReport;
@@ -125,15 +146,15 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
      *
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown
      */
     @Override
     protected void mainConstructModels(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
         if (initializeStep(bundle, preferenceInformation)) return;
-        int attempts = Math.max(0, _iterationsLimit.getIterations(_dmContext, preferenceInformation,
+        _attempts = Math.max(0, _iterationsLimit.getIterations(_dmContext, preferenceInformation,
                 bundle, _feasibleSamplesToGenerate));
-        for (int t = 0; t < attempts; t++) executeStep(bundle, preferenceInformation);
+        for (int t = 0; t < _attempts; t++) executeStep(bundle, preferenceInformation);
         finalizeStep(bundle, preferenceInformation);
     }
 
@@ -143,12 +164,15 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
      * @return indicates whether to prematurely terminate (true)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown
      */
     @Override
     protected boolean initializeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
-        validate(bundle, preferenceInformation);
+        long startTime = System.nanoTime();
+
+        super.initializeStep(bundle, preferenceInformation);
+
         _R = _dmContext.getR();
 
         bundle._inconsistencyDetected = false;
@@ -163,19 +187,22 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
         bundle._rejectedNewlyConstructedModels = 0;
         bundle._successRateInConstructing = 0.0d;
 
-        if ((_modelsQueue.getQueue().isEmpty()) || (!_validateAlreadyExistingSamplesFirst)
-                || (_models.size() < _modelsQueue.getQueue().size())) // first fill
+        if ((_modelsQueue.getQueue().isEmpty()) ||
+                (!_validateAlreadyExistingSamplesFirst)
+                || ((_models != null) && (_models.size() < _modelsQueue.getQueue().size()))) // first fill
         {
             ArrayList<T> rms;
-            if (!attemptToSupplyInitialModels())
+            if ((_models != null) && (_models.size() < _modelsQueue.getQueue().size())
+                    && (_refillModelsFromQueue))
+            {
+                rms = _modelsQueue.getModels(); // get all models
+            }
+            else if (!attemptToSupplyInitialModels())
             {
                 rms = new ArrayList<>(_feasibleSamplesToGenerate);
                 for (int i = 0; i < _feasibleSamplesToGenerate; i++) rms.add(_RM.generateModel(_R));
             }
-            else
-            {
-                rms = _models;
-            }
+            else rms = _models;
 
             _modelsQueue.reset();
             _modelsQueue.initializeWithBatch(rms, preferenceInformation);
@@ -184,7 +211,7 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
             bundle._acceptedNewlyConstructedModels = _modelsQueue.getNoCompatibleModels();
             bundle._rejectedNewlyConstructedModels = _modelsQueue.getQueue().size() - bundle._acceptedNewlyConstructedModels;
         }
-        else if (_models.size() != _modelsQueue.getQueue().size()) // error case
+        else if ((_models != null) && (_models.size() != _modelsQueue.getQueue().size())) // error case
         {
             throw new ConstructorException("The number of stored models is greater than the number of models maintained in the queue", this.getClass());
         }
@@ -196,6 +223,9 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
             bundle._successRateInPreserving = (double) bundle._modelsPreservedBetweenIterations / _modelsQueue.getQueue().size();
             if (!rr) _modelsQueue.updateClosestModelsAndSortQueue(true, true);
         }
+
+        _passedTime += (System.nanoTime() - startTime);
+        attemptToUpdateTimeRelatedStats(bundle);
         return false;
     }
 
@@ -206,11 +236,13 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
      * @return returns the constructed model
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown
      */
     @Override
     protected T executeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
+        long startTime = System.nanoTime();
+
         T model;
         if (_EMC == null) model = _RM.generateModel(_R); // use random model generator
         else model = _EMC.getModel(_dmContext, this); // use evolutionary generator
@@ -218,7 +250,27 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
         boolean compatible = _modelsQueue.insertModel(model, preferenceInformation);
         if (compatible) bundle._acceptedNewlyConstructedModels++;
         else bundle._rejectedNewlyConstructedModels++;
+
+        _passedTime += (System.nanoTime() - startTime);
+
+        attemptToUpdateTimeRelatedStats(bundle);
+
         return model;
+    }
+
+    /**
+     * Auxiliary method that attempts to update time-related statistics concerning a state when the required number
+     * of compatible models has been found.
+     *
+     * @param bundle report being built
+     */
+    private void attemptToUpdateTimeRelatedStats(Report<T> bundle)
+    {
+        if ((_modelsQueue.getNoCompatibleModels() == _feasibleSamplesToGenerate) && (_compatibleFoundInIterations == null))
+        {
+            _compatibleFoundInIterations = (bundle._acceptedNewlyConstructedModels + bundle._rejectedNewlyConstructedModels);
+            _compatibleFoundInTime = (double) _passedTime / 1000000.0d;
+        }
     }
 
     /**
@@ -226,18 +278,22 @@ public class ERS<T extends AbstractValueInternalModel> extends AbstractRejection
      *
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown
      */
     @Override
     protected void finalizeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
+        long startTime = System.nanoTime();
+
         bundle._successRateInConstructing = (double) (bundle._acceptedNewlyConstructedModels) /
                 (bundle._acceptedNewlyConstructedModels + bundle._rejectedNewlyConstructedModels);
 
         _models = _modelsQueue.getCompatibleModels();
         bundle._models = _models;
-
         if (_models.size() <= _inconsistencyThreshold) bundle._inconsistencyDetected = true;
+
+        _ersReport._noExecutedIterations = _attempts;
+        _passedTime += (System.nanoTime() - startTime);
     }
 
 }

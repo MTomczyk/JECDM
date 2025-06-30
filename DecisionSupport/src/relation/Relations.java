@@ -28,5 +28,10 @@ public enum Relations
     /**
      * Equality relation ID.
      */
-    EQUALITY
+    EQUALITY,
+
+    /**
+     * Relation of potential optimality.
+     */
+    POTENTIAL_OPTIMALITY
 }

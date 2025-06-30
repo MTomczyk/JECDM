@@ -204,8 +204,8 @@ class ExperimentPerformerComplex14Test
         assertEquals(2, cs.getCrossedScenariosSummaries()[0].getSkippedScenarios());
 
         assertEquals(2, cs.getCrossedScenariosSummaries()[0].getSkippedSavers().size());
-        assertEquals("FINAL RANKER XLS", cs.getCrossedScenariosSummaries()[0].getSkippedSavers().getFirst());
-        assertEquals("FINAL RANKER XLSX", cs.getCrossedScenariosSummaries()[0].getSkippedSavers().get(1));
+        assertEquals("GENERATION FINAL RANKER XLS", cs.getCrossedScenariosSummaries()[0].getSkippedSavers().getFirst());
+        assertEquals("GENERATION FINAL RANKER XLSX", cs.getCrossedScenariosSummaries()[0].getSkippedSavers().get(1));
 
         // remove outputs
         try {

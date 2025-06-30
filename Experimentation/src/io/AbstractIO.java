@@ -99,7 +99,7 @@ public abstract class AbstractIO
      * instantiated yet).
      *
      * @return file object
-     * @throws ScenarioException scenario-level exception can be thrown and propagated higher
+     * @throws ScenarioException scenario-level exception can be thrown 
      */
     protected File getFileAtScenarioLevel() throws ScenarioException
     {
@@ -123,7 +123,7 @@ public abstract class AbstractIO
      * instantiated yet).
      *
      * @return file object
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown 
      */
     protected File getFileAtCrossedScenariosLevel() throws CrossedScenariosException
     {

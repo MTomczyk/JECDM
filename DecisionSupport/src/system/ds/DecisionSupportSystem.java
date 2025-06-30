@@ -136,7 +136,7 @@ public class DecisionSupportSystem
      *
      * @param pDMC current decision-making context (params)
      * @return final report on the DSS process
-     * @throws DecisionSupportSystemException the exception can be thrown and propagated higher
+     * @throws DecisionSupportSystemException the exception can be thrown 
      */
     public Report executeProcess(DMContext.Params pDMC) throws DecisionSupportSystemException
     {
@@ -157,7 +157,7 @@ public class DecisionSupportSystem
             report._updateReport = updateReport;
         }
 
-        report._processingTime = (System.nanoTime() - startTime) / 1000000;
+        report._processingTime = (double) (System.nanoTime() - startTime) / 1000000.0d;
 
         return report;
     }
@@ -168,7 +168,7 @@ public class DecisionSupportSystem
      *
      * @param pDMC current decision-making context (params)
      * @return report on the preference elicitation
-     * @throws DecisionSupportSystemException the exception can be thrown and propagated higher
+     * @throws DecisionSupportSystemException the exception can be thrown 
      */
     public system.modules.elicitation.Report executeElicitationProcess(DMContext.Params pDMC) throws DecisionSupportSystemException
     {
@@ -181,7 +181,7 @@ public class DecisionSupportSystem
      *
      * @param dmContext current decision-making context
      * @return report on the preference elicitation
-     * @throws DecisionSupportSystemException the exception can be thrown and propagated higher
+     * @throws DecisionSupportSystemException the exception can be thrown 
      */
     private system.modules.elicitation.Report executeElicitationProcess(DMContext dmContext) throws DecisionSupportSystemException
     {
@@ -200,7 +200,7 @@ public class DecisionSupportSystem
      *
      * @param pDMC current decision-making context (params)
      * @return report on the models update
-     * @throws DecisionSupportSystemException the exception can be thrown and propagated higher
+     * @throws DecisionSupportSystemException the exception can be thrown 
      */
     public system.modules.updater.Report executeModelUpdateProcess(DMContext.Params pDMC) throws DecisionSupportSystemException
     {
@@ -213,7 +213,7 @@ public class DecisionSupportSystem
      *
      * @param dmContext current decision-making context
      * @return report on the models update
-     * @throws DecisionSupportSystemException the exception can be thrown and propagated higher
+     * @throws DecisionSupportSystemException the exception can be thrown 
      */
     private system.modules.updater.Report executeModelUpdateProcess(DMContext dmContext) throws DecisionSupportSystemException
     {

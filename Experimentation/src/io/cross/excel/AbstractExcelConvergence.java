@@ -7,18 +7,18 @@ import indicator.IIndicator;
 import io.cross.ICrossSaver;
 import io.utils.excel.Style;
 import io.utils.excel.Table;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.usermodel.*;
 import scenario.CrossedScenarios;
 import scenario.Scenario;
 import scenario.Value;
 
 /**
- * Abstract extension of {@link io.scenario.excel.AbstractExcelSaver}. It is dedicated to Excel-based savers that provide
- * comprehensive convergence plots (results attained throughout all generations). The example and default implementations
- * are {@link ConvergenceXLS} and {@link ConvergenceXLSX}. They store the final results in tables; each one is stored in
+ * Abstract extension of {@link io.scenario.excel.AbstractExcelSaver}. It is dedicated to Excel-based savers that
+ * provide
+ * comprehensive convergence plots (results attained throughout all generations). The example and default
+ * implementations
+ * are {@link ConvergenceXLS} and {@link ConvergenceXLSX}. They store the final results in tables; each one is stored
+ * in
  * a separate sheet, and each one is dedicated to a different performance indicator. The dimensionality N of the
  * cross-analysis can be specified. All crossed key-values (cartesian products) are provided as a table header. The
  * results for each generation are provided in subsequent rows.
@@ -38,7 +38,7 @@ public abstract class AbstractExcelConvergence extends AbstractExcelSaver implem
      */
     public AbstractExcelConvergence(String path, String filename, CrossedScenarios crossedScenarios, int level, Style style)
     {
-        super(path, filename, crossedScenarios, style, level);
+        super(path, filename, crossedScenarios, style, null, level);
     }
 
 
@@ -56,7 +56,7 @@ public abstract class AbstractExcelConvergence extends AbstractExcelSaver implem
     /**
      * Method for notifying the savers that the processing begins (prior to executing any scenario).
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be cast 
      */
     @Override
     public void notifyProcessingBegins() throws CrossedScenariosException
@@ -141,7 +141,7 @@ public abstract class AbstractExcelConvergence extends AbstractExcelSaver implem
      *
      * @param scenario scenario that is to be processed
      * @param SDC      scenario data container linked to the scenario being currently processed (read-only)
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be cast 
      */
     @Override
     public void notifyScenarioProcessingBegins(Scenario scenario, AbstractScenarioDataContainer SDC) throws CrossedScenariosException
@@ -174,7 +174,7 @@ public abstract class AbstractExcelConvergence extends AbstractExcelSaver implem
      * A method for notifying the saver that the processing of indicator-related data begins.
      *
      * @param indicator indicator
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown
      */
     @Override
     public void notifyIndicatorProcessingBegins(IIndicator indicator) throws CrossedScenariosException
@@ -201,7 +201,7 @@ public abstract class AbstractExcelConvergence extends AbstractExcelSaver implem
      * @param statistics   statistics calculated from trial results (1:1 mapping with statistic objects stored in
      *                     {@link AbstractScenarioDataContainer})
      * @param generation   current generation number
-     * @throws ScenarioException scenario-level exception can be thrown
+     * @throws ScenarioException the scenario-level exception can be thrown 
      */
     @Override
     public void pushData(double[] trialResults, double[] statistics, int generation) throws ScenarioException
@@ -235,7 +235,7 @@ public abstract class AbstractExcelConvergence extends AbstractExcelSaver implem
     /**
      * Method for notifying the savers that the processing ends.
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast 
      */
     @Override
     public void notifyScenarioProcessingEnds() throws CrossedScenariosException
@@ -267,7 +267,9 @@ public abstract class AbstractExcelConvergence extends AbstractExcelSaver implem
 
                 if (_excel._doFormatting)
                 {
-                    table.applyCellStyleClones(_excel._contentStyle, _excel._workbook);
+                    CellStyle newStyle = _excel._workbook.createCellStyle();
+                    newStyle.cloneStyleFrom(_excel._contentStyle);
+                    table.applyCellStyle(newStyle);
                     table.applyBackground(0, 0, 1, generations, _excel._style._tableFillForegroundColor);
                     table.applyBorder(0, 0, 1, generations, _excel._style._tableBorderColor, _excel._style._tableBorderStyle);
                 }

@@ -235,9 +235,9 @@ class ExperimentPerformerComplex3Test
         {
             String[] excelResults = new String[]{
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_NONE_COMPARED_ALG_PS_GEN" + File.separatorChar + "FIXED_NONE_COMPARED_ALG_PS_GEN_ranker_key_ALG_TSTUDENT_WSR_MWU_3D.xls",
+                            "FIXED_NONE_COMPARED_ALG_PS_GEN" + File.separatorChar + "FIXED_NONE_COMPARED_ALG_PS_GEN_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_3D.xls",
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_NONE_COMPARED_ALG_PS_GEN" + File.separatorChar + "FIXED_NONE_COMPARED_ALG_PS_GEN_ranker_key_ALG_TSTUDENT_WSR_MWU_3D.xlsx",
+                            "FIXED_NONE_COMPARED_ALG_PS_GEN" + File.separatorChar + "FIXED_NONE_COMPARED_ALG_PS_GEN_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_3D.xlsx",
             };
 
             for (int f = 0; f < 2; f++)
@@ -293,13 +293,13 @@ class ExperimentPerformerComplex3Test
         {
             String[] excelResults = new String[]{
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_GEN_10_COMPARED_ALG_PS" + File.separatorChar + "FIXED_GEN_10_COMPARED_ALG_PS_ranker_key_ALG_TSTUDENT_WSR_MWU_2D.xls",
+                            "FIXED_GEN_10_COMPARED_ALG_PS" + File.separatorChar + "FIXED_GEN_10_COMPARED_ALG_PS_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_2D.xls",
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_GEN_10_COMPARED_ALG_PS" + File.separatorChar + "FIXED_GEN_10_COMPARED_ALG_PS_ranker_key_ALG_TSTUDENT_WSR_MWU_2D.xlsx",
+                            "FIXED_GEN_10_COMPARED_ALG_PS" + File.separatorChar + "FIXED_GEN_10_COMPARED_ALG_PS_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_2D.xlsx",
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_GEN_20_COMPARED_ALG_PS" + File.separatorChar + "FIXED_GEN_20_COMPARED_ALG_PS_ranker_key_ALG_TSTUDENT_WSR_MWU_2D.xls",
+                            "FIXED_GEN_20_COMPARED_ALG_PS" + File.separatorChar + "FIXED_GEN_20_COMPARED_ALG_PS_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_2D.xls",
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_GEN_20_COMPARED_ALG_PS" + File.separatorChar + "FIXED_GEN_20_COMPARED_ALG_PS_ranker_key_ALG_TSTUDENT_WSR_MWU_2D.xlsx",
+                            "FIXED_GEN_20_COMPARED_ALG_PS" + File.separatorChar + "FIXED_GEN_20_COMPARED_ALG_PS_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_2D.xlsx",
             };
 
             for (int f = 0; f < 4; f++)
@@ -361,21 +361,21 @@ class ExperimentPerformerComplex3Test
         {
             String[] excelResults = new String[]{
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_PS_2_GEN_10_COMPARED_ALG" + File.separatorChar + "FIXED_PS_2_GEN_10_COMPARED_ALG_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xls",
+                            "FIXED_PS_2_GEN_10_COMPARED_ALG" + File.separatorChar + "FIXED_PS_2_GEN_10_COMPARED_ALG_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xls",
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_PS_2_GEN_10_COMPARED_ALG" + File.separatorChar + "FIXED_PS_2_GEN_10_COMPARED_ALG_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xlsx",
+                            "FIXED_PS_2_GEN_10_COMPARED_ALG" + File.separatorChar + "FIXED_PS_2_GEN_10_COMPARED_ALG_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xlsx",
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_PS_2_GEN_20_COMPARED_ALG" + File.separatorChar + "FIXED_PS_2_GEN_20_COMPARED_ALG_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xls",
+                            "FIXED_PS_2_GEN_20_COMPARED_ALG" + File.separatorChar + "FIXED_PS_2_GEN_20_COMPARED_ALG_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xls",
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_PS_2_GEN_20_COMPARED_ALG" + File.separatorChar + "FIXED_PS_2_GEN_20_COMPARED_ALG_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xlsx",
+                            "FIXED_PS_2_GEN_20_COMPARED_ALG" + File.separatorChar + "FIXED_PS_2_GEN_20_COMPARED_ALG_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xlsx",
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_PS_3_GEN_10_COMPARED_ALG" + File.separatorChar + "FIXED_PS_3_GEN_10_COMPARED_ALG_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xls",
+                            "FIXED_PS_3_GEN_10_COMPARED_ALG" + File.separatorChar + "FIXED_PS_3_GEN_10_COMPARED_ALG_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xls",
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_PS_3_GEN_10_COMPARED_ALG" + File.separatorChar + "FIXED_PS_3_GEN_10_COMPARED_ALG_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xlsx",
+                            "FIXED_PS_3_GEN_10_COMPARED_ALG" + File.separatorChar + "FIXED_PS_3_GEN_10_COMPARED_ALG_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xlsx",
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_PS_3_GEN_20_COMPARED_ALG" + File.separatorChar + "FIXED_PS_3_GEN_20_COMPARED_ALG_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xls",
+                            "FIXED_PS_3_GEN_20_COMPARED_ALG" + File.separatorChar + "FIXED_PS_3_GEN_20_COMPARED_ALG_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xls",
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_PS_3_GEN_20_COMPARED_ALG" + File.separatorChar + "FIXED_PS_3_GEN_20_COMPARED_ALG_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xlsx",
+                            "FIXED_PS_3_GEN_20_COMPARED_ALG" + File.separatorChar + "FIXED_PS_3_GEN_20_COMPARED_ALG_generation_final_ranker_key_ALG_TSTUDENT_WSR_MWU_1D.xlsx",
             };
 
             for (int f = 0; f < 8; f++)

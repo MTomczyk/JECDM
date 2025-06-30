@@ -115,7 +115,7 @@ public class ModelsQueue<T extends AbstractValueInternalModel>
      *
      * @param models                models used to initialize the queue
      * @param preferenceInformation feedback
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     public void initializeWithBatch(ArrayList<T> models, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
@@ -191,7 +191,7 @@ public class ModelsQueue<T extends AbstractValueInternalModel>
      *
      * @param preferenceInformation feedback
      * @return if true, no model changed compatibility and all are compatible
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     public boolean reevaluateCompatibilities(LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
@@ -223,7 +223,7 @@ public class ModelsQueue<T extends AbstractValueInternalModel>
      * @param model                 candidate model
      * @param preferenceInformation current feedback (must be consistent with previous calls)
      * @return true, if the input model is compatible; false otherwise
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     protected boolean insertModel(T model, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
@@ -481,10 +481,22 @@ public class ModelsQueue<T extends AbstractValueInternalModel>
     {
         ArrayList<T> ms = new ArrayList<>(_noCompatibleModels);
         if (_noCompatibleModels == 0) return ms;
-        for (SortedModel<T> m : _queue) ms.add(m._model);
+        for (SortedModel<T> m : _queue) if (m._isCompatible) ms.add(m._model);
         return ms;
     }
 
+    /**
+     * Returns queue's models via array list. The array length will equal the number of models. The method assumed that
+     * the queue is initialized and valid.
+     *
+     * @return compatible models
+     */
+    public ArrayList<T> getModels()
+    {
+        ArrayList<T> ms = new ArrayList<>(_queue.size());
+        for (SortedModel<T> m : _queue) ms.add(m._model);
+        return ms;
+    }
 
     /**
      * Auxiliary method for validating if the queue's content is properly sorted.

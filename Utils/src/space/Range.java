@@ -82,7 +82,7 @@ public class Range
     }
 
     /**
-     * Constructs an array of default ranges (0, 1).
+     * Constructs an array of default ranges [0, 1].
      *
      * @param n the length of an array
      * @return the constructed array
@@ -93,7 +93,7 @@ public class Range
     }
 
     /**
-     * Constructs an array of default ranges (0, r).
+     * Constructs an array of default ranges [0, r].
      *
      * @param n the length of an array
      * @param r right limit

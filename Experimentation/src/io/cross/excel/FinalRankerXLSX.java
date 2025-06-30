@@ -8,11 +8,13 @@ import scenario.CrossedScenarios;
 import statistics.tests.ITest;
 
 /**
- * Extension of {@link AbstractExcelFinalRanker} for xls files (2007+ Excel).
+ * Extension of {@link AbstractExcelGenerationRanker} for xls files (2007+ Excel). Reports results attained in
+ * the last generations. Produces a file with the "_generation_final_ranker_key_" + getFileSuffixMiddlePart() +
+ * _level + "D.xlsx" suffix.
  *
  * @author MTomczyk
  */
-public class FinalRankerXLSX extends AbstractExcelFinalRanker implements ICrossSaver
+public class FinalRankerXLSX extends AbstractExcelGenerationRanker implements ICrossSaver
 {
     /**
      * Parameterized constructor.
@@ -30,7 +32,7 @@ public class FinalRankerXLSX extends AbstractExcelFinalRanker implements ICrossS
      *
      * @param selectedKey key selected for a direct comparison
      * @param level       the level of cross-analysis (should be at least 1)
-     * @param tolerance        Delta (tolerance) used when comparing doubles)
+     * @param tolerance   Delta (tolerance) used when comparing doubles)
      */
     public FinalRankerXLSX(String selectedKey, int level, double tolerance)
     {
@@ -56,7 +58,7 @@ public class FinalRankerXLSX extends AbstractExcelFinalRanker implements ICrossS
      * @param selectedKey key selected for a direct comparison
      * @param tests       statistical tests used when comparing the key-values (e.g., algorithms)
      * @param level       the level of cross-analysis (should be at least 1)
-     * @param tolerance        Delta (tolerance) used when comparing doubles)
+     * @param tolerance   Delta (tolerance) used when comparing doubles)
      */
     public FinalRankerXLSX(String selectedKey, ITest[] tests, int level, double tolerance)
     {
@@ -81,7 +83,7 @@ public class FinalRankerXLSX extends AbstractExcelFinalRanker implements ICrossS
      *
      * @param selectedKey key selected for a direct comparison
      * @param level       the level of cross-analysis (should be at least 1)
-     * @param tolerance        Delta (tolerance) used when comparing doubles)
+     * @param tolerance   Delta (tolerance) used when comparing doubles)
      * @param style       provides some basic customization options
      */
     public FinalRankerXLSX(String selectedKey, int level, double tolerance, Style style)
@@ -108,7 +110,7 @@ public class FinalRankerXLSX extends AbstractExcelFinalRanker implements ICrossS
      * @param selectedKey key selected for a direct comparison
      * @param tests       statistical tests used when comparing the key-values (e.g., algorithms)
      * @param level       the level of cross-analysis (should be at least 1)
-     * @param tolerance        Delta (tolerance) used when comparing doubles)
+     * @param tolerance   Delta (tolerance) used when comparing doubles)
      * @param style       provides some basic customization options
      */
     public FinalRankerXLSX(String selectedKey, ITest[] tests, int level, double tolerance, Style style)
@@ -127,10 +129,9 @@ public class FinalRankerXLSX extends AbstractExcelFinalRanker implements ICrossS
      * @param level            the level of cross-analysis (should be at least 1)
      * @param tolerance        Delta (tolerance) used when comparing doubles)
      * @param style            provides some basic customization options
-     *
      */
     protected FinalRankerXLSX(String path, String filename, CrossedScenarios crossedScenarios, String selectedKey, ITest[] tests,
-                             int level, double tolerance, Style style)
+                              int level, double tolerance, Style style)
     {
         super(path, filename, crossedScenarios, selectedKey, tests, level, tolerance, style);
         _excel._doFormatting = true;
@@ -145,7 +146,7 @@ public class FinalRankerXLSX extends AbstractExcelFinalRanker implements ICrossS
      * @param filename         the filename (without the suffix, e.g., extension)
      * @param crossedScenarios crossed scenarios being currently processed
      * @return new object instance
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be cast 
      */
     @Override
     public ICrossSaver getInstance(String path, String filename, CrossedScenarios crossedScenarios) throws CrossedScenariosException
@@ -155,14 +156,14 @@ public class FinalRankerXLSX extends AbstractExcelFinalRanker implements ICrossS
     }
 
     /**
-     * Returns the file suffix (_convergence + level + D.xlsx)
+     * Returns the file suffix.
      *
      * @return file suffix
      */
     @Override
     public String getFileSuffix()
     {
-        return "_ranker_key_" + getFileSuffixMiddlePart() + _level + "D.xlsx";
+        return "_generation_final_ranker_key_" + getFileSuffixMiddlePart() + _level + "D.xlsx";
     }
 
     /**
@@ -173,7 +174,7 @@ public class FinalRankerXLSX extends AbstractExcelFinalRanker implements ICrossS
     @Override
     public String getDefaultName()
     {
-        return "FINAL RANKER XLSX";
+        return "GENERATION FINAL RANKER XLSX";
     }
 
     /**

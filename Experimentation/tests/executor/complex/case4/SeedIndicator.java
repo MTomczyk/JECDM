@@ -21,7 +21,7 @@ class SeedIndicator implements IIndicator
      * @param scenario scenario being currently processed
      * @param trialID  ID of a trial being processed
      * @return new instance (clear, unprocessed) of the indicator
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     @Override
     public IIndicator getInstance(Scenario scenario, int trialID) throws TrialException

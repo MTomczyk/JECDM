@@ -237,9 +237,9 @@ class ExperimentPerformerComplex15Test
             files = new String[]
                     {
                             mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                                    "FIXED_NONE_COMPARED_PS_GEN" + File.separatorChar + "FIXED_NONE_COMPARED_PS_GEN_ranker_key_GEN_TSTUDENT_MWU_2D.xls",
+                                    "FIXED_NONE_COMPARED_PS_GEN" + File.separatorChar + "FIXED_NONE_COMPARED_PS_GEN_generation_final_ranker_key_GEN_TSTUDENT_MWU_2D.xls",
                             mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                                    "FIXED_NONE_COMPARED_PS_GEN" + File.separatorChar + "FIXED_NONE_COMPARED_PS_GEN_ranker_key_GEN_TSTUDENT_MWU_2D.xlsx",
+                                    "FIXED_NONE_COMPARED_PS_GEN" + File.separatorChar + "FIXED_NONE_COMPARED_PS_GEN_generation_final_ranker_key_GEN_TSTUDENT_MWU_2D.xlsx",
                     };
 
             for (String pth : files)

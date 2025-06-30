@@ -31,4 +31,15 @@ public class EATimestamp
         _steadyStateRepeat = steadyStateRepeat;
     }
 
+    /**
+     * Returns the string representation: "[Generation = number; Steady-state repeat = number]"
+     *
+     * @return string representation.
+     */
+    @Override
+    public String toString()
+    {
+        return String.format("[Generation = %d; Steady-state repeat = %d]", _generation, _steadyStateRepeat);
+    }
+
 }

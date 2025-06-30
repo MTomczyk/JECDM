@@ -7,11 +7,12 @@ import io.utils.excel.Style;
 import scenario.CrossedScenarios;
 
 /**
- * Extension of {@link AbstractFinalStatistics} for xls files (1997-2003 Excel).
+ * Extension of {@link AbstractExcelGenerationStatistics} for xls files (1997-2003 Excel). Reports results attained in
+ * the last generations. Produces a file with the "_generation_final_statistics_" + _level + "D.xls" suffix.
  *
  * @author MTomczyk
  */
-public class FinalStatisticsXLS extends AbstractFinalStatistics implements ICrossSaver
+public class FinalStatisticsXLS extends AbstractExcelGenerationStatistics implements ICrossSaver
 {
     /**
      * Parameterized constructor.
@@ -58,7 +59,7 @@ public class FinalStatisticsXLS extends AbstractFinalStatistics implements ICros
      * @param filename         the filename (without the suffix, e.g., extension)
      * @param crossedScenarios crossed scenarios being currently processed
      * @return new object instance
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be cast 
      */
     @Override
     public ICrossSaver getInstance(String path, String filename, CrossedScenarios crossedScenarios) throws CrossedScenariosException
@@ -69,14 +70,14 @@ public class FinalStatisticsXLS extends AbstractFinalStatistics implements ICros
     }
 
     /**
-     * Returns the file suffix (_finalStatistics + level + D.xls)
+     * Returns the file suffix.
      *
      * @return file suffix
      */
     @Override
     public String getFileSuffix()
     {
-        return "_finalStatistics" + _level + "D.xls";
+        return "_generation_final_statistics_" + _level + "D.xls";
     }
 
     /**
@@ -87,7 +88,7 @@ public class FinalStatisticsXLS extends AbstractFinalStatistics implements ICros
     @Override
     public String getDefaultName()
     {
-        return "FINAL STATISTICS XLSX";
+        return "GENERATION FINAL STATISTICS XLS";
     }
 
     /**

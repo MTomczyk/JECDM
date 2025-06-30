@@ -84,7 +84,7 @@ public class ArtificialValueDM<T extends AbstractValueInternalModel> extends Abs
     /**
      * Auxiliary validation method.
      *
-     * @throws FeedbackProviderException the exception can be thrown and propagated higher
+     * @throws FeedbackProviderException the exception can be thrown 
      */
     @Override
     public void validate() throws FeedbackProviderException
@@ -104,7 +104,7 @@ public class ArtificialValueDM<T extends AbstractValueInternalModel> extends Abs
      *
      * @param referenceSets reference sets that are the base for evaluation
      * @return feedback (wrapped via {@link DMResult}).
-     * @throws FeedbackProviderException the exception can be thrown and propagated higher
+     * @throws FeedbackProviderException the exception can be thrown 
      */
     @Override
     public DMResult getFeedback(ReferenceSets referenceSets) throws FeedbackProviderException
@@ -122,7 +122,7 @@ public class ArtificialValueDM<T extends AbstractValueInternalModel> extends Abs
             if ((pi != null) && (!pi.isEmpty())) result._feedback.addAll(pi);
         }
 
-        result._processingTime = (System.nanoTime() - startTime) / 1000000;
+        result._processingTime = (double) (System.nanoTime() - startTime) / 1000000.0d;
         return result;
     }
 }

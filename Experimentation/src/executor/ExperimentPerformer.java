@@ -180,7 +180,7 @@ public class ExperimentPerformer extends AbstractExecutor
      * Auxiliary method for instantiating GDC
      *
      * @param r parser results
-     * @throws GlobalException global-level exception can be thrown
+     * @throws GlobalException the global-level exception can be thrown
      */
     protected void instantiateGDC(Parser.Result r) throws GlobalException
     {
@@ -202,7 +202,7 @@ public class ExperimentPerformer extends AbstractExecutor
      * The main method for processing individual scenarios.
      *
      * @param summary summary object to be filled throughout the execution
-     * @throws GlobalException global exception can be thrown and propagated higher
+     * @throws GlobalException global exception can be thrown 
      */
     protected void processScenarios(Summary summary) throws GlobalException
     {

@@ -32,7 +32,7 @@ public class Tutorial4b
          * @param ER           evaluation result to be filled
          * @param alternatives alternatives to be evaluated
          * @param models       internal models used for evaluation
-         * @throws PreferenceModelException the exception can be thrown and propagated higher
+         * @throws PreferenceModelException the exception can be thrown 
          */
         @Override
         protected void mainEvaluationPhase(EvaluationResult ER, AbstractAlternatives<?> alternatives, ArrayList<LNorm> models) throws PreferenceModelException

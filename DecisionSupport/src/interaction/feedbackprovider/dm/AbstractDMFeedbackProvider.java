@@ -28,7 +28,7 @@ public abstract class AbstractDMFeedbackProvider implements IDMFeedbackProvider
      * Auxiliary method for registering a DM (should be called before {@link IDMFeedbackProvider#getFeedback(ReferenceSets)}).
      *
      * @param dm the decision maker to be registered
-     * @throws FeedbackProviderException the exception can be thrown and propagated higher
+     * @throws FeedbackProviderException the exception can be thrown 
      */
     @Override
     public void registerDM(DM dm) throws FeedbackProviderException
@@ -40,7 +40,7 @@ public abstract class AbstractDMFeedbackProvider implements IDMFeedbackProvider
     /**
      * Auxiliary validation method.
      *
-     * @throws FeedbackProviderException the exception can be thrown and propagated higher
+     * @throws FeedbackProviderException the exception can be thrown 
      */
     @Override
     public void validate() throws FeedbackProviderException
@@ -72,7 +72,7 @@ public abstract class AbstractDMFeedbackProvider implements IDMFeedbackProvider
      * Auxiliary method for registering the current decision-making context (should be called before {@link IDMFeedbackProvider#getFeedback(ReferenceSets)}).
      *
      * @param dmContext current decision-making context
-     * @throws FeedbackProviderException the exception can be thrown and propagated higher
+     * @throws FeedbackProviderException the exception can be thrown 
      */
     @Override
     public void registerDecisionMakingContext(DMContext dmContext) throws FeedbackProviderException
@@ -86,7 +86,7 @@ public abstract class AbstractDMFeedbackProvider implements IDMFeedbackProvider
      *
      * @param referenceSets reference sets that are the base for evaluation
      * @return feedback (wrapped via {@link DMResult}).
-     * @throws FeedbackProviderException the exception can be thrown and propagated higher
+     * @throws FeedbackProviderException the exception can be thrown 
      */
     @Override
     public DMResult getFeedback(ReferenceSets referenceSets) throws FeedbackProviderException

@@ -79,7 +79,7 @@ public class PCsDataContainer
      * @param DMs    no. DMs configurations
      * @param trials no. trials
      * @param nPCs   no. PCs
-     * @throws Exception an exception can be thrown and propagated higher
+     * @throws Exception the exception can be thrown 
      */
     public PCsDataContainer(String path, int Ms, int DMs, int trials, int nPCs) throws Exception
     {

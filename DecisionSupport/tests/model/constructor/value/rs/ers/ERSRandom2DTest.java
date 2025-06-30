@@ -68,7 +68,7 @@ class ERSRandom2DTest
         try
         {
             ERS.registerDecisionMakingContext(dmContext);
-            report = ERS.getReportInstance();
+            report = ERS.instantiateReport();
             long startTime = System.nanoTime();
             ERS.mainConstructModels(report, feedback);
             long stopTime = System.nanoTime();

@@ -40,7 +40,8 @@ public abstract class AbstractRunner implements IRunner
         public int[] _steadyStateRepeats;
 
         /**
-         * Optional object responsible for performing visualization (can be null -> visualization-related functionality is ignored).
+         * Optional object responsible for performing visualization (can be null -> visualization-related functionality
+         * is ignored).
          */
         public IVisualization _visualization;
 
@@ -111,7 +112,8 @@ public abstract class AbstractRunner implements IRunner
     protected final int[] _steadyStateRepeats;
 
     /**
-     * Optional object(s) responsible for performing visualization (can be null -> visualization-related functionality is ignored).
+     * Optional object(s) responsible for performing visualization (can be null -> visualization-related functionality
+     * is ignored).
      */
     protected final IVisualization _visualization;
 
@@ -136,7 +138,8 @@ public abstract class AbstractRunner implements IRunner
     protected Executor _displayAndWaitExecutor;
 
     /**
-     * Instantiates a thread that displays the plot and waits till they are displayed before executing EAs (matters only if plots are supposed to be displayed from the beginning).
+     * Instantiates a thread that displays the plot and waits till they are displayed before executing EAs (matters only
+     * if plots are supposed to be displayed from the beginning).
      */
     protected DisplayAndWaitThread _displayAndWaitThread;
 
@@ -191,7 +194,7 @@ public abstract class AbstractRunner implements IRunner
      * Performs the evolution (from scratch, i.e., calls inits etc.) for the specified number of generations.
      *
      * @param generations specified number of generations (the same for each evolutionary algorithm)
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     @Override
     public void executeEvolution(int generations) throws RunnerException
@@ -214,9 +217,10 @@ public abstract class AbstractRunner implements IRunner
     /**
      * Performs the evolution (from scratch, i.e., calls inits etc.) for the specified number of generations.
      *
-     * @param generations specified number of generations; each element corresponds to a different evolutionary algorithm
+     * @param generations specified number of generations; each element corresponds to a different evolutionary
+     *                    algorithm
      *                    (1:1) mapping; hence, the array length should equal the number of algorithms
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     @Override
     public void executeEvolution(int[] generations) throws RunnerException
@@ -244,7 +248,7 @@ public abstract class AbstractRunner implements IRunner
     /**
      * Initializes EAs. Default implementation: the method runs pre, main, and post-init phases (in the given order).
      *
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     @Override
     public void init() throws RunnerException
@@ -264,9 +268,10 @@ public abstract class AbstractRunner implements IRunner
     }
 
     /**
-     * Pre init phase (executed before the main init phase); default implementation can potentially start the visualization module.
+     * Pre init phase (executed before the main init phase); default implementation can potentially start the
+     * visualization module.
      *
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     protected void preInitPhase() throws RunnerException
     {
@@ -295,7 +300,7 @@ public abstract class AbstractRunner implements IRunner
     /**
      * Main init step.
      *
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     protected void mainInitPhase() throws RunnerException
     {
@@ -311,7 +316,7 @@ public abstract class AbstractRunner implements IRunner
     /**
      * Post-init phase (executed after the main init phase);
      *
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     protected void postInitPhase() throws RunnerException
     {
@@ -326,13 +331,14 @@ public abstract class AbstractRunner implements IRunner
     }
 
     /**
-     * Performs a single generation of EAs. Default implementation: the method runs pre, main, and post-init phases (in the given order).
+     * Performs a single generation of EAs. Default implementation: the method runs pre, main, and post-init phases (in
+     * the given order).
      *
      * @param generation       current generation number
      * @param generationLimits limits for the number of generations an EA is allowed run (one element per each EA, 1:1
      *                         mapping; note that the generation counter starts from 0); this field excludes those EAs
      *                         who have reached their generation limit; can be null -> not used
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     @Override
     public void executeSingleGeneration(int generation, int[] generationLimits) throws RunnerException
@@ -359,7 +365,7 @@ public abstract class AbstractRunner implements IRunner
      * @param generationLimits limits for the number of generations an EA is allowed run (one element per each EA, 1:1
      *                         mapping; note that the generation counter starts from 0); this field excludes those EAs
      *                         who have reached their generation limit; can be null -> not used
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
 
     protected void preExecuteSingleGenerationPhase(int generation, int[] generationLimits) throws RunnerException
@@ -375,7 +381,7 @@ public abstract class AbstractRunner implements IRunner
      * @param generationLimits limits for the number of generations an EA is allowed run (one element per each EA, 1:1
      *                         mapping; note that the generation counter starts from 0); this field excludes those EAs
      *                         who have reached their generation limit.
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     protected void mainExecuteSingleGenerationPhase(int generation, int[] generationLimits) throws RunnerException
     {
@@ -409,7 +415,7 @@ public abstract class AbstractRunner implements IRunner
      * @param generationLimits limits for the number of generations an EA is allowed run (one element per each EA, 1:1
      *                         mapping; note that the generation counter starts from 0) this field excludes those EAs
      *                         who have reached their generation limit; can be null -> not used
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     protected void postExecuteSingleGenerationPhase(int generation, int[] generationLimits) throws RunnerException
     {
@@ -424,12 +430,13 @@ public abstract class AbstractRunner implements IRunner
     }
 
     /**
-     * Executes a single steady-state repeat of an EA. Default implementation: the method runs pre, main, and post-init phases (in the given order).
+     * Executes a single steady-state repeat of an EA. Default implementation: the method runs pre, main, and post-init
+     * phases (in the given order).
      *
      * @param ea                evolutionary algorithm whose single steady-state repeat is to be executed
      * @param generation        current generation number
      * @param steadyStateRepeat current steady-state repeat number
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     @Override
     public void executeSingleSteadyStateRepeat(EA ea, int generation, int steadyStateRepeat) throws RunnerException
@@ -454,7 +461,7 @@ public abstract class AbstractRunner implements IRunner
      * @param ea                evolutionary algorithm whose single steady-state repeat is to be executed
      * @param generation        current generation number
      * @param steadyStateRepeat current steady-state repeat number
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     protected void preExecuteSingleSteadyStateRepeat(EA ea, int generation, int steadyStateRepeat) throws RunnerException
     {
@@ -467,7 +474,7 @@ public abstract class AbstractRunner implements IRunner
      * @param ea                evolutionary algorithm whose single steady-state repeat is to be executed
      * @param generation        current generation number
      * @param steadyStateRepeat current steady-state repeat number
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     protected void mainExecuteSingleSteadyStateRepeat(EA ea, int generation, int steadyStateRepeat) throws RunnerException
     {
@@ -487,7 +494,7 @@ public abstract class AbstractRunner implements IRunner
      * @param ea                evolutionary algorithm whose single steady-state repeat is to be executed
      * @param generation        current generation number
      * @param steadyStateRepeat current steady-state repeat number
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     protected void postExecuteSingleSteadyStateRepeat(EA ea, int generation, int steadyStateRepeat) throws RunnerException
     {
@@ -505,7 +512,7 @@ public abstract class AbstractRunner implements IRunner
     /**
      * Stops simulations. Default implementation: the method runs pre, main, and post-init phases (in the given order).
      *
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     @Override
     public void stop() throws RunnerException
@@ -527,7 +534,7 @@ public abstract class AbstractRunner implements IRunner
     /**
      * Pre-stop phase (executed before the main stop phase).
      *
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     protected void preStopPhase() throws RunnerException
     {
@@ -537,7 +544,7 @@ public abstract class AbstractRunner implements IRunner
     /**
      * Main stop phase. Can potentially display visualization.
      *
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     protected void mainStopPhase() throws RunnerException
     {
@@ -559,7 +566,7 @@ public abstract class AbstractRunner implements IRunner
     /**
      * Post-stop phase (executed after the main stop phase).
      *
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     protected void postStopPhase() throws RunnerException
     {
@@ -569,7 +576,7 @@ public abstract class AbstractRunner implements IRunner
     /**
      * Optional method for terminating the execution and clearing data.
      *
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     @Override
     public void dispose() throws RunnerException
@@ -601,8 +608,9 @@ public abstract class AbstractRunner implements IRunner
     /**
      * Sets the number of steady-state repeats for a given EA (pointed by index). The method terminates
      * if the internal steadyStateRepeats is null or the pointer is invalid.
+     *
      * @param steadyStateRepeats new steady-state repeats number
-     * @param index index pointing to the EA
+     * @param index              index pointing to the EA
      */
     @Override
     public void setSteadyStateRepeatsFor(int steadyStateRepeats, int index)

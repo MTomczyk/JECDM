@@ -94,4 +94,23 @@ public class TestUtils
         for (int i = 0; i < exp.length; i++)
             Assertions.assertEquals(exp[i], res[i], tolerance);
     }
+
+    /**
+     * Performs simple vector comparison (assert equals).
+     *
+     * @param exp       expected matrix
+     * @param res       examined matrix
+     */
+    public static void assertEquals(String[] exp, String[] res)
+    {
+        if (exp == null)
+        {
+            assertNull(res);
+            return;
+        }
+        else assertNotNull(res);
+        Assertions.assertEquals(exp.length, res.length);
+        for (int i = 0; i < exp.length; i++)
+            Assertions.assertEquals(exp[i], res[i]);
+    }
 }

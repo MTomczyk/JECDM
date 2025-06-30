@@ -61,7 +61,7 @@ public class IEMODInteractAndPrepareStep<T extends AbstractValueInternalModel> e
      *
      * @param ea evolutionary algorithm
      * @param report report on the executed action (to be filled)
-     * @throws PhaseException the exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     @Override
     public void action(EA ea, PhaseReport report) throws PhaseException
@@ -78,7 +78,7 @@ public class IEMODInteractAndPrepareStep<T extends AbstractValueInternalModel> e
      * @param report report on the most recent DSS execute process call
      * @param dm     list of DMs for which some new internal models were constructed
      * @param ea     reference to the EA
-     * @throws PhaseException the exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     @Override
     protected void doInternalUpdate(Report report, LinkedList<DM> dm, EA ea) throws PhaseException

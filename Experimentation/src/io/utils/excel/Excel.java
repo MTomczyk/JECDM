@@ -274,7 +274,7 @@ public class Excel
      * Flushes the data to disk, closes the workbook, and nulls the references.
      *
      * @param fileOutputStream file output stream used to write data (will be closed by the method)
-     * @throws IOException IO exception can be thrown
+     * @throws IOException the IO exception can be thrown 
      */
     public void close(FileOutputStream fileOutputStream) throws IOException
     {

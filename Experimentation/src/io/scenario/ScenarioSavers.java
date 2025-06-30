@@ -35,7 +35,7 @@ public class ScenarioSavers
      *
      * @param indicator   indicator
      * @param generations number of generations
-     * @throws ScenarioException scenario-level exception can be thrown
+     * @throws ScenarioException the scenario-level exception can be thrown 
      */
     public void notifyIndicatorProcessingBegins(IIndicator indicator, int generations) throws ScenarioException
     {
@@ -49,7 +49,7 @@ public class ScenarioSavers
      * @param trialResults raw trial results
      * @param statistics   statistic functions to be applied to raw trial results
      * @param generation   current generation number
-     * @throws ScenarioException scenario-level exception can be thrown
+     * @throws ScenarioException the scenario-level exception can be thrown 
      */
     public void pushData(double[] trialResults, IStatistic[] statistics, int generation) throws ScenarioException
     {
@@ -61,7 +61,7 @@ public class ScenarioSavers
     /**
      * A method for notifying the savers that the data processing linked to the currently involved indicator ends.
      *
-     * @throws ScenarioException scenario-level exception can be thrown
+     * @throws ScenarioException the scenario-level exception can be thrown 
      */
     public void notifyIndicatorProcessingEnds() throws ScenarioException
     {
@@ -71,7 +71,7 @@ public class ScenarioSavers
     /**
      * Request each saver to create a file.
      *
-     * @throws ScenarioException scenario-level exception can be thrown and propagated higher
+     * @throws ScenarioException scenario-level exception can be thrown 
      */
     public void createFiles() throws ScenarioException
     {
@@ -81,7 +81,7 @@ public class ScenarioSavers
     /**
      * Request each saver to close a file.
      *
-     * @throws ScenarioException scenario-level exception can be thrown and propagated higher
+     * @throws ScenarioException scenario-level exception can be thrown 
      */
     public void closeFiles() throws ScenarioException
     {

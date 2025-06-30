@@ -27,7 +27,7 @@ public class GenerationalUpdateRunner extends AbstractUpdateRunner
      *
      * @param generation        current generation number
      * @param generationLimits limits for the number of generations an EA is allowed run (one element per each EA, 1:1 mapping)
-     * @throws RunnerException exception can be captured when executing the method and propagated higher
+     * @throws RunnerException the exception can be captured when executing the method 
      */
     @Override
     public void postExecuteSingleGenerationPhase(int generation, int [] generationLimits) throws RunnerException

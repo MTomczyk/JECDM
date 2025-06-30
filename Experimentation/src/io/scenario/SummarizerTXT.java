@@ -59,7 +59,7 @@ public class SummarizerTXT extends AbstractScenarioSaver implements IScenarioSav
      * @param indicators performance indicators employed when assessing the performance of EAs.
      * @param statistics statistic functions used to aggregate the data
      * @return new object instance
-     * @throws ScenarioException scenario-level exception can be cast and propagated higher
+     * @throws ScenarioException the scenario-level exception can be cast 
      */
     @Override
     public IScenarioSaver getInstance(String path, String filename, Scenario scenario, int[] trialIDs, IIndicator[] indicators, IStatistic[] statistics) throws ScenarioException
@@ -81,7 +81,7 @@ public class SummarizerTXT extends AbstractScenarioSaver implements IScenarioSav
     /**
      * The implementation should create a file (and overwrite it if already exists) and instantiate the output stream.
      *
-     * @throws ScenarioException scenario-level exception can be thrown (e.g., then the requested path is invalid)
+     * @throws ScenarioException the scenario-level exception can be thrown  (e.g., then the requested path is invalid)
      */
     @Override
     public void create() throws ScenarioException

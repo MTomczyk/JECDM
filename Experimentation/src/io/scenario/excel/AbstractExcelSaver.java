@@ -80,7 +80,7 @@ public abstract class AbstractExcelSaver extends AbstractScenarioSaver implement
     /**
      * The implementation creates the workbook object
      *
-     * @throws ScenarioException scenario-level exception can be thrown (e.g., then the requested path is invalid)
+     * @throws ScenarioException and scenario-level exception can be thrown  (e.g., then the requested path is invalid)
      */
     @Override
     public void create() throws ScenarioException

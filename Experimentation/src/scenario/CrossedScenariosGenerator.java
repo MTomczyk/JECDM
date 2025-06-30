@@ -77,7 +77,7 @@ public class CrossedScenariosGenerator
      * @param scenarios      contains data on all experimental scenarios
      * @param crossedSetting crossed setting used to establish a crossed scenario
      * @return crossed scenario
-     * @throws GlobalException global-level exception can be thrown and propagated higher
+     * @throws GlobalException global-level exception can be thrown 
      */
     private CrossedScenarios[] getCrossedScenarios(Scenarios scenarios, CrossedSetting crossedSetting) throws GlobalException
     {
@@ -122,7 +122,7 @@ public class CrossedScenariosGenerator
      * @param fixedKeyValues fixed key-values
      * @param crossedSetting crossed setting
      * @return crossed scenarios
-     * @throws GlobalException global-level exception can be thrown and propagated higher
+     * @throws GlobalException global-level exception can be thrown 
      */
     private CrossedScenarios getCrossedScenarios(Scenarios scenarios, KeyValue[] fixedKeyValues,
                                                  CrossedSetting crossedSetting) throws GlobalException

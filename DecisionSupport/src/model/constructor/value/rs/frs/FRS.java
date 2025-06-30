@@ -79,7 +79,7 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
      *
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     protected void mainConstructModels(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
@@ -90,6 +90,7 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
             attempts = Math.max(0, _iterationsLimit.getIterations(_dmContext, preferenceInformation,
                     bundle, _feasibleSamplesToGenerate));
         else attempts = Math.max(0, _samplingLimit);
+
 
         for (int t = 0; t < attempts; t++)
         {
@@ -106,12 +107,14 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
      * @return indicates whether to prematurely terminate (true)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     protected boolean initializeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
-        validate(bundle, preferenceInformation);
+        long startTime = System.nanoTime();
+
+        super.initializeStep(bundle, preferenceInformation);
         _R = _dmContext.getR();
 
         bundle._inconsistencyDetected = false;
@@ -134,8 +137,11 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
         if (_toGenerate == 0)
         {
             if (_models.size() <= _inconsistencyThreshold) bundle._inconsistencyDetected = true;
+            _passedTime += (System.nanoTime() - startTime);
             return true;
         }
+
+        _passedTime += (System.nanoTime() - startTime);
         return false;
     }
 
@@ -145,11 +151,13 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
      * @return returns the constructed model
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     protected T executeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
+        long startTime = System.nanoTime();
+
         T M = _RM.generateModel(_R);
         Double a = _compatibilityAnalyzer.calculateTheMostDiscriminativeCompatibilityWithValueModel(preferenceInformation, M);
         if ((a == null) || (Double.compare(a, 0.0d) > 0))
@@ -159,6 +167,15 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
             bundle._acceptedNewlyConstructedModels++;
         }
         else bundle._rejectedNewlyConstructedModels++;
+
+        _passedTime += (System.nanoTime() - startTime);
+
+        if ((_toGenerate == 0) && (_compatibleFoundInIterations == null))
+        {
+            _compatibleFoundInIterations = (bundle._acceptedNewlyConstructedModels + bundle._rejectedNewlyConstructedModels);
+            _compatibleFoundInTime = _passedTime / 1000000.0d;
+        }
+
         return M;
     }
 
@@ -168,15 +185,17 @@ public class FRS<T extends AbstractValueInternalModel> extends AbstractRejection
      *
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     protected void finalizeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
+        long startTime = System.nanoTime();
         bundle._successRateInConstructing = (double) bundle._acceptedNewlyConstructedModels /
                 (bundle._acceptedNewlyConstructedModels + bundle._rejectedNewlyConstructedModels);
         if (_models.size() <= _inconsistencyThreshold) bundle._inconsistencyDetected = true;
         _toGenerate = 0;
+        _passedTime += (System.nanoTime() - startTime);
     }
 
 }

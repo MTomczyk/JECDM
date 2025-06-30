@@ -1,10 +1,12 @@
 package io.cross.excel.utils;
 
+import io.cross.excel.AbstractExcelGenerationStatistics;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
- * Supportive class that provides various statistics-related functionalities (mainly for {@link io.cross.excel.AbstractFinalStatistics}).
+ * Supportive class that provides various statistics-related functionalities (mainly for {@link AbstractExcelGenerationStatistics}).
  *
  * @author MTomczyk
  */

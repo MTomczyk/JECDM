@@ -67,7 +67,7 @@ public class InteractionTrigger
      *
      * @param dmContext current decision-making context
      * @return the decision wrapped in a result class ({@link interaction.refine.Result})
-     * @throws TriggerException the exception can be thrown and propagated higher
+     * @throws TriggerException the exception can be thrown 
      */
     public Result shouldTriggerTheInteractions(DMContext dmContext) throws TriggerException
     {
@@ -83,7 +83,7 @@ public class InteractionTrigger
                 r._callers.add(rule.getDetailedStringRepresentation());
             }
         }
-        r._processingTime = (System.nanoTime() - pT) / 1000000;
+        r._processingTime = (double) (System.nanoTime() - pT) / 1000000.0d;
         return r;
     }
 

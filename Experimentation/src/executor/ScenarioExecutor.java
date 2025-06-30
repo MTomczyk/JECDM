@@ -246,7 +246,7 @@ public class ScenarioExecutor extends AbstractExecutor
      * @param latch reference to the count-down latch that will be reduced by the monitor thread after all executors
      *              finish their processing
      * @return the collection of trial executors (runnables) to be processed via a thread pool executor
-     * @throws ScenarioException scenario exception can be thrown and propagated higher
+     * @throws ScenarioException scenario exception can be thrown 
      */
     protected ArrayList<TrialExecutor> constructTrialExecutors(CountDownLatch latch) throws ScenarioException
     {

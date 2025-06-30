@@ -26,7 +26,7 @@ public class AbstractStatistic implements IStatistic
      * Calculates the statistic.
      *
      * @param v input array
-     * @return statistics
+     * @return statistic
      */
     @Override
     public double calculate(double[] v)

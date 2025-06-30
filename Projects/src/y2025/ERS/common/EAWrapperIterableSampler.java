@@ -15,6 +15,7 @@ import model.internals.value.AbstractValueInternalModel;
 import random.IRandom;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -118,7 +119,7 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
     /**
      * Overwrites the init method.
      *
-     * @throws EAException the exception can be thrown and propagated higher
+     * @throws EAException the exception can be thrown 
      */
     @Override
     public void init() throws EAException
@@ -140,7 +141,7 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
             _executionTime += ((double) (System.nanoTime() - pT)) / 1000000.0d;
 
             // Important: Generation = 0 involves a step to make statistics based not on the initialization
-            step(_currentTimestamp, 1);
+            step(_currentTimestamp, _iterationsPerGeneration);
 
         } catch (ConstructorException e)
         {
@@ -152,7 +153,7 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
      * Overwrites the step method.
      *
      * @param timestamp generation; steady-state repeat
-     * @throws EAException the exception can be thrown and propagated higher
+     * @throws EAException the exception can be thrown 
      */
     @Override
     public void step(EATimestamp timestamp) throws EAException
@@ -165,7 +166,7 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
      *
      * @param timestamp generation; steady-state repeat
      * @param repeats   no. repeats
-     * @throws EAException the exception can be thrown and propagated higher
+     * @throws EAException the exception can be thrown 
      */
     private void step(EATimestamp timestamp, int repeats) throws EAException
     {
@@ -188,6 +189,7 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
                     _executionTime += ((double) (System.nanoTime() - pT)) / 1000000.0d;
                     if (i == repeats - 1)
                     {
+                        if (_report._models == null) _report._models = new ArrayList<>();
                         _report._models.clear();
                         for (SortedModel<T> t : _itERS.getModelsQueue().getQueue())
                             if (t._isCompatible) _report._models.add(t._model);

@@ -89,18 +89,30 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
      */
     protected int _currentIndicatorIndex;
 
+    /**
+     * If not null, the data summary will concern results attained in this specified generation number (instead of the last generation).
+     */
+    protected final Integer _summarizeResultsInGeneration;
+
 
     /**
      * Parameterized constructor.
      *
-     * @param path             full path to the folder where the file should be stored (without a path separator)
-     * @param filename         the filename (without the suffix, e.g., extension)
-     * @param crossedScenarios crossed scenarios being currently processed
-     * @param level            the level of cross-analysis (should be at least 2)
+     * @param path                         full path to the folder where the file should be stored (without a path separator)
+     * @param filename                     the filename (without the suffix, e.g., extension)
+     * @param crossedScenarios             crossed scenarios being currently processed
+     * @param summarizeResultsInGeneration if not null, the data summary will concern results attained in this specified
+     *                                     generation number (instead of the last generation)
+     * @param level                        the level of cross-analysis (should be at least 2)
      */
-    public AbstractCrossSaver(String path, String filename, CrossedScenarios crossedScenarios, int level)
+    public AbstractCrossSaver(String path,
+                              String filename,
+                              CrossedScenarios crossedScenarios,
+                              Integer summarizeResultsInGeneration,
+                              int level)
     {
         super(path, filename, crossedScenarios, level);
+        _summarizeResultsInGeneration = summarizeResultsInGeneration;
     }
 
     /**
@@ -112,12 +124,12 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
      * @param filename         the filename (without the suffix, e.g., extension)
      * @param crossedScenarios crossed scenarios being currently processed
      * @return new object instance
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown 
      */
     @Override
     public ICrossSaver getInstance(String path, String filename, CrossedScenarios crossedScenarios) throws CrossedScenariosException
     {
-        throw new CrossedScenariosException("The \"get instance\" method is not implemented",  null, this.getClass(), crossedScenarios);
+        throw new CrossedScenariosException("The \"get instance\" method is not implemented", null, this.getClass(), crossedScenarios);
     }
 
 
@@ -173,19 +185,19 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
     /**
      * The implementation should create a file (and overwrite it if already exists) and instantiate the output stream.
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown (e.g., then the requested path is invalid)
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown (e.g., then the requested path is invalid)
      */
     @Override
     public void create() throws CrossedScenariosException
     {
-        throw new CrossedScenariosException("The \"create\" method is not implemented",  null, this.getClass(), _crossedScenarios);
+        throw new CrossedScenariosException("The \"create\" method is not implemented", null, this.getClass(), _crossedScenarios);
     }
 
 
     /**
      * Method for notifying the savers that the processing begins (prior to executing any scenario).
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be cast 
      */
     @Override
     public void notifyProcessingBegins() throws CrossedScenariosException
@@ -204,7 +216,7 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
      *
      * @param scenario scenario that is to be processed
      * @param SDC      scenario data container linked to the scenario being currently processed (read-only)
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be cast 
      */
     @Override
     public void notifyScenarioProcessingBegins(Scenario scenario, AbstractScenarioDataContainer SDC) throws CrossedScenariosException
@@ -263,19 +275,19 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
     @Override
     public void notifyIndicatorProcessingEnds() throws CrossedScenariosException
     {
-        throw new CrossedScenariosException("The \"notify indicator processing ends\" method is not implemented",  null, this.getClass(), _crossedScenarios);
+        throw new CrossedScenariosException("The \"notify indicator processing ends\" method is not implemented", null, this.getClass(), _crossedScenarios);
     }
 
 
     /**
      * Method for notifying the savers that the processing ends.
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast 
      */
     @Override
     public void notifyScenarioProcessingEnds() throws CrossedScenariosException
     {
-        throw new CrossedScenariosException("The \"notify scenario processing ends\" method is not implemented",  null, this.getClass(), _crossedScenarios);
+        throw new CrossedScenariosException("The \"notify scenario processing ends\" method is not implemented", null, this.getClass(), _crossedScenarios);
     }
 
     /**
@@ -295,7 +307,7 @@ public abstract class AbstractCrossSaver extends AbstractIO implements ICrossSav
     @Override
     public void close() throws CrossedScenariosException
     {
-        throw new CrossedScenariosException("The \"close\" method is not implemented",  null, this.getClass(), _crossedScenarios);
+        throw new CrossedScenariosException("The \"close\" method is not implemented", null, this.getClass(), _crossedScenarios);
     }
 
     /**

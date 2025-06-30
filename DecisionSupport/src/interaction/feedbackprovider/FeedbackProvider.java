@@ -154,7 +154,7 @@ public class FeedbackProvider
      * Auxiliary method for performing simple validation.
      *
      * @param DMs all decision makers registered in the system
-     * @throws FeedbackProviderException the exception will be thrown and propagated higher if the validation fails
+     * @throws FeedbackProviderException the exception will be thrown  if the validation fails
      */
     public void validate(DM[] DMs) throws FeedbackProviderException
     {
@@ -198,7 +198,7 @@ public class FeedbackProvider
      * @param DMs                 decision makers' identifiers
      * @param referenceSetsResult constructed reference sets (wrapped via {@link interaction.reference.Result})
      * @return feedback (wrapped via {@link Result})
-     * @throws FeedbackProviderException the exception can be thrown and propagated higher
+     * @throws FeedbackProviderException the exception can be thrown 
      */
     public Result generateFeedback(DMContext dmContext, DM [] DMs, interaction.reference.Result referenceSetsResult) throws FeedbackProviderException
     {
@@ -246,7 +246,7 @@ public class FeedbackProvider
             }
         }
 
-        result._processingTime = (System.nanoTime() - startTime) / 1000000;
+        result._processingTime = (double) (System.nanoTime() - startTime) / 1000000.0d;
         return result;
     }
 }

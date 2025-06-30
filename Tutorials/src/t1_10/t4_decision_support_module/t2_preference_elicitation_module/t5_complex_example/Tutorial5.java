@@ -250,7 +250,7 @@ public class Tutorial5
      * @param criteria        criteria
      * @param os              objective space
      * @param R               random number generator
-     * @throws ModuleException exception can be thrown and propagated higher
+     * @throws ModuleException the exception can be thrown 
      */
     private static void runPreferenceElicitationModule(PreferenceElicitationModule PEM,
                                                        EA ea,

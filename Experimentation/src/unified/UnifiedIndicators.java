@@ -19,7 +19,7 @@ public class UnifiedIndicators extends AbstractUnified<IIndicator>
      * @param SDCs                   instantiated scenario data containers
      * @param unifiedIndicatorsNames optional indicator names bypassed via {@link container.global.AbstractGlobalDataContainer}
      * @param crossedScenarios       crossed scenarios being currently processed
-     * @throws CrossedScenariosException crossed scenarios exception can be thrown and propagated higher
+     * @throws CrossedScenariosException crossed scenarios exception can be thrown 
      */
     public UnifiedIndicators(AbstractScenarioDataContainer[] SDCs,
                              String[] unifiedIndicatorsNames,

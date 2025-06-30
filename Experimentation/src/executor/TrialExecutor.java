@@ -167,7 +167,7 @@ public class TrialExecutor extends AbstractExecutor implements Callable<TrialSum
     /**
      * The main method for performing the evolution, making measurements, and string data.
      *
-     * @throws TrialException the trial exception can be thrown and propagated higher
+     * @throws TrialException the trial exception can be thrown 
      */
     protected void run() throws TrialException
     {
@@ -227,7 +227,7 @@ public class TrialExecutor extends AbstractExecutor implements Callable<TrialSum
      * @param results    the results matrix
      * @param indicators performance indicators used
      * @param column     index to the column in the results matrix being currently updated
-     * @throws TrialException the trial exception can be thrown and propagated higher
+     * @throws TrialException the trial exception can be thrown 
      */
     private void updateResults(EA ea, double[][] results, IIndicator[] indicators, int column) throws TrialException
     {

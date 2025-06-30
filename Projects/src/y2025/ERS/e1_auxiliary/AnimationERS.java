@@ -91,8 +91,8 @@ public class AnimationERS
      * Runs the experiment.
      *
      * @param args not used
-     * @throws InterruptedException exception can be thrown and propagated higher
-     * @throws IOException          exception can be thrown and propagated higher
+     * @throws InterruptedException the exception can be thrown 
+     * @throws IOException          the exception can be thrown 
      */
     public static void main(String[] args) throws InterruptedException, IOException
     {

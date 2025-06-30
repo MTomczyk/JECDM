@@ -304,9 +304,9 @@ class ExperimentPerformerComplex11Test
         {
             String[] excelResults = new String[]{
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_NONE_COMPARED_PS_GEN" + File.separatorChar + "FIXED_NONE_COMPARED_PS_GEN_finalStatistics2D.xls",
+                            "FIXED_NONE_COMPARED_PS_GEN" + File.separatorChar + "FIXED_NONE_COMPARED_PS_GEN_generation_final_statistics_2D.xls",
                     mainPath + File.separatorChar + "CROSSED_RESULTS" + File.separatorChar +
-                            "FIXED_NONE_COMPARED_PS_GEN" + File.separatorChar + "FIXED_NONE_COMPARED_PS_GEN_finalStatistics2D.xlsx",
+                            "FIXED_NONE_COMPARED_PS_GEN" + File.separatorChar + "FIXED_NONE_COMPARED_PS_GEN_generation_final_statistics_2D.xlsx",
             };
 
             for (int f = 0; f < 2; f++)

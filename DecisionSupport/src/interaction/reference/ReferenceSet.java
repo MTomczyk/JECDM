@@ -25,7 +25,7 @@ public class ReferenceSet
      * Parameterized constructor (constructs a single reference solution).
      *
      * @param a the alternative to be wrapped
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     public ReferenceSet(Alternative a) throws ReferenceSetsConstructorException
     {
@@ -38,7 +38,7 @@ public class ReferenceSet
      *
      * @param a1 the fist wrapped alternative
      * @param a2 the second wrapped alternative
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     public ReferenceSet(Alternative a1, Alternative a2) throws ReferenceSetsConstructorException
     {
@@ -52,7 +52,7 @@ public class ReferenceSet
      * @param a1 the fist wrapped alternative
      * @param a2 the second wrapped alternative\
      * @param a3 the third wrapped alternative
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     public ReferenceSet(Alternative a1, Alternative a2, Alternative a3) throws ReferenceSetsConstructorException
     {
@@ -64,7 +64,7 @@ public class ReferenceSet
      * Parameterized constructor.
      *
      * @param alternatives wrapped alternatives
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     public ReferenceSet(ArrayList<Alternative> alternatives) throws ReferenceSetsConstructorException
     {
@@ -76,7 +76,7 @@ public class ReferenceSet
      * Parameterized constructor.
      *
      * @param alternatives wrapped alternatives (uses a copy)
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     public ReferenceSet(AbstractAlternatives<?> alternatives) throws ReferenceSetsConstructorException
     {
@@ -89,7 +89,7 @@ public class ReferenceSet
      * Auxiliary method for checking validity of the reference set.
      *
      * @param alternatives alternatives to be examined
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     protected void checkSet(AbstractAlternatives<?> alternatives) throws ReferenceSetsConstructorException
     {

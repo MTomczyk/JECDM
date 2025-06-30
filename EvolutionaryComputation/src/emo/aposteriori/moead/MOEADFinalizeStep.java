@@ -41,7 +41,7 @@ public class MOEADFinalizeStep extends FinalizeStep implements IPhase
      *
      * @param ea evolutionary algorithm
      * @param report report on the executed action (to be filled)
-     * @throws PhaseException the exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     @Override
     public void action(EA ea, PhaseReport report) throws PhaseException

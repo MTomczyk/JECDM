@@ -51,7 +51,7 @@ class DummySaver extends AbstractScenarioSaver implements IScenarioSaver
      * @param indicators performance indicators employed when assessing the performance of EAs.
      * @param statistics statistic functions used to aggregate the data
      * @return new object instance
-     * @throws ScenarioException scenario-level exception can be cast and propagated higher
+     * @throws ScenarioException scenario-level exception can be cast 
      */
     @Override
     public IScenarioSaver getInstance(String path, String filename, Scenario scenario, int[] trialIDs, IIndicator[] indicators, IStatistic[] statistics) throws ScenarioException

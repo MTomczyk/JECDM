@@ -3,24 +3,31 @@ package preference;
 import preference.indirect.PairwiseComparison;
 
 /**
- * General interface for classes responsible for simulating the decision maker's preference examples
- * (preference information provided).
+ * General interface for classes responsible for simulating the decision maker's preference examples (preference
+ * information provided).
  *
  * @author MTomczyk
  */
 public interface IPreferenceInformation
 {
     /**
-     * Method for returning the preference information viewed as pairwise comparisons. Should return null if the specific
-     * form cannot be translated into this form.
+     * Method for returning the preference information viewed as pairwise comparisons. Should return null if the
+     * specific form cannot be translated into this form.
      *
      * @return preference example viewed as a series of pairwise comparisons (null if not possible)
      */
     PairwiseComparison[] getPairwiseComparisons();
 
     /**
-     * The implemented method should return false if the preference example is direct (explicit, e.g., provided weights),
-     * true otherwise (indirect, holistic form, e.g., pairwise comparison).
+     * Method for returning the number of pieces of preference that can be viewed as pairwise comparisons.
+     *
+     * @return the number of pieces of preference that can be viewed as pairwise comparisons.
+     */
+    int getNoPairwiseComparisons();
+
+    /**
+     * The implemented method should return false if the preference example is direct (explicit, e.g., provided
+     * weights), true otherwise (indirect, holistic form, e.g., pairwise comparison).
      *
      * @return false if the preference example is direct, true otherwise (holistic)
      */
@@ -42,6 +49,7 @@ public interface IPreferenceInformation
 
     /**
      * Returns the constant associated with the form of the preference information represented by the object instance.
+     *
      * @return form.
      */
     Form getForm();

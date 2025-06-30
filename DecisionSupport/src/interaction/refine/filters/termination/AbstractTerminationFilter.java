@@ -18,7 +18,7 @@ public abstract class AbstractTerminationFilter implements ITerminationFilter
     /**
      * Parameterized constructor.
      *
-     * @param name                 filter name
+     * @param name filter name
      */
     public AbstractTerminationFilter(String name)
     {
@@ -28,9 +28,9 @@ public abstract class AbstractTerminationFilter implements ITerminationFilter
     /**
      * The method verifying whether the reference sets construction process should be terminated.
      *
-     * @param dmContext          current decision-making context
+     * @param dmContext current decision-making context
      * @return filter's indications
-     * @throws RefinerException exception can be thrown and propagated higher
+     * @throws RefinerException the exception can be thrown 
      */
     @Override
     public TerminationResult shouldTerminate(DMContext dmContext) throws RefinerException
@@ -41,8 +41,8 @@ public abstract class AbstractTerminationFilter implements ITerminationFilter
     /**
      * Auxiliary method for performing basic validation.
      *
-     * @param dmContext          current decision-making context
-     * @throws RefinerException exception can be thrown and propagated higher
+     * @param dmContext current decision-making context
+     * @throws RefinerException the exception can be thrown 
      */
     protected void validate(DMContext dmContext) throws RefinerException
     {

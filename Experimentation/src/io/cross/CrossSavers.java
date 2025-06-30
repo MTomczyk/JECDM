@@ -48,7 +48,7 @@ public class CrossSavers
     /**
      * Request each saver to create a file.
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be cast 
      */
     public void createFiles() throws CrossedScenariosException
     {
@@ -58,7 +58,7 @@ public class CrossSavers
     /**
      * Method for notifying the savers that the processing begins (prior to executing any scenario).
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be cast 
      */
     public void notifyProcessingBegins() throws CrossedScenariosException
     {
@@ -70,7 +70,7 @@ public class CrossSavers
      *
      * @param scenario scenario that is to be processed
      * @param SDC      scenario data container linked to the scenario being currently processed (read-only)
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be cast 
      */
     public void notifyScenarioProcessingBegins(Scenario scenario, AbstractScenarioDataContainer SDC) throws CrossedScenariosException
     {
@@ -81,7 +81,7 @@ public class CrossSavers
      * A method for notifying the saver that the processing of indicator-related data begins.
      *
      * @param indicator indicator
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown
      */
     public void notifyIndicatorProcessingBegins(IIndicator indicator) throws CrossedScenariosException
     {
@@ -91,7 +91,7 @@ public class CrossSavers
     /**
      * A method for notifying the saver that the processing of indicator-related data ends.
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be thrown
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be thrown
      */
     public void notifyIndicatorProcessingEnds() throws CrossedScenariosException
     {
@@ -105,7 +105,7 @@ public class CrossSavers
      * @param trialResults raw trial results
      * @param statistics   statistic functions to be applied to raw trial results
      * @param generation   current generation number
-     * @throws ScenarioException scenario-level exception can be thrown
+     * @throws ScenarioException the scenario-level exception can be thrown
      */
     public void pushData(double[] trialResults, IStatistic[] statistics, int generation) throws ScenarioException
     {
@@ -117,7 +117,7 @@ public class CrossSavers
     /**
      * Method for notifying the savers that the processing ends.
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be cast 
      */
     public void notifyScenarioProcessingEnds() throws CrossedScenariosException
     {
@@ -128,7 +128,7 @@ public class CrossSavers
     /**
      * Method for notifying the savers that the processing begins (after all scenarios are processed).
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be cast 
      */
     public void notifyProcessingEnds() throws CrossedScenariosException
     {
@@ -138,7 +138,7 @@ public class CrossSavers
     /**
      * Request each saver to close a file.
      *
-     * @throws CrossedScenariosException crossed-scenarios-level exception can be cast and propagated higher
+     * @throws CrossedScenariosException the crossed-scenarios-level exception can be cast 
      */
     public void closeFiles() throws CrossedScenariosException
     {

@@ -35,7 +35,7 @@ public abstract class AbstractOSChangeListener implements IOSChangeListener
      * @param ea     evolutionary algorithm
      * @param os     objective space (updated)
      * @param prevOS objective space (outdated; for comparison)
-     * @throws PhaseException the exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     @Override
     public void action(EA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException

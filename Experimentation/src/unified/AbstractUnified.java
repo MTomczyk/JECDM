@@ -52,7 +52,7 @@ public class AbstractUnified<T>
      * @param SDCs             scenario data getters
      * @param requestedNames   requested unified names
      * @param crossedScenarios crossed scenarios being currently processed
-     * @throws CrossedScenariosException crossed scenarios exception can be thrown and propagated higher
+     * @throws CrossedScenariosException crossed scenarios exception can be thrown 
      */
     public AbstractUnified(IEntityGetter<T> entityGetter,
                            String errorMessage,

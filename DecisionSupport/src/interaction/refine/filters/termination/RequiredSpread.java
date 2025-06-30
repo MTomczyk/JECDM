@@ -57,7 +57,7 @@ public class RequiredSpread extends AbstractTerminationFilter implements ITermin
      *
      * @param dmContext current decision-making context (provides alternatives superset).
      * @return filter's indications
-     * @throws RefinerException exception can be thrown and propagated higher
+     * @throws RefinerException the exception can be thrown 
      */
     @Override
     public TerminationResult shouldTerminate(DMContext dmContext) throws RefinerException
@@ -76,7 +76,7 @@ public class RequiredSpread extends AbstractTerminationFilter implements ITermin
      * @param dmContext    decision-making context
      * @param alternatives wrapped alternatives
      * @return filter's indications
-     * @throws RefinerException exception can be thrown and propagated higher
+     * @throws RefinerException the exception can be thrown 
      */
     public TerminationResult shouldTerminate(DMContext dmContext, AbstractAlternatives<?> alternatives) throws RefinerException
     {

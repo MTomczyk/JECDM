@@ -19,7 +19,7 @@ public interface ITrialLoader
      * @param scenario scenario being currently processed
      * @param trialID  ID of the test run being currently processed
      * @return new object instance
-     * @throws TrialException trial exception can be cast and propagated higher
+     * @throws TrialException the trial exception can be cast 
      */
     ITrialLoader getInstance(String path, String filename, Scenario scenario, int trialID) throws TrialException;
 
@@ -33,7 +33,7 @@ public interface ITrialLoader
     /**
      * The implementation should load a file and instantiate the input stream.
      *
-     * @throws TrialException trail-level exception can be thrown (e.g., then the requested path is invalid)
+     * @throws TrialException the trail-level exception can be thrown  (e.g., then the requested path is invalid)
      */
     void load() throws TrialException;
 
@@ -42,14 +42,14 @@ public interface ITrialLoader
      *
      * @param size determines the number of elements to load (by default = doubles)
      * @return elements loaded
-     * @throws TrialException trail-level exception can be thrown
+     * @throws TrialException the trail-level exception can be thrown 
      */
     double[] retrieve(int size) throws TrialException;
 
     /**
      * The implementation should close the maintained input stream.
      *
-     * @throws TrialException trail-level exception can be thrown
+     * @throws TrialException the trail-level exception can be thrown 
      */
     void close() throws TrialException;
 

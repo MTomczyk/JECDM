@@ -53,7 +53,8 @@ public class ReferenceSetsConstructor
 
 
         /**
-         * Creates default object instance (default parameterization) that uses a random pairs constructor {@link RandomPairs}
+         * Creates default object instance (default parameterization) that uses a random pairs constructor
+         * {@link RandomPairs}
          * with {@link RequiredSpread} validator. The constructor is common to all decision maker's.
          *
          * @param thComparison the threshold for the validator used by random pair generator
@@ -104,6 +105,17 @@ public class ReferenceSetsConstructor
         return new ReferenceSetsConstructor(Params.getDefault(thComparison));
     }
 
+    /**
+     * Parameterized constructor.
+     *
+     * @param commonReferenceSetConstructor reference set constructor (common to all decision-makers)
+     */
+    public ReferenceSetsConstructor(IReferenceSetConstructor commonReferenceSetConstructor)
+    {
+        _commonConstructors = new LinkedList<>();
+        _commonConstructors.add(commonReferenceSetConstructor);
+        _dmConstructors = null;
+    }
 
     /**
      * Parameterized constructor.
@@ -119,7 +131,7 @@ public class ReferenceSetsConstructor
     /**
      * Auxiliary method that can be called to validate some essential fields.
      *
-     * @param DMs            decision makers (identifiers)
+     * @param DMs decision makers (identifiers)
      * @throws ReferenceSetsConstructorException the exception will be thrown if the validation fails
      */
     public void validate(DM[] DMs) throws ReferenceSetsConstructorException
@@ -166,11 +178,11 @@ public class ReferenceSetsConstructor
     /**
      * The main method for constructing reference sets (wrapped via {@link Result#_referenceSetsContainer}).
      *
-     * @param dmContext            current decision-making context
+     * @param dmContext      current decision-making context
      * @param DMs            decision makers (identifiers)
      * @param refiningResult result of the refining process
      * @return constructed reference sets (wrapped via {@link Result#_referenceSetsContainer}).
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown
      */
     public Result constructReferenceSets(DMContext dmContext, DM[] DMs,
                                          interaction.refine.Result refiningResult) throws ReferenceSetsConstructorException
@@ -189,7 +201,7 @@ public class ReferenceSetsConstructor
             commonSets = constructReferenceSets(result, dmContext, refiningResult, _commonConstructors);
             if (commonSets == null) // TERMINATED_DUE_TO_HAVING_NOT_ENOUGH_ALTERNATIVES
             {
-                result._processingTime = (System.nanoTime() - pT) / 1000000;
+                result._processingTime = (double) (System.nanoTime() - pT) / 1000000.0d;
                 result._referenceSetsContainer = null;
                 return result;
             }
@@ -210,7 +222,7 @@ public class ReferenceSetsConstructor
 
                 if (rs == null) // TERMINATED_DUE_TO_HAVING_NOT_ENOUGH_ALTERNATIVES
                 {
-                    result._processingTime = (System.nanoTime() - pT) / 1000000;
+                    result._processingTime = (double) (System.nanoTime() - pT) / 1000000.0d;
                     result._referenceSetsContainer = null;
                     return result;
                 }
@@ -225,7 +237,7 @@ public class ReferenceSetsConstructor
         else result._status = Status.PROCESS_ENDED_SUCCESSFULLY;
 
         result._referenceSetsContainer = new ReferenceSetsContainer(noSets, commonSets, dmSets);
-        result._processingTime = (System.nanoTime() - pT) / 1000000;
+        result._processingTime = (double) (System.nanoTime() - pT) / 1000000.0d;
         return result;
     }
 
@@ -234,11 +246,11 @@ public class ReferenceSetsConstructor
      * Auxiliary method for creating reference sets given the input reference sets constructors.
      *
      * @param result         construction result object that can be filled by this method
-     * @param dmContext            current decision-making context
+     * @param dmContext      current decision-making context
      * @param refiningResult result of the refining process
      * @param constructors   reference sets constructors.
      * @return reference sets
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown
      */
     private ReferenceSets constructReferenceSets(Result result,
                                                  DMContext dmContext,
@@ -315,9 +327,9 @@ public class ReferenceSetsConstructor
     /**
      * Auxiliary method for performing basic validation.
      *
-     * @param dmContext             current decision-making context
+     * @param dmContext       current decision-making context
      * @param refiningResults results of the refining process
-     * @throws ReferenceSetsConstructorException exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException exception can be thrown
      */
     private void validate(DMContext dmContext, interaction.refine.Result refiningResults) throws ReferenceSetsConstructorException
     {

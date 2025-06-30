@@ -23,7 +23,7 @@ public interface IPreferenceModel<T extends IInternalModel>
      * Auxiliary method that can be used to register the current decision-making context {@link DMContext}.
      *
      * @param dmContext decision-making context
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     void registerDecisionMakingContext(DMContext dmContext) throws PreferenceModelException;
 
@@ -34,7 +34,7 @@ public interface IPreferenceModel<T extends IInternalModel>
      *
      * @param alternative the alternative to be evaluated
      * @return attained score
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     double evaluate(Alternative alternative) throws PreferenceModelException;
 
@@ -43,7 +43,7 @@ public interface IPreferenceModel<T extends IInternalModel>
      *
      * @param alternatives alternatives to be evaluated
      * @return evaluation result object
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     EvaluationResult evaluateAlternatives(AbstractAlternatives<?> alternatives) throws PreferenceModelException;
 
@@ -87,7 +87,7 @@ public interface IPreferenceModel<T extends IInternalModel>
     /**
      * Unregisters the decision-making context
      *
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     void unregisterDecisionMakingContext() throws PreferenceModelException;
 

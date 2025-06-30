@@ -42,7 +42,7 @@ class DummyConstructor implements IReferenceSetConstructor
      *
      * @param filteredAlternatives filtered alternatives (passed the termination and reduction steps)
      * @return expected size of the reference set
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     @SuppressWarnings("RedundantThrows")
     @Override
@@ -58,7 +58,7 @@ class DummyConstructor implements IReferenceSetConstructor
      * @param dmContext                  current decision-making context
      * @param filteredAlternatives filtered alternatives (passed the termination and reduction steps)
      * @return constructed reference set (or sets); should return null if no such sets were generated (the elements cannot be null)
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     @Override
     public LinkedList<ReferenceSet> constructReferenceSets(DMContext dmContext, AbstractAlternatives<?> filteredAlternatives) throws ReferenceSetsConstructorException

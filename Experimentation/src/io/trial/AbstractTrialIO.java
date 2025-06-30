@@ -56,7 +56,7 @@ public abstract class AbstractTrialIO extends AbstractIO
      * instantiated yet).
      *
      * @return file object
-     * @throws TrialException scenario-level exception can be thrown and propagated higher
+     * @throws TrialException the scenario-level exception can be thrown 
      */
     protected File getFileAtTrialLevel() throws TrialException
     {

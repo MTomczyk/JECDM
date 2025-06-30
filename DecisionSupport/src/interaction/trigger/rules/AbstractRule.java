@@ -34,7 +34,7 @@ public class AbstractRule implements IRule
      *
      * @param dmContext current decision-making context
      * @return false
-     * @throws TriggerException exception can be thrown and propagated higher
+     * @throws TriggerException the exception can be thrown 
      */
     @Override
     public boolean shouldInteract(DMContext dmContext) throws TriggerException

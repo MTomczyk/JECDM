@@ -54,12 +54,14 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
     protected boolean _inconsistencyHandlingMode;
 
     /**
-     * List of preference examples that were removed in the most recent attempt to reintroduce consistency (provided via wrappers).
+     * List of preference examples that were removed in the most recent attempt to reintroduce consistency (provided via
+     * wrappers).
      */
     protected LinkedList<PreferenceInformationWrapper> _removedPreferenceInformation;
 
     /**
-     * List of preference examples that were added in the most recent attempt to reintroduce consistency (provided via wrappers).
+     * List of preference examples that were added in the most recent attempt to reintroduce consistency (provided via
+     * wrappers).
      */
     protected LinkedList<PreferenceInformationWrapper> _addedPreferenceInformation;
 
@@ -69,7 +71,8 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
     protected boolean _normalizationsSuppliedAtLeastOnce;
 
     /**
-     * Additional flag indicating whether the normalizations were updated during the most recent model bundle construction.
+     * Additional flag indicating whether the normalizations were updated during the most recent model bundle
+     * construction.
      */
     protected boolean _normalizationsWereUpdated = false;
 
@@ -96,7 +99,8 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
     }
 
     /**
-     * Auxiliary method that can be called to clear all stored models (can be called, e.g., when the inconsistency was detected).
+     * Auxiliary method that can be called to clear all stored models (can be called, e.g., when the inconsistency was
+     * detected).
      */
     @Override
     public void clearModels()
@@ -108,7 +112,7 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
      * Auxiliary method that can be used to register the current decision-making context {@link DMContext}.
      *
      * @param dmContext decision-making context
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void registerDecisionMakingContext(DMContext dmContext) throws ConstructorException
@@ -138,7 +142,7 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
     /**
      * Method for notifying that the preference elicitation begins.
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyPreferenceElicitationBegins() throws ConstructorException
@@ -147,9 +151,10 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
     }
 
     /**
-     * Method for notifying that the preference elicitation failed (e.g., when there were no reasonable alternatives for comparison).
+     * Method for notifying that the preference elicitation failed (e.g., when there were no reasonable alternatives for
+     * comparison).
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     public void notifyPreferenceElicitationFailed() throws ConstructorException
     {
@@ -160,7 +165,7 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
      * Method for notifying on the most recent preference information provided by the decision maker.
      *
      * @param preferenceInformation preference information (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyAboutMostRecentPreferenceInformation(LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
@@ -171,7 +176,7 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
     /**
      * Method for notifying that the preference elicitation ends.
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyPreferenceElicitationEnds() throws ConstructorException
@@ -182,7 +187,7 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
     /**
      * Method for notifying that the internal models construction begins.
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyModelsConstructionBegins() throws ConstructorException
@@ -199,7 +204,7 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
      *
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
      * @return constructed models (bundle object that also provides additional data)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public Report<T> constructModels(LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
@@ -215,20 +220,21 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
      *
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
      * @return bundle result object to be filled
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     protected Report<T> preConstructModels(LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
-        Report<T> bundle = getReportInstance();
+        Report<T> bundle = instantiateReport();
         bundle._constructionStartTime = System.nanoTime();
         return bundle;
     }
 
     /**
-     * Auxiliary method for creating report instance.
+     * Auxiliary method for creating and returning a report instance.
+     *
      * @return report instance
      */
-    protected Report<T> getReportInstance()
+    protected Report<T> instantiateReport()
     {
         return new Report<>(_dmContext);
     }
@@ -239,7 +245,7 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
      *
      * @param bundle                bundle result object to be filled (provided via wrappers)
      * @param preferenceInformation the decision maker's preference information stored
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     protected void mainConstructModels(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
@@ -251,20 +257,20 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
      *
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     protected void postConstructModels(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {
         _normalizationsWereUpdated = false;
         bundle._constructionStopTime = System.nanoTime();
-        bundle._constructionElapsedTime = (bundle._constructionStopTime - bundle._constructionStartTime) / 1000000;
+        bundle._constructionElapsedTime = (double) (bundle._constructionStopTime - bundle._constructionStartTime) / 1000000.0d;
     }
 
 
     /**
      * Method for notifying that the internal models construction ends.
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyModelsConstructionEnds() throws ConstructorException
@@ -275,7 +281,7 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
     /**
      * Method for notifying that the consistency reintroduction begins.
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyConsistencyReintroductionBegins() throws ConstructorException
@@ -286,9 +292,10 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
     }
 
     /**
-     * Method for notifying about the beginning of an attempt to reintroduce consistency (one construction process is called in one attempt)
+     * Method for notifying about the beginning of an attempt to reintroduce consistency (one construction process is
+     * called in one attempt)
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyConsistencyReintroductionAttemptBegins() throws ConstructorException
@@ -299,10 +306,11 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
 
 
     /**
-     * Method for notifying about preference examples removed from the initial set when attempting to reinstate consistency.
+     * Method for notifying about preference examples removed from the initial set when attempting to reinstate
+     * consistency.
      *
      * @param removedPreferenceInformation removed preference examples (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyAboutRemovedPreferenceInformation(LinkedList<PreferenceInformationWrapper> removedPreferenceInformation) throws ConstructorException
@@ -312,10 +320,11 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
 
 
     /**
-     * Method for notifying about preference examples added from the preference examples set when attempting to reinstate consistency.
+     * Method for notifying about preference examples added from the preference examples set when attempting to
+     * reinstate consistency.
      *
      * @param addedPreferenceInformation added preference examples (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyAboutAddedPreferenceInformation(LinkedList<PreferenceInformationWrapper> addedPreferenceInformation) throws ConstructorException
@@ -324,9 +333,10 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
     }
 
     /**
-     * Method for notifying about the ending of an attempt to reintroduce consistency (one construction process is called in one attempt)
+     * Method for notifying about the ending of an attempt to reintroduce consistency (one construction process is
+     * called in one attempt)
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyConsistencyReintroductionAttemptEnds() throws ConstructorException
@@ -338,7 +348,7 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
     /**
      * Method for notifying that the consistency reintroduction ends.
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void notifyConsistencyReintroductionEnds() throws ConstructorException
@@ -350,7 +360,7 @@ public abstract class AbstractConstructor<T extends AbstractInternalModel> imple
     /**
      * Unregisters the decision-making context
      *
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void unregisterDecisionMakingContext() throws ConstructorException

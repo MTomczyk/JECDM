@@ -55,7 +55,7 @@ public class Common
      * @param trialPCs reference data
      * @param noPCs    no pairwise comparisons to construct
      * @return preference information objects
-     * @throws PreferenceModelException exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     public static LinkedList<PreferenceInformationWrapper> getPreferenceInformation(PCsDataContainer.TrialPCs trialPCs, int noPCs) throws PreferenceModelException
     {

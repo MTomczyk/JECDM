@@ -47,7 +47,7 @@ public class IEMODGoalsUpdater<T extends AbstractValueInternalModel>
      * Can be called to retrieve preference models from DSS and set them as new preference directions for the MOEA/D framework.
      *
      * @param ea     parent evolutionary algorithm
-     * @throws PhaseException the exception can be called and propagated higher
+     * @throws PhaseException the exception can be called 
      */
     public void updateGoals(EA ea) throws PhaseException
     {

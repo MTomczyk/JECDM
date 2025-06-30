@@ -70,7 +70,7 @@ public abstract class AbstractTrialSaver extends AbstractTrialIO implements ITri
     /**
      * The implementation should create a file (and overwrite it if already exists) and instantiate the output stream.
      *
-     * @throws TrialException trail-level exception can be thrown (e.g., then the requested path is invalid)
+     * @throws TrialException the trail-level exception can be thrown  (e.g., then the requested path is invalid)
      */
     @Override
     public void create() throws TrialException
@@ -84,7 +84,7 @@ public abstract class AbstractTrialSaver extends AbstractTrialIO implements ITri
      * @param data   input data to be stored
      * @param offset starting index in the data array
      * @param length represents how many values should be stored (i.e., data[offset]:data[offset + length - 1] (inclusive) should be stored))
-     * @throws TrialException trail-level exception can be thrown (e.g., then the requested path is invalid)
+     * @throws TrialException the trail-level exception can be thrown  (e.g., then the requested path is invalid)
      */
     @Override
     public void store(double[] data, int offset, int length) throws TrialException
@@ -95,7 +95,7 @@ public abstract class AbstractTrialSaver extends AbstractTrialIO implements ITri
     /**
      * The implementation should close the maintained output stream.
      *
-     * @throws TrialException trail-level exception can be thrown
+     * @throws TrialException the trail-level exception can be thrown 
      */
     @Override
     public void close() throws TrialException

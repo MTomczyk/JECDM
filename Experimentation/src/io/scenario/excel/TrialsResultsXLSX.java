@@ -3,7 +3,7 @@ package io.scenario.excel;
 import exception.ScenarioException;
 import executor.ScenariosSummarizer;
 import indicator.IIndicator;
-import io.cross.excel.AbstractFinalStatistics;
+import io.cross.excel.AbstractExcelGenerationStatistics;
 import io.scenario.IScenarioSaver;
 import io.utils.excel.Style;
 import org.apache.poi.ss.usermodel.Cell;
@@ -12,7 +12,7 @@ import scenario.Scenario;
 import statistics.IStatistic;
 
 /**
- * Extension of {@link AbstractFinalStatistics} for xls files (2007+ Excel).
+ * Extension of {@link AbstractExcelGenerationStatistics} for xls files (2007+ Excel).
  * This auxiliary summarizer fills data matrix by explicitly copying results from the trial level without performing
  * the summary (the resulting matrices are of generations x trials size; per indicator).
  *
@@ -97,7 +97,7 @@ public class TrialsResultsXLSX extends AbstractExcelSummarizer implements IScena
      * @param indicators performance indicators employed when assessing the performance of EAs.
      * @param statistics statistic functions used to aggregate the data
      * @return new object instance
-     * @throws ScenarioException scenario-level exception can be cast and propagated higher
+     * @throws ScenarioException scenario-level exception can be cast 
      */
     @Override
     public IScenarioSaver getInstance(String path, String filename, Scenario scenario, int[] trialIDs, IIndicator[] indicators, IStatistic[] statistics) throws ScenarioException

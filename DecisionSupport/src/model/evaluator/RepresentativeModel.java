@@ -19,7 +19,7 @@ public class RepresentativeModel<T extends IInternalModel> extends AbstractEvalu
      * @param alternative the alternative to be evaluated
      * @param models      internal models used for evaluation
      * @return attained score
-     * @throws PreferenceModelException the exception can be thrown and propagated higher
+     * @throws PreferenceModelException the exception can be thrown 
      */
     @Override
     public double evaluate(Alternative alternative, ArrayList<T> models) throws PreferenceModelException

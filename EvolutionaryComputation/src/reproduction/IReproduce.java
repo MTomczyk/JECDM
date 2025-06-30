@@ -26,7 +26,7 @@ public interface IReproduce
      *
      * @param ea evolutionary algorithm
      * @return offspring specimens
-     * @throws PhaseException the exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     ArrayList<Specimen> createOffspring(EA ea) throws PhaseException;
 }

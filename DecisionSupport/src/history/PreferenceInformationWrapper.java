@@ -40,11 +40,12 @@ public class PreferenceInformationWrapper
      * @param id                    id associated with the preference example
      * @param iteration             timestamp (iteration) associated with the preference example
      * @param dateTime              timestamp (date and time) associated with the preference example is instantiated
-     * @throws HistoryException history exception can be thrown and propagated higher (thrown when the input preference information is null)
+     * @throws HistoryException the exception can be thrown  (thrown when the input preference information is null)
      */
     protected PreferenceInformationWrapper(IPreferenceInformation preferenceInformation, int id, int iteration, LocalDateTime dateTime) throws HistoryException
     {
-        if (preferenceInformation == null) throw new HistoryException("The preference information is not provided (is null)", this.getClass());
+        if (preferenceInformation == null)
+            throw new HistoryException("The preference information is not provided (is null)", this.getClass());
         _preferenceInformation = preferenceInformation;
         _id = id;
         _iteration = iteration;
@@ -53,20 +54,32 @@ public class PreferenceInformationWrapper
 
     /**
      * Returns test instance.
+     *
      * @param preferenceInformation preference information to be wrapped
      * @return test instance
      */
     public static PreferenceInformationWrapper getTestInstance(IPreferenceInformation preferenceInformation)
     {
+        return getTestInstance(preferenceInformation, 0);
+    }
+
+    /**
+     * Returns test instance.
+     *
+     * @param preferenceInformation preference information to be wrapped
+     * @param id                    dummy id
+     * @return test instance
+     */
+    public static PreferenceInformationWrapper getTestInstance(IPreferenceInformation preferenceInformation, int id)
+    {
         try
         {
-            return new PreferenceInformationWrapper(preferenceInformation, 0, 0,null);
+            return new PreferenceInformationWrapper(preferenceInformation, id, 0, null);
         } catch (HistoryException e)
         {
             throw new RuntimeException(e);
         }
     }
-
 
     /**
      * Returns the hash code (id is used for this purpose).
@@ -110,7 +123,7 @@ public class PreferenceInformationWrapper
      * will deliver a completely deep copy.
      *
      * @return cloned object
-     * @throws HistoryException history exception can be thrown and propagated higher (thrown when the input preference information is null)
+     * @throws HistoryException the exception can be thrown  (thrown when the input preference information is null)
      */
     public PreferenceInformationWrapper getClone() throws HistoryException
     {

@@ -314,7 +314,7 @@ public class ObjectiveSpaceManager
      *
      * @param specimensContainer specimens container maintained by the EA (wraps e.g., current population, mating pool, offspring)
      * @param timestamp          current generation no. and steady-state repeat
-     * @throws PhaseException the exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     public void update(SpecimensContainer specimensContainer, EATimestamp timestamp) throws PhaseException
     {
@@ -329,7 +329,7 @@ public class ObjectiveSpaceManager
      * @param timestamp          current generation no. and steady-state repeat
      * @param notifyAboutChange  if true, the method accordingly updates the _changed flag and triggers the listener
      * @return the method returns true if a change in OS is reported; false otherwise
-     * @throws PhaseException the exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     public boolean update(SpecimensContainer specimensContainer, EATimestamp timestamp, boolean notifyAboutChange) throws PhaseException
     {

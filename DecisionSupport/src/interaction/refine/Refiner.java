@@ -142,7 +142,7 @@ public class Refiner
      *
      * @param dmContext current decision-making context
      * @return refined set of alternatives (wrapped via {@link interaction.reference.Result#_referenceSetsContainer}).
-     * @throws RefinerException the exception can be thrown and propagated higher
+     * @throws RefinerException the exception can be thrown 
      */
     public Result refine(DMContext dmContext) throws RefinerException
     {
@@ -168,7 +168,7 @@ public class Refiner
      * Auxiliary method for performing basic validation.
      *
      * @param dmContext current decision-making context
-     * @throws RefinerException exception can be thrown and propagated higher
+     * @throws RefinerException the exception can be thrown 
      */
     protected void validate(DMContext dmContext) throws RefinerException
     {
@@ -187,7 +187,7 @@ public class Refiner
      * @param dmContext          current decision-making context
      * @param alternatives input alternatives set (superset)
      * @return output alternatives (reduced superset)
-     * @throws RefinerException the exception can be thrown and propagated higher
+     * @throws RefinerException the exception can be thrown 
      */
     private AbstractAlternatives<?> doReduction(Result result, DMContext dmContext, AbstractAlternatives<?> alternatives) throws RefinerException
     {
@@ -210,7 +210,7 @@ public class Refiner
      * @param result       result object to be filled
      * @param dmContext          current decision-making context
      * @return if true, the process should be terminated; false otherwise
-     * @throws RefinerException the exception can be thrown and propagated higher
+     * @throws RefinerException the exception can be thrown 
      */
     private boolean checkTerminationConditions(Result result, DMContext dmContext) throws RefinerException
     {

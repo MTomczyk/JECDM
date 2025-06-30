@@ -118,8 +118,7 @@ public class PairwiseComparison extends AbstractIndirectForm implements IPrefere
 
 
     /**
-     * Method for returning the preference information viewed as pairwise comparisons.
-     * Returns itself, encapsulated by array.
+     * Method for returning the preference information viewed as pairwise comparisons.Returns itself, wrapped in array.
      *
      * @return preference example viewed as a series of pairwise comparisons
      */
@@ -127,6 +126,17 @@ public class PairwiseComparison extends AbstractIndirectForm implements IPrefere
     public PairwiseComparison[] getPairwiseComparisons()
     {
         return new PairwiseComparison[]{this};
+    }
+
+    /**
+     * Method for returning the number of pieces of preference that can be viewed as pairwise comparisons.
+     *
+     * @return the number of pieces of preference that can be viewed as pairwise comparisons.
+     */
+    @Override
+    public int getNoPairwiseComparisons()
+    {
+        return 1;
     }
 
     /**
@@ -141,8 +151,8 @@ public class PairwiseComparison extends AbstractIndirectForm implements IPrefere
     }
 
     /**
-     * Returns a copy of the object.  The copy should be deep, at least at this object's level (i.e., the
-     * implementation does not need to guarantee that the bottom objects -- e.g., alternatives -- will be cloned).
+     * Returns a copy of the object.  The copy should be deep, at least at this object's level (i.e., the implementation
+     * does not need to guarantee that the bottom objects -- e.g., alternatives -- will be cloned).
      *
      * @return deep copy of the object
      */

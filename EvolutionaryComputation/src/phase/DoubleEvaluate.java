@@ -48,7 +48,7 @@ public class DoubleEvaluate implements IEvaluate
      * an object implementing the supportive {@link IEvaluate} interface.
      *
      * @param specimens array of specimens to be evaluated
-     * @throws PhaseException an exception can be thrown and propagated higher
+     * @throws PhaseException the exception can be thrown 
      */
     @Override
     public void evaluateSpecimens(ArrayList<Specimen> specimens) throws PhaseException

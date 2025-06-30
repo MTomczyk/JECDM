@@ -71,7 +71,7 @@ public class DecisionMakerSystem
      * Parameterized constructor.
      *
      * @param p params container
-     * @throws DecisionMakerSystemException decision maker system exception can be thrown and propagated higher
+     * @throws DecisionMakerSystemException the decision maker system exception can be thrown 
      */
     public DecisionMakerSystem(Params p) throws DecisionMakerSystemException
     {
@@ -96,7 +96,7 @@ public class DecisionMakerSystem
      * Auxiliary method that can be used to register the current decision-making context {@link DMContext}.
      *
      * @param dmContext decision-making context
-     * @throws DecisionMakerSystemException decision maker system exception can be thrown and propagated higher
+     * @throws DecisionMakerSystemException the decision maker system exception can be thrown 
      */
     public void registerDecisionMakingContext(DMContext dmContext) throws DecisionMakerSystemException
     {
@@ -113,7 +113,7 @@ public class DecisionMakerSystem
     /**
      * Method for notifying that the preference elicitation begins.
      *
-     * @throws DecisionMakerSystemException decision maker system exception can be thrown and propagated higher
+     * @throws DecisionMakerSystemException the decision maker system exception can be thrown 
      */
     public void notifyPreferenceElicitationBegins() throws DecisionMakerSystemException
     {
@@ -130,7 +130,7 @@ public class DecisionMakerSystem
      * Method for notifying on the most recent preference information provided by the decision maker.
      *
      * @param preferenceInformation preference information provided
-     * @throws DecisionMakerSystemException decision maker system exception can be thrown and propagated higher
+     * @throws DecisionMakerSystemException the decision maker system exception can be thrown 
      */
     public void notifyAboutTheMostRecentPreferenceInformation(IPreferenceInformation preferenceInformation) throws DecisionMakerSystemException
     {
@@ -145,7 +145,7 @@ public class DecisionMakerSystem
      * Method for notifying on the most recent preference information provided by the decision maker.
      *
      * @param preferenceInformation preference information provided
-     * @throws DecisionMakerSystemException decision maker system exception can be thrown and propagated higher
+     * @throws DecisionMakerSystemException the decision maker system exception can be thrown 
      */
     public void notifyAboutTheMostRecentPreferenceInformation(LinkedList<IPreferenceInformation> preferenceInformation) throws DecisionMakerSystemException
     {
@@ -178,7 +178,7 @@ public class DecisionMakerSystem
     /**
      * Method for notifying that the preference elicitation failed (e.g., when there were no reasonable alternatives for comparison).
      *
-     * @throws DecisionMakerSystemException decision maker system exception can be thrown and propagated higher
+     * @throws DecisionMakerSystemException decision maker system exception can be thrown 
      */
     public void notifyPreferenceElicitationFailed() throws DecisionMakerSystemException
     {
@@ -194,7 +194,7 @@ public class DecisionMakerSystem
     /**
      * Method for notifying that the preference elicitation ends.
      *
-     * @throws DecisionMakerSystemException decision maker system exception can be thrown and propagated higher
+     * @throws DecisionMakerSystemException decision maker system exception can be thrown 
      */
     public void notifyPreferenceElicitationEnds() throws DecisionMakerSystemException
     {
@@ -211,7 +211,7 @@ public class DecisionMakerSystem
      * The main method for updating the model given the history of preference elicitation.
      *
      * @return report on the process
-     * @throws DecisionMakerSystemException decision maker system exception can be thrown and propagated higher
+     * @throws DecisionMakerSystemException decision maker system exception can be thrown 
      */
     public Report updateModels() throws DecisionMakerSystemException
     {
@@ -231,7 +231,7 @@ public class DecisionMakerSystem
             }
         }
 
-        report._processingTime = (System.nanoTime() - startTime) / 1000000;
+        report._processingTime = (double) (System.nanoTime() - startTime) / 1000000.0d;
         return report;
     }
 
@@ -239,7 +239,7 @@ public class DecisionMakerSystem
     /**
      * Auxiliary method that can be used to unregister the current decision-making context {@link DMContext}.
      *
-     * @throws DecisionMakerSystemException decision maker system exception can be thrown and propagated higher
+     * @throws DecisionMakerSystemException decision maker system exception can be thrown 
      */
     public void unregisterDecisionMakingContext() throws DecisionMakerSystemException
     {

@@ -19,7 +19,7 @@ public interface IValidator
      * @param a1 the first alternative
      * @param a2 the second alternative
      * @return true, if both alternatives can form a pair, false otherwise
-     * @throws ReferenceSetsConstructorException exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException exception can be thrown 
      */
     boolean isValid(DMContext dmContext, Alternative a1, Alternative a2) throws ReferenceSetsConstructorException;
 
@@ -28,7 +28,7 @@ public interface IValidator
      * @param dmContext current decision-making context
      * @param alternatives wrapped alternatives
      * @return true, if alternatives can form a reference set, false otherwise
-     * @throws ReferenceSetsConstructorException exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException exception can be thrown 
      */
     boolean isValid(DMContext dmContext, AbstractAlternatives<?> alternatives) throws ReferenceSetsConstructorException;
 }

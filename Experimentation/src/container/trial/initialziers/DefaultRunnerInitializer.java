@@ -19,7 +19,7 @@ public class DefaultRunnerInitializer implements IRunnerInitializer
      * @param ea instance of the evolutionary algorithm to be processed
      * @param p  params container
      * @return per-trial runner
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     @Override
     public IRunner instantiateRunner(EA ea, AbstractTrialDataContainer.Params p) throws TrialException

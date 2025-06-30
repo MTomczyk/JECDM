@@ -78,7 +78,7 @@ public class IterationInterval extends AbstractRule implements IRule
      *
      * @param dmContext current decision-making context
      * @return true, if the rule favors interaction, false otherwise
-     * @throws TriggerException exception can be thrown and propagated higher
+     * @throws TriggerException the exception can be thrown 
      */
     @Override
     public boolean shouldInteract(DMContext dmContext) throws TriggerException

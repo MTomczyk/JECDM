@@ -47,7 +47,7 @@ public class TLPITrialWrapper
      * @param path                  full path to the folder where the result files are stored (without a path separator)
      * @param scenario              scenario being currently processed
      * @param trialID               trial ID
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException the trial-level exception can be thrown 
      */
     public void addLoaders(ITrialLoader referenceLoader,
                            IIndicator[] performanceIndicators,
@@ -86,7 +86,7 @@ public class TLPITrialWrapper
     /**
      * Instantiates file input streams of all loaders.
      *
-     * @throws TrialException trial-level exception can be thrown
+     * @throws TrialException the trial-level exception can be thrown 
      */
     public void openAllFiles() throws TrialException
     {
@@ -96,7 +96,7 @@ public class TLPITrialWrapper
     /**
      * Instantiates file input streams of all loaders.
      *
-     * @throws TrialException trial level exception can be thrown
+     * @throws TrialException the trial level exception can be thrown 
      */
     public void closeAllFiles() throws TrialException
     {

@@ -52,7 +52,7 @@ public class History
      * (their order and uniqueness). If the validation fails, the method throws an exception.
      *
      * @param preferenceInformation preference example to be added (provided via wrappers)
-     * @throws HistoryException history exception can be thrown and propagated higher (thrown when the input preference information is null)
+     * @throws HistoryException the exception can be thrown  (thrown when the input preference information is null)
      */
     public void registerPreferenceInformation(LinkedList<PreferenceInformationWrapper> preferenceInformation) throws HistoryException
     {
@@ -69,7 +69,7 @@ public class History
      * @param iteration             timestamp (iteration)
      * @param addTimestamp          if true, the timestamp in the form of date and time is added
      * @return registered preference examples (wrapped)
-     * @throws HistoryException history exception can be thrown and propagated higher (thrown when the input preference information is null)
+     * @throws HistoryException the exception can be thrown  (thrown when the input preference information is null)
      */
     public LinkedList<PreferenceInformationWrapper> registerPreferenceInformation(LinkedList<IPreferenceInformation> preferenceInformation, int iteration,
                                                                                   boolean addTimestamp) throws HistoryException
@@ -94,7 +94,7 @@ public class History
      * @param preferenceInformation preference example to be added
      * @param iteration             timestamp (iteration)
      * @return registered preference examples (wrapped)
-     * @throws HistoryException history exception can be thrown and propagated higher (thrown when the input preference information is null)
+     * @throws HistoryException the exception can be thrown  (thrown when the input preference information is null)
      */
     public LinkedList<PreferenceInformationWrapper> registerPreferenceInformation(IPreferenceInformation preferenceInformation, int iteration) throws HistoryException
     {
@@ -111,7 +111,7 @@ public class History
      * @param iteration             timestamp (iteration)
      * @param addTimestamp          if true, the timestamp in the form of date and time is added
      * @return registered preference examples (wrapped)
-     * @throws HistoryException history exception can be thrown and propagated higher (thrown when the input preference information is null)
+     * @throws HistoryException the exception can be thrown  (thrown when the input preference information is null)
      */
     public LinkedList<PreferenceInformationWrapper> registerPreferenceInformation(IPreferenceInformation preferenceInformation, int iteration, boolean addTimestamp) throws HistoryException
     {
@@ -132,7 +132,7 @@ public class History
      * @param updateIteration update timestamp (iteration)
      * @param updateDateTime  update timestamp (date and time)
      * @return report on the update
-     * @throws HistoryException the exception can be thrown and propagated higher
+     * @throws HistoryException the exception can be thrown 
      */
     public Report updateHistoryWithASubset(LinkedList<PreferenceInformationWrapper> wrappers,
                                            int updateIteration, LocalDateTime updateDateTime) throws HistoryException
@@ -201,7 +201,7 @@ public class History
      * Returned as a copy. The list elements are also cloned (deep copy is not guaranteed).
      *
      * @return copy of the list of all stored preference statements
-     * @throws HistoryException history exception can be thrown and propagated higher (thrown when the input preference information is null)
+     * @throws HistoryException history exception can be thrown  (thrown when the input preference information is null)
      */
     public LinkedList<PreferenceInformationWrapper> getPreferenceInformationCopy() throws HistoryException
     {
@@ -217,7 +217,7 @@ public class History
      * of these conditions are not satisfied, the method throws an appropriate exception.
      *
      * @param wrappers preference example wrappers to be examined
-     * @throws HistoryException history exception can be thrown and propagated higher
+     * @throws HistoryException history exception can be thrown 
      */
     private void validate(LinkedList<PreferenceInformationWrapper> wrappers) throws HistoryException
     {

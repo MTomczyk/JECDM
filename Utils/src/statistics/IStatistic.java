@@ -12,7 +12,7 @@ public interface IStatistic
      * Calculates the statistic.
      *
      * @param v input array
-     * @return statistics
+     * @return statistic
      */
     double calculate(double[] v);
 

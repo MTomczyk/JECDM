@@ -315,11 +315,10 @@ public class EA
         _phases[PhasesIDs.PHASE_FINALIZE_STEP] = p._finalizeStep;
     }
 
-
     /**
      * Initializes the evolutionary process.
      *
-     * @throws EAException the exception can be thrown and propagated higher
+     * @throws EAException the exception can be thrown 
      */
     public void init() throws EAException
     {
@@ -341,7 +340,7 @@ public class EA
      * Executes one step of the evolutionary algorithm.
      *
      * @param timestamp generation; steady-state repeat
-     * @throws EAException the exception can be thrown and propagated higher
+     * @throws EAException the exception can be thrown 
      */
     public void step(EATimestamp timestamp) throws EAException
     {
@@ -365,7 +364,7 @@ public class EA
      * Conditionally performs indicated phase (condition = phase is not null)
      *
      * @param phaseID id of the phase to be performed
-     * @throws EAException the exception can be thrown and propagated higher
+     * @throws EAException the exception can be thrown 
      */
     private void executePhase(int phaseID) throws EAException
     {

@@ -68,7 +68,7 @@ public class RepresentativeModel<T extends AbstractValueInternalModel> extends A
      *
      * @param bundle                bundle result object to be filled (provided via wrappers)
      * @param preferenceInformation the decision maker's preference information stored
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     protected void mainConstructModels(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException

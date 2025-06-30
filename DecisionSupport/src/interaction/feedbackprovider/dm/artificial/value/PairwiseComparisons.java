@@ -72,7 +72,7 @@ public class PairwiseComparisons<T extends AbstractValueInternalModel> implement
      * @param referenceSets input reference sets derived via reference sets constructor ({@link interaction.reference.ReferenceSetsConstructor})
      * @param model         preference model associated with the artificial decision maker ({@link ArtificialValueDM})
      * @return preference information retrieved
-     * @throws FeedbackProviderException the exception can be thrown and propagated higher
+     * @throws FeedbackProviderException the exception can be thrown 
      */
     @Override
     public LinkedList<IPreferenceInformation> getFeedback(ReferenceSets referenceSets, IPreferenceModel<T> model) throws FeedbackProviderException

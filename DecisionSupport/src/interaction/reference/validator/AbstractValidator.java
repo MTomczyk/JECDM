@@ -21,7 +21,7 @@ public class AbstractValidator implements IValidator
      * @param a1 the first alternative
      * @param a2 the second alternative
      * @return true
-     * @throws ReferenceSetsConstructorException exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
 
     @Override
@@ -38,7 +38,7 @@ public class AbstractValidator implements IValidator
      * @param dmContext current decision-making context
      * @param alternatives wrapped alternatives
      * @return true
-     * @throws ReferenceSetsConstructorException exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     @Override
     public boolean isValid(DMContext dmContext, AbstractAlternatives<?> alternatives) throws ReferenceSetsConstructorException

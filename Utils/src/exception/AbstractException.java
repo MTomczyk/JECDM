@@ -5,7 +5,7 @@ package exception;
  *
  * @author MTomczyk
  */
-public abstract class AbstractException extends Exception
+public abstract class AbstractException extends java.lang.Exception
 {
     /**
      * Class (class) that caught the exception

@@ -16,7 +16,8 @@ import java.util.LinkedList;
 public class Report<T extends AbstractInternalModel> extends AbstractReport
 {
     /**
-     * Auxiliary flag that can be used to inform that the constructor failed to provide compatible models (inconsistency).
+     * Auxiliary flag that can be used to inform that the constructor failed to provide compatible models
+     * (inconsistency).
      */
     public boolean _inconsistencyDetected = false;
 
@@ -38,10 +39,11 @@ public class Report<T extends AbstractInternalModel> extends AbstractReport
     /**
      * Field indicating the construction elapsed time (in ms).
      */
-    public long _constructionElapsedTime = 0;
+    public double _constructionElapsedTime = 0;
 
     /**
-     * Auxiliary field that can be used to store the constructor's success rate in preserving existing models (relevant, e.g.,
+     * Auxiliary field that can be used to store the constructor's success rate in preserving existing models (relevant,
+     * e.g.,
      * when the constructor is based on the Monte Carlo simulation).
      */
     public double _successRateInPreserving = 0.0d;
@@ -80,7 +82,8 @@ public class Report<T extends AbstractInternalModel> extends AbstractReport
 
 
     /**
-     * Additional flag indicating whether the normalizations were updated during the most recent model bundle construction.
+     * Additional flag indicating whether the normalizations were updated during the most recent model bundle
+     * construction.
      */
     public boolean _normalizationsWereUpdated = false;
 
@@ -128,7 +131,8 @@ public class Report<T extends AbstractInternalModel> extends AbstractReport
     }
 
     /**
-     * Auxiliary method that can be overwritten to add extra log lines (used by {@link Report#getStringRepresentation(int)}).
+     * Auxiliary method that can be overwritten to add extra log lines (used by
+     * {@link Report#getStringRepresentation(int)}).
      *
      * @param lines lines being processed
      * @param ind   base indent

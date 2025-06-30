@@ -26,7 +26,7 @@ public class TSPerIndicator
      * @param path           full path to the folder where the result file should be stored (without a path separator)
      * @param scenario       scenario being currently processed
      * @param trialID        ID of the test run being currently processed
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     public TSPerIndicator(ITrialSaver referenceSaver,
                           IIndicator[] indicators,
@@ -52,7 +52,7 @@ public class TSPerIndicator
      * @param results current results matrix (rows = linked to indicators, columns = linked to generations)
      * @param offset  determines the offset in the columns (starting index)
      * @param length  determines the number of columns involved in data saving
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     public void pushResults(double[][] results, int offset, int length) throws TrialException
     {
@@ -63,7 +63,7 @@ public class TSPerIndicator
     /**
      * Auxiliary method for creating trial-level results files.
      *
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     public void createResultsFiles() throws TrialException
     {
@@ -73,7 +73,7 @@ public class TSPerIndicator
     /**
      * Auxiliary method for closing trial-level results files (closes, e.g., FileOutputStreams).
      *
-     * @throws TrialException trial-level exception can be thrown and propagated higher
+     * @throws TrialException trial-level exception can be thrown 
      */
     public void closeResultsFiles() throws TrialException
     {

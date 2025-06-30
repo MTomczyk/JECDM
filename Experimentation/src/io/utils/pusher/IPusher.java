@@ -21,7 +21,7 @@ public interface IPusher
      * @param trialResults raw trial results
      * @param statistics   statistic functions to be applied to raw trial results
      * @param generation   current generation number
-     * @throws ScenarioException scenario-level exception can be thrown
+     * @throws ScenarioException the scenario-level exception can be thrown 
      */
     void pushData(double[] trialResults, IStatistic[] statistics, int generation) throws ScenarioException;
 }

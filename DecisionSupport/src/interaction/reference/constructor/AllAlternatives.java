@@ -19,7 +19,7 @@ public class AllAlternatives implements IReferenceSetConstructor
      *
      * @param filteredAlternatives filtered alternatives (passed the termination and reduction steps)
      * @return size of the input filtered alternatives set
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     @Override
     public int getExpectedSize(AbstractAlternatives<?> filteredAlternatives) throws ReferenceSetsConstructorException
@@ -35,7 +35,7 @@ public class AllAlternatives implements IReferenceSetConstructor
      * @param dmContext                  current decision-making context
      * @param filteredAlternatives filtered alternatives (passed the termination and reduction steps)
      * @return wrapped input filtered alternatives
-     * @throws ReferenceSetsConstructorException the exception can be thrown and propagated higher
+     * @throws ReferenceSetsConstructorException the exception can be thrown 
      */
     @Override
     public LinkedList<ReferenceSet> constructReferenceSets(DMContext dmContext, AbstractAlternatives<?> filteredAlternatives) throws ReferenceSetsConstructorException

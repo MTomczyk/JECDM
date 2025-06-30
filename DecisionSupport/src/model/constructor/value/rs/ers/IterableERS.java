@@ -56,6 +56,16 @@ public class IterableERS<T extends AbstractValueInternalModel> extends ERS<T> im
         _passModels = p._passModels;
     }
 
+    /**
+     * Auxiliary method for creating and internally setting a report instance.
+     *
+     * @return report instance
+     */
+    @Override
+    public Report<T> instantiateReport()
+    {
+        return super.instantiateReport();
+    }
 
     /**
      * Calls the protected {@link ERS#initializeStep(Report, LinkedList)} method.
@@ -63,7 +73,7 @@ public class IterableERS<T extends AbstractValueInternalModel> extends ERS<T> im
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
      * @return indicates whether to prematurely terminate (true)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public boolean initializeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
@@ -80,7 +90,7 @@ public class IterableERS<T extends AbstractValueInternalModel> extends ERS<T> im
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
      * @return returns the constructed model
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public T executeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
@@ -103,7 +113,7 @@ public class IterableERS<T extends AbstractValueInternalModel> extends ERS<T> im
      *
      * @param bundle                bundle result object to be filled
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown and propagated higher
+     * @throws ConstructorException the exception can be thrown 
      */
     @Override
     public void finalizeStep(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException

@@ -1,6 +1,7 @@
 package os;
 
-import ea.EA;
+import ea.AbstractPhasesEA;
+import ea.IEA;
 import exception.PhaseException;
 import space.os.ObjectiveSpace;
 
@@ -18,5 +19,5 @@ public interface IOSChangeListener
      * @param prevOS  previous objective space (outdated; for comparison)
      * @throws PhaseException the exception can be thrown 
      */
-    void action(EA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException;
+    void action(IEA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException;
 }

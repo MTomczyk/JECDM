@@ -1,6 +1,8 @@
 package phase;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
+import ea.IEA;
 import exception.PhaseException;
 import population.Specimen;
 
@@ -25,5 +27,5 @@ public interface IConstruct
      * @return specimen array
      * @throws PhaseException the exception can be thrown 
      */
-    ArrayList<Specimen> createInitialPopulation(EA ea) throws PhaseException;
+    ArrayList<Specimen> createInitialPopulation(IEA ea) throws PhaseException;
 }

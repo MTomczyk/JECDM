@@ -8,11 +8,11 @@ package phase;
 public abstract class AbstractSortPhase extends AbstractPhase implements IPhase
 {
     /**
-     * Default constructor (sets the name to "Sort").
+     * Default constructor (sets the name to "SORT").
      */
     public AbstractSortPhase()
     {
-        super("Sort", PhasesIDs.PHASE_SORT);
+        super("SORT");
     }
 
     /**
@@ -22,6 +22,6 @@ public abstract class AbstractSortPhase extends AbstractPhase implements IPhase
      */
     public AbstractSortPhase(String name)
     {
-        super(name, PhasesIDs.PHASE_SORT);
+        super(name);
     }
 }

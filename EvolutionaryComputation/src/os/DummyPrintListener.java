@@ -1,6 +1,7 @@
 package os;
 
-import ea.EA;
+import ea.AbstractPhasesEA;
+import ea.IEA;
 import exception.PhaseException;
 import space.os.ObjectiveSpace;
 
@@ -19,7 +20,7 @@ public class DummyPrintListener implements IOSChangeListener
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
+    public void action(IEA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
     {
         System.out.println(" --- Objective space has changed! ----");
         os.print();

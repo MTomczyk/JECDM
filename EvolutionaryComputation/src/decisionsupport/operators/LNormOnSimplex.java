@@ -3,6 +3,8 @@ package decisionsupport.operators;
 import model.constructor.value.rs.ers.ModelsQueue;
 import model.constructor.value.rs.ers.SortedModel;
 import model.constructor.value.rs.ers.evolutionary.IOffspringConstructor;
+import reproduction.operators.IWeightsReproducer;
+import reproduction.operators.crossover.ICrossover;
 import reproduction.operators.crossover.OnSimplexCombination;
 import reproduction.operators.mutation.OnSimplexSimplexMutation;
 import dmcontext.DMContext;
@@ -54,7 +56,8 @@ public class LNormOnSimplex implements IOffspringConstructor<LNorm>
      * Parameterized constructor.
      *
      * @param alpha          pre-fixed compensation level
-     * @param cStd           standard deviation for the Gaussian operator employed by default in {@link OnSimplexCombination}
+     * @param cStd           standard deviation for the Gaussian operator employed by default in
+     *                       {@link OnSimplexCombination}
      * @param mScale         scaling factor utilized by {@link OnSimplexSimplexMutation}
      * @param normalizations optional fixed normalizations used when instantiating models
      *                       (if not provided, the normalizations are derived from the decision-making context)
@@ -67,7 +70,8 @@ public class LNormOnSimplex implements IOffspringConstructor<LNorm>
     }
 
     /**
-     * Signature for the main method responsible for producing a new (offspring) model given two selected ones (parents).
+     * Signature for the main method responsible for producing a new (offspring) model given two selected ones
+     * (parents).
      * The parents are wrapped via {@link SortedModel}
      * (derived from {@link ModelsQueue}).
      *
@@ -78,7 +82,8 @@ public class LNormOnSimplex implements IOffspringConstructor<LNorm>
     @Override
     public LNorm getModel(DMContext dmContext, ArrayList<SortedModel<LNorm>> parents)
     {
-        double[] o =_wr.getWeights(parents.get(0)._model, parents.get(1)._model, dmContext.getR());
+        ICrossover.DoubleResult result = _wr.getWeights(parents.get(0)._model, parents.get(1)._model, dmContext.getR());
+        double[] o = result._o;
         if (_normalizations != null) return new LNorm(o, _alpha, _normalizations);
         return new LNorm(o, _alpha, dmContext.getNormalizationsCurrentOS());
     }

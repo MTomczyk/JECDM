@@ -1,6 +1,7 @@
 package runner;
 
 import ea.EA;
+import ea.IEA;
 import exception.RunnerException;
 
 /**
@@ -55,7 +56,7 @@ public interface IRunner
      * @param steadyStateRepeat steady-state repeat number
      * @throws RunnerException the exception can be captured when executing the evolutionary algorithm 
      */
-    void executeSingleSteadyStateRepeat(EA ea, int generation, int steadyStateRepeat) throws RunnerException;
+    void executeSingleSteadyStateRepeat(IEA ea, int generation, int steadyStateRepeat) throws RunnerException;
 
     /**
      * Stops simulations. Default implementation: the method runs pre, main, and post init phases (in the given order).

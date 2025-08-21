@@ -1,6 +1,6 @@
 package executor.complex.case4;
 
-import ea.EA;
+import ea.IEA;
 import exception.TrialException;
 import indicator.IIndicator;
 import random.AbstractRandomNumberGenerator;
@@ -37,7 +37,7 @@ class SeedIndicator implements IIndicator
      * @throws TrialException the method's signature allows for exception throw (trial level)
      */
     @Override
-    public double evaluate(EA ea) throws TrialException
+    public double evaluate(IEA ea) throws TrialException
     {
         Object o = ((AbstractRandomNumberGenerator) ea.getR()).getSeed();
         long[] s = (long[]) o;

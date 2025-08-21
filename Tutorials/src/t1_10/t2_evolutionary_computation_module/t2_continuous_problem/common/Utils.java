@@ -112,14 +112,14 @@ public class Utils
         // Create the EA params container:
         EA.Params pEA = new EA.Params(bundle._name, pB._criteria);
         // Transfer all phases from the bundle to EA:
-        PhasesBundle.copyPhasesFromBundleToEA(bundle._phasesBundle, pEA);
+        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(bundle._phasesBundle);
         // Set EA id:
         pEA._id = 0;
         // Set the random number generator (accessible from the ea object)"
         pEA._R = R;
         // Set the population size (and offspring size):
         pEA._populationSize = populationSize;
-        pEA._offspringSize = populationSize; // (equals the population size size)
+        pEA._offspringSize = populationSize; // (equals the population size)
         return new EA(pEA);
     }
 

@@ -1,6 +1,7 @@
 package indicator;
 
 import ea.EA;
+import ea.IEA;
 
 /**
  * Indicator that returns {@link EA#getExecutionTime()} (the time is calculates in ms).
@@ -23,11 +24,11 @@ public class ExecutionTime extends AbstractPerformanceIndicator implements IPerf
      * @param ea evolutionary algorithm
      * @return performance value
      */
-    public double evaluate(EA ea)
+    @Override
+    public double evaluate(IEA ea)
     {
         return ea.getExecutionTime();
     }
-
 
     /**
      * The implementation must overwrite the toString() method.

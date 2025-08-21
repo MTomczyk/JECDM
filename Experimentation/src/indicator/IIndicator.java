@@ -1,6 +1,7 @@
 package indicator;
 
 import ea.EA;
+import ea.IEA;
 import exception.TrialException;
 import scenario.Scenario;
 
@@ -31,7 +32,7 @@ public interface IIndicator
      * @return the assessment
      * @throws TrialException the method's signature allows for exception throw (trial level)
      */
-    double evaluate(EA ea) throws TrialException;
+    double evaluate(IEA ea) throws TrialException;
 
     /**
      * Method for identifying preference direction.

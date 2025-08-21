@@ -1,6 +1,6 @@
 package t1_10.t3_evolutionary_multiobjective_optimization.t2_osmanager.common;
 
-import ea.EA;
+import ea.IEA;
 import exception.PhaseException;
 import os.IOSChangeListener;
 import space.os.ObjectiveSpace;
@@ -21,7 +21,7 @@ public class PrintingListener implements IOSChangeListener
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
+    public void action(IEA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
     {
         System.out.println("Printing listener action triggered:");
         System.out.println("Previous objective space:");

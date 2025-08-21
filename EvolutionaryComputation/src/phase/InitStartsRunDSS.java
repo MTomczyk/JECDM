@@ -1,6 +1,6 @@
 package phase;
 
-import ea.EA;
+import ea.AbstractPhasesEA;
 import exception.PhaseException;
 import exeption.DecisionSupportSystemException;
 import system.ds.DecisionSupportSystem;
@@ -19,13 +19,13 @@ public class InitStartsRunDSS extends AbstractInitStartsPhase implements IPhase
     private final DecisionSupportSystem _DSS;
 
     /**
-     * Parameterized constructor.
+     * Parameterized constructor (sets the name to "INIT_STARTS_RUN_DSS").
      *
      * @param DSS decision support system
      */
     public InitStartsRunDSS(DecisionSupportSystem DSS)
     {
-        this("Init starts (run DSS)", DSS);
+        this("INIT_STARTS_RUN_DSS", DSS);
     }
 
     /**
@@ -48,7 +48,7 @@ public class InitStartsRunDSS extends AbstractInitStartsPhase implements IPhase
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         try
         {

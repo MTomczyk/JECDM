@@ -1,5 +1,6 @@
 package phase;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
 import exception.PhaseException;
 import population.Specimen;
@@ -38,13 +39,13 @@ public class ConstructInitialPopulation extends AbstractConstructInitialPopulati
     }
 
     /**
-     * Parameterized constructor.
+     * Parameterized constructor (sets the name to "CONSTRUCT_INITIAL_POPULATION").
      *
      * @param constructor responsible for generating the initial population
      */
     public ConstructInitialPopulation(IConstruct constructor)
     {
-        this("Construct Initial Population", constructor);
+        this("CONSTRUCT_INITIAL_POPULATION", constructor);
     }
 
     /**
@@ -73,7 +74,7 @@ public class ConstructInitialPopulation extends AbstractConstructInitialPopulati
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         ArrayList<Specimen> specimen = _constructor.createInitialPopulation(ea);
         ea.setSpecimensContainer(new SpecimensContainer(specimen));

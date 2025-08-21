@@ -2,8 +2,8 @@ package os;
 
 import alternative.Alternative;
 import criterion.Criteria;
-import ea.EA;
 import ea.EATimestamp;
+import ea.IEA;
 import exception.PhaseException;
 import org.junit.jupiter.api.Test;
 import population.Specimen;
@@ -189,7 +189,7 @@ class ObjectiveSpaceManagerTest
          * @throws PhaseException do not throw an exception
          */
         @Override
-        public void action(EA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
+        public void action(IEA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
         {
             INormalizationBuilder NB = new StandardLinearBuilder();
             _normalizations = NB.getNormalizations(os);

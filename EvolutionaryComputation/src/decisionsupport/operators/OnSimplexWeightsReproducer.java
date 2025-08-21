@@ -4,6 +4,7 @@ import model.internals.value.scalarizing.LNorm;
 import random.IRandom;
 import reproduction.operators.AbstractOnSimplexWeightsReproducer;
 import reproduction.operators.IWeightsReproducer;
+import reproduction.operators.crossover.ICrossover;
 import reproduction.operators.crossover.OnSimplexCombination;
 import reproduction.operators.mutation.OnSimplexSimplexMutation;
 
@@ -35,7 +36,7 @@ public class OnSimplexWeightsReproducer extends AbstractOnSimplexWeightsReproduc
      * @return constructed offspring weight vector
      */
     @Override
-    public double[] getWeights(LNorm A, LNorm B, IRandom R)
+    public ICrossover.DoubleResult getWeights(LNorm A, LNorm B, IRandom R)
     {
         return reproduce(A.getWeights(), B.getWeights(), R);
     }

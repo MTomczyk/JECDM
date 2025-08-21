@@ -1,6 +1,6 @@
 package emo.interactive.iemod;
 
-import ea.EA;
+import ea.IEA;
 import emo.utils.decomposition.family.Family;
 import emo.utils.decomposition.goal.IGoal;
 import emo.utils.decomposition.goal.definitions.PreferenceValueModel;
@@ -49,7 +49,7 @@ public class IEMODGoalsUpdater<T extends AbstractValueInternalModel>
      * @param ea     parent evolutionary algorithm
      * @throws PhaseException the exception can be called 
      */
-    public void updateGoals(EA ea) throws PhaseException
+    public void updateGoals(IEA ea) throws PhaseException
     {
         ArrayList<? extends AbstractValueInternalModel> models = _preferenceModel.getInternalModels();
         Family F = _goalsManager.getFamilies()[0];

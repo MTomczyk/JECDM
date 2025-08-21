@@ -1,7 +1,7 @@
 package container.trial.initialziers;
 
 import container.trial.AbstractTrialDataContainer;
-import ea.EA;
+import ea.IEA;
 import exception.TrialException;
 import runner.IRunner;
 
@@ -21,5 +21,5 @@ public interface IRunnerInitializer
      * @return per-trial runner
      * @throws TrialException trial-level exception can be thrown 
      */
-    IRunner instantiateRunner(EA ea, AbstractTrialDataContainer.Params p) throws TrialException;
+    IRunner instantiateRunner(IEA ea, AbstractTrialDataContainer.Params p) throws TrialException;
 }

@@ -423,7 +423,11 @@ public class ExperimentPerformer extends AbstractExecutor
         if (!file.exists())
         {
             boolean created = file.mkdir();
-            if (!created) throw new GlobalException("Could not create the main folder", null, this.getClass());
+            if (!created)
+            {
+                created = file.mkdirs();
+                if (!created) throw new GlobalException("Could not create the main folder (" + _GDC.getMainPath() + ")", null, this.getClass());
+            }
         }
 
         _log.log("The main folder is created (" + _GDC.getMainPath() + ")", Level.Global, _indent);

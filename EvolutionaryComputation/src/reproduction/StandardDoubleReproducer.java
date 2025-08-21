@@ -53,7 +53,7 @@ public class StandardDoubleReproducer extends AbstractStandardReproducer
      */
     public double[] reproduce(double[] p1, double[] p2, IRandom R)
     {
-        double[] o = _c.crossover(p1, p2, R);
+        double[] o = _c.crossover(p1, p2, R)._o;
         if (_m != null) _m.mutate(o, R);
         if (_vc != null) _vc.checkAndCorrect(o, _vLowerBound, _vUpperBound);
         return o;

@@ -1,7 +1,7 @@
 package runner;
 
-import ea.EA;
 import ea.EATimestamp;
+import ea.IEA;
 import exception.RunnerException;
 import runner.enums.DisplayMode;
 import runner.enums.UpdaterMode;
@@ -30,7 +30,7 @@ public abstract class AbstractRunner implements IRunner
         /**
          * Evolutionary algorithm(s).
          */
-        public EA[] _eas;
+        public IEA[] _eas;
 
         /**
          * The number of steady-state iterations.
@@ -61,7 +61,7 @@ public abstract class AbstractRunner implements IRunner
          * @param eas                evolutionary algorithms
          * @param steadyStateRepeats the number of steady-state iterations
          */
-        public Params(EA[] eas, int steadyStateRepeats)
+        public Params(IEA[] eas, int steadyStateRepeats)
         {
             this(eas, steadyStateRepeats, null);
         }
@@ -73,7 +73,7 @@ public abstract class AbstractRunner implements IRunner
          * @param steadyStateRepeats the number of steady-state iterations (the same for each evolutionary algorithm)
          * @param visualization      optional visualization (plot); can be null -> not displayed
          */
-        public Params(EA[] eas, int steadyStateRepeats, IVisualization visualization)
+        public Params(IEA[] eas, int steadyStateRepeats, IVisualization visualization)
         {
             _eas = eas;
             _steadyStateRepeats = new int[eas.length];
@@ -90,7 +90,7 @@ public abstract class AbstractRunner implements IRunner
          *                           should equal the number of EAs
          * @param visualization      optional visualization (plot); can be null -> not displayed
          */
-        public Params(EA[] eas, int[] steadyStateRepeats, IVisualization visualization)
+        public Params(IEA[] eas, int[] steadyStateRepeats, IVisualization visualization)
         {
             _eas = eas;
             _steadyStateRepeats = steadyStateRepeats;
@@ -102,7 +102,7 @@ public abstract class AbstractRunner implements IRunner
     /**
      * Evolutionary algorithm(s).
      */
-    protected final EA[] _eas;
+    protected final IEA[] _eas;
 
     /**
      * The number of steady-state iterations.
@@ -306,7 +306,7 @@ public abstract class AbstractRunner implements IRunner
     {
         try
         {
-            for (EA ea : _eas) ea.init();
+            for (IEA ea : _eas) ea.init();
         } catch (Exception e)
         {
             wrapException("main init phase", e);
@@ -393,7 +393,7 @@ public abstract class AbstractRunner implements IRunner
                 {
                     continue; // generation limit reached
                 }
-                EA ea = _eas[eaID];
+                IEA ea = _eas[eaID];
                 for (int r = 0; r < _steadyStateRepeats[eaID]; r++)
                 {
                     executeSingleSteadyStateRepeat(ea, generation, r);
@@ -439,7 +439,7 @@ public abstract class AbstractRunner implements IRunner
      * @throws RunnerException the exception can be captured when executing the method 
      */
     @Override
-    public void executeSingleSteadyStateRepeat(EA ea, int generation, int steadyStateRepeat) throws RunnerException
+    public void executeSingleSteadyStateRepeat(IEA ea, int generation, int steadyStateRepeat) throws RunnerException
     {
         try
         {
@@ -463,7 +463,7 @@ public abstract class AbstractRunner implements IRunner
      * @param steadyStateRepeat current steady-state repeat number
      * @throws RunnerException the exception can be captured when executing the method 
      */
-    protected void preExecuteSingleSteadyStateRepeat(EA ea, int generation, int steadyStateRepeat) throws RunnerException
+    protected void preExecuteSingleSteadyStateRepeat(IEA ea, int generation, int steadyStateRepeat) throws RunnerException
     {
 
     }
@@ -476,7 +476,7 @@ public abstract class AbstractRunner implements IRunner
      * @param steadyStateRepeat current steady-state repeat number
      * @throws RunnerException the exception can be captured when executing the method 
      */
-    protected void mainExecuteSingleSteadyStateRepeat(EA ea, int generation, int steadyStateRepeat) throws RunnerException
+    protected void mainExecuteSingleSteadyStateRepeat(IEA ea, int generation, int steadyStateRepeat) throws RunnerException
     {
         try
         {
@@ -496,7 +496,7 @@ public abstract class AbstractRunner implements IRunner
      * @param steadyStateRepeat current steady-state repeat number
      * @throws RunnerException the exception can be captured when executing the method 
      */
-    protected void postExecuteSingleSteadyStateRepeat(EA ea, int generation, int steadyStateRepeat) throws RunnerException
+    protected void postExecuteSingleSteadyStateRepeat(IEA ea, int generation, int steadyStateRepeat) throws RunnerException
     {
         try
         {

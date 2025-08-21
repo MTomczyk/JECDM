@@ -1,7 +1,7 @@
 package emo.aposteriori.nsgaiii;
 
 import criterion.Criteria;
-import ea.EA;
+import ea.AbstractPhasesEA;
 import emo.utils.decomposition.goal.Assignment;
 import emo.utils.decomposition.nsgaiii.IAssignmentResolveTie;
 import emo.utils.decomposition.nsgaiii.ISpecimenResolveTie;
@@ -83,7 +83,7 @@ public class NSGAIIISort extends AbstractSortPhase implements IPhase
      */
     @SuppressWarnings("DuplicatedCode")
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         if (_debug)
         {

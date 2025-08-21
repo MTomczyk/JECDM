@@ -1,5 +1,6 @@
 package emo.aposteriori.moead;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
 import emo.utils.decomposition.moead.MOEADGoalsManager;
 import exception.PhaseException;
@@ -41,7 +42,7 @@ public class MOEADInitEnds extends AbstractInitEndsPhase implements IPhase
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         _goalManager.establishNeighborhood();
         _goalManager.determineUpdatesSequence(ea.getR());

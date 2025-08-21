@@ -1,6 +1,6 @@
 package ea.dummy.populations;
 
-import ea.EA;
+import ea.AbstractPhasesEA;
 import exception.PhaseException;
 import phase.FinalizeStep;
 import phase.IPhase;
@@ -42,7 +42,7 @@ public class DummyFinalizeStepSetPopulations extends FinalizeStep implements IPh
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         super.action(ea, report);
         ea.getSpecimensContainer().setPopulation(_populations.get(ea.getCurrentGeneration()));

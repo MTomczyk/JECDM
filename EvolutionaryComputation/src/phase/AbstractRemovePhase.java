@@ -8,11 +8,11 @@ package phase;
 public abstract class AbstractRemovePhase extends AbstractPhase implements IPhase
 {
     /**
-     * Default constructor (sets the name to "Remove").
+     * Default constructor (sets the name to "REMOVE").
      */
     public AbstractRemovePhase()
     {
-        super("Remove", PhasesIDs.PHASE_REMOVE);
+        super("REMOVE");
     }
 
     /**
@@ -22,6 +22,6 @@ public abstract class AbstractRemovePhase extends AbstractPhase implements IPhas
      */
     public AbstractRemovePhase(String name)
     {
-        super(name, PhasesIDs.PHASE_REMOVE);
+        super(name);
     }
 }

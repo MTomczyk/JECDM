@@ -8,29 +8,33 @@ Evolutionary Computation:
 - Introducing the archive functionality (SpecimenContainer).
 - Phases: allow providing custom pre-post actions (simple one-method interfaces; lambda methods; stacked on the list or passed via arrays)
 - Phases: simple customizable phase; passing own implementations via list to instantiate EA's processing
+- EA: rewrite the code so that the phases are stored in the list (separate lists for init and step)
 - Simple EA for generic regression.
+- Improve instantiating EAs (they require an extensive parameterization; probably params containers will be introduced to primary classes, e.g. IEMOD)
 
 Visualization:
 - Upsampling (rendering in higher DPI)
 - Interface for overwriting scheme after plot is initialized (to avoid the manual update, e.g., in plot 3d).
 - Allowing for changing some of the data sets, while keeping the others untouched (i.e., using static and dynamic data sets).
-- Data set that aggregates multiple data sets (for preloading, wrapped data sets can be turned off/on for rendering)
+- Data set that aggregates multiple data sets (for preloading, wrapped data sets can be turned off/on for rendering).
 - Providing better ways of ticks (axis) adjustment.
-- Creating custom legend (legend entries)
-- Using multiple colorbars
-- Using multiple X, Y axes
+- Creating custom legend (legend entries).
+- Using multiple colorbars.
+- Using multiple X, Y axes.
 - Introducing OpenGL-based 2D rendering mode.
 - Allowing marker edges to have a volume (e.g., Line.POLY_OCTO).
 - Introducing lighting into 3D mode and custom objects loading.
 - Introducing textures into 3D mode.
 - Introducing clipping into 3D mode.
 - Improving text quality in 3D mode.
-- On plot annotations
-- Introducing labels (data sets) to into 2D/3D mode
-- Marker size based on attribute value (use of DR)
+- On plot annotations.
+- Introducing labels (data sets) to into 2D/3D mode.
+- Marker size based on attribute value (use of DR).
 - Heatmap2D: providing values in buckets
-- Providing initial projection data as an input (for 3D)
-- New data sets: labels
+- Providing initial projection data as an input (for 3D; interface (lambda))
+- New data sets: rectangles, etc.
+- Allow for rendering the fonts in Latex (+ math mode, etc.).
+- Interface (lambda) for custom post (at the top) drawing (the drawing context is passed).
 
 Experimentation
 - Mechanisms for surpassing original names of the indicators

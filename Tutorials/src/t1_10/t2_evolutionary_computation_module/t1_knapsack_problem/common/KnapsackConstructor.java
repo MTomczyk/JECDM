@@ -1,6 +1,6 @@
 package t1_10.t2_evolutionary_computation_module.t1_knapsack_problem.common;
 
-import ea.EA;
+import ea.IEA;
 import exception.PhaseException;
 import phase.IConstruct;
 import population.Chromosome;
@@ -43,7 +43,7 @@ public class KnapsackConstructor implements IConstruct
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public ArrayList<Specimen> createInitialPopulation(EA ea) throws PhaseException
+    public ArrayList<Specimen> createInitialPopulation(IEA ea) throws PhaseException
     {
         int ps = ea.getPopulationSize(); // number of specimens = population size
         ArrayList<Specimen> specimens = new ArrayList<>(ps); // instantiate the array

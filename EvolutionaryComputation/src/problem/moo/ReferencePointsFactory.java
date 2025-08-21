@@ -113,7 +113,8 @@ public class ReferencePointsFactory
      * @param n the number of points to sample
      * @param M the number of objectives
      * @param R Random number generator
-     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null, if the input is invalid
+     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null, if the
+     * input is invalid
      */
     public static double[][] getUniformRandomRPsOnConcaveSphere(int n, int M, IRandom R)
     {
@@ -129,7 +130,8 @@ public class ReferencePointsFactory
      * @param n the number of points to sample
      * @param M the number of objectives
      * @param R Random number generator
-     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null, if the input is invalid
+     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null, if the
+     * input is invalid
      */
     public static double[][] getUniformRandomRPsOnConcaveSphere(double r, int n, int M, IRandom R)
     {
@@ -160,13 +162,15 @@ public class ReferencePointsFactory
 
     /**
      * This method generates random reference points on a convex and spherical Pareto front. The sphere is located in
-     * the [radius,...,radius]-vector of the coordinate space, and points belonging to its first quarter are sampled only.
+     * the [radius,...,radius]-vector of the coordinate space, and points belonging to its first quarter are sampled
+     * only.
      * Important note: This method generates points that are (randomly) uniformly distributed on the sphere.
      *
      * @param n the number of points to sample
      * @param M the number of objectives
      * @param R Random number generator
-     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null, if the input is invalid
+     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null, if the
+     * input is invalid
      */
     public static double[][] getUniformRandomRPsOnConvexSphere(int n, int M, IRandom R)
     {
@@ -175,14 +179,16 @@ public class ReferencePointsFactory
 
     /**
      * This method generates random reference points on a convex and spherical Pareto front. The sphere is located in
-     * the [radius,...,radius]-vector of the coordinate space, and points belonging to its first quarter are sampled only.
+     * the [radius,...,radius]-vector of the coordinate space, and points belonging to its first quarter are sampled
+     * only.
      * Important note: This method generates points that are (randomly) uniformly distributed on the sphere.
      *
      * @param r sphere radius
      * @param n the number of points to sample
      * @param M the number of objectives
      * @param R Random number generator
-     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null, if the input is invalid
+     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null, if the
+     * input is invalid
      */
     public static double[][] getUniformRandomRPsOnConvexSphere(double r, int n, int M, IRandom R)
     {
@@ -194,15 +200,18 @@ public class ReferencePointsFactory
     }
 
     /**
-     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective space)
-     * The points are drawn randomly, by generating uniformly distributed decision vectors (which may not lead to a uniform
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space)
+     * The points are drawn randomly, by generating uniformly distributed decision vectors (which may not lead to a
+     * uniform
      * distribution in the objective space).
      *
      * @param problem problem ID
      * @param n       number of solutions to generate
      * @param M       problem dimensionality
      * @param R       random number generator
-     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null if the method does not support a requested problem
+     * @return solutions represented as n x M matrix (each row corresponds to M-dimensional solution); null if the
+     * method does not support a requested problem
      */
     public static double[][] getRandomReferencePoints(Problem problem, int n, int M, IRandom R)
     {
@@ -247,26 +256,46 @@ public class ReferencePointsFactory
 
 
     /**
-     * This method constructs the desired number of Pareto optimal solutions.
-     * The method requires providing a series of scalar optimization goals { wrapped by @link emo.utils.decomposition.goal.IGoal}
-     * used to control distribution. It first constructs n points randomly. Then, per each goal, it identifies
-     * the best performer. Thus, the size of the returned set equals the number of goals. Note that the quality
-     * of the filtering highly depends on the type of goals/scalar functions used. For instance, solutions located in
-     * concave areas will not be found if the functions are in the form of weighted sums. Note that the method
-     * does not filter out the duplicates. Note that also the goals should have properly set normalization functions.
+     * This method constructs the desired number of Pareto optimal solutions. The method requires providing a series of
+     * scalar optimization goals (wrapped by {@link emo.utils.decomposition.goal.IGoal}) used to control distribution.
+     * It first constructs n points randomly. Then, per each goal, it identifies the best performer. Thus, the size of
+     * the returned set equals the number of goals. Note that the quality of the filtering highly depends on the type
+     * of goals/scalar functions used. For instance, solutions located in concave areas will not be found if the
+     * functions are in the form of weighted sums. Note that the method does not filter out the duplicates. Note that
+     * also the goals should have properly set normalization functions.
      *
      * @param problem problem ID
      * @param n       number of random solutions to generate (input for filtering)
      * @param M       problem dimensionality
      * @param R       random number generator
      * @param goals   input goals
-     * @return solutions represented as 'number of goals' x M matrix (each row corresponds to M-dimensional solution); null if the method does not support a requested problem
+     * @return solutions represented as 'number of goals' x M matrix (each row corresponds to M-dimensional solution);
+     * null if the method does not support a requested problem
      */
     public static double[][] getFilteredReferencePoints(Problem problem, int n, int M, IRandom R, IGoal[] goals)
     {
         double[][] rS = getRandomReferencePoints(problem, n, M, R);
         if (rS == null) return null;
+        return getFilteredReferencePoints(rS, M, goals);
+    }
 
+    /**
+     * This method constructs the desired number of Pareto optimal solutions. The method requires providing a series of
+     * scalar optimization goals (wrapped by {@link emo.utils.decomposition.goal.IGoal}) used to control distribution.
+     * It accepts as an input a series of points. Then, per each goal, it identifies the best performer among these
+     * points. Thus, the size of the returned set equals the number of goals. Note that the quality of the filtering
+     * highly depends on the type of goals/scalar functions used. For instance, solutions located in concave areas will
+     * not be found if the functions are in the form of weighted sums. Note that the method does not filter out the
+     * duplicates. Note that also the goals should have properly set normalization functions.
+     *
+     * @param points input random points (source for filtering)
+     * @param M      problem dimensionality
+     * @param goals  input goals
+     * @return solutions represented as 'number of goals' x M matrix (each row corresponds to M-dimensional solution);
+     * null if the method does not support a requested problem
+     */
+    public static double[][] getFilteredReferencePoints(double[][] points, int M, IGoal[] goals)
+    {
         double[][] r = new double[goals.length][M];
 
         // for each goal
@@ -277,12 +306,11 @@ public class ReferencePointsFactory
             if (goals[g].isLessPreferred()) bestEval = Double.POSITIVE_INFINITY;
             int bestIndex = 0;
 
-            for (int s = 0; s < n; s++)
+            for (int s = 0; s < points.length; s++)
             {
-                double e = goals[g].evaluate(new Specimen(new SpecimenID(0), rS[s]));
+                double e = goals[g].evaluate(new Specimen(new SpecimenID(0), points[s]));
 
-                if (
-                        ((goals[g].isLessPreferred()) && (Double.compare(e, bestEval) < 0)) ||
+                if (((goals[g].isLessPreferred()) && (Double.compare(e, bestEval) < 0)) ||
                                 ((!goals[g].isLessPreferred()) && (Double.compare(e, bestEval) > 0)))
                 {
                     bestEval = e;
@@ -290,14 +318,14 @@ public class ReferencePointsFactory
                 }
             }
 
-            r[g] = rS[bestIndex];
+            r[g] = points[bestIndex].clone();
         }
         return r;
-
     }
 
     /**
-     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective space)
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space)
      * to the DTLZ1 problem.
      *
      * @param n number of solutions to generate
@@ -317,7 +345,8 @@ public class ReferencePointsFactory
     }
 
     /**
-     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective space)
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space)
      * to the DTLZ2, DTLZ3, and DTLZ4 problems.
      *
      * @param n number of solutions to generate
@@ -341,7 +370,8 @@ public class ReferencePointsFactory
     }
 
     /**
-     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective space)
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space)
      * to the DTLZ5 and DTLZ6 problems.
      *
      * @param n number of solutions to generate
@@ -365,7 +395,8 @@ public class ReferencePointsFactory
     }
 
     /**
-     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective space)
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space)
      * to the DTLZ7 problem.
      *
      * @param n number of solutions to generate
@@ -399,7 +430,8 @@ public class ReferencePointsFactory
 
 
     /**
-     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective space)
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space)
      * to the WFG1 problem.
      *
      * @param n number of solutions to generate
@@ -424,7 +456,8 @@ public class ReferencePointsFactory
     }
 
     /**
-     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective space)
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space)
      * to the WFG2 problem.
      *
      * @param n number of solutions to generate
@@ -484,7 +517,8 @@ public class ReferencePointsFactory
 
 
     /**
-     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective space)
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space)
      * to the WFG3 problem.
      *
      * @param n number of solutions to generate
@@ -509,7 +543,8 @@ public class ReferencePointsFactory
     }
 
     /**
-     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective space)
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space)
      * to the WFG4-9 problems.
      *
      * @param n number of solutions to generate

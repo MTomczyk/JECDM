@@ -1,5 +1,6 @@
 package emo.aposteriori.moead;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
 import emo.utils.decomposition.goal.GoalID;
 import emo.utils.decomposition.moead.MOEADGoalsManager;
@@ -45,7 +46,7 @@ public class MOEADConstructMatingPool extends AbstractConstructMatingPoolPhase i
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         GoalID GL = _goalManager.getCurrentGoalToBeUpdated(ea.getCurrentSteadyStateRepeat());
         ArrayList<Specimen> MP = _goalManager.createMatingPool(GL);

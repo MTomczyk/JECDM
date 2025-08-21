@@ -28,8 +28,8 @@ public abstract class AbstractEMOInteractiveBundle extends AbstractEMOBundle
         public final DecisionSupportSystem _DSS;
 
         /**
-         * Decision-making context params constructor. If null, the default {@link emo.interactive.utils.dmcontext.DefaultConstructor}
-         * will be used.
+         * Decision-making context params constructor. If null, the default
+         * {@link emo.interactive.utils.dmcontext.DefaultConstructor} will be used.
          */
         public AbstractDMCParamsConstructor _dmContextParamsConstructor;
 

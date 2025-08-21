@@ -87,10 +87,9 @@ class TestRNGSeeds
 
             TrialDataContainerFactory.Params pTDCF = new TrialDataContainerFactory.Params();
             pTDCF._eaInitializer = (R, p) -> {
-                EA.Params pEA = new EA.Params();
-                pEA._R = R;
+                EA.Params pEA = new EA.Params(R, null);
                 PhasesBundle pb = PhasesBundle.getNulledInstance();
-                PhasesBundle.copyPhasesFromBundleToEA(pb, pEA);
+                pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(pb);
                 return new EA(pEA);
             };
             pE._TDCF = new TrialDataContainerFactory(pTDCF);

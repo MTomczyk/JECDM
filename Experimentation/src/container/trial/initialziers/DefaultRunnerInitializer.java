@@ -1,7 +1,7 @@
 package container.trial.initialziers;
 
 import container.trial.AbstractTrialDataContainer;
-import ea.EA;
+import ea.IEA;
 import exception.TrialException;
 import runner.IRunner;
 import runner.Runner;
@@ -22,11 +22,11 @@ public class DefaultRunnerInitializer implements IRunnerInitializer
      * @throws TrialException trial-level exception can be thrown 
      */
     @Override
-    public IRunner instantiateRunner(EA ea, AbstractTrialDataContainer.Params p) throws TrialException
+    public IRunner instantiateRunner(IEA ea, AbstractTrialDataContainer.Params p) throws TrialException
     {
         try
         {
-            EA[] eas = new EA[]{ea};
+            IEA[] eas = new IEA[]{ea};
             int steadyStateRepeats = p._SDC.getSteadyStateRepeats();
             Runner.Params pR = new Runner.Params(eas, steadyStateRepeats);
             pR._visualization = null;

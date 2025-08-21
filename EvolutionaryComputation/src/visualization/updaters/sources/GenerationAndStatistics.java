@@ -52,7 +52,7 @@ public class GenerationAndStatistics extends AbstractEASource implements IDataSo
      */
     public GenerationAndStatistics(EA ea, IStatistic[] statistics, int index, ISpecimenGetter specimenGetter)
     {
-        super(ea, specimenGetter);
+        super(ea, specimenGetter, false);
         _statistics = statistics;
         _index = index;
     }
@@ -67,7 +67,7 @@ public class GenerationAndStatistics extends AbstractEASource implements IDataSo
     @Override
     public double[][] createData()
     {
-        ArrayList<Specimen> P = getDefaultSpecimens();
+        ArrayList<Specimen> P = getSpecimens();
         double[] sd = new double[P.size()];
         for (int i = 0; i < sd.length; i++) sd[i] = P.get(i).getEvaluations()[_index];
         double[] data = new double[1 + _statistics.length];

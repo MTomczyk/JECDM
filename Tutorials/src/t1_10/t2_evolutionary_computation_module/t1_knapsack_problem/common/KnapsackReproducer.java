@@ -1,6 +1,6 @@
 package t1_10.t2_evolutionary_computation_module.t1_knapsack_problem.common;
 
-import ea.EA;
+import ea.IEA;
 import population.Chromosome;
 import population.Parents;
 import population.Specimen;
@@ -49,7 +49,7 @@ public class KnapsackReproducer implements IReproduce
      * @return offspring specimens
      */
     @Override
-    public ArrayList<Specimen> createOffspring(EA ea)
+    public ArrayList<Specimen> createOffspring(IEA ea)
     {
         int os = ea.getOffspringSize(); // get the offspring size
         ArrayList<Specimen> offspring = new ArrayList<>(os);
@@ -64,7 +64,7 @@ public class KnapsackReproducer implements IReproduce
             boolean[] dv2 = p2.getBooleanDecisionVector();
 
             // do crossover
-            boolean[] ob = _SPC.crossover(dv1, dv2, ea.getR()); // apply the crossover operator
+            boolean[] ob = _SPC.crossover(dv1, dv2, ea.getR())._o; // apply the crossover operator
 
             // do mutation
             _PM.mutate(ob,ea.getR());

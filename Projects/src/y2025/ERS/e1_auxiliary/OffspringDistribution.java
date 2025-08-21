@@ -78,7 +78,7 @@ class OffspringDistribution
         // Generate samples and place them in correct buckets:
         for (int t = 0; t < T; t++)
         {
-            double[] o = crossover.crossover(p1.clone(), p2.clone(), R);
+            double[] o = crossover.crossover(p1.clone(), p2.clone(), R)._o;
             mutate.mutate(o, R);
             int[] c = B.getBucketCoords(o);
             if (c == null) continue;

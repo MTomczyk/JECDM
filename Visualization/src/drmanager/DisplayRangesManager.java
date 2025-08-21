@@ -47,7 +47,8 @@ public class DisplayRangesManager
         /**
          * Parameterized constructor. Display ranges are as provided and fixed.
          *
-         * @param R display range (main field); can be null. If null, the data points are not projected but are displayed as they are (normalization is ignored), given the associated dimension
+         * @param R display range (main field); can be null. If null, the data points are not projected but are
+         *          displayed as they are (normalization is ignored), given the associated dimension
          */
         public DisplayRange(Range R)
         {
@@ -57,8 +58,11 @@ public class DisplayRangesManager
         /**
          * Parameterized constructor (update from scratch flag is set to false).
          *
-         * @param R                 display range (main field); can be null. If null, the data points are not projected but are displayed as they are (normalization is ignored), given the associated dimension
-         * @param updateDynamically if true, display range is dynamically updated when a new data set is examined (given the linked dimension)
+         * @param R                 display range (main field); can be null. If null, the data points are not projected
+         *                          but are displayed as they are (normalization is ignored), given the associated
+         *                          dimension
+         * @param updateDynamically if true, display range is dynamically updated when a new data set is examined (given
+         *                          the linked dimension)
          */
         public DisplayRange(Range R, boolean updateDynamically)
         {
@@ -68,9 +72,14 @@ public class DisplayRangesManager
         /**
          * Parameterized constructor.
          *
-         * @param R                 display range (main field); can be null. If null, the data points are not projected but are displayed as they are (normalization is ignored), given the associated dimension
-         * @param updateDynamically if true, display range is dynamically updated when a new data set is examined (given the linked dimension)
-         * @param updateFromScratch if true and the {@link DisplayRange#_updateDynamically} flag is true, the display range is updated considering also the past data. If false, the display range is recalculated from scratch
+         * @param R                 display range (main field); can be null. If null, the data points are not projected
+         *                          but are displayed as they are (normalization is ignored), given the associated
+         *                          dimension
+         * @param updateDynamically if true, display range is dynamically updated when a new data set is examined (given
+         *                          the linked dimension)
+         * @param updateFromScratch if true and the {@link DisplayRange#_updateDynamically} flag is true, the display
+         *                          range is updated considering also the past data. If false, the display range is
+         *                          recalculated from scratch
          */
         public DisplayRange(Range R, boolean updateDynamically, boolean updateFromScratch)
         {
@@ -80,10 +89,17 @@ public class DisplayRangesManager
         /**
          * Parameterized constructor.
          *
-         * @param R                 display range (main field); can be null. If null, the data points are not projected but are displayed as they are (normalization is ignored), given the associated dimension
-         * @param updateDynamically if true, display range is dynamically updated when a new data set is examined (given the linked dimension)
-         * @param updateFromScratch if true and the {@link DisplayRange#_updateDynamically} flag is true, the display range is updated considering also the past data. If false, the display range is recalculated from scratch
-         * @param normalizer        auxiliary object for normalizing the rendering/objective space; it is used for transforming input data points into normalized coordinates and executing reversed transformation (e.g., when determining axes tick labels)
+         * @param R                 display range (main field); can be null. If null, the data points are not projected
+         *                          but are displayed as they are (normalization is ignored), given the associated
+         *                          dimension
+         * @param updateDynamically if true, display range is dynamically updated when a new data set is examined (given
+         *                          the linked dimension)
+         * @param updateFromScratch if true and the {@link DisplayRange#_updateDynamically} flag is true, the display
+         *                          range is updated considering also the past data. If false, the display range is
+         *                          recalculated from scratch
+         * @param normalizer        auxiliary object for normalizing the rendering/objective space; it is used for
+         *                          transforming input data points into normalized coordinates and executing reversed
+         *                          transformation (e.g., when determining axes tick labels)
          */
         public DisplayRange(Range R, boolean updateDynamically, boolean updateFromScratch, AbstractMinMaxNormalization normalizer)
         {
@@ -159,12 +175,34 @@ public class DisplayRangesManager
             return new DisplayRange(r, _updateDynamically, _updateFromScratch, normalizer);
         }
 
+
+        /**
+         * Display ranges constructor.
+         *
+         * @param M                 the number of dimensions (at least 1)
+         * @param R                 range for each display range (can be null if the display range is to be updated
+         *                          dynamically; object is cloned, if not null)
+         * @param updateDynamically if true, the display range (each) is to be updated dynamically, false = otherwise
+         * @param updateFromScratch if true, the display range (each) is rebuilt from scratch if updated dynamically
+         *                          (false = current range is used as a base for the update)
+         * @return parameterized display range
+         */
+        public static DisplayRange[] getParameterizedDisplayRanges(int M, Range R, boolean updateDynamically, boolean updateFromScratch)
+        {
+            DisplayRange[] displayRanges = new DisplayRange[M];
+            for (int i = 0; i < M; i++)
+                displayRanges[i] = getParameterizedDisplayRange(R == null ? null : R.getClone(), updateDynamically, updateFromScratch);
+            return displayRanges;
+        }
+
         /**
          * Display range constructor.
          *
-         * @param R                 range for the display range (can be null if the display range is to be updated dynamically)
+         * @param R                 range for the display range (can be null if the display range is to be updated
+         *                          dynamically)
          * @param updateDynamically if true, the display range is to be updated dynamically, false = otherwise
-         * @param updateFromScratch if true, the display range is rebuilt from scratch if updated dynamically (false = current range is used as a base for the update)
+         * @param updateFromScratch if true, the display range is rebuilt from scratch if updated dynamically (false =
+         *                          current range is used as a base for the update)
          * @return parameterized display range
          */
         public static DisplayRange getParameterizedDisplayRange(Range R, boolean updateDynamically, boolean updateFromScratch)
@@ -176,7 +214,8 @@ public class DisplayRangesManager
     }
 
     /**
-     * Auxiliary report-like class summarizing the changes in the display ranges after executing the {@link DisplayRangesManager#updateDisplayRanges(Data, boolean[])} method.
+     * Auxiliary report-like class summarizing the changes in the display ranges after executing the
+     * {@link DisplayRangesManager#updateDisplayRanges(Data, boolean[])} method.
      */
     public static class Report
     {
@@ -325,11 +364,15 @@ public class DisplayRangesManager
          * Params getter. Sets display ranges as provided.
          *
          * @param xDisplayRange      initial display range for X-axis
-         * @param updateDynamicallyX flag indicating whether X-axis display rage should be updated dynamically (1:1 mapping with Y-axes)
-         * @param updateXFromScratch flag indicating whether X-axis display rage should be updated from scratch when updated dynamically (1:1 mapping with Y-axes)
+         * @param updateDynamicallyX flag indicating whether X-axis display rage should be updated dynamically (1:1
+         *                           mapping with Y-axes)
+         * @param updateXFromScratch flag indicating whether X-axis display rage should be updated from scratch when
+         *                           updated dynamically (1:1 mapping with Y-axes)
          * @param yDisplayRange      initial display range for Y-axis
-         * @param updateDynamicallyY flag indicating whether Y-axis display rage should be updated dynamically (1:1 mapping with Y-axes)
-         * @param updateYFromScratch flag indicating whether Y-axis display rage should be updated from scratch when updated dynamically (1:1 mapping with Y-axes)
+         * @param updateDynamicallyY flag indicating whether Y-axis display rage should be updated dynamically (1:1
+         *                           mapping with Y-axes)
+         * @param updateYFromScratch flag indicating whether Y-axis display rage should be updated from scratch when
+         *                           updated dynamically (1:1 mapping with Y-axes)
          * @return params container
          */
         public static Params getFor2D(Range xDisplayRange, boolean updateDynamicallyX, boolean updateXFromScratch,
@@ -366,14 +409,20 @@ public class DisplayRangesManager
          * Params getter. Sets display ranges as provided.
          *
          * @param xDisplayRange      initial display range for X-axis
-         * @param updateDynamicallyX flag indicating whether X-axis display rage should be updated dynamically (1:1 mapping with Y-axes)
-         * @param updateXFromScratch flag indicating whether X-axis display rage should be updated from scratch when updated dynamically (1:1 mapping with Y-axes)
+         * @param updateDynamicallyX flag indicating whether X-axis display rage should be updated dynamically (1:1
+         *                           mapping with Y-axes)
+         * @param updateXFromScratch flag indicating whether X-axis display rage should be updated from scratch when
+         *                           updated dynamically (1:1 mapping with Y-axes)
          * @param yDisplayRange      initial display range for Y-axis
-         * @param updateDynamicallyY flag indicating whether Y-axis display rage should be updated dynamically (1:1 mapping with Y-axes)
-         * @param updateYFromScratch flag indicating whether Y-axis display rage should be updated from scratch when updated dynamically (1:1 mapping with Y-axes)
+         * @param updateDynamicallyY flag indicating whether Y-axis display rage should be updated dynamically (1:1
+         *                           mapping with Y-axes)
+         * @param updateYFromScratch flag indicating whether Y-axis display rage should be updated from scratch when
+         *                           updated dynamically (1:1 mapping with Y-axes)
          * @param zDisplayRange      initial display range for Z-axis
-         * @param updateDynamicallyZ flag indicating whether Z-axis display rage should be updated dynamically (1:1 mapping with Z-axes)
-         * @param updateZFromScratch flag indicating whether Z-axis display rage should be updated from scratch when updated dynamically (1:1 mapping with Z-axes)
+         * @param updateDynamicallyZ flag indicating whether Z-axis display rage should be updated dynamically (1:1
+         *                           mapping with Z-axes)
+         * @param updateZFromScratch flag indicating whether Z-axis display rage should be updated from scratch when
+         *                           updated dynamically (1:1 mapping with Z-axes)
          * @return params container
          */
         public static Params getFor3D(Range xDisplayRange, boolean updateDynamicallyX, boolean updateXFromScratch,
@@ -403,17 +452,25 @@ public class DisplayRangesManager
          * Params getter. Sets display ranges as provided (4 dimension = extra dimension).
          *
          * @param xDisplayRange      initial display range for X-axis
-         * @param updateDynamicallyX flag indicating whether X-axis display rage should be updated dynamically (1:1 mapping with Y-axes)
-         * @param updateXFromScratch flag indicating whether X-axis display rage should be updated from scratch when updated dynamically (1:1 mapping with Y-axes)
+         * @param updateDynamicallyX flag indicating whether X-axis display rage should be updated dynamically (1:1
+         *                           mapping with Y-axes)
+         * @param updateXFromScratch flag indicating whether X-axis display rage should be updated from scratch when
+         *                           updated dynamically (1:1 mapping with Y-axes)
          * @param yDisplayRange      initial display range for Y-axis
-         * @param updateDynamicallyY flag indicating whether Y-axis display rage should be updated dynamically (1:1 mapping with Y-axes)
-         * @param updateYFromScratch flag indicating whether Y-axis display rage should be updated from scratch when updated dynamically (1:1 mapping with Y-axes)
+         * @param updateDynamicallyY flag indicating whether Y-axis display rage should be updated dynamically (1:1
+         *                           mapping with Y-axes)
+         * @param updateYFromScratch flag indicating whether Y-axis display rage should be updated from scratch when
+         *                           updated dynamically (1:1 mapping with Y-axes)
          * @param zDisplayRange      initial display range for Z-axis
-         * @param updateDynamicallyZ flag indicating whether Z-axis display rage should be updated dynamically (1:1 mapping with Z-axes)
-         * @param updateZFromScratch flag indicating whether Z-axis display rage should be updated from scratch when updated dynamically (1:1 mapping with Z-axes)
+         * @param updateDynamicallyZ flag indicating whether Z-axis display rage should be updated dynamically (1:1
+         *                           mapping with Z-axes)
+         * @param updateZFromScratch flag indicating whether Z-axis display rage should be updated from scratch when
+         *                           updated dynamically (1:1 mapping with Z-axes)
          * @param aDisplayRange      initial display range for the extra dimension
-         * @param updateDynamicallyA flag indicating whether extra dimension's display rage should be updated dynamically
-         * @param updateAFromScratch flag indicating whether extra dimension's display rage should be updated from scratch when updated dynamically
+         * @param updateDynamicallyA flag indicating whether extra dimension's display rage should be updated
+         *                           dynamically
+         * @param updateAFromScratch flag indicating whether extra dimension's display rage should be updated from
+         *                           scratch when updated dynamically
          * @return params container
          */
         public static Params getFor4D(Range xDisplayRange, boolean updateDynamicallyX, boolean updateXFromScratch,
@@ -427,7 +484,8 @@ public class DisplayRangesManager
         }
 
         /**
-         * Params getter for the convergence plot. Sets display ranges to null and allows them to be updated dynamically.
+         * Params getter for the convergence plot. Sets display ranges to null and allows them to be updated
+         * dynamically.
          * The third (upper bound) and the fourth (lower bound) attribute are mapped on the second display range that
          * should be linked to Y-axis.
          *
@@ -458,10 +516,14 @@ public class DisplayRangesManager
          *
          * @param xDisplayRange      initial display range for X-axis
          * @param yDisplayRange      initial display range for Y-axis
-         * @param updateDynamicallyY flag indicating whether Y-axis display rage should be updated dynamically (1:1 mapping with Y-axes)
-         * @param updateYFromScratch flag indicating whether Y-axis display rage should be updated from scratch when updated dynamically (1:1 mapping with Y-axes)
-         * @param updateDynamicallyX flag indicating whether X-axis display rage should be updated dynamically (1:1 mapping with Y-axes)
-         * @param updateXFromScratch flag indicating whether X-axis display rage should be updated from scratch when updated dynamically (1:1 mapping with Y-axes)
+         * @param updateDynamicallyY flag indicating whether Y-axis display rage should be updated dynamically (1:1
+         *                           mapping with Y-axes)
+         * @param updateYFromScratch flag indicating whether Y-axis display rage should be updated from scratch when
+         *                           updated dynamically (1:1 mapping with Y-axes)
+         * @param updateDynamicallyX flag indicating whether X-axis display rage should be updated dynamically (1:1
+         *                           mapping with Y-axes)
+         * @param updateXFromScratch flag indicating whether X-axis display rage should be updated from scratch when
+         *                           updated dynamically (1:1 mapping with Y-axes)
          * @return params container
          */
         public static Params getForConvergencePlot2D(Range xDisplayRange, boolean updateDynamicallyX, boolean updateXFromScratch,
@@ -491,7 +553,8 @@ public class DisplayRangesManager
          *
          * @param dimensions        number of dimension  (np. parallel coordinate lines); should be at least 1
          * @param yDisplayRange     initial display range (applied to each dimension)
-         * @param updateDynamically flag indicating whether a particular display rage should be updated dynamically (1:1 mapping with Y-axes); applied to each dimension
+         * @param updateDynamically flag indicating whether a particular display rage should be updated dynamically (1:1
+         *                          mapping with Y-axes); applied to each dimension
          * @return params container
          */
         public static Params getForParallelCoordinatePlot2D(int dimensions, Range yDisplayRange, boolean updateDynamically)
@@ -506,8 +569,10 @@ public class DisplayRangesManager
          *
          * @param dimensions        number of dimension  (np. parallel coordinate lines); should be at least 1
          * @param yDisplayRange     initial display range (applied to each dimension)
-         * @param updateDynamically flag indicating whether a particular display rage should be updated dynamically (1:1 mapping with Y-axes); applied to each dimension
-         * @param updateFromScratch flag indicating whether a particular display rage should be updated from scratch when updated dynamically (1:1 mapping with Y-axes); applied to each dimension
+         * @param updateDynamically flag indicating whether a particular display rage should be updated dynamically (1:1
+         *                          mapping with Y-axes); applied to each dimension
+         * @param updateFromScratch flag indicating whether a particular display rage should be updated from scratch
+         *                          when updated dynamically (1:1 mapping with Y-axes); applied to each dimension
          * @return params container
          */
         public static Params getForParallelCoordinatePlot2D(int dimensions, Range yDisplayRange, boolean updateDynamically, boolean updateFromScratch)
@@ -522,7 +587,8 @@ public class DisplayRangesManager
          *
          * @param dimensions        number of dimension  (np. parallel coordinate lines); should be at least 1
          * @param yDisplayRanges    initial display ranges per dimension
-         * @param updateDynamically flags indicating whether a particular display rage should be updated dynamically (1:1 mapping with Y-axes)
+         * @param updateDynamically flags indicating whether a particular display rage should be updated dynamically
+         *                          (1:1 mapping with Y-axes)
          * @return params container
          */
         public static Params getForParallelCoordinatePlot2D(int dimensions, Range[] yDisplayRanges, boolean[] updateDynamically)
@@ -537,8 +603,10 @@ public class DisplayRangesManager
          *
          * @param dimensions        number of dimension  (np. parallel coordinate lines); should be at least 1
          * @param yDisplayRanges    initial display ranges per dimension
-         * @param updateDynamically flags indicating whether a particular display rage should be updated dynamically (1:1 mapping with Y-axes)
-         * @param updateFromScratch flags indicating whether a particular display rage should be updated from scratch when updated dynamically (1:1 mapping with Y-axes)
+         * @param updateDynamically flags indicating whether a particular display rage should be updated dynamically
+         *                          (1:1 mapping with Y-axes)
+         * @param updateFromScratch flags indicating whether a particular display rage should be updated from scratch
+         *                          when updated dynamically (1:1 mapping with Y-axes)
          * @return params container
          */
         public static Params getForParallelCoordinatePlot2D(int dimensions, Range[] yDisplayRanges, boolean[] updateDynamically, boolean[] updateFromScratch)
@@ -553,7 +621,8 @@ public class DisplayRangesManager
     protected DisplayRange[] _DR;
 
     /**
-     * Additional field for mapping the data point index to display range index (usually 1:1 mapping). Can be null if the attribute does not affect a display range.
+     * Additional field for mapping the data point index to display range index (usually 1:1 mapping). Can be null if
+     * the attribute does not affect a display range.
      */
     protected Integer[] _attIdx_to_drIdx;
 
@@ -570,7 +639,8 @@ public class DisplayRangesManager
     protected int[] _drIdx_to_flatAttIdx;
 
     /**
-     * Returns the number of attributes that are mapped into display range (equivalent to the dimensionality of the projection space).
+     * Returns the number of attributes that are mapped into display range (equivalent to the dimensionality of the
+     * projection space).
      *
      * @return dimensionality of the projection space
      */
@@ -706,14 +776,17 @@ public class DisplayRangesManager
     }
 
     /**
-     * Auxiliary method data allows updating a single display range given a data set represented as a 2D matrix of double.
+     * Auxiliary method data allows updating a single display range given a data set represented as a 2D matrix of
+     * double.
      * No report on the update is prepared. The method takes into account, e.g., whether the display range can be
      * dynamically updated.
      *
      * @param data                 data for updating a display range
      * @param drID                 display range ID (in-array index)
-     * @param skipNegativeInfinity if true, entries that are equal to Double.NEGATIVE_INFINITY are skipped in the analysis
-     * @return report on the update (all data is stored as first objects in array-like fields (instead of as imposed by the provided drID))
+     * @param skipNegativeInfinity if true, entries that are equal to Double.NEGATIVE_INFINITY are skipped in the
+     *                             analysis
+     * @return report on the update (all data is stored as first objects in array-like fields (instead of as imposed by
+     * the provided drID))
      */
     public Report updateSingleDisplayRange(double[][] data, int drID, boolean skipNegativeInfinity)
     {
@@ -994,7 +1067,8 @@ public class DisplayRangesManager
 
 
     /**
-     * Getter for the additional field for mapping the data point index to display range index (usually 1:1 mapping). Can be null if the attribute does not affect a display range.
+     * Getter for the additional field for mapping the data point index to display range index (usually 1:1 mapping).
+     * Can be null if the attribute does not affect a display range.
      *
      * @return mapping
      */
@@ -1004,7 +1078,8 @@ public class DisplayRangesManager
     }
 
     /**
-     * Getter for the additional field for mapping the display range index to the data point index (usually 1:1 mapping).
+     * Getter for the additional field for mapping the display range index to the data point index (usually 1:1
+     * mapping).
      *
      * @return mapping
      */
@@ -1014,7 +1089,8 @@ public class DisplayRangesManager
     }
 
     /**
-     * Getter for the additional field for mapping the display range index to the data point index (usually 1:1 mapping).
+     * Getter for the additional field for mapping the display range index to the data point index (usually 1:1
+     * mapping).
      * Flat = the mapping is considered as if '_attIdx_to_drIdx' had no null and all entries were shifted to
      * the left.
      *

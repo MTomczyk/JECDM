@@ -2,6 +2,7 @@ package reproduction.operators;
 
 
 import random.IRandom;
+import reproduction.operators.crossover.ICrossover;
 
 /**
  * Auxiliary interface for classes responsible for producing a weight vector from two input objects.
@@ -18,5 +19,5 @@ public interface IWeightsReproducer<T>
      * @param R random number generator
      * @return weight vector
      */
-    double[] getWeights(T A, T B, IRandom R);
+    ICrossover.DoubleResult getWeights(T A, T B, IRandom R);
 }

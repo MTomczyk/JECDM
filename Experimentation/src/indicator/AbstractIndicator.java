@@ -1,6 +1,6 @@
 package indicator;
 
-import ea.EA;
+import ea.IEA;
 import exception.TrialException;
 import indicator.initializers.IIndicatorInitializer;
 import population.Specimen;
@@ -117,7 +117,7 @@ public abstract class AbstractIndicator implements IIndicator
      * @throws TrialException the method's signature allows for exception throw (trial level)
      */
     @Override
-    public double evaluate(EA ea) throws TrialException
+    public double evaluate(IEA ea) throws TrialException
     {
         return evaluate(ea.getSpecimensContainer().getPopulation());
     }

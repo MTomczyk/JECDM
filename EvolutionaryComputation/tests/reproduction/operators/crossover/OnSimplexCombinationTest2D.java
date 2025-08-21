@@ -44,7 +44,7 @@ class OnSimplexCombinationTest2D
 
         for (int t = 0; t < T; t++)
         {
-            double[] o = crossover.crossover(p1, p2, R);
+            double[] o = crossover.crossover(p1, p2, R)._o;
             int[] c = B.getBucketCoords(o);
             if (c == null) continue;
             data[c[1]][c[0]]++;

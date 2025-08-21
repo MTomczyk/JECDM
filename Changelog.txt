@@ -1,9 +1,18 @@
-[30.06.2025] This update introduces several moderate changes (see below) and includes a new tutorial: "A tool for generating reference pairwise comparisons for benchmarking interactive methods."
+[21.08.2025] This update introduces one major update and several minor ones (see below). As for the former, a brief tutorial document is available: "Tutorial 13: Change in the hierarchy of the EA class."
+- Major update: the ea.EA class is no longer the highest in the hierarchy; it now implements a dedicated ea.IEA interface that further generalizes the code
+- EvolutionaryComputation: reproduction.operators.crossover.ICrossover: the return type of the crossover method changed to a dedicated class that encapsulates the originally implemented output (array)
+- EvolutionaryComputation: visualization.updaters.source.EASource: minor changes in this class and the related ones
+- EvolutionaryComputation: emo.interactive.iemod.IEMODBundle: an inner params adjuster interface (IParamsAdjuster) is added; it allows dynamically adjusting the configuration of the IEMO/D algorithm when using the dedicated factory-like methods from the IEMOD class
+- EvolutionaryComputation: emo.interactive.utils.dmcontext.AbstractDMCParamsConstructor: the processing now allows specifying an implementation of IAlternativesProvider interface, which is responsible for delivering the alternatives superset to the context being built
+- Experimentation: executor.ExperimentPerformer: the main folder could have not often been created due to a bug (fixed now)
+- Visualization: io.image.ImageUtils class is introduced
+- .gitignore file: src/ changed to /src/
+
+[30.06.2025] This update introduces several moderate changes (see below) and includes a new tutorial: "Tutorial 12: A tool for generating reference pairwise comparisons for benchmarking interactive methods."
 - Framework: From now on, the library is additionally available as a Jar, which can be downloaded from the project's home page (only the most recent versions will be kept on the server).
-- Framework: From now on, the sources of the tutorials can be viewed and examined on the project's home page.
 - Framework: From now on, the library version number includes the date associated with the push to the repository (e.g., 1.04.30.06.2025; i.e., the last three elements represent the day, month, and year).
-- A new tutorial: "Tutorial 12: A tool for generating reference pairwise comparisons for benchmarking interactive methods," was added.
-- Polyrun library added as a part of this project.
+- Tutorials: A new tutorial: "Tutorial 12: A tool for generating reference pairwise comparisons for benchmarking interactive methods," was added.
+- Libraries: Polyrun library added as a part of this project.
 - IMPORTANT: Experimentation: names (getFileSuffix) of several Excel-based results analyzers (e.g., io.cross.excel.FinalStatisticsXLSX) changed (see the source codes).
 - Experimentation: io.cross.excel: A few new analyzers added: GenerationRankerXLS (or XLSX) and GenerationStatisticsXLS (or XLSX). They perform similarly to their "Final..." counterparts but concern presenting results attained by the examined methods at specified generations.
 - Experimentation: Results analyzers in io.cross: Minor update in processing; the implementations were exhaustively creating new cell styles (CellStyle), even when the styles for different cells were supposed to be the same. It ultimately led to errors when parsing large input data sets. This bug is now fixed.

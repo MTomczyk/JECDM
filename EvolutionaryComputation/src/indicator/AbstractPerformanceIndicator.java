@@ -1,6 +1,6 @@
 package indicator;
 
-import ea.EA;
+import ea.IEA;
 import population.Specimen;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public abstract class AbstractPerformanceIndicator implements IPerformanceIndica
      * @return performance value (0 if the specimen container is null)
      */
     @Override
-    public double evaluate(EA ea)
+    public double evaluate(IEA ea)
     {
         if (ea.getSpecimensContainer().getPopulation() == null) return 0.0d;
         return evaluate(ea.getSpecimensContainer().getPopulation());

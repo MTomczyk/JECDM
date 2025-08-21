@@ -1,6 +1,7 @@
 package y2025.ERS.common.indicators;
 
 import ea.EA;
+import ea.IEA;
 import exception.TrialException;
 import indicator.AbstractIndicator;
 import indicator.IIndicator;
@@ -29,7 +30,7 @@ public class CompatibleModels extends AbstractIndicator implements IIndicator
      * @throws TrialException the method's signature allows for exception throw (trial level)
      */
     @Override
-    public double evaluate(EA ea) throws TrialException
+    public double evaluate(IEA ea) throws TrialException
     {
         if (!(ea instanceof EAWrapperIterableSampler<?> eaWrapper)) throw new TrialException("Invalid EA type", null, (Class<?>) null, _scenario, _trialID);
         Report<?> report = eaWrapper.getReport();

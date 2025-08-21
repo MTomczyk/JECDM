@@ -1,6 +1,6 @@
 package emo.aposteriori.moead;
 
-import ea.EA;
+import ea.IEA;
 import emo.utils.decomposition.moead.MOEADGoalsManager;
 import exception.PhaseException;
 import os.AbstractOSChangeListener;
@@ -42,7 +42,7 @@ public class MOEADOSChangeListener extends AbstractOSChangeListener implements I
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
+    public void action(IEA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
     {
         _goalsManager.updateNormalizations(_builder.getNormalizations(os));
     }

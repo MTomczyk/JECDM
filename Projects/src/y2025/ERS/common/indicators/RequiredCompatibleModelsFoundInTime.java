@@ -1,6 +1,7 @@
 package y2025.ERS.common.indicators;
 
 import ea.EA;
+import ea.IEA;
 import exception.TrialException;
 import indicator.AbstractIndicator;
 import indicator.IIndicator;
@@ -39,7 +40,7 @@ public class RequiredCompatibleModelsFoundInTime extends AbstractIndicator imple
      * @throws TrialException the method's signature allows for exception throw (trial level)
      */
     @Override
-    public double evaluate(EA ea) throws TrialException
+    public double evaluate(IEA ea) throws TrialException
     {
         if (!(ea instanceof EAWrapperIterableSampler<?> eaWrapper)) return -1.0d;
         if ((!_triggered) && (eaWrapper.isExpectedNoCompatibleModelsFound()))

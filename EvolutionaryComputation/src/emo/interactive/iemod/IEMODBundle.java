@@ -21,14 +21,28 @@ import system.ds.DSSParamsProvider;
 import system.ds.DecisionSupportSystem;
 
 /**
- * Bundle (container) of necessary fields for the IEMO/D algorithm
- * (see <a href="https://doi.org/10.1109/TEVC.2019.2915767">link</a>).
+ * Bundle (container) of necessary fields for the IEMO/D algorithm (see <a
+ * href="https://doi.org/10.1109/TEVC.2019.2915767">link</a>).
  *
  * @author MTomczyk
  */
 
 public class IEMODBundle extends AbstractEMOInteractiveBundle
 {
+    /**
+     * Auxiliary interface for classes that can be used to adjust the params container of the upper class being
+     * instantiated.
+     */
+    public interface IParamsAdjuster<T extends AbstractValueInternalModel>
+    {
+        /**
+         * The main method for adjusting the params container.
+         *
+         * @param p params container being instantiated
+         */
+        void adjust(IEMODBundle.Params<T> p);
+    }
+
     /**
      * Params container for the bundle's getter.
      */
@@ -63,8 +77,8 @@ public class IEMODBundle extends AbstractEMOInteractiveBundle
         }
 
         /**
-         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
-         * feedback provider, and one interaction rule.
+         * Constructs a default params container that involves one decision maker with one preference model, one
+         * DM-based feedback provider, and one interaction rule.
          *
          * @param criteria                considered criteria
          * @param goalsManager            goals manager
@@ -91,8 +105,8 @@ public class IEMODBundle extends AbstractEMOInteractiveBundle
         }
 
         /**
-         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
-         * feedback provider, and one interaction rule.
+         * Constructs a default params container that involves one decision maker with one preference model, one
+         * DM-based feedback provider, and one interaction rule.
          *
          * @param criteria                considered criteria
          * @param goalsManager            goals manager
@@ -102,7 +116,8 @@ public class IEMODBundle extends AbstractEMOInteractiveBundle
          * @param dmFeedbackProvider      DM-based feedback provider
          * @param preferenceModel         preference model used
          * @param modelConstructor        model instance constructor
-         * @param dssAdjuster             auxiliary DSS params adjuster (can be null, if not used); adjustment is done after the default initialization
+         * @param dssAdjuster             auxiliary DSS params adjuster (can be null, if not used); adjustment is done
+         *                                after the default initialization
          * @param <T>                     internal preference model definition
          * @return params container
          */
@@ -123,8 +138,8 @@ public class IEMODBundle extends AbstractEMOInteractiveBundle
         }
 
         /**
-         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
-         * feedback provider, and one interaction rule.
+         * Constructs a default params container that involves one decision maker with one preference model, one
+         * DM-based feedback provider, and one interaction rule.
          *
          * @param criteria     considered criteria
          * @param goalsManager goals manager
@@ -153,8 +168,8 @@ public class IEMODBundle extends AbstractEMOInteractiveBundle
 
 
     /**
-     * Constructs the bundle of fields aiding in instantiating the IEMO/D algorithm.
-     * The runtime exception will be thrown if the parameterization is invalid.
+     * Constructs the bundle of fields aiding in instantiating the IEMO/D algorithm. The runtime exception will be
+     * thrown if the parameterization is invalid.
      *
      * @param p params container
      */

@@ -8,11 +8,11 @@ package phase;
 public abstract class AbstractReproducePhase extends AbstractPhase implements IPhase
 {
     /**
-     * Default constructor (sets the name to "Reproduce").
+     * Default constructor (sets the name to "REPRODUCE").
      */
     public AbstractReproducePhase()
     {
-        super("Reproduce", PhasesIDs.PHASE_REPRODUCE);
+        super("REPRODUCE");
     }
 
     /**
@@ -22,6 +22,6 @@ public abstract class AbstractReproducePhase extends AbstractPhase implements IP
      */
     public AbstractReproducePhase(String name)
     {
-        super(name, PhasesIDs.PHASE_REPRODUCE);
+        super(name);
     }
 }

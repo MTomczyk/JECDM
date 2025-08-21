@@ -1,6 +1,6 @@
 package emo.aposteriori.nsgaii;
 
-import ea.EA;
+import ea.IEA;
 import exception.PhaseException;
 import os.AbstractOSChangeListener;
 import os.IOSChangeListener;
@@ -39,7 +39,7 @@ public class NSGAIIOSChangeListener extends AbstractOSChangeListener implements 
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
+    public void action(IEA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
     {
         _sort.updateNormalizations(_builder.getNormalizations(os));
     }

@@ -1,7 +1,7 @@
 package container.trial.initialziers;
 
 import container.trial.AbstractTrialDataContainer;
-import ea.EA;
+import ea.IEA;
 import exception.TrialException;
 import random.IRandom;
 
@@ -21,5 +21,5 @@ public interface IEAInitializer
      * @return per-trial evolutionary algorithm
      * @throws TrialException trial-level exception can be thrown 
      */
-    EA instantiateEA(IRandom R, AbstractTrialDataContainer.Params p) throws TrialException;
+    IEA instantiateEA(IRandom R, AbstractTrialDataContainer.Params p) throws TrialException;
 }

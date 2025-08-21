@@ -8,11 +8,11 @@ package phase;
 public abstract class AbstractUpdateOSPhase extends AbstractPhase implements IPhase
 {
     /**
-     * Default constructor (sets the name to "Update OS").
+     * Default constructor (sets the name to "UPDATE_OS").
      */
     public AbstractUpdateOSPhase()
     {
-        super("Update OS", PhasesIDs.PHASE_UPDATE_OS);
+        super("UPDATE_OS");
     }
 
     /**
@@ -22,6 +22,6 @@ public abstract class AbstractUpdateOSPhase extends AbstractPhase implements IPh
      */
     public AbstractUpdateOSPhase(String name)
     {
-        super(name, PhasesIDs.PHASE_UPDATE_OS);
+        super(name);
     }
 }

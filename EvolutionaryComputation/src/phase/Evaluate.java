@@ -1,14 +1,14 @@
 package phase;
 
-import ea.EA;
+import ea.AbstractPhasesEA;
 import exception.PhaseException;
 import population.SpecimensContainer;
 
 /**
- * Default "Evaluate" phase.
- * The default (implicit) assumptions are as follows:
+ * Default "Evaluate" phase. The default (implicit) assumptions are as follows:
  * - The method delegates the evaluation of specimens stored in {@link SpecimensContainer#getPopulation()} and/or
- * {@link SpecimensContainer#getOffspring()} (depends on the {@link SpecimensContainer#isPopulationRequiringEvaluation()}
+ * {@link SpecimensContainer#getOffspring()} (depends on the
+ * {@link SpecimensContainer#isPopulationRequiringEvaluation()}
  * and {@link SpecimensContainer#isOffspringRequiringEvaluation()} flags) to {@link IEvaluate}.
  *
  * @author MTomczyk
@@ -18,18 +18,18 @@ import population.SpecimensContainer;
 public class Evaluate extends AbstractEvaluatePhase implements IPhase
 {
     /**
-     *  Object responsible for evaluating solutions.
+     * Object responsible for evaluating solutions.
      */
     protected final IEvaluate _evaluate;
 
     /**
-     * Parameterized constructor.
+     * Parameterized constructor (sets the name to "EVALUATE").
      *
      * @param evaluate object responsible for evaluating solutions
      */
     public Evaluate(IEvaluate evaluate)
     {
-        this("Evaluate", evaluate);
+        this("EVALUATE", evaluate);
     }
 
     /**
@@ -48,15 +48,16 @@ public class Evaluate extends AbstractEvaluatePhase implements IPhase
      * Phase main action.
      * The default (implicit) assumptions are as follows:
      * - The method delegates the evaluation of specimens stored in {@link SpecimensContainer#getPopulation()} and/or
-     * {@link SpecimensContainer#getOffspring()} (depends on the {@link SpecimensContainer#isPopulationRequiringEvaluation()}
+     * {@link SpecimensContainer#getOffspring()} (depends on the
+     * {@link SpecimensContainer#isPopulationRequiringEvaluation()}
      * and {@link SpecimensContainer#isOffspringRequiringEvaluation()} flags) to {@link IEvaluate}.
      *
-     * @param ea evolutionary algorithm
+     * @param ea     evolutionary algorithm
      * @param report report on the executed action (to be filled)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         if (ea.getSpecimensContainer().isPopulationRequiringEvaluation())
             _evaluate.evaluateSpecimens(ea.getSpecimensContainer().getPopulation());

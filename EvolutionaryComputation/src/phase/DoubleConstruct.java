@@ -1,6 +1,7 @@
 package phase;
 
 import ea.EA;
+import ea.IEA;
 import exception.PhaseException;
 import population.Chromosome;
 import population.Specimen;
@@ -55,7 +56,7 @@ final public class DoubleConstruct extends AbstractConstruct implements IConstru
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public ArrayList<Specimen> createInitialPopulation(EA ea) throws PhaseException
+    public ArrayList<Specimen> createInitialPopulation(IEA ea) throws PhaseException
     {
         ArrayList<Specimen> S = createSpecimenArray(ea);
         for (Specimen s : S) s.setChromosome(new Chromosome(_constructor.create(ea.getR())));

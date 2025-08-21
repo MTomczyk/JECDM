@@ -1,7 +1,7 @@
 package tools.ivemo.heatmap.runners;
 
 
-import ea.EA;
+import ea.IEA;
 import exception.RunnerException;
 
 /**
@@ -31,7 +31,7 @@ public class SteadyStateUpdateRunner extends AbstractUpdateRunner
      * @throws RunnerException the exception can be captured when executing the method 
      */
     @Override
-    public void postExecuteSingleSteadyStateRepeat(EA ea, int generation, int steadyStateRepeat) throws RunnerException
+    public void postExecuteSingleSteadyStateRepeat(IEA ea, int generation, int steadyStateRepeat) throws RunnerException
     {
         try
         {

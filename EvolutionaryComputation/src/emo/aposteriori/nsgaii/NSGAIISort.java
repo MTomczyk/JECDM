@@ -1,7 +1,7 @@
 package emo.aposteriori.nsgaii;
 
 import criterion.Criteria;
-import ea.EA;
+import ea.AbstractPhasesEA;
 import emo.utils.density.CrowdingDistance;
 import emo.utils.front.FNDSorting;
 import exception.PhaseException;
@@ -71,7 +71,7 @@ public class NSGAIISort extends AbstractSortPhase implements IPhase
      */
     @SuppressWarnings("DuplicatedCode")
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         // Instantiate new population
         ArrayList<Specimen> newPopulation = new ArrayList<>(ea.getPopulationSize());
@@ -98,14 +98,14 @@ public class NSGAIISort extends AbstractSortPhase implements IPhase
     }
 
     /**
-     * Auxiliary method called by {@link NSGAIISort#action(EA, PhaseReport)} to construct the last front to be added to surviving population
+     * Auxiliary method called by {@link NSGAIISort#action(AbstractPhasesEA, PhaseReport)} to construct the last front to be added to surviving population
      * (applied crowding distance).
      *
      * @param ea     evolutionary algorithm
      * @param aFront ambiguous front
      * @return last front.
      */
-    protected ArrayList<Specimen> constructLastFront(EA ea, FNDSorting.AmbiguousFront aFront)
+    protected ArrayList<Specimen> constructLastFront(AbstractPhasesEA ea, FNDSorting.AmbiguousFront aFront)
     {
         // construct the ambiguous population
         ArrayList<Specimen> lastFront = new ArrayList<>(ea.getPopulationSize() - aFront._passedMembers);

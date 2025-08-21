@@ -75,7 +75,7 @@ class SBXwithSPTest
                 {
                     double[] p1 = new double[]{values[value][0]};
                     double[] p2 = new double[]{values[value][1]};
-                    double[] o = sbx.crossover(p1, p2, R);
+                    double[] o = sbx.crossover(p1, p2, R)._o;
                     DD.add(o[0]);
                 }
 

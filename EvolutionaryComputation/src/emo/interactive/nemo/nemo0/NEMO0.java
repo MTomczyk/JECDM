@@ -3,6 +3,7 @@ package emo.interactive.nemo.nemo0;
 import criterion.Criteria;
 import ea.AbstractInteractiveEA;
 import ea.EA;
+import ea.IEA;
 import interaction.feedbackprovider.dm.IDMFeedbackProvider;
 import interaction.reference.constructor.IReferenceSetConstructor;
 import interaction.trigger.rules.IRule;
@@ -29,7 +30,7 @@ import system.ds.DecisionSupportSystem;
  * @author MTomczyk
  */
 @SuppressWarnings("DuplicatedCode")
-public class NEMO0 extends AbstractInteractiveEA
+public class NEMO0 extends AbstractInteractiveEA implements IEA
 {
     /**
      * Parameterized constructor (private).

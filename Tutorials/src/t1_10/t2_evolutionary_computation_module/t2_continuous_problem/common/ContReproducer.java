@@ -1,6 +1,6 @@
 package t1_10.t2_evolutionary_computation_module.t2_continuous_problem.common;
 
-import ea.EA;
+import ea.IEA;
 import population.Chromosome;
 import population.Parents;
 import population.Specimen;
@@ -66,7 +66,7 @@ public class ContReproducer implements IReproduce
      * @return offspring specimens
      */
     @Override
-    public ArrayList<Specimen> createOffspring(EA ea)
+    public ArrayList<Specimen> createOffspring(IEA ea)
     {
         int os = ea.getOffspringSize(); // get the offspring size
         ArrayList<Specimen> offspring = new ArrayList<>(os);
@@ -77,7 +77,7 @@ public class ContReproducer implements IReproduce
             Specimen p2 = parents._parents.get(1);
             double[] bv1 = p1.getDoubleDecisionVector();
             double[] bv2 = p2.getDoubleDecisionVector();
-            double[] ob = _SBX.crossover(bv1, bv2, ea.getR());
+            double[] ob = _SBX.crossover(bv1, bv2, ea.getR())._o;
             _PM.mutate(ob, ea.getR());
 
             // create the specimen

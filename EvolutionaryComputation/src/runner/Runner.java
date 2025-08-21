@@ -1,6 +1,7 @@
 package runner;
 
 import ea.EA;
+import ea.IEA;
 import visualization.IVisualization;
 
 /**
@@ -21,9 +22,9 @@ public class Runner extends AbstractRunner implements IRunner
          *
          * @param ea evolutionary algorithm
          */
-        public Params(EA ea)
+        public Params(IEA ea)
         {
-            this(new EA[]{ea}, 1);
+            this(new IEA[]{ea}, 1);
         }
 
 
@@ -33,9 +34,9 @@ public class Runner extends AbstractRunner implements IRunner
          * @param ea                 evolutionary algorithm
          * @param steadyStateRepeats the number of steady-state iterations (the same for each evolutionary algorithm)
          */
-        public Params(EA ea, int steadyStateRepeats)
+        public Params(IEA ea, int steadyStateRepeats)
         {
-            this(new EA[]{ea}, steadyStateRepeats);
+            this(new IEA[]{ea}, steadyStateRepeats);
         }
 
         /**
@@ -44,9 +45,9 @@ public class Runner extends AbstractRunner implements IRunner
          * @param ea            evolutionary algorithm
          * @param visualization optional visualization
          */
-        public Params(EA ea, IVisualization visualization)
+        public Params(IEA ea, IVisualization visualization)
         {
-            this(new EA[]{ea}, 1, visualization);
+            this(new IEA[]{ea}, 1, visualization);
         }
 
         /**
@@ -54,7 +55,7 @@ public class Runner extends AbstractRunner implements IRunner
          *
          * @param eas evolutionary algorithms
          */
-        public Params(EA[] eas)
+        public Params(IEA[] eas)
         {
             this(eas, 1);
         }
@@ -66,7 +67,7 @@ public class Runner extends AbstractRunner implements IRunner
          * @param eas           evolutionary algorithms
          * @param visualization optional visualization
          */
-        public Params(EA[] eas, IVisualization visualization)
+        public Params(IEA[] eas, IVisualization visualization)
         {
             this(eas, 1, visualization);
         }
@@ -78,7 +79,7 @@ public class Runner extends AbstractRunner implements IRunner
          * @param eas                evolutionary algorithms
          * @param steadyStateRepeats the number of steady-state iterations (the same for each evolutionary algorithm)
          */
-        public Params(EA[] eas, int steadyStateRepeats)
+        public Params(IEA[] eas, int steadyStateRepeats)
         {
             this(eas, steadyStateRepeats, null);
         }
@@ -91,9 +92,9 @@ public class Runner extends AbstractRunner implements IRunner
          * @param steadyStateRepeats the number of steady-state iterations (the same for each evolutionary algorithm)
          * @param visualization      optional visualization (plots)
          */
-        public Params(EA ea, int steadyStateRepeats, IVisualization visualization)
+        public Params(IEA ea, int steadyStateRepeats, IVisualization visualization)
         {
-            this(new EA[]{ea}, steadyStateRepeats, visualization);
+            this(new IEA[]{ea}, steadyStateRepeats, visualization);
         }
 
         /**
@@ -103,7 +104,7 @@ public class Runner extends AbstractRunner implements IRunner
          * @param steadyStateRepeats the number of steady-state iterations (the same for each evolutionary algorithm)
          * @param visualization      optional visualization (plots)
          */
-        public Params(EA[] eas, int steadyStateRepeats, IVisualization visualization)
+        public Params(IEA[] eas, int steadyStateRepeats, IVisualization visualization)
         {
             super(eas, steadyStateRepeats, visualization);
         }
@@ -117,7 +118,7 @@ public class Runner extends AbstractRunner implements IRunner
          *                           should equal the number of EAs
          * @param visualization      optional visualization (plots)
          */
-        public Params(EA[] eas, int[] steadyStateRepeats, IVisualization visualization)
+        public Params(IEA[] eas, int[] steadyStateRepeats, IVisualization visualization)
         {
             super(eas, steadyStateRepeats, visualization);
         }

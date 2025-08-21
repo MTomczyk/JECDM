@@ -1,5 +1,6 @@
 package phase;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
 import exception.PhaseException;
 import population.SpecimensContainer;
@@ -18,11 +19,11 @@ import population.SpecimensContainer;
 public class Merge extends AbstractMergePhase implements IPhase
 {
     /**
-     * Default constructor.
+     * Default constructor (sets the name to "MERGE").
      */
     public Merge()
     {
-        this("Merge");
+        this("MERGE");
     }
 
     /**
@@ -47,7 +48,7 @@ public class Merge extends AbstractMergePhase implements IPhase
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         ea.getSpecimensContainer().mergeOffspringAndPopulation();
     }

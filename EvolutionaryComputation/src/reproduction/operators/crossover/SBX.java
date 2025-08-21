@@ -86,7 +86,7 @@ public class SBX extends AbstractSBX implements ICrossover
      * @return new decision vector
      */
     @Override
-    public double[] crossover(double[] p1, double[] p2, IRandom R)
+    public DoubleResult crossover(double[] p1, double[] p2, IRandom R)
     {
         double[][] p = doSwap(p1, p2, R);
         double[] o = new double[p[0].length];
@@ -107,6 +107,6 @@ public class SBX extends AbstractSBX implements ICrossover
 
             o[i] = applyDoubleBoundCorrection(o[i], i);
         }
-        return o;
+        return new DoubleResult(-1, o); // no primary parent
     }
 }

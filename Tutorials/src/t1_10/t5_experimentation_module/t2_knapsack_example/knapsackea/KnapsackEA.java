@@ -1,6 +1,8 @@
 package t1_10.t5_experimentation_module.t2_knapsack_example.knapsackea;
 
+import ea.AbstractEA;
 import ea.EA;
+import ea.IEA;
 import population.SpecimensContainer;
 
 /**
@@ -8,7 +10,7 @@ import population.SpecimensContainer;
  *
  * @author MTomczyk
  */
-public class KnapsackEA extends EA
+public class KnapsackEA extends AbstractEA implements IEA
 {
     /**
      * Parameterized constructor.
@@ -18,7 +20,6 @@ public class KnapsackEA extends EA
     public KnapsackEA(Params p)
     {
         super(p);
-        _name = "Knapsack EA";
     }
 
     /**

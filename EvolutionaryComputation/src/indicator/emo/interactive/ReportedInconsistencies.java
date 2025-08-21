@@ -1,6 +1,6 @@
 package indicator.emo.interactive;
 
-import ea.EA;
+import ea.IEA;
 import indicator.AbstractPerformanceIndicator;
 import indicator.IPerformanceIndicator;
 import system.dm.DecisionMakerSystem;
@@ -57,7 +57,7 @@ public class ReportedInconsistencies extends AbstractPerformanceIndicator implem
      * @return performance value (0 if the specimen container is null)
      */
     @Override
-    public double evaluate(EA ea)
+    public double evaluate(IEA ea)
     {
         ModelSystem<?> MS = Utils.getMS(ea, _dmID, _modelID);
         if (MS == null) return 0.0d;

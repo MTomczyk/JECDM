@@ -55,7 +55,7 @@ public class Reproduce extends AbstractReproduce implements IReproduce
     {
         double[] p1 = parents.get(0).getDoubleDecisionVector();
         double[] p2 = parents.get(1).getDoubleDecisionVector();
-        double[] o = _crossover.crossover(p1, p2, R);
+        double[] o = _crossover.crossover(p1, p2, R)._o;
         _mutate.mutate(o, R);
         Chromosome c = new Chromosome(o);
         Specimen S = new Specimen(_criteria);

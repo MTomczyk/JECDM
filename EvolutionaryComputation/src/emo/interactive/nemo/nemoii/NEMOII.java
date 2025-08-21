@@ -3,6 +3,7 @@ package emo.interactive.nemo.nemoii;
 import criterion.Criteria;
 import ea.AbstractInteractiveEA;
 import ea.EA;
+import ea.IEA;
 import interaction.feedbackprovider.dm.IDMFeedbackProvider;
 import interaction.reference.constructor.IReferenceSetConstructor;
 import interaction.trigger.rules.IRule;
@@ -26,7 +27,7 @@ import system.ds.DecisionSupportSystem;
  * @author MTomczyk
  */
 @SuppressWarnings("DuplicatedCode")
-public class NEMOII extends AbstractInteractiveEA
+public class NEMOII extends AbstractInteractiveEA implements IEA
 {
     /**
      * Parameterized constructor (private).
@@ -817,7 +818,7 @@ public class NEMOII extends AbstractInteractiveEA
 
         // Create EA:
         EA.Params pEA = new EA.Params(problem._criteria, bundle);
-        PhasesBundle.copyPhasesFromBundleToEA(bundle._phasesBundle, pEA);
+        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(bundle._phasesBundle);
         pEA._populationSize = populationSize;
         pEA._offspringSize = populationSize;
         pEA._R = R;

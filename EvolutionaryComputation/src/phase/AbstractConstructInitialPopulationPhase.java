@@ -8,11 +8,11 @@ package phase;
 public abstract class AbstractConstructInitialPopulationPhase extends AbstractPhase implements IPhase
 {
     /**
-     * Default constructor (sets the name to "Construct Initial Population").
+     * Default constructor (sets the name to "CONSTRUCT_INITIAL_POPULATION").
      */
     public AbstractConstructInitialPopulationPhase()
     {
-        super("Construct Initial Population", PhasesIDs.PHASE_CONSTRUCT_INITIAL_POPULATION);
+        super("CONSTRUCT_INITIAL_POPULATION");
     }
 
     /**
@@ -22,6 +22,6 @@ public abstract class AbstractConstructInitialPopulationPhase extends AbstractPh
      */
     public AbstractConstructInitialPopulationPhase(String name)
     {
-        super(name, PhasesIDs.PHASE_CONSTRUCT_INITIAL_POPULATION);
+        super(name);
     }
 }

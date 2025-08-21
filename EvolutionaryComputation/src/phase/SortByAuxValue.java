@@ -10,14 +10,14 @@ import population.SpecimensContainer;
 public class SortByAuxValue extends Sort implements IPhase
 {
     /**
-     * Parameterized constructor.
+     * Parameterized constructor (sets the name to "SORT_BY_AUX_VALUE").
      *
      * @param ascendingOrder if true, specimens are sorted in ascending order according to their first aux values;
      *                       false: in descending order.
      */
     public SortByAuxValue(boolean ascendingOrder)
     {
-        this("Sort", ascendingOrder);
+        this("SORT_BY_AUX_VALUE", ascendingOrder);
     }
 
     /**

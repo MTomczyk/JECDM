@@ -37,7 +37,7 @@ class SinglePointCrossoverTest
                     p2[i] = 1;
                 }
 
-                int[] o = C.crossover(p1.clone(), p2.clone(), R);
+                int[] o = C.crossover(p1.clone(), p2.clone(), R)._o;
                 assertEquals(n, o.length);
                 for (int i = 0; i < n; i++) r[i] += o[i];
             }
@@ -74,7 +74,7 @@ class SinglePointCrossoverTest
                 }
 
 
-                double[] o = C.crossover(p1.clone(), p2.clone(), R);
+                double[] o = C.crossover(p1.clone(), p2.clone(), R)._o;
                 assertEquals(n, o.length);
                 for (int i = 0; i < n; i++) r[i] += o[i];
             }
@@ -110,7 +110,7 @@ class SinglePointCrossoverTest
                     p2[i] = true;
                 }
 
-                boolean[] o = C.crossover(p1.clone(), p2.clone(), R);
+                boolean[] o = C.crossover(p1.clone(), p2.clone(), R)._o;
                 assertEquals(n, o.length);
                 for (int i = 0; i < n; i++) if (o[i]) r[i]++;
             }

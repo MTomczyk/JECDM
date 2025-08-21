@@ -3,7 +3,7 @@ package executor;
 import container.scenario.AbstractScenarioDataContainer;
 import container.trial.AbstractTrialDataContainer;
 import container.trial.TrialDataContainerFactory;
-import ea.EA;
+import ea.IEA;
 import exception.AbstractExperimentationException;
 import exception.TrialException;
 import indicator.IIndicator;
@@ -175,7 +175,7 @@ public class TrialExecutor extends AbstractExecutor implements Callable<TrialSum
             _TDC.createResultsFiles(); // create results files
 
             IRunner runner = _TDC.getRunner();
-            EA ea = _TDC.getEA();
+            IEA ea = _TDC.getEA();
 
             IIndicator[] indicators = _TDC.getPerformanceIndicators();
             double[][] results = _TDC.getReferenceToResults(); // change values by reference
@@ -229,7 +229,7 @@ public class TrialExecutor extends AbstractExecutor implements Callable<TrialSum
      * @param column     index to the column in the results matrix being currently updated
      * @throws TrialException the trial exception can be thrown 
      */
-    private void updateResults(EA ea, double[][] results, IIndicator[] indicators, int column) throws TrialException
+    private void updateResults(IEA ea, double[][] results, IIndicator[] indicators, int column) throws TrialException
     {
         for (int i = 0; i < indicators.length; i++) {
             double score = indicators[i].evaluate(ea);

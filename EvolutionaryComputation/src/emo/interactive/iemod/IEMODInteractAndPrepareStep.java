@@ -1,6 +1,8 @@
 package emo.interactive.iemod;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
+import ea.IEA;
 import emo.interactive.AbstractInteractAndPrepareStep;
 import emo.interactive.utils.dmcontext.IDMCParamsConstructor;
 import emo.utils.decomposition.moead.MOEADGoalsManager;
@@ -64,7 +66,7 @@ public class IEMODInteractAndPrepareStep<T extends AbstractValueInternalModel> e
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         super.action(ea, report);
         if (ea.getCurrentSteadyStateRepeat() == 0) // only in the first steady-state repeat
@@ -81,7 +83,7 @@ public class IEMODInteractAndPrepareStep<T extends AbstractValueInternalModel> e
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    protected void doInternalUpdate(Report report, LinkedList<DM> dm, EA ea) throws PhaseException
+    protected void doInternalUpdate(Report report, LinkedList<DM> dm, IEA ea) throws PhaseException
     {
         try
         {

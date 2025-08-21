@@ -1,5 +1,6 @@
 package phase;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
 import exception.PhaseException;
 
@@ -14,11 +15,11 @@ import exception.PhaseException;
 public class FinalizeStep extends AbstractFinalizeStepPhase implements IPhase
 {
     /**
-     * Default constructor.
+     * Default constructor (sets the name to "FINALIZE_STEP").
      */
     public FinalizeStep()
     {
-        this("Finalize step");
+        this("FINALIZE_STEP");
     }
 
     /**
@@ -39,7 +40,7 @@ public class FinalizeStep extends AbstractFinalizeStepPhase implements IPhase
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         ea.getSpecimensContainer().setPopulationRequiresEvaluation(false);
         ea.getSpecimensContainer().setOffspringRequiresEvaluation(false);

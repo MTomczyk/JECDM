@@ -49,7 +49,7 @@ public class EAFactory
         phasesBundle._reproduce = new Reproduce(new DoubleReproduce(reproducer));
         phasesBundle._sort = sortPhase;
         phasesBundle._selectParents = new SelectParents(selector);
-        PhasesBundle.copyPhasesFromBundleToEA(phasesBundle, pEA);
+        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(phasesBundle);
         return new EA(pEA);
     }
 
@@ -64,15 +64,10 @@ public class EAFactory
      */
     private static EA.Params getGenerationalEAParams(String name, int populationSize, Criteria criteria, IRandom R)
     {
-        EA.Params pEA = new EA.Params();
-        pEA._name = name;
-        pEA._id = 0;
+        EA.Params pEA = new EA.Params(name, 0, R, true, criteria);
         pEA._populationSize = populationSize;
         pEA._offspringSize = populationSize;
-        pEA._R = R;
         pEA._osManager = null;
-        pEA._criteria = criteria;
-        pEA._computeExecutionTime = true;
         return pEA;
     }
 
@@ -109,7 +104,7 @@ public class EAFactory
         phasesBundle._reproduce = new Reproduce(new IntReproduce(reproducer));
         phasesBundle._sort = sortPhase;
         phasesBundle._selectParents = new SelectParents(selector);
-        PhasesBundle.copyPhasesFromBundleToEA(phasesBundle, pEA);
+        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(phasesBundle);
         return new EA(pEA);
     }
 
@@ -146,7 +141,7 @@ public class EAFactory
         phasesBundle._reproduce = new Reproduce(new BoolReproduce(reproducer));
         phasesBundle._sort = sortPhase;
         phasesBundle._selectParents = new SelectParents(selector);
-        PhasesBundle.copyPhasesFromBundleToEA(phasesBundle, pEA);
+        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(phasesBundle);
         return new EA(pEA);
     }
 
@@ -183,7 +178,7 @@ public class EAFactory
         phasesBundle._reproduce = new Reproduce(new ChromosomeReproduce(reproducer));
         phasesBundle._sort = sortPhase;
         phasesBundle._selectParents = new SelectParents(selector);
-        PhasesBundle.copyPhasesFromBundleToEA(phasesBundle, pEA);
+        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(phasesBundle);
         return new EA(pEA);
     }
 }

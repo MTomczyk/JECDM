@@ -1,7 +1,7 @@
 package container.trial.initialziers;
 
 import container.trial.AbstractTrialDataContainer;
-import ea.EA;
+import ea.IEA;
 import exception.TrialException;
 import random.IRandom;
 
@@ -22,7 +22,7 @@ public class DefaultEAInitializer implements IEAInitializer
      * @throws TrialException trial-level exception can be thrown 
      */
     @Override
-    public EA instantiateEA(IRandom R, AbstractTrialDataContainer.Params p) throws TrialException
+    public IEA instantiateEA(IRandom R, AbstractTrialDataContainer.Params p) throws TrialException
     {
         return null;
     }

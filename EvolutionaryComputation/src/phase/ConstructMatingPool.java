@@ -1,6 +1,6 @@
 package phase;
 
-import ea.EA;
+import ea.AbstractPhasesEA;
 import exception.PhaseException;
 import population.SpecimensContainer;
 
@@ -16,11 +16,11 @@ import population.SpecimensContainer;
 public class ConstructMatingPool extends AbstractConstructMatingPoolPhase implements IPhase
 {
     /**
-     * Default constructor.
+     * Default constructor (sets the name to "CONSTRUCT_MATING_POOL").
      */
     public ConstructMatingPool()
     {
-        this("Construct Mating Pool");
+        this("CONSTRUCT_MATING_POOL");
     }
 
     /**
@@ -43,7 +43,7 @@ public class ConstructMatingPool extends AbstractConstructMatingPoolPhase implem
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         ea.getSpecimensContainer().setMatingPool(ea.getSpecimensContainer().getPopulation());
     }

@@ -1,6 +1,6 @@
 package ea.dummy.populations;
 
-import ea.EA;
+import ea.AbstractPhasesEA;
 import phase.ConstructInitialPopulation;
 import phase.PhaseReport;
 import population.Specimen;
@@ -14,7 +14,6 @@ import java.util.ArrayList;
  *
  * @author MTomczyk
  */
-
 
 public class SetInitialPopulation extends ConstructInitialPopulation
 {
@@ -42,7 +41,7 @@ public class SetInitialPopulation extends ConstructInitialPopulation
      * @param report report on the executed action (to be filled)
      */
     @Override
-    public void action(EA ea, PhaseReport report)
+    public void action(AbstractPhasesEA ea, PhaseReport report)
     {
         ea.setSpecimensContainer(new SpecimensContainer(_initialPopulation));
     }

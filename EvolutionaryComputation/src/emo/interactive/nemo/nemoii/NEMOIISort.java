@@ -1,7 +1,7 @@
 package emo.interactive.nemo.nemoii;
 
 import criterion.Criteria;
-import ea.EA;
+import ea.AbstractPhasesEA;
 import emo.aposteriori.nsgaii.NSGAIISort;
 import emo.utils.front.FNDSorting;
 import emo.utils.front.POFront;
@@ -64,7 +64,7 @@ public class NEMOIISort extends NSGAIISort implements IPhase
      */
     @SuppressWarnings("DuplicatedCode")
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         // Derive models
         ArrayList<? extends AbstractInternalModel> models = _preferenceModel.getInternalModels();

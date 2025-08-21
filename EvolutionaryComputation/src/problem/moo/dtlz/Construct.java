@@ -1,6 +1,7 @@
 package problem.moo.dtlz;
 
-import ea.EA;
+import ea.AbstractPhasesEA;
+import ea.IEA;
 import phase.IConstruct;
 import population.Chromosome;
 import population.Specimen;
@@ -42,7 +43,7 @@ public class Construct implements IConstruct
      */
     @SuppressWarnings("DuplicatedCode")
     @Override
-    public ArrayList<Specimen> createInitialPopulation(EA ea)
+    public ArrayList<Specimen> createInitialPopulation(IEA ea)
     {
         ArrayList<Specimen> S = new ArrayList<>(ea.getPopulationSize());
         int criteria = ea.getCriteria()._no;

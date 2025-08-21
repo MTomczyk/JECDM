@@ -2,6 +2,7 @@ package emo.aposteriori.nsgaiii;
 
 import criterion.Criteria;
 import ea.EA;
+import ea.IEA;
 import emo.utils.decomposition.goal.IGoal;
 import emo.utils.decomposition.nsgaiii.*;
 import os.ObjectiveSpaceManager;
@@ -23,7 +24,7 @@ import selection.Random;
  * @author MTomczyk
  */
 @SuppressWarnings("DuplicatedCode")
-public class NSGAIII extends EA
+public class NSGAIII extends EA implements IEA
 {
     /**
      * Reference to the goals manager.

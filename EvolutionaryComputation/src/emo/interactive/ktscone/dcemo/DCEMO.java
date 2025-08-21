@@ -3,10 +3,10 @@ package emo.interactive.ktscone.dcemo;
 import criterion.Criteria;
 import ea.AbstractInteractiveEA;
 import ea.EA;
+import ea.IEA;
 import interaction.feedbackprovider.dm.IDMFeedbackProvider;
 import interaction.reference.constructor.IReferenceSetConstructor;
 import interaction.trigger.rules.IRule;
-import os.ObjectiveSpace;
 import os.ObjectiveSpaceManager;
 import phase.*;
 import problem.moo.AbstractMOOProblemBundle;
@@ -24,7 +24,7 @@ import system.ds.DecisionSupportSystem;
  * @author MTomczyk
  */
 @SuppressWarnings("DuplicatedCode")
-public class DCEMO extends AbstractInteractiveEA
+public class DCEMO extends AbstractInteractiveEA implements IEA
 {
     /**
      * Parameterized constructor (private).
@@ -715,7 +715,7 @@ public class DCEMO extends AbstractInteractiveEA
 
         // Create EA:
         EA.Params pEA = new EA.Params(problem._criteria, bundle);
-        PhasesBundle.copyPhasesFromBundleToEA(bundle._phasesBundle, pEA);
+        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(bundle._phasesBundle);
         pEA._populationSize = populationSize;
         pEA._offspringSize = populationSize;
         pEA._R = R;

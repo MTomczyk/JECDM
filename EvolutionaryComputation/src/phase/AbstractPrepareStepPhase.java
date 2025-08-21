@@ -8,11 +8,11 @@ package phase;
 public abstract class AbstractPrepareStepPhase extends AbstractPhase implements IPhase
 {
     /**
-     * Default constructor (sets the name to "Prepare Step").
+     * Default constructor (sets the name to "PREPARE_STEP").
      */
     public AbstractPrepareStepPhase()
     {
-        super("Prepare Step", PhasesIDs.PHASE_PREPARE_STEP);
+        super("PREPARE_STEP");
     }
 
     /**
@@ -22,6 +22,6 @@ public abstract class AbstractPrepareStepPhase extends AbstractPhase implements 
      */
     public AbstractPrepareStepPhase(String name)
     {
-        super(name, PhasesIDs.PHASE_PREPARE_STEP);
+        super(name);
     }
 }

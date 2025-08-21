@@ -8,11 +8,11 @@ package phase;
 public abstract class AbstractSelectParentsPhase extends AbstractPhase implements IPhase
 {
     /**
-     * Default constructor (sets the name to "Select Parents").
+     * Default constructor (sets the name to "SELECT_PARENTS").
      */
     public AbstractSelectParentsPhase()
     {
-        super("Select Parents", PhasesIDs.PHASE_SELECT_PARENTS);
+        super("SELECT_PARENTS");
     }
 
     /**
@@ -22,6 +22,6 @@ public abstract class AbstractSelectParentsPhase extends AbstractPhase implement
      */
     public AbstractSelectParentsPhase(String name)
     {
-        super(name, PhasesIDs.PHASE_SELECT_PARENTS);
+        super(name);
     }
 }

@@ -1,6 +1,6 @@
 package phase;
 
-import ea.EA;
+import ea.AbstractPhasesEA;
 import exception.PhaseException;
 import population.Specimen;
 import population.SpecimensContainer;
@@ -43,7 +43,7 @@ public class Sort extends AbstractSortPhase implements IPhase
      */
     public Sort(ISort sorter)
     {
-        this("Sort", sorter);
+        this("SORT", sorter);
     }
 
     /**
@@ -67,7 +67,7 @@ public class Sort extends AbstractSortPhase implements IPhase
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         _sorter.sort(ea.getSpecimensContainer().getPopulation());
     }

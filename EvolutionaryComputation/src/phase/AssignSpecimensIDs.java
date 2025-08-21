@@ -1,5 +1,6 @@
 package phase;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
 import exception.PhaseException;
 import population.Specimen;
@@ -20,11 +21,11 @@ import java.util.ArrayList;
 public class AssignSpecimensIDs extends AbstractAssignSpecimenIDs implements IPhase
 {
     /**
-     * Default constructor.
+     * Default constructor (sets the name to "ASSIGN_SPECIMENS_ID").
      */
     public AssignSpecimensIDs()
     {
-        this("Assign Specimens IDs");
+        this("ASSIGN_SPECIMENS_ID");
     }
 
     /**
@@ -39,7 +40,7 @@ public class AssignSpecimensIDs extends AbstractAssignSpecimenIDs implements IPh
 
     /**
      * Phase's main action. Assigns IDs to specimens. The ID (for a specimen) is constructed using its in-array index,
-     * the EA id ({@link EA#getID()}), current generation ({@link EA#getCurrentGeneration()}), and current steady-state
+     * the EA id ({@link EA#getID()}), current generation ({@link AbstractPhasesEA#getCurrentGeneration()}), and current steady-state
      * repeat ({@link EA#getCurrentSteadyStateRepeat()}). The specimens stored in {@link SpecimensContainer#getPopulation()}
      * and/or {@link SpecimensContainer#getOffspring()} are assigned IDs (depends on the {@link SpecimensContainer#isPopulationRequiringIDAssignment()}
      * and {@link SpecimensContainer#isOffspringRequiringIDAssignment()} flags).
@@ -49,7 +50,7 @@ public class AssignSpecimensIDs extends AbstractAssignSpecimenIDs implements IPh
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         if (ea.getSpecimensContainer().isPopulationRequiringIDAssignment())
             assignIDs(ea, ea.getSpecimensContainer().getPopulation());
@@ -63,7 +64,7 @@ public class AssignSpecimensIDs extends AbstractAssignSpecimenIDs implements IPh
      * @param ea        evolutionary algorithm
      * @param specimens array of specimens to be assigned ID
      */
-    private void assignIDs(EA ea, ArrayList<Specimen> specimens)
+    private void assignIDs(AbstractPhasesEA ea, ArrayList<Specimen> specimens)
     {
         for (int i = 0; i < specimens.size(); i++)
         {

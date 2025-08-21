@@ -1,8 +1,8 @@
 package os;
 
 import criterion.Criteria;
-import ea.EA;
 import ea.EATimestamp;
+import ea.IEA;
 import exception.PhaseException;
 import population.*;
 import problem.moo.AbstractMOOProblemBundle;
@@ -38,7 +38,7 @@ public class ObjectiveSpaceManager
         /**
          * The evolutionary algorithm
          */
-        public EA _ea = null;
+        public IEA _ea = null;
 
         /**
          * If true, the update procedure will terminate immediately after being called. This flag can be used to surpass
@@ -152,7 +152,7 @@ public class ObjectiveSpaceManager
     /**
      * The evolutionary algorithm
      */
-    private EA _ea;
+    private IEA _ea;
 
     /**
      * If true, the update procedure will terminate immediately after being called. This flag can be used to surpass
@@ -264,7 +264,7 @@ public class ObjectiveSpaceManager
      *
      * @param ea ea
      */
-    public void setEA(EA ea)
+    public void setEA(IEA ea)
     {
         _ea = ea;
     }

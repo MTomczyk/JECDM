@@ -89,7 +89,7 @@ public class Utils
 
         // create ea instance
         EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        PhasesBundle.copyPhasesFromBundleToEA(algorithmBundle._phasesBundle, pEA);
+        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(algorithmBundle._phasesBundle);
         pEA._id = id;
         pEA._R = R;
         pEA._populationSize = goals.length;
@@ -158,7 +158,7 @@ public class Utils
         NSGAIIBundle algorithmBundle = new NSGAIIBundle(pAB);
 
         EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        PhasesBundle.copyPhasesFromBundleToEA(algorithmBundle._phasesBundle, pEA);
+        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(algorithmBundle._phasesBundle);
         pEA._id = id;
         pEA._R = R;
         pEA._populationSize = populationSize;
@@ -221,7 +221,7 @@ public class Utils
 
         // create ea instance
         EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        PhasesBundle.copyPhasesFromBundleToEA(algorithmBundle._phasesBundle, pEA);
+        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(algorithmBundle._phasesBundle);
         pEA._id = id;
         pEA._R = R;
         pEA._populationSize = goals.length;
@@ -294,7 +294,7 @@ public class Utils
         NSGABundle algorithmBundle = new NSGABundle(pAB);
 
         EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        PhasesBundle.copyPhasesFromBundleToEA(algorithmBundle._phasesBundle, pEA);
+        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(algorithmBundle._phasesBundle);
         pEA._id = id;
         pEA._R = R;
         pEA._populationSize = populationSize;

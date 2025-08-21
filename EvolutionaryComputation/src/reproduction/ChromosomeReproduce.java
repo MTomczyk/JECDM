@@ -1,6 +1,6 @@
 package reproduction;
 
-import ea.EA;
+import ea.IEA;
 import exception.PhaseException;
 import population.Chromosome;
 import population.Parents;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * A simple implementation of {@link reproduction.IReproduce} that delivers a convenient means for reproducing the
  * specimens, i.e., creating the offspring. The default assumptions are as follows:
- * - The number of offspring to create equals the offspring size {@link EA#getOffspringSize()}.
+ * - The number of offspring to create equals the offspring size {@link IEA#getOffspringSize()}.
  * - One offspring is created using one parents object consisting of two parent specimens ({@link Parents})
  * stored in {@link population.SpecimensContainer#getParents()}.
  * - The reproduction is delegated to an object that implements an auxiliary {@link IReproduce interface}.
@@ -32,7 +32,7 @@ public class ChromosomeReproduce implements IReproduce
          *
          * @param c1 the first parent (chromosome)
          * @param c2 the second parent (chromosome)
-         * @param R  random number generator obtained from {@link EA}
+         * @param R  random number generator obtained from {@link IEA}
          * @return offspring (decision boolean-vector)
          */
         Chromosome reproduce(Chromosome c1, Chromosome c2, IRandom R);
@@ -62,7 +62,7 @@ public class ChromosomeReproduce implements IReproduce
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public ArrayList<Specimen> createOffspring(EA ea) throws PhaseException
+    public ArrayList<Specimen> createOffspring(IEA ea) throws PhaseException
     {
         ArrayList<Specimen> offspring = new ArrayList<>(ea.getOffspringSize());
         for (Parents p : ea.getSpecimensContainer().getParents())

@@ -21,7 +21,8 @@ public class SortedModel<T extends AbstractValueInternalModel>
 
     /**
      * Degree to which the model is compatible with the DM's feedback
-     * (thresholded at zero; more than zero = compatible; less or equal = incompatible; the greater the value, the greater the compatibility)
+     * (thresholded at zero; more than zero = compatible; less or equal = incompatible; the greater the value, the
+     * greater the compatibility)
      */
     public double _compatibilityDegree;
 
@@ -40,7 +41,7 @@ public class SortedModel<T extends AbstractValueInternalModel>
      *
      * @param id                  model unique id
      * @param k                   size of the closest models queue (k-closest goals kept)
-     * @param isLessMeaningCloser  if true, smaller similarities means closer; false otherwise
+     * @param isLessMeaningCloser if true, smaller similarities means closer; false otherwise
      * @param model               model to be wrapped
      * @param compatibilityDegree compatibility with the preference information
      */

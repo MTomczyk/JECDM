@@ -1,7 +1,7 @@
 package emo.aposteriori.nsga;
 
 import criterion.Criteria;
-import ea.EA;
+import ea.AbstractPhasesEA;
 import emo.utils.density.NicheCount;
 import emo.utils.front.FNDSorting;
 import exception.PhaseException;
@@ -65,7 +65,7 @@ public class NSGASort extends AbstractSortPhase implements IPhase
      */
     @SuppressWarnings("DuplicatedCode")
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         // Instantiate new population
         ArrayList<Specimen> newPopulation = new ArrayList<>(ea.getPopulationSize());

@@ -1,6 +1,6 @@
 package phase;
 
-import ea.EA;
+import ea.AbstractPhasesEA;
 import ea.EATimestamp;
 import exception.PhaseException;
 import os.ObjectiveSpaceManager;
@@ -10,8 +10,6 @@ import os.ObjectiveSpaceManager;
  *
  * @author MTomczyk
  */
-
-
 public class UpdateObjectiveSpace extends AbstractUpdateOSPhase implements IPhase
 {
     /**
@@ -20,19 +18,19 @@ public class UpdateObjectiveSpace extends AbstractUpdateOSPhase implements IPhas
     protected final ObjectiveSpaceManager _osManager;
 
     /**
-     * Parameterized constructor.
+     * Parameterized constructor  (sets the name to "UPDATE_OBJECTIVE_SPACE").
      *
      * @param osManager object responsible for updating knowledge on the objective space
      */
     public UpdateObjectiveSpace(ObjectiveSpaceManager osManager)
     {
-        this("Update Objective Space", osManager);
+        this("UPDATE_OBJECTIVE_SPACE", osManager);
     }
 
     /**
      * Parameterized constructor.
      *
-     * @param name     name of the phase
+     * @param name      name of the phase
      * @param osManager object responsible for updating knowledge on the objective space
      */
     public UpdateObjectiveSpace(String name, ObjectiveSpaceManager osManager)
@@ -44,12 +42,12 @@ public class UpdateObjectiveSpace extends AbstractUpdateOSPhase implements IPhas
     /**
      * Phase main action. Delegates the update to {@link ObjectiveSpaceManager}.
      *
-     * @param ea evolutionary algorithm
+     * @param ea     evolutionary algorithm
      * @param report report on the executed action (to be filled)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         _osManager.update(ea.getSpecimensContainer(), new EATimestamp(ea.getCurrentGeneration(), ea.getCurrentSteadyStateRepeat()));
     }

@@ -27,7 +27,7 @@ class OnSimplexCombinationTest
 
         for (int t = 0; t < 1000; t++)
         {
-            double[] o = crossover.crossover(p1, p2, R);
+            double[] o = crossover.crossover(p1, p2, R)._o;
             assertTrue(Simplex.isOnSimplex(o, 1.0E-12));
         }
     }
@@ -45,7 +45,7 @@ class OnSimplexCombinationTest
 
         for (int t = 0; t < 1000; t++)
         {
-            double[] o = crossover.crossover(p1, p2, R);
+            double[] o = crossover.crossover(p1, p2, R)._o;
             assertTrue(Simplex.isOnSimplex(o, 1.0E-12));
         }
     }

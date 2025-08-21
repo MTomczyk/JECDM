@@ -1,7 +1,7 @@
 package emo.interactive.ktscone.dcemo;
 
 import criterion.Criteria;
-import ea.EA;
+import ea.AbstractPhasesEA;
 import emo.aposteriori.nsgaii.NSGAIISort;
 import emo.utils.front.FNDSorting;
 import exception.PhaseException;
@@ -59,7 +59,7 @@ public class DCEMOSort extends NSGAIISort implements IPhase
      */
     @SuppressWarnings("DuplicatedCode")
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         if (_DMS.getHistory().getNoPreferenceExamples() == 0)
         {

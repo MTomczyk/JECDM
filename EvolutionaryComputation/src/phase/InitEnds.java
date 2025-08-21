@@ -1,5 +1,6 @@
 package phase;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
 import exception.PhaseException;
 
@@ -13,11 +14,11 @@ import exception.PhaseException;
 public class InitEnds extends AbstractInitEndsPhase implements IPhase
 {
     /**
-     * Default constructor.
+     * Default constructor (sets the name to "INIT_ENDS").
      */
     public InitEnds()
     {
-        this("Init Ends");
+        this("INIT_ENDS");
     }
 
     /**
@@ -38,7 +39,7 @@ public class InitEnds extends AbstractInitEndsPhase implements IPhase
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         ea.getSpecimensContainer().setPopulationRequiresEvaluation(false);
         ea.getSpecimensContainer().setOffspringRequiresEvaluation(false);

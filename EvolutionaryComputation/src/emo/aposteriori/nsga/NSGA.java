@@ -2,6 +2,7 @@ package emo.aposteriori.nsga;
 
 import criterion.Criteria;
 import ea.EA;
+import ea.IEA;
 import os.ObjectiveSpaceManager;
 import phase.DoubleConstruct;
 import phase.DoubleEvaluate;
@@ -23,7 +24,7 @@ import space.distance.Euclidean;
  * @author MTomczyk
  */
 @SuppressWarnings("DuplicatedCode")
-public class NSGA extends EA
+public class NSGA extends EA implements IEA
 {
     /**
      * NSGA bundle

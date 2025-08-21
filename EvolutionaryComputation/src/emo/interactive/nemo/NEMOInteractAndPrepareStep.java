@@ -1,6 +1,6 @@
 package emo.interactive.nemo;
 
-import ea.EA;
+import ea.IEA;
 import emo.interactive.AbstractInteractAndPrepareStep;
 import emo.interactive.utils.dmcontext.IDMCParamsConstructor;
 import exception.PhaseException;
@@ -46,7 +46,7 @@ public class NEMOInteractAndPrepareStep extends AbstractInteractAndPrepareStep i
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
+    public void action(IEA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
     {
         if (_DMS.getHistory().getNoPreferenceExamples() != 0) super.action(ea, os, prevOS);
     }

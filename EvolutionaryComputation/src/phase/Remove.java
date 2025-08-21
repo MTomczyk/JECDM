@@ -1,5 +1,6 @@
 package phase;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
 import exception.PhaseException;
 import population.Specimen;
@@ -16,11 +17,11 @@ import java.util.ArrayList;
 public class Remove extends AbstractRemovePhase implements IPhase
 {
     /**
-     * Default constructor.
+     * Default constructor (sets the name to "REMOVE").
      */
     public Remove()
     {
-        this("Remove");
+        this("REMOVE");
     }
 
     /**
@@ -42,7 +43,7 @@ public class Remove extends AbstractRemovePhase implements IPhase
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         ArrayList<Specimen> survivalists = new ArrayList<>(ea.getPopulationSize());
         for (int i = 0; i < ea.getPopulationSize(); i++)

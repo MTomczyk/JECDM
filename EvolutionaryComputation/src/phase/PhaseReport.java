@@ -1,9 +1,10 @@
 package phase;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
 
 /**
- * This class represents a report on the action performed by the calling {@link phase.IPhase#perform(EA)}
+ * This class represents a report on the action performed by the calling {@link phase.IPhase#perform(AbstractPhasesEA)}
  *
  * @author MTomczyk
  */

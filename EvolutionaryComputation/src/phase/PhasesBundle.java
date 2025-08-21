@@ -1,7 +1,5 @@
 package phase;
 
-import ea.EA;
-
 /**
  * Used to store phases and pass between different objects.
  *
@@ -123,50 +121,39 @@ public class PhasesBundle
     }
 
     /**
-     * Supportive method that sets phases in {@link EA.Params} as imposed by the bundle object.
+     * Creates the default phase assignments array using phases stored in the bundle. Specifically, the assignments are
+     * as follows (in the given order): <br>
+     * Init: init starts, construct initial population, assign specimen IDs, evaluate, update OS, sort, init ends; <br>
+     * Step: prepare step, construct mating pool, select parents, reproduce, assign specimen IDs, evaluate, update OS,
+     * merge, sort, remove, finalize step
      *
-     * @param B instantiated phases
-     * @param p {@link EA.Params} object to be passed to EA's constructor
+     * @param B phases bundle
+     * @return phase assignments
      */
-    public static void copyPhasesFromBundleToEA(PhasesBundle B, EA.Params p)
+    public static PhaseAssignment[] getPhasesAssignmentsFromBundle(PhasesBundle B)
     {
-        p._initStarts = B._initStarts;
-        p._constructInitialPopulation = B._constructInitialPopulation;
-        p._assignSpecimenIDs = B._assignSpecimenIDs;
-        p._evaluate = B._evaluate;
-        p._sort = B._sort;
-        p._initEnds = B._initEnds;
-        p._prepareStep = B._prepareStep;
-        p._constructMatingPool = B._constructMatingPool;
-        p._selectParents = B._selectParents;
-        p._reproduce = B._reproduce;
-        p._merge = B._merge;
-        p._remove = B._remove;
-        p._finalizeStep = B._finalizeStep;
-        p._updateOS = B._updateOS;
+        PhaseAssignment[] phaseAssignments = new PhaseAssignment[18];
+        // Init:
+        phaseAssignments[0] = new PhaseAssignment(B._initStarts, PhaseAssignment.Assignment.INIT);
+        phaseAssignments[1] = new PhaseAssignment(B._constructInitialPopulation, PhaseAssignment.Assignment.INIT);
+        phaseAssignments[2] = new PhaseAssignment(B._assignSpecimenIDs, PhaseAssignment.Assignment.INIT);
+        phaseAssignments[3] = new PhaseAssignment(B._evaluate, PhaseAssignment.Assignment.INIT);
+        phaseAssignments[4] = new PhaseAssignment(B._updateOS, PhaseAssignment.Assignment.INIT);
+        phaseAssignments[5] = new PhaseAssignment(B._sort, PhaseAssignment.Assignment.INIT);
+        phaseAssignments[6] = new PhaseAssignment(B._initEnds, PhaseAssignment.Assignment.INIT);
+        // Step:
+        phaseAssignments[7] = new PhaseAssignment(B._prepareStep, PhaseAssignment.Assignment.STEP);
+        phaseAssignments[8] = new PhaseAssignment(B._constructMatingPool, PhaseAssignment.Assignment.STEP);
+        phaseAssignments[9] = new PhaseAssignment(B._selectParents, PhaseAssignment.Assignment.STEP);
+        phaseAssignments[10] = new PhaseAssignment(B._reproduce, PhaseAssignment.Assignment.STEP);
+        phaseAssignments[11] = new PhaseAssignment(B._assignSpecimenIDs, PhaseAssignment.Assignment.STEP);
+        phaseAssignments[12] = new PhaseAssignment(B._evaluate, PhaseAssignment.Assignment.STEP);
+        phaseAssignments[13] = new PhaseAssignment(B._updateOS, PhaseAssignment.Assignment.STEP);
+        phaseAssignments[14] = new PhaseAssignment(B._merge, PhaseAssignment.Assignment.STEP);
+        phaseAssignments[15] = new PhaseAssignment(B._sort, PhaseAssignment.Assignment.STEP);
+        phaseAssignments[16] = new PhaseAssignment(B._remove, PhaseAssignment.Assignment.STEP);
+        phaseAssignments[17] = new PhaseAssignment(B._finalizeStep, PhaseAssignment.Assignment.STEP);
+        return phaseAssignments;
     }
 
-    /**
-     * Supportive method that sets phases as imposed by the bundle object.
-     *
-     * @param phases phases vector to be set (must already be instantiated; reference)
-     * @param B      instantiated phases
-     */
-    public static void copyPhasesFromBundleToEA(IPhase[] phases, PhasesBundle B)
-    {
-        phases[PhasesIDs.PHASE_INIT_STARTS] = B._initStarts;
-        phases[PhasesIDs.PHASE_CONSTRUCT_INITIAL_POPULATION] = B._constructInitialPopulation;
-        phases[PhasesIDs.PHASE_ASSIGN_SPECIMENS_IDS] = B._assignSpecimenIDs;
-        phases[PhasesIDs.PHASE_EVALUATE] = B._evaluate;
-        phases[PhasesIDs.PHASE_SORT] = B._sort;
-        phases[PhasesIDs.PHASE_INIT_ENDS] = B._initEnds;
-        phases[PhasesIDs.PHASE_PREPARE_STEP] = B._prepareStep;
-        phases[PhasesIDs.PHASE_CONSTRUCT_MATING_POOL] = B._constructMatingPool;
-        phases[PhasesIDs.PHASE_SELECT_PARENTS] = B._selectParents;
-        phases[PhasesIDs.PHASE_REPRODUCE] = B._reproduce;
-        phases[PhasesIDs.PHASE_MERGE] = B._merge;
-        phases[PhasesIDs.PHASE_REMOVE] = B._remove;
-        phases[PhasesIDs.PHASE_UPDATE_OS] = B._finalizeStep;
-        phases[PhasesIDs.PHASE_FINALIZE_STEP] = B._updateOS;
-    }
 }

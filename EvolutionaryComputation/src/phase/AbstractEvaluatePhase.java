@@ -8,11 +8,11 @@ package phase;
 public abstract class AbstractEvaluatePhase extends AbstractPhase implements IPhase
 {
     /**
-     * Default constructor (sets the name to "Evaluate").
+     * Default constructor (sets the name to "EVALUATE").
      */
     public AbstractEvaluatePhase()
     {
-        super("Evaluate", PhasesIDs.PHASE_EVALUATE);
+        super("EVALUATE");
     }
 
     /**
@@ -22,6 +22,6 @@ public abstract class AbstractEvaluatePhase extends AbstractPhase implements IPh
      */
     public AbstractEvaluatePhase(String name)
     {
-        super(name, PhasesIDs.PHASE_EVALUATE);
+        super(name);
     }
 }

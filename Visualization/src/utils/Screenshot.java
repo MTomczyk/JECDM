@@ -23,8 +23,8 @@ public class Screenshot
     public final boolean _useAlphaChannel;
 
     /**
-     * Barrier used for synchronization. Its .countDown() method must be called. Otherwise, the plot processing will
-     * be frozen.
+     * Barrier used for synchronization. Its .countDown() method must be called. Otherwise, the plot processing will be
+     * frozen.
      */
     public final CountDownLatch _barrier;
 
@@ -48,11 +48,11 @@ public class Screenshot
     }
 
     /**
-     * This method clips the created screenshot so that its depicted object occupies all
-     * image; it is done by removing the first/last columns/rows whose all pixels match the given color (RGB channels
-     * are compared and optionally A, if the image supports it) The method terminates immediately if
-     * {@link Screenshot#_image} is null. This also will be triggered if the image is not in the TYPE_INT_RGB or
-     * TYPE_INT_ARGB format. Clipping is not performed if the image is empty according to the input pattern color.
+     * This method clips the created screenshot so that its depicted object occupies all image; it is done by removing
+     * the first/last columns/rows whose all pixels match the given color (RGB channels are compared and optionally A,
+     * if the image supports it) The method terminates immediately if {@link Screenshot#_image} is null. This also will
+     * be triggered if the image is not in the TYPE_INT_RGB or TYPE_INT_ARGB format. Clipping is not performed if the
+     * image is empty according to the input pattern color.
      *
      * @param color color for comparison
      * @return the method returns the clipped image (null, if the premature termination is triggered)

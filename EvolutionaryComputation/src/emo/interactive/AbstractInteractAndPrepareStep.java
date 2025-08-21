@@ -1,7 +1,8 @@
 package emo.interactive;
 
 import dmcontext.DMContext;
-import ea.EA;
+import ea.AbstractPhasesEA;
+import ea.IEA;
 import emo.interactive.utils.dmcontext.IDMCParamsConstructor;
 import exception.PhaseException;
 import exeption.DecisionSupportSystemException;
@@ -20,7 +21,7 @@ import java.util.LinkedList;
 
 /**
  * Default implementation of a "prepare step" dedicated to interactive methods. The call for {@link DecisionSupportSystem#executeProcess(DMContext.Params)}
- * is executed only when the current steady state repeat equals zero (see {@link AbstractInteractAndPrepareStep#action(EA, PhaseReport)})
+ * is executed only when the current steady state repeat equals zero (see {@link AbstractInteractAndPrepareStep#action(AbstractPhasesEA, PhaseReport)})
  *
  * @author MTomczyk
  */
@@ -61,7 +62,7 @@ public class AbstractInteractAndPrepareStep extends AbstractPrepareStepPhase imp
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         if (ea.getCurrentSteadyStateRepeat() == 0)
         {
@@ -88,7 +89,7 @@ public class AbstractInteractAndPrepareStep extends AbstractPrepareStepPhase imp
      * @param ea     reference to the EA
      * @throws PhaseException the exception can be thrown 
      */
-    protected void doInternalUpdate(Report report, LinkedList<DM> dm, EA ea) throws PhaseException
+    protected void doInternalUpdate(Report report, LinkedList<DM> dm, IEA ea) throws PhaseException
     {
 
     }
@@ -102,7 +103,7 @@ public class AbstractInteractAndPrepareStep extends AbstractPrepareStepPhase imp
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
+    public void action(IEA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
     {
         DMContext.Params pDMC = _dmContextParamsConstructor.getDMCParams(ea);
         try

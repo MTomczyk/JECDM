@@ -2,6 +2,7 @@ package emo.aposteriori.moead;
 
 import criterion.Criteria;
 import ea.EA;
+import ea.IEA;
 import emo.utils.decomposition.alloc.Uniform;
 import emo.utils.decomposition.goal.IGoal;
 import emo.utils.decomposition.moead.MOEADGoalsManager;
@@ -25,7 +26,7 @@ import selection.Random;
  * @author MTomczyk
  */
 @SuppressWarnings("DuplicatedCode")
-public class MOEAD extends EA
+public class MOEAD extends EA implements IEA
 {
     /**
      * MOEA/D's goal manager.

@@ -1,6 +1,6 @@
 package indicator.emo.interactive;
 
-import ea.EA;
+import ea.IEA;
 import indicator.AbstractPerformanceIndicator;
 import indicator.IPerformanceIndicator;
 import system.dm.DecisionMakerSystem;
@@ -47,7 +47,7 @@ public class HistorySize extends AbstractPerformanceIndicator implements IPerfor
      * @return performance value (0 if the specimen container is null)
      */
     @Override
-    public double evaluate(EA ea)
+    public double evaluate(IEA ea)
     {
         DecisionMakerSystem DMS = Utils.getDMS(ea, _dmID);
         if (DMS == null) return 0.0d;

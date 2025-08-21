@@ -8,11 +8,11 @@ package phase;
 public abstract class AbstractFinalizeStepPhase extends AbstractPhase implements IPhase
 {
     /**
-     * Default constructor (sets the name to "Finalize Step").
+     * Default constructor (sets the name to "FINALIZE_STEP").
      */
     public AbstractFinalizeStepPhase()
     {
-        super("Finalize Step", PhasesIDs.PHASE_FINALIZE_STEP);
+        super("FINALIZE_STEP");
     }
 
     /**
@@ -22,6 +22,6 @@ public abstract class AbstractFinalizeStepPhase extends AbstractPhase implements
      */
     public AbstractFinalizeStepPhase(String name)
     {
-        super(name, PhasesIDs.PHASE_FINALIZE_STEP);
+        super(name);
     }
 }

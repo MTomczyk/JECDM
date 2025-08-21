@@ -1,6 +1,6 @@
 package indicator;
 
-import ea.EA;
+import ea.IEA;
 import exception.TrialException;
 import indicator.initializers.IIndicatorInitializer;
 
@@ -70,7 +70,7 @@ public class PerformanceIndicator extends AbstractIndicator implements IIndicato
      * @throws TrialException the method's signature allows for exception throw (trial level)
      */
     @Override
-    public double evaluate(EA ea) throws TrialException
+    public double evaluate(IEA ea) throws TrialException
     {
         try {
             return _indicator.evaluate(ea);

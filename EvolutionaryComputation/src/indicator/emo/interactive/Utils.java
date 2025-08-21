@@ -1,6 +1,6 @@
 package indicator.emo.interactive;
 
-import ea.EA;
+import ea.IEA;
 import system.dm.DecisionMakerSystem;
 import system.ds.DecisionSupportSystem;
 import system.model.ModelSystem;
@@ -19,7 +19,7 @@ class Utils
      * @param dmID the DM's identifier (0, 1,...) in {@link system.ds.DecisionSupportSystem}
      * @return decision maker system (null, if not possible to retrieve).
      */
-    public static DecisionMakerSystem getDMS(EA ea, int dmID)
+    public static DecisionMakerSystem getDMS(IEA ea, int dmID)
     {
         if (ea.getDecisionSupportSystem() == null) return null;
         DecisionSupportSystem DSS = ea.getDecisionSupportSystem();
@@ -36,7 +36,7 @@ class Utils
      * @param modelID the model system identifier (0, 1,...) in {@link DecisionMakerSystem}
      * @return decision maker system (null, if not possible to retrieve).
      */
-    public static ModelSystem<?> getMS(EA ea, int dmID, int modelID)
+    public static ModelSystem<?> getMS(IEA ea, int dmID, int modelID)
     {
         DecisionMakerSystem DMS = getDMS(ea, dmID);
         if (DMS == null) return null;

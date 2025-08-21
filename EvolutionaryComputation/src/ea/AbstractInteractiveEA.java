@@ -8,7 +8,7 @@ import system.ds.DecisionSupportSystem;
  *
  * @author MTomczyk
  */
-public abstract class AbstractInteractiveEA extends EA
+public abstract class AbstractInteractiveEA extends EA implements IEA
 {
     /**
      * Decision support system.

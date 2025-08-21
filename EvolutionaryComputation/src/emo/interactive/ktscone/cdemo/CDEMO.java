@@ -3,10 +3,10 @@ package emo.interactive.ktscone.cdemo;
 import criterion.Criteria;
 import ea.AbstractInteractiveEA;
 import ea.EA;
+import ea.IEA;
 import interaction.feedbackprovider.dm.IDMFeedbackProvider;
 import interaction.reference.constructor.IReferenceSetConstructor;
 import interaction.trigger.rules.IRule;
-import os.ObjectiveSpace;
 import os.ObjectiveSpaceManager;
 import phase.DoubleConstruct;
 import phase.DoubleEvaluate;
@@ -27,7 +27,7 @@ import system.ds.DecisionSupportSystem;
  * @author MTomczyk
  */
 @SuppressWarnings("DuplicatedCode")
-public class CDEMO extends AbstractInteractiveEA
+public class CDEMO extends AbstractInteractiveEA implements IEA
 {
     /**
      * Parameterized constructor (private).

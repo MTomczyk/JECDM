@@ -8,11 +8,11 @@ package phase;
 public abstract class AbstractInitEndsPhase extends AbstractPhase implements IPhase
 {
     /**
-     * Default constructor (sets the name to "Init Ends").
+     * Default constructor (sets the name to "INIT_ENDS").
      */
     public AbstractInitEndsPhase()
     {
-        super("Init Ends", PhasesIDs.PHASE_INIT_ENDS);
+        super("INIT_ENDS");
     }
 
     /**
@@ -22,6 +22,6 @@ public abstract class AbstractInitEndsPhase extends AbstractPhase implements IPh
      */
     public AbstractInitEndsPhase(String name)
     {
-        super(name, PhasesIDs.PHASE_INIT_ENDS);
+        super(name);
     }
 }

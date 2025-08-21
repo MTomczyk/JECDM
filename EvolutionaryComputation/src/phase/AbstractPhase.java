@@ -1,6 +1,6 @@
 package phase;
 
-import ea.EA;
+import ea.AbstractPhasesEA;
 import exception.PhaseException;
 
 /**
@@ -16,20 +16,13 @@ public abstract class AbstractPhase implements IPhase
     public final String _name;
 
     /**
-     * Unique ID number.
-     */
-    protected final int _id;
-
-    /**
      * Parameterized constructor.
      *
      * @param name name of the phase
-     * @param id   phase id
      */
-    public AbstractPhase(String name, int id)
+    public AbstractPhase(String name)
     {
         _name = name;
-        _id = id;
     }
 
     /**
@@ -40,7 +33,7 @@ public abstract class AbstractPhase implements IPhase
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public PhaseReport perform(EA ea) throws PhaseException
+    public PhaseReport perform(AbstractPhasesEA ea) throws PhaseException
     {
         PhaseReport report = new PhaseReport();
         preAction(ea, report);
@@ -56,7 +49,7 @@ public abstract class AbstractPhase implements IPhase
      * @param report report on the executed action (to be filled)
      * @throws PhaseException the exception can be thrown 
      */
-    public void preAction(EA ea, PhaseReport report) throws PhaseException
+    public void preAction(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         if ((ea.getComputeExecutionTimes() || ea.getComputePhasesExecutionTimes()))
             report._startTime = System.nanoTime();
@@ -71,7 +64,7 @@ public abstract class AbstractPhase implements IPhase
      * @throws PhaseException the exception can be thrown 
      */
     //@Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
 
     }
@@ -83,7 +76,7 @@ public abstract class AbstractPhase implements IPhase
      * @param report report on the executed action (to be filled)
      * @throws PhaseException the exception can be thrown 
      */
-    public void postAction(EA ea, PhaseReport report) throws PhaseException
+    public void postAction(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         if ((ea.getComputeExecutionTimes() || ea.getComputePhasesExecutionTimes()))
         {
@@ -112,16 +105,5 @@ public abstract class AbstractPhase implements IPhase
     public String getName()
     {
         return _name;
-    }
-
-    /**
-     * Returns phase unique identifier (see {@link PhasesIDs}).
-     *
-     * @return ID
-     */
-    @Override
-    public int getID()
-    {
-        return _id;
     }
 }

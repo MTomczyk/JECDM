@@ -12,9 +12,9 @@ import visualization.updaters.sources.AbstractEASource;
 import java.util.ArrayList;
 
 /**
- * Implementation of {@link IDataSource}. This implementation works similarly to {@link visualization.updaters.sources.EASource}.
- * However, instead of adding ea timestamp, the resulting vectors are extended by statistics on the alternative's relevance
- * given the internal preference models.
+ * Implementation of {@link IDataSource}. This implementation works similarly to
+ * {@link visualization.updaters.sources.EASource}. However, instead of adding ea timestamp, the resulting vectors are
+ * extended by statistics on the alternative's relevance given the internal preference models.
  *
  * @author MTomczyk
  */
@@ -39,22 +39,23 @@ public class PopulationRelevance<T extends IInternalModel> extends AbstractEASou
      */
     public PopulationRelevance(EA ea, IPreferenceModel<T> preferenceModel, IStatistic statistics)
     {
-        super(ea, new PopulationGetter());
+        super(ea, new PopulationGetter(), false);
         _preferenceModel = preferenceModel;
         _statistics = statistics;
     }
 
     /**
-     * Creates new data and returns it. The data is defined as a 2D matrix: [population members x solutions' evaluations].
-     * Additionally, if the _addTimestamp flag is true, the specimens' entries contributing to the final data (double [][])
-     * are extended will be extended by two additional doubles [generation number, steady-state repeat].
+     * Creates new data and returns it. The data is defined as a 2D matrix: [population members x solutions'
+     * evaluations]. Additionally, if the _addTimestamp flag is true, the specimens' entries contributing to the final
+     * data (double [][]) are extended will be extended by two additional doubles [generation number, steady-state
+     * repeat].
      *
      * @return new data
      */
     @Override
     public double[][] createData()
     {
-        ArrayList<Specimen> P = getDefaultSpecimens();
+        ArrayList<Specimen> P = getSpecimens();
         double[][] data = new double[P.size()][];
         for (int i = 0; i < P.size(); i++)
         {
@@ -63,7 +64,7 @@ public class PopulationRelevance<T extends IInternalModel> extends AbstractEASou
             System.arraycopy(P.get(i).getEvaluations(), 0, data[i], 0, e.length);
             // gather statistics
             ArrayList<T> internalModels = _preferenceModel.getInternalModels();
-            if ((internalModels != null) &&  (!internalModels.isEmpty()))
+            if ((internalModels != null) && (!internalModels.isEmpty()))
             {
                 double[] sample = new double[internalModels.size()];
                 for (int j = 0; j < internalModels.size(); j++)

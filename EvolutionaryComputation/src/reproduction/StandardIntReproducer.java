@@ -53,7 +53,7 @@ public class StandardIntReproducer extends AbstractStandardReproducer
      */
     public int[] reproduce(int[] p1, int[] p2, IRandom R)
     {
-        int[] o = _c.crossover(p1, p2, R);
+        int[] o = _c.crossover(p1, p2, R)._o;
         if (_m != null) _m.mutate(o, R);
         if (_vc != null) _vc.checkAndCorrect(o, _vLowerBound, _vUpperBound);
         return o;

@@ -122,7 +122,7 @@ public class Execute
             MOEADBundle algorithmBundle = new MOEADBundle(pAB);
 
             EA.Params pEA = new EA.Params("MOEA/D", criteria); // instantiate the EA
-            PhasesBundle.copyPhasesFromBundleToEA(algorithmBundle._phasesBundle, pEA); // copy and paste EA phases from the MOEA/D bundle to the general EA instance
+            pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(algorithmBundle._phasesBundle);
             pEA._id = 0; // set EA id to zero
             pEA._R = R; //set the random number generator
             pEA._populationSize = populationSize; // set the population size

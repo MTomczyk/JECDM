@@ -27,7 +27,7 @@ public class GenerationIndicator extends AbstractEASource implements IDataSource
      */
     public GenerationIndicator(EA ea, IPerformanceIndicator indicator)
     {
-        super(ea, null);
+        super(ea, null, false);
         _indicator = indicator;
     }
 

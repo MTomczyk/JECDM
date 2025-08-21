@@ -8,11 +8,11 @@ package phase;
 public abstract class AbstractConstructMatingPoolPhase extends AbstractPhase implements IPhase
 {
     /**
-     * Default constructor (sets the name to "Construct Mating Pool").
+     * Default constructor (sets the name to "CONSTRUCT_MATING_POOL").
      */
     public AbstractConstructMatingPoolPhase()
     {
-        super("Construct Mating Pool", PhasesIDs.PHASE_CONSTRUCT_MATING_POOL);
+        super("CONSTRUCT_MATING_POOL");
     }
 
     /**
@@ -22,6 +22,6 @@ public abstract class AbstractConstructMatingPoolPhase extends AbstractPhase imp
      */
     public AbstractConstructMatingPoolPhase(String name)
     {
-        super(name, PhasesIDs.PHASE_CONSTRUCT_MATING_POOL);
+        super(name);
     }
 }

@@ -24,12 +24,13 @@ public class DefaultConstructor extends AbstractDMCParamsConstructor implements 
     /**
      * Parameterized constructor.
      *
-     * @param normalizationBuilder object used to construct normalization functions; if null, the standard min max builder
-     *                             will be instantiated {@link StandardLinearBuilder}
+     * @param normalizationBuilder object used to construct normalization functions; if null, the standard min max
+     *                             builder will be instantiated {@link StandardLinearBuilder}
+     * @param alternativesProvider delivers the alternatives superset to instantiate the decision-making context
      */
-    public DefaultConstructor(INormalizationBuilder normalizationBuilder)
+    public DefaultConstructor(INormalizationBuilder normalizationBuilder, IAlternativesProvider alternativesProvider)
     {
-       super(normalizationBuilder);
+        super(normalizationBuilder, alternativesProvider);
     }
 
 }

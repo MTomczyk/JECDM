@@ -47,7 +47,7 @@ class SBXwithSP2DTest
         {
             double[] p1 = values[0].clone();
             double[] p2 = values[1].clone();
-            double[] o = sbx.crossover(p1, p2, R);
+            double[] o = sbx.crossover(p1, p2, R)._o;
             if ((o[0] < 0.0) || (o[0] > 1.0d) || (o[1] < 0.0d) || (o[1] > 1.0d)) wrong++;
             else if ((o[0] <= 0.5d) && (o[1] <= 0.5d)) dist[0]++;
             else if ((o[0] <= 0.5d) && (o[1] > 0.5d)) dist[1]++;
@@ -88,7 +88,7 @@ class SBXwithSP2DTest
         {
             double[] p1 = values[0].clone();
             double[] p2 = values[1].clone();
-            double[] o = sbx.crossover(p1, p2, R);
+            double[] o = sbx.crossover(p1, p2, R)._o;
             if ((o[0] < 0.0) || (o[0] > 1.0d) || (o[1] < 0.0d) || (o[1] > 1.0d)) wrong++;
             else if ((o[0] <= 0.5d) && (o[1] <= 0.5d)) dist[0]++;
             else if ((o[0] <= 0.5d) && (o[1] > 0.5d)) dist[1]++;

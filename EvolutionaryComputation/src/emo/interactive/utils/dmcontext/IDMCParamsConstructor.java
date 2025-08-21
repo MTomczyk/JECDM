@@ -1,7 +1,7 @@
 package emo.interactive.utils.dmcontext;
 
 import dmcontext.DMContext;
-import ea.EA;
+import ea.IEA;
 
 /**
  * Interface for classes responsible for constructing decision-making context objects (params; the main input for
@@ -17,5 +17,5 @@ public interface IDMCParamsConstructor
      * @param ea evolutionary algorithm linked with DSS
      * @return decision-making context params
      */
-    DMContext.Params getDMCParams(EA ea);
+    DMContext.Params getDMCParams(IEA ea);
 }

@@ -1,6 +1,6 @@
 package reproduction;
 
-import ea.EA;
+import ea.IEA;
 import population.Specimen;
 import random.IRandom;
 import reproduction.operators.crossover.ICrossover;
@@ -49,7 +49,7 @@ public abstract class AbstractReproduce implements IReproduce
      * @return offspring specimens
      */
     @Override
-    public ArrayList<Specimen> createOffspring(EA ea)
+    public ArrayList<Specimen> createOffspring(IEA ea)
     {
         ArrayList<Specimen> offspring = new ArrayList<>(ea.getOffspringSize());
         for (int i = 0; i < ea.getOffspringSize(); i++)

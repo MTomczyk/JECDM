@@ -2,6 +2,7 @@ package emo.aposteriori.nsgaii;
 
 import criterion.Criteria;
 import ea.EA;
+import ea.IEA;
 import os.ObjectiveSpaceManager;
 import phase.DoubleConstruct;
 import phase.DoubleEvaluate;
@@ -21,7 +22,7 @@ import selection.Random;
  * @author MTomczyk
  */
 @SuppressWarnings("DuplicatedCode")
-public class NSGAII extends EA
+public class NSGAII extends EA implements IEA
 {
     /**
      * Parameterized constructor (private).

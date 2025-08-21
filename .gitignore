@@ -1,7 +1,7 @@
 ### IntelliJ IDEA ###
 Private/
 out/
-src/
+/src/
 !**/src/main/**/out/
 !**/src/test/**/out/
 

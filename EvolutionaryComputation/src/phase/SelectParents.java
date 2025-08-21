@@ -1,5 +1,6 @@
 package phase;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
 import exception.PhaseException;
 import population.SpecimensContainer;
@@ -26,13 +27,13 @@ public class SelectParents extends AbstractSelectParentsPhase implements IPhase
     protected final ISelect _select;
 
     /**
-     * Parameterized constructor.
+     * Parameterized constructor (sets the name to "SELECT_PARENTS").
      *
      * @param select object responsible for selecting parents
      */
     public SelectParents(ISelect select)
     {
-        this("Select", select);
+        this("SELECT_PARENTS", select);
     }
 
     /**
@@ -59,7 +60,7 @@ public class SelectParents extends AbstractSelectParentsPhase implements IPhase
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         ea.getSpecimensContainer().setParents(_select.selectParents(ea));
     }

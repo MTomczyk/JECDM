@@ -70,7 +70,7 @@ class VisualizationTest_AvgAvgGeneration
             pAB._select = new Tournament(pT);
             NSGAIIBundle algorithmBundle = new NSGAIIBundle(pAB);
             EA.Params pEA = new EA.Params("NSGA-II", criteria);
-            PhasesBundle.copyPhasesFromBundleToEA(algorithmBundle._phasesBundle, pEA);
+            pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(algorithmBundle._phasesBundle);
             pEA._id = 0;
             pEA._R = R;
             pEA._populationSize = populationSize;

@@ -147,11 +147,11 @@ public abstract class AbstractCrossover extends AbstractOperator implements ICro
      *
      * @param p1 decision vector of the first parent
      * @param p2 decision vector of the second parent
-     * @param R random number generator
+     * @param R  random number generator
      * @return new decision vector
      */
     @Override
-    public int[] crossover(int[] p1, int[] p2, IRandom R)
+    public IntResult crossover(int[] p1, int[] p2, IRandom R)
     {
         return null;
     }
@@ -161,74 +161,99 @@ public abstract class AbstractCrossover extends AbstractOperator implements ICro
      *
      * @param p1 decision vector of the first parent
      * @param p2 decision vector of the second parent
-     * @param R random number generator
+     * @param R  random number generator
      * @return new decision vector
      */
     @Override
-    public double[] crossover(double[] p1, double[] p2, IRandom R)
+    public DoubleResult crossover(double[] p1, double[] p2, IRandom R)
     {
         return null;
     }
-
 
     /**
      * Default implementation of the method.
      *
      * @param p1 decision vector of the first parent
      * @param p2 decision vector of the second parent
-     * @param R random number generator
+     * @param R  random number generator
      * @return new decision vector
      */
     @Override
-    public boolean[] crossover(boolean[] p1, boolean[] p2, IRandom R)
+    public BoolResult crossover(boolean[] p1, boolean[] p2, IRandom R)
     {
         return null;
     }
 
+    /**
+     * Auxiliary method for checking if two parents should be swapped. The method first checks the internal
+     * parameterization (e.g., _swapParentsRandomly flag). Then it returns a random boolean.
+     *
+     * @param R random number generator
+     * @return false, if two parents should be swapped; true otherwise
+     */
+    protected boolean shouldSwap(IRandom R)
+    {
+        if (!_swapParentsRandomly) return false;
+        return R.nextBoolean();
+    }
 
     /**
-     * Supportive method for swapping parents' decision vectors.
+     * Returns randomly either a [0, 1] or [1, 0] vector (the decision is based on the result of
+     * {@link AbstractCrossover#shouldSwap(IRandom)}). The arrays' elements are indices supposed to be pointing to
+     * parents' decision vectors.
+     *
+     * @param R Random number generator.
+     * @return [0, 1] or [1, 0] vector
+     */
+    protected int[] getSwappedIndices(IRandom R)
+    {
+        if (shouldSwap(R)) return new int[]{1, 0};
+        else return new int[]{0, 1};
+    }
+
+    /**
+     * Supportive method for swapping parents' decision vectors (randomly; the decision is based on the result of
+     * {@link AbstractCrossover#shouldSwap(IRandom)})).
      *
      * @param p1 first parent
      * @param p2 second parent
-     * @param R random number generator
+     * @param R  random number generator
      * @return array of decision vectors (random order)
      */
     protected int[][] doSwap(int[] p1, int[] p2, IRandom R)
     {
-        if (!_swapParentsRandomly) return new int[][]{p1, p2};
-        if (R.nextBoolean()) return new int[][]{p1, p2};
-        else return new int[][]{p2, p1};
+        if (shouldSwap(R)) return new int[][]{p2, p1};
+        else return new int[][]{p1, p2};
     }
 
     /**
-     * Supportive method for swapping parents' decision vectors.
+     * Supportive method for swapping parents' decision vectors (randomly; the decision is based on the result of
+     * {@link AbstractCrossover#shouldSwap(IRandom)})).
      *
      * @param p1 first parent
      * @param p2 second parent
-     * @param R random number generator
+     * @param R  random number generator
      * @return array of decision vectors (random order)
      */
     protected double[][] doSwap(double[] p1, double[] p2, IRandom R)
     {
-        if (!_swapParentsRandomly) return new double[][]{p1, p2};
-        if (R.nextBoolean()) return new double[][]{p1, p2};
-        else return new double[][]{p2, p1};
+        if (shouldSwap(R)) return new double[][]{p2, p1};
+        else return new double[][]{p1, p2};
     }
 
     /**
-     * Supportive method for swapping parents' decision vectors.
+     * Supportive method for swapping parents' decision vectors (randomly; the decision is based on the result of
+     * {@link AbstractCrossover#shouldSwap(IRandom)})).
      *
      * @param p1 first parent
      * @param p2 second parent
-     * @param R random number generator
+     * @param R  random number generator
      * @return array of decision vectors (random order)
      */
     protected boolean[][] doSwap(boolean[] p1, boolean[] p2, IRandom R)
     {
-        if (!_swapParentsRandomly) return new boolean[][]{p1, p2};
-        if (R.nextBoolean()) return new boolean[][]{p1, p2};
-        else return new boolean[][]{p2, p1};
+        if (shouldSwap(R)) return new boolean[][]{p2, p1};
+        else return new boolean[][]{p1, p2};
     }
 
 }

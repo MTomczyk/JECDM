@@ -1,6 +1,8 @@
 package phase;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
+import ea.IEA;
 import exception.PhaseException;
 
 /**
@@ -17,18 +19,12 @@ public interface IPhase
      * @return report on the executed action
      * @throws PhaseException the exception can be thrown 
      */
-    PhaseReport perform(EA ea) throws PhaseException;
+    PhaseReport perform(AbstractPhasesEA ea) throws PhaseException;
 
     /**
-     * Returns the phase name
+     * Returns the phase unique name
      *
      * @return name
      */
     String getName();
-
-    /**
-     * Returns phase unique identifier (see {@link PhasesIDs}).
-     * @return ID
-     */
-    int getID();
 }

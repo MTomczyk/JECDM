@@ -1,5 +1,6 @@
 package emo.aposteriori.moead;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
 import emo.utils.decomposition.goal.GoalID;
 import emo.utils.decomposition.moead.MOEADGoalsManager;
@@ -44,7 +45,7 @@ public class MOEADFinalizeStep extends FinalizeStep implements IPhase
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         super.action(ea, report);
         GoalID GL = _goalManager.getCurrentGoalToBeUpdated(ea.getCurrentSteadyStateRepeat());

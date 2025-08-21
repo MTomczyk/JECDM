@@ -37,7 +37,7 @@ public class StandardBoolReproducer extends AbstractStandardReproducer
      */
     public boolean[] reproduce(boolean[] p1, boolean[] p2, IRandom R)
     {
-        boolean[] o = _c.crossover(p1, p2, R);
+        boolean [] o = _c.crossover(p1, p2, R)._o;
         if (_m != null) _m.mutate(o, R);
         return o;
     }

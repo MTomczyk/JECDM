@@ -22,8 +22,6 @@ import java.util.Iterator;
 
 public class ImageSaver
 {
-
-
     /**
      * Method for saving the image.
      *

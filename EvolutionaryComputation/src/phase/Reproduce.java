@@ -1,5 +1,6 @@
 package phase;
 
+import ea.AbstractPhasesEA;
 import ea.EA;
 import exception.PhaseException;
 import reproduction.IReproduce;
@@ -22,13 +23,13 @@ public class Reproduce extends AbstractReproducePhase implements IPhase
     protected final IReproduce _reproduce;
 
     /**
-     * Parameterized constructor.
+     * Parameterized constructor (sets the name to "REPRODUCE").
      *
      * @param reproduce object responsible for constructing offspring
      */
     public Reproduce(IReproduce reproduce)
     {
-        this("Reproduce", reproduce);
+        this("REPRODUCE", reproduce);
     }
 
     /**
@@ -54,7 +55,7 @@ public class Reproduce extends AbstractReproducePhase implements IPhase
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         ea.getSpecimensContainer().setOffspring(_reproduce.createOffspring(ea));
         ea.getSpecimensContainer().setOffspringRequiresEvaluation(true);

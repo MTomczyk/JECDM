@@ -64,7 +64,7 @@ public class Reproduce extends AbstractReproduce implements IReproduce
             p2[i] /= (2.0d * (i + 1));
         }
 
-        double[] o = _crossover.crossover(p1, p2, R);
+        double[] o = _crossover.crossover(p1, p2, R)._o;
         _mutate.mutate(o, R);
 
         // rescale then

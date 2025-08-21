@@ -1,6 +1,6 @@
 package emo.aposteriori.moead;
 
-import ea.EA;
+import ea.AbstractPhasesEA;
 import emo.utils.decomposition.moead.MOEADGoalsManager;
 import exception.PhaseException;
 import phase.AbstractPrepareStepPhase;
@@ -41,7 +41,7 @@ public class MOEADPrepareStep extends AbstractPrepareStepPhase implements IPhase
      * @throws PhaseException the exception can be thrown 
      */
     @Override
-    public void action(EA ea, PhaseReport report) throws PhaseException
+    public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         if (ea.getCurrentSteadyStateRepeat() == 0) // only in the first steady-state repeat
             _goalManager.determineUpdatesSequence(ea.getR());

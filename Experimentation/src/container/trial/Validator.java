@@ -1,6 +1,6 @@
 package container.trial;
 
-import ea.EA;
+import ea.IEA;
 import exception.TrialException;
 import io.trial.ITrialSaver;
 import runner.IRunner;
@@ -57,7 +57,7 @@ public class Validator
      * @param ea reference to the evolutionary algorithm
      * @throws TrialException the exception is thrown when trial savers are not provided (or are not unique)
      */
-    protected void validateEA(EA ea) throws TrialException
+    protected void validateEA(IEA ea) throws TrialException
     {
         if (ea == null)
             throw new TrialException("The Evolutionary Algorithm is not instantiated", null, this.getClass(), _scenario, _trialID);

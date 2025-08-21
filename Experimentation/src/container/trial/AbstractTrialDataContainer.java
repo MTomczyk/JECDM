@@ -6,7 +6,7 @@ import container.scenario.AbstractScenarioDataContainer;
 import container.trial.initialziers.IEAInitializer;
 import container.trial.initialziers.IProblemBundleInitializer;
 import container.trial.initialziers.IRunnerInitializer;
-import ea.EA;
+import ea.IEA;
 import exception.TrialException;
 import indicator.IIndicator;
 import io.trial.BinarySaver;
@@ -103,7 +103,7 @@ public abstract class AbstractTrialDataContainer extends AbstractDataContainer
     /**
      * Instance of the evolutionary algorithm.
      */
-    protected EA _EA;
+    protected IEA _EA;
 
     /**
      * Runner object responsible for performing the evolutionary process.
@@ -357,7 +357,7 @@ public abstract class AbstractTrialDataContainer extends AbstractDataContainer
      *
      * @return the instance of the evolutionary algorithm
      */
-    public EA getEA()
+    public IEA getEA()
     {
         return _EA;
     }

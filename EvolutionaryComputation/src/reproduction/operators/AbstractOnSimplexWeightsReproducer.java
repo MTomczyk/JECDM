@@ -1,7 +1,7 @@
 package reproduction.operators;
 
-import model.internals.value.scalarizing.LNorm;
 import random.IRandom;
+import reproduction.operators.crossover.ICrossover;
 import reproduction.operators.crossover.OnSimplexCombination;
 import reproduction.operators.mutation.OnSimplexSimplexMutation;
 
@@ -42,11 +42,10 @@ public abstract class AbstractOnSimplexWeightsReproducer<T> implements IWeightsR
      * @param R  random number generator
      * @return offspring weight vector
      */
-    protected double[] reproduce(double[] w1, double[] w2, IRandom R)
+    protected ICrossover.DoubleResult reproduce(double[] w1, double[] w2, IRandom R)
     {
-        double[] o = _crossover.crossover(w1, w2, R);
-        _mutation.mutate(o, R);
-        return o;
+        ICrossover.DoubleResult result = _crossover.crossover(w1, w2, R);
+        _mutation.mutate(result._o, R);
+        return result;
     }
-
 }

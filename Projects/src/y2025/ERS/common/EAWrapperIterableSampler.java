@@ -1,5 +1,8 @@
 package y2025.ERS.common;
 
+import criterion.Criteria;
+import ea.AbstractEA;
+import ea.IEA;
 import model.constructor.value.rs.ers.IterableERS;
 import model.constructor.value.rs.ers.SortedModel;
 import dmcontext.DMContext;
@@ -24,8 +27,29 @@ import java.util.LinkedList;
  *
  * @author MTomczyk
  */
-public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> extends EA
+public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> extends AbstractEA implements IEA
 {
+    /**
+     * Params container.
+     */
+    public static class Params extends AbstractEA.Params
+    {
+        /**
+         * Parameterized constructor.
+         *
+         * @param name                  name of the EA
+         * @param id,                   unique ID of the EA
+         * @param R                     random number generator.
+         * @param computeExecutionTimes flag indicating whether the total execution time (as well as other
+         *                              implementation-dependent times) are measured or not (in ms)
+         * @param criteria              considered criteria
+         */
+        protected Params(String name, int id, IRandom R, boolean computeExecutionTimes, Criteria criteria)
+        {
+            super(name, id, R, computeExecutionTimes, criteria);
+        }
+    }
+
     /**
      * Sampler
      */
@@ -71,8 +95,8 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
                                     IRandom R,
                                     int iterationsPerGeneration)
     {
-        super(R);
-        _name = name;
+        super(new Params(name, 0, R, false, null));
+
         _sampler = sampler;
         if (_sampler instanceof IterableFRS<T>) _itFRS = (IterableFRS<T>) _sampler;
         else _itFRS = null;
@@ -84,16 +108,11 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
         _feedback = feedback;
         // set default values
         _criteria = null;
-        _id = 0;
         _populationSize = 1;
         _offspringSize = 1;
         _osManager = null;
-        _computeExecutionTimes = false;
-        _computePhasesExecutionTimes = false;
         _executionTime = 0.0d;
-        _phasesExecutionTimes = null;
         _currentTimestamp = new EATimestamp(0, 0);
-        _phases = null;
     }
 
     /**
@@ -119,7 +138,7 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
     /**
      * Overwrites the init method.
      *
-     * @throws EAException the exception can be thrown 
+     * @throws EAException the exception can be thrown
      */
     @Override
     public void init() throws EAException
@@ -153,7 +172,7 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
      * Overwrites the step method.
      *
      * @param timestamp generation; steady-state repeat
-     * @throws EAException the exception can be thrown 
+     * @throws EAException the exception can be thrown
      */
     @Override
     public void step(EATimestamp timestamp) throws EAException
@@ -166,7 +185,7 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
      *
      * @param timestamp generation; steady-state repeat
      * @param repeats   no. repeats
-     * @throws EAException the exception can be thrown 
+     * @throws EAException the exception can be thrown
      */
     private void step(EATimestamp timestamp, int repeats) throws EAException
     {

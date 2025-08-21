@@ -8,11 +8,11 @@ package phase;
 public abstract class AbstractAssignSpecimenIDs extends AbstractPhase implements IPhase
 {
     /**
-     * Default constructor (sets the name to "Assign Specimen IDs").
+     * Default constructor (sets the name to "ASSIGN_SPECIMENS_IDS").
      */
     public AbstractAssignSpecimenIDs()
     {
-        super("Assign Specimen IDs", PhasesIDs.PHASE_ASSIGN_SPECIMENS_IDS);
+        super("ASSIGN_SPECIMENS_IDS");
     }
 
     /**
@@ -22,6 +22,6 @@ public abstract class AbstractAssignSpecimenIDs extends AbstractPhase implements
      */
     public AbstractAssignSpecimenIDs(String name)
     {
-        super(name, PhasesIDs.PHASE_ASSIGN_SPECIMENS_IDS);
+        super(name);
     }
 }

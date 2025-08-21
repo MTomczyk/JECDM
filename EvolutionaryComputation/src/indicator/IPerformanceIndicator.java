@@ -1,6 +1,6 @@
 package indicator;
 
-import ea.EA;
+import ea.IEA;
 
 /**
  * Interfaces for classes responsible for evaluating the performance of EA's.
@@ -15,7 +15,7 @@ public interface IPerformanceIndicator
      * @param ea evolutionary algorithm
      * @return performance value
      */
-    double evaluate(EA ea);
+    double evaluate(IEA ea);
 
     /**
      * Method for identifying preference direction.

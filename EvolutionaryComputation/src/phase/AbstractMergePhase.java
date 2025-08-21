@@ -8,11 +8,11 @@ package phase;
 public abstract class AbstractMergePhase extends AbstractPhase implements IPhase
 {
     /**
-     * Default constructor (sets the name to "Merge").
+     * Default constructor (sets the name to "MERGE").
      */
     public AbstractMergePhase()
     {
-        super("Merge", PhasesIDs.PHASE_MERGE);
+        super("MERGE");
     }
 
     /**
@@ -22,6 +22,6 @@ public abstract class AbstractMergePhase extends AbstractPhase implements IPhase
      */
     public AbstractMergePhase(String name)
     {
-        super(name, PhasesIDs.PHASE_MERGE);
+        super(name);
     }
 }

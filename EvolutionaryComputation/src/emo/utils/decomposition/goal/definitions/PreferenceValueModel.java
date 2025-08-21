@@ -72,4 +72,14 @@ public class PreferenceValueModel extends AbstractGoal implements IGoal
     {
         return _model.isLessPreferred();
     }
+
+    /**
+     * Getter for the wrapped model.
+     *
+     * @return wrapped model
+     */
+    public AbstractValueInternalModel getModel()
+    {
+        return _model;
+    }
 }

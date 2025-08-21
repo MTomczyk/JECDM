@@ -32,7 +32,7 @@ class TournamentTest
     public void test1()
     {
         IRandom R = new MersenneTwister64(System.currentTimeMillis());
-        EA.Params pEA = new EA.Params();
+        EA.Params pEA = new EA.Params("", null);
         pEA._populationSize = 5;
         pEA._offspringSize = 5;
         pEA._R = R;

@@ -65,14 +65,14 @@ public class SinglePointCrossover extends AbstractCrossover implements ICrossove
      */
     @SuppressWarnings("DuplicatedCode")
     @Override
-    public int[] crossover(int[] p1, int[] p2, IRandom R)
+    public IntResult crossover(int[] p1, int[] p2, IRandom R)
     {
         int[][] p = doSwap(p1, p2, R);
         int[] o = new int[p[0].length];
         int c = R.nextInt(p[0].length + 1);
         if (c >= 0) System.arraycopy(p[0], 0, o, 0, c);
         if (c < p[1].length) if (p[1].length - c >= 0) System.arraycopy(p[1], c, o, c, p[1].length - c);
-        return o;
+        return new IntResult(-1, o); // no primary parent
     }
 
     /**
@@ -85,14 +85,14 @@ public class SinglePointCrossover extends AbstractCrossover implements ICrossove
      */
     @SuppressWarnings("DuplicatedCode")
     @Override
-    public double[] crossover(double[] p1, double[] p2, IRandom R)
+    public DoubleResult crossover(double[] p1, double[] p2, IRandom R)
     {
         double[][] p = doSwap(p1, p2, R);
         double[] o = new double[p[0].length];
         int c = R.nextInt(p[0].length + 1);
         if (c >= 0) System.arraycopy(p[0], 0, o, 0, c);
         if (c < p[1].length) if (p[1].length - c >= 0) System.arraycopy(p[1], c, o, c, p[1].length - c);
-        return o;
+        return new DoubleResult(-1, o); // no primary parent
     }
 
     /**
@@ -105,14 +105,14 @@ public class SinglePointCrossover extends AbstractCrossover implements ICrossove
      */
     @SuppressWarnings("DuplicatedCode")
     @Override
-    public boolean[] crossover(boolean[] p1, boolean[] p2, IRandom R)
+    public BoolResult crossover(boolean[] p1, boolean[] p2, IRandom R)
     {
         boolean[][] p = doSwap(p1, p2, R);
         boolean[] o = new boolean[p[0].length];
         int c = R.nextInt(p[0].length + 1);
         System.arraycopy(p[0], 0, o, 0, c);
         System.arraycopy(p[1], c, o, c, p[0].length - c);
-        return o;
+        return new BoolResult(-1, o); // no primary parent
     }
 
 }

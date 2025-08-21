@@ -2,9 +2,8 @@ package ea.dummy.populations;
 
 import alternative.Alternative;
 import ea.EA;
-import ea.EATimestamp;
-import phase.IPhase;
-import phase.PhasesIDs;
+import ea.IEA;
+import phase.PhasesBundle;
 import population.Specimen;
 import population.SpecimenID;
 
@@ -17,35 +16,84 @@ import java.util.ArrayList;
  * @author MTomczyk
  */
 
-
-public class EADummyPopulations extends EA
+public class EADummyPopulations extends EA implements IEA
 {
+    /**
+     * Dummy extension of the params container
+     */
+    private static class Params extends EA.Params
+    {
+        /**
+         * Parameterized constructor.
+         *
+         * @param populations population matrix
+         */
+        public Params(ArrayList<ArrayList<Specimen>> populations)
+        {
+            super("Dummy EA with fixed populations", -1, null, false, null);
+            _populationSize = -1;
+            _offspringSize = -1;
+            _osManager = null;
+            _computeExecutionTimes = false;
+            _computePhasesExecutionTimes = false;
+
+            PhasesBundle phasesBundle = PhasesBundle.getNulledInstance();
+            phasesBundle._initStarts = null;
+            phasesBundle._constructInitialPopulation = new SetInitialPopulation(populations.get(0));
+            phasesBundle._assignSpecimenIDs = null;
+            phasesBundle._evaluate = null;
+            phasesBundle._sort = null;
+            phasesBundle._prepareStep = null;
+            phasesBundle._constructMatingPool = null;
+            phasesBundle._selectParents = null;
+            phasesBundle._reproduce = null;
+            phasesBundle._merge = null;
+            phasesBundle._remove = null;
+            phasesBundle._finalizeStep = new DummyFinalizeStepSetPopulations(populations);
+            phasesBundle._updateOS = null;
+            _phases = PhasesBundle.getPhasesAssignmentsFromBundle(phasesBundle);
+        }
+    }
+
     /**
      * Fixed populations (generation -> population member).
      */
     protected ArrayList<ArrayList<Specimen>> _populations;
 
     /**
+     * Parameterized constructor (private).
+     *
+     * @param populations populations matrix
+     */
+    private EADummyPopulations(ArrayList<ArrayList<Specimen>> populations)
+    {
+        super(new Params(populations));
+        _populations = populations;
+    }
+
+    /**
      * Parameterized constructor.
      *
      * @param criteria no criteria considered
-     * @param evals    evaluation vectors (1 dimension -> generations; 2 dimension -> population member; 3 dimension -> specimen's evaluations).
+     * @param evals    evaluation vectors (1 dimension -> generations; 2 dimension -> population member; 3 dimension ->
+     *                 specimen's evaluations).
      */
     public EADummyPopulations(int criteria, double[][][] evals)
     {
-        _name = "Dummy EA with fixed populations";
-        _criteria = null;
-        _id = -1;
-        _populationSize = -1;
-        _offspringSize = -1;
-        _osManager = null;
-        _computeExecutionTimes = false;
-        _computePhasesExecutionTimes = false;
-        _executionTime = 0.0d;
-        _phasesExecutionTimes = null;
-        _currentTimestamp = new EATimestamp(0, 0);
+        this(getPopulations(criteria, evals));
+    }
 
-        _populations = new ArrayList<>(evals.length);
+    /**
+     * Auxiliary method for constructing the population matrix.
+     *
+     * @param criteria no criteria considered
+     * @param evals    evaluation vectors (1 dimension -> generations; 2 dimension -> population member; 3 dimension ->
+     *                 specimen's evaluations).
+     * @return population matrix
+     */
+    private static ArrayList<ArrayList<Specimen>> getPopulations(int criteria, double[][][] evals)
+    {
+        ArrayList<ArrayList<Specimen>> populations = new ArrayList<>(evals.length);
         for (int g = 0; g < evals.length; g++)
         {
             ArrayList<Specimen> S = new ArrayList<>(evals[g].length);
@@ -56,23 +104,9 @@ public class EADummyPopulations extends EA
                 s.setAlternative(A);
                 S.add(s);
             }
-            _populations.add(S);
+            populations.add(S);
         }
-
-        _phases = new IPhase[PhasesIDs._phaseNames.length];
-        _phases[PhasesIDs.PHASE_INIT_STARTS] = null;
-        _phases[PhasesIDs.PHASE_CONSTRUCT_INITIAL_POPULATION] = new SetInitialPopulation(_populations.get(0));
-        _phases[PhasesIDs.PHASE_ASSIGN_SPECIMENS_IDS] = null;
-        _phases[PhasesIDs.PHASE_EVALUATE] = null;
-        _phases[PhasesIDs.PHASE_SORT] = null;
-        _phases[PhasesIDs.PHASE_PREPARE_STEP] = null;
-        _phases[PhasesIDs.PHASE_CONSTRUCT_MATING_POOL] = null;
-        _phases[PhasesIDs.PHASE_SELECT_PARENTS] = null;
-        _phases[PhasesIDs.PHASE_REPRODUCE] = null;
-        _phases[PhasesIDs.PHASE_MERGE] = null;
-        _phases[PhasesIDs.PHASE_REMOVE] = null;
-        _phases[PhasesIDs.PHASE_FINALIZE_STEP] = new DummyFinalizeStepSetPopulations(_populations);
-        _phases[PhasesIDs.PHASE_UPDATE_OS] = null;
+        return populations;
     }
 
 

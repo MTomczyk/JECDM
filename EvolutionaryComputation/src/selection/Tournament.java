@@ -1,6 +1,7 @@
 package selection;
 
 import ea.EA;
+import ea.IEA;
 import population.Parents;
 import population.Specimen;
 import population.SpecimensContainer;
@@ -151,14 +152,14 @@ public class Tournament extends AbstractSelect implements ISelect
     /**
      * Performs tournament selection.
      * The default (implicit) assumptions are as follows:
-     * - The number of parents to construct ({@link Parents}) equals the offspring size ({@link EA#getOffspringSize()}).
+     * - The number of parents to construct ({@link Parents}) equals the offspring size ({@link IEA#getOffspringSize()}).
      * - The parents are selected from the current mating pool in {@link SpecimensContainer#getMatingPool()}.
      *
      * @param ea evolutionary algorithm
      * @return selected parents
      */
     @Override
-    public ArrayList<Parents> selectParents(EA ea)
+    public ArrayList<Parents> selectParents(IEA ea)
     {
         ArrayList<Parents> P = new ArrayList<>(ea.getOffspringSize());
         ArrayList<Specimen> matingPool = ea.getSpecimensContainer().getMatingPool();

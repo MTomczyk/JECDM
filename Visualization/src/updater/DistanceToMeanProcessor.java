@@ -1,14 +1,11 @@
-package t1_10.t1_visualization_module.t8_data_updater.shared;
-
-import updater.AbstractDataProcessor;
-import updater.IDataProcessor;
+package updater;
 
 /**
- * Simple data processor that appends to input data points their distances to expected mean.
+ * Simple data processor that appends to input data points their distances to expected mean-vector.
  *
  * @author MTomczyk
  */
-public class DistanceProcessor extends AbstractDataProcessor implements IDataProcessor
+public class DistanceToMeanProcessor extends AbstractDataProcessor implements IDataProcessor
 {
     /**
      * Space dimensionality.
@@ -26,7 +23,7 @@ public class DistanceProcessor extends AbstractDataProcessor implements IDataPro
      * @param m     space dimensionality
      * @param means means (i-th element is linked to i-th dimension)
      */
-    public DistanceProcessor(int m, double[] means)
+    public DistanceToMeanProcessor(int m, double[] means)
     {
         super(new Params(true)); // true = use the cumulative mode
         _m = m;

@@ -20,6 +20,16 @@ public class EATimestamp
     public final int _steadyStateRepeat;
 
     /**
+     * Parameterized constructor (sets the steady-state repeat number to 0).
+     *
+     * @param generation        generation number
+     */
+    public EATimestamp(int generation)
+    {
+        this(generation, 0);
+    }
+
+    /**
      * Parameterized constructor.
      *
      * @param generation        generation number

@@ -9,12 +9,14 @@ public interface IAlternativeWrapper
 {
     /**
      * Getter for the alternative.
+     *
      * @return alternative
      */
     Alternative getAlternative();
 
     /**
      * Returns alternative's name.
+     *
      * @return name
      */
     String getName();

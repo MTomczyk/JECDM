@@ -1,4 +1,4 @@
-package t1_10.t1_visualization_module.t8_data_updater.t1;
+package y2025.SoftwareX_JECDM;
 
 import color.gradient.Gradient;
 import component.drawingarea.DrawingArea3D;
@@ -9,31 +9,35 @@ import dataset.painter.style.MarkerStyle;
 import dataset.painter.style.enums.Marker;
 import drmanager.DisplayRangesManager;
 import frame.Frame;
+import io.FileUtils;
+import io.image.ImageSaver;
+import io.image.ImageUtils;
 import plot.AbstractPlot;
 import plot.Plot3D;
+import plot.Plot3DModel;
 import plot.parallelcoordinate.ParallelCoordinatePlot2D;
 import plotswrapper.TwoPlotsHorizontally;
-import popupmenu.RightClickPopupMenu;
-import popupmenu.item.SaveAsImage;
 import random.IRandom;
 import random.MersenneTwister64;
 import scheme.WhiteScheme;
 import scheme.enums.SizeFields;
 import space.Range;
-import updater.DistanceToMeanProcessor;
-import updater.GaussianGenerator;
 import updater.*;
+import utils.Screenshot;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.text.DecimalFormat;
 
 /**
- * This tutorial shows how to construct and use data updater (i.e., {@link DataUpdater}).
- * Note that this is a revised version of {@link Tutorial1}.
+ * This script generates Figure 2 for the paper.
  *
  * @author MTomczyk
  */
 @SuppressWarnings("DuplicatedCode")
-public class Tutorial1Alternative
+public class Figure2
 {
     /**
      * Runs the application.
@@ -54,13 +58,14 @@ public class Tutorial1Alternative
             pP._scheme = WhiteScheme.getForPlot3D();
             // Adjust scheme
             pP._scheme.setAllFontsTo("Times New Roman");
-            pP._scheme.rescale(1.5f, SizeFields.AXIS3D_X_TICK_LABEL_FONT_SIZE_SCALE);
-            pP._scheme.rescale(1.5f, SizeFields.AXIS3D_Y_TICK_LABEL_FONT_SIZE_SCALE);
-            pP._scheme.rescale(1.5f, SizeFields.AXIS3D_Z_TICK_LABEL_FONT_SIZE_SCALE);
-            pP._scheme.rescale(1.5f, SizeFields.AXIS3D_X_TITLE_FONT_SIZE_SCALE);
-            pP._scheme.rescale(1.5f, SizeFields.AXIS3D_Y_TITLE_FONT_SIZE_SCALE);
-            pP._scheme.rescale(1.5f, SizeFields.AXIS3D_Z_TITLE_FONT_SIZE_SCALE);
-            pP._scheme.rescale(1.5f, SizeFields.LEGEND_ENTRY_FONT_SIZE_RELATIVE_MULTIPLIER);
+            pP._scheme.rescale(2.0f, SizeFields.AXIS3D_X_TICK_LABEL_FONT_SIZE_SCALE);
+            pP._scheme.rescale(2.0f, SizeFields.AXIS3D_Y_TICK_LABEL_FONT_SIZE_SCALE);
+            pP._scheme.rescale(2.0f, SizeFields.AXIS3D_Z_TICK_LABEL_FONT_SIZE_SCALE);
+            pP._scheme.rescale(2.0f, SizeFields.AXIS3D_X_TITLE_FONT_SIZE_SCALE);
+            pP._scheme.rescale(2.0f, SizeFields.AXIS3D_Y_TITLE_FONT_SIZE_SCALE);
+            pP._scheme.rescale(1.2f, SizeFields.AXIS3D_Y_TITLE_OFFSET);
+            pP._scheme.rescale(2.0f, SizeFields.AXIS3D_Z_TITLE_FONT_SIZE_SCALE);
+            pP._scheme.rescale(1.75f, SizeFields.LEGEND_ENTRY_FONT_SIZE_RELATIVE_MULTIPLIER);
             pP._scheme._sizes.put(SizeFields.MARGIN_TOP_RELATIVE_SIZE_MULTIPLIER, 0.075f);
 
             pP._pDisplayRangesManager = new DisplayRangesManager.Params();
@@ -85,9 +90,12 @@ public class Tutorial1Alternative
             pP._scheme = WhiteScheme.getForPCP2D();
             // Adjust scheme
             pP._scheme.setAllFontsTo("Times New Roman");
-            pP._scheme.rescale(1.25f, SizeFields.AXIS_X_TICK_LABEL_FONT_SIZE_RELATIVE_MULTIPLIER);
-            pP._scheme.rescale(1.25f, SizeFields.AXIS_Y_TICK_LABEL_FONT_SIZE_RELATIVE_MULTIPLIER);
-            pP._scheme.rescale(1.25f, SizeFields.LEGEND_ENTRY_FONT_SIZE_RELATIVE_MULTIPLIER);
+            pP._scheme.rescale(2.0f, SizeFields.AXIS_X_TICK_LABEL_FONT_SIZE_RELATIVE_MULTIPLIER);
+            pP._scheme.rescale(1.75f, SizeFields.AXIS_X_TITLE_FONT_SIZE_RELATIVE_MULTIPLIER);
+            pP._scheme.rescale(2.0f, SizeFields.MARGIN_BOTTOM_RELATIVE_SIZE_MULTIPLIER);
+            pP._scheme.rescale(2.0f, SizeFields.AXIS_Y_TICK_LABEL_FONT_SIZE_RELATIVE_MULTIPLIER);
+            pP._scheme.rescale(1.75f, SizeFields.LEGEND_ENTRY_FONT_SIZE_RELATIVE_MULTIPLIER);
+            pP._scheme.rescale(2.0f, SizeFields.AXIS_X_TITLE_OFFSET_RELATIVE_MULTIPLIER);
 
             pP._pDisplayRangesManager = new DisplayRangesManager.Params();
             pP._pDisplayRangesManager._DR = new DisplayRangesManager.DisplayRange[5];
@@ -105,13 +113,6 @@ public class Tutorial1Alternative
 
         TwoPlotsHorizontally wrapper = new TwoPlotsHorizontally(plots[0], plots[1]);
         Frame frame = new Frame(wrapper, 1600, 1000);
-
-        for (int i = 0; i < 2; i++)
-        {
-            RightClickPopupMenu menu = new RightClickPopupMenu();
-            menu.addItem(new SaveAsImage());
-            plots[i].getController().addRightClickPopupMenu(menu);
-        }
 
         IRandom R = new MersenneTwister64(0);
         double[] means0 = new double[]{0.0d, 0.0d, 0.0d};
@@ -133,7 +134,6 @@ public class Tutorial1Alternative
 
         pP._processorToPlots = new ProcessorToPlots[2];
         int[] plotIds = new int[]{0, 1};
-
 
         {
             IDataSet RDS0 = DataSet.getFor3D("DS0", new MarkerStyle(0.02f, Gradient.getViridisGradient(), 3, Marker.SPHERE_LOW_POLY_3D));
@@ -160,9 +160,36 @@ public class Tutorial1Alternative
         // Display the frame:
         frame.setVisible(true);
 
+        ((Plot3DModel) plots[0].getModel()).updatePlotRotation(29.21956f, 315.45456f);
+        ((Plot3DModel) plots[0].getModel()).updateCameraTranslation(-0.00833f, 0.03333f, 2.05417f);
+
         for (int i = 0; i < 20; i++)
         {
             dataUpdater.update();
+        }
+
+        Screenshot screenshot1 = plots[0].getModel().requestScreenshotCreation(plots[0].getWidth(), plots[0].getHeight());
+        try
+        {
+            screenshot1._barrier.await();
+        } catch (InterruptedException e)
+        {
+            throw new RuntimeException(e);
+        }
+
+        Screenshot screenshot2 = plots[1].getModel().requestScreenshotCreation(plots[1].getWidth(), plots[1].getHeight());
+        try
+        {
+            screenshot2._barrier.await();
+
+            BufferedImage image = ImageUtils.mergeHorizontally(screenshot1._image, screenshot2._image);
+
+            Path path = FileUtils.getPathRelatedToClass(Figure2.class, "Projects", "src", File.separatorChar);
+            ImageSaver.saveImage(image, path + File.separator + "Figure2", "jpg", 1.0f);
+
+        } catch (InterruptedException | IOException e)
+        {
+            throw new RuntimeException(e);
         }
     }
 }

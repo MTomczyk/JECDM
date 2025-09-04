@@ -18,8 +18,8 @@ import random.IRandom;
 import random.MersenneTwister64;
 import scheme.WhiteScheme;
 import space.Range;
-import t1_10.t1_visualization_module.t8_data_updater.shared.DistanceProcessor;
-import t1_10.t1_visualization_module.t8_data_updater.shared.GaussianGenerator;
+import updater.DistanceToMeanProcessor;
+import updater.GaussianGenerator;
 import updater.*;
 
 /**
@@ -127,8 +127,8 @@ public class Tutorial1
         // with the current data via the LinkedList<double[][]> (each element is related to one data update called on
         // the processor object). This ``cumulative'' mode is explicitly enabled in the DistanceProcessor.
         pP._dataProcessors = new IDataProcessor[2];
-        pP._dataProcessors[0] = new DistanceProcessor(3, means0);
-        pP._dataProcessors[1] = new DistanceProcessor(3, means1);
+        pP._dataProcessors[0] = new DistanceToMeanProcessor(3, means0);
+        pP._dataProcessors[1] = new DistanceToMeanProcessor(3, means1);
 
         // The lines below establish sources-processor bindings (note that, in general, each source may be connected
         // with multiple processors, but one processor may be linked with only one source).

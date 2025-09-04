@@ -2,6 +2,9 @@ package alternative;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utils.TestUtils;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +44,7 @@ class AlternativeTest
         Alternative b = alternative.getClone();
 
         assertEquals(alternative.getName(), b.getName(), "Name");
-        assertEquals( alternative.getPerformanceAt(0), b.getPerformanceAt(0), "C1");
+        assertEquals(alternative.getPerformanceAt(0), b.getPerformanceAt(0), "C1");
         assertEquals(alternative.getPerformanceAt(1), b.getPerformanceAt(1), "C2");
         assertEquals(alternative.getPerformanceAt(2), b.getPerformanceAt(2), "C3");
     }
@@ -104,6 +107,76 @@ class AlternativeTest
             assertFalse(A.haveTheSamePerformanceAs(new Alternative("A2", new double[]{2.0d, 1.0d})));
             assertFalse(A.haveTheSamePerformanceAs(new Alternative("A2", new double[]{1.0d})));
             assertTrue(A.haveTheSamePerformanceAs(new Alternative("A2", new double[]{1.0d, 2.0d})));
+        }
+    }
+
+    /**
+     * Test 6 (tests factory-like classes).
+     */
+    @Test
+    public void testFactory()
+    {
+        assertNull(Alternative.getAlternativeArray("A", -1, -1));
+        assertNull(Alternative.getAlternativeArray("A", 5, -1));
+        assertNull(Alternative.getAlternativeArray("A", -1, 5));
+        {
+            ArrayList<Alternative> alternatives = Alternative.getAlternativeArray(null, 2, 3);
+            assertNotNull(alternatives);
+            assertEquals(2, alternatives.size());
+            assertEquals("null0", alternatives.get(0).getName());
+            assertEquals("null1", alternatives.get(1).getName());
+            TestUtils.assertEquals(new double[3], alternatives.get(0).getPerformanceVector(), 1.0E-5);
+            TestUtils.assertEquals(new double[3], alternatives.get(1).getPerformanceVector(), 1.0E-5);
+        }
+        {
+            ArrayList<Alternative> alternatives = Alternative.getAlternativeArray("A", 2, 3);
+            assertNotNull(alternatives);
+            assertEquals(2, alternatives.size());
+            assertEquals("A0", alternatives.get(0).getName());
+            assertEquals("A1", alternatives.get(1).getName());
+            TestUtils.assertEquals(new double[3], alternatives.get(0).getPerformanceVector(), 1.0E-5);
+            TestUtils.assertEquals(new double[3], alternatives.get(1).getPerformanceVector(), 1.0E-5);
+        }
+        {
+            ArrayList<Alternative> alternatives = Alternative.getAlternativeArray("A", 2, 3, 4);
+            assertNotNull(alternatives);
+            assertEquals(2, alternatives.size());
+            assertEquals("A4", alternatives.get(0).getName());
+            assertEquals("A5", alternatives.get(1).getName());
+            TestUtils.assertEquals(new double[3], alternatives.get(0).getPerformanceVector(), 1.0E-5);
+            TestUtils.assertEquals(new double[3], alternatives.get(1).getPerformanceVector(), 1.0E-5);
+        }
+        assertNull(Alternative.getAlternativeArray("A", null));
+        assertNull(Alternative.getAlternativeArray("A", new double[][]{null}));
+        {
+            ArrayList<Alternative> alternatives = Alternative.getAlternativeArray(null,
+                    new double[][]{{1.0d, 2.0d, 3.0d}, {3.0d, 4.0d, 5.0d}});
+            assertNotNull(alternatives);
+            assertEquals(2, alternatives.size());
+            assertEquals("null0", alternatives.get(0).getName());
+            assertEquals("null1", alternatives.get(1).getName());
+            TestUtils.assertEquals(new double[]{1.0d, 2.0d, 3.0d}, alternatives.get(0).getPerformanceVector(), 1.0E-5);
+            TestUtils.assertEquals(new double[]{3.0d, 4.0d, 5.0d}, alternatives.get(1).getPerformanceVector(), 1.0E-5);
+        }
+        {
+            ArrayList<Alternative> alternatives = Alternative.getAlternativeArray("A",
+                    new double[][]{{1.0d, 2.0d, 3.0d}, {3.0d, 4.0d, 5.0d}});
+            assertNotNull(alternatives);
+            assertEquals(2, alternatives.size());
+            assertEquals("A0", alternatives.get(0).getName());
+            assertEquals("A1", alternatives.get(1).getName());
+            TestUtils.assertEquals(new double[]{1.0d, 2.0d, 3.0d}, alternatives.get(0).getPerformanceVector(), 1.0E-5);
+            TestUtils.assertEquals(new double[]{3.0d, 4.0d, 5.0d}, alternatives.get(1).getPerformanceVector(), 1.0E-5);
+        }
+        {
+            ArrayList<Alternative> alternatives = Alternative.getAlternativeArray("A",
+                    new double[][]{{1.0d, 2.0d, 3.0d}, {3.0d, 4.0d, 5.0d}}, 2);
+            assertNotNull(alternatives);
+            assertEquals(2, alternatives.size());
+            assertEquals("A2", alternatives.get(0).getName());
+            assertEquals("A3", alternatives.get(1).getName());
+            TestUtils.assertEquals(new double[]{1.0d, 2.0d, 3.0d}, alternatives.get(0).getPerformanceVector(), 1.0E-5);
+            TestUtils.assertEquals(new double[]{3.0d, 4.0d, 5.0d}, alternatives.get(1).getPerformanceVector(), 1.0E-5);
         }
     }
 }

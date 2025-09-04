@@ -1,4 +1,4 @@
-package t1_10.t4_decision_support_module.t5_hybrid_algorithms.t1_iemod;
+package y2025.SoftwareX_JECDM;
 
 import color.gradient.Gradient;
 import component.axis.ticksupdater.FromDisplayRange;
@@ -22,6 +22,8 @@ import interaction.reference.constructor.RandomPairs;
 import interaction.reference.validator.RequiredSpread;
 import interaction.trigger.rules.IRule;
 import interaction.trigger.rules.IterationInterval;
+import io.FileUtils;
+import io.image.ImageSaver;
 import model.IPreferenceModel;
 import model.constructor.random.LNormGenerator;
 import model.constructor.value.rs.frs.FRS;
@@ -40,18 +42,21 @@ import scheme.enums.AlignFields;
 import scheme.enums.SizeFields;
 import system.ds.DecisionSupportSystem;
 import updater.*;
+import utils.Screenshot;
 import visualization.Visualization;
 import visualization.updaters.sources.EASource;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.text.DecimalFormat;
 
 /**
- * This tutorial showcases the IEMO/D algorithm ({@link IEMOD}).
- * Note that this is a revised version of {@link Tutorial1b}.
+ * This script generates Figure 4 for the paper.
  *
  * @author MTomczyk
  */
-public class Tutorial1bAlternative
+public class Figure4
 {
     /**
      * Runs the tutorial.
@@ -101,6 +106,7 @@ public class Tutorial1bAlternative
         pP._scheme.rescale(1.5f, SizeFields.AXIS3D_Z_TITLE_FONT_SIZE_SCALE);
         pP._scheme.rescale(1.25f, SizeFields.AXIS_COLORBAR_TICK_LABEL_FONT_SIZE_RELATIVE_MULTIPLIER);
         pP._scheme.rescale(1.25f, SizeFields.AXIS_COLORBAR_TITLE_FONT_SIZE_RELATIVE_MULTIPLIER);
+        pP._scheme.rescale(1.25f, SizeFields.LEGEND_ENTRY_FONT_SIZE_RELATIVE_MULTIPLIER);
 
         pP._xAxisTitle = "f1";
         pP._yAxisTitle = "f2";
@@ -123,7 +129,6 @@ public class Tutorial1bAlternative
         ((DrawingArea3D) plot3D.getComponentsContainer().getDrawingArea()).getAxes()[1].getTicksDataGetter().setNumberFormat(new DecimalFormat("0.00"));
         ((DrawingArea3D) plot3D.getComponentsContainer().getDrawingArea()).getAxes()[2].getTicksDataGetter().setNumberFormat(new DecimalFormat("0.00"));
 
-        //Frame frame = new Frame(plot2D, 0.5f);
         Frame frame = new Frame(plot3D, 1000, 800);
 
         DataUpdater.Params pDU = new DataUpdater.Params(frame.getModel().getPlotsWrapper());
@@ -155,6 +160,10 @@ public class Tutorial1bAlternative
         pR._displayMode = DisplayMode.FROM_THE_BEGINNING;
         IRunner runner = new Runner(pR);
 
+        plot3D.getModel().updatePlotRotation(357.63470f, 27.98780f);
+        plot3D.getModel().updateCameraTranslation(0.00000f, 0.03333f, 1.82913f);
+
+
         try
         {
             runner.executeEvolution(generations);
@@ -166,6 +175,20 @@ public class Tutorial1bAlternative
         // Print history:
         DecisionSupportSystem decisionSupportSystem = iemod.getDecisionSupportSystem();
         System.out.println(decisionSupportSystem.getDecisionMakersSystems()[0].getHistory().getFullStringRepresentation());
+
+        Screenshot screenshot = plot3D.getModel().requestScreenshotCreation(plot3D.getWidth(), plot3D.getHeight());
+        try
+        {
+            screenshot._barrier.await();
+
+            Path path = FileUtils.getPathRelatedToClass(Figure3.class, "Projects", "src", File.separatorChar);
+            ImageSaver.saveImage(screenshot._image, path + File.separator + "Figure4", "jpg", 1.0f);
+
+        } catch (InterruptedException | IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+
 
     }
 

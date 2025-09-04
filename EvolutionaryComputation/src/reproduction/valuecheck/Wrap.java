@@ -35,10 +35,10 @@ public class Wrap extends AbstractValueCheck implements IValueCheck
     @Override
     public double checkAndCorrect(double value, double lb, double rb)
     {
-        while ((value < lb) || (value > rb))
+        while ((Double.compare(value, lb) < 0) ||(Double.compare(value, rb) > 0))
         {
-            if (value < lb) value = 2.0d * lb - value;
-            if (value > rb) value = 2.0d * rb - value;
+            if (Double.compare(value, lb) < 0) value = 2.0d * lb - value;
+            if (Double.compare(value, rb) > 0) value = 2.0d * rb - value;
         }
         return value;
     }

@@ -45,19 +45,29 @@ public abstract class AbstractReport
         _reportCreationDateTime = LocalDateTime.now();
     }
 
-
     /**
      * Auxiliary method for printing the report.
      */
     public void printStringRepresentation()
     {
-        String [] lines = getStringRepresentation();
-        if (lines != null) for (String l: lines) System.out.println(l);
+        printStringRepresentation(0);
+    }
+
+    /**
+     * Auxiliary method for printing the report.
+     *
+     * @param indent indent
+     */
+    public void printStringRepresentation(int indent)
+    {
+        String[] lines = getStringRepresentation(indent);
+        if (lines != null) for (String l : lines) System.out.println(l);
     }
 
     /**
      * Auxiliary method that applied basic statistic to the string representation being constructed.
-     * @param lines lines being constructed
+     *
+     * @param lines  lines being constructed
      * @param indent indent
      */
     protected void applyBasicLines(LinkedList<String> lines, String indent)
@@ -73,7 +83,7 @@ public abstract class AbstractReport
      *
      * @return string representation
      */
-    public String [] getStringRepresentation()
+    public String[] getStringRepresentation()
     {
         return getStringRepresentation(0);
     }
@@ -85,7 +95,7 @@ public abstract class AbstractReport
      * @param indent auxiliary indent used when constructing the lines
      * @return string representation
      */
-    public String [] getStringRepresentation(int indent)
+    public String[] getStringRepresentation(int indent)
     {
         return null;
     }

@@ -30,7 +30,8 @@ public class SBX extends AbstractSBX implements ICrossover
     }
 
     /**
-     * Parameterized constructor. The wrap procedure {@link reproduction.valuecheck.Wrap} is used to constrain variable bounds to [0, 1].
+     * Parameterized constructor. The wrap procedure {@link reproduction.valuecheck.Wrap} is used to constrain variable
+     * bounds to [0, 1].
      *
      * @param p params container
      */
@@ -40,7 +41,8 @@ public class SBX extends AbstractSBX implements ICrossover
     }
 
     /**
-     * Parameterized constructor. The wrap procedure {@link reproduction.valuecheck.Wrap} is used to constrain variable bounds to [0, 1].
+     * Parameterized constructor. The wrap procedure {@link reproduction.valuecheck.Wrap} is used to constrain variable
+     * bounds to [0, 1].
      *
      * @param probability       probability of executing the flip
      * @param distributionIndex distribution index
@@ -82,7 +84,7 @@ public class SBX extends AbstractSBX implements ICrossover
      *
      * @param p1 decision vector of the first parent
      * @param p2 decision vector of the second parent
-     * @param R random number generator
+     * @param R  random number generator
      * @return new decision vector
      */
     @Override
@@ -93,13 +95,12 @@ public class SBX extends AbstractSBX implements ICrossover
 
         for (int i = 0; i < p[0].length; i++)
         {
-            if (R.nextDouble() < _probability)
+            if (Double.compare(R.nextDouble(), _probability) < 0)
             {
                 double[] os = getValue(p[0][i], p[1][i], R);
                 if (R.nextBoolean()) o[i] = os[0];
                 else o[i] = os[1];
-            }
-            else
+            } else
             {
                 if (R.nextBoolean()) o[i] = p[0][i];
                 else o[i] = p[1][i];

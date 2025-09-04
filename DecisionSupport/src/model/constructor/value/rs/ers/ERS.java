@@ -17,7 +17,7 @@ import java.util.LinkedList;
 /**
  * This class represents an evolutionary-based rejection sampling procedure for generating uniformly distributed
  * preference model instances compatible with the decision maker's feedback. Its description can be found in
- * <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5279824">this paper</a> (preprint; TODO to be updated
+ * <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5415565">this paper</a> (preprint; TODO to be updated
  * when published). In short, its central element is an efficient fixed-size queue that keeps the sampled models
  * sorted. The default sorting criterion (comparator) is implemented as {@link MostSimilarWithTieResolving} (it is
  * recommended to use it). First, the comparator assumes that compatible models are favored in the queue over

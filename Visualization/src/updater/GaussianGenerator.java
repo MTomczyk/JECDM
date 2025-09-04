@@ -1,8 +1,6 @@
-package t1_10.t1_visualization_module.t8_data_updater.shared;
+package updater;
 
 import random.IRandom;
-import updater.AbstractSource;
-import updater.IDataSource;
 
 /**
  * This implementation of IDataSource generates a specified number of data points upon request. These points are of
@@ -11,8 +9,6 @@ import updater.IDataSource;
  *
  * @author MTomczyk
  */
-
-
 public class GaussianGenerator extends AbstractSource implements IDataSource
 {
     /**

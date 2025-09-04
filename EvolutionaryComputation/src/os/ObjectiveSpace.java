@@ -73,14 +73,17 @@ public class ObjectiveSpace extends space.os.ObjectiveSpace
     }
 
     /**
-     * Constructs a class instance representing an objective space spanned over the whole domain (Double.NEGATIVE/POSITIVE INFINITY).
+     * Constructs a class instance representing an objective space spanned over the whole domain
+     * (utopia = Double.POSITIVE_INFINITY and nadir = Double.NEGATIVE_INFINITY for a cost-type criterion,
+     * utopia = Double.NEGATIVE_INFINITY and nadir = Double.POSITIVE_INFINITY for a cost-type criterion)
      *
-     * @param criteriaTypes criteria types
-     * @return class instance
+     * @param criteriaTypes      criteria types
+     * @param inverseUtopiaNadir if true, utopia and nadir positions are inversed
+     * @return class instance (null, if the input is null)
      */
-    public static ObjectiveSpace getOSMaximallySpanned(boolean[] criteriaTypes)
+    public static ObjectiveSpace getOSMaximallySpanned(boolean[] criteriaTypes, boolean inverseUtopiaNadir)
     {
-        space.os.ObjectiveSpace os = space.os.ObjectiveSpace.getOSMaximallySpanned(criteriaTypes);
+        space.os.ObjectiveSpace os = space.os.ObjectiveSpace.getOSMaximallySpanned(criteriaTypes, inverseUtopiaNadir);
         return new ObjectiveSpace(os._utopia, os._nadir, os._ranges, os._criteriaTypes);
     }
 

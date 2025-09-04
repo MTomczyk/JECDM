@@ -49,6 +49,16 @@ public class LinearWithFlip extends AbstractMinMaxNormalization implements INorm
     }
 
     /**
+     * Returns the flip threshold.
+     *
+     * @return flip threshold
+     */
+    public double getFlipThreshold()
+    {
+        return _flipThreshold;
+    }
+
+    /**
      * Normalizes input value.
      *
      * @param value input value
@@ -61,7 +71,8 @@ public class LinearWithFlip extends AbstractMinMaxNormalization implements INorm
     }
 
     /**
-     * Unnormalized input value. I.e., input in the range [0, 1] is mapped into a value in the initially considered space
+     * Unnormalized input value. I.e., input in the range [0, 1] is mapped into a value in the initially considered
+     * space
      *
      * @param value normalized value [0, 1]
      * @return value in the initially considered space

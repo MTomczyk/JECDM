@@ -1,5 +1,7 @@
 package criterion;
 
+import utils.ArrayUtils;
+
 /**
  * Wrapper for criteria objects ({@link Criterion}).
  *
@@ -45,7 +47,7 @@ public class Criteria
      *
      * @param name criterion name
      * @param gain criterion type (gain = true (the more, the better); false otherwise)
-     * @return a vector of length n of criteria.
+     * @return a vector of length n of criteria
      */
     public static Criteria constructCriterion(String name, boolean gain)
     {
@@ -55,28 +57,85 @@ public class Criteria
     /**
      * Creates a criteria object.
      *
-     * @param prefix common prefix for criteria names. E.g., if prefixName = "C", then the names are "C0", "C1", "C2", and so on.
-     * @param n      the number of objects (criteria) to create.
+     * @param prefix common prefix for criteria names; e.g., if prefixName = "C", then the names are "C0", "C1", "C2",
+     *               and so on
+     * @param n      the number of objects (criteria) to create
      * @param gain   criteria type (gain = true (the more, the better); false otherwise)
-     * @return a vector of length n of criteria.
+     * @return a vector of length n of criteria (null, if the input data is invalid)
      */
     public static Criteria constructCriteria(String prefix, int n, boolean gain)
     {
-        Criterion[] c = new Criterion[n];
-        for (int i = 0; i < n; i++)
-            c[i] = new Criterion(String.format("%s%d", prefix, i), gain, i);
+        if (n < 0) return null;
+        return constructCriteria(prefix, ArrayUtils.getBooleanArray(n, gain));
+    }
+
+    /**
+     * Creates a criteria object.
+     *
+     * @param prefix                common prefix for names of all criteria; e.g., if prefixName = "C", then the
+     *                              names are "C" + suffixStartingCounter, "C" + (suffixStartingCounter + 1),  "C" +
+     *                              (suffixStartingCounter + 2), and so on
+     * @param n                     the number of objects (criteria) to create
+     * @param gain                  criteria type (gain = true (the more, the better); false otherwise)
+     * @param suffixStartingCounter suffix starting counter for the names of alternatives (e.g., if = 1, the first
+     *                              alternative will be named "A1", and so on)
+     * @return a vector of length n of criteria (null, if the input data is invalid)
+     */
+    public static Criteria constructCriteria(String prefix, int n, boolean gain, int suffixStartingCounter)
+    {
+        if (n < 0) return null;
+        return constructCriteria(prefix, ArrayUtils.getBooleanArray(n, gain), suffixStartingCounter);
+    }
+
+    /**
+     * Creates a criteria object.
+     *
+     * @param prefix common prefix for criteria names; e.g., if prefixName = "C", then the names are "C0", "C1", "C2",
+     *               and so on
+     * @param gain   criteria type (gain = true (the more, the better); false otherwise)
+     * @return a vector of length n of criteria (null, if the input data is invalid)
+     */
+    public static Criteria constructCriteria(String prefix, boolean[] gain)
+    {
+        if (gain == null) return null;
+        return constructCriteria(prefix, gain, 0);
+    }
+
+    /**
+     * Creates a criteria object.
+     *
+     * @param prefix                common prefix for names of all criteria; e.g., if prefixName = "C", then the
+     *                              names are "C" + suffixStartingCounter, "C" + (suffixStartingCounter + 1),  "C" +
+     *                              (suffixStartingCounter + 2), and so on
+     * @param gain                  criteria type (gain = true (the more, the better); false otherwise)
+     * @param suffixStartingCounter suffix starting counter for the names of alternatives (e.g., if = 1, the first
+     *                              alternative will be named "A1", and so on)
+     * @return a vector of length n of criteria (null, if the input data is invalid)
+     */
+    public static Criteria constructCriteria(String prefix, boolean[] gain, int suffixStartingCounter)
+    {
+        if (gain == null) return null;
+        Criterion[] c = new Criterion[gain.length];
+        int idx = 0;
+        for (int i = suffixStartingCounter; i < gain.length + suffixStartingCounter; i++)
+            c[idx] = new Criterion(String.format("%s%d", prefix, i), gain[idx++], i);
         return new Criteria(c);
     }
 
     /**
-     * Creates a criteria object..
+     * Creates a criteria object.
      *
      * @param names criteria names (array length must equal the gains array length)
-     * @param gains criteria ``gain'' flags (array length must equal the names array length; gain = true (the more, the better); false otherwise)
-     * @return a vector of length n of criteria.
+     * @param gains criteria ``gain'' flags (array length must equal the names array length; gain = true (the more, the
+     *              better); false otherwise)
+     * @return a vector of length n of criteria (null, if the input data is invalid)
      */
     public static Criteria constructCriteria(String[] names, boolean[] gains)
     {
+        if (names == null) return null;
+        if (gains == null) return null;
+        if (names.length != gains.length) return null;
+
         Criterion[] c = new Criterion[names.length];
         for (int i = 0; i < names.length; i++)
             c[i] = new Criterion(names[i], gains[i], i);
@@ -84,8 +143,8 @@ public class Criteria
     }
 
     /**
-     * Auxiliary method for constructing boolean array indicating criteria types (true = gain is preferred; false otherwise).
-     * The method constructs and returns a new object each time it is called.
+     * Auxiliary method for constructing boolean array indicating criteria types (true = gain is preferred; false
+     * otherwise). The method constructs and returns a new object each time it is called.
      *
      * @return criteria types array (null if the number of criteria is 0 or the data is invalid)
      */
@@ -98,7 +157,7 @@ public class Criteria
     }
 
     /**
-     * Returns the string representation.
+     * Returns the string representation (criteria names separated by a comma).
      *
      * @return string representation
      */
@@ -114,10 +173,11 @@ public class Criteria
     }
 
     /**
-     * Returns the string representation.
+     * Returns the string representation (criteria names separated by a comma).
      *
      * @return string representation
      */
+    @Override
     public String toString()
     {
         return getStringRepresentation();

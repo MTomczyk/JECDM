@@ -193,7 +193,8 @@ public class Vector
      * @param offset2     index pointing to the second line point
      * @param stride      determines the number of attributes per one line data point (e.g., dimensionality, stride)
      * @param expectedLen expected one line segment length.
-     * @return expected no. times a line segment should be divided (0 = no divisions; 1 -> divide one time, i.e., produce two segments from one, etc.)
+     * @return expected no. times a line segment should be divided (0 = no divisions; 1 -> divide one time, i.e.,
+     * produce two segments from one, etc.)
      */
     public static int getLineSegmentDivisions(float[] array, int offset1, int offset2, int stride, float expectedLen)
     {
@@ -212,7 +213,8 @@ public class Vector
      * @param pLinePoint  previous line point
      * @param nLinePoint  next line point
      * @param expectedLen expected one line segment length.
-     * @return expected no. times a line segment should be divided (0 = no divisions; 1 -> divide one time, i.e., produce two segments from one, etc.)
+     * @return expected no. times a line segment should be divided (0 = no divisions; 1 -> divide one time, i.e.,
+     * produce two segments from one, etc.)
      */
     public static int getLineSegmentDivisions(double[] pLinePoint, double[] nLinePoint, double expectedLen)
     {
@@ -222,26 +224,6 @@ public class Vector
         len = Math.sqrt(len);
         if (Double.compare(len, expectedLen) <= 0) return 0;
         else return (int) (Math.floor(len / expectedLen) + 0.5f);
-    }
-
-    /**
-     * Compares if two double vectors are equal.
-     *
-     * @param a         the first vector
-     * @param b         the second vector
-     * @param precision precision (|a - b| should be &lt; precision) to neglect equality
-     * @return true = vectors are equal; false otherwise
-     */
-    @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "DuplicatedCode"})
-    public static boolean areVectorsEqual(double[] a, double[] b, double precision)
-    {
-        if ((a != null) && (b == null)) return false;
-        if ((a == null) && (b != null)) return false;
-        if ((a == null)) return true;
-        if (a.length != b.length) return false;
-        for (int i = 0; i < a.length; i++)
-            if (Double.compare(Math.abs(a[i] - b[i]), precision) > 0) return false;
-        return true;
     }
 
     /**
@@ -262,18 +244,24 @@ public class Vector
      *
      * @param a         the first vector
      * @param b         the second vector
-     * @param precision precision (|a - b| should be &lt; precision)
+     * @param precision precision (|a - b| should be &lt; precision) to neglect equality
      * @return true = vectors are equal; false otherwise
      */
     @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "DuplicatedCode"})
-    public static boolean areVectorsEqual(float[] a, float[] b, float precision)
+    public static boolean areVectorsEqual(double[] a, double[] b, double precision)
     {
         if ((a != null) && (b == null)) return false;
         if ((a == null) && (b != null)) return false;
         if ((a == null)) return true;
         if (a.length != b.length) return false;
         for (int i = 0; i < a.length; i++)
-            if (Float.compare(Math.abs(a[i] - b[i]), precision) > 0) return false;
+        {
+            if (!(Double.compare(a[i], b[i]) == 0)) // ensures a valid comparison of infinity
+            {
+                if (Double.compare(Math.abs(a[i] - b[i]), precision) > 0) return false;
+            }
+        }
+
         return true;
     }
 
@@ -290,6 +278,31 @@ public class Vector
         return areVectorsEqual(a, b, 0.0f);
     }
 
+
+    /**
+     * Compares if two double vectors are equal.
+     *
+     * @param a         the first vector
+     * @param b         the second vector
+     * @param precision precision (|a - b| should be &lt; precision)
+     * @return true = vectors are equal; false otherwise
+     */
+    @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "DuplicatedCode"})
+    public static boolean areVectorsEqual(float[] a, float[] b, float precision)
+    {
+        if ((a != null) && (b == null)) return false;
+        if ((a == null) && (b != null)) return false;
+        if ((a == null)) return true;
+        if (a.length != b.length) return false;
+        for (int i = 0; i < a.length; i++)
+        {
+            if (!(Float.compare(a[i], b[i]) == 0)) // ensures a valid comparison of infinity
+            {
+                if (Float.compare(Math.abs(a[i] - b[i]), precision) > 0) return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * Compares if two integer vectors are equal.
@@ -329,7 +342,8 @@ public class Vector
 
 
     /**
-     * Returns direction vector coordinates (not normalized) given the alpha and beta angles (degrees) in the coordinate system.
+     * Returns direction vector coordinates (not normalized) given the alpha and beta angles (degrees) in the coordinate
+     * system.
      *
      * @param alpha alpha angle
      * @param beta  beta angle
@@ -438,7 +452,8 @@ public class Vector
      *
      * @param a         3d array of doubles
      * @param c         3d array of doubles
-     * @param precision precision used when determining orthogonality (dot product of a and c should be smaller than precision)
+     * @param precision precision used when determining orthogonality (dot product of a and c should be smaller than
+     *                  precision)
      * @return the b vector that satisfies a x b = c.
      */
     public static float[] getInverseCrossProduct3D(float[] a, float[] c, float precision)
@@ -465,7 +480,8 @@ public class Vector
      *
      * @param a         3d array of doubles
      * @param c         3d array of doubles
-     * @param precision precision used when determining orthogonality (dot product of a and c should be smaller than precision)
+     * @param precision precision used when determining orthogonality (dot product of a and c should be smaller than
+     *                  precision)
      * @return the b vector that satisfies a x b = c.
      */
     public static double[] getInverseCrossProduct3D(double[] a, double[] c, double precision)
@@ -521,7 +537,8 @@ public class Vector
      * Returns the normal vector perpendicular to the input one (in 2D spaces).
      *
      * @param a 2d input vector
-     * @return perpendicular normal vector; note that if the input vector is a zero vector or its length is not 2, null is returned
+     * @return perpendicular normal vector; note that if the input vector is a zero vector or its length is not 2, null
+     * is returned
      */
     public static double[] getPerpendicularVector2D(double[] a)
     {
@@ -542,7 +559,8 @@ public class Vector
      * Returns the normal vector perpendicular to the input one (in 2D spaces).
      *
      * @param a 2d input vector
-     * @return perpendicular normal vector; note that if the input vector is a zero vector or its length is not 2, null is returned
+     * @return perpendicular normal vector; note that if the input vector is a zero vector or its length is not 2, null
+     * is returned
      */
     public static float[] getPerpendicularVector2D(float[] a)
     {
@@ -562,7 +580,8 @@ public class Vector
      * Returns the normal vector perpendicular to the input one (in 3D spaces).
      *
      * @param a 3d input vector
-     * @return perpendicular normal vector; note that if the input vector is a zero vector or its length is not 3, null is returned
+     * @return perpendicular normal vector; note that if the input vector is a zero vector or its length is not 3, null
+     * is returned
      */
     public static double[] getPerpendicularVector3D(double[] a)
     {
@@ -596,7 +615,8 @@ public class Vector
      * Returns the normal vector perpendicular to the input one (in 3D spaces).
      *
      * @param a 3d input vector
-     * @return perpendicular normal vector; note that if the input vector is a zero vector or its length is not 3, null is returned
+     * @return perpendicular normal vector; note that if the input vector is a zero vector or its length is not 3, null
+     * is returned
      */
     public static float[] getPerpendicularVector3D(float[] a)
     {
@@ -940,7 +960,8 @@ public class Vector
      * @param a 2D line (determined by two points)
      * @param b 2D line (determined by two points)
      * @return 2D intersection point(s). Null if lines do not intersect.
-     * When lines overlap and the product of intersection is a line segment with length > 0, two extreme points of this segment are returned, i.e., [[x1,y1],[x2,x2]].
+     * When lines overlap and the product of intersection is a line segment with length > 0, two extreme points of this
+     * segment are returned, i.e., [[x1,y1],[x2,x2]].
      * Otherwise, a single point stored in the array is returned, i.e., [[x,y]].
      */
     @SuppressWarnings("DuplicatedCode")
@@ -1084,7 +1105,8 @@ public class Vector
     }
 
     /**
-     * Returns a combination of two vectors (a and b) defined as a + (b - a)w. If 0 &lt;= w &lt;= 1, the combination is convex.
+     * Returns a combination of two vectors (a and b) defined as a + (b - a)w. If 0 &lt;= w &lt;= 1, the combination is
+     * convex.
      *
      * @param a a-vector
      * @param b b-vector

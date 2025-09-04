@@ -3,14 +3,16 @@ This document contains loose ideas on future updates:
 Decision Support:
 - For the preference elicitation: allow the DM(s) to resign from providing feedback (after reference sets are shown).
 - ERS method: reporting the success rate on inserting models built into the queue
+- ERS/FRS methods: interface for notifications on the success/failure in generating a compatible model (ERS: in inserting into the queue)
 
 Evolutionary Computation:
 - Introducing the archive functionality (SpecimenContainer).
 - Phases: allow providing custom pre-post actions (simple one-method interfaces; lambda methods; stacked on the list or passed via arrays)
 - Phases: simple customizable phase; passing own implementations via list to instantiate EA's processing
-- EA: rewrite the code so that the phases are stored in the list (separate lists for init and step)
 - Simple EA for generic regression.
 - Improve instantiating EAs (they require an extensive parameterization; probably params containers will be introduced to primary classes, e.g. IEMOD)
+- Allow producing any number of offspring from any number of parents (e.g., any from any scheme; currently it is 1 from any); this could be dynamically adjusted based on the current state
+- Letting the EA measure the number of performed solution evaluations.
 
 Visualization:
 - Upsampling (rendering in higher DPI)
@@ -20,7 +22,7 @@ Visualization:
 - Providing better ways of ticks (axis) adjustment.
 - Creating custom legend (legend entries).
 - Using multiple colorbars.
-- Using multiple X, Y axes.
+- Using multiple X, Y axes (aux X, Y axes + anchored X, Y axes, i.e., located at specific coordinates).
 - Introducing OpenGL-based 2D rendering mode.
 - Allowing marker edges to have a volume (e.g., Line.POLY_OCTO).
 - Introducing lighting into 3D mode and custom objects loading.
@@ -34,7 +36,7 @@ Visualization:
 - Providing initial projection data as an input (for 3D; interface (lambda))
 - New data sets: rectangles, etc.
 - Allow for rendering the fonts in Latex (+ math mode, etc.).
-- Interface (lambda) for custom post (at the top) drawing (the drawing context is passed).
+- Interface (lambda) for custom post (at the top) or pre drawing (the drawing context is passed).
 
 Experimentation
 - Mechanisms for surpassing original names of the indicators

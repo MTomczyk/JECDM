@@ -34,6 +34,8 @@ public class VectorTest
             assertFalse(Vector.areVectorsEqual(new double[]{1.0d, 2.0d}, new double[]{1.0d, 1.5d}));
             assertFalse(Vector.areVectorsEqual(new double[]{1.0d, 2.0d}, new double[]{1.0d, 1.5d}, 0.49999d));
             assertTrue(Vector.areVectorsEqual(new double[]{1.0d, 2.0d}, new double[]{1.0d, 1.5d}, 0.50001d));
+            assertTrue(Vector.areVectorsEqual(new double[]{Double.POSITIVE_INFINITY}, new double[]{Double.POSITIVE_INFINITY}));
+            assertTrue(Vector.areVectorsEqual(new double[]{Double.NEGATIVE_INFINITY}, new double[]{Double.NEGATIVE_INFINITY}));
         }
         // float
         {
@@ -45,6 +47,8 @@ public class VectorTest
             assertFalse(Vector.areVectorsEqual(new float[]{1.0f, 2.0f}, new float[]{1.0f, 1.5f}));
             assertFalse(Vector.areVectorsEqual(new float[]{1.0f, 2.0f}, new float[]{1.0f, 1.5f}, 0.49999f));
             assertTrue(Vector.areVectorsEqual(new float[]{1.0f, 2.0f}, new float[]{1.0f, 1.5f}, 0.50001f));
+            assertTrue(Vector.areVectorsEqual(new float[]{Float.POSITIVE_INFINITY}, new float[]{Float.POSITIVE_INFINITY}));
+            assertTrue(Vector.areVectorsEqual(new float[]{Float.NEGATIVE_INFINITY}, new float[]{Float.NEGATIVE_INFINITY}));
         }
         // int
         {
@@ -54,6 +58,8 @@ public class VectorTest
             assertFalse(Vector.areVectorsEqual(new int[]{1, 2}, new int[]{1}));
             assertTrue(Vector.areVectorsEqual(new int[]{1, 2}, new int[]{1, 2}));
             assertFalse(Vector.areVectorsEqual(new int[]{1, 2}, new int[]{1, 3}));
+            assertTrue(Vector.areVectorsEqual(new int[]{Integer.MAX_VALUE}, new int[]{Integer.MAX_VALUE}));
+            assertTrue(Vector.areVectorsEqual(new int[]{Integer.MIN_VALUE}, new int[]{Integer.MIN_VALUE}));
         }
         // boolean
         {

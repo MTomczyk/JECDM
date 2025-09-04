@@ -117,6 +117,7 @@ public abstract class AbstractMinMaxNormalization implements INormalization
      *
      * @return cloned object
      */
+    @Override
     public AbstractMinMaxNormalization getClone()
     {
         return null;

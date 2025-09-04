@@ -6,6 +6,8 @@ import alternative.IAlternativeWrapper;
 import model.IPreferenceModel;
 import model.internals.value.AbstractValueInternalModel;
 
+import java.util.ArrayList;
+
 /**
  * Relation of potential optimality the (see <a href="https://ieeexplore.ieee.org/document/6729055">paper</a>). An
  * alternative is considered potentially optimal (potentially the most relevant) if there exist one model instance (in
@@ -46,17 +48,33 @@ public class PO<T extends AbstractValueInternalModel> implements IUnaryRelation
     @Override
     public boolean isHolding(Alternative A)
     {
-        for (T model : _preferenceModel.getInternalModels())
+        return isHolding(A, _alternatives, _preferenceModel.getInternalModels());
+    }
+
+    /**
+     * Checks if a relation R for an alternative A holds.
+     *
+     * @param A            the alternative (should be included in the supplied alternatives superset).
+     * @param alternatives alternatives superset
+     * @param models       internal value models
+     * @param <T>          preference model definition
+     * @return true if the relation holds, false otherwise
+     */
+    public static <T extends AbstractValueInternalModel> boolean isHolding(Alternative A,
+                                                                           AbstractAlternatives<?> alternatives,
+                                                                           ArrayList<T> models)
+    {
+        for (T model : models)
         {
             boolean passes = true;
 
             double score = model.evaluate(A);
-            for (IAlternativeWrapper B : _alternatives)
+            for (IAlternativeWrapper B : alternatives)
             {
                 if (A.equals(B.getAlternative())) continue;
                 double s2 = model.evaluate(B.getAlternative());
-                if (((_preferenceModel.isLessPreferred()) && (Double.compare(s2, score) < 0)) ||
-                        ((!_preferenceModel.isLessPreferred()) && (Double.compare(s2, score) > 0)))
+                if (((model.isLessPreferred()) && (Double.compare(s2, score) < 0)) ||
+                        ((!model.isLessPreferred()) && (Double.compare(s2, score) > 0)))
                 {
                     passes = false;
                     break;

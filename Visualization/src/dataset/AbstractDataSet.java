@@ -32,7 +32,6 @@ public abstract class AbstractDataSet implements IDataSet
          * Data to be visualized.
          */
         public Data _data;
-        ;
 
         /**
          * Painter used to depict the data.
@@ -45,7 +44,7 @@ public abstract class AbstractDataSet implements IDataSet
         public String _name;
 
         /**
-         * Data set legend label (if null, the name is used).
+         * Data set legend label (if null, the regular name is used).
          */
         public String _legendLabel = null;
 

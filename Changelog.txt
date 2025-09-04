@@ -1,3 +1,17 @@
+[v1.7.0; 04.09.2025] Major updates:
+- IMPORTANT: Versioning is changed to semantic (X.Y.Z; major.minor.patch)
+- IMPORTANT: The license is changed from Attribution 4.0 International to MIT License in this version (1.7.0)
+- Visualization: there was a minor bug that prevented the legend entries from being correctly displayed; patched
+- Visualization: ImageUtils class: mergeVertically method added
+- DecisionSupport: Alternatives and Criteria classes: new factory-like methods added
+- Utils: space.normalization.INormalization: static and default cloning-related methods added
+- Utils: space.Vector: comparison methods were failing to indicate quality at infinite coordinates (e.g., Double.INFINITY); patched
+- Utils: space.os.ObjectiveSpace: the "ObjectiveSpace(double[] utopia, double[] nadir)" constructor now sets the "_criteriaTypes" flags based on the relation of utopia-nadir coordinates (previous implementation: the flags were fixed at "false")
+- Utils: space.os.ObjectiveSpace: the "public static ObjectiveSpace getOSMaximallySpanned(boolean[] criteriaTypes)" sets the utopia/nadir positions to Infinity/-Infinity for cost-type criteria (-Infinity/Infinity for the gain-type criteria); the current implementation inverses these values compared to the previous implementation (the direction can be now altered via a parameter)
+- EvolutionaryComputation: os.ObjectiveSpace: the "public static ObjectiveSpace getOSMaximallySpanned(boolean[] criteriaTypes)" sets the utopia/nadir positions to Infinity/-Infinity for cost-type criteria (-Infinity/Infinity for the gain-type criteria); the current implementation inverses these values compared to the previous implementation (the direction can be now altered via a parameter)
+- Tutorials: GaussianGenerator moved from t1_10.t1_visualization_module.t8_data_updater.shared to Visualization.updater;
+- Tutorials: DistanceProcessor renamed to DistanceToMeanProcessor and moved from t1_10.t1_visualization_module.t8_data_updater.shared to Visualization.updater;
+
 [21.08.2025] This update introduces one major update and several minor ones (see below). As for the former, a brief tutorial document is available: "Tutorial 13: Change in the hierarchy of the EA class."
 - Major update: the ea.EA class is no longer the highest in the hierarchy; it now implements a dedicated ea.IEA interface that further generalizes the code
 - EvolutionaryComputation: reproduction.operators.crossover.ICrossover: the return type of the crossover method changed to a dedicated class that encapsulates the originally implemented output (array)

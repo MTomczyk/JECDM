@@ -36,9 +36,8 @@ public class Absorb extends AbstractValueCheck implements IValueCheck
     @Override
     public double checkAndCorrect(double value, double lb, double rb)
     {
-        if (value < lb) return lb;
-        //noinspection ManualMinMaxCalculation
-        if (value > rb) return rb;
+        if (Double.compare(value, lb) < 0) return lb;
+        if (Double.compare(value, rb) > 0) return rb;
         return value;
     }
 }

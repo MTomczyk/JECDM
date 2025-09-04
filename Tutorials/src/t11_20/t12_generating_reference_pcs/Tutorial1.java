@@ -18,7 +18,7 @@ import java.nio.file.Path;
 /**
  * This tutorial showcases how to employ {@link tools.feedbackgenerators.PCsDataGenerator} tool to pre-construct data
  * on artificial DMs and their feedback, contextually to specified experimental scenarios. This can be viewed as
- * a supplement to the publication on <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5279824">this
+ * a supplement to the publication on <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5415565">this
  * paper</a> (preprint; TODO to be updated hen published).
  *
  * @author MTomczyk

@@ -116,7 +116,8 @@ public abstract class AbstractLegend extends AbstractSwingComponent
     }
 
     /**
-     * Called by {@link layoutmanager.BaseLayoutManager} to determine expected dimension so that the legend can be properly positioned.
+     * Called by {@link layoutmanager.BaseLayoutManager} to determine expected dimension so that the legend can be
+     * properly positioned.
      * The result is stored in the object "_dimensions" field.
      *
      * @param g graphics context
@@ -146,12 +147,14 @@ public abstract class AbstractLegend extends AbstractSwingComponent
             {
                 if (ds == null) continue;
                 if (!ds.isDisplayableOnLegend()) continue;
-                if (ds.getLegendLabel() == null) continue;
+                String usedName = ds.getLegendLabel();
+                if (usedName == null) usedName = ds.getName();
+                if (usedName == null) continue;
 
                 _dimensions._noEntries++;
 
                 // Label-based adjustment
-                Rectangle2D b = Font.getCorrectDimensions(g2d, ds.getLegendLabel());
+                Rectangle2D b = Font.getCorrectDimensions(g2d, usedName);
                 if (Double.compare(b.getWidth(), labelColumnWidth) > 0) labelColumnWidth = (float) b.getWidth();
                 if (Double.compare(b.getHeight(), entryHeight) > 0) entryHeight = (float) b.getHeight();
 
@@ -332,7 +335,8 @@ public abstract class AbstractLegend extends AbstractSwingComponent
     }
 
     /**
-     * Getter for dimensions (supportive container-class storing information on the properties of the legend drawing area.)
+     * Getter for dimensions (supportive container-class storing information on the properties of the legend drawing
+     * area.)
      *
      * @return legend dimensions
      */
@@ -389,14 +393,16 @@ public abstract class AbstractLegend extends AbstractSwingComponent
             {
                 if (ds == null) continue;
                 if (!ds.isDisplayableOnLegend()) continue;
-                if (ds.getLegendLabel() == null) continue;
+                String usedName = ds.getLegendLabel();
+                if (usedName == null) usedName = ds.getName();
+                if (usedName == null) continue;
 
                 float mod = (float) (referenceB.getHeight() / 2.0f);
 
                 g2d.setStroke(defaultStroke);
                 g2.setColor(_entryFont._color);
 
-                g2.drawString(ds.getLegendLabel(),
+                g2.drawString(usedName,
                         Projection.getP((float) (bx + labelShift - referenceB.getMinX())) - 1,
                         Projection.getP(by + mod) - 1);
 

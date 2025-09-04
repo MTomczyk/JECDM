@@ -48,9 +48,9 @@ public class FNDSorting
      *
      * @param alternatives wrapper for the array of alternatives
      * @param stopAfter    the assignment process is stopped after the number of already assigned alternatives in
-     *                     constructed fronts exceeds this value (breaks can be triggered only after completion of a whole
-     *                     front, not during this process). It can be set, e.g., to "offspring size" in NSGA-II algorithm
-     *                     to construct a sufficient number of fronts.
+     *                     constructed fronts exceeds this value (breaks can be triggered only after completion of a
+     *                     whole front, not during this process). It can be set, e.g., to "offspring size" in NSGA-II
+     *                     algorithm to construct a sufficient number of fronts.
      * @return list of lists (represents different levels) of integers (ids of alternatives in the input array).
      */
     public LinkedList<LinkedList<Integer>> getFrontAssignments(AbstractAlternatives<?> alternatives, int stopAfter)
@@ -80,12 +80,10 @@ public class FNDSorting
             for (int j = 0; j < alternatives.size(); j++)
             {
                 if (i == j) continue;
-
-                boolean dA = _relation.isHolding(alternatives.get(i), alternatives.get(j));
-                boolean dB = _relation.isHolding(alternatives.get(j), alternatives.get(i));
-
-                if (dA) S.get(i).add(j);
-                else if (dB) n.set(i, n.get(i) + 1);
+                if (_relation.isHolding(alternatives.get(i), alternatives.get(j)))
+                    S.get(i).add(j);
+                else if (_relation.isHolding(alternatives.get(j), alternatives.get(i)))
+                    n.set(i, n.get(i) + 1);
             }
 
             if (n.get(i) == 0) f.add(i);
@@ -113,15 +111,14 @@ public class FNDSorting
             {
                 fronts.add(f);
                 assigned += f.size();
-            }
-            else break;
+            } else break;
         }
         return fronts;
     }
 
     /**
-     * Auxiliary method for constructing an array of alternatives' front levels based on the result of the
-     * fast non-dominated sorting. If the array's element is null, the alternative has not been assigned.
+     * Auxiliary method for constructing an array of alternatives' front levels based on the result of the fast
+     * non-dominated sorting. If the array's element is null, the alternative has not been assigned.
      *
      * @param alternatives wrapper for array of alternatives
      * @param fronts       result of non-dominated sorting
@@ -142,7 +139,8 @@ public class FNDSorting
     }
 
     /**
-     * Encapsulates the last non-dominated front whose members (some of them) can be passed to the next generation (ambiguous)
+     * Encapsulates the last non-dominated front whose members (some of them) can be passed to the next generation
+     * (ambiguous)
      */
     public static class AmbiguousFront
     {
@@ -178,16 +176,20 @@ public class FNDSorting
 
     /**
      * The method passes all the members of the first non-dominated fronts for which there is no ambiguity that they
-     * should be promoted. If the members in a front being processed, when added to the already passed ones, would exceed
-     * the population size, the front is called ambiguous and the data on that front is returned. Note that the
+     * should be promoted. If the members in a front being processed, when added to the already passed ones, would
+     * exceed the population size, the front is called ambiguous and the data on that front is returned. Note that the
      * method additionally assigns the passed specimens their auxiliary scores that are assumed to be equal to their
      * front numbers (0 = the first non-dominated front, 1 = the second, etc.)
      *
-     * @param newPopulation     array representing a new population (to be filled by the method with promoted specimens)
+     * @param newPopulation     array representing a new population (to be filled by the method with promoted
+     *                          specimens)
      * @param currentPopulation current population (provides specimens)
-     * @param fronts            non dominated fronts obtained via {@link FNDSorting#getFrontAssignments(AbstractAlternatives, int)}
-     * @param populationSize    population size determines the limit for the number of specimens that can be passed to the next generation
-     * @return data on the ambitious front, if only complete fronts are needed to fill the required number of specimen slots, the method returns null
+     * @param fronts            non dominated fronts obtained via
+     *                          {@link FNDSorting#getFrontAssignments(AbstractAlternatives, int)}
+     * @param populationSize    population size determines the limit for the number of specimens that can be passed to
+     *                          the next generation
+     * @return data on the ambitious front, if only complete fronts are needed to fill the required number of specimen
+     * slots, the method returns null
      */
     public static AmbiguousFront fillNewPopulationWithCertainFronts(ArrayList<Specimen> newPopulation,
                                                                     ArrayList<Specimen> currentPopulation,
@@ -211,8 +213,7 @@ public class FNDSorting
                 passed += front.size();
                 frontLevel++;
                 if (passed == populationSize) return null; // filled completely
-            }
-            else return new AmbiguousFront(frontLevel, passed, front);
+            } else return new AmbiguousFront(frontLevel, passed, front);
         }
 
         return null;

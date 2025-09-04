@@ -22,7 +22,8 @@ import java.util.Set;
  * This class assists in generating data on reference pairs of solutions (artificial data) to be compared by
  * a decision-maker. It is implemented in line with the procedure described in the article ``Efficient Preference
  * Learning Algorithm for Interactive Evolutionary Multi-Objective Optimization'' (preprint:
- * http://ssrn.com/abstract=5279824 TODO to be updated when published).Its use is described in Tutorial TODO.
+ * <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5415565">paper</a> TODO to be updated when published).
+ * Its use is described in Tutorial 10: Evolutionary Rejection Sampling.
  *
  * @author MTomczyk
  */

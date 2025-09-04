@@ -47,18 +47,21 @@ public class ObjectiveSpaceManager
         public boolean _doNotUpdateOS = false;
 
         /**
-         * If true, objective space is updated based not only on the current population but the historical data as well (compare with the incumbent).
+         * If true, objective space is updated based not only on the current population but the historical data as well
+         * (compare with the incumbent).
          */
         public boolean _updateUtopiaUsingIncumbent = false;
 
         /**
-         * If true, objective space is updated based not only on the current population but the historical data as well (compare with the incumbent).
+         * If true, objective space is updated based not only on the current population but the historical data as well
+         * (compare with the incumbent).
          */
         public boolean _updateNadirUsingIncumbent = false;
 
         /**
          * If true, the nadir point is explicitly built from those objective vectors that form the utopia point
-         * (thus, e.g., the flag {@link ObjectiveSpaceManager#_updateNadirUsingIncumbent} will have no effect if this flag is true).
+         * (thus, e.g., the flag {@link ObjectiveSpaceManager#_updateNadirUsingIncumbent} will have no effect if this
+         * flag is true).
          */
         public boolean _deriveNadirFromVectorsFormingUtopia = false;
 
@@ -73,17 +76,20 @@ public class ObjectiveSpaceManager
         public ObjectiveSpace _os;
 
         /**
-         * Array of "objective space changed" listeners (can be null; will be set by a dedicated method in {@link ea.AbstractEABundle}).
+         * Array of "objective space changed" listeners (can be null; will be set by a dedicated method in
+         * {@link ea.AbstractEABundle}).
          */
         public IOSChangeListener[] _listeners = null;
 
         /**
-         * When true, the manager will store the timestamps that indicate when the knowledge on the objective space was updated.
+         * When true, the manager will store the timestamps that indicate when the knowledge on the objective space was
+         * updated.
          */
         public boolean _storeTimestamps = true;
 
         /**
-         * Provide specimens for analysis. If null, the {@link PopulationGetter} and {@link OffspringGetter} will be used.
+         * Provide specimens for analysis. If null, the {@link PopulationGetter} and {@link OffspringGetter} will be
+         * used.
          */
         public ISpecimenGetter[] _specimenGetters = null;
 
@@ -119,11 +125,16 @@ public class ObjectiveSpaceManager
     /**
      * Auxiliary params getter. The params is parameterized based on the provided input data.
      *
-     * @param problemBundle              problem bundle that provides essential data on the objective space (e.g., Pareto front bounds)
-     * @param supplyInitialOSData        if true, the initially constructed objective space object will be supplied with data from the problem bundle
-     * @param dynamicObjectiveRanges     if true, the OS manager to be instantiated is supposed not to terminate the update method (see {@link ObjectiveSpaceManager#_doNotUpdateOS})
-     * @param updateUtopiaUsingIncumbent if true, utopia constructed during the update step will be finally compared with its incumbent counterpart
-     * @param updateNadirUsingIncumbent  if true, utopia constructed during the update step will be finally compared with its incumbent counterpart
+     * @param problemBundle              problem bundle that provides essential data on the objective space (e.g.,
+     *                                   Pareto front bounds)
+     * @param supplyInitialOSData        if true, the initially constructed objective space object will be supplied with
+     *                                   data from the problem bundle
+     * @param dynamicObjectiveRanges     if true, the OS manager to be instantiated is supposed not to terminate the
+     *                                   update method (see {@link ObjectiveSpaceManager#_doNotUpdateOS})
+     * @param updateUtopiaUsingIncumbent if true, utopia constructed during the update step will be finally compared
+     *                                   with its incumbent counterpart
+     * @param updateNadirUsingIncumbent  if true, utopia constructed during the update step will be finally compared
+     *                                   with its incumbent counterpart
      * @param criteria                   considered criteria
      * @return params container
      */
@@ -161,18 +172,21 @@ public class ObjectiveSpaceManager
     private final boolean _doNotUpdateOS;
 
     /**
-     * If true, objective space is updated based not only on the current population but the historical data as well (compare with the incumbent).
+     * If true, objective space is updated based not only on the current population but the historical data as well
+     * (compare with the incumbent).
      */
     private final boolean _updateUtopiaUsingIncumbent;
 
     /**
-     * If true, objective space is updated based not only on the current population but the historical data as well (compare with the incumbent).
+     * If true, objective space is updated based not only on the current population but the historical data as well
+     * (compare with the incumbent).
      */
     private final boolean _updateNadirUsingIncumbent;
 
     /**
      * If true, the nadir point is explicitly built from those objective vectors that form the utopia point
-     * (thus, e.g., the flag {@link ObjectiveSpaceManager#_updateNadirUsingIncumbent} will have no effect if this flag is true).
+     * (thus, e.g., the flag {@link ObjectiveSpaceManager#_updateNadirUsingIncumbent} will have no effect if this flag
+     * is true).
      */
     public final boolean _deriveNadirFromVectorsFormingUtopia;
 
@@ -197,12 +211,14 @@ public class ObjectiveSpaceManager
     private IOSChangeListener[] _listeners;
 
     /**
-     * When true, the manager will store the timestamps that indicate when the knowledge on the objective space was updated.
+     * When true, the manager will store the timestamps that indicate when the knowledge on the objective space was
+     * updated.
      */
     private final boolean _storeTimestamps;
 
     /**
-     * This array captures timestamps (generation/steady-state repeat) indicating when the knowledge on the objective space was updated.
+     * This array captures timestamps (generation/steady-state repeat) indicating when the knowledge on the objective
+     * space was updated.
      */
     private final LinkedList<EATimestamp> _notificationTimes;
 
@@ -285,7 +301,8 @@ public class ObjectiveSpaceManager
      * @param u           utopia point (can be null, not used for the update)
      * @param n           nadir point (can be null, not used for the update)
      * @param e           candidate point
-     * @param formsUtopia contains references to objective vector forming the utopia point (1:1 indexing with criteria id)
+     * @param formsUtopia contains references to objective vector forming the utopia point (1:1 indexing with criteria
+     *                    id)
      */
     private void update(double[] u, double[] n, double[] e, double[][] formsUtopia)
     {
@@ -312,9 +329,10 @@ public class ObjectiveSpaceManager
     /**
      * Updates the knowledge on the objective space.
      *
-     * @param specimensContainer specimens container maintained by the EA (wraps e.g., current population, mating pool, offspring)
+     * @param specimensContainer specimens container maintained by the EA (wraps e.g., current population, mating pool,
+     *                           offspring)
      * @param timestamp          current generation no. and steady-state repeat
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     public void update(SpecimensContainer specimensContainer, EATimestamp timestamp) throws PhaseException
     {
@@ -325,11 +343,12 @@ public class ObjectiveSpaceManager
     /**
      * Updates the knowledge on the objective space.
      *
-     * @param specimensContainer specimens container maintained by the EA (e.g., current population, mating pool, offspring)
+     * @param specimensContainer specimens container maintained by the EA (e.g., current population, mating pool,
+     *                           offspring)
      * @param timestamp          current generation no. and steady-state repeat
      * @param notifyAboutChange  if true, the method accordingly updates the _changed flag and triggers the listener
      * @return the method returns true if a change in OS is reported; false otherwise
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     public boolean update(SpecimensContainer specimensContainer, EATimestamp timestamp, boolean notifyAboutChange) throws PhaseException
     {
@@ -338,7 +357,8 @@ public class ObjectiveSpaceManager
         // IMPORTANT NOTE: the processing operates on references to original vectors; thus,
         // no modifications of them are allowed (cloning is not used)
 
-        ObjectiveSpace os = ObjectiveSpace.getOSMaximallySpanned(_criteria.getCriteriaTypes()); // worst-case spanned os
+        // worst-case spanned os
+        ObjectiveSpace os = ObjectiveSpace.getOSMaximallySpanned(_criteria.getCriteriaTypes(), true);
         int cs = _criteria._no;
 
         if (_deriveNadirFromVectorsFormingUtopia)

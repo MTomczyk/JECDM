@@ -61,7 +61,7 @@ public class ObjectiveSpace
     }
 
     /**
-     * Parameterized constructor. Criteria types are set to false.
+     * Parameterized constructor. Criteria types are based on the utopia-nadir relationship.
      *
      * @param utopia utopia point
      * @param nadir  nadir point
@@ -74,8 +74,13 @@ public class ObjectiveSpace
         _ranges = new Range[utopia.length];
         for (int i = 0; i < utopia.length; i++)
         {
-            if (utopia[i] < nadir[i]) _ranges[i] = new Range(utopia[i], nadir[i]);
-            else _ranges[i] = new Range(nadir[i], utopia[i]);
+            if (Double.compare(utopia[i], nadir[i]) < 0)
+                _ranges[i] = new Range(utopia[i], nadir[i]);
+            else
+            {
+                _ranges[i] = new Range(nadir[i], utopia[i]);
+                _criteriaTypes[i] = true;
+            }
         }
     }
 
@@ -111,14 +116,30 @@ public class ObjectiveSpace
     }
 
     /**
-     * Constructs a class instance representing an objective space spanned over the whole domain (Double.NEGATIVE/POSITIVE INFINITY).
+     * Constructs a class instance representing an objective space spanned over the whole domain
+     * (utopia = Double.POSITIVE_INFINITY and nadir = Double.NEGATIVE_INFINITY for a cost-type criterion,
+     * utopia = Double.NEGATIVE_INFINITY and nadir = Double.POSITIVE_INFINITY for a cost-type criterion)
      *
      * @param criteriaTypes criteria types
-     * @return class instance
+     * @return class instance (null, if the input is null)
      */
     public static ObjectiveSpace getOSMaximallySpanned(boolean[] criteriaTypes)
     {
-        assert criteriaTypes != null;
+        return getOSMaximallySpanned(criteriaTypes, false);
+    }
+
+    /**
+     * Constructs a class instance representing an objective space spanned over the whole domain
+     * (utopia = Double.POSITIVE_INFINITY and nadir = Double.NEGATIVE_INFINITY for a cost-type criterion,
+     * utopia = Double.NEGATIVE_INFINITY and nadir = Double.POSITIVE_INFINITY for a cost-type criterion)
+     *
+     * @param criteriaTypes      criteria types
+     * @param inverseUtopiaNadir if true, utopia and nadir positions are inversed
+     * @return class instance (null, if the input is null)
+     */
+    public static ObjectiveSpace getOSMaximallySpanned(boolean[] criteriaTypes, boolean inverseUtopiaNadir)
+    {
+        if (criteriaTypes == null) return null;
         double[] u = new double[criteriaTypes.length];
         double[] n = new double[criteriaTypes.length];
         Range[] ranges = new Range[criteriaTypes.length];
@@ -126,7 +147,9 @@ public class ObjectiveSpace
         for (int i = 0; i < criteriaTypes.length; i++)
         {
             ranges[i] = new Range(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
-            if (criteriaTypes[i])
+            if (((!inverseUtopiaNadir) && (!criteriaTypes[i])) ||
+                    ((inverseUtopiaNadir) && (criteriaTypes[i]))
+            )
             {
                 u[i] = Double.NEGATIVE_INFINITY;
                 n[i] = Double.POSITIVE_INFINITY;
@@ -180,7 +203,6 @@ public class ObjectiveSpace
             ranges = new Range[_ranges.length];
             for (int i = 0; i < _ranges.length; i++) ranges[i] = _ranges[i].getClone();
         }
-
         return new ObjectiveSpace(_utopia.clone(), _nadir.clone(), ranges, _criteriaTypes.clone());
     }
 

@@ -28,7 +28,8 @@ public class Alternative implements IAlternativeWrapper
     private double[] _auxScores;
 
     /**
-     * Parameterized constructor. The performance vector is instantiated as a zero vector of length equal to the number of criteria.
+     * Parameterized constructor. The performance vector is instantiated as a zero vector of length equal to the number
+     * of criteria.
      *
      * @param name     the name of the alternative
      * @param criteria the number of criteria
@@ -76,15 +77,35 @@ public class Alternative implements IAlternativeWrapper
     /**
      * Creates an array of length of n of alternatives (objects).
      *
-     * @param prefixName common prefix for names of all alternatives. E.g., if prefixName = "A", then the names are "A0", "A1", "A2", and so on.
+     * @param prefixName common prefix for names of all alternatives; e.g., if prefixName = "A", then the names are
+     *                   "A0", "A1", "A2", and so on.
      * @param n          the number of alternatives to create
      * @param criteria   the number of criteria
-     * @return a vector of length n of alternatives.
+     * @return a vector of length n of alternatives
      */
     public static ArrayList<Alternative> getAlternativeArray(String prefixName, int n, int criteria)
     {
+        return getAlternativeArray(prefixName, n, criteria, 0);
+    }
+
+    /**
+     * Creates an array of length of n of alternatives (objects).
+     *
+     * @param prefixName            common prefix for names of all alternatives; e.g., if prefixName = "A", then the
+     *                              names are "A" + suffixStartingCounter, "A" + (suffixStartingCounter + 1),  "A" +
+     *                              (suffixStartingCounter + 2), and so on
+     * @param n                     the number of alternatives to create (at least 0)
+     * @param criteria              the number of criteria
+     * @param suffixStartingCounter suffix starting counter for the names of alternatives (e.g., if = 1, the first
+     *                              alternative will be named "A1", and so on)
+     * @return a vector of length n of alternatives (null, if the input data is invalid)
+     */
+    public static ArrayList<Alternative> getAlternativeArray(String prefixName, int n, int criteria, int suffixStartingCounter)
+    {
+        if (n < 0) return null;
+        if (criteria < 0) return null;
         ArrayList<Alternative> result = new ArrayList<>(n);
-        for (int i = 0; i < n; i++)
+        for (int i = suffixStartingCounter; i < n + suffixStartingCounter; i++)
             result.add(new Alternative(String.format("%s%d", prefixName, i), criteria));
         return result;
     }
@@ -92,15 +113,37 @@ public class Alternative implements IAlternativeWrapper
     /**
      * Creates an alternatives array using an evaluation matrix (each row is linked to a different alternative).
      *
-     * @param prefixName common prefix for names of all alternatives. E.g., if prefixName = "A", then the names are "A0", "A1", "A2", and so on.
+     * @param prefixName common prefix for names of all alternatives; e.g., if prefixName = "A", then the names are
+     *                   "A0", "A1", "A2", and so on
      * @param e          evaluation matrix
-     * @return a vector of length n of alternatives.
+     * @return a vector of length n of alternatives
      */
     public static ArrayList<Alternative> getAlternativeArray(String prefixName, double[][] e)
     {
+        return getAlternativeArray(prefixName, e, 0);
+    }
+
+    /**
+     * Creates an alternatives array using an evaluation matrix (each row is linked to a different alternative).
+     *
+     * @param prefixName           common prefix for names of all alternatives; e.g., if prefixName = "A", then the
+     *                             names are "A" + suffixStartingCounter, "A" + (suffixStartingCounter + 1),  "A" +
+     *                             (suffixStartingCounter + 2), and so on
+     * @param e                    evaluation matrix
+     * @param suffixStarterCounter suffix starting counter for the names of alternatives (e.g., if = 1, the first
+     *                             alternative will be named "A1", and so on)
+     * @return a vector of length n of alternatives (null, if the input data is invalid, e.g., when e == null)
+     */
+    public static ArrayList<Alternative> getAlternativeArray(String prefixName, double[][] e, int suffixStarterCounter)
+    {
+        if (e == null) return null;
         ArrayList<Alternative> result = new ArrayList<>(e.length);
-        for (int i = 0; i < e.length; i++)
-            result.add(new Alternative(String.format("%s%d", prefixName, i), e[i]));
+        int idx = 0;
+        for (int i = suffixStarterCounter; i < e.length + suffixStarterCounter; i++)
+        {
+            if (e[idx] == null) return null;
+            result.add(new Alternative(String.format("%s%d", prefixName, i), e[idx++]));
+        }
         return result;
     }
 
@@ -190,7 +233,8 @@ public class Alternative implements IAlternativeWrapper
     }
 
     /**
-     * Setter for the auxiliary scores. If are nulled, the method instantiates them as a 1-element vector containing the auxScore value.
+     * Setter for the auxiliary scores. If are nulled, the method instantiates them as a 1-element vector containing the
+     * auxScore value.
      *
      * @param auxScore auxiliary score to be stored
      */
@@ -333,10 +377,12 @@ public class Alternative implements IAlternativeWrapper
     }
 
     /**
-     * Auxiliary method for checking if the object has a performance vector that is identical to another alternative's performance vector.
+     * Auxiliary method for checking if the object has a performance vector that is identical to another alternative's
+     * performance vector.
      *
      * @param alternative another alternative
-     * @return true if both vectors are equal; false otherwise (even if some entity, e.g., another alternative, is null while its counterpart not).
+     * @return true if both vectors are equal; false otherwise (even if some entity, e.g., another alternative, is null
+     * while its counterpart not).
      */
     public boolean haveTheSamePerformanceAs(Alternative alternative)
     {

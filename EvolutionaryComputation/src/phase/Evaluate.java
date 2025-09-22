@@ -2,7 +2,10 @@ package phase;
 
 import ea.AbstractPhasesEA;
 import exception.PhaseException;
+import population.Specimen;
 import population.SpecimensContainer;
+
+import java.util.ArrayList;
 
 /**
  * Default "Evaluate" phase. The default (implicit) assumptions are as follows:
@@ -60,8 +63,16 @@ public class Evaluate extends AbstractEvaluatePhase implements IPhase
     public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         if (ea.getSpecimensContainer().isPopulationRequiringEvaluation())
-            _evaluate.evaluateSpecimens(ea.getSpecimensContainer().getPopulation());
+        {
+            ArrayList<Specimen> population = ea.getSpecimensContainer().getPopulation();
+            _evaluate.evaluateSpecimens(population);
+            ea.getSpecimensContainer().incrementPerformedFunctionEvaluations(population.size());
+        }
         if (ea.getSpecimensContainer().isOffspringRequiringEvaluation())
+        {
+            ArrayList<Specimen> offspring = ea.getSpecimensContainer().getOffspring();
             _evaluate.evaluateSpecimens(ea.getSpecimensContainer().getOffspring());
+            ea.getSpecimensContainer().incrementPerformedFunctionEvaluations(offspring.size());
+        }
     }
 }

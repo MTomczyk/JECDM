@@ -51,8 +51,8 @@ class EADummyPopulationsTest
         for (int i = 0; i < 5; i++)
         {
             assertEquals(2, cP.get(i).getEvaluations().length);
-            assertEquals(P[0][i][0], cP.get(i).getEvaluations()[0], 0.00001d);
-            assertEquals(P[0][i][1], cP.get(i).getEvaluations()[1], 0.00001d);
+            assertEquals(P[0][i][0], cP.get(i).getEvaluations()[0], 1.0E-6);
+            assertEquals(P[0][i][1], cP.get(i).getEvaluations()[1], 1.0E-6);
         }
 
 
@@ -70,8 +70,8 @@ class EADummyPopulationsTest
         for (int i = 0; i < 5; i++)
         {
             assertEquals(2, cP.get(i).getEvaluations().length);
-            assertEquals(P[1][i][0], cP.get(i).getEvaluations()[0], 0.00001d);
-            assertEquals(P[1][i][1], cP.get(i).getEvaluations()[1], 0.00001d);
+            assertEquals(P[1][i][0], cP.get(i).getEvaluations()[0], 1.0E-6);
+            assertEquals(P[1][i][1], cP.get(i).getEvaluations()[1], 1.0E-6);
         }
 
         try
@@ -88,8 +88,8 @@ class EADummyPopulationsTest
         for (int i = 0; i < 5; i++)
         {
             assertEquals(2, cP.get(i).getEvaluations().length);
-            assertEquals(P[2][i][0], cP.get(i).getEvaluations()[0], 0.00001d);
-            assertEquals(P[2][i][1], cP.get(i).getEvaluations()[1], 0.00001d);
+            assertEquals(P[2][i][0], cP.get(i).getEvaluations()[0], 1.0E-6);
+            assertEquals(P[2][i][1], cP.get(i).getEvaluations()[1], 1.0E-6);
         }
 
         boolean called = false;

@@ -7,6 +7,10 @@ import phase.*;
 import reproduction.IReproduce;
 import selection.ISelect;
 import space.normalization.INormalization;
+import space.normalization.builder.INormalizationBuilder;
+import space.normalization.builder.StandardLinearBuilder;
+
+import java.util.Objects;
 
 /**
  * Abstract class supporting the parameterization of EA.
@@ -56,6 +60,15 @@ public abstract class AbstractEABundle
         public ObjectiveSpaceManager _osManager;
 
         /**
+         * Auxiliary object constructing normalization functions using data on the current known bounds on the relevant
+         * part of the objective space. Primarily used in the context of evolutionary multi-objective optimization.
+         * It is recommended to use {@link StandardLinearBuilder} (default field value). If null,
+         * {@link StandardLinearBuilder} will be used.
+         */
+        public INormalizationBuilder _normalizationBuilder = new StandardLinearBuilder();
+
+
+        /**
          * Auxiliary initial normalizations.
          */
         public INormalization[] _initialNormalizations;
@@ -82,7 +95,10 @@ public abstract class AbstractEABundle
 
         /**
          * Auxiliary method called by the constructor at the beginning to instantiate default params values (optional).
+         *
+         * @deprecated to be removed in future releases
          */
+        @Deprecated
         protected void instantiateDefaultValues()
         {
 
@@ -105,6 +121,13 @@ public abstract class AbstractEABundle
     public ObjectiveSpaceManager _osManager;
 
     /**
+     * Auxiliary object constructing normalization functions using data on the current known bounds on the relevant
+     * part of the objective space. Primarily used in the context of evolutionary multi-objective optimization.
+     * It is recommended to use {@link StandardLinearBuilder}. If null, {@link StandardLinearBuilder} will be used.
+     */
+    public INormalizationBuilder _normalizationBuilder;
+
+    /**
      * Parameterized constructor.
      *
      * @param p params container
@@ -115,6 +138,7 @@ public abstract class AbstractEABundle
         _name = p._name;
         _phasesBundle = new PhasesBundle();
         _osManager = p._osManager;
+        _normalizationBuilder = Objects.requireNonNullElseGet(p._normalizationBuilder, StandardLinearBuilder::new);
         instantiateInitStartsPhase(p);
         instantiateConstructInitialPopulationPhase(p);
         instantiateAssignSpecimensIDPhase(p);
@@ -292,7 +316,7 @@ public abstract class AbstractEABundle
     {
         IOSChangeListener[] listeners = getOSChangedListeners(p);
         if ((_osManager != null) && (listeners != null))
-            _osManager.setOSChangeListeners(listeners);
+            _osManager.addOSChangeListeners(listeners);
     }
 
 

@@ -34,7 +34,9 @@ public class NSGASort extends AbstractSortPhase implements IPhase
      * @param distance distance function used when calculating niche counts
      * @param th       distance threshold for the niche count procedure
      */
-    public NSGASort(Criteria criteria, IDistance distance, double th)
+    public NSGASort(Criteria criteria,
+                    IDistance distance,
+                    double th)
     {
         super("NSGA: Sort");
         _FND = new FNDSorting(new Dominance(criteria));
@@ -61,7 +63,7 @@ public class NSGASort extends AbstractSortPhase implements IPhase
      *
      * @param ea     evolutionary algorithm
      * @param report report on the executed action (to be filled)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @SuppressWarnings("DuplicatedCode")
     @Override

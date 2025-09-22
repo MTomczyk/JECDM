@@ -13,7 +13,7 @@ import reproduction.valuecheck.IValueCheck;
  *
  * @author MTomczyk
  */
-public class StandardDoubleReproducer extends AbstractStandardReproducer
+public class StandardDoubleReproducer extends AbstractStandardSOReproducer
 {
     /**
      * Lower bound for the variables' values.
@@ -28,7 +28,7 @@ public class StandardDoubleReproducer extends AbstractStandardReproducer
     /**
      * Parameterized constructor.
      *
-     * @param c           crossover operator
+     * @param c           crossover operator (designed to construct one offspring from two parents)
      * @param m           mutation operator (can be null; not used then)
      * @param vc          object for checking if the resulting variable are in valid bounds (can be null; not used then)
      * @param vLowerBound lower bound for the variables' values
@@ -46,8 +46,8 @@ public class StandardDoubleReproducer extends AbstractStandardReproducer
      * constructed using the reproduction operator. If the mutation operator is supplied, it is used then to mutate
      * the offspring vector. Lastly, if the value check object is supplied, it is applied to the offspring vector.
      *
-     * @param p1 the first parent's decision vector
-     * @param p2 the second parent's decision vector
+     * @param p1 the first parent's decision vector (reference; do not modify it)
+     * @param p2 the second parent's decision vector (reference; do not modify it)
      * @param R  random number generator
      * @return offspring's decision vector
      */

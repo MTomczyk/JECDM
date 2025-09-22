@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * Wrapper for {@link AbstractRejectionSampling} methods (viewed as {@link EA}).
- * It is used to wrap {@link IterableFRS} or {@link IterableERS} (other classes are not supported).
+ * Wrapper for {@link AbstractRejectionSampling} methods (viewed as {@link EA}). It is used to wrap {@link IterableFRS}
+ * or {@link IterableERS} (other classes are not supported).
  *
  * @author MTomczyk
  */
@@ -108,11 +108,9 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
         _feedback = feedback;
         // set default values
         _criteria = null;
-        _populationSize = 1;
-        _offspringSize = 1;
-        _osManager = null;
-        _executionTime = 0.0d;
-        _currentTimestamp = new EATimestamp(0, 0);
+        setPopulationSize(1);
+        setOffspringSize(1);
+        setObjectiveSpaceManager(null);
     }
 
     /**
@@ -143,7 +141,7 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
     @Override
     public void init() throws EAException
     {
-        _currentTimestamp = new EATimestamp(0, 0);
+        updateCurrentTimestamp(new EATimestamp(0, 0));
         DMContext dmContext = new DMContext(null, LocalDateTime.now(), null, null,
                 false, 0, null, _R);
 
@@ -157,10 +155,10 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
             long pT = System.nanoTime();
             if (_itFRS != null) _itFRS.initializeStep(_report, _feedback);
             else _itERS.initializeStep(_report, _feedback);
-            _executionTime += ((double) (System.nanoTime() - pT)) / 1000000.0d;
+            setExecutionTime(getExecutionTime() + ((double) (System.nanoTime() - pT)) / 1000000.0d);
 
             // Important: Generation = 0 involves a step to make statistics based not on the initialization
-            step(_currentTimestamp, _iterationsPerGeneration);
+            step(getCurrentTimestamp(), _iterationsPerGeneration);
 
         } catch (ConstructorException e)
         {
@@ -191,7 +189,7 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
     {
         if ((_itFRS == null) && (_itERS == null)) throw new EAException("No valid sampled is wrapped", this.getClass());
 
-        _currentTimestamp = timestamp;
+        updateCurrentTimestamp(timestamp);
         try
         {
             for (int i = 0; i < repeats; i++)
@@ -200,12 +198,11 @@ public class EAWrapperIterableSampler<T extends AbstractValueInternalModel> exte
                 if (_itFRS != null)
                 {
                     _itFRS.executeStep(_report, _feedback);
-                    _executionTime += ((double) (System.nanoTime() - pT)) / 1000000.0d;
-                }
-                else
+                    setExecutionTime(getExecutionTime() + ((double) (System.nanoTime() - pT)) / 1000000.0d);
+                } else
                 {
                     _itERS.executeStep(_report, _feedback);
-                    _executionTime += ((double) (System.nanoTime() - pT)) / 1000000.0d;
+                    setExecutionTime(getExecutionTime() + ((double) (System.nanoTime() - pT)) / 1000000.0d);
                     if (i == repeats - 1)
                     {
                         if (_report._models == null) _report._models = new ArrayList<>();

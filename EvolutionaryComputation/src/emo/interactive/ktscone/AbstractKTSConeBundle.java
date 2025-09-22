@@ -13,7 +13,6 @@ import model.IPreferenceModel;
 import model.constructor.IConstructor;
 import model.internals.value.scalarizing.KTSCone;
 import os.IOSChangeListener;
-import space.normalization.builder.StandardLinearBuilder;
 import system.ds.DSSParamsProvider;
 import system.ds.DecisionSupportSystem;
 
@@ -54,7 +53,8 @@ public abstract class AbstractKTSConeBundle extends AbstractEMOInteractiveBundle
         }
 
         /**
-         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
+         * Constructs a default params container that involves one decision maker with one preference model, one
+         * DM-based
          * feedback provider, and one interaction rule.
          *
          * @param name                    name of the EA
@@ -74,7 +74,8 @@ public abstract class AbstractKTSConeBundle extends AbstractEMOInteractiveBundle
         }
 
         /**
-         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
+         * Constructs a default params container that involves one decision maker with one preference model, one
+         * DM-based
          * feedback provider, and one interaction rule.
          *
          * @param name                    name of the EA
@@ -83,7 +84,8 @@ public abstract class AbstractKTSConeBundle extends AbstractEMOInteractiveBundle
          * @param interactionRule         interaction rule
          * @param referenceSetConstructor reference set constructor
          * @param dmFeedbackProvider      DM-based feedback provider
-         * @param dssAdjuster             auxiliary DSS params adjuster (can be null, if not used); adjustment is done after the default initialization
+         * @param dssAdjuster             auxiliary DSS params adjuster (can be null, if not used); adjustment is done
+         *                                after the default initialization
          * @return params container
          */
         protected static AbstractKTSConeBundle.Params getDefault(String name, Criteria criteria, String DM,
@@ -94,14 +96,44 @@ public abstract class AbstractKTSConeBundle extends AbstractEMOInteractiveBundle
         {
             IPreferenceModel<KTSCone> preferenceModel = new model.definitions.KTSCone();
             IConstructor<KTSCone> constructor = new model.constructor.value.KTSCone();
-            DecisionSupportSystem.Params pDSS = DSSParamsProvider.getForSingleDecisionMakerSingleModelArtificialProvider(criteria,
-                    DM, interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, constructor);
+            return getDefault(name, criteria, DM, interactionRule, referenceSetConstructor,
+                    dmFeedbackProvider, dssAdjuster, preferenceModel, constructor);
+        }
+
+        /**
+         * Constructs a default params container that involves one decision maker with one preference model,
+         * one DM-based feedback provider, and one interaction rule.
+         *
+         * @param name                    name of the EA
+         * @param criteria                considered criteria
+         * @param DM                      decision maker's identifier
+         * @param interactionRule         interaction rule
+         * @param referenceSetConstructor reference set constructor
+         * @param dmFeedbackProvider      DM-based feedback provider
+         * @param dssAdjuster             auxiliary DSS params adjuster (can be null, if not used); adjustment is done
+         *                                after the default initialization
+         * @param preferenceModel         preference model
+         * @param constructor             model constructor
+         * @return params container
+         */
+        protected static AbstractKTSConeBundle.Params getDefault(String name, Criteria criteria, String DM,
+                                                                 IRule interactionRule,
+                                                                 IReferenceSetConstructor referenceSetConstructor,
+                                                                 IDMFeedbackProvider dmFeedbackProvider,
+                                                                 DecisionSupportSystem.IParamsAdjuster dssAdjuster,
+                                                                 IPreferenceModel<KTSCone> preferenceModel,
+                                                                 IConstructor<KTSCone> constructor)
+        {
+            DecisionSupportSystem.Params pDSS = DSSParamsProvider.getForSingleDecisionMakerSingleModelArtificialProvider(
+                    criteria, DM, interactionRule, referenceSetConstructor,
+                    dmFeedbackProvider, preferenceModel, constructor);
             if (dssAdjuster != null) dssAdjuster.adjust(pDSS);
             return getDefault(name, criteria, pDSS);
         }
 
         /**
-         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
+         * Constructs a default params container that involves one decision maker with one preference model, one
+         * DM-based
          * feedback provider, and one interaction rule.
          *
          * @param name     name of the EA
@@ -156,7 +188,7 @@ public abstract class AbstractKTSConeBundle extends AbstractEMOInteractiveBundle
     protected IOSChangeListener[] getOSChangedListeners(AbstractEABundle.Params p)
     {
         KTSConeInteractionAndPrepareStep l1 = (KTSConeInteractionAndPrepareStep) _phasesBundle._prepareStep;
-        NSGAIIOSChangeListener l2 = new NSGAIIOSChangeListener((NSGAIISort) _phasesBundle._sort, new StandardLinearBuilder());
+        NSGAIIOSChangeListener l2 = new NSGAIIOSChangeListener((NSGAIISort) _phasesBundle._sort);
         return new IOSChangeListener[]{l1, l2};
     }
 

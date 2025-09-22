@@ -38,12 +38,14 @@ public class MOEADGoalsManager extends AbstractGoalsManager
         public int _neighborhoodSize;
 
         /**
-         * Similarity measures used to compare the goals within families (1:1 link, i.e., no. elements should equal no. row in the goals matrix).
+         * Similarity measures used to compare the goals within families (1:1 link, i.e., no. elements should equal no.
+         * row in the goals matrix).
          */
         public ISimilarity[] _similarity;
 
         /**
-         * Used to allocate resources (determines updates of goals in subsequent steady-state repeats within one generation).
+         * Used to allocate resources (determines updates of goals in subsequent steady-state repeats within one
+         * generation).
          */
         public IAlloc _alloc = null;
 
@@ -53,7 +55,8 @@ public class MOEADGoalsManager extends AbstractGoalsManager
         public INeighborhoodConstructor _neighborhoodConstructor;
 
         /**
-         * Parameterized constructor. Establishes one-family decomposition data. Insertion sort constructor {@link InsertionSortConstructor}
+         * Parameterized constructor. Establishes one-family decomposition data. Insertion sort constructor
+         * {@link InsertionSortConstructor}
          * is used when building neighborhoods.
          *
          * @param goals            optimization goals (the only family)
@@ -83,7 +86,8 @@ public class MOEADGoalsManager extends AbstractGoalsManager
          * Parameterized constructor. Establishes several families.
          *
          * @param goals                   optimization goals (matrix: each entry is a separate family)
-         * @param similarity              similarity measures used to compare the goals within families (1:1 link, i.e., no. elements should equal no. row in the goals' matrix)
+         * @param similarity              similarity measures used to compare the goals within families (1:1 link, i.e.,
+         *                                no. elements should equal no. row in the goals' matrix)
          * @param neighborhoodConstructor object used to construct neighborhood
          * @param neighborhoodSize        neighborhood size
          */
@@ -97,7 +101,8 @@ public class MOEADGoalsManager extends AbstractGoalsManager
     }
 
     /**
-     * Used to allocate resources (determines updates of goals in subsequent steady-state repeats within one generation).
+     * Used to allocate resources (determines updates of goals in subsequent steady-state repeats within one
+     * generation).
      */
     private final IAlloc _alloc;
 
@@ -157,11 +162,13 @@ public class MOEADGoalsManager extends AbstractGoalsManager
 
     /**
      * Auxiliary method that restructures the families-related data based on the new goals matrix. Note that this
-     * implementation also reconstructs the neighborhood and makes the best initial assignments possible. In this process,
+     * implementation also reconstructs the neighborhood and makes the best initial assignments possible. In this
+     * process,
      * new population array is constructed and uploaded to {@link SpecimensContainer} as new population.
      *
      * @param goals              new goals matrix (each row correspond to a different family)
-     * @param similarities       similarity measures used to build the neighborhood (1:1 correspondence with the input goals array)
+     * @param similarities       similarity measures used to build the neighborhood (1:1 correspondence with the input
+     *                           goals array)
      * @param specimensContainer current specimen container
      */
     public void restructureAndMakeBestAssignments(IGoal[][] goals, ISimilarity[] similarities, SpecimensContainer specimensContainer)
@@ -223,8 +230,8 @@ public class MOEADGoalsManager extends AbstractGoalsManager
 
     /**
      * Can be called to make initial (arbitrary) specimen->goals assignment (these are kept in family containers).
-     * The assignment order follows the process imposed by the update sequence ({@link MOEADGoalsManager#_updatesSequence}),
-     * i.e., i-th specimen is assigned to order(i)-th goal.
+     * The assignment order follows the process imposed by the update sequence
+     * ({@link MOEADGoalsManager#_updatesSequence}), i.e., i-th specimen is assigned to order(i)-th goal.
      *
      * @param specimensContainer specimen container storing the initial population
      */
@@ -245,8 +252,10 @@ public class MOEADGoalsManager extends AbstractGoalsManager
     }
 
     /**
-     * Can be called to make the post assignments, i.e., each goal will be assigned the best performer in the population.
-     * Note that one specimen may be allocated this way to multiple goals, thus diminishing the variability of solutions.
+     * Can be called to make the post assignments, i.e., each goal will be assigned the best performer in the
+     * population.
+     * Note that one specimen may be allocated this way to multiple goals, thus diminishing the variability of
+     * solutions.
      *
      * @param specimensContainer current specimens container
      */
@@ -317,7 +326,8 @@ public class MOEADGoalsManager extends AbstractGoalsManager
     }
 
     /**
-     * Can be called to replace specimens assigned to goals in the current neighborhood with the offspring (if proves better).
+     * Can be called to replace specimens assigned to goals in the current neighborhood with the offspring (if proves
+     * better).
      *
      * @param offspring          offspring solution
      * @param currentGoal        current goal

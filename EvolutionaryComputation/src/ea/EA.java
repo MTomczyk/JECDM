@@ -14,6 +14,19 @@ import random.IRandom;
 public class EA extends AbstractPhasesEA implements IEA
 {
     /**
+     * Auxiliary interface for classes that can be used to adjust the params container being processed.
+     */
+    public interface IParamsAdjuster
+    {
+        /**
+         * The main method for adjusting the params container.
+         *
+         * @param p params container being instantiated
+         */
+        void adjust(Params p);
+    }
+
+    /**
      * Params container.
      */
     public static class Params extends AbstractPhasesEA.Params

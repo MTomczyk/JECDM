@@ -3,11 +3,11 @@ package reproduction.operators.crossover;
 import random.IRandom;
 
 /**
- * Abstract implementation of the SBX operator.
+ * Abstract implementation of the SBX operator for constructing one offspring solution from two parents.
  *
  * @author MTomczyk
  */
-public class AbstractSBX extends AbstractCrossover implements ICrossover
+public class AbstractSBX extends AbstractCrossover
 {
     /**
      * Params container.
@@ -59,7 +59,7 @@ public class AbstractSBX extends AbstractCrossover implements ICrossover
      *
      * @param p1 first parent's value
      * @param p2 second parent's value
-     * @param R random number generator
+     * @param R  random number generator
      * @return calculated sbx value
      */
     protected double[] getValue(double p1, double p2, IRandom R)

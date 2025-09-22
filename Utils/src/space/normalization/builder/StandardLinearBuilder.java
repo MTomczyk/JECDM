@@ -1,7 +1,6 @@
 package space.normalization.builder;
 
 import space.normalization.INormalization;
-import space.normalization.minmax.AbstractMinMaxNormalization;
 import space.normalization.minmax.Linear;
 import space.normalization.minmax.LinearWithFlip;
 import space.os.ObjectiveSpace;
@@ -35,16 +34,5 @@ public class StandardLinearBuilder implements INormalizationBuilder
             else normalizations[c] = new Linear(L, R);
         }
         return normalizations;
-    }
-
-    /**
-     * Should return the lowest possible class in hierarchy which all objects returned by {@link INormalization} extend.
-     *
-     * @return class
-     */
-    @Override
-    public Class<?> getBuiltSuperclass()
-    {
-        return AbstractMinMaxNormalization.class;
     }
 }

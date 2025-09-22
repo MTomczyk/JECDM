@@ -210,7 +210,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         String msg = null;
         try
@@ -301,7 +302,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         String msg = null;
         try
@@ -393,7 +395,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         String msg = null;
         try
@@ -484,7 +487,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         String msg = null;
         try
@@ -576,7 +580,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         String msg = null;
         try
@@ -667,7 +672,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         String msg = null;
         try
@@ -758,7 +764,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         String msg = null;
         try
@@ -832,7 +839,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {
@@ -862,7 +870,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {
@@ -891,7 +900,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {
@@ -920,7 +930,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {
@@ -949,7 +960,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {
@@ -978,7 +990,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {
@@ -1007,7 +1020,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {
@@ -1036,7 +1050,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {
@@ -1066,7 +1081,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {
@@ -1096,7 +1112,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {
@@ -1137,7 +1154,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {
@@ -1185,7 +1203,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {
@@ -1224,7 +1243,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {
@@ -1270,7 +1290,8 @@ class ObjectiveSpaceManagerTest
 
         OSCL L = new OSCL();
         ObjectiveSpaceManager OSM = new ObjectiveSpaceManager(pOS);
-        OSM.setOSChangeListeners(new IOSChangeListener[]{L});
+        OSM.clearOSChangeListeners();
+        OSM.addOSChangeListeners(new IOSChangeListener[]{L});
 
         try
         {

@@ -33,6 +33,7 @@ public class EADummyPopulations extends EA implements IEA
             super("Dummy EA with fixed populations", -1, null, false, null);
             _populationSize = -1;
             _offspringSize = -1;
+            _expectedNumberOfSteadyStateRepeats = 1;
             _osManager = null;
             _computeExecutionTimes = false;
             _computePhasesExecutionTimes = false;

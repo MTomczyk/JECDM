@@ -10,7 +10,8 @@ import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
 import model.constructor.value.representative.IRepresentativeValueModelSelector;
 import model.constructor.value.representative.MDVF;
-import model.constructor.value.rs.representative.RepresentativeModel;
+import model.constructor.value.representative.RepresentativeModel;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.value.AbstractValueInternalModel;
 import model.internals.value.scalarizing.LNorm;
 import org.junit.jupiter.api.Test;
@@ -38,11 +39,12 @@ class RepresentativeModelTest
         IRandomModel<LNorm> RM = new LNormGenerator(2, Double.POSITIVE_INFINITY);
         IRandom R = new MersenneTwister64(0);
         IRepresentativeValueModelSelector<LNorm> RMS = new MDVF<>();
-        RepresentativeModel.Params<LNorm> rmP = new RepresentativeModel.Params<>(RM, RMS);
+        FRS.Params<LNorm> rmP = new FRS.Params<>(RM);
         rmP._samplingLimit = 10000000;
         rmP._feasibleSamplesToGenerate = 1000;
         rmP._inconsistencyThreshold = 1;
-        RepresentativeModel<LNorm> repModel = new RepresentativeModel<>(rmP);
+        RepresentativeModel<LNorm> repModel = new RepresentativeModel<>(
+                new RepresentativeModel.Params<>(new FRS<>(rmP), RMS));
         Report<LNorm> report = null;
 
         Alternative A1 = new Alternative("A1", new double[]{0.6d, 0.4d});

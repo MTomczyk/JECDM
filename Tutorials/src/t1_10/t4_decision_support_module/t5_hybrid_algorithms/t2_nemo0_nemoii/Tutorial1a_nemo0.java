@@ -3,11 +3,15 @@ package t1_10.t4_decision_support_module.t5_hybrid_algorithms.t2_nemo0_nemoii;
 import color.gradient.Gradient;
 import component.axis.ticksupdater.FromDisplayRange;
 import component.colorbar.Colorbar;
+import criterion.Criteria;
 import dataset.DataSet;
 import dataset.painter.style.MarkerStyle;
 import dataset.painter.style.enums.Marker;
 import drmanager.DisplayRangesManager;
+import emo.interactive.StandardDSSBuilder;
 import emo.interactive.nemo.nemo0.NEMO0;
+import emo.interactive.nemo.nemo0.NEMO0Builder;
+import exception.EAException;
 import exception.RunnerException;
 import frame.Frame;
 import interaction.feedbackprovider.dm.IDMFeedbackProvider;
@@ -20,7 +24,8 @@ import interaction.trigger.rules.IterationInterval;
 import model.IPreferenceModel;
 import model.constructor.random.LNormGenerator;
 import model.constructor.value.representative.MDVF;
-import model.constructor.value.rs.representative.RepresentativeModel;
+import model.constructor.value.representative.RepresentativeModel;
+import model.constructor.value.rs.frs.FRS;
 import model.internals.value.scalarizing.LNorm;
 import plot.Plot2D;
 import problem.Problem;
@@ -32,6 +37,7 @@ import runner.Runner;
 import runner.enums.DisplayMode;
 import scheme.WhiteScheme;
 import scheme.enums.SizeFields;
+import selection.Random;
 import system.ds.DecisionSupportSystem;
 import updater.*;
 import visualization.Visualization;
@@ -68,8 +74,10 @@ public class Tutorial1a_nemo0
                 //new double[]{0.25d, 0.75d},
                 Double.POSITIVE_INFINITY, problem._normalizations)));
 
+        // OLD VERSION:
         // Representative model (the procedure is built on FRS)
-        RepresentativeModel.Params<LNorm> pRM = new RepresentativeModel.Params<>(
+
+        /*RepresentativeModel.Params<LNorm> pRM = new RepresentativeModel.Params<>(
                 new LNormGenerator(2, Double.POSITIVE_INFINITY),
                 new MDVF<>()); // most discriminative value function
         pRM._feasibleSamplesToGenerate = 1000000;
@@ -78,7 +86,37 @@ public class Tutorial1a_nemo0
 
         NEMO0 nemo0 = NEMO0.getNEMO0(0, populationSize,
                 false, false, R, problem, interactionRule, referenceSetConstructor,
-                dmFeedbackProvider, preferenceModel, representativeModel);
+                dmFeedbackProvider, preferenceModel, representativeModel);*/
+
+        // NEW VERSION:
+        FRS.Params<LNorm> pFRS = new FRS.Params<>(new LNormGenerator(M, Double.POSITIVE_INFINITY));
+        pFRS._feasibleSamplesToGenerate = 1000000;
+        pFRS._samplingLimit = 1000;
+        model.constructor.value.representative.RepresentativeModel<LNorm>
+                representativeModel = new RepresentativeModel<>(new FRS<>(pFRS), new MDVF<>());
+
+        NEMO0Builder<LNorm> nemo0Builder = new NEMO0Builder<>(R);
+        nemo0Builder.setCriteria(Criteria.constructCriteria("C", M, false));
+        nemo0Builder.setPopulationSize(populationSize);
+        nemo0Builder.setInitialPopulationConstructor(problem._construct);
+        nemo0Builder.setSpecimensEvaluator(problem._evaluate);
+        nemo0Builder.setParentsReproducer(problem._reproduce);
+        nemo0Builder.setParentsSelector(new Random(2));
+        nemo0Builder.setStandardDSSBuilder(new StandardDSSBuilder<>());
+        nemo0Builder.getDSSBuilder().setModelConstructor(representativeModel);
+        nemo0Builder.getDSSBuilder().setPreferenceModel(preferenceModel);
+        nemo0Builder.getDSSBuilder().setInteractionRule(interactionRule);
+        nemo0Builder.getDSSBuilder().setReferenceSetConstructor(referenceSetConstructor);
+        nemo0Builder.getDSSBuilder().setDMFeedbackProvider(dmFeedbackProvider);
+        nemo0Builder.setFixedOSBoundsLearningPolicy(problem);
+        NEMO0 nemo0;
+        try
+        {
+            nemo0 = nemo0Builder.getInstance();
+        } catch (EAException e)
+        {
+            throw new RuntimeException(e);
+        }
 
         Plot2D.Params pP = new Plot2D.Params();
         pP._scheme = new WhiteScheme();
@@ -87,7 +125,7 @@ public class Tutorial1a_nemo0
         pP._yAxisTitle = "f2";
         pP._drawLegend = true;
         pP._pDisplayRangesManager = DisplayRangesManager.Params.getFor3D(problem._displayRanges[0],
-                problem._displayRanges[1],null);
+                problem._displayRanges[1], null);
         pP._pDisplayRangesManager._DR[2] = new DisplayRangesManager.DisplayRange(null, true, true);
 
 

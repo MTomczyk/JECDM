@@ -24,6 +24,19 @@ import system.ds.DecisionSupportSystem;
 public class NEMOIIBundle extends AbstractNEMOBundle
 {
     /**
+     * Auxiliary interface for classes that can be used to adjust the params container being processed.
+     */
+    public interface IParamsAdjuster
+    {
+        /**
+         * The main method for adjusting the params container.
+         *
+         * @param p params container being instantiated
+         */
+        void adjust(Params p);
+    }
+
+    /**
      * Params container for the bundle's getter.
      */
     public static class Params extends AbstractNEMOBundle.Params
@@ -103,10 +116,9 @@ public class NEMOIIBundle extends AbstractNEMOBundle
          *
          * @param criteria considered criteria
          * @param pDSS     params container used to establish the decision support system
-         * @param <T>      internal preference model definition
          * @return params container
          */
-        public static <T extends AbstractValueInternalModel> Params getDefault(Criteria criteria, DecisionSupportSystem.Params pDSS)
+        public static Params getDefault(Criteria criteria, DecisionSupportSystem.Params pDSS)
         {
             try
             {

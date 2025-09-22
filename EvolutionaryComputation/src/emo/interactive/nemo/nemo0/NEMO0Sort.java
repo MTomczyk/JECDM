@@ -8,6 +8,7 @@ import exception.PhaseException;
 import exeption.PreferenceModelException;
 import model.IPreferenceModel;
 import model.internals.AbstractInternalModel;
+import org.apache.commons.math4.legacy.stat.StatUtils;
 import phase.IPhase;
 import phase.PhaseReport;
 import population.Specimen;
@@ -52,9 +53,9 @@ public class NEMO0Sort extends NSGAIISort implements IPhase
     /**
      * Phase's main action.
      *
-     * @param ea evolutionary algorithm
+     * @param ea     evolutionary algorithm
      * @param report report on the executed action (to be filled)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @SuppressWarnings("DuplicatedCode")
     @Override
@@ -85,19 +86,38 @@ public class NEMO0Sort extends NSGAIISort implements IPhase
             // construct the ambiguous population
             ArrayList<Specimen> lastFront = new ArrayList<>(ea.getPopulationSize() - aFront._passedMembers);
 
+            double[] eval = new double[aFront._front.size()];
+            int t = 0;
             for (Integer idx : aFront._front)
             {
                 Specimen candidate = ea.getSpecimensContainer().getPopulation().get(idx);
                 lastFront.add(candidate);
-                double eval;
                 try
                 {
-                    eval = _preferenceModel.evaluate(candidate.getAlternative());
+                    eval[t++] = _preferenceModel.evaluate(candidate.getAlternative());
                 } catch (PreferenceModelException e)
                 {
                     throw new PhaseException("Error occurred when evaluating an alternative " + e.getDetailedReasonMessage(), this.getClass(), e);
                 }
-                candidate.setAuxScore(aFront._passedFronts + eval);
+            }
+            double maxEval = StatUtils.max(eval);
+            if (Double.compare(maxEval, 0.0d) == 0) maxEval = 1.0;
+            t = 0;
+            if (_preferenceModel.isLessPreferred())
+            {
+                for (Integer idx : aFront._front)
+                {
+                    Specimen candidate = ea.getSpecimensContainer().getPopulation().get(idx);
+                    candidate.setAuxScore(aFront._passedFronts + eval[t++] / maxEval);
+                }
+            }
+            else
+            {
+                for (Integer idx : aFront._front)
+                {
+                    Specimen candidate = ea.getSpecimensContainer().getPopulation().get(idx);
+                    candidate.setAuxScore(aFront._passedFronts + 1.0d - (eval[t++] / maxEval));
+                }
             }
 
             sort.Sort.sortByAuxValue(lastFront, true);

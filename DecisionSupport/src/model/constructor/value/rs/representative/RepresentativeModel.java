@@ -14,18 +14,24 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * This class generates a single, representative model instance. It is also a wrapper for FRS {@link FRS}. When the main
- * method is called ({@link RepresentativeModel#mainConstructModels(Report, LinkedList)}), it first delegates the model
- * construction procedure to FRS. Then, it uses an implementation of {@link IRepresentativeValueModelSelector} to derive a single
- * model instance and returns it in the result bundle (the remaining bundle statistics are copied from the FRS's bundle).
+ * This class generates a single, representative model instance. It is also a wrapper for FRS {@link FRS}. When the
+ * main method is called ({@link RepresentativeModel#mainConstructModels(Report, LinkedList)}), it first delegates the
+ * model construction procedure to FRS. Then, it uses an implementation of {@link IRepresentativeValueModelSelector} to
+ * derive a single model instance and returns it in the result bundle (the remaining bundle statistics are copied from
+ * the FRS's bundle). DEPRECATED: the code migrates to
+ * {@link model.constructor.value.representative.RepresentativeModel} (a more general implementation capable of wrapping
+ * any model constructor).
  *
  * @author MTomczyk
  */
+@SuppressWarnings("DuplicatedCode")
+@Deprecated
 public class RepresentativeModel<T extends AbstractValueInternalModel> extends AbstractWrappedConstructor<T> implements IConstructor<T>
 {
     /**
-     * Params container.
+     * Params container. It assists in instantiating the object with the {@link FRS} constructor wrapped.
      */
+    @Deprecated
     public static class Params<T extends AbstractValueInternalModel> extends FRS.Params<T>
     {
         /**
@@ -47,6 +53,19 @@ public class RepresentativeModel<T extends AbstractValueInternalModel> extends A
     }
 
     /**
+     * Auxiliary method that assists in migrating to a new class
+     * {@link model.constructor.value.representative.RepresentativeModel}.
+     *
+     * @return instance represented by a new (future) class
+     */
+    @Deprecated
+    public model.constructor.value.representative.RepresentativeModel<T> getFutureInstance()
+    {
+        return new model.constructor.value.representative.RepresentativeModel<>(
+                new model.constructor.value.representative.RepresentativeModel.Params<>(_wrappedConstructor, _modelSelector));
+    }
+
+    /**
      * Object used to select a representative model instance.
      */
     private final IRepresentativeValueModelSelector<T> _modelSelector;
@@ -62,14 +81,14 @@ public class RepresentativeModel<T extends AbstractValueInternalModel> extends A
         _modelSelector = p._modelSelector;
     }
 
-
     /**
      * The main-construct models phase.
      *
      * @param bundle                bundle result object to be filled (provided via wrappers)
      * @param preferenceInformation the decision maker's preference information stored
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
+    @Deprecated
     @Override
     protected void mainConstructModels(Report<T> bundle, LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
     {

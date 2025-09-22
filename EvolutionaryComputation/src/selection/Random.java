@@ -1,10 +1,7 @@
 package selection;
 
-import ea.EA;
-import ea.IEA;
 import population.Parents;
 import population.Specimen;
-import population.SpecimensContainer;
 import random.IRandom;
 
 import java.util.ArrayList;
@@ -14,7 +11,6 @@ import java.util.ArrayList;
  *
  * @author MTomczyk
  */
-
 public class Random extends AbstractSelect implements ISelect
 {
     /**
@@ -52,7 +48,8 @@ public class Random extends AbstractSelect implements ISelect
     }
 
     /**
-     * Default constructor. Assumes that there are always two parents to be selected per one offspring to be constructed.
+     * Default constructor. Assumes that there are always two parents to be selected per one offspring to be
+     * constructed.
      */
     public Random()
     {
@@ -69,40 +66,17 @@ public class Random extends AbstractSelect implements ISelect
         this(new Params(noParentsPerOffspring));
     }
 
-
     /**
-     * Constructs array of parents (one element for one offspring to generate).
-     * The default (implicit) assumptions are as follows:
-     * - The number of parents to construct ({@link Parents}) equals the offspring size ({@link IEA#getOffspringSize()}).
-     * - The parents are selected from the current mating pool in {@link SpecimensContainer#getMatingPool()}.
-     *
-     * @param ea evolutionary algorithm
-     * @return selected parents
-     */
-    @Override
-    public ArrayList<Parents> selectParents(IEA ea)
-    {
-        ArrayList<Parents> parents = new ArrayList<>(ea.getOffspringSize());
-        ArrayList<Specimen> matingPool = ea.getSpecimensContainer().getMatingPool();
-        IRandom R = ea.getR();
-
-        for (int i = 0; i < ea.getOffspringSize(); i++)
-            parents.add(selectParents(matingPool, R));
-        return parents;
-    }
-
-    /**
-     * Auxiliary method signature for selecting one Parents object from an input specimens array.
+     * Auxiliary method signature for selecting one Parents object from an input specimens array. Random selection.
+     * Sets the expected number of offspring to generate to 1.
      *
      * @param specimens input specimens array
      * @param R         random number generator
      * @return parents object
      */
+    @Override
     public Parents selectParents(ArrayList<Specimen> specimens, IRandom R)
     {
-        ArrayList<Specimen> parents = new ArrayList<>(_noParentsPerOffspring);
-        for (int i = 0; i < _noParentsPerOffspring; i++)
-            parents.add(specimens.get(R.nextInt(specimens.size())));
-        return new Parents(parents);
+        return super.selectParents(specimens, R);
     }
 }

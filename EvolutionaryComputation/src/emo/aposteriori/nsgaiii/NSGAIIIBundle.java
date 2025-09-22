@@ -7,7 +7,6 @@ import emo.utils.decomposition.nsgaiii.IAssignmentResolveTie;
 import emo.utils.decomposition.nsgaiii.ISpecimenResolveTie;
 import emo.utils.decomposition.nsgaiii.NSGAIIIGoalsManager;
 import os.IOSChangeListener;
-import space.normalization.builder.StandardLinearBuilder;
 
 /**
  * Bundle (container) of necessary fields for the NSGA-III algorithm.
@@ -17,6 +16,19 @@ import space.normalization.builder.StandardLinearBuilder;
 
 public class NSGAIIIBundle extends AbstractEMOBundle
 {
+    /**
+     * Auxiliary interface for classes that can be used to adjust the params container being processed.
+     */
+    public interface IParamsAdjuster
+    {
+        /**
+         * The main method for adjusting the params container.
+         *
+         * @param p params container being instantiated
+         */
+        void adjust(Params p);
+    }
+
     /**
      * Params container for the bundle's getter.
      */
@@ -33,7 +45,8 @@ public class NSGAIIIBundle extends AbstractEMOBundle
         public final IAssignmentResolveTie _assignmentResolveTie;
 
         /**
-         * Object used when resolving a tie during a selection of a specimen when the associated assignment object has a niche count value greater than one
+         * Object used when resolving a tie during a selection of a specimen when the associated assignment object has a
+         * niche count value greater than one
          */
         public final ISpecimenResolveTie _specimenResolveTie;
 
@@ -42,8 +55,10 @@ public class NSGAIIIBundle extends AbstractEMOBundle
          *
          * @param criteria             considered criteria
          * @param goalsManager         NSGA-III goals manager
-         * @param assignmentResolveTie object used for resolving a tie when selecting an assignment with a minimal niche count
-         * @param specimenResolveTie   object responsible for resolving a tia when selecting from multiple solutions assigned to a goal with niche count > 1
+         * @param assignmentResolveTie object used for resolving a tie when selecting an assignment with a minimal niche
+         *                             count
+         * @param specimenResolveTie   object responsible for resolving a tia when selecting from multiple solutions
+         *                             assigned to a goal with niche count > 1
          */
         public Params(Criteria criteria, NSGAIIIGoalsManager goalsManager,
                       IAssignmentResolveTie assignmentResolveTie,
@@ -83,13 +98,14 @@ public class NSGAIIIBundle extends AbstractEMOBundle
 
     /**
      * Auxiliary method for retrieving OS changed listeners (facilitates customization by the class extensions).
+     *
      * @param p params container
      * @return OS changed listeners.
      */
     @Override
     protected IOSChangeListener[] getOSChangedListeners(AbstractEABundle.Params p)
     {
-        NSGAIIIOSChangeListener l = new NSGAIIIOSChangeListener(((Params) p)._goalsManager, new StandardLinearBuilder());
+        NSGAIIIOSChangeListener l = new NSGAIIIOSChangeListener(((Params) p)._goalsManager);
         return new IOSChangeListener[]{l};
     }
 

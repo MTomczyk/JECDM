@@ -4,9 +4,7 @@ import random.IRandom;
 import reproduction.valuecheck.IValueCheck;
 
 /**
- * Implementation of the SBX operator. The operator constructs the offspring's vector elements using the corresponding
- * elements of the parents' vectors. The resulting value will be closer to one of the parents' values (random decision
- * drawn from the uniform distribution).
+ * Implementation of the SBX operator designed to produce one offspring from two parents.
  *
  * @author MTomczyk
  */
@@ -88,7 +86,7 @@ public class SBX extends AbstractSBX implements ICrossover
      * @return new decision vector
      */
     @Override
-    public DoubleResult crossover(double[] p1, double[] p2, IRandom R)
+    public ICrossover.DoubleResult crossover(double[] p1, double[] p2, IRandom R)
     {
         double[][] p = doSwap(p1, p2, R);
         double[] o = new double[p[0].length];
@@ -100,7 +98,8 @@ public class SBX extends AbstractSBX implements ICrossover
                 double[] os = getValue(p[0][i], p[1][i], R);
                 if (R.nextBoolean()) o[i] = os[0];
                 else o[i] = os[1];
-            } else
+            }
+            else
             {
                 if (R.nextBoolean()) o[i] = p[0][i];
                 else o[i] = p[1][i];

@@ -49,6 +49,8 @@ public class UpdateObjectiveSpace extends AbstractUpdateOSPhase implements IPhas
     @Override
     public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
-        _osManager.update(ea.getSpecimensContainer(), new EATimestamp(ea.getCurrentGeneration(), ea.getCurrentSteadyStateRepeat()));
+        _osManager.setEA(ea);
+        _osManager.update(ea.getSpecimensContainer(), new EATimestamp(ea.getCurrentGeneration(),
+                ea.getCurrentSteadyStateRepeat()));
     }
 }

@@ -5,7 +5,7 @@ import random.IRandom;
 /**
  * Implementation of a single-point crossover. Point of cut x is selected randomly.
  * Then, offspring inherits [0, x) values from a random parent, while [x, number of decision variables)
- * elements are inherited from the other.
+ * elements are inherited from the other. This operator assumes constructing one offspring from two parents.
  *
  * @author MTomczyk
  */

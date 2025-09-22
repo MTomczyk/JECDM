@@ -24,6 +24,19 @@ import system.ds.DecisionSupportSystem;
 public class NEMO0Bundle extends AbstractNEMOBundle
 {
     /**
+     * Auxiliary interface for classes that can be used to adjust the params container being processed.
+     */
+    public interface IParamsAdjuster
+    {
+        /**
+         * The main method for adjusting the params container.
+         *
+         * @param p params container being instantiated
+         */
+        void adjust(NEMO0Bundle.Params p);
+    }
+
+    /**
      * Params container for the bundle's getter.
      */
     public static class Params extends AbstractNEMOBundle.Params
@@ -40,7 +53,8 @@ public class NEMO0Bundle extends AbstractNEMOBundle
         }
 
         /**
-         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
+         * Constructs a default params container that involves one decision maker with one preference model, one
+         * DM-based
          * feedback provider, and one interaction rule.
          *
          * @param criteria                       considered criteria
@@ -53,6 +67,7 @@ public class NEMO0Bundle extends AbstractNEMOBundle
          * @param <T>                            internal preference model definition
          * @return params container
          */
+        @Deprecated
         public static <T extends AbstractValueInternalModel> Params getDefault(Criteria criteria,
                                                                                String DM,
                                                                                IRule interactionRule,
@@ -67,7 +82,8 @@ public class NEMO0Bundle extends AbstractNEMOBundle
         }
 
         /**
-         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
+         * Constructs a default params container that involves one decision maker with one preference model, one
+         * DM-based
          * feedback provider, and one interaction rule.
          *
          * @param criteria                       considered criteria
@@ -77,10 +93,12 @@ public class NEMO0Bundle extends AbstractNEMOBundle
          * @param dmFeedbackProvider             DM-based feedback provider
          * @param preferenceModel                preference model used
          * @param representativeModelConstructor representative model instance constructor (founded on {@link FRS})
-         * @param dssAdjuster                    auxiliary DSS params adjuster (can be null, if not used); adjustment is done after the default initialization
+         * @param dssAdjuster                    auxiliary DSS params adjuster (can be null, if not used); adjustment is
+         *                                       done after the default initialization
          * @param <T>                            internal preference model definition
          * @return params container
          */
+        @Deprecated
         public static <T extends AbstractValueInternalModel> Params getDefault(Criteria criteria,
                                                                                String DM,
                                                                                IRule interactionRule,
@@ -99,15 +117,77 @@ public class NEMO0Bundle extends AbstractNEMOBundle
         }
 
         /**
-         * Constructs a default params container that involves one decision maker with one preference model, one DM-based
+         * Constructs a default params container that involves one decision maker with one preference model, one
+         * DM-based
+         * feedback provider, and one interaction rule.
+         *
+         * @param criteria                       considered criteria
+         * @param DM                             decision maker's identifier
+         * @param interactionRule                interaction rule
+         * @param referenceSetConstructor        reference set constructor
+         * @param dmFeedbackProvider             DM-based feedback provider
+         * @param preferenceModel                preference model used
+         * @param representativeModelConstructor representative model instance constructor
+         * @param <T>                            internal preference model definition
+         * @return params container
+         */
+        public static <T extends AbstractValueInternalModel> Params getDefault(Criteria criteria,
+                                                                               String DM,
+                                                                               IRule interactionRule,
+                                                                               IReferenceSetConstructor referenceSetConstructor,
+                                                                               IDMFeedbackProvider dmFeedbackProvider,
+                                                                               IPreferenceModel<T> preferenceModel,
+                                                                               model.constructor.value.representative.RepresentativeModel<T> representativeModelConstructor)
+        {
+
+            return getDefault(criteria, DM, interactionRule, referenceSetConstructor, dmFeedbackProvider,
+                    preferenceModel, representativeModelConstructor, null);
+        }
+
+        /**
+         * Constructs a default params container that involves one decision maker with one preference model, one
+         * DM-based
+         * feedback provider, and one interaction rule.
+         *
+         * @param criteria                       considered criteria
+         * @param DM                             decision maker's identifier
+         * @param interactionRule                interaction rule
+         * @param referenceSetConstructor        reference set constructor
+         * @param dmFeedbackProvider             DM-based feedback provider
+         * @param preferenceModel                preference model used
+         * @param representativeModelConstructor representative model instance constructor
+         * @param dssAdjuster                    auxiliary DSS params adjuster (can be null, if not used); adjustment is
+         *                                       done after the default initialization
+         * @param <T>                            internal preference model definition
+         * @return params container
+         */
+        public static <T extends AbstractValueInternalModel> Params getDefault(Criteria criteria,
+                                                                               String DM,
+                                                                               IRule interactionRule,
+                                                                               IReferenceSetConstructor referenceSetConstructor,
+                                                                               IDMFeedbackProvider dmFeedbackProvider,
+                                                                               IPreferenceModel<T> preferenceModel,
+                                                                               model.constructor.value.representative.RepresentativeModel<T> representativeModelConstructor,
+                                                                               DecisionSupportSystem.IParamsAdjuster dssAdjuster)
+        {
+
+            DecisionSupportSystem.Params pDSS = DSSParamsProvider.getForSingleDecisionMakerSingleModelArtificialProvider(criteria,
+                    DM, interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel,
+                    representativeModelConstructor);
+            if (dssAdjuster != null) dssAdjuster.adjust(pDSS);
+            return getDefault(criteria, pDSS);
+        }
+
+        /**
+         * Constructs a default params container that involves one decision maker with one preference model, one
+         * DM-based
          * feedback provider, and one interaction rule.
          *
          * @param criteria considered criteria
          * @param pDSS     params container used to establish the decision support system
-         * @param <T>      internal preference model definition
          * @return params container
          */
-        public static <T extends AbstractValueInternalModel> NEMO0Bundle.Params getDefault(Criteria criteria, DecisionSupportSystem.Params pDSS)
+        public static NEMO0Bundle.Params getDefault(Criteria criteria, DecisionSupportSystem.Params pDSS)
         {
             try
             {

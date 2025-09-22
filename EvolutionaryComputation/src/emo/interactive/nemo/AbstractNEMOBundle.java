@@ -6,7 +6,6 @@ import emo.aposteriori.nsgaii.NSGAIIOSChangeListener;
 import emo.aposteriori.nsgaii.NSGAIISort;
 import emo.interactive.AbstractEMOInteractiveBundle;
 import os.IOSChangeListener;
-import space.normalization.builder.StandardLinearBuilder;
 import system.ds.DecisionSupportSystem;
 
 /**
@@ -36,7 +35,6 @@ public abstract class AbstractNEMOBundle extends AbstractEMOInteractiveBundle
         {
             super(name, criteria, DSS);
         }
-
     }
 
     /**
@@ -72,7 +70,7 @@ public abstract class AbstractNEMOBundle extends AbstractEMOInteractiveBundle
     protected IOSChangeListener[] getOSChangedListeners(AbstractEABundle.Params p)
     {
         AbstractNEMOBundle.Params pp = (AbstractNEMOBundle.Params) p;
-        NSGAIIOSChangeListener l = new NSGAIIOSChangeListener((NSGAIISort) _phasesBundle._sort, new StandardLinearBuilder());
+        NSGAIIOSChangeListener l = new NSGAIIOSChangeListener((NSGAIISort) _phasesBundle._sort);
         return new IOSChangeListener[]{l, pp._dmContextParamsConstructor, (IOSChangeListener) _phasesBundle._prepareStep};
     }
 

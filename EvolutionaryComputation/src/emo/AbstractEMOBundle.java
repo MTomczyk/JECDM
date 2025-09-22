@@ -4,13 +4,11 @@ import criterion.Criteria;
 import ea.AbstractEABundle;
 
 
-
 /**
  * Container (abstract) class for EMOAs.
  *
  * @author MTomczyk
  */
-
 public abstract class AbstractEMOBundle extends AbstractEABundle
 {
     /**

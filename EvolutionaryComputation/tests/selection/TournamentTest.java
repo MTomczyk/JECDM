@@ -1,6 +1,8 @@
 package selection;
 
+import alternative.Alternative;
 import ea.EA;
+import exception.PhaseException;
 import org.junit.jupiter.api.Test;
 import population.Parents;
 import population.Specimen;
@@ -8,14 +10,15 @@ import population.SpecimenID;
 import population.SpecimensContainer;
 import print.PrintUtils;
 import random.IRandom;
+import random.L32_X64_MIX;
 import random.MersenneTwister64;
+import reproduction.ReproductionStrategy;
 import statistics.Statistics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Several tests for the {@link selection.Tournament} class.
@@ -67,7 +70,17 @@ class TournamentTest
             int t = 1000000;
             for (int i = 0; i < t; i++)
             {
-                ArrayList<Parents> parents = TS.selectParents(ea);
+                ArrayList<Parents> parents = null;
+                String msg = null;
+                try
+                {
+                    parents = TS.selectParents(ea);
+                } catch (PhaseException e)
+                {
+                    msg = e.getMessage();
+                }
+                assertNull(msg);
+                assertNotNull(parents);
                 for (Parents P : parents)
                 {
                     int id1 = map.get(P._parents.get(0));
@@ -97,7 +110,17 @@ class TournamentTest
             int t = 1000000;
             for (int i = 0; i < t; i++)
             {
-                ArrayList<Parents> parents = TS.selectParents(ea);
+                ArrayList<Parents> parents = null;
+                String msg = null;
+                try
+                {
+                    parents = TS.selectParents(ea);
+                } catch (PhaseException e)
+                {
+                    msg = e.getMessage();
+                }
+                assertNull(msg);
+                assertNotNull(parents);
                 for (Parents P : parents)
                 {
                     int id1 = map.get(P._parents.get(0));
@@ -140,7 +163,17 @@ class TournamentTest
             int t = 1000000;
             for (int i = 0; i < t; i++)
             {
-                ArrayList<Parents> parents = TS.selectParents(ea);
+                ArrayList<Parents> parents = null;
+                String msg = null;
+                try
+                {
+                    parents = TS.selectParents(ea);
+                } catch (PhaseException e)
+                {
+                    msg = e.getMessage();
+                }
+                assertNull(msg);
+                assertNotNull(parents);
                 for (Parents P : parents)
                 {
                     int id1 = map.get(P._parents.get(0));
@@ -178,7 +211,17 @@ class TournamentTest
             int t = 1000000;
             for (int i = 0; i < t; i++)
             {
-                ArrayList<Parents> parents = TS.selectParents(ea);
+                ArrayList<Parents> parents = null;
+                String msg = null;
+                try
+                {
+                    parents = TS.selectParents(ea);
+                } catch (PhaseException e)
+                {
+                    msg = e.getMessage();
+                }
+                assertNull(msg);
+                assertNotNull(parents);
                 for (Parents P : parents)
                 {
                     int id1 = map.get(P._parents.get(0));
@@ -216,7 +259,17 @@ class TournamentTest
             int t = 1000000;
             for (int i = 0; i < t; i++)
             {
-                ArrayList<Parents> parents = TS.selectParents(ea);
+                ArrayList<Parents> parents = null;
+                String msg = null;
+                try
+                {
+                    parents = TS.selectParents(ea);
+                } catch (PhaseException e)
+                {
+                    msg = e.getMessage();
+                }
+                assertNull(msg);
+                assertNotNull(parents);
                 for (Parents P : parents)
                 {
                     assertEquals(5, P._parents.size());
@@ -246,8 +299,7 @@ class TournamentTest
                                     assertTrue(cnt[a1][a2][a3][a4][a5] > 0);
                                     if (cnt[a1][a2][a3][a4][a5] > max) max = cnt[a1][a2][a3][a4][a5];
                                     if (cnt[a1][a2][a3][a4][a5] < min) min = cnt[a1][a2][a3][a4][a5];
-                                }
-                                else
+                                } else
                                 {
                                     assertEquals(0, cnt[a1][a2][a3][a4][a5]);
                                 }
@@ -258,6 +310,187 @@ class TournamentTest
             System.out.println((double) Math.abs(max - min) / t);
             assertTrue((double) Math.abs(max - min) / t < 0.01d);
 
+        }
+    }
+
+    /**
+     * Test 2.
+     */
+    @Test
+    public void test2()
+    {
+        Tournament.Params TP = new Tournament.Params();
+        TP._noParentsPerOffspring = 2;
+        TP._withReplacement = true;
+        TP._size = 2;
+        TP._useSampling = false;
+        TP._comparator = (A, B) -> A.getName().equals("B") ? 1 : 0;
+        Tournament TS = new Tournament(TP);
+
+        EA.Params pEA = new EA.Params("", null);
+        pEA._populationSize = 100;
+        pEA._offspringSize = 100;
+        pEA._R = new L32_X64_MIX(0);
+        pEA._name = "genetic";
+        pEA._id = 0;
+        EA ea = new EA(pEA);
+
+        int[] hist = new int[2];
+
+        for (int i = 0; i < 100; i++)
+        {
+            ArrayList<Specimen> specimen = new ArrayList<>(2);
+            specimen.add(new Specimen(new SpecimenID(ea.getID(), i, 0, 0)));
+            specimen.add(new Specimen(new SpecimenID(ea.getID(), i, 0, 1)));
+            specimen.get(0).setAlternative(new Alternative("A", 2));
+            specimen.get(1).setAlternative(new Alternative("B", 2));
+            ea.setSpecimensContainer(new SpecimensContainer());
+            ea.getSpecimensContainer().setMatingPool(specimen);
+            ArrayList<Parents> parents = null;
+            String msg = null;
+            try
+            {
+                parents = TS.selectParents(ea);
+            } catch (PhaseException e)
+            {
+                msg = e.getMessage();
+            }
+            assertNull(msg);
+            assertNotNull(parents);
+            assertEquals(pEA._offspringSize, parents.size());
+            for (Parents pa : parents)
+            {
+                assertEquals(2, pa._parents.size());
+                if (pa._parents.get(0).getName().equals("A")) hist[0]++;
+                if (pa._parents.get(1).getName().equals("A")) hist[0]++;
+                if (pa._parents.get(0).getName().equals("B")) hist[1]++;
+                if (pa._parents.get(1).getName().equals("B")) hist[1]++;
+            }
+        }
+
+        PrintUtils.printVectorOfIntegers(hist);
+        int s = hist[0] + hist[1];
+        assertEquals(20000, hist[0] + hist[1]);
+        assertEquals((double) hist[0] / s, 0.25d, 1.0E-2);
+        assertEquals((double) hist[1] / s, 0.75d, 1.0E-2);
+    }
+
+    /**
+     * Test 3.
+     */
+    @Test
+    void test3()
+    {
+        ReproductionStrategy[] RS = new ReproductionStrategy[8];
+        RS[1] = ReproductionStrategy.getDefaultStrategy();
+        RS[2] = new ReproductionStrategy(new ReproductionStrategy.Params(2));
+        RS[3] = new ReproductionStrategy(new ReproductionStrategy.Params(2));
+        RS[4] = new ReproductionStrategy(new ReproductionStrategy.Params(3));
+        RS[5] = new ReproductionStrategy(new ReproductionStrategy.Params(3));
+        RS[6] = ReproductionStrategy.getDynamicStrategy((ea, counter, noExpectedOffspringGenerated) ->
+                1 + ea.getR().nextInt(3));
+        {
+            ReproductionStrategy.Params pRS = new ReproductionStrategy.Params();
+            pRS._enableOffspringThresholding = false;
+            pRS._isReproductionStrategyConstant = false;
+            pRS._noOffspringFromParentsGenerator = (ea, counter, noExpectedOffspringGenerated) -> {
+                if (counter == 0) return 5;
+                if (counter == 1) return 2;
+                if (counter == 2) return 2;
+                return 5;
+            };
+            RS[7] = new ReproductionStrategy(pRS);
+        }
+
+
+        int[] os = new int[]{5, 5, 5, 6, 8, 12, 10, 10};
+        String[] msgs = new String[]{
+                null,
+                null,
+                "It is expected to generate 2 offspring solutions from one Parents object, but it is not a " +
+                        "divisor of the expected total offspring size of 5 (reproduction limit = 2147483647; capped to 5)," +
+                        " and offspring thresholding is set to disabled.",
+                null,
+                "It is expected to generate 3 offspring solutions from one Parents object, but it is not a " +
+                        "divisor of the expected total offspring size of 8 (reproduction limit = 2147483647; capped to 8)," +
+                        " and offspring thresholding is set to disabled.",
+                null,
+                null,
+                "The dynamic generation of the expected number of offspring to produce indicates the number of 5. When " +
+                        "added to the already generated numbers (9), it would exceed the expected total offspring size " +
+                        "of 10 (the offspring thresholding is set to disabled; the true offspring size is 10;" +
+                        " reproduction limit = 2147483647; capped to 10)."
+        };
+        Integer[] ps = new Integer[]{5, 5, null, 3, null, 4, null, null};
+        Integer[] total = new Integer[]{100000, 100000, null, 60000, null, 80000, null, null};
+
+        for (int i = 0; i < RS.length; i++)
+        {
+            IRandom R = new MersenneTwister64(System.currentTimeMillis());
+            EA.Params pEA = new EA.Params("", null);
+            pEA._populationSize = 3;
+            pEA._offspringSize = os[i];
+            pEA._R = R;
+            pEA._id = 0;
+            pEA._reproductionStrategy = RS[i];
+            EA ea = new EA(pEA);
+            int T = 10000;
+            ISelect S = new Tournament(1); // 1 makes it entirely random
+            ArrayList<Specimen> specimen = new ArrayList<>();
+            specimen.add(new Specimen(new SpecimenID(0, 0, 0, 0)));
+            specimen.add(new Specimen(new SpecimenID(0, 0, 0, 1)));
+            specimen.add(new Specimen(new SpecimenID(0, 0, 0, 2)));
+            ea.setSpecimensContainer(new SpecimensContainer());
+            ea.getSpecimensContainer().setMatingPool(specimen);
+            int[] hist = new int[3];
+
+            String msg = null;
+            for (int t = 0; t < T; t++)
+            {
+                ArrayList<Parents> parents = null;
+                try
+                {
+                    parents = S.selectParents(ea);
+                } catch (PhaseException e)
+                {
+                    msg = e.getMessage();
+                }
+
+                assertEquals(msgs[i], msg);
+
+                if (msg == null)
+                {
+                    assertNotNull(parents);
+                    if (ps[i] != null) assertEquals(ps[i], parents.size());
+                    int ts = 0;
+                    for (Parents p : parents)
+                    {
+                        assertNotNull(p._parents);
+                        assertEquals(2, p._parents.size());
+                        for (Specimen s : p._parents)
+                            hist[s.getID()._no]++;
+
+                        if (RS[i] == null) assertEquals(1, p._noOffspringToConstruct);
+                        else if (RS[i].isReproductionStrategyConstant())
+                            assertEquals(RS[i].getConstantNoOffspringFromParents(), p._noOffspringToConstruct);
+
+                        ts += p._noOffspringToConstruct;
+                    }
+                    assertEquals(pEA._offspringSize, ts);
+                } else break;
+            }
+
+            if (msg == null)
+            {
+                if ((RS[i] != null) && (RS[i].isReproductionStrategyConstant()))
+                {
+                    assertNotNull(total);
+                    assertEquals(total[i], hist[0] + hist[1] + hist[2]);
+                    assertEquals(1.0d / 3.0d, (double) hist[0] / total[i], 1.0E-2);
+                    assertEquals(1.0d / 3.0d, (double) hist[1] / total[i], 1.0E-2);
+                    assertEquals(1.0d / 3.0d, (double) hist[2] / total[i], 1.0E-2);
+                }
+            }
         }
     }
 }

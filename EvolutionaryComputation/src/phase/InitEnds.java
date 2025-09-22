@@ -1,7 +1,6 @@
 package phase;
 
 import ea.AbstractPhasesEA;
-import ea.EA;
 import exception.PhaseException;
 
 /**

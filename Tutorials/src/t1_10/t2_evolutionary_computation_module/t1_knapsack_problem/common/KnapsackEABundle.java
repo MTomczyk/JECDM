@@ -43,18 +43,9 @@ public class KnapsackEABundle extends AbstractEABundle
                     new boolean[]{true, false}));
             _data = new Data(capacity);
             _repairMode = repairMode;
-        }
-
-        /**
-         * Auxiliary method called by the constructor at the beginning to instantiate default params values (optional).
-         * This implementation instantiates phases-related objects.
-         */
-        @Override
-        protected void instantiateDefaultValues()
-        {
-            if (_construct == null) _construct = new KnapsackConstructor(_data);
-            if (_evaluate == null) _evaluate = new KnapsackEvaluator(_data, _repairMode);
-            if (_reproduce == null) _reproduce = new KnapsackReproducer(_data);
+            _construct = new KnapsackConstructor(_data);
+            _evaluate = new KnapsackEvaluator(_data, _repairMode);
+            _reproduce = new KnapsackReproducer(_data);
         }
     }
 

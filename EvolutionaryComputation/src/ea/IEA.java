@@ -5,6 +5,9 @@ import exception.EAException;
 import os.ObjectiveSpaceManager;
 import population.SpecimensContainer;
 import random.IRandom;
+import reproduction.ReproductionStrategy;
+import space.normalization.builder.INormalizationBuilder;
+import space.normalization.builder.StandardLinearBuilder;
 import system.ds.DecisionSupportSystem;
 
 /**
@@ -73,11 +76,34 @@ public interface IEA
     int getOffspringSize();
 
     /**
+     * Default getter for the number of steady state repeats the method is supposed to run for.
+     *
+     * @return 1 (for generational algorithms)
+     */
+    default int getExpectedNumberOfSteadyStateRepeats()
+    {
+        return 1;
+    }
+
+    /**
      * Getter for the objective space manager.
      *
      * @return objective space manager
      */
     ObjectiveSpaceManager getObjectiveSpaceManager();
+
+
+    /**
+     * Getter for the auxiliary object constructing normalization functions using data on the current known bounds on
+     * the relevant part of the objective space. Primarily used in the context of evolutionary multi-objective
+     * optimization. The default implementation returns a new instance of {@link StandardLinearBuilder}.
+     *
+     * @return normalization builder object
+     */
+    default INormalizationBuilder getNormalizationBuilder()
+    {
+        return new StandardLinearBuilder();
+    }
 
     /**
      * Getter for the criteria considered when solving the problem.
@@ -102,7 +128,8 @@ public interface IEA
     boolean getComputeExecutionTimes();
 
     /**
-     * Getter for the specimens container maintained by the EA (wraps e.g., current population, mating pool, offspring).
+     * Getter for the specimens container maintained by the EA (wraps e.g., current population, mating pool,
+     * offspring).
      *
      * @return specimens container
      */
@@ -120,10 +147,26 @@ public interface IEA
      *
      * @return decision support system (null, if not employed)
      */
-    DecisionSupportSystem getDecisionSupportSystem();
+    default DecisionSupportSystem getDecisionSupportSystem()
+    {
+        return null;
+    }
 
     /**
      * Auxiliary method for disposing data.
      */
-    void dispose();
+    default void dispose()
+    {
+
+    }
+
+    /**
+     * Getter for the reproduction strategy employed by the evolutionary algorithm.
+     *
+     * @return reproduction strategy employed by the evolutionary algorithm
+     */
+    default ReproductionStrategy getReproductionStrategy()
+    {
+        return null;
+    }
 }

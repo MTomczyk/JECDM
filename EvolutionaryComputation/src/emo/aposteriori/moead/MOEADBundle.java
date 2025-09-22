@@ -5,7 +5,6 @@ import ea.AbstractEABundle;
 import emo.AbstractEMOBundle;
 import emo.utils.decomposition.moead.MOEADGoalsManager;
 import os.IOSChangeListener;
-import space.normalization.builder.StandardLinearBuilder;
 
 /**
  * Bundle (container) of necessary fields for the MOEA/D algorithm.
@@ -15,6 +14,19 @@ import space.normalization.builder.StandardLinearBuilder;
 
 public class MOEADBundle extends AbstractEMOBundle
 {
+    /**
+     * Auxiliary interface for classes that can be used to adjust the params container being processed.
+     */
+    public interface IParamsAdjuster
+    {
+        /**
+         * The main method for adjusting the params container.
+         *
+         * @param p params container being instantiated
+         */
+        void adjust(Params p);
+    }
+
     /**
      * Params container for the bundle's getter.
      */
@@ -114,7 +126,7 @@ public class MOEADBundle extends AbstractEMOBundle
     protected IOSChangeListener[] getOSChangedListeners(AbstractEABundle.Params p)
     {
         Params pp = (Params) p;
-        IOSChangeListener l = new MOEADOSChangeListener(pp._goalsManager, new StandardLinearBuilder());
+        IOSChangeListener l = new MOEADOSChangeListener(pp._goalsManager);
         return new IOSChangeListener[]{l};
     }
 

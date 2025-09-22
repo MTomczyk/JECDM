@@ -1,0 +1,69 @@
+package reproduction;
+
+import random.IRandom;
+import reproduction.operators.crossover.ICrossoverMO;
+import reproduction.operators.mutation.IMutate;
+import reproduction.valuecheck.IValueCheck;
+
+/**
+ * Class assisting in performing standard reproduction using two parents' decision vectors (of integers; see the
+ * {@link StandardIntMOReproducer#reproduce(int[], int[], IRandom)} method). First, it constructs an arbitrary number,
+ * but constant and pre-defined, of offspring vectors using the reproduction operator. If the mutation operator is
+ * supplied, it is used then to mutate the offspring vectors. Lastly, if the value check object is supplied, it is
+ * applied to the offspring vectors.
+ *
+ * @author MTomczyk
+ */
+public class StandardIntMOReproducer extends AbstractStandardMOReproducer
+{
+    /**
+     * Lower bound for the variables' values.
+     */
+    private final int _vLowerBound;
+
+    /**
+     * Upper bound for the variables' values.
+     */
+    private final int _vUpperBound;
+
+    /**
+     * Parameterized constructor.
+     *
+     * @param c           crossover operator (designed to construct two offspring from two parents)
+     * @param m           mutation operator (can be null; not used then)
+     * @param vc          object for checking if the resulting variable are in valid bounds (can be null; not used then)
+     * @param vLowerBound lower bound for the variables' values
+     * @param vUpperBound upper bound for the variables' values
+     */
+    public StandardIntMOReproducer(ICrossoverMO c, IMutate m, IValueCheck vc, int vLowerBound, int vUpperBound)
+    {
+        super(c, m, vc);
+        _vLowerBound = vLowerBound;
+        _vUpperBound = vUpperBound;
+    }
+
+    /**
+     * Performs the reproduction using two parents' decision vectors (of doubles). First, it constructs an arbitrary
+     * number, but constant and pre-defined, of offspring vectors using the reproduction operator. If the mutation
+     * operator is supplied, it is used then to mutate the offspring vector. Lastly, if the value check object is
+     * supplied, it is applied to the offspring vector.
+     *
+     * @param p1 the first parent's decision vector (reference; do not modify it)
+     * @param p2 the second parent's decision vector (reference; do not modify it)
+     * @param R  random number generator
+     * @return offspring's decision vector
+     */
+    public int[][] reproduce(int[] p1, int[] p2, IRandom R)
+    {
+        int[][] o = _c.crossover(p1, p2, R)._o;
+        if (_m != null)
+            for (int[] ints : o) _m.mutate(ints, R);
+
+        if (_vc != null)
+        {
+            for (int[] ints : o)
+                _vc.checkAndCorrect(ints, _vLowerBound, _vUpperBound);
+        }
+        return o;
+    }
+}

@@ -1,10 +1,8 @@
 package selection;
 
-import ea.EA;
 import ea.IEA;
 import population.Parents;
 import population.Specimen;
-import population.SpecimensContainer;
 import random.IRandom;
 import random.Shuffle;
 
@@ -13,12 +11,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Implementation of the {@link ISelect} interface for selecting parents.
- * Solutions are compared based on their (first) auxiliary scores.
+ * Implementation of the {@link ISelect} interface for selecting parents. Solutions are compared based on their (first)
+ * auxiliary scores (by default, can be changed via providing a custom implementation of {@link IComparator}).
  *
  * @author MTomczyk
  */
-
 
 public class Tournament extends AbstractSelect implements ISelect
 {
@@ -33,25 +30,32 @@ public class Tournament extends AbstractSelect implements ISelect
         public int _size = 2;
 
         /**
-         * Aux score preference direction: true = gain (to be maximized); false = cost (to be minimized)
-         * Used for determining the tournament winner.
+         * Aux score preference direction: true = gain (to be maximized); false = cost (to be minimized) Used for
+         * determining the tournament winner.
          */
         public boolean _preferenceDirection = true;
 
         /**
-         * If true, the selection is with replacement; false -> without replacement
-         * (without replacement -> the scope is selection of parents for one offspring, i.e., the parents cannot be repeated).
+         * If true, the selection is with replacement; false -> without replacement (without replacement -> the scope is
+         * selection of parents for one offspring, i.e., the parents cannot be repeated).
          */
         public boolean _withReplacement = true;
 
         /**
          * Auxiliary flag used when selecting without replacement. The flag should be selected based on the number of
-         * parents/mating pool size ratio. If the ratio {@literal <} 50%, then the selection of parents is done by sampling
-         * (the candidate can be neglected when it was already selected), and the flag is set to true. Otherwise,
-         * the chances of a "positive hit" are small. If so, the flag should be set to false, and the selection is
-         * supported by using an auxiliary permutation index.
+         * parents/mating pool size ratio. If the ratio {@literal <} 50%, then the selection of parents is done by
+         * sampling (the candidate can be neglected when it was already selected), and the flag is set to true.
+         * Otherwise, the chances of a "positive hit" are small. If so, the flag should be set to false, and the
+         * selection is supported by using an auxiliary permutation index.
          */
         public boolean _useSampling = true;
+
+        /**
+         * An auxiliary specimen comparator (can be null). If null, it will be instantiated as {@link ByAux} (compares
+         * specimens based on their first auxiliary values) using the {@link Params#_preferenceDirection} flag. One can
+         * provide one's own implementation to define a custom in-tournament comparison.
+         */
+        public IComparator _comparator = null;
 
         /**
          * Default constructor.
@@ -75,12 +79,25 @@ public class Tournament extends AbstractSelect implements ISelect
          * Parameterized constructor.
          *
          * @param size                tournament size
-         * @param preferenceDirection aux score preference direction: true = gain (to be maximized); false = cost (to be minimized); used for determining the tournament winner
+         * @param preferenceDirection aux score preference direction: true = gain (to be maximized); false = cost (to be
+         *                            minimized); used for determining the tournament winner
          */
         public Params(int size, boolean preferenceDirection)
         {
             _size = size;
             _preferenceDirection = preferenceDirection;
+        }
+
+        /**
+         * Parameterized constructor.
+         *
+         * @param size       tournament size
+         * @param comparator one can provide one's own implementation to define a custom in-tournament comparison
+         */
+        public Params(int size, IComparator comparator)
+        {
+            _size = size;
+            _comparator = comparator;
         }
     }
 
@@ -90,25 +107,19 @@ public class Tournament extends AbstractSelect implements ISelect
     private final int _size;
 
     /**
-     * Aux score preference direction: true = gain (to be maximized); false = cost (to be minimized)
-     * Used for determining the tournament winner.
-     */
-    private final boolean _preferenceDirection;
-
-    /**
-     * If true, the selection is with replacement; false -> without replacement (without replacement: the scope is
-     * a single tournament intending to select a single specimen-parent).
-     * Also, if false, the tournament size is {@literal <}{@literal =} the mating pool size (assert).
-     * Note that if false, it may negatively affect the execution time.
+     * If true, the selection is with replacement; false -> without replacement (without replacement: the scope is a
+     * single tournament intending to select a single specimen-parent). Also, if false, the tournament size is
+     * {@literal <}{@literal =} the mating pool size (assert). Note that if false, it may negatively affect the
+     * execution time.
      */
     private final boolean _withReplacement;
 
     /**
      * Auxiliary flag used when selecting without replacement. The flag should be selected based on the number of
-     * parents/mating pool size ratio. If the ratio {@literal <} than 50%, then the selection of parents is done by sampling
-     * (the candidate can be neglected when it was already selected), and the flag is set to true. Otherwise,
-     * the chances of a "positive hit" are small. If so, the flag should be set to false, and the selection is
-     * supported by using an auxiliary permutation index.
+     * parents/mating pool size ratio. If the ratio {@literal <} than 50%, then the selection of parents is done by
+     * sampling (the candidate can be neglected when it was already selected), and the flag is set to true. Otherwise,
+     * the chances of a "positive hit" are small. If so, the flag should be set to false, and the selection is supported
+     * by using an auxiliary permutation index.
      */
     protected final boolean _useSampling;
 
@@ -118,8 +129,15 @@ public class Tournament extends AbstractSelect implements ISelect
      */
     private final Shuffle<Integer> _sh;
 
+
     /**
-     * Parameterized constructor.
+     * Specimen comparator used to perform in-tournament comparisons.
+     */
+    private final IComparator _comparator;
+
+    /**
+     * Parameterized constructor. Solutions are compared based on their (first) auxiliary scores (by default, can be
+     * changed via providing a custom implementation of {@link IComparator} via a different constructor).
      *
      * @param size tournament size
      */
@@ -129,107 +147,138 @@ public class Tournament extends AbstractSelect implements ISelect
     }
 
     /**
+     * Parameterized constructor.
+     *
+     * @param size       tournament size
+     * @param comparator one can provide one's own implementation to define a custom in-tournament comparison
+     */
+    public Tournament(int size, IComparator comparator)
+    {
+        this(new Params(size, comparator));
+    }
+
+    /**
+     * Auxiliary pointers (dynamic state; set by {@link AbstractSelect#initProcessing(IEA)}; cleared
+     * by {@link AbstractSelect#finalizeProcessing(IEA)}).
+     */
+    private int[] _pointers;
+
+    /**
+     * Auxiliary set (dynamic state; set by {@link AbstractSelect#initParentsProcessing(IEA)}; cleared
+     * by {@link AbstractSelect#initParentsProcessing(IEA)}).
+     */
+    private Set<Specimen> _selected;
+
+    /**
      * Parameterized constructor. Inner class instance (Params) is passed as a container for parameters.
      *
-     * @param params params container
+     * @param p params container
      */
-    public Tournament(Params params)
+    public Tournament(Params p)
     {
-        super(params);
-        _size = params._size;
-        _preferenceDirection = params._preferenceDirection;
-        _withReplacement = params._withReplacement;
-        _useSampling = params._useSampling;
+        super(p);
+        _size = p._size;
+        _withReplacement = p._withReplacement;
+        _useSampling = p._useSampling;
         if (!_withReplacement)
         {
             if (!_useSampling) _sh = new Shuffle<>();
             else _sh = null;
-        }
-        else _sh = null;
+        } else _sh = null;
+        if (p._comparator != null) _comparator = p._comparator;
+        else _comparator = new ByAux(p._preferenceDirection);
     }
-
 
     /**
-     * Performs tournament selection.
-     * The default (implicit) assumptions are as follows:
-     * - The number of parents to construct ({@link Parents}) equals the offspring size ({@link IEA#getOffspringSize()}).
-     * - The parents are selected from the current mating pool in {@link SpecimensContainer#getMatingPool()}.
+     * Auxiliary method that can be overwritten to perform custom operations at the beginning of the selection process.
      *
-     * @param ea evolutionary algorithm
-     * @return selected parents
+     * @param ea evolutionary algorithm being processed
      */
     @Override
-    public ArrayList<Parents> selectParents(IEA ea)
+    protected void initProcessing(IEA ea)
     {
-        ArrayList<Parents> P = new ArrayList<>(ea.getOffspringSize());
-        ArrayList<Specimen> matingPool = ea.getSpecimensContainer().getMatingPool();
-        IRandom R = ea.getR();
-
-        // set auxiliary pointers
-        int[] _pointers = null;
-
+        super.initProcessing(ea);
+        _pointers = null;
         if ((!_withReplacement) && (!_useSampling))
         {
-            _pointers = new int[matingPool.size()];
-            for (int p = 0; p < matingPool.size(); p++) _pointers[p] = p;
+            _pointers = new int[_matingPool.size()];
+            for (int p = 0; p < _matingPool.size(); p++) _pointers[p] = p;
         }
+    }
 
-        // Construct the desired number of parents (pairs)
-        for (int o = 0; o < ea.getOffspringSize(); o++)
+    /**
+     * Auxiliary method that can be overwritten to perform custom operations at the beginning of the construction of one
+     * Parents object.
+     *
+     * @param ea evolutionary algorithm being processed
+     */
+    @Override
+    protected void initParentsProcessing(IEA ea)
+    {
+        super.initParentsProcessing(ea);
+
+        if (!_withReplacement)
         {
-            ArrayList<Specimen> parents = new ArrayList<>(_noParentsPerOffspring);
-            Set<Specimen> selected = null;
+            _selected = new HashSet<>(); // hashed by their ids.
+            if (!_useSampling) //noinspection DataFlowIssue
+                _sh.shuffle(_pointers, _R);
+        }
+    }
 
-            if (!_withReplacement)
+    /**
+     * Auxiliary method that can be overwritten to perform custom operations at the end of the selection process.
+     *
+     * @param ea evolutionary algorithm being processed
+     */
+    @Override
+    protected void finalizeProcessing(IEA ea)
+    {
+        super.finalizeProcessing(ea);
+        _pointers = null;
+        _selected = null;
+    }
+
+    /**
+     * Auxiliary method signature for selecting one Parents object from an input specimens array. Random selection.
+     *
+     * @param specimens              input specimens array
+     * @param R                      random number generator
+     * @param noOffspringToConstruct the expected number of offspring to be constructed from the selected parents
+     * @return parents object
+     */
+    @Override
+    protected Parents selectParents(ArrayList<Specimen> specimens, IRandom R, int noOffspringToConstruct)
+    {
+        ArrayList<Specimen> parents = new ArrayList<>(_noParentsPerOffspring);
+        for (int p = 0; p < _noParentsPerOffspring; p++)
+        {
+            Specimen winner;
+            if (_withReplacement) winner = draw(_matingPool, _R);
+            else
             {
-                selected = new HashSet<>(); // hashed by their ids.
-                if (!_useSampling) //noinspection DataFlowIssue
-                    _sh.shuffle(_pointers, R);
+                if (_useSampling) winner = drawWithReplacementSampling(_matingPool, _R, _selected);
+                else winner = drawWithReplacementPointers(_matingPool, _R, _selected, _pointers);
             }
 
-            for (int p = 0; p < _noParentsPerOffspring; p++)
+            for (int r = 1; r < _size; r++)
             {
-                Specimen winner;
-                if (_withReplacement) winner = draw(matingPool, R);
+                Specimen counter;
+                if (_withReplacement) counter = draw(_matingPool, _R);
                 else
                 {
-                    if (_useSampling) winner = drawWithReplacementSampling(matingPool, R, selected);
-                    else winner = drawWithReplacementPointers(matingPool, R, selected, _pointers);
+                    if (_useSampling) counter = drawWithReplacementSampling(_matingPool, _R, _selected);
+                    else counter = drawWithReplacementPointers(_matingPool, _R, _selected, _pointers);
                 }
-
-
-                for (int r = 1; r < _size; r++)
-                {
-                    Specimen counter;
-                    if (_withReplacement)
-                    {
-
-                        counter = draw(matingPool, R);
-
-                    }
-                    else
-                    {
-                        if (_useSampling) counter = drawWithReplacementSampling(matingPool, R, selected);
-                        else counter = drawWithReplacementPointers(matingPool, R, selected, _pointers);
-                    }
-
-                    if (((_preferenceDirection) && (Double.compare(counter.getAlternative().getAuxScore(), winner.getAlternative().getAuxScore()) > 0))
-                            || ((!_preferenceDirection) && (Double.compare(counter.getAlternative().getAuxScore(), winner.getAlternative().getAuxScore()) < 0)))
-                        winner = counter; // replacement
-                }
-
-
-                parents.add(winner);
-
-                if (!_withReplacement) selected.add(winner);
+                if (_comparator.compare(counter, winner) == 1) winner = counter; // replacement
             }
-            P.add(new Parents(parents));
 
+            parents.add(winner);
+
+            if (!_withReplacement) _selected.add(winner);
         }
-
-
-        return P;
+        return new Parents(parents, noOffspringToConstruct);
     }
+
 
     /**
      * Supportive method for randomly drawing a specimen.
@@ -244,7 +293,8 @@ public class Tournament extends AbstractSelect implements ISelect
     }
 
     /**
-     * Supportive method for randomly drawing a specimen that has not yet been drawn. The selection is done by sampling.
+     * Supportive method for randomly drawing a specimen that has not yet been drawn. The selection is done by
+     * sampling.
      *
      * @param matingPool mating pool
      * @param R          random number generator
@@ -260,8 +310,8 @@ public class Tournament extends AbstractSelect implements ISelect
     }
 
     /**
-     * Supportive method for randomly drawing a specimen that was not yet drawn.
-     * The selection is supported by the auxiliary permutation of pointers.
+     * Supportive method for randomly drawing a specimen that was not yet drawn. The selection is supported by the
+     * auxiliary permutation of pointers.
      *
      * @param matingPool mating pool
      * @param R          random number generator

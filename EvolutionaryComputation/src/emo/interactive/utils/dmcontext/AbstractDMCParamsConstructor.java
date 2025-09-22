@@ -25,8 +25,11 @@ public abstract class AbstractDMCParamsConstructor implements IDMCParamsConstruc
 
     /**
      * Object used to construct normalization functions.
+     *
+     * @deprecated this field will be removed in future releases
      */
-    protected final INormalizationBuilder _normalizationBuilder;
+    @Deprecated
+    protected INormalizationBuilder _normalizationBuilder;
 
     /**
      * Delivers the alternatives superset to instantiate the decision-making context.
@@ -35,7 +38,10 @@ public abstract class AbstractDMCParamsConstructor implements IDMCParamsConstruc
 
     /**
      * Default constructor.
+     *
+     * @deprecated this constructor will be removed in future releases
      */
+    @Deprecated
     public AbstractDMCParamsConstructor()
     {
         this(new StandardLinearBuilder(), new FromPopulation());
@@ -44,10 +50,22 @@ public abstract class AbstractDMCParamsConstructor implements IDMCParamsConstruc
     /**
      * Parameterized constructor.
      *
+     * @param alternativesProvider delivers the alternatives superset to instantiate the decision-making context
+     */
+    public AbstractDMCParamsConstructor(IAlternativesProvider alternativesProvider)
+    {
+        _alternativesProvider = alternativesProvider;
+    }
+
+    /**
+     * Parameterized constructor.
+     *
      * @param normalizationBuilder object used to construct normalization functions; if null, the standard min max
      *                             builder will be instantiated {@link StandardLinearBuilder}
      * @param alternativesProvider delivers the alternatives superset to instantiate the decision-making context
+     * @deprecated this constructor will be removed in future releases
      */
+    @Deprecated
     public AbstractDMCParamsConstructor(INormalizationBuilder normalizationBuilder,
                                         IAlternativesProvider alternativesProvider)
     {
@@ -73,7 +91,7 @@ public abstract class AbstractDMCParamsConstructor implements IDMCParamsConstruc
         pDMC._osChanged = _osChanged;
         _osChanged = false; // reset the flag
         pDMC._currentAlternativesSuperset = _alternativesProvider.getAlternatives(ea);
-        pDMC._normalizationBuilder = _normalizationBuilder;
+        pDMC._normalizationBuilder = ea.getNormalizationBuilder();
         pDMC._R = ea.getR();
         return pDMC;
     }

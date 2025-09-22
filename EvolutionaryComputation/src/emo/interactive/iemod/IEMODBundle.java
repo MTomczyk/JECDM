@@ -16,7 +16,6 @@ import model.IPreferenceModel;
 import model.constructor.IConstructor;
 import model.internals.value.AbstractValueInternalModel;
 import os.IOSChangeListener;
-import space.normalization.builder.StandardLinearBuilder;
 import system.ds.DSSParamsProvider;
 import system.ds.DecisionSupportSystem;
 
@@ -30,8 +29,7 @@ import system.ds.DecisionSupportSystem;
 public class IEMODBundle extends AbstractEMOInteractiveBundle
 {
     /**
-     * Auxiliary interface for classes that can be used to adjust the params container of the upper class being
-     * instantiated.
+     * Auxiliary interface for classes that can be used to adjust the params container being processed.
      */
     public interface IParamsAdjuster<T extends AbstractValueInternalModel>
     {
@@ -131,11 +129,46 @@ public class IEMODBundle extends AbstractEMOInteractiveBundle
                                                                                   IConstructor<T> modelConstructor,
                                                                                   DecisionSupportSystem.IParamsAdjuster dssAdjuster)
         {
+            return getDefault(criteria, goalsManager, DM, interactionRule, referenceSetConstructor, dmFeedbackProvider,
+                    preferenceModel, modelConstructor, dssAdjuster, new BestReassignments());
+        }
+
+        /**
+         * Constructs a default params container that involves one decision maker with one preference model, one
+         * DM-based feedback provider, and one interaction rule.
+         *
+         * @param criteria                considered criteria
+         * @param goalsManager            goals manager
+         * @param DM                      decision maker's identifier
+         * @param interactionRule         interaction rule
+         * @param referenceSetConstructor reference set constructor
+         * @param dmFeedbackProvider      DM-based feedback provider
+         * @param preferenceModel         preference model used
+         * @param modelConstructor        model instance constructor
+         * @param dssAdjuster             auxiliary DSS params adjuster (can be null, if not used); adjustment is done
+         *                                after the default initialization
+         * @param reassignmentStrategy      goals updater assignment strategy
+         * @param <T>                     internal preference model definition
+         * @return params container
+         */
+        public static <T extends AbstractValueInternalModel> Params<T> getDefault(Criteria criteria,
+                                                                                  MOEADGoalsManager goalsManager,
+                                                                                  String DM,
+                                                                                  IRule interactionRule,
+                                                                                  IReferenceSetConstructor referenceSetConstructor,
+                                                                                  IDMFeedbackProvider dmFeedbackProvider,
+                                                                                  IPreferenceModel<T> preferenceModel,
+                                                                                  IConstructor<T> modelConstructor,
+                                                                                  DecisionSupportSystem.IParamsAdjuster dssAdjuster,
+                                                                                  IGoalsUpdateReassignmentStrategy reassignmentStrategy)
+        {
             DecisionSupportSystem.Params pDSS = DSSParamsProvider.getForSingleDecisionMakerSingleModelArtificialProvider(criteria,
                     DM, interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, modelConstructor);
             if (dssAdjuster != null) dssAdjuster.adjust(pDSS);
-            return getDefault(criteria, goalsManager, new IEMODGoalsUpdater<>(preferenceModel, goalsManager), pDSS);
+            return getDefault(criteria, goalsManager, new IEMODGoalsUpdater<>(preferenceModel,
+                    goalsManager, reassignmentStrategy), pDSS);
         }
+
 
         /**
          * Constructs a default params container that involves one decision maker with one preference model, one
@@ -251,7 +284,7 @@ public class IEMODBundle extends AbstractEMOInteractiveBundle
     protected IOSChangeListener[] getOSChangedListeners(AbstractEABundle.Params p)
     {
         IEMODBundle.Params<? extends AbstractValueInternalModel> pp = (IEMODBundle.Params<? extends AbstractValueInternalModel>) p;
-        IOSChangeListener l = new MOEADOSChangeListener(pp._goalsManager, new StandardLinearBuilder());
+        IOSChangeListener l = new MOEADOSChangeListener(pp._goalsManager);
         return new IOSChangeListener[]{l, pp._dmContextParamsConstructor, (IOSChangeListener) _phasesBundle._prepareStep};
     }
 

@@ -29,4 +29,29 @@ public class RunnerException extends AbstractException
     {
         super(message, handler, cause);
     }
+
+    /**
+     * Parameterized constructor
+     *
+     * @param message exception message
+     * @param handler class that handled the exception
+     * @param source  exception source
+     */
+    public RunnerException(String message, Class<?> handler, Class<?> source)
+    {
+        super(message, handler, source);
+    }
+
+
+    /**
+     * Factory-like method.
+     *
+     * @param message exception message
+     * @param source  exception source
+     * @return an instance of an exception to be thrown
+     */
+    public static RunnerException getInstanceWithSource(String message, Class<?> source)
+    {
+        return new RunnerException(message, null, source);
+    }
 }

@@ -1,7 +1,6 @@
 package emo.interactive.iemod;
 
 import ea.AbstractPhasesEA;
-import ea.EA;
 import ea.IEA;
 import emo.interactive.AbstractInteractAndPrepareStep;
 import emo.interactive.utils.dmcontext.IDMCParamsConstructor;
@@ -42,10 +41,10 @@ public class IEMODInteractAndPrepareStep<T extends AbstractValueInternalModel> e
     /**
      * Parameterized constructor.
      *
-     * @param goalManager          MOEA/D goal manager
-     * @param DSS                  decision support system
-     * @param goalsUpdater         goals updater
-     * @param dmParamsConstructor  decision-making context params constructor
+     * @param goalManager         MOEA/D goal manager
+     * @param DSS                 decision support system
+     * @param goalsUpdater        goals updater
+     * @param dmParamsConstructor decision-making context params constructor
      */
     public IEMODInteractAndPrepareStep(MOEADGoalsManager goalManager,
                                        DecisionSupportSystem DSS,
@@ -61,9 +60,9 @@ public class IEMODInteractAndPrepareStep<T extends AbstractValueInternalModel> e
     /**
      * Phase's main action.
      *
-     * @param ea evolutionary algorithm
+     * @param ea     evolutionary algorithm
      * @param report report on the executed action (to be filled)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @Override
     public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
@@ -75,22 +74,23 @@ public class IEMODInteractAndPrepareStep<T extends AbstractValueInternalModel> e
 
 
     /**
-     * An auxiliary method can be overwritten to perform the internal data update (to be overwritten).
+     * An auxiliary method that updates maintained optimization goals.
      *
      * @param report report on the most recent DSS execute process call
      * @param dm     list of DMs for which some new internal models were constructed
      * @param ea     reference to the EA
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @Override
     protected void doInternalUpdate(Report report, LinkedList<DM> dm, IEA ea) throws PhaseException
     {
         try
         {
-            _goalsUpdater.updateGoals(ea);
+            _goalsUpdater.updateGoals(report, ea);
         } catch (PhaseException e)
         {
-            throw new PhaseException("Error occurred when updating goals " + e.getDetailedReasonMessage(), this.getClass(), e);
+            throw new PhaseException("Error occurred when updating goals " + e.getDetailedReasonMessage(),
+                    this.getClass(), e);
         }
     }
 

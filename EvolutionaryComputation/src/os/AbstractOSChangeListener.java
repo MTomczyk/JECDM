@@ -1,9 +1,9 @@
 package os;
 
-import ea.AbstractPhasesEA;
 import ea.IEA;
 import exception.PhaseException;
 import space.normalization.builder.INormalizationBuilder;
+import space.normalization.builder.StandardLinearBuilder;
 import space.os.ObjectiveSpace;
 
 /**
@@ -16,17 +16,31 @@ public abstract class AbstractOSChangeListener implements IOSChangeListener
 {
     /**
      * Normalization builder: builds normalization based on the info on the objective space.
+     *
+     * @deprecated this field is to be removed in future releases; get the builder form {@link IEA#getNormalizationBuilder()}.
      */
-    protected final INormalizationBuilder _builder;
+    @Deprecated
+    protected final INormalizationBuilder _builder = new StandardLinearBuilder();
 
     /**
      * Parameterized constructor.
      *
-     * @param builder normalization builder: builds normalization based on the info on the objective space.
+     * @param builder (parameter is ignored) normalization builder: builds normalization based on the info on the
+     *                objective space.
+     * @deprecated this constructor is to be removed from future releases
      */
+    @Deprecated
     public AbstractOSChangeListener(INormalizationBuilder builder)
     {
-        _builder = builder;
+
+    }
+
+    /**
+     * Default constructor.
+     */
+    public AbstractOSChangeListener()
+    {
+
     }
 
 
@@ -36,7 +50,7 @@ public abstract class AbstractOSChangeListener implements IOSChangeListener
      * @param ea     evolutionary algorithm
      * @param os     objective space (updated)
      * @param prevOS objective space (outdated; for comparison)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @Override
     public void action(IEA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException

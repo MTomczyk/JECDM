@@ -1,7 +1,6 @@
 package emo.interactive.utils.dmcontext;
 
 import alternative.AbstractAlternatives;
-import ea.EA;
 import ea.IEA;
 import population.Specimens;
 

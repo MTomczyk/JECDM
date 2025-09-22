@@ -24,10 +24,22 @@ public class NSGAOSChangeListener extends AbstractOSChangeListener implements IO
      * Parameterized constructor.
      * @param sort NSGA sorting phase
      * @param builder normalization builder
+     * @deprecated this constructor will be removed in future releases
      */
+    @Deprecated
     public NSGAOSChangeListener(NSGASort sort, INormalizationBuilder builder)
     {
         super(builder);
+        _sort = sort;
+    }
+
+    /**
+     * Parameterized constructor.
+     * @param sort NSGA sorting phase
+     */
+    public NSGAOSChangeListener(NSGASort sort)
+    {
+        super();
         _sort = sort;
     }
 
@@ -41,6 +53,6 @@ public class NSGAOSChangeListener extends AbstractOSChangeListener implements IO
     @Override
     public void action(IEA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
     {
-        _sort.updateNormalizations(_builder.getNormalizations(os));
+        _sort.updateNormalizations(ea.getNormalizationBuilder().getNormalizations(os));
     }
 }

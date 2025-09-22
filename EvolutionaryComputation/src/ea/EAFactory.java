@@ -14,7 +14,7 @@ import selection.ISelect;
  *
  * @author MTomczyk
  */
-public class EAFactory
+public abstract class EAFactory
 {
     /**
      * This method creates and returns a simple evolutionary algorithm, primarily for single-objective optimization.

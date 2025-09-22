@@ -12,13 +12,13 @@ import reproduction.operators.mutation.IMutate;
  *
  * @author MTomczyk
  */
-public class StandardBoolReproducer extends AbstractStandardReproducer
+public class StandardBoolReproducer extends AbstractStandardSOReproducer
 {
     /**
      * Parameterized constructor.
      *
-     * @param c           crossover operator
-     * @param m           mutation operator (can be null; not used then)
+     * @param c crossover operator (designed to construct one offspring from two parents)
+     * @param m mutation operator (can be null; not used then)
      */
     public StandardBoolReproducer(ICrossover c, IMutate m)
     {
@@ -30,14 +30,14 @@ public class StandardBoolReproducer extends AbstractStandardReproducer
      * constructed using the reproduction operator. If the mutation operator is supplied, it is used then to mutate
      * the offspring vector. Lastly, if the value check object is supplied, it is applied to the offspring vector.
      *
-     * @param p1 the first parent's decision vector
-     * @param p2 the second parent's decision vector
+     * @param p1 the first parent's decision vector (reference; do not modify it)
+     * @param p2 the second parent's decision vector (reference; do not modify it)
      * @param R  random number generator
      * @return offspring's decision vector
      */
     public boolean[] reproduce(boolean[] p1, boolean[] p2, IRandom R)
     {
-        boolean [] o = _c.crossover(p1, p2, R)._o;
+        boolean[] o = _c.crossover(p1, p2, R)._o;
         if (_m != null) _m.mutate(o, R);
         return o;
     }

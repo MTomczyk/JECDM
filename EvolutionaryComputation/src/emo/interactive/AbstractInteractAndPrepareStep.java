@@ -17,16 +17,17 @@ import system.dm.DM;
 import system.ds.DecisionSupportSystem;
 import system.ds.Report;
 
+import java.util.EnumSet;
 import java.util.LinkedList;
 
 /**
- * Default implementation of a "prepare step" dedicated to interactive methods. The call for {@link DecisionSupportSystem#executeProcess(DMContext.Params)}
- * is executed only when the current steady state repeat equals zero (see {@link AbstractInteractAndPrepareStep#action(AbstractPhasesEA, PhaseReport)})
+ * Default implementation of a "prepare step" dedicated to interactive methods. The call for
+ * {@link DecisionSupportSystem#executeProcess(DMContext.Params)}
+ * is executed only when the current steady state repeat equals zero (see
+ * {@link AbstractInteractAndPrepareStep#action(AbstractPhasesEA, PhaseReport)})
  *
  * @author MTomczyk
  */
-
-
 public class AbstractInteractAndPrepareStep extends AbstractPrepareStepPhase implements IPhase, IOSChangeListener
 {
     /**
@@ -42,9 +43,9 @@ public class AbstractInteractAndPrepareStep extends AbstractPrepareStepPhase imp
     /**
      * Parameterized constructor.
      *
-     * @param name                 phase name
-     * @param DSS                  decision support system
-     * @param dmParamsConstructor  decision-making context params constructor
+     * @param name                phase name
+     * @param DSS                 decision support system
+     * @param dmParamsConstructor decision-making context params constructor
      */
     public AbstractInteractAndPrepareStep(String name, DecisionSupportSystem DSS,
                                           IDMCParamsConstructor dmParamsConstructor)
@@ -57,9 +58,9 @@ public class AbstractInteractAndPrepareStep extends AbstractPrepareStepPhase imp
     /**
      * Phase's main action.
      *
-     * @param ea evolutionary algorithm
+     * @param ea     evolutionary algorithm
      * @param report report on the executed action (to be filled)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @Override
     public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
@@ -67,6 +68,7 @@ public class AbstractInteractAndPrepareStep extends AbstractPrepareStepPhase imp
         if (ea.getCurrentSteadyStateRepeat() == 0)
         {
             DMContext.Params pDMC = _dmContextParamsConstructor.getDMCParams(ea);
+            pDMC._reasons = EnumSet.of(DMContext.Reason.REGULAR_ITERATION);
             Report dssReport;
             try
             {
@@ -76,7 +78,8 @@ public class AbstractInteractAndPrepareStep extends AbstractPrepareStepPhase imp
 
             } catch (DecisionSupportSystemException e)
             {
-                throw new PhaseException("Exception occurred when executing the phase = " + _name + " " + e.getDetailedReasonMessage(), this.getClass(), e);
+                throw new PhaseException("Exception occurred when executing the phase = " + _name + " " +
+                        e.getDetailedReasonMessage(), this.getClass(), e);
             }
         }
     }
@@ -87,7 +90,7 @@ public class AbstractInteractAndPrepareStep extends AbstractPrepareStepPhase imp
      * @param report report on the most recent DSS execute process call
      * @param dm     list of DMs for which some new internal models were constructed
      * @param ea     reference to the EA
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     protected void doInternalUpdate(Report report, LinkedList<DM> dm, IEA ea) throws PhaseException
     {
@@ -100,16 +103,17 @@ public class AbstractInteractAndPrepareStep extends AbstractPrepareStepPhase imp
      * @param ea     evolutionary algorithm
      * @param os     objective space (updated)
      * @param prevOS objective space (outdated; for comparison)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @Override
     public void action(IEA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
     {
         DMContext.Params pDMC = _dmContextParamsConstructor.getDMCParams(ea);
+        pDMC._reasons = EnumSet.of(DMContext.Reason.OS_CHANGED);
         try
         {
-            system.modules.updater.Report report = _DSS.executeModelUpdateProcess(pDMC);
-            doInternalUpdate(null, whichDMModelsChanged(report), ea);
+            Report report = _DSS.executeModelUpdateProcessAndWrapReport(pDMC);
+            doInternalUpdate(report, whichDMModelsChanged(report._updateReport), ea);
 
         } catch (DecisionSupportSystemException e)
         {
@@ -120,10 +124,12 @@ public class AbstractInteractAndPrepareStep extends AbstractPrepareStepPhase imp
 
     /**
      * Auxiliary method for checking which DMs' internal models have changed. The verification process examines the
-     * success rate in preserving the already existing models. Some new models have been generated if the rate is smaller
+     * success rate in preserving the already existing models. Some new models have been generated if the rate is
+     * smaller
      * than 1. Thus, there is a need for data updates. The method returns a list of DMs for which such a need exists.
      *
-     * @param report report on the last call of {@link system.modules.updater.ModelsUpdaterModule#executeProcess(DMContext)}
+     * @param report report on the last call of
+     *               {@link system.modules.updater.ModelsUpdaterModule#executeProcess(DMContext)}
      * @return true, if the internal model(s) should be updated
      */
     protected LinkedList<DM> whichDMModelsChanged(system.modules.updater.Report report)

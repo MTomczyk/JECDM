@@ -18,6 +18,7 @@ import java.util.ArrayList;
  *
  * @author MTomczyk
  */
+@SuppressWarnings("DuplicatedCode")
 public class KnapsackReproducer implements IReproduce
 {
     /**

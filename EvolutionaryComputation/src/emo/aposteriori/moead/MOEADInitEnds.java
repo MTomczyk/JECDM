@@ -1,11 +1,10 @@
 package emo.aposteriori.moead;
 
 import ea.AbstractPhasesEA;
-import ea.EA;
 import emo.utils.decomposition.moead.MOEADGoalsManager;
 import exception.PhaseException;
-import phase.AbstractInitEndsPhase;
 import phase.IPhase;
+import phase.InitEnds;
 import phase.PhaseReport;
 
 /**
@@ -15,7 +14,7 @@ import phase.PhaseReport;
  * @author MTomczyk
  */
 
-public class MOEADInitEnds extends AbstractInitEndsPhase implements IPhase
+public class MOEADInitEnds extends InitEnds implements IPhase
 {
     /**
      * MOEA/D goal manager.
@@ -44,6 +43,7 @@ public class MOEADInitEnds extends AbstractInitEndsPhase implements IPhase
     @Override
     public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
+        super.action(ea, report);
         _goalManager.establishNeighborhood();
         _goalManager.determineUpdatesSequence(ea.getR());
         _goalManager.makeArbitraryAssignments(ea.getSpecimensContainer());

@@ -38,7 +38,7 @@ public class PYMOO extends AbstractEA implements IEA
         {
             pymoo.init();
             for (int i = 1; i < generations; i++) pymoo.step(new EATimestamp(i, 0));
-            System.out.println(pymoo._executionTime);
+            System.out.println(pymoo.getExecutionTime());
         } catch (EAException e)
         {
             throw new RuntimeException(e);
@@ -117,7 +117,7 @@ public class PYMOO extends AbstractEA implements IEA
             byte[] output = inputStream.readAllBytes();
             String sTime = new String(output);
             sTime = sTime.substring(0, sTime.length() - 1);
-            _executionTime = Double.parseDouble(sTime.substring(0, sTime.length() - 1));
+            setExecutionTime(Double.parseDouble(sTime.substring(0, sTime.length() - 1)));
         } catch (IOException e)
         {
             throw new EAException("Could not retrieve the output", null, this.getClass());

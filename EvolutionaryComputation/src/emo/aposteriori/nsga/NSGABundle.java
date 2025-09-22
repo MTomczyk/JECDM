@@ -6,7 +6,6 @@ import emo.AbstractEMOBundle;
 import os.IOSChangeListener;
 import space.distance.Euclidean;
 import space.distance.IDistance;
-import space.normalization.builder.StandardLinearBuilder;
 
 /**
  * Bundle (container) of necessary fields for the NSGA algorithm.
@@ -15,6 +14,19 @@ import space.normalization.builder.StandardLinearBuilder;
  */
 public class NSGABundle extends AbstractEMOBundle
 {
+    /**
+     * Auxiliary interface for classes that can be used to adjust the params container being processed.
+     */
+    public interface IParamsAdjuster
+    {
+        /**
+         * The main method for adjusting the params container.
+         *
+         * @param p params container being instantiated
+         */
+        void adjust(Params p);
+    }
+
     /**
      * Params container for the bundle getter.
      */
@@ -69,16 +81,16 @@ public class NSGABundle extends AbstractEMOBundle
         _phasesBundle._sort = _nsgaSort;
     }
 
-
     /**
      * Auxiliary method for retrieving the NSGA-dedicated OS changed listener.
+     *
      * @param p params container
      * @return OS changed listeners.
      */
     @Override
     protected IOSChangeListener[] getOSChangedListeners(AbstractEABundle.Params p)
     {
-        NSGAOSChangeListener l = new NSGAOSChangeListener(_nsgaSort, new StandardLinearBuilder());
+        NSGAOSChangeListener l = new NSGAOSChangeListener(_nsgaSort);
         return new IOSChangeListener[]{l};
     }
 

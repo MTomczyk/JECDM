@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
- * Tests the {@link NSGAIIISort#action(EA, PhaseReport)} method.
+ * Provides various tests related to NSGA-III.
  *
  * @author MTomczyk
  */
@@ -74,7 +74,6 @@ class NSGAIIISortTest
         pEA._offspringSize = 5;
         EA ea = new EA(pEA);
         ea.setSpecimensContainer(SC);
-
 
 
         String msg = null;

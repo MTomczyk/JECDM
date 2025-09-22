@@ -6,14 +6,17 @@ import container.scenario.ScenarioDataContainerFactory;
 import container.trial.AbstractTrialDataContainer;
 import container.trial.TrialDataContainerFactory;
 import container.trial.initialziers.IEAInitializer;
+import criterion.Criteria;
 import ea.EA;
+import emo.interactive.StandardDSSBuilder;
 import emo.interactive.iemod.IEMOD;
 import emo.interactive.ktscone.cdemo.CDEMO;
 import emo.interactive.ktscone.dcemo.DCEMO;
-import emo.interactive.nemo.nemo0.NEMO0;
+import emo.interactive.nemo.nemo0.NEMO0Builder;
 import emo.interactive.nemo.nemoii.NEMOII;
 import emo.utils.decomposition.goal.GoalsFactory;
 import emo.utils.decomposition.goal.IGoal;
+import exception.EAException;
 import exception.TrialException;
 import indicator.ExecutionTime;
 import indicator.IIndicator;
@@ -35,9 +38,9 @@ import io.cross.excel.FinalStatisticsXLSX;
 import io.scenario.excel.SummarizerXLSX;
 import model.IPreferenceModel;
 import model.constructor.random.LNormGenerator;
-import model.constructor.value.rs.frs.FRS;
 import model.constructor.value.representative.MDVF;
-import model.constructor.value.rs.representative.RepresentativeModel;
+import model.constructor.value.representative.RepresentativeModel;
+import model.constructor.value.rs.frs.FRS;
 import model.definitions.LNorm;
 import problem.Problem;
 import problem.moo.AbstractMOOProblemBundle;
@@ -45,6 +48,7 @@ import problem.moo.ReferencePointsFactory;
 import random.IRandom;
 import random.MersenneTwister64;
 import scenario.CrossedSetting;
+import selection.Random;
 import space.distance.Euclidean;
 import space.normalization.INormalization;
 import space.simplex.DasDennis;
@@ -278,14 +282,45 @@ public class Utils
                     }
                     case "NEMO0" ->
                     {
-                        IPreferenceModel<model.internals.value.scalarizing.LNorm> model = new LNorm();
+                        // OLD VERSION:
+                        /*IPreferenceModel<model.internals.value.scalarizing.LNorm> model = new LNorm();
                         RepresentativeModel.Params<model.internals.value.scalarizing.LNorm> pRM = new RepresentativeModel.Params<>(
                                 new LNormGenerator(objectives, Double.POSITIVE_INFINITY), new MDVF<>());
                         pRM._feasibleSamplesToGenerate = PS; // the more, the better the representative function
                         pRM._inconsistencyThreshold = 0;
                         pRM._samplingLimit = 10000000;
                         return NEMO0.getNEMO0(0, PS, true, true, R, problemBundle,
-                                rule, referenceSetConstructor, artificialDM, model, new RepresentativeModel<>(pRM));
+                                rule, referenceSetConstructor, artificialDM, model, new RepresentativeModel<>(pRM));*/
+
+                        // NEW VERSION:
+                        FRS.Params<model.internals.value.scalarizing.LNorm> pFRS =
+                                new FRS.Params<>(new LNormGenerator(objectives, Double.POSITIVE_INFINITY));
+                        pFRS._feasibleSamplesToGenerate = PS;
+                        pFRS._samplingLimit = 1000000;
+                        model.constructor.value.representative.RepresentativeModel<model.internals.value.scalarizing.LNorm>
+                                representativeModel = new RepresentativeModel<>(new FRS<>(pFRS), new MDVF<>());
+
+                        NEMO0Builder<model.internals.value.scalarizing.LNorm> nemo0Builder = new NEMO0Builder<>(R);
+                        nemo0Builder.setCriteria(Criteria.constructCriteria("C", objectives, false));
+                        nemo0Builder.setPopulationSize(PS);
+                        nemo0Builder.setInitialPopulationConstructor(p._problemBundle._construct);
+                        nemo0Builder.setSpecimensEvaluator(p._problemBundle._evaluate);
+                        nemo0Builder.setParentsReproducer(p._problemBundle._reproduce);
+                        nemo0Builder.setParentsSelector(new Random(2));
+                        nemo0Builder.setStandardDSSBuilder(new StandardDSSBuilder<>());
+                        nemo0Builder.getDSSBuilder().setModelConstructor(representativeModel);
+                        nemo0Builder.getDSSBuilder().setPreferenceModel(new model.definitions.LNorm());
+                        nemo0Builder.getDSSBuilder().setInteractionRule(rule);
+                        nemo0Builder.getDSSBuilder().setReferenceSetConstructor(referenceSetConstructor);
+                        nemo0Builder.getDSSBuilder().setDMFeedbackProvider(artificialDM);
+                        nemo0Builder.setDynamicOSBoundsLearningPolicy((AbstractMOOProblemBundle) p._problemBundle);
+                        try
+                        {
+                            return nemo0Builder.getInstance();
+                        } catch (EAException e)
+                        {
+                            throw new RuntimeException(e);
+                        }
                     }
                     case "NEMOII" ->
                     {
@@ -343,7 +378,8 @@ public class Utils
     }
 
     /**
-     * Provides a map containing data on the number population size method given the input number of cuts for the DND method.
+     * Provides a map containing data on the number population size method given the input number of cuts for the DND
+     * method.
      *
      * @param cutsMap map obtained via {@link Utils#getDNDCutsMap()}
      * @return map (key = objectives; value = ps)

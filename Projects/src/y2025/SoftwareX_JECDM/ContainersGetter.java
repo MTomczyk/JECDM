@@ -140,7 +140,7 @@ public class ContainersGetter
             {
                 return NSGAII.getNSGAII(0, true, PS, p._R,
                         dtlzBundle, new Random(2), dtlzBundle._construct,
-                        dtlzBundle._evaluate, dtlzBundle._reproduce, null);
+                        dtlzBundle._evaluate, dtlzBundle._reproduce);
             } else if (name.equals("JMETAL"))
             {
                 return new JMETAL(M, PS, GEN, p._R);

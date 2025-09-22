@@ -16,7 +16,10 @@ public interface IMutate
      * @param R random number generator
      * @return returns input vector
      */
-    int[] mutate(int[] o, IRandom R);
+    default int[] mutate(int[] o, IRandom R)
+    {
+        return o;
+    }
 
     /**
      * Method declaration for mutating double decision vector.
@@ -25,7 +28,10 @@ public interface IMutate
      * @param R random number generator
      * @return returns input vector
      */
-    double[] mutate(double[] o, IRandom R);
+    default double[] mutate(double[] o, IRandom R)
+    {
+        return o;
+    }
 
     /**
      * Method declaration for mutating boolean decision vector.
@@ -34,5 +40,8 @@ public interface IMutate
      * @param R random number generator
      * @return returns input vector
      */
-    boolean[] mutate(boolean[] o, IRandom R);
+    default boolean[] mutate(boolean[] o, IRandom R)
+    {
+        return o;
+    }
 }

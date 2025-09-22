@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * Implementation of NSGA-III sorting procedure. Note that this phase overwrites the
- * current population. Hence, there is no need to call the "remove" phase.
+ * Implementation of NSGA-III sorting procedure. Note that this phase overwrites the current population. Hence, there
+ * is no need to call the "remove" phase.
  *
  * @author MTomczyk
  */
@@ -33,8 +33,10 @@ public class NSGAIIISort extends AbstractSortPhase implements IPhase
      *
      * @param criteria             considered criteria
      * @param goalsManager         NSGA-III goals manager
-     * @param assignmentResolveTie auxiliary object used when resolving a tie during a selection of a goal (assignment) with a minimal niche count
-     * @param specimenResolveTie   auxiliary object used when resolving a tie during a selection of a specimen when the associated assignment object has a niche count value greater than one
+     * @param assignmentResolveTie auxiliary object used when resolving a tie during a selection of a goal (assignment)
+     *                             with a minimal niche count
+     * @param specimenResolveTie   auxiliary object used when resolving a tie during a selection of a specimen when the
+     *                             associated assignment object has a niche count value greater than one
      */
     public NSGAIIISort(Criteria criteria,
                        NSGAIIIGoalsManager goalsManager,
@@ -64,7 +66,8 @@ public class NSGAIIISort extends AbstractSortPhase implements IPhase
     private final IAssignmentResolveTie _assignmentResolveTie;
 
     /**
-     * Object used when resolving a tie during a selection of a specimen when the associated assignment object has a niche count value greater than one.
+     * Object used when resolving a tie during a selection of a specimen when the associated assignment object has a
+     * niche count value greater than one.
      */
     private final ISpecimenResolveTie _specimenResolveTie;
 
@@ -79,7 +82,7 @@ public class NSGAIIISort extends AbstractSortPhase implements IPhase
      *
      * @param ea     evolutionary algorithm
      * @param report report on the executed action (to be filled)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @SuppressWarnings("DuplicatedCode")
     @Override

@@ -6,6 +6,7 @@ import dataset.DataSet;
 import dataset.IDataSet;
 import dataset.painter.style.LineStyle;
 import frame.Frame;
+import org.junit.jupiter.api.Test;
 import plot.AbstractPlot;
 import plot.Plot2D;
 import plot.Plot2DFactory;
@@ -21,6 +22,8 @@ import visualization.Visualization;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 /**
  * Several tests (visualizations) for the SBX crossover operator
  *
@@ -29,11 +32,30 @@ import java.util.ArrayList;
 public class SBXTest
 {
     /**
+     * Runs the test (any exception check).
+     */
+    @Test
+    public void test1()
+    {
+        String msg = null;
+        try
+        {
+
+            main(null);
+        } catch (RuntimeException e)
+        {
+            msg = e.getMessage();
+        }
+        assertNull(msg);
+    }
+
+
+    /**
      * Performs visual experiment testing the performance of the SBX with SP operator.
      *
      * @param args not used
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws RuntimeException
     {
         double[] distributionIndexes = new double[]{5.0d, 10.0d, 20.0d};
         double[][] values = new double[][]{{0.1d, 0.9d}, {0.2d, 0.8d}, {0.5d, 0.7d}};

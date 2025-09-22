@@ -1,6 +1,5 @@
 package runner;
 
-import ea.EA;
 import ea.IEA;
 import visualization.IVisualization;
 
@@ -132,5 +131,28 @@ public class Runner extends AbstractRunner implements IRunner
     public Runner(Params p)
     {
         super(p);
+    }
+
+    /**
+     * Parameterized constructor. Assumes that the evolutionary process concerns a single generational (not
+     * steady-state) evolutionary algorithm.
+     *
+     * @param ea evolutionary algorithm to be run
+     */
+    public Runner(IEA ea)
+    {
+        super(new Params(ea));
+    }
+
+    /**
+     * Parameterized constructor. Assumes that the evolutionary process concerns a single generational (not
+     * steady-state) evolutionary algorithm.
+     *
+     * @param ea  evolutionary algorithm to be run
+     * @param ssr the number of steady state repeats for each generation
+     */
+    public Runner(IEA ea, int ssr)
+    {
+        super(new Params(ea, ssr));
     }
 }

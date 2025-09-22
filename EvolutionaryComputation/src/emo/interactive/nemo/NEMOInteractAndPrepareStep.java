@@ -21,8 +21,8 @@ public class NEMOInteractAndPrepareStep extends AbstractInteractAndPrepareStep i
     /**
      * Parameterized constructor.
      *
-     * @param name                 phase name
-     * @param DSS                  decision support system
+     * @param name                       phase name
+     * @param DSS                        decision support system
      * @param dmContextParamsConstructor decision-making context params constructor
      */
     public NEMOInteractAndPrepareStep(String name, DecisionSupportSystem DSS, IDMCParamsConstructor dmContextParamsConstructor)
@@ -43,11 +43,12 @@ public class NEMOInteractAndPrepareStep extends AbstractInteractAndPrepareStep i
      * @param ea     evolutionary algorithm
      * @param os     objective space (updated)
      * @param prevOS objective space (outdated; for comparison)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @Override
     public void action(IEA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
     {
+        // Switching the mode
         if (_DMS.getHistory().getNoPreferenceExamples() != 0) super.action(ea, os, prevOS);
     }
 }

@@ -42,4 +42,16 @@ public class EAException extends AbstractException
     {
         super(message, handler, cause);
     }
+
+    /**
+     * Factory-like method.
+     *
+     * @param message exception message
+     * @param source  exception source
+     * @return an exception instance that can be thrown and propagated higher
+     */
+    public static EAException getInstanceWithSource(String message, Class<?> source)
+    {
+        return new EAException(message, null, source);
+    }
 }

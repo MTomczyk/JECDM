@@ -7,7 +7,10 @@ import population.Specimen;
 import population.SpecimensContainer;
 import print.PrintUtils;
 import random.IRandom;
-import system.ds.DecisionSupportSystem;
+import reproduction.ReproductionStrategy;
+import space.normalization.builder.INormalizationBuilder;
+
+import java.util.Objects;
 
 /**
  * Abstract implementation of {@link IEA}. Provides common fields and functionalities.
@@ -54,14 +57,50 @@ public class AbstractEA implements IEA
         public ObjectiveSpaceManager _osManager;
 
         /**
+         * Auxiliary object constructing normalization functions using data on the current known bounds on the relevant
+         * part of the objective space. Primarily used in the context of evolutionary multi-objective optimization.
+         */
+        protected INormalizationBuilder _normalizationBuilder = null;
+
+        /**
          * Population size.
          */
         public int _populationSize = 0;
 
         /**
-         * Offspring size.
+         * Offspring size. This field determines the number of offspring solutions to be generated within one execution
+         * of the {@link AbstractEA#step(EATimestamp)} method (a complete generation or steady-state repeat).
          */
         public int _offspringSize = 0;
+
+        /**
+         * Reproduction strategy employed by the evolutionary algorithm. If null, it will be instantiated as a default
+         * strategy that is considered constant and expects to produce one offspring specimen from one parent selection
+         * during reproduction (see {@link ReproductionStrategy#getDefaultStrategy()}).
+         */
+        public ReproductionStrategy _reproductionStrategy = null;
+
+        /**
+         * The expected number of steady-state repeats the method is expected to run for.
+         */
+        public int _expectedNumberOfSteadyStateRepeats = 1;
+
+        /**
+         * This field serves as an additional cap on the number of offspring solutions that can be generated in one
+         * generation. In most implementations, it can be left set to the max value. E.g., in generational
+         * implementations, the number of offspring to produce is primarily determined by
+         * {@link Params#_offspringSize}. In most implementations, it can be left set to the max value. E.g., in
+         * generational implementations, the number of offspring to produce is primarily determined by
+         * {@link Params#_offspringSize}. As for the steady-state implementations, they typically set
+         * {@link Params#_offspringSize} to 1 and assume "multiple parents to one offspring" reproduction scheme, which
+         * ultimately leads to producing the same number of offspring as the population size. Nonetheless, assume that
+         * "multiple parents to two offspring" scheme is used in a steady-state algorithm. It would lead to producing
+         * twice as many offspring as the population size dictates. If this is a desired strategy, then this field can
+         * be left as it is. However, if one wants to impose an additional threshold, it can be done via this field. The
+         * algorithm measures the number of constructed offspring throughout the generation. If the number would exceed
+         * the allowed number, executing redundant steady-state repeats is skipped.
+         */
+        public int _offspringLimitPerGeneration = Integer.MAX_VALUE;
 
         /**
          * Parameterized constructor.
@@ -83,7 +122,6 @@ public class AbstractEA implements IEA
         }
     }
 
-
     /**
      * Name of the EA.
      */
@@ -96,18 +134,41 @@ public class AbstractEA implements IEA
 
     /**
      * Population size.
+     *
+     * @deprecated visibility is to be changed to Private; use public (@link AbstractEA#getPopulationSize()) and
+     * protected (@link AbstractEA#setPopulationSize(int)).
      */
+    @Deprecated
     protected int _populationSize;
 
     /**
-     * Offspring size.
+     * Offspring size. This field determines the number of offspring solutions to be generated within one execution of
+     * the {@link AbstractEA#step(EATimestamp)} method (a complete generation or steady-state repeat).
+     *
+     * @deprecated visibility is to be changed to Private; use public ({@link AbstractEA#getOffspringSize()}) and
+     * protected ({@link AbstractEA#setOffspringSize(int)}).
      */
+    @Deprecated
     protected int _offspringSize;
 
     /**
-     * Current timestamp: current generation and steady-state repeat.
+     * Current timestamp: current generation and steady-state repeat (does nothing in the current version).
+     *
+     * @deprecated field moved to {@link RunningState} with the Private visibility; use public
+     * ({@link AbstractEA#getCurrentGeneration()}, {@link AbstractEA#getCurrentSteadyStateRepeat()}) as for getters.
      */
+    @Deprecated
     protected EATimestamp _currentTimestamp;
+
+    /**
+     * Data container for the EA's running state (current generation, steady-state number, etc.)
+     */
+    private final RunningState _runningState;
+
+    /**
+     * The reproduction strategy employed by the evolutionary algorithm.
+     */
+    protected final ReproductionStrategy _reproductionStrategy;
 
     /**
      * Specimens container maintained by the EA (wraps e.g., current population, mating pool, offspring).
@@ -116,7 +177,10 @@ public class AbstractEA implements IEA
 
     /**
      * Class responsible for storing and updating EA's data on the objective space.
+     *
+     * @deprecated Field visibility is to change to Private. Use {@link AbstractEA#getObjectiveSpaceManager()}.
      */
+    @Deprecated
     protected ObjectiveSpaceManager _osManager;
 
     /**
@@ -132,23 +196,41 @@ public class AbstractEA implements IEA
     /**
      * Flag indicating whether the total execution time (as well as other implementation-dependent times) are measured
      * or not (in ms).
+     *
+     * @deprecated field moved to {@link RunningState}; this one will be removed in the future
      */
-    protected final boolean _computeExecutionTimes;
+    @Deprecated
+    protected final boolean _computeExecutionTimes = true;
 
     /**
      * Field storing the total execution time  (in ms).
+     *
+     * @deprecated field moved to {@link RunningState}; this one will be removed in the future
      */
+    @Deprecated
     protected double _executionTime;
 
     /**
      * Supportive field for measuring execution times.
+     *
+     * @deprecated field moved to {@link RunningState}; this one will be removed in the future
      */
+    @Deprecated
     protected long _startTime = 0;
 
     /**
      * Supportive field for measuring execution times.
+     *
+     * @deprecated field moved to {@link RunningState}; this one will be removed in the future
      */
+    @Deprecated
     protected long _stopTime = 0;
+
+    /**
+     * Auxiliary object constructing normalization functions using data on the current known bounds on the relevant
+     * part of the objective space. Primarily used in the context of evolutionary multi-objective optimization.
+     */
+    private final INormalizationBuilder _normalizationBuilder;
 
 
     /**
@@ -161,7 +243,14 @@ public class AbstractEA implements IEA
         _name = p._name;
         _id = p._id;
         _R = p._R;
-        _computeExecutionTimes = p._computeExecutionTimes;
+        _normalizationBuilder = p._normalizationBuilder;
+        _reproductionStrategy = Objects.requireNonNullElseGet(p._reproductionStrategy,
+                ReproductionStrategy::getDefaultStrategy);
+        setPopulationSize(p._populationSize);
+        setOffspringSize(p._offspringSize);
+        setOffspringLimitPerGeneration(p._offspringLimitPerGeneration);
+        _runningState = new RunningState(p._computeExecutionTimes);
+        _runningState.assessExpectedTransition();
         _criteria = p._criteria;
     }
 
@@ -170,7 +259,7 @@ public class AbstractEA implements IEA
      */
     protected void startMeasuringTime()
     {
-        if (_computeExecutionTimes) _startTime = System.nanoTime();
+        _runningState.startMeasuringTime();
     }
 
     /**
@@ -178,37 +267,43 @@ public class AbstractEA implements IEA
      */
     protected void stopMeasuringTime()
     {
-        if (_computeExecutionTimes)
-        {
-            _stopTime = System.nanoTime();
-            updateTotalElapsedExecutionTime((double) (_stopTime - _startTime) / 1000000.0);
-        }
+        _runningState.stopMeasuringTime();
     }
+
 
     /**
      * Updates total execution time.
      *
      * @param time delta time
+     * @deprecated the method is moved to {@link RunningState}; this one has no effect now, it will be removed in the future
      */
+    @Deprecated
     private void updateTotalElapsedExecutionTime(double time)
     {
-        _executionTime += time;
+
     }
 
     /**
      * Init method. Should be treated as the first generation during which an initial population is constructed,
-     * evaluated, and other auxiliary operations (e.g., sorting) are performed.
+     * evaluated, and other auxiliary operations (e.g., sorting) are performed. This is a default implementation
+     * that only sets a proper timestamp.
      *
      * @throws EAException an exception can be thrown
      */
     @Override
     public void init() throws EAException
     {
-
+        EATimestamp timestamp = new EATimestamp(0, 0);
+        if (!_runningState.areTimestampsConsistent(timestamp))
+            _runningState.throwExceptionOnInconsistentTimestamps(timestamp);
+        updateCurrentTimestamp(timestamp);
+        _specimensContainer = new SpecimensContainer();
+        _specimensContainer.resetSpecimensConstructedDuringGenerationCounter();
     }
 
     /**
-     * Executes one step of the evolutionary algorithm.
+     * Executes one step of the evolutionary algorithm. This is a default implementation
+     * that only sets a proper timestamp.
      *
      * @param timestamp generation; steady-state repeat
      * @throws EAException the exception can be thrown
@@ -216,7 +311,50 @@ public class AbstractEA implements IEA
     @Override
     public void step(EATimestamp timestamp) throws EAException
     {
-        _currentTimestamp = timestamp;
+        if (!_runningState.areTimestampsConsistent(timestamp))
+            _runningState.throwExceptionOnInconsistentTimestamps(timestamp);
+        updateCurrentTimestamp(timestamp);
+        if (timestamp._steadyStateRepeat == 0) // beginning of the generation
+        {
+            // reset the counter
+            _specimensContainer.resetSpecimensConstructedDuringGenerationCounter();
+        }
+    }
+
+    /**
+     * Setter for the current timestamp.
+     *
+     * @param timestamp new timestamp to be set
+     */
+    protected void updateCurrentTimestamp(EATimestamp timestamp)
+    {
+        _runningState.updateCurrentTimestamp(timestamp);
+        _runningState.assessExpectedTransition();
+    }
+
+
+    /**
+     * Setter for the current timestamp. The method also replaces the previous timestamp (field) with the current one
+     * (before setting the input) in the internal {@link RunningState} object.
+     *
+     * @param currentTimestamp current timestamp
+     * @deprecated the method has no use from now on and will be removed in the future; the timestamp setting is
+     * controlled by the step and init methods
+     */
+    @Deprecated
+    protected void setCurrentTimestamp(EATimestamp currentTimestamp)
+    {
+
+    }
+
+    /**
+     * Getter for the current timestamp.
+     *
+     * @return current timestamp
+     */
+    protected EATimestamp getCurrentTimestamp()
+    {
+        return _runningState.getCurrentTimestamp();
     }
 
     /**
@@ -244,27 +382,28 @@ public class AbstractEA implements IEA
     /**
      * Getter for the current generation.
      *
-     * @return current generation
+     * @return current generation (-1, if the current timestamp is not set)
      */
     @Override
     public int getCurrentGeneration()
     {
-        return _currentTimestamp._generation;
+        return _runningState.getCurrentTimestamp()._generation;
     }
 
     /**
      * Getter for the current steady-state repeat.
      *
-     * @return current steady-state repeat
+     * @return current steady-state repeat (-1, if the current timestamp is not set)
      */
     @Override
     public int getCurrentSteadyStateRepeat()
     {
-        return _currentTimestamp._steadyStateRepeat;
+        return _runningState.getCurrentTimestamp()._steadyStateRepeat;
     }
 
     /**
-     * Getter for the current population size.
+     * Getter for the population size. Note that it reads and returns the proper field value (integer). It does not
+     * examine the population array size kept in {@link SpecimensContainer}.
      *
      * @return population size
      */
@@ -275,7 +414,43 @@ public class AbstractEA implements IEA
     }
 
     /**
-     * Setter for the population size.
+     * Getter for the number of steady-state repeats the method is supposed to run for.
+     *
+     * @return the number of steady-state repeats the method is supposed to run for
+     */
+    @Override
+    public int getExpectedNumberOfSteadyStateRepeats()
+    {
+        return _runningState.getExpectedNumberOfSteadyStateRepeats();
+    }
+
+    /**
+     * Setter for the number of steady-state repeats the method is supposed to run for. The method also replaces the
+     * previous number (field) with the current one (before setting the input) in the internal {@link RunningState}
+     * object. IMPORTANT: this method can be called only just after the method finishes processing a single generation,
+     * i.e., its current steady-state repeat number reached the last possible one; or is in initial state (current
+     * timestamp = null). If not an exception will be thrown.
+     *
+     * @param expectedNumberOfSteadyStateRepeats the number of steady-state repeats the method is supposed to run for
+     * @throws EAException an exception can be thrown and propagated higher
+     */
+    protected void updateExpectedNumberOfSteadyStateRepeats(int expectedNumberOfSteadyStateRepeats) throws EAException
+    {
+        _runningState.updateExpectedNumberOfSteadyStateRepeats(expectedNumberOfSteadyStateRepeats);
+    }
+
+    /**
+     * Auxiliary methods that sets numberOfSSRInPreviousGeneration as imposed by currentExpectedNumberOfSSR
+     * in {@link RunningState} (for testing).
+     */
+    protected void transitSSRData()
+    {
+        _runningState.transitSSRData();
+    }
+
+    /**
+     * Setter for the population size. Note that it only stores the field value (integer). It does not re-size the
+     * corresponding specimen array kept in {@link SpecimensContainer}.
      *
      * @param populationSize population size
      */
@@ -284,8 +459,12 @@ public class AbstractEA implements IEA
         _populationSize = populationSize;
     }
 
+
     /**
-     * Getter for the offspring size.
+     * Getter for the offspring size. Note that it reads and returns the relevant field value (integer). It does not
+     * examine the offspring array size kept in {@link SpecimensContainer}. This field determines the number of
+     * offspring solutions to be generated within one execution of the {@link AbstractEA#step(EATimestamp)} method
+     * (a complete generation or steady-state repeat).
      *
      * @return offspring size
      */
@@ -296,13 +475,71 @@ public class AbstractEA implements IEA
     }
 
     /**
-     * Setter for the  offspring size.
+     * Setter for the population size. Note that it only stores the field value (integer). It does not re-size the
+     * corresponding specimen array kept in {@link SpecimensContainer}. This field determines the number of offspring
+     * solutions to be generated within one execution of the {@link AbstractEA#step(EATimestamp)} method (a complete
+     * generation or steady-state repeat).
      *
      * @param offspringSize offspring size
      */
     protected void setOffspringSize(int offspringSize)
     {
         _offspringSize = offspringSize;
+    }
+
+
+    /**
+     * Setter for the field that serves as an additional cap on the number of offspring solutions that can be generated
+     * in one generation. In most implementations, it can be left set to the max value. E.g., in generational
+     * implementations, the number of offspring to produce is primarily determined by
+     * {@link Params#_offspringSize}. In most implementations, it can be left set to the max value. E.g., in
+     * generational implementations, the number of offspring to produce is primarily determined by
+     * {@link Params#_offspringSize}. As for the steady-state implementations, they typically set
+     * {@link Params#_offspringSize} to 1 and assume "multiple parents to one offspring" reproduction scheme, which
+     * ultimately leads to producing the same number of offspring as the population size. Nonetheless, assume that
+     * "multiple parents to two offspring" scheme is used in a steady-state algorithm. It would lead to producing
+     * twice as many offspring as the population size dictates. If this is a desired strategy, then this field can
+     * be left as it is. However, if one wants to impose an additional threshold, it can be done via this field. The
+     * algorithm measures the number of constructed offspring throughout the generation. If the number would exceed
+     * the allowed number, executing redundant steady-state repeats is skipped.
+     *
+     * @param offspringLimitPerGeneration offspring limit per generation
+     */
+    protected void setOffspringLimitPerGeneration(int offspringLimitPerGeneration)
+    {
+        _reproductionStrategy.setOffspringLimitPerGeneration(offspringLimitPerGeneration);
+    }
+
+    /**
+     * Getter for the field value that serves as an additional cap on the number of offspring solutions that can be
+     * generated in one generation. In most implementations, it can be left set to the max value. E.g., in generational
+     * implementations, the number of offspring to produce is primarily determined by
+     * {@link Params#_offspringSize}. In most implementations, it can be left set to the max value. E.g., in
+     * generational implementations, the number of offspring to produce is primarily determined by
+     * {@link Params#_offspringSize}. As for the steady-state implementations, they typically set
+     * {@link Params#_offspringSize} to 1 and assume "multiple parents to one offspring" reproduction scheme, which
+     * ultimately leads to producing the same number of offspring as the population size. Nonetheless, assume that
+     * "multiple parents to two offspring" scheme is used in a steady-state algorithm. It would lead to producing
+     * twice as many offspring as the population size dictates. If this is a desired strategy, then this field can
+     * be left as it is. However, if one wants to impose an additional threshold, it can be done via this field. The
+     * algorithm measures the number of constructed offspring throughout the generation. If the number would exceed
+     * the allowed number, executing redundant steady-state repeats is skipped.
+     *
+     * @return offspring limit per generation
+     */
+    public int getOffspringLimitPerGeneration()
+    {
+        return _reproductionStrategy.getOffspringLimitPerGeneration();
+    }
+
+    /**
+     * Setter for the objective space manager.
+     *
+     * @param osManager objective space manager
+     */
+    protected void setObjectiveSpaceManager(ObjectiveSpaceManager osManager)
+    {
+        _osManager = osManager;
     }
 
     /**
@@ -315,6 +552,19 @@ public class AbstractEA implements IEA
     {
         return _osManager;
     }
+
+
+    /**
+     * Getter for the auxiliary object constructing normalization functions using data on the current known bounds on
+     * the relevant part of the objective space. Primarily used in the context of evolutionary multi-objective
+     * optimization.
+     */
+    @Override
+    public INormalizationBuilder getNormalizationBuilder()
+    {
+        return _normalizationBuilder;
+    }
+
 
     /**
      * Getter for the considered criteria.
@@ -348,11 +598,12 @@ public class AbstractEA implements IEA
     @Override
     public boolean getComputeExecutionTimes()
     {
-        return _computeExecutionTimes;
+        return _runningState.areExecutionTimesMeasurable();
     }
 
     /**
-     * Getter for the specimens container maintained by the EA (wraps e.g., current population, mating pool, offspring).
+     * Getter for the specimens container maintained by the EA (wraps e.g., current population, mating pool,
+     * offspring).
      *
      * @return specimens container
      */
@@ -370,32 +621,49 @@ public class AbstractEA implements IEA
     @Override
     public double getExecutionTime()
     {
-        return _executionTime;
+        return _runningState.getExecutionTime();
     }
 
     /**
-     * Getter for the decision support system (returns null if a method does not employ any). To be extended.
+     * Getter for the reproduction strategy employed by the evolutionary algorithm.
      *
-     * @return decision support system (null, if not employed)
+     * @return reproduction strategy employed by the evolutionary algorithm
      */
     @Override
-    public DecisionSupportSystem getDecisionSupportSystem()
+    public ReproductionStrategy getReproductionStrategy()
     {
-        return null;
+        return _reproductionStrategy;
     }
 
     /**
-     * Auxiliary method for disposing data.
+     * Auxiliary method that checks if the timestamp being currently set is a direct successor of the timestamp being
+     * previously assigned.
+     *
+     * @param newTimestamp new timestamp to be set
+     * @return true, if the current timestamp is a direct successor of the previous one; false otherwise
      */
-    @Override
-    public void dispose()
+    protected boolean areTimestampsConsistent(EATimestamp newTimestamp)
     {
-
+        return _runningState.areTimestampsConsistent(newTimestamp);
     }
+
+    /**
+     * Setter for the execution time (use with caution; the measurement should be done in ms).
+     *
+     * @param executionTime new total execution time (overwrites the previous one stored).
+     */
+    protected void setExecutionTime(double executionTime)
+    {
+        _runningState.setExecutionTime(executionTime);
+    }
+
 
     /**
      * Prints basic info on the current population.
+     *
+     * @deprecated to be removed in future releases
      */
+    @Deprecated
     public void printBasicPopulationInfo()
     {
         for (int i = 0; i < _specimensContainer.getPopulation().size(); i++)

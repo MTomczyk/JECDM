@@ -143,6 +143,19 @@ public class Criteria
     }
 
     /**
+     * Creates a criteria object from a single criterion.
+     *
+     * @param C criterion to be wrapped
+     * @return a criterion object (null, if the input data is invalid)
+     */
+    public static Criteria constructCriteria(Criterion C)
+    {
+        if (C == null) return null;
+        Criterion[] c = new Criterion[] {C};
+        return new Criteria(c);
+    }
+
+    /**
      * Auxiliary method for constructing boolean array indicating criteria types (true = gain is preferred; false
      * otherwise). The method constructs and returns a new object each time it is called.
      *

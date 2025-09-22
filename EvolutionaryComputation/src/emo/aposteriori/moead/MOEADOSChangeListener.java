@@ -26,10 +26,23 @@ public class MOEADOSChangeListener extends AbstractOSChangeListener implements I
      *
      * @param goalsManager goals manager steering the evolutionary process.
      * @param builder      normalization builder
+     * @deprecated this constructor will be removed in future releases
      */
+    @Deprecated
     public MOEADOSChangeListener(MOEADGoalsManager goalsManager, INormalizationBuilder builder)
     {
         super(builder);
+        _goalsManager = goalsManager;
+    }
+
+    /**
+     * Parameterized constructor.
+     *
+     * @param goalsManager goals manager steering the evolutionary process.
+     */
+    public MOEADOSChangeListener(MOEADGoalsManager goalsManager)
+    {
+        super();
         _goalsManager = goalsManager;
     }
 
@@ -39,11 +52,11 @@ public class MOEADOSChangeListener extends AbstractOSChangeListener implements I
      * @param ea     evolutionary algorithm
      * @param os     objective space (updated)
      * @param prevOS objective space (outdated; for comparison)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @Override
     public void action(IEA ea, ObjectiveSpace os, ObjectiveSpace prevOS) throws PhaseException
     {
-        _goalsManager.updateNormalizations(_builder.getNormalizations(os));
+        _goalsManager.updateNormalizations(ea.getNormalizationBuilder().getNormalizations(os));
     }
 }

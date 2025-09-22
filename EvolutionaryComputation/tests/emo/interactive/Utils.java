@@ -19,9 +19,9 @@ import model.IPreferenceModel;
 import model.constructor.IConstructor;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
+import model.constructor.value.representative.RepresentativeModel;
 import model.constructor.value.rs.frs.FRS;
 import model.constructor.value.representative.MDVF;
-import model.constructor.value.rs.representative.RepresentativeModel;
 import model.definitions.LNorm;
 import model.internals.value.AbstractValueInternalModel;
 import os.ObjectiveSpaceManager;
@@ -58,21 +58,23 @@ public class Utils
     }
 
     /**
-     * Returns a representative model constructor (MDVF {@link MDVF}, founded on FRS {@link FRS}, L-norms with alpha = infinity).
+     * Returns a representative model constructor (MDVF {@link MDVF}, founded on FRS {@link FRS}, L-norms with alpha =
+     * infinity).
      *
      * @param noSamples     the number of samples to generate
      * @param samplingLimit sampling limit for FRS
      * @param dimensions    dimensionality (the number of weights)
      * @return model constructor
      */
-    public static RepresentativeModel<model.internals.value.scalarizing.LNorm> getRepresentativeModelConstructor(int noSamples, int samplingLimit, int dimensions)
+    public static RepresentativeModel<model.internals.value.scalarizing.LNorm> getRepresentativeModelConstructor(
+            int noSamples, int samplingLimit, int dimensions)
     {
         IRandomModel<model.internals.value.scalarizing.LNorm> RM = new LNormGenerator(dimensions, Double.POSITIVE_INFINITY);
-        RepresentativeModel.Params<model.internals.value.scalarizing.LNorm> pRMC = new RepresentativeModel.Params<>(RM, new MDVF<>());
+        FRS.Params<model.internals.value.scalarizing.LNorm> pRMC = new FRS.Params<>(RM);
         pRMC._feasibleSamplesToGenerate = noSamples;
         pRMC._samplingLimit = samplingLimit;
         pRMC._inconsistencyThreshold = noSamples - 1;
-        return new RepresentativeModel<>(pRMC);
+        return new RepresentativeModel<>(new RepresentativeModel.Params<>(new FRS<>(pRMC), new MDVF<>()));
     }
 
     /**
@@ -88,7 +90,8 @@ public class Utils
     }
 
     /**
-     * Returns a default feedback provider for 3D case (artificial value-based model base on an L-norm with [0.3, 0.2, 0.5]
+     * Returns a default feedback provider for 3D case (artificial value-based model base on an L-norm with [0.3, 0.2,
+     * 0.5]
      * weights and alpha of infinity (Chebyshev function).
      *
      * @param normalizations normalization functions
@@ -189,6 +192,7 @@ public class Utils
         pEA._id = id;
         pEA._R = R;
         pEA._populationSize = goals.length;
+        pEA._expectedNumberOfSteadyStateRepeats = pEA._populationSize;
         pEA._offspringSize = 1;
         pEA._osManager = pAB._osManager;
         return new EA(pEA);
@@ -356,17 +360,17 @@ public class Utils
     /**
      * Creates NEMO-0 instance.
      *
-     * @param populationSize                 populationSize
-     * @param criteria                       considered criteria
-     * @param problemBundle                  problem bundle
-     * @param dynamicObjectiveSpace          true = dynamic objective ranges mode is on
-     * @param R                              random number generator
-     * @param interactionRule                interaction rule
-     * @param referenceSetConstructor        reference set constructor
-     * @param dmFeedbackProvider             DM-based feedback provider
-     * @param preferenceModel                preference model used
-     * @param representativeModelConstructor representative model instance constructor
-     * @param <T>                            internal preference model definition
+     * @param populationSize          populationSize
+     * @param criteria                considered criteria
+     * @param problemBundle           problem bundle
+     * @param dynamicObjectiveSpace   true = dynamic objective ranges mode is on
+     * @param R                       random number generator
+     * @param interactionRule         interaction rule
+     * @param referenceSetConstructor reference set constructor
+     * @param dmFeedbackProvider      DM-based feedback provider
+     * @param preferenceModel         preference model used
+     * @param representativeModel     representative model instance constructor
+     * @param <T>                     internal preference model definition
      * @return NEMO-0 instance
      */
     public static <T extends AbstractValueInternalModel> EA getNEMO0(Criteria criteria,
@@ -378,27 +382,27 @@ public class Utils
                                                                      IReferenceSetConstructor referenceSetConstructor,
                                                                      IDMFeedbackProvider dmFeedbackProvider,
                                                                      IPreferenceModel<T> preferenceModel,
-                                                                     RepresentativeModel<T> representativeModelConstructor)
+                                                                     RepresentativeModel<T> representativeModel)
     {
         return getNEMO0(0, criteria, populationSize, problemBundle, dynamicObjectiveSpace,
-                R, interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, representativeModelConstructor);
+                R, interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, representativeModel);
     }
 
     /**
      * Creates NEMO-0 instance.
      *
-     * @param id                             EA's id
-     * @param populationSize                 populationSize
-     * @param criteria                       considered criteria
-     * @param problemBundle                  problem bundle
-     * @param dynamicObjectiveSpace          true = dynamic objective ranges mode is on
-     * @param R                              random number generator
-     * @param interactionRule                interaction rule
-     * @param referenceSetConstructor        reference set constructor
-     * @param dmFeedbackProvider             DM-based feedback provider
-     * @param preferenceModel                preference model used
-     * @param representativeModelConstructor representative model instance constructor
-     * @param <T>                            internal preference model definition
+     * @param id                      EA's id
+     * @param populationSize          populationSize
+     * @param criteria                considered criteria
+     * @param problemBundle           problem bundle
+     * @param dynamicObjectiveSpace   true = dynamic objective ranges mode is on
+     * @param R                       random number generator
+     * @param interactionRule         interaction rule
+     * @param referenceSetConstructor reference set constructor
+     * @param dmFeedbackProvider      DM-based feedback provider
+     * @param preferenceModel         preference model used
+     * @param representativeModel     representative model instance constructor
+     * @param <T>                     internal preference model definition
      * @return NEMO-0 instance
      */
     public static <T extends AbstractValueInternalModel> EA getNEMO0(int id,
@@ -411,10 +415,10 @@ public class Utils
                                                                      IReferenceSetConstructor referenceSetConstructor,
                                                                      IDMFeedbackProvider dmFeedbackProvider,
                                                                      IPreferenceModel<T> preferenceModel,
-                                                                     RepresentativeModel<T> representativeModelConstructor)
+                                                                     RepresentativeModel<T> representativeModel)
     {
         NEMO0Bundle.Params pNEMO0 = NEMO0Bundle.Params.getDefault(criteria,
-                "DM", interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, representativeModelConstructor);
+                "DM", interactionRule, referenceSetConstructor, dmFeedbackProvider, preferenceModel, representativeModel);
 
         pNEMO0._construct = problemBundle._construct;
         pNEMO0._reproduce = problemBundle._reproduce;
@@ -457,7 +461,8 @@ public class Utils
      * @param referenceSetConstructor reference set constructor
      * @param dmFeedbackProvider      DM-based feedback provider
      * @param preferenceModel         preference model used
-     * @param modelConstructor        model constructor that is supposed to generate a plurality of compatible preference model instances (e.g. {@link FRS})
+     * @param modelConstructor        model constructor that is supposed to generate a plurality of compatible
+     *                                preference model instances (e.g. {@link FRS})
      * @param <T>                     internal preference model definition
      * @return NEMO-II instance
      */
@@ -489,7 +494,8 @@ public class Utils
      * @param referenceSetConstructor reference set constructor
      * @param dmFeedbackProvider      DM-based feedback provider
      * @param preferenceModel         preference model used
-     * @param modelConstructor        model constructor that is supposed to generate a plurality of compatible preference model instances (e.g. {@link FRS})
+     * @param modelConstructor        model constructor that is supposed to generate a plurality of compatible
+     *                                preference model instances (e.g. {@link FRS})
      * @param <T>                     internal preference model definition
      * @return NEMO-II instance
      */

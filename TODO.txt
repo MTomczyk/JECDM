@@ -10,9 +10,6 @@ Evolutionary Computation:
 - Phases: allow providing custom pre-post actions (simple one-method interfaces; lambda methods; stacked on the list or passed via arrays)
 - Phases: simple customizable phase; passing own implementations via list to instantiate EA's processing
 - Simple EA for generic regression.
-- Improve instantiating EAs (they require an extensive parameterization; probably params containers will be introduced to primary classes, e.g. IEMOD)
-- Allow producing any number of offspring from any number of parents (e.g., any from any scheme; currently it is 1 from any); this could be dynamically adjusted based on the current state
-- Letting the EA measure the number of performed solution evaluations.
 
 Visualization:
 - Upsampling (rendering in higher DPI)

@@ -5,6 +5,7 @@ import system.AbstractReport;
 import utils.StringUtils;
 
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.LinkedList;
 
 
@@ -29,13 +30,35 @@ public class Report extends AbstractReport
     public system.modules.updater.Report _updateReport = null;
 
     /**
+     * Reasons for running the system.
+     */
+    public EnumSet<DMContext.Reason> _reasons;
+
+    /**
      * Parameterized constructor.
      *
-     * @param dmContext               current decision-making context
+     * @param dmContext current decision-making context
      */
     protected Report(DMContext dmContext)
     {
         super(dmContext);
+        _reasons = dmContext.getClonedReasons();
+    }
+
+    /**
+     * Auxiliary factory-like method for creating an instance that servers as a wrapper to the report on the updater
+     * module processing. Sets the report on the elicitation process to null.
+     *
+     * @param dmContext    current decision-making context
+     * @param updateReport report on the updater module processing
+     * @return decision support system report
+     */
+    protected static Report wrapAround(DMContext dmContext, system.modules.updater.Report updateReport)
+    {
+        Report report = new Report(dmContext);
+        report._elicitationReport = null;
+        report._updateReport = updateReport;
+        return report;
     }
 
     /**
@@ -58,7 +81,7 @@ public class Report extends AbstractReport
         if (_elicitationReport == null) lines.add(ind + "  None");
         else
         {
-            String [] S = _elicitationReport.getStringRepresentation(indent + 2);
+            String[] S = _elicitationReport.getStringRepresentation(indent + 2);
             lines.addAll(Arrays.asList(S));
         }
 
@@ -66,7 +89,7 @@ public class Report extends AbstractReport
         if (_updateReport == null) lines.add(ind + "  None");
         else
         {
-            String [] S = _updateReport.getStringRepresentation(indent + 2);
+            String[] S = _updateReport.getStringRepresentation(indent + 2);
             lines.addAll(Arrays.asList(S));
         }
 

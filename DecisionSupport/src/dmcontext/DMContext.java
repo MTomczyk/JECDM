@@ -10,6 +10,7 @@ import space.os.ObjectiveSpace;
 import utils.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.EnumSet;
 
 /**
  * This supportive class helps integrate methods from the EMO stream with the methods from MCDA. The EMO implies a
@@ -20,6 +21,39 @@ import java.time.LocalDateTime;
  */
 public class DMContext
 {
+    /**
+     * Reason for calling/running the decision support system
+     */
+    public enum Reason
+    {
+        /**
+         * New iteration began. It is a regular reason associated with the need to execute both the preference
+         * elicitation attempt and the consequent model construction process.
+         */
+        REGULAR_ITERATION,
+
+        /**
+         * Should be associated with a case when an objective space has changed and, thus, there is a need to execute
+         * the model construction process (since the change in the normalizations could have invalidated some of the
+         * learnt models).
+         */
+        OS_CHANGED,
+
+        /**
+         * Reserved for custom purposes.
+         */
+        CUSTOM1,
+        /**
+         * Reserved for custom purposes.
+         */
+        CUSTOM2,
+
+        /**
+         * Reserved for custom purposes.
+         */
+        CUSTOM3,
+    }
+
     /**
      * Params container.
      */
@@ -54,9 +88,15 @@ public class DMContext
         public boolean _osChanged;
 
         /**
-         * Random number generator (should be provided when some random-based components are involved; they will try using this object).
+         * Random number generator (should be provided when some random-based components are involved; they will try
+         * using this object).
          */
         public IRandom _R;
+
+        /**
+         * Reason(s) for running the system (Reason.REGULAR_ITERATION by default).
+         */
+        public EnumSet<Reason> _reasons = EnumSet.of(Reason.REGULAR_ITERATION);
 
         /**
          * Default constructor.
@@ -75,7 +115,8 @@ public class DMContext
          * @param osChanged                   this flag indicates whether the OS changed from one iteration to another
          *                                    (if so, the previous OS and the current one should differ)
          * @param currentIteration            field representing current iteration (e.g., generation)
-         * @param normalizationBuilder        normalization builder that will be used to generate normalization objects using the OSs
+         * @param normalizationBuilder        normalization builder that will be used to generate normalization objects
+         *                                    using the OSs
          * @param R                           random number generator
          */
         protected Params(AbstractAlternatives<?> currentAlternativesSuperset,
@@ -107,7 +148,8 @@ public class DMContext
 
     /**
      * Normalizations object that can be used to rescale (normalize) the current objective space. Important note: it is
-     * recommended that all normalization functions extend {@link space.normalization.minmax.AbstractMinMaxNormalization}.
+     * recommended that all normalization functions extend
+     * {@link space.normalization.minmax.AbstractMinMaxNormalization}.
      */
     private final INormalization[] _normalizationsCurrentOS;
 
@@ -118,7 +160,8 @@ public class DMContext
     private final boolean _osChanged;
 
     /**
-     * Random number generator (should be provided when some random-based components are involved; they will try using this object).
+     * Random number generator (should be provided when some random-based components are involved; they will try using
+     * this object).
      */
     private final IRandom _R;
 
@@ -142,6 +185,10 @@ public class DMContext
      */
     private final LocalDateTime _systemStartingTimestamp;
 
+    /**
+     * Reason(s) for running the system (Reason.REGULAR_ITERATION by default).
+     */
+    private final EnumSet<Reason> _reasons;
 
     /**
      * Parameterized constructor.
@@ -176,7 +223,8 @@ public class DMContext
      * @param osChanged                   this flag indicates whether the OS changed from one iteration to another
      *                                    (if so, the previous OS and the current one should differ)
      * @param currentIteration            field representing current iteration (e.g., generation)
-     * @param normalizationBuilder        normalization builder that will be used to generate normalization objects using the OSs
+     * @param normalizationBuilder        normalization builder that will be used to generate normalization objects
+     *                                    using the OSs
      */
     public DMContext(Criteria criteria,
                      LocalDateTime systemStartingTimestamp,
@@ -201,7 +249,8 @@ public class DMContext
      * @param osChanged                   this flag indicates whether the OS changed from one iteration to another
      *                                    (if so, the previous OS and the current one should differ)
      * @param currentIteration            field representing current iteration (e.g., generation)
-     * @param normalizationBuilder        normalization builder that will be used to generate normalization objects using the OSs
+     * @param normalizationBuilder        normalization builder that will be used to generate normalization objects
+     *                                    using the OSs
      * @param R                           random number generator
      */
     public DMContext(Criteria criteria,
@@ -234,6 +283,7 @@ public class DMContext
         _currentIteration = p._currentIteration;
         _currentTimestamp = LocalDateTime.now();
         _R = p._R;
+        _reasons = p._reasons == null ? null : p._reasons.clone();
         INormalizationBuilder nb = p._normalizationBuilder;
         if (nb == null) nb = new StandardLinearBuilder();
         if (_currentOS != null) _normalizationsCurrentOS = nb.getNormalizations(p._currentOS);
@@ -251,7 +301,8 @@ public class DMContext
     }
 
     /**
-     * Getter for the field that is supposed to contain all the alternatives maintained at some specific processing stage.
+     * Getter for the field that is supposed to contain all the alternatives maintained at some specific processing
+     * stage.
      *
      * @return all the alternatives maintained at some specific processing stage
      */
@@ -271,7 +322,8 @@ public class DMContext
     }
 
     /**
-     * Can be called to check whether the OS changed from one iteration to another (if so, the previous OS and the current
+     * Can be called to check whether the OS changed from one iteration to another (if so, the previous OS and the
+     * current
      * one should differ).
      *
      * @return the flag indicating whether the OS changed from one iteration to another
@@ -365,7 +417,48 @@ public class DMContext
         }
         if (_R != null) sb.append("Random number generator provided = true");
         else sb.append("Random number generator provided = false");
+        if (_reasons != null)
+        {
+            sb.append("Reasons for running = ");
+            if (_reasons.isEmpty()) sb.append("None").append(System.lineSeparator());
+            else
+            {
+                int cnt = 0;
+                int l = _reasons.size();
+                for (Reason r : _reasons)
+                {
+                    sb.append(r);
+                    if (cnt < l - 1) sb.append(", ");
+                    else sb.append(System.lineSeparator());
+                }
+            }
+
+        }
+
         return sb.toString();
+    }
+
+    /**
+     * The method for checking if the input was one of the reasons for running the system.
+     *
+     * @param reason questioned reason
+     * @return true, if the input was one of the reasons; false otherwise
+     */
+    public boolean isReasonForRunning(Reason reason)
+    {
+        if (_reasons == null) return false;
+        return _reasons.contains(reason);
+    }
+
+    /**
+     * The method for constructing and returning a clone of the reasons for running the system.
+     *
+     * @return cloned  reasons for running the system (null, if the decision-making context's provided reasons are null)
+     */
+    public EnumSet<Reason> getClonedReasons()
+    {
+        if (_reasons == null) return null;
+        else return _reasons.clone();
     }
 
     /**

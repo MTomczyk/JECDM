@@ -1,7 +1,6 @@
 package emo.aposteriori.moead;
 
 import ea.AbstractPhasesEA;
-import ea.EA;
 import emo.utils.decomposition.goal.GoalID;
 import emo.utils.decomposition.moead.MOEADGoalsManager;
 import exception.PhaseException;
@@ -40,16 +39,24 @@ public class MOEADFinalizeStep extends FinalizeStep implements IPhase
     /**
      * Phase's main action.
      *
-     * @param ea evolutionary algorithm
+     * @param ea     evolutionary algorithm
      * @param report report on the executed action (to be filled)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @Override
     public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         super.action(ea, report);
         GoalID GL = _goalManager.getCurrentGoalToBeUpdated(ea.getCurrentSteadyStateRepeat());
-        Specimen O = ea.getSpecimensContainer().getOffspring().get(0);
-        _goalManager.executeUpdate(O, GL, ea.getSpecimensContainer());
+        if (ea.getSpecimensContainer().getOffspring().size() == 1)
+        {
+            Specimen O = ea.getSpecimensContainer().getOffspring().get(0);
+            _goalManager.executeUpdate(O, GL, ea.getSpecimensContainer());
+        }
+        else
+        {
+            for (Specimen O : ea.getSpecimensContainer().getOffspring())
+                _goalManager.executeUpdate(O, GL, ea.getSpecimensContainer());
+        }
     }
 }

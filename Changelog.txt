@@ -1,3 +1,25 @@
+[v1.8.0; 22.09.2025]: This update introduces several minor updates that are discussed in tutorial documents 14 (new builders), 15 (on the reproduction strategy), 16 (on customizing the normalization process)
+- General: several methods and fields became deprecated; please consult their Java docs
+- EvolutionaryComputation: pre-configured implementations of the algorithms (e.g., NSGA-II) are provided with dedicated builder objects for constructing their instances (see tutorial 14)
+- EvolutionaryComputation: reproduction.ReproductionStrategy class is introduced; it is handled by the EA (IEA.getReproductionStrategy()); it is responsible for keeping auxiliary data dictating the reproduction strategy (e.g., how many offspring are to be generated from one Parents selection); it is employed in various non-API-related components to allow better customization of the processing
+- EvolutionaryComputation: selection.Tournament: the instance can now be parameterized with a custom specimen comparator used to determine winners of tournaments
+- EvolutionaryComputation: selection.ISelect: selectParents method now can throw a checked exception (should be no compatibility issues unless one explicitly uses this interface)
+- EvolutionaryComputation: implementation of MOEA/D; there was a minor bug that caused performing the solution evaluation during initialization two times (impacts only the execution time; not performance in terms of evolution efficiency); fixed
+- EvolutionaryComputation: ea.AbstractPhasesEA: the objective space manager was not passed from the method bundle to params container; fixed
+- EvolutionaryComputation: os.ObjectiveSpaceManager: the objective space changes listeners are now stored in a list, not an array; and the params container's listeners are considered additional (not a whole new array)
+- EvolutionaryComputation: ea.EATimestamp gained the equals and getClone methods
+- EvolutionaryComputation: RunningState class introduced; it provides various additional fields and methods related to representing and validating the running state of the algorithm; i.e., checking if two consecutive step() method calls are associated with consistent timestamps
+- EvolutionaryComputation: The implementation of NEMO-0 algorithm: the method was not performing correctly if the employed preference model was to be maximized; fixed
+- EvolutionaryComputation: the implementation of INormalizationBuilder used by the pre-configured methods to suitably rescale known relevant bounds of the objective space can now be changed (see tutorial 16)
+- EvolutionaryComputation: the responsibility of initializing the EA's SpecimensContainer is shifted to AbstractEA.init() from the default ConstructInitialPopulation phase
+- EvolutionaryComputation: reproduction.operators.crossover: the crossover-related interfaces gained default implementations, which were consequently removed from the dedicated abstract classes extending these interfaces
+- EvolutionaryComputation: A reproduction strategy class (ea.ReproductionStrategy) is introduced to allow for customizing the reproduction mapping (e.g., 2 parents -> 1 offspring; 2 parents -> 2 offspring; 2 parents -> rand(1,2,3) offspring; etc.; see tutorial 15)
+- EvolutionaryComputation: reproduction.operators.crossover: additional interfaces/implementations allowing for using different reproduction schemes (e.g., 2 parents -> 2 offspring) are added (see tutorial 15)
+- DecisionSupport: dmcontext:DMContext: the context can now be parameterized with a reason for calling the system (see the inner Reason class; one may thus customize further processing based on the reason)
+- DecisionSupport: model.constructor.IConstruct: String getName() method added with a default implementation (returns "CONSTRUCTOR")
+- DecisionSupport: model.constructor.IConstruct: various methods gained their default implementations, which resulted in removing them from the dedicated AbstractConstructor class
+- DecisionSupport: model.constructor.rs.representative.RepresentativeModel migrates to model.constructor.representative.RepresentativeModel and becomes a more generalized class (see the deprecated functionalities)
+
 [v1.7.0; 04.09.2025] Major updates:
 - IMPORTANT: Versioning is changed to semantic (X.Y.Z; major.minor.patch)
 - IMPORTANT: The license is changed from Attribution 4.0 International to MIT License in this version (1.7.0)

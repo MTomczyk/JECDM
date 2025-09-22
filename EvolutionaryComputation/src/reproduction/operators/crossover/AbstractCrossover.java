@@ -14,7 +14,7 @@ import space.Range;
  */
 
 
-public abstract class AbstractCrossover extends AbstractOperator implements ICrossover
+public abstract class AbstractCrossover extends AbstractOperator
 {
     /**
      * Params container.
@@ -143,48 +143,6 @@ public abstract class AbstractCrossover extends AbstractOperator implements ICro
     protected final boolean _swapParentsRandomly;
 
     /**
-     * Default implementation of the method.
-     *
-     * @param p1 decision vector of the first parent
-     * @param p2 decision vector of the second parent
-     * @param R  random number generator
-     * @return new decision vector
-     */
-    @Override
-    public IntResult crossover(int[] p1, int[] p2, IRandom R)
-    {
-        return null;
-    }
-
-    /**
-     * Default implementation.
-     *
-     * @param p1 decision vector of the first parent
-     * @param p2 decision vector of the second parent
-     * @param R  random number generator
-     * @return new decision vector
-     */
-    @Override
-    public DoubleResult crossover(double[] p1, double[] p2, IRandom R)
-    {
-        return null;
-    }
-
-    /**
-     * Default implementation of the method.
-     *
-     * @param p1 decision vector of the first parent
-     * @param p2 decision vector of the second parent
-     * @param R  random number generator
-     * @return new decision vector
-     */
-    @Override
-    public BoolResult crossover(boolean[] p1, boolean[] p2, IRandom R)
-    {
-        return null;
-    }
-
-    /**
      * Auxiliary method for checking if two parents should be swapped. The method first checks the internal
      * parameterization (e.g., _swapParentsRandomly flag). Then it returns a random boolean.
      *
@@ -213,7 +171,7 @@ public abstract class AbstractCrossover extends AbstractOperator implements ICro
 
     /**
      * Supportive method for swapping parents' decision vectors (randomly; the decision is based on the result of
-     * {@link AbstractCrossover#shouldSwap(IRandom)})).
+     * {@link AbstractCrossover#shouldSwap(IRandom)}).
      *
      * @param p1 first parent
      * @param p2 second parent
@@ -255,5 +213,4 @@ public abstract class AbstractCrossover extends AbstractOperator implements ICro
         if (shouldSwap(R)) return new boolean[][]{p2, p1};
         else return new boolean[][]{p1, p2};
     }
-
 }

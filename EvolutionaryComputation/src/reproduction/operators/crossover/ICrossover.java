@@ -3,14 +3,14 @@ package reproduction.operators.crossover;
 import random.IRandom;
 
 /**
- * Interface for the crossover operator.
+ * Interface for crossover operators designed to construct one offspring from two parent solutions.
  *
  * @author MTomczyk
  */
 public interface ICrossover
 {
     /**
-     * Result of the processing.
+     * Result of the processing (one offspring to be generated from parents).
      */
     abstract class Result
     {
@@ -34,7 +34,7 @@ public interface ICrossover
     }
 
     /**
-     * Result of the processing (integers).
+     * Result of the processing (integers); one offspring solution is assumed to be constructed from parents.
      */
     class IntResult extends Result
     {
@@ -59,7 +59,7 @@ public interface ICrossover
     }
 
     /**
-     * Result of the processing (doubles).
+     * Result of the processing (doubles); one offspring solution is assumed to be constructed from parents.
      */
     class DoubleResult extends Result
     {
@@ -84,7 +84,7 @@ public interface ICrossover
     }
 
     /**
-     * Result of the processing (booleans).
+     * Result of the processing (booleans); one offspring solution is assumed to be constructed from parents.
      */
     class BoolResult extends Result
     {
@@ -108,33 +108,44 @@ public interface ICrossover
         }
     }
 
+
     /**
-     * Method declaration for reproducing (applying crossover) two parents' integer decision vectors.
+     * Method declaration for reproducing (applying crossover) two parents' integer decision vectors. This
+     * implementation should return one offspring solution.
      *
-     * @param p1 decision vector of the first parent
-     * @param p2 decision vector of the second parent
+     * @param p1 decision vector of the first parent (reference; do not modify it)
+     * @param p2 decision vector of the second parent (reference; do not modify it)
      * @param R  random number generator
      * @return new decision vector (wrapped via IntResult class)
      */
-    IntResult crossover(int[] p1, int[] p2, IRandom R);
+    default IntResult crossover(int[] p1, int[] p2, IRandom R)
+    {
+        return null;
+    }
 
     /**
      * Method declaration for reproducing (applying crossover) two parents' double decision vectors.
      *
-     * @param p1 decision vector of the first parent
-     * @param p2 decision vector of the second parent
+     * @param p1 decision vector of the first parent (reference; do not modify it)
+     * @param p2 decision vector of the second parent (reference; do not modify it)
      * @param R  random number generator
      * @return new decision vector (wrapped via DoubleResult class)
      */
-    DoubleResult crossover(double[] p1, double[] p2, IRandom R);
+    default DoubleResult crossover(double[] p1, double[] p2, IRandom R)
+    {
+        return null;
+    }
 
     /**
      * Method declaration for reproducing (applying crossover) two parents' boolean decision vectors.
      *
-     * @param p1 decision vector of the first parent
-     * @param p2 decision vector of the second parent
+     * @param p1 decision vector of the first parent (reference; do not modify it)
+     * @param p2 decision vector of the second parent (reference; do not modify it)
      * @param R  random number generator
      * @return new decision vector  (wrapped via BoolResult class)
      */
-    BoolResult crossover(boolean[] p1, boolean[] p2, IRandom R);
+    default BoolResult crossover(boolean[] p1, boolean[] p2, IRandom R)
+    {
+        return null;
+    }
 }

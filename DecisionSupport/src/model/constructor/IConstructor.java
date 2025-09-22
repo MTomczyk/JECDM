@@ -17,126 +17,189 @@ import java.util.LinkedList;
 public interface IConstructor<T extends AbstractInternalModel>
 {
     /**
-     * Auxiliary method that can be called to clear all stored models (can be called, e.g., when the inconsistency was detected).
+     * Auxiliary method that can be called to clear all stored models (can be called, e.g., when the inconsistency was
+     * detected).
      */
-    void clearModels();
+    default void clearModels()
+    {
+
+    }
 
     /**
      * Auxiliary method that can be used to register the current decision-making context {@link DMContext}.
      *
      * @param dmContext decision-making context
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void registerDecisionMakingContext(DMContext dmContext) throws ConstructorException;
+    default void registerDecisionMakingContext(DMContext dmContext) throws ConstructorException
+    {
+
+    }
 
     /**
      * Method for notifying that the preference elicitation begins
      *
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void notifyPreferenceElicitationBegins() throws ConstructorException;
+    default void notifyPreferenceElicitationBegins() throws ConstructorException
+    {
+
+    }
 
     /**
      * Method for notifying on the most recent preference information provided by the decision maker.
      *
      * @param preferenceInformation preference information (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void notifyAboutMostRecentPreferenceInformation(LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException;
+    default void notifyAboutMostRecentPreferenceInformation(LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException
+    {
+
+    }
 
     /**
-     * Method for notifying that the preference elicitation failed (e.g., when there were no reasonable alternatives for comparison).
+     * Method for notifying that the preference elicitation failed (e.g., when there were no reasonable alternatives for
+     * comparison).
      *
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void notifyPreferenceElicitationFailed() throws ConstructorException;
+    default void notifyPreferenceElicitationFailed() throws ConstructorException
+    {
+
+    }
 
     /**
      * Method for notifying that the preference elicitation ends.
      *
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void notifyPreferenceElicitationEnds() throws ConstructorException;
+    default void notifyPreferenceElicitationEnds() throws ConstructorException
+    {
+
+    }
 
     /**
      * Method for notifying that the internal models construction begins.
      *
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void notifyModelsConstructionBegins() throws ConstructorException;
+    default void notifyModelsConstructionBegins() throws ConstructorException
+    {
+
+    }
 
     /**
      * The main method for constructing internal models (array) given the decision maker's preference information.
      *
      * @param preferenceInformation the decision maker's preference information stored (provided via wrappers)
      * @return constructed models (bundle object that also provides additional data)
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
     Report<T> constructModels(LinkedList<PreferenceInformationWrapper> preferenceInformation) throws ConstructorException;
 
     /**
      * Method for notifying that the internal models construction ends.
      *
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void notifyModelsConstructionEnds() throws ConstructorException;
+    default void notifyModelsConstructionEnds() throws ConstructorException
+    {
+
+    }
 
     /**
      * Method for notifying that the consistency reintroduction begins.
      *
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void notifyConsistencyReintroductionBegins() throws ConstructorException;
+    default void notifyConsistencyReintroductionBegins() throws ConstructorException
+    {
+
+    }
 
     /**
-     * Method for notifying about the beginning of an attempt to reintroduce consistency (one construction process is called in one attempt)
+     * Method for notifying about the beginning of an attempt to reintroduce consistency (one construction process is
+     * called in one attempt)
      *
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void notifyConsistencyReintroductionAttemptBegins() throws ConstructorException;
+    default void notifyConsistencyReintroductionAttemptBegins() throws ConstructorException
+    {
+
+    }
 
     /**
-     * Method for notifying about preference examples removed from the initial set when attempting to reinstate consistency.
+     * Method for notifying about preference examples removed from the initial set when attempting to reinstate
+     * consistency.
      *
      * @param removedPreferenceInformation removed preference examples (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void notifyAboutRemovedPreferenceInformation(LinkedList<PreferenceInformationWrapper> removedPreferenceInformation) throws ConstructorException;
+    default void notifyAboutRemovedPreferenceInformation(LinkedList<PreferenceInformationWrapper> removedPreferenceInformation) throws ConstructorException
+    {
+
+    }
 
     /**
-     * Method for notifying about preference examples added from the preference examples set when attempting to reinstate consistency.
+     * Method for notifying about preference examples added from the preference examples set when attempting to
+     * reinstate consistency.
      *
      * @param addedPreferenceInformation added preference examples (provided via wrappers)
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void notifyAboutAddedPreferenceInformation(LinkedList<PreferenceInformationWrapper> addedPreferenceInformation) throws ConstructorException;
+    default void notifyAboutAddedPreferenceInformation(LinkedList<PreferenceInformationWrapper> addedPreferenceInformation) throws ConstructorException
+    {
+
+    }
 
     /**
-     * Method for notifying about the ending of an attempt to reintroduce consistency (one construction process is called in one attempt)
+     * Method for notifying about the ending of an attempt to reintroduce consistency (one construction process is
+     * called in one attempt)
      *
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void notifyConsistencyReintroductionAttemptEnds() throws ConstructorException;
+    default void notifyConsistencyReintroductionAttemptEnds() throws ConstructorException
+    {
+
+    }
 
     /**
      * Method for notifying that the consistency reintroduction ends.
      *
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void notifyConsistencyReintroductionEnds() throws ConstructorException;
+    default void notifyConsistencyReintroductionEnds() throws ConstructorException
+    {
+
+    }
 
     /**
      * Unregisters the decision-making context
      *
-     * @throws ConstructorException the exception can be thrown 
+     * @throws ConstructorException the exception can be thrown
      */
-    void unregisterDecisionMakingContext() throws ConstructorException;
+    default void unregisterDecisionMakingContext() throws ConstructorException
+    {
 
+    }
 
     /**
      * Getter for compatibility analyzer.
      *
      * @return compatibility analyzer
      */
-    CompatibilityAnalyzer getCompatibilityAnalyzer();
+    default CompatibilityAnalyzer getCompatibilityAnalyzer()
+    {
+        return new CompatibilityAnalyzer();
+    }
+
+    /**
+     * Getter for the constructor's name.
+     *
+     * @return the constructor's name
+     */
+    default String getName()
+    {
+        return "CONSTRUCTOR";
+    }
 }

@@ -1,6 +1,7 @@
 package space.normalization.builder;
 
 import space.normalization.INormalization;
+import space.normalization.minmax.AbstractMinMaxNormalization;
 import space.os.ObjectiveSpace;
 
 /**
@@ -25,5 +26,8 @@ public interface INormalizationBuilder
      *
      * @return class
      */
-    Class<?> getBuiltSuperclass();
+    default Class<?> getBuiltSuperclass()
+    {
+        return AbstractMinMaxNormalization.class;
+    }
 }

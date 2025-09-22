@@ -3,7 +3,10 @@ package phase;
 import ea.AbstractPhasesEA;
 import ea.EA;
 import exception.PhaseException;
+import population.Specimen;
 import reproduction.IReproduce;
+
+import java.util.ArrayList;
 
 /**
  * Default "reproduce" phase.
@@ -52,12 +55,14 @@ public class Reproduce extends AbstractReproducePhase implements IPhase
      *
      * @param ea     evolutionary algorithm
      * @param report report on the executed action (to be filled)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @Override
     public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
-        ea.getSpecimensContainer().setOffspring(_reproduce.createOffspring(ea));
+        ArrayList<Specimen> offspring = _reproduce.createOffspring(ea);
+        ea.getSpecimensContainer().setOffspring(offspring);
+        ea.getSpecimensContainer().incrementSpecimensConstructedDuringGenerationCounter(offspring.size());
         ea.getSpecimensContainer().setOffspringRequiresEvaluation(true);
         ea.getSpecimensContainer().setOffspringRequiresIDAssignment(true);
     }

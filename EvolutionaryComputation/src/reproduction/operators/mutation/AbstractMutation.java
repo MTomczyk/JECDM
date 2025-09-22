@@ -1,6 +1,5 @@
 package reproduction.operators.mutation;
 
-import random.IRandom;
 import reproduction.operators.AbstractOperator;
 import reproduction.valuecheck.IValueCheck;
 import reproduction.valuecheck.Wrap;
@@ -75,45 +74,5 @@ public abstract class AbstractMutation extends AbstractOperator implements IMuta
     public AbstractMutation(Params p)
     {
         super(p);
-    }
-
-
-    /**
-     * Default implementation of the method.
-     *
-     * @param o decision vector to be mutated
-     * @param R random number generator
-     * @return returns input vector
-     */
-    @Override
-    public int[] mutate(int[] o, IRandom R)
-    {
-        return o;
-    }
-
-    /**
-     * Default implementation of the method.
-     *
-     * @param o decision vector to be mutated
-     * @param R random number generator
-     * @return returns input vector
-     */
-    @Override
-    public double[] mutate(double[] o, IRandom R)
-    {
-        return o;
-    }
-
-    /**
-     * Default implementation of the method.
-     *
-     * @param o decision vector to be mutated
-     * @param R random number generator
-     * @return returns input vector
-     */
-    @Override
-    public boolean[] mutate(boolean[] o, IRandom R)
-    {
-        return o;
     }
 }

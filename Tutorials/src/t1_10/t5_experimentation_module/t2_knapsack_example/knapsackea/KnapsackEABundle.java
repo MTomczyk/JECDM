@@ -30,8 +30,10 @@ public class KnapsackEABundle extends AbstractEABundle
         protected final double _capacity;
 
         /**
-         * If true, infeasible solutions will be immediately repaired by removing items from the knapsack in the increasing
-         * order of their value/size ratios until the feasibility is restored. If false, the algorithm works in "penalty mode".
+         * If true, infeasible solutions will be immediately repaired by removing items from the knapsack in the
+         * increasing
+         * order of their value/size ratios until the feasibility is restored. If false, the algorithm works in "penalty
+         * mode".
          */
         protected final boolean _repairMode;
 
@@ -44,7 +46,8 @@ public class KnapsackEABundle extends AbstractEABundle
          * Parameterized constructor.
          *
          * @param data       knapsack data
-         * @param repairMode if true, infeasible solutions will be immediately repaired by removing items from the knapsack
+         * @param repairMode if true, infeasible solutions will be immediately repaired by removing items from the
+         *                   knapsack
          *                   in the increasing order of their value/size ratios until the feasibility is restored;
          *                   if false, the algorithm works in "penalty mode"
          * @param capacity   knapsack capacity
@@ -58,18 +61,9 @@ public class KnapsackEABundle extends AbstractEABundle
             _capacity = capacity;
             _R = R;
             _repairMode = repairMode;
-        }
-
-        /**
-         * Auxiliary method called by the constructor at the beginning to instantiate default params values (optional).
-         * This implementation instantiates phases-related objects.
-         */
-        @Override
-        protected void instantiateDefaultValues()
-        {
-            if (_construct == null) _construct = new KnapsackConstructor(_data);
-            if (_evaluate == null) _evaluate = new KnapsackEvaluator(_data, _capacity, _repairMode);
-            if (_reproduce == null) _reproduce = new KnapsackReproducer(_data);
+            _construct = new KnapsackConstructor(_data);
+            _evaluate = new KnapsackEvaluator(_data, _capacity, _repairMode);
+            _reproduce = new KnapsackReproducer(_data);
         }
     }
 

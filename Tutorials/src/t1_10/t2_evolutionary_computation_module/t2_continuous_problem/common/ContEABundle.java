@@ -33,18 +33,9 @@ public class ContEABundle extends AbstractEABundle
             super("EA", Criteria.constructCriteria(new String[]{"Value", "Size"},
                     new boolean[]{true, false}));
             _kernels = kernels;
-        }
-
-        /**
-         * Auxiliary method called by the constructor at the beginning to instantiate default params values (optional).
-         * This implementation instantiates phases-related objects.
-         */
-        @Override
-        protected void instantiateDefaultValues()
-        {
-            if (_construct == null) _construct = new ContConstructor();
-            if (_evaluate == null) _evaluate = new ContEvaluator(_kernels);
-            if (_reproduce == null) _reproduce = new ContReproducer();
+            _construct = new ContConstructor();
+            _evaluate = new ContEvaluator(_kernels);
+            _reproduce = new ContReproducer();
         }
     }
 

@@ -68,16 +68,17 @@ public class ConstructInitialPopulation extends AbstractConstructInitialPopulati
      * (accessible via {@link EA#getSpecimensContainer()}).
      * - The action method sets the {@link SpecimensContainer#setPopulationRequiresEvaluation(boolean)} and
      * {@link SpecimensContainer#setPopulationRequiresIDAssignment(boolean)} flags to true.
-
+     *
      * @param ea     evolutionary algorithm
      * @param report report on the executed action (to be filled)
-     * @throws PhaseException the exception can be thrown 
+     * @throws PhaseException the exception can be thrown
      */
     @Override
     public void action(AbstractPhasesEA ea, PhaseReport report) throws PhaseException
     {
         ArrayList<Specimen> specimen = _constructor.createInitialPopulation(ea);
-        ea.setSpecimensContainer(new SpecimensContainer(specimen));
+        ea.getSpecimensContainer().setPopulation(specimen);
+        ea.getSpecimensContainer().incrementSpecimensConstructedDuringGenerationCounter(specimen.size());
         ea.getSpecimensContainer().setPopulationRequiresEvaluation(true);
         ea.getSpecimensContainer().setPopulationRequiresIDAssignment(true);
     }

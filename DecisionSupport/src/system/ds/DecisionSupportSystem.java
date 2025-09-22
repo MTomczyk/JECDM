@@ -16,8 +16,10 @@ import java.time.LocalDateTime;
 
 
 /**
- * Top-level class representing a decision support system. It encapsulates two major modules: preference elicitation module
- * {@link system.modules.elicitation.PreferenceElicitationModule} and models updater module {@link system.modules.updater.ModelsUpdaterModule}.
+ * Top-level class representing a decision support system. It encapsulates two major modules: preference elicitation
+ * module
+ * {@link system.modules.elicitation.PreferenceElicitationModule} and models updater module
+ * {@link system.modules.updater.ModelsUpdaterModule}.
  *
  * @author MTomczyk
  */
@@ -128,15 +130,18 @@ public class DecisionSupportSystem
 
     /**
      * This is the top-level method that aggregates functionalities offered by the two main modules:
-     * {@link system.modules.elicitation.PreferenceElicitationModule} and {@link system.modules.updater.ModelsUpdaterModule}.
+     * {@link system.modules.elicitation.PreferenceElicitationModule} and
+     * {@link system.modules.updater.ModelsUpdaterModule}.
      * It first calls the preference elicitation module. If the resulting preference elicitation report indicates that
-     * the additional feedback was provided by the decision maker(s), the method will call for models updates. The reports
-     * from both processes are wrapped via {@link system.dm.Report} and returned by this method (the report on models update
+     * the additional feedback was provided by the decision maker(s), the method will call for models updates. The
+     * reports
+     * from both processes are wrapped via {@link system.dm.Report} and returned by this method (the report on models
+     * update
      * will be null if the associated process was not triggered).
      *
      * @param pDMC current decision-making context (params)
      * @return final report on the DSS process
-     * @throws DecisionSupportSystemException the exception can be thrown 
+     * @throws DecisionSupportSystemException the exception can be thrown
      */
     public Report executeProcess(DMContext.Params pDMC) throws DecisionSupportSystemException
     {
@@ -168,7 +173,7 @@ public class DecisionSupportSystem
      *
      * @param pDMC current decision-making context (params)
      * @return report on the preference elicitation
-     * @throws DecisionSupportSystemException the exception can be thrown 
+     * @throws DecisionSupportSystemException the exception can be thrown
      */
     public system.modules.elicitation.Report executeElicitationProcess(DMContext.Params pDMC) throws DecisionSupportSystemException
     {
@@ -177,11 +182,12 @@ public class DecisionSupportSystem
     }
 
     /**
-     * Supportive (not available) method for performing the preference elicitation process ({@link system.modules.elicitation.PreferenceElicitationModule#executeProcess(DMContext)}).
+     * Supportive (not available) method for performing the preference elicitation process
+     * ({@link system.modules.elicitation.PreferenceElicitationModule#executeProcess(DMContext)}).
      *
      * @param dmContext current decision-making context
      * @return report on the preference elicitation
-     * @throws DecisionSupportSystemException the exception can be thrown 
+     * @throws DecisionSupportSystemException the exception can be thrown
      */
     private system.modules.elicitation.Report executeElicitationProcess(DMContext dmContext) throws DecisionSupportSystemException
     {
@@ -200,7 +206,7 @@ public class DecisionSupportSystem
      *
      * @param pDMC current decision-making context (params)
      * @return report on the models update
-     * @throws DecisionSupportSystemException the exception can be thrown 
+     * @throws DecisionSupportSystemException the exception can be thrown
      */
     public system.modules.updater.Report executeModelUpdateProcess(DMContext.Params pDMC) throws DecisionSupportSystemException
     {
@@ -209,11 +215,27 @@ public class DecisionSupportSystem
     }
 
     /**
-     * Supportive (not available) method for performing the models update process ({@link system.modules.elicitation.PreferenceElicitationModule#executeProcess(DMContext)}).
+     * Supportive (available, can be called but with extra caution) method for performing the models update process
+     * ({@link system.modules.elicitation.PreferenceElicitationModule#executeProcess(DMContext)}).
+     *
+     * @param pDMC current decision-making context (params)
+     * @return report on the models update that is wrapped by {@link Report}; the report on the preference elicitation
+     * process in set to null
+     * @throws DecisionSupportSystemException the exception can be thrown
+     */
+    public Report executeModelUpdateProcessAndWrapReport(DMContext.Params pDMC) throws DecisionSupportSystemException
+    {
+        DMContext dmContext = _model.deriveDecisionMakingContext(pDMC);
+        return Report.wrapAround(dmContext, executeModelUpdateProcess(dmContext));
+    }
+
+    /**
+     * Supportive (not available) method for performing the models update process
+     * ({@link system.modules.elicitation.PreferenceElicitationModule#executeProcess(DMContext)}).
      *
      * @param dmContext current decision-making context
      * @return report on the models update
-     * @throws DecisionSupportSystemException the exception can be thrown 
+     * @throws DecisionSupportSystemException the exception can be thrown
      */
     private system.modules.updater.Report executeModelUpdateProcess(DMContext dmContext) throws DecisionSupportSystemException
     {

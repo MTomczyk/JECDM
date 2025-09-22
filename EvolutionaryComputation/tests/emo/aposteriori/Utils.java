@@ -20,6 +20,7 @@ import random.IRandom;
 import selection.Random;
 import selection.Tournament;
 import space.distance.Euclidean;
+import space.os.ObjectiveSpace;
 
 /**
  * Utils class that provides a common code for all test cases.
@@ -28,6 +29,22 @@ import space.distance.Euclidean;
  */
 public class Utils
 {
+    /**
+     * Auxiliary class for testing.
+     */
+    public static class OSChangedReport
+    {
+        /**
+         * Previous OS.
+         */
+        public ObjectiveSpace _currentOS = null;
+
+        /**
+         * Current OS.
+         */
+        public ObjectiveSpace _previousOS = null;
+    }
+
     /**
      * Creates MOEAD instance.
      *
@@ -94,6 +111,7 @@ public class Utils
         pEA._R = R;
         pEA._populationSize = goals.length;
         pEA._offspringSize = 1;
+        pEA._expectedNumberOfSteadyStateRepeats = pEA._populationSize;
         pEA._osManager = pAB._osManager;
         return new EA(pEA);
 

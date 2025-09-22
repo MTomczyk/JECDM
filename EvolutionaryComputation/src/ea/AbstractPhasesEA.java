@@ -11,8 +11,8 @@ import population.SpecimensContainer;
 import random.IRandom;
 
 /**
- * Abstract implementation of {@link IEA} that employs phases as functional blocks constituting various steps of
- * the evolutionary process.
+ * Abstract implementation of {@link IEA} that employs phases as functional blocks constituting various steps of the
+ * evolutionary process.
  *
  * @author MTomczyk
  */
@@ -24,9 +24,10 @@ public class AbstractPhasesEA extends AbstractEA implements IEA
     public static class Params extends AbstractEA.Params
     {
         /**
-         * All phases (functional blocks) that are to be executed by the EA when calling the init and step methods
-         * (in the provided order). When initializing the object, phases assigned to the INIT and STEP methods are kept
-         * compactly in separate arrays ({@link AbstractPhasesEA#_initPhases} and {@link AbstractPhasesEA#_stepPhases}).
+         * All phases (functional blocks) that are to be executed by the EA when calling the init and step methods (in
+         * the provided order). When initializing the object, phases assigned to the INIT and STEP methods are kept
+         * compactly in separate arrays ({@link AbstractPhasesEA#_initPhases} and
+         * {@link AbstractPhasesEA#_stepPhases}).
          */
         public PhaseAssignment[] _phases;
 
@@ -59,6 +60,8 @@ public class AbstractPhasesEA extends AbstractEA implements IEA
         protected Params(Criteria criteria, AbstractEABundle bundle)
         {
             super(bundle._name, 0, null, true, criteria);
+            _osManager = bundle._osManager;
+            _normalizationBuilder = bundle._normalizationBuilder;
             _phases = PhasesBundle.getPhasesAssignmentsFromBundle(bundle._phasesBundle);
         }
     }
@@ -97,15 +100,19 @@ public class AbstractPhasesEA extends AbstractEA implements IEA
     {
         super(p);
 
-        _populationSize = p._populationSize;
-        _offspringSize = p._offspringSize;
+        try
+        {
+            updateExpectedNumberOfSteadyStateRepeats(p._expectedNumberOfSteadyStateRepeats);
+        } catch (EAException e)
+        {
+            throw new RuntimeException(e);
+        }
 
-        _osManager = p._osManager;
-        if (_osManager != null) _osManager.setEA(this);
+        if (p._osManager != null) p._osManager.setEA(this);
+        setObjectiveSpaceManager(p._osManager);
 
         _initPhases = establishPhases(p._phases, PhaseAssignment.Assignment.INIT);
         _stepPhases = establishPhases(p._phases, PhaseAssignment.Assignment.STEP);
-        _executionTime = 0.0d;
 
         _computePhasesExecutionTimes = p._computePhasesExecutionTimes;
         if (_computePhasesExecutionTimes)
@@ -146,7 +153,7 @@ public class AbstractPhasesEA extends AbstractEA implements IEA
     public void init() throws EAException
     {
         startMeasuringTime();
-        _currentTimestamp = new EATimestamp(0, 0);
+        super.init();
         executePhases(_initPhases, _initPhasesExecutionTimes);
         stopMeasuringTime();
     }
@@ -161,8 +168,9 @@ public class AbstractPhasesEA extends AbstractEA implements IEA
     public void step(EATimestamp timestamp) throws EAException
     {
         startMeasuringTime();
-        _currentTimestamp = timestamp;
-        executePhases(_stepPhases, _stepPhasesExecutionTimes);
+        super.step(timestamp);
+        if (_specimensContainer.getSpecimensConstructedDuringGeneration() < getOffspringLimitPerGeneration())
+            executePhases(_stepPhases, _stepPhasesExecutionTimes);
         stopMeasuringTime();
     }
 

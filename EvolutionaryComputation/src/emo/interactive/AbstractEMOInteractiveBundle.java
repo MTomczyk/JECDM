@@ -5,6 +5,7 @@ import ea.AbstractEABundle;
 import emo.AbstractEMOBundle;
 import emo.interactive.utils.dmcontext.AbstractDMCParamsConstructor;
 import emo.interactive.utils.dmcontext.DefaultConstructor;
+import emo.interactive.utils.dmcontext.FromPopulation;
 import phase.InitStartsRunDSS;
 import system.ds.DecisionSupportSystem;
 
@@ -31,7 +32,7 @@ public abstract class AbstractEMOInteractiveBundle extends AbstractEMOBundle
          * Decision-making context params constructor. If null, the default
          * {@link emo.interactive.utils.dmcontext.DefaultConstructor} will be used.
          */
-        public AbstractDMCParamsConstructor _dmContextParamsConstructor;
+        public AbstractDMCParamsConstructor _dmContextParamsConstructor = new DefaultConstructor(new FromPopulation());
 
         /**
          * Parameterized constructor
@@ -48,11 +49,14 @@ public abstract class AbstractEMOInteractiveBundle extends AbstractEMOBundle
 
         /**
          * Auxiliary method called by the constructor at the beginning to instantiate default params values (optional).
+         *
+         * @deprecated to be removed in future releases
          */
+        @Deprecated
         @Override
         protected void instantiateDefaultValues()
         {
-            if (_dmContextParamsConstructor == null) _dmContextParamsConstructor = new DefaultConstructor();
+
         }
     }
 

@@ -8,7 +8,9 @@ import population.*;
 import problem.moo.AbstractMOOProblemBundle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Class responsible for keeping and updating info on the objective space of the problem being solved.
@@ -48,13 +50,13 @@ public class ObjectiveSpaceManager
 
         /**
          * If true, objective space is updated based not only on the current population but the historical data as well
-         * (compare with the incumbent).
+         * (compare with the incumbent to determine the best value for each objective ever found).
          */
         public boolean _updateUtopiaUsingIncumbent = false;
 
         /**
          * If true, objective space is updated based not only on the current population but the historical data as well
-         * (compare with the incumbent).
+         * (compare with the incumbent to determine the worst value for each objective ever found).
          */
         public boolean _updateNadirUsingIncumbent = false;
 
@@ -76,8 +78,9 @@ public class ObjectiveSpaceManager
         public ObjectiveSpace _os;
 
         /**
-         * Array of "objective space changed" listeners (can be null; will be set by a dedicated method in
-         * {@link ea.AbstractEABundle}).
+         * An array of additional "objective space changed" listeners (can be null). It will be used by the manager
+         * along with method-specific listeners defined by pre-configured {@link ea.AbstractEABundle}) during the
+         * method's initialization.
          */
         public IOSChangeListener[] _listeners = null;
 
@@ -173,13 +176,13 @@ public class ObjectiveSpaceManager
 
     /**
      * If true, objective space is updated based not only on the current population but the historical data as well
-     * (compare with the incumbent).
+     * (compare with the incumbent to determine the best value for each objective ever found).
      */
     private final boolean _updateUtopiaUsingIncumbent;
 
     /**
      * If true, objective space is updated based not only on the current population but the historical data as well
-     * (compare with the incumbent).
+     * (compare with the incumbent to determine the worst value for each objective ever found).
      */
     private final boolean _updateNadirUsingIncumbent;
 
@@ -206,9 +209,11 @@ public class ObjectiveSpaceManager
     private boolean _changed;
 
     /**
-     * Array of "objective space changed" listeners (can be null).
+     * An array of additional "objective space changed" listeners (can be null). It will be used by the manager
+     * along with method-specific listeners defined by pre-configured {@link ea.AbstractEABundle}) during the
+     * method's initialization.
      */
-    private IOSChangeListener[] _listeners;
+    private final LinkedList<IOSChangeListener> _listeners;
 
     /**
      * When true, the manager will store the timestamps that indicate when the knowledge on the objective space was
@@ -246,6 +251,24 @@ public class ObjectiveSpaceManager
     }
 
     /**
+     * Returns a fixed object instance (updates are disabled).
+     * The initial and fixed objective space is set as imposed by the input utopia and nadir points.
+     *
+     * @param utopia utopia point
+     * @param nadir  nadir point
+     * @return fixed object instance (null, if either utopia or nadir is not provided)
+     */
+    public static ObjectiveSpaceManager getFixedInstance(double[] utopia, double[] nadir)
+    {
+        if (utopia == null) return null;
+        if (nadir == null) return null;
+        ObjectiveSpaceManager.Params pOS = new Params();
+        pOS._os = new ObjectiveSpace(utopia, nadir);
+        pOS._doNotUpdateOS = true;
+        return new ObjectiveSpaceManager(pOS);
+    }
+
+    /**
      * Parameterized constructor.
      *
      * @param p params container
@@ -255,7 +278,9 @@ public class ObjectiveSpaceManager
         _doNotUpdateOS = p._doNotUpdateOS;
         _ea = p._ea;
         _criteria = p._criteria;
-        _listeners = p._listeners;
+        _listeners = new LinkedList<>();
+        if (p._listeners != null)
+            _listeners.addAll(Arrays.asList(p._listeners));
         _os = p._os;
         _updateUtopiaUsingIncumbent = p._updateUtopiaUsingIncumbent;
         _updateNadirUsingIncumbent = p._updateNadirUsingIncumbent;
@@ -286,13 +311,36 @@ public class ObjectiveSpaceManager
     }
 
     /**
-     * Setter for the listeners for the triggered change in the objective space (can be null).
+     * Setter for the listeners for the triggered change in the objective space (can be null). This method overwrites
+     * all already existing listeners in the maintained list.
      *
-     * @param listener array of listeners
+     * @param listeners array of listeners
      */
-    public void setOSChangeListeners(IOSChangeListener[] listener)
+    @Deprecated
+    public void setOSChangeListeners(IOSChangeListener[] listeners)
     {
-        _listeners = listener;
+        _listeners.clear();
+        if (listeners != null)
+            _listeners.addAll(Arrays.asList(listeners));
+    }
+
+    /**
+     * This method appends the input listeners for the triggered change in the objective space to the maintained list of
+     * listeners.
+     *
+     * @param listeners input listeners to be registered
+     */
+    public void addOSChangeListeners(IOSChangeListener[] listeners)
+    {
+        if (listeners != null) _listeners.addAll(List.of(listeners));
+    }
+
+    /**
+     * This method clears the maintained list of listeners for the triggered change in the objective space.
+     */
+    public void clearOSChangeListeners()
+    {
+        _listeners.clear();
     }
 
     /**
@@ -430,13 +478,14 @@ public class ObjectiveSpaceManager
 
             if (Double.compare(l, r) > 0)
             {
-                throw new PhaseException("The calculated range for the " + i + "-th objective is invalid (left = " + l + " ; right = " + r + ")", this.getClass());
+                throw PhaseException.getInstanceWithSource("The calculated range for the " + i + "-th objective " +
+                        "is invalid (left = " + l + " ; right = " + r + ")", this.getClass());
             }
             os._ranges[i].setValues(l, r);
         }
 
         // If "store timestamps = true", save the timestamp in the case os has changed
-        if ((_storeTimestamps) && ((_os == null) || (!os.isEqual(_os)))) //noinspection DataFlowIssue
+        if ((_storeTimestamps) && ((_os == null) || (!os.isEqual(_os))))
             _notificationTimes.add(timestamp);
 
         // accordingly set "changed flag"

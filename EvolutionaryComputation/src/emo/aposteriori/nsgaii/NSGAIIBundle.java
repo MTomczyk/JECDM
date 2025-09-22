@@ -4,7 +4,6 @@ import criterion.Criteria;
 import ea.AbstractEABundle;
 import emo.AbstractEMOBundle;
 import os.IOSChangeListener;
-import space.normalization.builder.StandardLinearBuilder;
 
 /**
  * Bundle (container) of necessary fields for the NSGA-II algorithm.
@@ -14,6 +13,19 @@ import space.normalization.builder.StandardLinearBuilder;
 
 public class NSGAIIBundle extends AbstractEMOBundle
 {
+    /**
+     * Auxiliary interface for classes that can be used to adjust the params container being processed.
+     */
+    public interface IParamsAdjuster
+    {
+        /**
+         * The main method for adjusting the params container.
+         *
+         * @param p params container being instantiated
+         */
+        void adjust(Params p);
+    }
+
     /**
      * Params container for the bundle.
      */
@@ -66,7 +78,7 @@ public class NSGAIIBundle extends AbstractEMOBundle
     @Override
     protected IOSChangeListener[] getOSChangedListeners(AbstractEABundle.Params p)
     {
-        NSGAIIOSChangeListener l = new NSGAIIOSChangeListener(_nsgaiiSort, new StandardLinearBuilder());
+        NSGAIIOSChangeListener l = new NSGAIIOSChangeListener(_nsgaiiSort);
         return new IOSChangeListener[]{l};
     }
 

@@ -10,4 +10,4 @@ JECDM is licensed under the MIT License. <br>
 
 *Tomczyk, M. (2024). Tutorial Series on Java Framework for Evolutionary Computation and Decision Making. Tutorial 0: Introduction. Zenodo. https://doi.org/10.5281/zenodo.14283750*
 
-**Note that**, however, a peer-reviewed publication showcasing JECDM is planned to be published soon. When issued, it is suggested to cite that future work (this paragraph will be accordingly updated in the future). When using JECDM for commercial purposes, appropriate credit should also be given.
+**Also**, it is recommended to examine a peer-reviewed dedicated publication: *Michał K. Tomczyk, Miłosz Kadziński, JECDM: A Java framework for Evolutionary Computation and Decision-Making, vol. 32, pp. 102394, SoftwareX, 2025, https://doi.org/10.1016/j.softx.2025.102394*

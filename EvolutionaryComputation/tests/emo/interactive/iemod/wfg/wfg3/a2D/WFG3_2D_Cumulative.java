@@ -15,6 +15,7 @@ import frame.Frame;
 import interaction.reference.constructor.RandomPairs;
 import interaction.trigger.rules.IterationInterval;
 import model.definitions.LNorm;
+import org.junit.jupiter.api.Test;
 import plot.Plot2D;
 import problem.Problem;
 import problem.moo.wfg.WFGBundle;
@@ -38,14 +39,23 @@ import visualization.IVisualization;
 public class WFG3_2D_Cumulative
 {
     /**
-     * Runs evolutionary algorithm.
+     * Runs the script.
      *
-     * @param args (not used)
+     * @param args not used
      */
     public static void main(String[] args)
     {
+        (new WFG3_2D_Cumulative()).test1();
+    }
+
+    /**
+     * Tests the method.
+     */
+    @Test
+    public void test1()
+    {
         IRandom R = new MersenneTwister64(0);
-        IGoal [] goals = GoalsFactory.getLNormsDND(2, 30, Double.POSITIVE_INFINITY);
+        IGoal[] goals = GoalsFactory.getLNormsDND(2, 30, Double.POSITIVE_INFINITY);
 
         int populationSize = goals.length;
         int generations = 1000;
@@ -85,7 +95,9 @@ public class WFG3_2D_Cumulative
         try
         {
             runner.executeEvolution(generations);
-        } catch (RunnerException e)
+            Thread.sleep(100);
+            runner.dispose();
+        } catch (RunnerException | InterruptedException e)
         {
             throw new RuntimeException(e);
         }

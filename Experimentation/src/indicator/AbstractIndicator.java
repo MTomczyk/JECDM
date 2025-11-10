@@ -102,6 +102,7 @@ public abstract class AbstractIndicator implements IIndicator
      *
      * @return preference direction (if true, less is preferred; if true, more is preferred)
      */
+    @Override
     public boolean isLessBetter()
     {
         return _lessIsPreferred;
@@ -133,14 +134,5 @@ public abstract class AbstractIndicator implements IIndicator
     protected double evaluate(ArrayList<Specimen> specimens) throws TrialException
     {
         return 0.0d;
-    }
-
-    /**
-     * The method for clearing the data.
-     */
-    @Override
-    public void dispose()
-    {
-
     }
 }

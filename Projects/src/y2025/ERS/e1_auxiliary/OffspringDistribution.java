@@ -6,6 +6,7 @@ import dataset.DSFactory3D;
 import dataset.IDataSet;
 import dataset.painter.style.MarkerStyle;
 import dataset.painter.style.enums.Marker;
+import plot.PlotUtils;
 import reproduction.operators.crossover.OnSimplexCombination;
 import reproduction.operators.mutation.OnSimplexSimplexMutation;
 import drmanager.DRMPFactory;
@@ -20,6 +21,7 @@ import random.MersenneTwister64;
 import reproduction.operators.crossover.ICrossover;
 import reproduction.operators.mutation.IMutate;
 import scheme.WhiteScheme;
+import scheme.enums.Align;
 import scheme.enums.ColorFields;
 import scheme.enums.SizeFields;
 import space.Range;
@@ -59,9 +61,12 @@ class OffspringDistribution
         // RNG:
         IRandom R = new MersenneTwister64(0);
 
+        double scale = 0.3d;
+        double std = 0.1d;
+
         // Operators
-        IMutate mutate = new OnSimplexSimplexMutation(0.2d);
-        ICrossover crossover = new OnSimplexCombination(0.2d);
+        IMutate mutate = new OnSimplexSimplexMutation(scale);
+        ICrossover crossover = new OnSimplexCombination(std);
 
         // Parent vectors:
         double[] p1 = new double[]{0.3, 0.2, 0.5};
@@ -86,12 +91,16 @@ class OffspringDistribution
         }
 
 
-
         // Create heatmap:
-        Heatmap3D heatmap3D = Heatmap3DFactory.getHeatmap3D(new WhiteScheme(), "w1", "w2", "w3",
+        Heatmap3D heatmap3D = Heatmap3DFactory.getHeatmap3D(new WhiteScheme(), "w_1", "w_2", "w_3",
                 DRMPFactory.getFor3D(1.0d, 1.0d, 1.0d),
                 5, 5, 5, 5,
-                "0.00", "0.00", "0.00", "0.00",
+
+                PlotUtils.getDecimalFormat('.', 1),
+                PlotUtils.getDecimalFormat('.', 1),
+                PlotUtils.getDecimalFormat('.', 1),
+                PlotUtils.getDecimalFormat('.', 0),
+
                 xDiv, yDiv, zDiv, new DisplayRangesManager.DisplayRange(null, true),
                 Gradient.getViridisGradient(), "No. samples", 1.5f, 2.0f,
                 scheme -> {
@@ -100,6 +109,9 @@ class OffspringDistribution
                     scheme._sizes.put(SizeFields.AXIS_COLORBAR_TITLE_OFFSET_RELATIVE_MULTIPLIER, 0.2f);
                 },
                 pP1 -> {
+                    pP1._axesAlignments = new Align[]{
+                            Align.FRONT_BOTTOM, Align.LEFT_TOP, Align.BACK_LEFT
+                    };
                     pP1._heatmapDisplayRange.setNormalizer(new Gamma(0.5f));
                     pP1._verticalGridLinesWithBoxTicks = false;
                     pP1._horizontalGridLinesWithBoxTicks = false;
@@ -109,7 +121,7 @@ class OffspringDistribution
                 null);
 
         int plotHeight = 1000;
-        int plotWidth = 1100;
+        int plotWidth = 1150;
 
         // Update heatmap data:
         Frame frame = new Frame(heatmap3D, plotWidth, plotHeight);
@@ -118,7 +130,7 @@ class OffspringDistribution
 
         // Update auxiliary data sets:
         ArrayList<IDataSet> dataSets = new ArrayList<>(2);
-        dataSets.add(DSFactory3D.getDS("Parent vectors", new double[][]{p1, p2}, new MarkerStyle(0.03f,
+        dataSets.add(DSFactory3D.getDS("Parent vectors", new double[][]{p1, p2}, new MarkerStyle(0.035f,
                 Color.BLACK, Marker.SPHERE_HIGH_POLY_3D)));
 
         IDataSet weightSpaceDS = ReferenceParetoFront.getFlat3DPF("Weight space", 1.0f, 30,
@@ -130,17 +142,20 @@ class OffspringDistribution
 
         // Set projection:
         heatmap3D.getModel().notifyDisplayRangesChangedListeners();
-        heatmap3D.getController().getInteractListener().getTranslation()[2] = 1.8f;
+        heatmap3D.getController().getInteractListener().getTranslation()[2] = 1.82f;
         heatmap3D.getController().getInteractListener().getObjectRotation()[1] = 30.0f;
 
         try
         {
+            Thread.sleep(500);
             // Create screenshot
             Screenshot screenshot = heatmap3D.getModel().requestScreenshotCreation(plotWidth * 2, plotHeight * 2,
                     false, new color.Color(255, 255, 255));
             screenshot._barrier.await();
             Path path = FileUtils.getPathRelatedToClass(OffspringDistribution.class, "Projects", "src", File.separatorChar);
-            String fp = path.toString() + File.separatorChar + "offspring_distribution";
+            String suff = String.format("%.2f", scale) + "_" + String.format("%.2f", std);
+            suff = suff.replace(',', '_').replace('.', '_');
+            String fp = path.toString() + File.separatorChar + "offspring_distribution_" + suff;
             ImageSaver.saveImage(screenshot._image, fp, "jpg", 1.0f);
         } catch (InterruptedException | IOException e)
         {

@@ -20,10 +20,10 @@ class UtilsTest
     @Test
     void test1()
     {
-        double [] e = new double[]{0.0d, 1.0d, 2.0d, 0.0d, 1.0d, 6.0d};
+        double[] e = new double[]{0.0d, 1.0d, 2.0d, 0.0d, 1.0d, 6.0d};
         LinkedList<LinkedList<Integer>> fronts = Utils.getConeFronts(e);
 
-        int [][] exp = new int[][]
+        int[][] exp = new int[][]
                 {
                         {0, 3},
                         {1, 4},
@@ -46,10 +46,10 @@ class UtilsTest
     @Test
     void test2()
     {
-        double [] e = new double[]{0.0d};
+        double[] e = new double[]{0.0d};
         LinkedList<LinkedList<Integer>> fronts = Utils.getConeFronts(e);
 
-        int [][] exp = new int[][]
+        int[][] exp = new int[][]
                 {
                         {0}
                 };
@@ -69,10 +69,10 @@ class UtilsTest
     @Test
     void test3()
     {
-        double [] e = new double[]{100.0d};
+        double[] e = new double[]{100.0d};
         LinkedList<LinkedList<Integer>> fronts = Utils.getConeFronts(e);
 
-        int [][] exp = new int[][]
+        int[][] exp = new int[][]
                 {
                         {0}
                 };
@@ -92,10 +92,10 @@ class UtilsTest
     @Test
     void test4()
     {
-        double [] e = new double[]{4.0d, 1.0d, 9.0d, 0.0d};
+        double[] e = new double[]{4.0d, 1.0d, 9.0d, 0.0d};
         LinkedList<LinkedList<Integer>> fronts = Utils.getConeFronts(e);
 
-        int [][] exp = new int[][]
+        int[][] exp = new int[][]
                 {
                         {3},
                         {1},

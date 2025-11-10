@@ -184,33 +184,55 @@ abstract class AbstractFactory
 
 
     /**
-     * Auxiliary method that adjusts ticks labels formats and the gridlines of 2D Plots (sets the label formats to decimal, by default).
+     * Auxiliary method that adjusts ticks labels formats and the gridlines of 2D Plots (sets the label formats to
+     * decimal, by default).
      *
      * @param plot                   reference to the plot
-     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
+     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if
+     *                               not used)
+     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if
+     *                               not used)
      * @param xNoTicks               the number of ticks for the X-axis
      * @param yNoTicks               the number of ticks for the Y-axis
      */
     protected static void adjustAxes2D(Plot2D plot, String xAxisTicksLabelsFormat, String yAxisTicksLabelsFormat,
                                        int xNoTicks, int yNoTicks)
     {
-        AbstractFactory.adjustXAxis2D(plot, xAxisTicksLabelsFormat != null ?
-                new DecimalFormat(xAxisTicksLabelsFormat) : new DecimalFormat(), xNoTicks);
-        AbstractFactory.adjustYAxis2D(plot, yAxisTicksLabelsFormat != null ?
-                new DecimalFormat(yAxisTicksLabelsFormat) : new DecimalFormat(), yNoTicks);
+        adjustAxes2D(plot, xAxisTicksLabelsFormat != null ?
+                new DecimalFormat(xAxisTicksLabelsFormat) : new DecimalFormat(), yAxisTicksLabelsFormat != null ?
+                new DecimalFormat(yAxisTicksLabelsFormat) : new DecimalFormat(), xNoTicks, yNoTicks);
     }
 
     /**
-     * Auxiliary method that adjusts ticks labels formats and the gridlines of 2D Plots (sets the label formats to decimal, by default).
+     * Auxiliary method that adjusts ticks labels formats and the gridlines of 2D Plots (sets the label formats to
+     * decimal, by default).
+     *
+     * @param plot        reference to the plot
+     * @param xAxisFormat number format for the x-axis (new DecimalFormat() used, if null)
+     * @param yAxisFormat number format for the y-axis (new DecimalFormat() used, if null)
+     * @param xNoTicks    the number of ticks for the X-axis
+     * @param yNoTicks    the number of ticks for the Y-axis
+     */
+    protected static void adjustAxes2D(Plot2D plot, NumberFormat xAxisFormat, NumberFormat yAxisFormat, int xNoTicks, int yNoTicks)
+    {
+        AbstractFactory.adjustXAxis2D(plot, xAxisFormat != null ? xAxisFormat : new DecimalFormat(), xNoTicks);
+        AbstractFactory.adjustYAxis2D(plot, yAxisFormat != null ? yAxisFormat : new DecimalFormat(), yNoTicks);
+    }
+
+    /**
+     * Auxiliary method that adjusts ticks labels formats and the gridlines of 2D Plots (sets the label formats to
+     * decimal, by default).
      *
      * @param plot                    reference to the plot
      * @param yAxesTicksLabelsFormats string pattern for {@link DecimalFormat} used in ticks labels of Y-axes (each
      *                                for each Y-axis, 1:1 mapping; null if not used)
      * @param yNoTicks                adjusts the number of ticks for the Y-axes (each for each Y-axis, 1:1 mapping)
      * @param dimensions              the number of dimensions (the number of parallel vertical axes)
+     * @deprecated to be removed
      */
-    protected static void adjustAxesPCP2D(ParallelCoordinatePlot2D plot, String[] yAxesTicksLabelsFormats, int[] yNoTicks, int dimensions)
+    @Deprecated
+    protected static void adjustAxesPCP2D(ParallelCoordinatePlot2D plot, String[] yAxesTicksLabelsFormats,
+                                          int[] yNoTicks, int dimensions)
     {
         for (int i = 0; i < dimensions; i++)
         {
@@ -220,7 +242,28 @@ abstract class AbstractFactory
             else df = new DecimalFormat();
             if ((yNoTicks != null) && (yNoTicks.length > i)) adjustAxis2D(plot, df, yNoTicks[i], i + 1);
         }
+    }
 
+    /**
+     * Auxiliary method that adjusts ticks labels formats and the gridlines of 2D Plots (sets the label formats to
+     * decimal, by default).
+     *
+     * @param plot               reference to the plot
+     * @param yAxesNumberFormats number format for the y-axes (new DecimalFormat() used, if null)
+     * @param yNoTicks           adjusts the number of ticks for the Y-axes (each for each Y-axis, 1:1 mapping)
+     * @param dimensions         the number of dimensions (the number of parallel vertical axes)
+     */
+    protected static void adjustAxesPCP2D(ParallelCoordinatePlot2D plot, NumberFormat[] yAxesNumberFormats,
+                                          int[] yNoTicks, int dimensions)
+    {
+        for (int i = 0; i < dimensions; i++)
+        {
+            NumberFormat df;
+            if ((yAxesNumberFormats != null) && (yAxesNumberFormats.length > i) &&
+                    (yAxesNumberFormats[i] != null)) df = yAxesNumberFormats[i];
+            else df = new DecimalFormat();
+            if ((yNoTicks != null) && (yNoTicks.length > i)) adjustAxis2D(plot, df, yNoTicks[i], i + 1);
+        }
     }
 
     /**
@@ -423,12 +466,16 @@ abstract class AbstractFactory
 
 
     /**
-     * Auxiliary method that adjusts ticks labels formats and the gridlines of 3D plots (sets the label formats to decimal, by default).
+     * Auxiliary method that adjusts ticks labels formats and the gridlines of 3D plots (sets the label formats to
+     * decimal, by default).
      *
      * @param plot                   reference to the plot
-     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
-     * @param zAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Z-axis; null if not used)
+     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if
+     *                               not used)
+     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if
+     *                               not used)
+     * @param zAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Z-axis; null if
+     *                               not used)
      * @param xNoTicks               the number of ticks for the X-axis
      * @param yNoTicks               the number of ticks for the Y-axis
      * @param zNoTicks               the number of ticks for the Z-axis
@@ -437,12 +484,34 @@ abstract class AbstractFactory
                                        String zAxisTicksLabelsFormat,
                                        int xNoTicks, int yNoTicks, int zNoTicks)
     {
-        AbstractFactory.adjustXAxes3D(plot, xAxisTicksLabelsFormat != null ?
-                new DecimalFormat(xAxisTicksLabelsFormat) : new DecimalFormat(), xNoTicks);
-        AbstractFactory.adjustYAxes3D(plot, yAxisTicksLabelsFormat != null ?
-                new DecimalFormat(yAxisTicksLabelsFormat) : new DecimalFormat(), yNoTicks);
-        AbstractFactory.adjustZAxes3D(plot, zAxisTicksLabelsFormat != null ?
-                new DecimalFormat(zAxisTicksLabelsFormat) : new DecimalFormat(), zNoTicks);
+        adjustAxes3D(plot,
+                xAxisTicksLabelsFormat != null ? new DecimalFormat(xAxisTicksLabelsFormat) : new DecimalFormat(),
+                yAxisTicksLabelsFormat != null ? new DecimalFormat(yAxisTicksLabelsFormat) : new DecimalFormat(),
+                zAxisTicksLabelsFormat != null ? new DecimalFormat(zAxisTicksLabelsFormat) : new DecimalFormat(),
+                xNoTicks, yNoTicks, zNoTicks);
+    }
+
+    /**
+     * Auxiliary method that adjusts ticks labels formats and the gridlines of 3D plots (sets the label formats to
+     * decimal, by default).
+     *
+     * @param plot        reference to the plot
+     * @param xAxisFormat number format for the x-axis (new DecimalFormat() used, if null)
+     * @param yAxisFormat number format for the y-axis (new DecimalFormat() used, if null)
+     * @param zAxisFormat number format for the y-axis (new DecimalFormat() used, if null)
+     * @param xNoTicks    the number of ticks for the X-axis
+     * @param yNoTicks    the number of ticks for the Y-axis
+     * @param zNoTicks    the number of ticks for the Z-axis
+     */
+    protected static void adjustAxes3D(Plot3D plot,
+                                       NumberFormat xAxisFormat,
+                                       NumberFormat yAxisFormat,
+                                       NumberFormat zAxisFormat,
+                                       int xNoTicks, int yNoTicks, int zNoTicks)
+    {
+        AbstractFactory.adjustXAxes3D(plot, xAxisFormat != null ? xAxisFormat : new DecimalFormat(), xNoTicks);
+        AbstractFactory.adjustYAxes3D(plot, yAxisFormat != null ? yAxisFormat : new DecimalFormat(), yNoTicks);
+        AbstractFactory.adjustZAxes3D(plot, zAxisFormat != null ? zAxisFormat : new DecimalFormat(), zNoTicks);
     }
 
     /**

@@ -14,6 +14,7 @@ import frame.Frame;
 import interaction.reference.constructor.RandomPairs;
 import interaction.trigger.rules.IterationInterval;
 import model.definitions.LNorm;
+import org.junit.jupiter.api.Test;
 import plot.Plot2D;
 import problem.Problem;
 import problem.moo.dtlz.DTLZBundle;
@@ -35,11 +36,20 @@ import visualization.IVisualization;
 public class DTLZ3_2D
 {
     /**
-     * Runs evolutionary algorithm.
+     * Runs the script.
      *
-     * @param args (not used)
+     * @param args not used
      */
     public static void main(String[] args)
+    {
+        (new DTLZ3_2D()).test1();
+    }
+
+    /**
+     * Tests the method.
+     */
+    @Test
+    public void test1()
     {
         IRandom R = new MersenneTwister64(0);
 
@@ -48,7 +58,7 @@ public class DTLZ3_2D
         int noDecisionVariables = 5;
         DTLZBundle problemBundle = DTLZBundle.getBundle(problem, 2, noDecisionVariables);
 
-        IGoal [] goals = GoalsFactory.getLNormsDND(2, 30, Double.POSITIVE_INFINITY, problemBundle._normalizations);
+        IGoal[] goals = GoalsFactory.getLNormsDND(2, 30, Double.POSITIVE_INFINITY, problemBundle._normalizations);
         int populationSize = goals.length;
         int generations = 1000;
 
@@ -79,7 +89,9 @@ public class DTLZ3_2D
         try
         {
             runner.executeEvolution(generations);
-        } catch (RunnerException e)
+            Thread.sleep(100);
+            runner.dispose();
+        } catch (RunnerException | InterruptedException e)
         {
             throw new RuntimeException(e);
         }

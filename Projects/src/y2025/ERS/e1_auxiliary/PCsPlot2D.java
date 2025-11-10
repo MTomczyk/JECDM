@@ -17,6 +17,7 @@ import model.IPreferenceModel;
 import model.internals.value.scalarizing.LNorm;
 import plot.Plot2D;
 import plot.Plot2DFactory;
+import plot.PlotUtils;
 import print.PrintUtils;
 import y2025.ERS.common.PCsDataContainer;
 import scheme.enums.Align;
@@ -101,20 +102,25 @@ public class PCsPlot2D
                 }
             }
 
-            Plot2D plot2D = Plot2DFactory.getPlot("f1", "f2",
+            Plot2D plot2D = Plot2DFactory.getPlot("f_1", "f_2",
                     DRMPFactory.getFor3D(Range.get0R(1.5d), Range.get0R(1.5d),
-                            new Range(1.0d, 10.0d)), 4, 4, 2.2f, scheme ->
+                            new Range(1.0d, 10.0d)),
+                    4, 4,
+                    PlotUtils.getDecimalFormat('.', 1),
+                    PlotUtils.getDecimalFormat('.', 1),
+                    2.2f, scheme ->
                     {
                         scheme._colors.put(ColorFields.PLOT_BACKGROUND, Color.WHITE);
                         scheme._aligns.put(AlignFields.LEGEND, Align.RIGHT_TOP);
                         scheme._sizes.put(SizeFields.LEGEND_ENTRY_FONT_SIZE_RELATIVE_MULTIPLIER, 0.05f);
-                        scheme._sizes.put(SizeFields.MARGIN_BOTTOM_RELATIVE_SIZE_MULTIPLIER, 0.12f);
-                        scheme._sizes.put(SizeFields.MARGIN_LEFT_RELATIVE_SIZE_MULTIPLIER, 0.15f);
+                        scheme._sizes.put(SizeFields.MARGIN_BOTTOM_RELATIVE_SIZE_MULTIPLIER, 0.14f);
+                        scheme._sizes.put(SizeFields.MARGIN_LEFT_RELATIVE_SIZE_MULTIPLIER, 0.17f);
                         scheme._sizes.put(SizeFields.MARGIN_RIGHT_RELATIVE_SIZE_MULTIPLIER, 0.04f);
-                        scheme._sizes.put(SizeFields.AXIS_Y_TITLE_OFFSET_RELATIVE_MULTIPLIER, 0.1f);
-                        scheme._sizes.put(SizeFields.AXIS_X_TITLE_OFFSET_RELATIVE_MULTIPLIER, 0.07f);
+                        scheme._sizes.put(SizeFields.AXIS_Y_TITLE_OFFSET_RELATIVE_MULTIPLIER, 0.12f);
+                        scheme._sizes.put(SizeFields.AXIS_X_TITLE_OFFSET_RELATIVE_MULTIPLIER, 0.065f);
                     },
-                    pP -> pP._drawLegend = false);
+                    pP -> pP._drawLegend = false,
+                    null);
 
             int plotSize = 1000;
             Frame frame = new Frame(plot2D, plotSize, plotSize);

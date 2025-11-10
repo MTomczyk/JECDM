@@ -11,7 +11,8 @@ import java.util.LinkedList;
 import java.util.Set;
 
 /**
- * Provides auxiliary methods for parsing data tables stored in XLSX files and producing LaTeX text for producing tables.
+ * Provides auxiliary methods for parsing data tables stored in XLSX files and producing LaTeX text for producing
+ * tables.
  *
  * @author MTomczyk
  */
@@ -30,17 +31,23 @@ public class LatexTableFromXLSX
         /**
          * Separator used to merge cells in the same rows
          */
-        String _separator = " & ";
+        public String _separator = " & ";
+
+        /**
+         * Column alignments represented as string, e.g., "ccllrr" (the string size should match the number of columns).
+         * If null, the "c" flag is used byh default.
+         */
+        public String _columnAlignments = null;
 
         /**
          * If true, two backslash symbols are used to indicate end of the line
          */
-        boolean _useEndLineSymbol = true;
+        public boolean _useEndLineSymbol = true;
 
         /**
          * If true, commas in strings are replaced with dots.
          */
-        boolean _replaceCommasWithDots = true;
+        public boolean _replaceCommasWithDots = true;
 
         /**
          * If provided (can be null): decimal precision for numerical values in columns
@@ -70,7 +77,8 @@ public class LatexTableFromXLSX
         public int[] _vertLinesAfterColumns = null;
 
         /**
-         * Data for multicolumn command (note that the data is not validated); the text for multicolumn if taken from the
+         * Data for multicolumn command (note that the data is not validated); the text for multicolumn if taken from
+         * the
          * first cell in the pointed series.
          */
         public MultiColumn[] _multiColumns = null;
@@ -96,6 +104,13 @@ public class LatexTableFromXLSX
          * {@link LatexTableFromXLSX#getText(String, Params)}
          */
         public ICellPostprocessor _postProcessor = null;
+
+        /**
+         * Auxiliary preprocessor (can be null) used by {@link LatexTableFromXLSX} when determining the "hhline"
+         * command (string). If null, the command is determined as "\\hhline{*{" + columns + "}{-}}", where "columns"
+         * refers to the total number of columns in the table.
+         */
+        public IHHLinePreprocessor _hhLinePreprocessor = null;
 
         /**
          * Default constructor.
@@ -167,7 +182,8 @@ public class LatexTableFromXLSX
     }
 
     /**
-     * The method for loaded a data matrix from an XLSX file (excel) and producing a series of lines suitable for Latex table.
+     * The method for loaded a data matrix from an XLSX file (excel) and producing a series of lines suitable for Latex
+     * table.
      * Note that the parsed Excel file is not validated (use must ensure that valid data exists).
      *
      * @param path absolute path to the file (includes prefix)
@@ -180,7 +196,8 @@ public class LatexTableFromXLSX
     }
 
     /**
-     * The method for loaded a data matrix from an XLSX file (excel) and producing a series of lines suitable for Latex table.
+     * The method for loaded a data matrix from an XLSX file (excel) and producing a series of lines suitable for Latex
+     * table.
      * Note that the parsed Excel file is not validated (use must ensure that valid data exists).
      *
      * @param path absolute path to the file (includes prefix)
@@ -214,7 +231,8 @@ public class LatexTableFromXLSX
 
 
     /**
-     * The method for loaded a data matrix from an XLSX file (excel) and producing a series of lines suitable for Latex table.
+     * The method for loaded a data matrix from an XLSX file (excel) and producing a series of lines suitable for Latex
+     * table.
      * Note that the parsed Excel file is not validated (use must ensure that valid data exists).
      *
      * @param data data matrix loaded from Excel file
@@ -288,14 +306,19 @@ public class LatexTableFromXLSX
         if (vLinesAfterColumns.contains(-1)) sb.append(" |");
         for (int i = 0; i < C; i++)
         {
-            sb.append(" c");
+            if (p._columnAlignments == null) sb.append(" c");
+            else sb.append(" ").append(p._columnAlignments.charAt(i));
             if (vLinesAfterColumns.contains(i)) sb.append(" |");
         }
 
         lines.add("\\begin{tabular}{" + sb + " }");
 
         // Check if hhline should be added in front
-        if (hhLinesRows.contains(-1)) lines.add(hhText);
+        if (hhLinesRows.contains(-1))
+        {
+            if (p._hhLinePreprocessor == null) lines.add(hhText);
+            else lines.add(p._hhLinePreprocessor.process(-1, C));
+        }
 
         // Parse data
         for (int i = 0; i < R; i++)
@@ -343,7 +366,11 @@ public class LatexTableFromXLSX
             if (p._replaceCommasWithDots) lines.add(sb.toString().replace(',', '.'));
             else lines.add(sb.toString());
 
-            if (hhLinesRows.contains(i)) lines.add(hhText);
+            if (hhLinesRows.contains(i))
+            {
+                if (p._hhLinePreprocessor == null) lines.add(hhText);
+                else lines.add(p._hhLinePreprocessor.process(i, C));
+            }
         }
 
         // End the table

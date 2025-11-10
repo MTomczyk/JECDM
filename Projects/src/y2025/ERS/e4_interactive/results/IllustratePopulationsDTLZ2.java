@@ -36,9 +36,11 @@ import model.constructor.value.rs.iterationslimit.Constant;
 import model.internals.value.scalarizing.LNorm;
 import plot.Plot3D;
 import plot.Plot3DFactory;
+import plot.PlotUtils;
 import print.PrintUtils;
 import problem.Problem;
 import problem.moo.dtlz.DTLZBundle;
+import scheme.enums.Align;
 import utils.Screenshot;
 import y2025.ERS.common.PCsDataContainer;
 import random.IRandom;
@@ -81,8 +83,8 @@ public class IllustratePopulationsDTLZ2
             Path path = FileUtils.getPathRelatedToClass(GeneratePCsData.class, "Projects", "src", File.separatorChar);
             String fp = path.toString() + File.separatorChar + "pcs.txt"; // Load pairwise comparisons data
             PCsDataContainer PCs = new PCsDataContainer(fp, 4, 3, 100, 10);
-            boolean useERS = false; // Changes the sampler used
-            int trial = 24; // selected trial (24) (48)
+            boolean useERS = true; // Changes the sampler used
+            int trial = 48; // selected trial (48)
 
             int interactions = 10;
             int gensPerInteraction = 100;
@@ -98,13 +100,18 @@ public class IllustratePopulationsDTLZ2
             // Create plot 3D
             Plot3D plot3D = Plot3DFactory.getPlot(
                     WhiteScheme.getForPlot3D(),
-                    "w1", "w2", "w3",
+                    "w_1", "w_2", "w_3",
                     DRMPFactory.getFor3D(1.0d, 1.0d, 1.0d),
-                    5, 5, 5,
-                    "0.00", "0.00", "0.00",
-                    2.0f, 2.0f, scheme ->
+                    3, 3, 3,
+                    PlotUtils.getDecimalFormat('.', 1),
+                    PlotUtils.getDecimalFormat('.', 1),
+                    PlotUtils.getDecimalFormat('.', 1),
+                    2.5f, 2.0f, scheme ->
                             scheme._colors.put(ColorFields.PLOT_BACKGROUND, Color.WHITE),
-                    null, null);
+                    pP -> pP._axesAlignments = new Align[]{
+                            Align.FRONT_BOTTOM,
+                            Align.LEFT_BOTTOM,
+                            Align.FRONT_RIGHT}, null);
 
             int plotSize = 1000;
             Frame frame = new Frame(plot3D, plotSize, plotSize);
@@ -120,7 +127,7 @@ public class IllustratePopulationsDTLZ2
                     ColorPalettes.getFromDefaultPalette(0), Marker.SPHERE_HIGH_POLY_3D)));
             plot3D.getModel().setDataSets(dataSets);
 
-            plot3D.getModel().updateCameraTranslation(-0.03750f, 0.00000f, 1.76250f);
+            plot3D.getModel().updateCameraTranslation(-0.03750f, 0.00000f, 1.80250f);
             plot3D.getModel().updateCameraRotation(0.00000f, 0.00000f);
             plot3D.getModel().updatePlotRotation(357.37225f, 44.54361f);
 
@@ -149,7 +156,7 @@ public class IllustratePopulationsDTLZ2
             {
                 constructor = ERSFactory.getDefaultForLNorms(populationSize,
                         new Constant(50000), 3, Double.POSITIVE_INFINITY, problemBundle._normalizations,
-                        new LNormOnSimplex(Double.POSITIVE_INFINITY, 0.2d, 0.2d), new Tournament<>(2),
+                        new LNormOnSimplex(Double.POSITIVE_INFINITY, 0.2d, 0.1d/2.0d), new Tournament<>(2),
                         initialModels);
             }
 
@@ -214,10 +221,10 @@ public class IllustratePopulationsDTLZ2
             frame.setVisible(true);
 
             // Projection-related data
-            float[] ms = new float[]{0.035f, 0.0325f, 0.03f, 0.02f, 0.02f,
-                    0.015f, 0.005f, 0.005f, 0.005f, 0.005f, 0.005f};
-            float[] dms = new float[]{0.1f, 0.1f, 0.1f, 0.05f, 0.04f,
-                    0.04f, 0.03f, 0.03f, 0.02f, 0.02f, 0.01f};
+            float[] ms = new float[]{0.04f, 0.04f, 0.04f, 0.04f, 0.025f, 0.025f, 0.025f,
+                    0.003f, 0.003f, 0.003f, 0.003f};
+            float[] dms = new float[]{0.10f, 0.10f, 0.10f, 0.10f, 0.05f, 0.05f, 0.05f,
+                    0.01f, 0.01f, 0.01f, 0.01f};
 
             runner.init();
             plot3D.getModel().updateSelectedDataSet(DSFactory3D.getDS("Population", eaSource.createData(),
@@ -245,26 +252,16 @@ public class IllustratePopulationsDTLZ2
                     }
                 }
 
-                if ((phase == 3) || (phase == 4))
+                if ((phase == 3) || (phase == 4) || (phase == 5) || (phase == 6))
                 {
-                    plot3D.getModel().updateCameraTranslation(-0.02173f, -0.00012f, 1.13473f);
-                    plot3D.getModel().updatePlotRotation(357.37225f, 44.54361f);
-                    plot3D.getModel().updateCameraRotation(335.27576f, 353.59756f);
-                } else if (phase == 5)
-                {
-                    plot3D.getModel().updateCameraTranslation(0.12091f, -0.13884f, 0.71682f);
-                    plot3D.getModel().updatePlotRotation(319.16205f, 37.22654f);
-                    plot3D.getModel().updateCameraRotation(330.78046f, 0.54878f);
-                } else if (phase == 6)
-                {
-                    plot3D.getModel().updateCameraTranslation(0.10379f, -0.20208f, 0.19788f);
-                    plot3D.getModel().updatePlotRotation(357.37225f, 44.54361f);
-                    plot3D.getModel().updateCameraRotation(329.09470f, 357.25610f);
+                    plot3D.getModel().updateCameraTranslation(0.99809f, 0.51655f, 0.88976f);
+                    plot3D.getModel().updatePlotRotation(0.0f, 0.0f);
+                    plot3D.getModel().updateCameraRotation(329.93738f, 35.92683f);
                 } else if (phase > 6)
                 {
-                    plot3D.getModel().updateCameraTranslation(0.10815f, -0.21378f, 0.12451f);
-                    plot3D.getModel().updatePlotRotation(357.37225f, 44.54361f);
-                    plot3D.getModel().updateCameraRotation(313.54840f, 354.51218f);
+                    plot3D.getModel().updateCameraTranslation(0.16508f, 0.03520f, -0.22805f);
+                    plot3D.getModel().updatePlotRotation(0.0f, 0.0f);
+                    plot3D.getModel().updateCameraRotation(341.58667f, 9.58537f);
                 }
 
                 runner.executeSingleGeneration(g, null);

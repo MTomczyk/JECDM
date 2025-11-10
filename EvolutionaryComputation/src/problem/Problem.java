@@ -144,4 +144,41 @@ public enum Problem
      * WFG9 EASY ID (MOO).
      */
     WFG9EASY,
+
+    /**
+     * ZDT1 (MOO)
+     */
+    ZDT1,
+
+    /**
+     * ZDT2 (MOO)
+     */
+    ZDT2,
+
+    /**
+     * ZDT3 (MOO)
+     */
+    ZDT3,
+
+    /**
+     * ZDT4 (MOO)
+     */
+    ZDT4,
+
+    /**
+     * ZDT5 (MOO)
+     */
+    ZDT5,
+
+    /**
+     * ZDT6 (MOO)
+     */
+    ZDT6,
+
+    /**
+     * Crash-worthiness 1: Liao, X., Li, Q., Yang, X. et al. Multiobjective optimization for crash safety design of
+     * vehicles using stepwise regression model. Struct Multidisc Optim 35, 561–569 (2008).
+     * <a href="https://doi.org/10.1007/s00158-007-0163-x">.LINK</a>
+     */
+    CW1,
 }

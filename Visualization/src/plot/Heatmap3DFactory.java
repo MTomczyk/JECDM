@@ -11,6 +11,8 @@ import scheme.WhiteScheme;
 import space.Range;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Objects;
 
 /**
  * Provides various means for quickly instantiating {@link plot.heatmap.Heatmap3D} objects.
@@ -20,18 +22,19 @@ import java.text.DecimalFormat;
 public class Heatmap3DFactory
 {
     /**
-     * Creates a simple 3D heatmap. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
-     * - instantiates the colorbar based on the heatmap display range
+     * Creates a simple 3D heatmap. It: <br>
+     * - uses a white scheme,<br>
+     * - sets the font to Times New Roman,<br>
+     * - makes the background transparent,<br>
+     * - instantiates the colorbar based on the heatmap display range,<br>
      * - sets the axes and colorbar labels number format to decimal.
      *
      * @param xLabel        X-axis label
      * @param yLabel        Y-axis label
      * @param zLabel        Z-axis label
      * @param div           discretization level for the X and Y-axis
-     * @param heatmapRange  data range for the display range associated with the heatmap data (disables the dynamic update)
+     * @param heatmapRange  data range for the display range associated with the heatmap data (disables the dynamic
+     *                      update)
      * @param gradient      gradient used to color heatmap data
      * @param colorbarTitle colorbarTitle
      * @param fsr           rescaling factor used for all font-based objects
@@ -51,20 +54,22 @@ public class Heatmap3DFactory
     }
 
     /**
-     * Creates a simple 3D heatmap. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
-     * - instantiates the colorbar based on the heatmap display range
+     * Creates a simple 3D heatmap. It:<br>
+     * - uses a white scheme,<br>
+     * - sets the font to Times New Roman,<br>
+     * - makes the background transparent,<br>
+     * - instantiates the colorbar based on the heatmap display range,<br>
      * - sets the axes and colorbar labels number format to decimal.
      *
      * @param xLabel                X-axis label
      * @param yLabel                Y-axis label
      * @param zLabel                Z-axis label
      * @param noTicks               adjusts the number of ticks for the X and Y-axis
-     * @param axesTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (null if not used)
+     * @param axesTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (null if not
+     *                              used)
      * @param div                   discretization level for the X and Y-axis
-     * @param heatmapRange          data range for the display range associated with the heatmap data (disables the dynamic update)
+     * @param heatmapRange          data range for the display range associated with the heatmap data (disables the
+     *                              dynamic update)
      * @param gradient              gradient used to color heatmap data
      * @param colorbarTitle         colorbarTitle
      * @param fsr                   rescaling factor used for all font-based objects
@@ -86,11 +91,11 @@ public class Heatmap3DFactory
     }
 
     /**
-     * Creates a simple 3D heatmap. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
-     * - instantiates the colorbar based on the heatmap display range
+     * Creates a simple 3D heatmap. It:<br>
+     * - uses a white scheme,<br>
+     * - sets the font to Times New Roman,<br>
+     * - makes the background transparent,<br>
+     * - instantiates the colorbar based on the heatmap display range,<br>
      * - sets the axes and colorbar labels number format to decimal.
      *
      * @param xLabel        X-axis label
@@ -98,7 +103,8 @@ public class Heatmap3DFactory
      * @param zLabel        Z-axis label
      * @param pDRM          display ranges manager params container
      * @param div           discretization level for the X and Y-axis
-     * @param heatmapRange  data range for the display range associated with the heatmap data (disables the dynamic update)
+     * @param heatmapRange  data range for the display range associated with the heatmap data (disables the dynamic
+     *                      update)
      * @param gradient      gradient used to color heatmap data
      * @param colorbarTitle colorbarTitle
      * @param fsr           rescaling factor used for all font-based objects
@@ -119,11 +125,11 @@ public class Heatmap3DFactory
 
 
     /**
-     * Creates a simple 3D heatmap. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
-     * - instantiates the colorbar based on the heatmap display range
+     * Creates a simple 3D heatmap. It:<br>
+     * - uses a white scheme,<br>
+     * - sets the font to Times New Roman,<br>
+     * - makes the background transparent,<br>
+     * - instantiates the colorbar based on the heatmap display range,<br>
      * - sets the axes and colorbar labels number format to decimal.
      *
      * @param xLabel                X-axis label
@@ -131,9 +137,11 @@ public class Heatmap3DFactory
      * @param zLabel                Z-axis label
      * @param pDRM                  display ranges manager params container
      * @param noTicks               adjusts the number of ticks for the X and Y-axis
-     * @param axesTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (null if not used)
+     * @param axesTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (null if not
+     *                              used)
      * @param div                   discretization level for the X and Y-axis
-     * @param heatmapRange          data range for the display range associated with the heatmap data (disables the dynamic update)
+     * @param heatmapRange          data range for the display range associated with the heatmap data (disables the
+     *                              dynamic update)
      * @param gradient              gradient used to color heatmap data
      * @param colorbarTitle         colorbarTitle
      * @param fsr                   rescaling factor used for all font-based objects
@@ -156,11 +164,11 @@ public class Heatmap3DFactory
     }
 
     /**
-     * Creates a simple 3D heatmap. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
-     * - instantiates the colorbar based on the heatmap display range
+     * Creates a simple 3D heatmap. It:<br>
+     * - uses a white scheme,<br>
+     * - sets the font to Times New Roman,<br>
+     * - makes the background transparent,<br>
+     * - instantiates the colorbar based on the heatmap display range,<br>
      * - sets the axes and colorbar labels number format to decimal.
      *
      * @param xLabel                X-axis label
@@ -168,14 +176,17 @@ public class Heatmap3DFactory
      * @param zLabel                Z-axis label
      * @param pDRM                  display ranges manager params container
      * @param noTicks               adjusts the number of ticks for the X and Y-axis
-     * @param axesTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (null if not used)
+     * @param axesTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (null if not
+     *                              used)
      * @param div                   discretization level for the X and Y-axis
-     * @param heatmapRange          data range for the display range associated with the heatmap data (disables the dynamic update)
+     * @param heatmapRange          data range for the display range associated with the heatmap data (disables the
+     *                              dynamic update)
      * @param gradient              gradient used to color heatmap data
      * @param colorbarTitle         colorbarTitle
      * @param fsr                   rescaling factor used for all font-based objects
      * @param schemeAdjuster        can be supplied to adjust the scheme on the fly (can be null); executed at the end
-     *                              of the customization of the plot params container (after all fields are set by default)
+     *                              of the customization of the plot params container (after all fields are set by
+     *                              default)
      * @return instantiated heatmap 3D
      */
     public static Heatmap3D getHeatmap3D(String xLabel,
@@ -199,29 +210,35 @@ public class Heatmap3DFactory
 
 
     /**
-     * Creates a simple 3D heatmap. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
-     * - instantiates the colorbar based on the heatmap display range
+     * Creates a simple 3D heatmap. It:<br>
+     * - uses a white scheme,<br>
+     * - sets the font to Times New Roman,<br>
+     * - makes the background transparent,<br>
+     * - instantiates the colorbar based on the heatmap display range,<br>
      * - sets the axes and colorbar labels number format to decimal.
      *
      * @param xLabel                 X-axis label
      * @param yLabel                 Y-axis label
      * @param zLabel                 Z-axis label
      * @param pDRM                   display ranges manager params container
-     * @param xNoTicks               adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks               adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param zNoTicks               adjusts the number of ticks for the Z-axis and the number of corresponding horizontal grid lines
+     * @param xNoTicks               adjusts the number of ticks for the X-axis and the number of corresponding vertical
+     *                               grid lines
+     * @param yNoTicks               adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                               horizontal grid lines
+     * @param zNoTicks               adjusts the number of ticks for the Z-axis and the number of corresponding
+     *                               horizontal grid lines
      * @param xDiv                   discretization level for the X-axis
      * @param yDiv                   discretization level for the Y-axis
      * @param zDiv                   discretization level for the Z-axis
      * @param heatmapDR              display range associated with the heatmap data
      * @param gradient               gradient used to color heatmap data
      * @param colorbarTitle          colorbarTitle
-     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
-     * @param zAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
+     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if
+     *                               not used)
+     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if
+     *                               not used)
+     * @param zAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if
+     *                               not used)
      * @param fsr                    rescaling factor used for all font-based objects
      * @return instantiated heatmap 3D
      */
@@ -249,36 +266,44 @@ public class Heatmap3DFactory
     }
 
     /**
-     * Creates a simple 3D heatmap. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
-     * - instantiates the colorbar based on the heatmap display range
+     * Creates a simple 3D heatmap. It:<br>
+     * - uses a white scheme,<br>
+     * - sets the font to Times New Roman,<br>
+     * - makes the background transparent,<br>
+     * - instantiates the colorbar based on the heatmap display range,<br>
      * - sets the axes and colorbar labels number format to decimal.
      *
      * @param xLabel                   X-axis label
      * @param yLabel                   Y-axis label
      * @param zLabel                   Z-axis label
      * @param pDRM                     display ranges manager params container
-     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param zNoTicks                 adjusts the number of ticks for the Z-axis and the number of corresponding horizontal grid lines
+     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding
+     *                                 vertical grid lines
+     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param zNoTicks                 adjusts the number of ticks for the Z-axis and the number of corresponding
+     *                                 horizontal grid lines
      * @param xDiv                     discretization level for the X-axis
      * @param yDiv                     discretization level for the Y-axis
      * @param zDiv                     discretization level for the Z-axis
      * @param heatmapDR                display range associated with the heatmap data
      * @param gradient                 gradient used to color heatmap data
      * @param colorbarTitle            colorbarTitle
-     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
-     * @param zAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Z-axis; null if not used)
+     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null
+     *                                 if not used)
+     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null
+     *                                 if not used)
+     * @param zAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Z-axis; null
+     *                                 if not used)
      * @param fsr                      rescaling factor used for all font-based objects
-     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be null);
-     *                                 executed just before returning the plot
+     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the
+     *                                 end of the customization of the plot params container (after all fields are set
+     *                                 by default)
+     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                                 the end of the customization of the plot params container (after all fields are
+     *                                 set by default)
+     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be
+     *                                 null); executed just before returning the plot
      * @return instantiated heatmap 3D
      */
     public static Heatmap3D getHeatmap3D(String xLabel,
@@ -308,36 +333,46 @@ public class Heatmap3DFactory
     }
 
     /**
-     * Creates a simple 3D heatmap. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
-     * - instantiates the colorbar based on the heatmap display range
+     * Creates a simple 3D heatmap. It:<br>
+     * - uses a white scheme,<br>
+     * - sets the font to Times New Roman,<br>
+     * - makes the background transparent,<br>
+     * - instantiates the colorbar based on the heatmap display range,<br>
      * - sets the axes and colorbar labels number format to decimal.
      *
      * @param xLabel                 X-axis label
      * @param yLabel                 Y-axis label
      * @param zLabel                 Z-axis label
      * @param pDRM                   display ranges manager params container
-     * @param xNoTicks               adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks               adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param zNoTicks               adjusts the number of ticks for the Z-axis and the number of corresponding horizontal grid lines
-     * @param cNoTicks               adjusts the number of ticks for the colorbar-axis and the number of corresponding horizontal grid lines
+     * @param xNoTicks               adjusts the number of ticks for the X-axis and the number of corresponding vertical
+     *                               grid lines
+     * @param yNoTicks               adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                               horizontal grid lines
+     * @param zNoTicks               adjusts the number of ticks for the Z-axis and the number of corresponding
+     *                               horizontal grid lines
+     * @param cNoTicks               adjusts the number of ticks for the colorbar-axis and the number of corresponding
+     *                               horizontal grid lines
      * @param xDiv                   discretization level for the X-axis
      * @param yDiv                   discretization level for the Y-axis
      * @param zDiv                   discretization level for the Z-axis     *
      * @param heatmapDR              display range associated with the heatmap data
      * @param gradient               gradient used to color heatmap data
      * @param colorbarTitle          colorbarTitle
-     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
-     * @param zAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Z-axis; null if not used)
-     * @param cAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (colorbar-axis; null if not used)
+     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if
+     *                               not used)
+     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if
+     *                               not used)
+     * @param zAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Z-axis; null if
+     *                               not used)
+     * @param cAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (colorbar-axis;
+     *                               null if not used)
      * @param fsr                    rescaling factor used for all font-based objects
      * @param schemeAdjuster         can be supplied to adjust the scheme on the fly (can be null); executed at the end
-     *                               of the customization of the plot params container (after all fields are set by default)
-     * @param plotParamsAdjuster     can be supplied to adjust the plot params on the fly (can be null); executed at the end
-     *                               of the customization of the plot params container (after all fields are set by default)
+     *                               of the customization of the plot params container (after all fields are set by
+     *                               default)
+     * @param plotParamsAdjuster     can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                               the end of the customization of the plot params container (after all fields are set
+     *                               by default)
      * @return instantiated heatmap 3D
      */
     public static Heatmap3D getHeatmap3D(String xLabel,
@@ -368,38 +403,48 @@ public class Heatmap3DFactory
     }
 
     /**
-     * Creates a simple 3D heatmap. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
-     * - instantiates the colorbar based on the heatmap display range
+     * Creates a simple 3D heatmap. It:<br>
+     * - uses a white scheme,<br>
+     * - sets the font to Times New Roman,<br>
+     * - makes the background transparent,<br>
+     * - instantiates the colorbar based on the heatmap display range,<br>
      * - sets the axes and colorbar labels number format to decimal.
      *
      * @param xLabel                   X-axis label
      * @param yLabel                   Y-axis label
      * @param zLabel                   Z-axis label
      * @param pDRM                     display ranges manager params container
-     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param zNoTicks                 adjusts the number of ticks for the Z-axis and the number of corresponding horizontal grid lines
-     * @param cNoTicks                 adjusts the number of ticks for the colorbar-axis and the number of corresponding horizontal grid lines
+     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding
+     *                                 vertical grid lines
+     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param zNoTicks                 adjusts the number of ticks for the Z-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param cNoTicks                 adjusts the number of ticks for the colorbar-axis and the number of corresponding
+     *                                 horizontal grid lines
      * @param xDiv                     discretization level for the X-axis
      * @param yDiv                     discretization level for the Y-axis
      * @param zDiv                     discretization level for the Z-axis
      * @param heatmapDR                display range associated with the heatmap data
      * @param gradient                 gradient used to color heatmap data
      * @param colorbarTitle            colorbarTitle
-     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
-     * @param zAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Z-axis; null if not used)
-     * @param cAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (colorbar-axis; null if not used)
+     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null
+     *                                 if not used)
+     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null
+     *                                 if not used)
+     * @param zAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Z-axis; null
+     *                                 if not used)
+     * @param cAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes
+     *                                 (colorbar-axis; null if not used)
      * @param fsr                      rescaling factor used for all font-based objects
-     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be null);
-     *                                 executed just before returning the plot
+     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the
+     *                                 end of the customization of the plot params container (after all fields are set
+     *                                 by default)
+     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                                 the end of the customization of the plot params container (after all fields are
+     *                                 set by default)
+     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be
+     *                                 null); executed just before returning the plot
      * @return instantiated heatmap 3D
      */
     @SuppressWarnings("DuplicatedCode")
@@ -433,11 +478,11 @@ public class Heatmap3DFactory
     }
 
     /**
-     * Creates a simple 3D heatmap. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
-     * - instantiates the colorbar based on the heatmap display range
+     * Creates a simple 3D heatmap. It:<br>
+     * - uses a white scheme,<br>
+     * - sets the font to Times New Roman,<br>
+     * - makes the background transparent,<br>
+     * - instantiates the colorbar based on the heatmap display range,<br>
      * - sets the axes and colorbar labels number format to decimal.
      *
      * @param scheme                   scheme used to instantiate the plot
@@ -445,27 +490,37 @@ public class Heatmap3DFactory
      * @param yLabel                   Y-axis label
      * @param zLabel                   Z-axis label
      * @param pDRM                     display ranges manager params container
-     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param zNoTicks                 adjusts the number of ticks for the Z-axis and the number of corresponding horizontal grid lines
-     * @param cNoTicks                 adjusts the number of ticks for the colorbar-axis and the number of corresponding horizontal grid lines
+     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding
+     *                                 vertical grid lines
+     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param zNoTicks                 adjusts the number of ticks for the Z-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param cNoTicks                 adjusts the number of ticks for the colorbar-axis and the number of corresponding
+     *                                 horizontal grid lines
      * @param xDiv                     discretization level for the X-axis
      * @param yDiv                     discretization level for the Y-axis
      * @param zDiv                     discretization level for the Z-axis
      * @param heatmapDR                display range associated with the heatmap data
      * @param gradient                 gradient used to color heatmap data
      * @param colorbarTitle            colorbarTitle
-     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
-     * @param zAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Z-axis; null if not used)
-     * @param cAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (colorbar-axis; null if not used)
+     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null
+     *                                 if not used)
+     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null
+     *                                 if not used)
+     * @param zAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Z-axis; null
+     *                                 if not used)
+     * @param cAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes
+     *                                 (colorbar-axis; null if not used)
      * @param fsr                      rescaling factor used for all font-based objects
-     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be null);
-     *                                 executed just before returning the plot
+     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the
+     *                                 end of the customization of the plot params container (after all fields are set
+     *                                 by default)
+     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                                 the end of the customization of the plot params container (after all fields are
+     *                                 set by default)
+     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be
+     *                                 null); executed just before returning the plot
      * @return instantiated heatmap 3D
      */
     @SuppressWarnings("DuplicatedCode")
@@ -499,13 +554,12 @@ public class Heatmap3DFactory
                 plotParamsAdjuster, postPlotCreationAdjuster);
     }
 
-
     /**
-     * Creates a simple 3D heatmap. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
-     * - instantiates the colorbar based on the heatmap display range
+     * Creates a simple 3D heatmap. It:<br>
+     * - uses a white scheme,<br>
+     * - sets the font to Times New Roman,<br>
+     * - makes the background transparent,<br>
+     * - instantiates the colorbar based on the heatmap display range,<br>
      * - sets the axes and colorbar labels number format to decimal.
      *
      * @param scheme                   scheme used to instantiate the plot
@@ -513,28 +567,38 @@ public class Heatmap3DFactory
      * @param yLabel                   Y-axis label
      * @param zLabel                   Z-axis label
      * @param pDRM                     display ranges manager params container
-     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param zNoTicks                 adjusts the number of ticks for the Z-axis and the number of corresponding horizontal grid lines
-     * @param cNoTicks                 adjusts the number of ticks for the colorbar-axis and the number of corresponding horizontal grid lines
+     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding
+     *                                 vertical grid lines
+     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param zNoTicks                 adjusts the number of ticks for the Z-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param cNoTicks                 adjusts the number of ticks for the colorbar-axis and the number of corresponding
+     *                                 horizontal grid lines
      * @param xDiv                     discretization level for the X-axis
      * @param yDiv                     discretization level for the Y-axis
      * @param zDiv                     discretization level for the Z-axis
      * @param heatmapDR                display range associated with the heatmap data
      * @param gradient                 gradient used to color heatmap data
      * @param colorbarTitle            colorbarTitle
-     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
-     * @param zAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Z-axis; null if not used)
-     * @param cAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (colorbar-axis; null if not used)
+     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null
+     *                                 if not used)
+     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null
+     *                                 if not used)
+     * @param zAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Z-axis; null
+     *                                 if not used)
+     * @param cAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes
+     *                                 (colorbar-axis; null if not used)
      * @param fsr                      rescaling factor used for all font-based objects
      * @param lw                       adjust line width for the Cube, Axes, and Panes objects (1.0f is a default value)
-     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be null);
-     *                                 executed just before returning the plot
+     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the
+     *                                 end of the customization of the plot params container (after all fields are set
+     *                                 by default)
+     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                                 the end of the customization of the plot params container (after all fields are
+     *                                 set by default)
+     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be
+     *                                 null); executed just before returning the plot
      * @return instantiated heatmap 3D
      */
     @SuppressWarnings("DuplicatedCode")
@@ -563,6 +627,165 @@ public class Heatmap3DFactory
                                          IPlotParamsAdjuster<Heatmap3D.Params> plotParamsAdjuster,
                                          IPostPlotCreationAdjuster<Heatmap3D> postPlotCreationAdjuster)
     {
+        return getHeatmap3D(scheme, xLabel, yLabel, zLabel, pDRM, xNoTicks, yNoTicks, zNoTicks, cNoTicks,
+                xAxisTicksLabelsFormat == null ? new DecimalFormat() : new DecimalFormat(xAxisTicksLabelsFormat),
+                yAxisTicksLabelsFormat == null ? new DecimalFormat() : new DecimalFormat(yAxisTicksLabelsFormat),
+                zAxisTicksLabelsFormat == null ? new DecimalFormat() : new DecimalFormat(zAxisTicksLabelsFormat),
+                cAxisTicksLabelsFormat == null ? new DecimalFormat() : new DecimalFormat(cAxisTicksLabelsFormat),
+                xDiv, yDiv, zDiv, heatmapDR, gradient, colorbarTitle, fsr, lw, schemeAdjuster, plotParamsAdjuster,
+                postPlotCreationAdjuster);
+    }
+
+    /**
+     * Creates a simple 3D heatmap. It:<br>
+     * - uses a white scheme,<br>
+     * - sets the font to Times New Roman,<br>
+     * - makes the background transparent,<br>
+     * - instantiates the colorbar based on the heatmap display range,<br>
+     * - sets the axes and colorbar labels number format to decimal.
+     *
+     * @param xLabel                   X-axis label
+     * @param yLabel                   Y-axis label
+     * @param zLabel                   Z-axis label
+     * @param pDRM                     display ranges manager params container
+     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding
+     *                                 vertical grid lines
+     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param zNoTicks                 adjusts the number of ticks for the Z-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param cNoTicks                 adjusts the number of ticks for the colorbar-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param xDiv                     discretization level for the X-axis
+     * @param yDiv                     discretization level for the Y-axis
+     * @param zDiv                     discretization level for the Z-axis
+     * @param heatmapDR                display range associated with the heatmap data
+     * @param gradient                 gradient used to color heatmap data
+     * @param colorbarTitle            colorbarTitle
+     * @param xAxisNumberFormat        x-axis number format (default {@link DecimalFormat} instance is used, if null)
+     * @param yAxisNumberFormat        y-axis number format (default {@link DecimalFormat} instance is used, if null)
+     * @param zAxisNumberFormat        z-axis number format (default {@link DecimalFormat} instance is used, if null)
+     * @param cAxisNumberFormat        colorbar-axis number format (default {@link DecimalFormat} instance is used, if
+     *                                 null)
+     * @param fsr                      rescaling factor used for all font-based objects
+     * @param lw                       adjust line width for the Cube, Axes, and Panes objects (1.0f is a default value)
+     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the
+     *                                 end
+     *                                 of the customization of the plot params container (after all fields are set by
+     *                                 default)
+     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                                 the end
+     *                                 of the customization of the plot params container (after all fields are set by
+     *                                 default)
+     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be
+     *                                 null);
+     *                                 executed just before returning the plot
+     * @return instantiated heatmap 3D
+     */
+    @SuppressWarnings("DuplicatedCode")
+    public static Heatmap3D getHeatmap3D(String xLabel,
+                                         String yLabel,
+                                         String zLabel,
+                                         DisplayRangesManager.Params pDRM,
+                                         int xNoTicks,
+                                         int yNoTicks,
+                                         int zNoTicks,
+                                         int cNoTicks,
+                                         NumberFormat xAxisNumberFormat,
+                                         NumberFormat yAxisNumberFormat,
+                                         NumberFormat zAxisNumberFormat,
+                                         NumberFormat cAxisNumberFormat,
+                                         int xDiv,
+                                         int yDiv,
+                                         int zDiv,
+                                         DisplayRangesManager.DisplayRange heatmapDR,
+                                         Gradient gradient,
+                                         String colorbarTitle,
+                                         float fsr,
+                                         float lw,
+                                         ISchemeAdjuster schemeAdjuster,
+                                         IPlotParamsAdjuster<Heatmap3D.Params> plotParamsAdjuster,
+                                         IPostPlotCreationAdjuster<Heatmap3D> postPlotCreationAdjuster)
+    {
+        return getHeatmap3D(WhiteScheme.getForHeatmap3D(0.25f), xLabel, yLabel, zLabel,
+                pDRM, xNoTicks, yNoTicks, zNoTicks, cNoTicks, xAxisNumberFormat, yAxisNumberFormat, zAxisNumberFormat,
+                cAxisNumberFormat, xDiv, yDiv, zDiv, heatmapDR, gradient, colorbarTitle, fsr, lw, schemeAdjuster,
+                plotParamsAdjuster, postPlotCreationAdjuster);
+    }
+
+    /**
+     * Creates a simple 3D heatmap. It:<br>
+     * - uses a white scheme,<br>
+     * - sets the font to Times New Roman,<br>
+     * - makes the background transparent,<br>
+     * - instantiates the colorbar based on the heatmap display range,<br>
+     * - sets the axes and colorbar labels number format to decimal.
+     *
+     * @param scheme                   scheme used to instantiate the plot
+     * @param xLabel                   X-axis label
+     * @param yLabel                   Y-axis label
+     * @param zLabel                   Z-axis label
+     * @param pDRM                     display ranges manager params container
+     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding
+     *                                 vertical grid lines
+     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param zNoTicks                 adjusts the number of ticks for the Z-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param cNoTicks                 adjusts the number of ticks for the colorbar-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param xDiv                     discretization level for the X-axis
+     * @param yDiv                     discretization level for the Y-axis
+     * @param zDiv                     discretization level for the Z-axis
+     * @param heatmapDR                display range associated with the heatmap data
+     * @param gradient                 gradient used to color heatmap data
+     * @param colorbarTitle            colorbarTitle
+     * @param xAxisNumberFormat        x-axis number format (default {@link DecimalFormat} instance is used, if null)
+     * @param yAxisNumberFormat        y-axis number format (default {@link DecimalFormat} instance is used, if null)
+     * @param zAxisNumberFormat        z-axis number format (default {@link DecimalFormat} instance is used, if null)
+     * @param cAxisNumberFormat        colorbar-axis number format (default {@link DecimalFormat} instance is used, if
+     *                                 null)
+     * @param fsr                      rescaling factor used for all font-based objects
+     * @param lw                       adjust line width for the Cube, Axes, and Panes objects (1.0f is a default value)
+     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the
+     *                                 end
+     *                                 of the customization of the plot params container (after all fields are set by
+     *                                 default)
+     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                                 the end
+     *                                 of the customization of the plot params container (after all fields are set by
+     *                                 default)
+     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be
+     *                                 null);
+     *                                 executed just before returning the plot
+     * @return instantiated heatmap 3D
+     */
+    @SuppressWarnings("DuplicatedCode")
+    public static Heatmap3D getHeatmap3D(AbstractScheme scheme,
+                                         String xLabel,
+                                         String yLabel,
+                                         String zLabel,
+                                         DisplayRangesManager.Params pDRM,
+                                         int xNoTicks,
+                                         int yNoTicks,
+                                         int zNoTicks,
+                                         int cNoTicks,
+                                         NumberFormat xAxisNumberFormat,
+                                         NumberFormat yAxisNumberFormat,
+                                         NumberFormat zAxisNumberFormat,
+                                         NumberFormat cAxisNumberFormat,
+                                         int xDiv,
+                                         int yDiv,
+                                         int zDiv,
+                                         DisplayRangesManager.DisplayRange heatmapDR,
+                                         Gradient gradient,
+                                         String colorbarTitle,
+                                         float fsr,
+                                         float lw,
+                                         ISchemeAdjuster schemeAdjuster,
+                                         IPlotParamsAdjuster<Heatmap3D.Params> plotParamsAdjuster,
+                                         IPostPlotCreationAdjuster<Heatmap3D> postPlotCreationAdjuster)
+    {
         Heatmap3D.Params pP = new Heatmap3D.Params();
         pP._xDiv = xDiv;
         pP._yDiv = yDiv;
@@ -570,9 +793,8 @@ public class Heatmap3DFactory
         pP._heatmapDisplayRange = heatmapDR;
         pP._gradient = gradient;
         pP._colorbar = new Colorbar(gradient, colorbarTitle, new FromDisplayRange(heatmapDR, cNoTicks));
-        if (cAxisTicksLabelsFormat == null)
-            pP._colorbar.getAxis().getTicksDataGetter().setNumberFormat(new DecimalFormat());
-        else pP._colorbar.getAxis().getTicksDataGetter().setNumberFormat(new DecimalFormat(cAxisTicksLabelsFormat));
+        pP._colorbar.getAxis().getTicksDataGetter().setNumberFormat(Objects.requireNonNullElseGet(cAxisNumberFormat,
+                DecimalFormat::new));
 
         pP._useAlphaChannel = true;
 
@@ -580,7 +802,7 @@ public class Heatmap3DFactory
                 schemeAdjuster, plotParamsAdjuster);
         Heatmap3D heatmap3D = new Heatmap3D(pP);
 
-        AbstractFactory.adjustAxes3D(heatmap3D, xAxisTicksLabelsFormat, yAxisTicksLabelsFormat, zAxisTicksLabelsFormat,
+        AbstractFactory.adjustAxes3D(heatmap3D, xAxisNumberFormat, yAxisNumberFormat, zAxisNumberFormat,
                 xNoTicks, yNoTicks, zNoTicks);
         if (postPlotCreationAdjuster != null) postPlotCreationAdjuster.adjust(heatmap3D);
         return heatmap3D;

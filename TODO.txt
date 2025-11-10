@@ -6,6 +6,7 @@ Decision Support:
 - ERS/FRS methods: interface for notifications on the success/failure in generating a compatible model (ERS: in inserting into the queue)
 
 Evolutionary Computation:
+- Let Specimen have a reference to its Parents; IMPORTANT: It may cause serious memory leaks as the reference to past specimens will not be lost (Specimen->Parents->Specimen->Parents->etc.). Thus, setting this field should be somewhat controlled with the possibility to clear data on past specimens (clear references); note that the Parents object should therefore be cloned
 - Introducing the archive functionality (SpecimenContainer).
 - Phases: allow providing custom pre-post actions (simple one-method interfaces; lambda methods; stacked on the list or passed via arrays)
 - Phases: simple customizable phase; passing own implementations via list to instantiate EA's processing

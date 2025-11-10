@@ -49,7 +49,7 @@ public class IterationsLimitAnalyzer
                         R[currentRow][pc] = itLimit;
 
                         System.out.println("Processing for alpha = " + alphas[i] + " M = " + M[j] + " N = " + N[k] + " PCS = " + PCS[pc]);
-                        String name = "SAMPLER_ERS_2_2_DM_" + alphas[i] + "_M_" + M[j] + "_N_" + N[k] + "_PCS_" + PCS[pc];
+                        String name = "SAMPLER_ERS_2_D_DM_" + alphas[i] + "_M_" + M[j] + "_N_" + N[k] + "_PCS_" + PCS[pc];
                         String path = pref + File.separator + name + File.separator + name + ".xlsx";
                         System.out.println(path);
 

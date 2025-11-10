@@ -6,10 +6,12 @@ import dataset.painter.style.MarkerStyle;
 import dataset.painter.style.enums.Marker;
 import ea.EA;
 import emo.aposteriori.Utils;
+import emo.aposteriori.nsgaiii.dtlz.dtlz5.a2D.DTLZ5_2D_Cumulative_DisplayAtTheEnd;
 import emo.utils.decomposition.goal.GoalsFactory;
 import emo.utils.decomposition.goal.IGoal;
 import exception.RunnerException;
 import frame.Frame;
+import org.junit.jupiter.api.Test;
 import plot.Plot3D;
 import problem.Problem;
 import problem.moo.dtlz.DTLZBundle;
@@ -31,11 +33,20 @@ import visualization.IVisualization;
 public class DTLZ5_3D
 {
     /**
-     * Runs evolutionary algorithm.
+     * Runs the script.
      *
-     * @param args (not used)
+     * @param args not used
      */
     public static void main(String[] args)
+    {
+        (new DTLZ5_3D()).test1();
+    }
+
+    /**
+     * Tests the method.
+     */
+    @Test
+    public void test1()
     {
         IRandom R = new MersenneTwister64(0);
 
@@ -46,7 +57,7 @@ public class DTLZ5_3D
         int noDecisionVariables = 5;
         DTLZBundle problemBundle = DTLZBundle.getBundle(problem, 3, noDecisionVariables);
 
-        IGoal [] goals =  GoalsFactory.getPointLineProjectionsDND(3, 15, problemBundle._normalizations);
+        IGoal[] goals = GoalsFactory.getPointLineProjectionsDND(3, 15, problemBundle._normalizations);
 
         boolean dynamicObjectiveRanges = false;
         Criteria criteria = Criteria.constructCriteria("C", 3, false);
@@ -69,10 +80,12 @@ public class DTLZ5_3D
         IRunner runner = new Runner(pR);
 
         // run the evolution
-         try
+        try
         {
             runner.executeEvolution(generations);
-        } catch (RunnerException e)
+            Thread.sleep(100);
+            runner.dispose();
+        } catch (RunnerException | InterruptedException e)
         {
             throw new RuntimeException(e);
         }

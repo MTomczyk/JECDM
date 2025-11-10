@@ -18,8 +18,8 @@ import space.normalization.minmax.Linear;
 import java.util.Arrays;
 
 /**
- * Abstract bundle (container) for default implementations of problem-related phases (construct/reproduce/evaluate, etc.)
- * and OS-related data helpful when solving DTLZ problems.
+ * Abstract bundle (container) for default implementations of problem-related phases (construct/reproduce/evaluate,
+ * etc.) and OS-related data helpful when solving DTLZ problems.
  *
  * @author MTomczyk
  */
@@ -58,7 +58,7 @@ public class DTLZBundle extends AbstractMOOProblemBundle
          * @param problem problem
          * @param M       the number of objectives
          * @param D       the number of distance-related parameters
-         * @return crossover operator
+         * @return mutation operator
          */
         IMutate getMutation(Problem problem, int M, int D);
     }
@@ -70,12 +70,15 @@ public class DTLZBundle extends AbstractMOOProblemBundle
      * @param construct              constructs the initial population
      * @param reproduce              creates offspring
      * @param evaluate               evaluates solutions
-     * @param displayRanges          display ranges for a test problem used when performing visualization (they do not match the true utopia/nadir points)
+     * @param displayRanges          display ranges for a test problem used when performing visualization (they do not
+     *                               match the true utopia/nadir points)
      * @param paretoFrontBounds      bounds for the Pareto front
-     * @param normalizations         min-max normalizations for a test problem (min = true utopia (or nadir) point, max = true nadir (or utopia) point)
+     * @param normalizations         min-max normalizations for a test problem (min = true utopia (or nadir) point, max
+     *                               = true nadir (or utopia) point)
      * @param utopia                 true utopia point for a test problem
      * @param nadir                  true nadir point for a test problem
-     * @param optimizationDirections optimization direction flags (for each objective); true indicates that the objective is to be maximized, false otherwise
+     * @param optimizationDirections optimization direction flags (for each objective); true indicates that the
+     *                               objective is to be maximized, false otherwise
      * @param criteria               contains reference criteria objects
      */
     public DTLZBundle(Problem problem,
@@ -125,7 +128,8 @@ public class DTLZBundle extends AbstractMOOProblemBundle
      *
      * @param problem              problem id
      * @param M                    the number of considered objectives
-     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the crossover
+     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the
+     *                             crossover
      *                             operator (otherwise the default operators are used; see the code)
      * @param mutationConstructor  auxiliary object that, when provided (can be null), is used to construct the mutation
      *                             operator (otherwise the default operators are used; see the code)
@@ -144,7 +148,8 @@ public class DTLZBundle extends AbstractMOOProblemBundle
      * @param problem              problem id
      * @param M                    the number of considered objectives
      * @param D                    the number of distance-related variable
-     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the crossover
+     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the
+     *                             crossover
      *                             operator (otherwise the default operators are used; see the code)
      * @param mutationConstructor  auxiliary object that, when provided (can be null), is used to construct the mutation
      *                             operator (otherwise the default operators are used; see the code)
@@ -200,8 +205,7 @@ public class DTLZBundle extends AbstractMOOProblemBundle
         {
             for (int i = 0; i < M - 1; i++) ranges[i] = new Range(0.0d, _DTLZ7_const);
             ranges[M - 1] = new Range(getDTLZ7LowerBoundForLastObjective(M), 2.0d * M);
-        }
-        else if ((problem == Problem.DTLZ5) || (problem == Problem.DTLZ6))
+        } else if ((problem == Problem.DTLZ5) || (problem == Problem.DTLZ6))
         {
             if (M > 2)
             {
@@ -210,11 +214,9 @@ public class DTLZBundle extends AbstractMOOProblemBundle
                 ranges[1] = new Range(0.0d, Math.pow(base, M - 2) + 0.5d);
                 for (int i = 2; i < M - 1; i++) ranges[i] = new Range(0.0d, Math.pow(base, M - i - 1) + 0.5d);
                 ranges[M - 1] = new Range(0.0d, 1.5d);
-            }
-            else for (int i = 0; i < M; i++) ranges[i] = Range.getNormalRange();
+            } else for (int i = 0; i < M; i++) ranges[i] = Range.getNormalRange();
 
-        }
-        else if (problem == Problem.DTLZ1) for (int i = 0; i < M; i++) ranges[i] = Range.get0R(2.0d);
+        } else if (problem == Problem.DTLZ1) for (int i = 0; i < M; i++) ranges[i] = Range.get0R(2.0d);
         else for (int i = 0; i < M; i++) ranges[i] = new Range(0.0d, 1.5d);
         return ranges;
     }
@@ -233,8 +235,7 @@ public class DTLZBundle extends AbstractMOOProblemBundle
         {
             for (int i = 0; i < M - 1; i++) ranges[i] = new Range(0.0d, _DTLZ7_const);
             ranges[M - 1] = new Range(getDTLZ7LowerBoundForLastObjective(M), 2.0d * M);
-        }
-        else if ((problem == Problem.DTLZ5) || (problem == Problem.DTLZ6))
+        } else if ((problem == Problem.DTLZ5) || (problem == Problem.DTLZ6))
         {
             if (M > 2)
             {
@@ -243,10 +244,8 @@ public class DTLZBundle extends AbstractMOOProblemBundle
                 ranges[1] = new Range(0.0d, Math.pow(base, M - 2));
                 for (int i = 2; i < M - 1; i++) ranges[i] = new Range(0.0d, Math.pow(base, M - i - 1));
                 ranges[M - 1] = new Range(0.0d, 1.0d);
-            }
-            else for (int i = 0; i < M; i++) ranges[i] = Range.getNormalRange();
-        }
-        else if (problem == Problem.DTLZ1) for (int i = 0; i < M; i++) ranges[i] = new Range(0.0d, 0.5d);
+            } else for (int i = 0; i < M; i++) ranges[i] = Range.getNormalRange();
+        } else if (problem == Problem.DTLZ1) for (int i = 0; i < M; i++) ranges[i] = new Range(0.0d, 0.5d);
         else for (int i = 0; i < M; i++) ranges[i] = new Range(0.0d, 1.0d);
         return ranges;
     }
@@ -279,8 +278,7 @@ public class DTLZBundle extends AbstractMOOProblemBundle
         {
             for (int i = 0; i < M - 1; i++) normalizations[i] = new Linear(0.0d, _DTLZ7_const);
             normalizations[M - 1] = new Linear(getDTLZ7LowerBoundForLastObjective(M), 2.0d * M);
-        }
-        else if ((problem == Problem.DTLZ5) || (problem == Problem.DTLZ6))
+        } else if ((problem == Problem.DTLZ5) || (problem == Problem.DTLZ6))
         {
             if (M > 2)
             {
@@ -289,10 +287,8 @@ public class DTLZBundle extends AbstractMOOProblemBundle
                 normalizations[1] = new Linear(0.0d, Math.pow(base, M - 2));
                 for (int i = 2; i < M - 1; i++) normalizations[i] = new Linear(0.0d, Math.pow(base, M - i - 1));
                 normalizations[M - 1] = new Linear(0.0d, 1.0d);
-            }
-            else for (int i = 0; i < M; i++) normalizations[i] = new Linear(0.0d, 1.0d);
-        }
-        else if (problem == Problem.DTLZ1) for (int c = 0; c < M; c++) normalizations[c] = new Linear(0.0d, 0.5d);
+            } else for (int i = 0; i < M; i++) normalizations[i] = new Linear(0.0d, 1.0d);
+        } else if (problem == Problem.DTLZ1) for (int c = 0; c < M; c++) normalizations[c] = new Linear(0.0d, 0.5d);
         else for (int i = 0; i < M; i++) normalizations[i] = new Linear(0.0d, 1.0d);
         return normalizations;
     }
@@ -326,8 +322,7 @@ public class DTLZBundle extends AbstractMOOProblemBundle
         {
             for (int i = 0; i < M - 1; i++) n[i] = _DTLZ7_const;
             n[M - 1] = 2.0d * M;
-        }
-        else if ((problem == Problem.DTLZ5) || (problem == Problem.DTLZ6))
+        } else if ((problem == Problem.DTLZ5) || (problem == Problem.DTLZ6))
         {
             if (M > 2)
             {
@@ -340,11 +335,9 @@ public class DTLZBundle extends AbstractMOOProblemBundle
                 double right = Math.sin(Math.PI / 4.0d);
                 for (int i = 0; i < M - 1; i++) n[i] = right;
                 n[M - 1] = 1.0d;
-            }
-            else Arrays.fill(n, 1.0d);
+            } else Arrays.fill(n, 1.0d);
 
-        }
-        else if (problem == Problem.DTLZ1) Arrays.fill(n, 0.5d);
+        } else if (problem == Problem.DTLZ1) Arrays.fill(n, 0.5d);
         else Arrays.fill(n, 1.0d);
         return n;
     }

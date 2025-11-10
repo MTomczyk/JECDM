@@ -6,8 +6,10 @@ import dataset.painter.style.MarkerStyle;
 import dataset.painter.style.enums.Marker;
 import ea.EA;
 import emo.aposteriori.Utils;
+import emo.aposteriori.nsga.wfg.wfg5.a3d.WFG5_3D_Cumulative_DisplayAtTheEnd;
 import exception.RunnerException;
 import frame.Frame;
+import org.junit.jupiter.api.Test;
 import plot.Plot2D;
 import problem.Problem;
 import problem.moo.wfg.WFGBundle;
@@ -31,11 +33,20 @@ import visualization.IVisualization;
 public class WFG6_2D
 {
     /**
-     * Runs evolutionary algorithm.
+     * Runs the script.
      *
-     * @param args (not used)
+     * @param args not used
      */
     public static void main(String[] args)
+    {
+        (new WFG6_2D()).test1();
+    }
+
+    /**
+     * Tests the method.
+     */
+    @Test
+    public void test1()
     {
         IRandom R = new MersenneTwister64(0);
 
@@ -72,10 +83,12 @@ public class WFG6_2D
         IRunner runner = new Runner(pR);
 
         // run the evolution
-         try
+        try
         {
             runner.executeEvolution(generations);
-        } catch (RunnerException e)
+            Thread.sleep(100);
+            runner.dispose();
+        } catch (RunnerException | InterruptedException e)
         {
             throw new RuntimeException(e);
         }

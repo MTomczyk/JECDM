@@ -11,6 +11,7 @@ import emo.utils.decomposition.goal.GoalsFactory;
 import emo.utils.decomposition.goal.IGoal;
 import exception.RunnerException;
 import frame.Frame;
+import org.junit.jupiter.api.Test;
 import plot.Plot3D;
 import problem.Problem;
 import problem.moo.wfg.WFGBundle;
@@ -34,11 +35,20 @@ import visualization.IVisualization;
 public class WFG7_3D_Cumulative_DisplayAtTheEnd
 {
     /**
-     * Runs evolutionary algorithm.
+     * Runs the script.
      *
-     * @param args (not used)
+     * @param args not used
      */
     public static void main(String[] args)
+    {
+        (new WFG7_3D_Cumulative_DisplayAtTheEnd()).test1();
+    }
+
+    /**
+     * Tests the method.
+     */
+    @Test
+    public void test1()
     {
         IRandom R = new MersenneTwister64(0);
 
@@ -74,10 +84,12 @@ public class WFG7_3D_Cumulative_DisplayAtTheEnd
         IRunner runner = new Runner(pR);
 
         // run the evolution
-         try
+        try
         {
             runner.executeEvolution(generations);
-        } catch (RunnerException e)
+            Thread.sleep(100);
+            runner.dispose();
+        } catch (RunnerException | InterruptedException e)
         {
             throw new RuntimeException(e);
         }

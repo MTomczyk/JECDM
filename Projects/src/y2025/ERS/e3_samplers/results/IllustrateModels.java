@@ -21,21 +21,23 @@ import model.constructor.random.LNormGenerator;
 import model.constructor.value.rs.ers.ERS;
 import model.constructor.value.rs.ers.Report;
 import model.constructor.value.rs.ers.evolutionary.Tournament;
-import model.constructor.value.rs.iterationslimit.Constant;
 import model.constructor.value.rs.frs.FRS;
+import model.constructor.value.rs.iterationslimit.Constant;
 import model.internals.value.scalarizing.LNorm;
 import plot.Plot3D;
 import plot.Plot3DFactory;
+import plot.PlotUtils;
 import preference.indirect.PairwiseComparison;
 import print.PrintUtils;
-import y2025.ERS.common.PCsDataContainer;
 import random.IRandom;
 import random.MersenneTwister64;
 import scheme.WhiteScheme;
+import scheme.enums.Align;
 import scheme.enums.ColorFields;
 import space.normalization.builder.StandardLinearBuilder;
 import utils.Screenshot;
 import visualization.utils.ReferenceParetoFront;
+import y2025.ERS.common.PCsDataContainer;
 import y2025.ERS.e1_auxiliary.GeneratePCsData;
 
 import java.io.File;
@@ -66,7 +68,9 @@ public class IllustrateModels
             String fp = path.toString() + File.separatorChar + "pcs.txt";
             PCsDataContainer PCs = new PCsDataContainer(fp, 4, 3, 100, 10);
 
-            int scenario = 0;
+            int scenario = 3;
+            boolean withoutZoom = false;
+
             double[] alphas = new double[]{1.0d, 1.0d, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY};
             int[] alphaIDX = new int[]{0, 0, 2, 2};
             int[] t = new int[]{33, 33, 8, 8};
@@ -82,27 +86,27 @@ public class IllustrateModels
             float[][][] translation = new float[][][]
                     {
                             {
-                                    {-0.03750f, 0.00000f, 1.76250f},
-                                    {-0.03750f, 0.00000f, 1.76250f},
+                                    {-0.03750f, 0.00000f, 1.80250f},
+                                    {-0.03750f, 0.00000f, 1.80250f},
                                     {0.02873f, 0.24512f, 0.34716f},
                                     {0.03523f, 0.24067f, 0.27098f}
                             },
                             {
-                                    {-0.03750f, 0.00000f, 1.76250f},
-                                    {-0.03750f, 0.00000f, 1.76250f},
+                                    {-0.03750f, 0.00000f, 1.80250f},
+                                    {-0.03750f, 0.00000f, 1.80250f},
                                     {0.02873f, 0.24512f, 0.34716f},
                                     {0.03523f, 0.24067f, 0.27098f}
                             },
                             {
-                                    {-0.03750f, 0.00000f, 1.76250f},
-                                    {-0.03750f, 0.00000f, 1.76250f},
-                                    {-0.03750f, 0.00000f, 1.76250f},
+                                    {-0.03750f, 0.00000f, 1.80250f},
+                                    {-0.03750f, 0.00000f, 1.80250f},
+                                    {-0.03750f, 0.00000f, 1.80250f},
                                     {0.00401f, 0.11677f, 0.81594f},
                             },
                             {
-                                    {-0.03750f, 0.00000f, 1.76250f},
-                                    {-0.03750f, 0.00000f, 1.76250f},
-                                    {-0.03750f, 0.00000f, 1.76250f},
+                                    {-0.03750f, 0.00000f, 1.80250f},
+                                    {-0.03750f, 0.00000f, 1.80250f},
+                                    {-0.03750f, 0.00000f, 1.80250f},
                                     {0.00401f, 0.11677f, 0.81594f},
                             },
                     };
@@ -172,13 +176,18 @@ public class IllustrateModels
             // Create plot 3D
             Plot3D plot3D = Plot3DFactory.getPlot(
                     WhiteScheme.getForPlot3D(),
-                    "w1", "w2", "w3",
+                    "w_1", "w_2", "w_3",
                     DRMPFactory.getFor3D(1.0d, 1.0d, 1.0d),
-                    5, 5, 5,
-                    "0.00", "0.00", "0.00",
-                    2.0f, 2.0f, scheme ->
+                    3, 3, 3,
+                    PlotUtils.getDecimalFormat('.', 1),
+                    PlotUtils.getDecimalFormat('.', 1),
+                    PlotUtils.getDecimalFormat('.', 1),
+                    2.5f, 2.0f, scheme ->
                             scheme._colors.put(ColorFields.PLOT_BACKGROUND, Color.WHITE),
-                    null, null);
+                    pP -> pP._axesAlignments = new Align[]{
+                            Align.FRONT_BOTTOM,
+                            Align.LEFT_BOTTOM,
+                            Align.FRONT_RIGHT}, null);
 
             int plotSize = 1000;
             Frame frame = new Frame(plot3D, plotSize, plotSize);
@@ -207,7 +216,8 @@ public class IllustrateModels
 
             // Instantiate ERS
             ERS<LNorm> ers = ERSFactory.getDefaultForLNorms(100, new Constant(50000),
-                    3, alphas[scenario], null, new LNormOnSimplex(alphas[scenario], 0.2d, 0.2d),
+                    3, alphas[scenario], null,
+                    new LNormOnSimplex(alphas[scenario], 0.2d, 0.2d / (2.0d * (3 - 1))),
                     new Tournament<>(2), null);
 
             FRS.Params<LNorm> pFRS = new FRS.Params<>(new LNormGenerator(3, alphas[scenario], null));
@@ -232,9 +242,18 @@ public class IllustrateModels
                 System.out.println("h = " + h);
 
                 // Set projection:
-                plot3D.getModel().updateCameraTranslation(translation[scenario][h][0], translation[scenario][h][1], translation[scenario][h][2]);
-                plot3D.getModel().updateCameraRotation(cameraRotation[scenario][h][0], cameraRotation[scenario][h][1]);
-                plot3D.getModel().updatePlotRotation(plotRotation[scenario][h][0], plotRotation[scenario][h][1]);
+                if (withoutZoom)
+                {
+                    plot3D.getModel().updateCameraTranslation(translation[scenario][0][0], translation[scenario][0][1], translation[scenario][0][2]);
+                    plot3D.getModel().updateCameraRotation(cameraRotation[scenario][0][0], cameraRotation[scenario][0][1]);
+                    plot3D.getModel().updatePlotRotation(plotRotation[scenario][0][0], plotRotation[scenario][0][1]);
+                }
+                else
+                {
+                    plot3D.getModel().updateCameraTranslation(translation[scenario][h][0], translation[scenario][h][1], translation[scenario][h][2]);
+                    plot3D.getModel().updateCameraRotation(cameraRotation[scenario][h][0], cameraRotation[scenario][h][1]);
+                    plot3D.getModel().updatePlotRotation(plotRotation[scenario][h][0], plotRotation[scenario][h][1]);
+                }
 
                 // Create DM context
                 DMContext context = new DMContext(criteria, LocalDateTime.now(), null, null,
@@ -260,6 +279,8 @@ public class IllustrateModels
 
                 System.out.println("Updating");
 
+                float MS = ms[scenario][h];
+                if (withoutZoom) MS = ms[scenario][0];
                 if (useERS[scenario])
                 {
                     ers.registerDecisionMakingContext(context);
@@ -272,7 +293,7 @@ public class IllustrateModels
                     ArrayList<LNorm> cModels = ers.getModelsQueue().getCompatibleModels();
                     double[][] data = new double[cModels.size()][];
                     for (int i = 0; i < cModels.size(); i++) data[i] = cModels.get(i).getWeights();
-                    forUpdate.add(DSFactory3D.getDS("Sampled weight vectors", data, new MarkerStyle(ms[scenario][h],
+                    forUpdate.add(DSFactory3D.getDS("Sampled weight vectors", data, new MarkerStyle(MS,
                             ColorPalettes.getFromDefaultPalette(0), Marker.SPHERE_HIGH_POLY_3D)));
                 }
                 else
@@ -286,7 +307,7 @@ public class IllustrateModels
 
                     double[][] data = new double[report._models.size()][];
                     for (int i = 0; i < report._models.size(); i++) data[i] = report._models.get(i).getWeights();
-                    forUpdate.add(DSFactory3D.getDS("Sampled weight vectors", data, new MarkerStyle(ms[scenario][h],
+                    forUpdate.add(DSFactory3D.getDS("Sampled weight vectors", data, new MarkerStyle(MS,
                             ColorPalettes.getFromDefaultPalette(0), Marker.SPHERE_HIGH_POLY_3D)));
 
                 }
@@ -304,6 +325,7 @@ public class IllustrateModels
                 screenshot._barrier.await();
                 path = FileUtils.getPathRelatedToClass(IllustrateModels.class, "Projects", "src", File.separatorChar);
                 String outputFile = path + File.separator + saveFilename[scenario] + "_" + h;
+                if (withoutZoom) outputFile += "_wz";
                 ImageSaver.saveImage(screenshot._image, outputFile, "jpg", 1.0f);
             }
 

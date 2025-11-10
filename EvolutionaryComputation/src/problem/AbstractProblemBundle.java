@@ -6,7 +6,8 @@ import phase.IEvaluate;
 import reproduction.IReproduce;
 
 /**
- * Abstract bundle (container) for default implementations for solving various problems (construct/reproduce/evaluate, etc.).
+ * Abstract bundle (container) for default implementations for solving various problems (construct/reproduce/evaluate,
+ * etc.).
  *
  * @author MTomczyk
  */
@@ -43,7 +44,8 @@ public abstract class AbstractProblemBundle
     public final double[] _utopia;
 
     /**
-     * Optimization direction flags (for each objective). True indicates that the objective is to be maximized, false otherwise.
+     * Optimization direction flags (for each objective). True indicates that the objective is to be maximized, false
+     * otherwise.
      */
     public final boolean[] _optimizationDirections;
 
@@ -77,8 +79,10 @@ public abstract class AbstractProblemBundle
      * @param evaluate               Evaluates solutions
      * @param criteria               criteria array
      * @param utopia                 true utopia point for a test problem
-     * @param optimizationDirections optimization direction flags (for each objective); true indicates that the objective is to be maximized, false otherwise;
-     *                               if the array is null; the array is derived from the criteria object ({@link Criteria#getCriteriaTypes()})
+     * @param optimizationDirections optimization direction flags (for each objective); true indicates that the
+     *                               objective is to be maximized, false otherwise;
+     *                               if the array is null; the array is derived from the criteria object
+     *                               ({@link Criteria#getCriteriaTypes()})
      */
     protected AbstractProblemBundle(Problem problem,
                                     IConstruct construct,
@@ -147,6 +151,33 @@ public abstract class AbstractProblemBundle
     }
 
     /**
+     * Checks if a problem is a ZDT problem
+     *
+     * @param problem problem id
+     * @return true = the problem is a ZDT problem; false otherwise
+     */
+    public static boolean isZDT(Problem problem)
+    {
+        return (problem.equals(Problem.ZDT1)) ||
+                (problem.equals(Problem.ZDT2)) ||
+                (problem.equals(Problem.ZDT3)) ||
+                (problem.equals(Problem.ZDT4)) ||
+                (problem.equals(Problem.ZDT5)) ||
+                (problem.equals(Problem.ZDT6));
+    }
+
+    /**
+     * Checks if a problem is a CW1 problem
+     *
+     * @param problem problem id
+     * @return true = the problem is a CW1 problem; false otherwise
+     */
+    public static boolean isCW1(Problem problem)
+    {
+        return problem.equals(Problem.CW1);
+    }
+
+    /**
      * Helps retrieving a problem ID (enum) from a string.
      *
      * @param id problem id (string)
@@ -184,6 +215,13 @@ public abstract class AbstractProblemBundle
             case "WFG7EASY" -> Problem.WFG7EASY;
             case "WFG8EASY" -> Problem.WFG8EASY;
             case "WFG9EASY" -> Problem.WFG9EASY;
+            case "ZDT1" -> Problem.ZDT1;
+            case "ZDT2" -> Problem.ZDT2;
+            case "ZDT3" -> Problem.ZDT3;
+            case "ZDT4" -> Problem.ZDT4;
+            case "ZDT5" -> Problem.ZDT5;
+            case "ZDT6" -> Problem.ZDT6;
+            case "CW1" -> Problem.CW1;
             default -> null;
         };
     }
@@ -198,5 +236,4 @@ public abstract class AbstractProblemBundle
         if (_criteria == null) return false;
         return _criteria._no != 1;
     }
-
 }

@@ -11,6 +11,7 @@ import emo.utils.decomposition.goal.GoalsFactory;
 import emo.utils.decomposition.goal.IGoal;
 import exception.RunnerException;
 import frame.Frame;
+import org.junit.jupiter.api.Test;
 import plot.Plot2D;
 import problem.Problem;
 import problem.moo.dtlz.DTLZBundle;
@@ -32,22 +33,31 @@ import visualization.IVisualization;
 public class DTLZ5_2D_Cumulative
 {
     /**
-     * Runs evolutionary algorithm.
+     * Runs the script.
      *
-     * @param args (not used)
+     * @param args not used
      */
     public static void main(String[] args)
     {
+        (new DTLZ5_2D_Cumulative()).test1();
+    }
+
+    /**
+     * Tests the method.
+     */
+    @Test
+    public void test1()
+    {
         IRandom R = new MersenneTwister64(0);
 
-         int generations = 1000;
+        int generations = 1000;
 
         // create problem bundle
         Problem problem = Problem.DTLZ5;
         int noDecisionVariables = 5;
         DTLZBundle problemBundle = DTLZBundle.getBundle(problem, 2, noDecisionVariables);
 
-        IGoal [] goals =  GoalsFactory.getPointLineProjectionsDND(2, 60, problemBundle._normalizations);
+        IGoal[] goals = GoalsFactory.getPointLineProjectionsDND(2, 60, problemBundle._normalizations);
 
         boolean dynamicObjectiveRanges = false;
         Criteria criteria = Criteria.constructCriteria("C", 2, false);
@@ -70,10 +80,12 @@ public class DTLZ5_2D_Cumulative
         IRunner runner = new Runner(pR);
 
         // run the evolution
-         try
+        try
         {
             runner.executeEvolution(generations);
-        } catch (RunnerException e)
+            Thread.sleep(100);
+            runner.dispose();
+        } catch (RunnerException | InterruptedException e)
         {
             throw new RuntimeException(e);
         }

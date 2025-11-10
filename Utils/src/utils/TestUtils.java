@@ -116,6 +116,34 @@ public class TestUtils
     }
 
     /**
+     * Performs simple matrix comparison (assert equals).
+     *
+     * @param exp       expected matrix
+     * @param res       examined matrix
+     */
+    public static void assertEquals(int[][] exp, int[][] res)
+    {
+        if (exp == null)
+        {
+            assertNull(res);
+            return;
+        }
+        else assertNotNull(res);
+        Assertions.assertEquals(exp.length, res.length);
+        for (int i = 0; i < exp.length; i++)
+        {
+            if (exp[i] == null)
+                assertNull(res[i]);
+            else
+            {
+                Assertions.assertEquals(exp[i].length, res[i].length);
+                for (int j = 0; j < exp[i].length; j++)
+                    Assertions.assertEquals(exp[i][j], res[i][j]);
+            }
+        }
+    }
+
+    /**
      * Performs simple vector comparison (assert equals).
      *
      * @param exp       expected matrix

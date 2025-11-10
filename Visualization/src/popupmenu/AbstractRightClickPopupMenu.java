@@ -7,7 +7,7 @@ import container.PlotContainer;
 import popupmenu.item.AbstractItem;
 import scheme.AbstractScheme;
 import scheme.enums.*;
-import utils.Font;
+import utils.FontProcessor;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public abstract class AbstractRightClickPopupMenu extends JPopupMenu
     /**
      * Font used when displaying item label.
      */
-    protected Font _font;
+    protected FontProcessor _font;
 
     /**
      * Surpassed: the contained (key, values) pairs can be used to surpass the indications of the current scheme (alignments).
@@ -78,7 +78,7 @@ public abstract class AbstractRightClickPopupMenu extends JPopupMenu
     public AbstractRightClickPopupMenu()
     {
         _items = new ArrayList<>(10);
-        _font = new Font();
+        _font = new FontProcessor();
     }
 
     /**

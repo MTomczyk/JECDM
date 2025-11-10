@@ -19,9 +19,9 @@ import model.IPreferenceModel;
 import model.constructor.IConstructor;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
+import model.constructor.value.representative.MDVF;
 import model.constructor.value.representative.RepresentativeModel;
 import model.constructor.value.rs.frs.FRS;
-import model.constructor.value.representative.MDVF;
 import model.definitions.LNorm;
 import model.internals.value.AbstractValueInternalModel;
 import os.ObjectiveSpaceManager;
@@ -187,14 +187,12 @@ public class Utils
         IEMODBundle algorithmBundle = new IEMODBundle(pAB);
 
         // create ea instance
-        EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(algorithmBundle._phasesBundle);
+        EA.Params pEA = new EA.Params(criteria, algorithmBundle);
         pEA._id = id;
         pEA._R = R;
         pEA._populationSize = goals.length;
         pEA._expectedNumberOfSteadyStateRepeats = pEA._populationSize;
         pEA._offspringSize = 1;
-        pEA._osManager = pAB._osManager;
         return new EA(pEA);
     }
 
@@ -328,7 +326,8 @@ public class Utils
                               IReferenceSetConstructor referenceSetConstructor,
                               IDMFeedbackProvider dmFeedbackProvider)
     {
-        CDEMOBundle.Params pAB = CDEMOBundle.Params.getDefault(criteria, "DM", interactionRule, referenceSetConstructor, dmFeedbackProvider);
+        CDEMOBundle.Params pAB = CDEMOBundle.Params.getDefault(criteria, "DM", interactionRule,
+                referenceSetConstructor, dmFeedbackProvider);
         pAB._construct = problemBundle._construct;
         pAB._reproduce = problemBundle._reproduce;
         pAB._evaluate = problemBundle._evaluate;

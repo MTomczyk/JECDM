@@ -12,6 +12,7 @@ import emo.utils.decomposition.similarity.lnorm.Euclidean;
 import exception.RunnerException;
 import frame.Frame;
 import indicator.emo.HV;
+import org.junit.jupiter.api.Test;
 import plot.Plot3D;
 import problem.Problem;
 import problem.moo.dtlz.DTLZBundle;
@@ -33,11 +34,20 @@ import visualization.IVisualization;
 public class DTLZ3_3D_HV
 {
     /**
-     * Runs evolutionary algorithm.
+     * Runs the script.
      *
-     * @param args (not used)
+     * @param args not used
      */
     public static void main(String[] args)
+    {
+        (new DTLZ3_3D_HV()).test1();
+    }
+
+    /**
+     * Tests the method.
+     */
+    @Test
+    public void test1()
     {
         // Sets DPI scaling to 1
         System.setProperty("sun.java2d.uiScale", "1");
@@ -49,7 +59,7 @@ public class DTLZ3_3D_HV
         int noDecisionVariables = 5;
         DTLZBundle problemBundle = DTLZBundle.getBundle(problem, 3, noDecisionVariables);
 
-        IGoal [] goals =  GoalsFactory.getPBIsDND( 3, 15, 5.0d, problemBundle._normalizations);
+        IGoal[] goals = GoalsFactory.getPBIsDND(3, 15, 5.0d, problemBundle._normalizations);
         int populationSize = goals.length;
         int generations = 1000;
 
@@ -78,13 +88,14 @@ public class DTLZ3_3D_HV
         HV hv = new HV(pHV);
 
         // run the evolution
-         try
+        try
         {
             runner.init();
+            System.out.println("---");
 
             for (int i = 1; i < generations; i++)
             {
-                runner.executeSingleGeneration(generations, null);
+                runner.executeSingleGeneration(i, null);
                 double v = hv.evaluate(moead);
                 System.out.println(i + " " + v);
             }

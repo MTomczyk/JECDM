@@ -6,11 +6,13 @@ import dataset.painter.style.MarkerStyle;
 import dataset.painter.style.enums.Marker;
 import ea.EA;
 import emo.Utils;
+import emo.interactive.nemo.nemo0.dtlz.dtlz2.a2D.DTLZ2_2D_Cumulative_DisplayAtTheEnd;
 import exception.RunnerException;
 import frame.Frame;
 import interaction.reference.constructor.RandomPairs;
 import interaction.trigger.rules.IterationInterval;
 import model.definitions.LNorm;
+import org.junit.jupiter.api.Test;
 import plot.Plot3D;
 import problem.Problem;
 import problem.moo.dtlz.DTLZBundle;
@@ -32,11 +34,20 @@ import visualization.IVisualization;
 public class DTLZ2_3D
 {
     /**
-     * Runs evolutionary algorithm.
+     * Runs the script.
      *
-     * @param args (not used)
+     * @param args not used
      */
     public static void main(String[] args)
+    {
+        (new DTLZ2_3D()).test1();
+    }
+
+    /**
+     * Tests the method.
+     */
+    @Test
+    public void test1()
     {
         IRandom R = new MersenneTwister64(0);
 
@@ -76,7 +87,9 @@ public class DTLZ2_3D
         try
         {
             runner.executeEvolution(generations);
-        } catch (RunnerException e)
+            Thread.sleep(100);
+            runner.dispose();
+        } catch (RunnerException | InterruptedException e)
         {
             throw new RuntimeException(e);
         }

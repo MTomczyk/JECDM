@@ -4,7 +4,7 @@ import component.AbstractSwingComponent;
 import container.PlotContainer;
 import scheme.AbstractScheme;
 import scheme.enums.*;
-import utils.Font;
+import utils.FontProcessor;
 import utils.Projection;
 import utils.Size;
 
@@ -54,7 +54,7 @@ public abstract class AbstractTitle extends AbstractSwingComponent
     {
         super(p);
         _title = p._title;
-        _font = new Font();
+        _font = new FontProcessor();
         _offset = new Size();
     }
 
@@ -66,7 +66,7 @@ public abstract class AbstractTitle extends AbstractSwingComponent
     /**
      * Used font.
      */
-    private final Font _font;
+    private final FontProcessor _font;
 
     /**
      * Offset (distance from the border of the drawing area).
@@ -137,8 +137,7 @@ public abstract class AbstractTitle extends AbstractSwingComponent
         {
             _font._size.computeActualSize(RV);
             _offset.computeActualSize(RV);
-        }
-        else _font._size.computeActualSize(0.0f);
+        } else _font._size.computeActualSize(0.0f);
 
         _font.prepareFont();
     }
@@ -162,32 +161,34 @@ public abstract class AbstractTitle extends AbstractSwingComponent
         g2.setFont(_font._font);
         if (_font._color != null) g2.setColor(_font._color);
 
-        Rectangle2D dRef = Font.getReferenceTextCorrectDimensions(g2d);
-        Rectangle2D d = Font.getCorrectDimensions(g2d, _title);
+        _font.prepareTextDependentState(_title, _font._size._actualSize, g2d.getFontRenderContext());
+        Rectangle2D dRef = _font.getCurrentReferenceTextBounds();
+        Rectangle2D d = _font.getCurrentParsedTextBounds();
 
         if (_align == Align.TOP)
         {
             float x = _translationVector[0] + _primaryDrawingArea.width / 2.0f - (float) d.getWidth() / 2.0f - (float) d.getMinX() / 2.0f;
             float y = _translationVector[1] + _primaryDrawingArea.height - _offset._actualSize;
-            g2.drawString(_title, Projection.getP(x), Projection.getP(y));
-        }
-        else if (_align == Align.BOTTOM)
+            g2.drawString(_font.getCurrentAttributedString().getIterator(),
+                    Projection.getP(x), Projection.getP(y));
+        } else if (_align == Align.BOTTOM)
         {
             float x = _translationVector[0] + _primaryDrawingArea.width / 2.0f - (float) d.getWidth() / 2.0f - (float) d.getMinX() / 2.0f;
             float y = _translationVector[1] + _offset._actualSize + (float) dRef.getHeight();
-            g2.drawString(_title, Projection.getP(x), Projection.getP(y));
-        }
-        else if (_align == Align.LEFT)
+            g2.drawString(_font.getCurrentAttributedString().getIterator(),
+                    Projection.getP(x), Projection.getP(y));
+        } else if (_align == Align.LEFT)
         {
             float x = _translationVector[0] + _primaryDrawingArea.width - _offset._actualSize;
             float y = _translationVector[1] + _primaryDrawingArea.height / 2.0f + (float) d.getWidth() / 2.0f + (float) d.getMinX();
-            Font.drawRotatedString(g2d, _title, x, y, (float) (-Math.PI / 2.0f));
-        }
-        else if (_align == Align.RIGHT)
+            FontProcessor.drawRotatedString(g2d, _font.getCurrentAttributedString().getIterator(),
+                    x, y, (float) (-Math.PI / 2.0f));
+        } else if (_align == Align.RIGHT)
         {
             float x = _translationVector[0] + _offset._actualSize;
             float y = _translationVector[1] + _primaryDrawingArea.height / 2.0f - (float) d.getWidth() / 2.0f - (float) d.getMinX();
-            Font.drawRotatedString(g2d, _title, x, y, (float) (Math.PI / 2.0f));
+            FontProcessor.drawRotatedString(g2d, _font.getCurrentAttributedString().getIterator(),
+                    x, y, (float) (Math.PI / 2.0f));
         }
 
         g2.dispose();

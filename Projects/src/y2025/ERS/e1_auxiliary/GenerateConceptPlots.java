@@ -11,15 +11,20 @@ import dataset.painter.style.LineStyle;
 import dataset.painter.style.MarkerStyle;
 import dataset.painter.style.enums.Arrow;
 import dataset.painter.style.enums.Marker;
+import drmanager.DRMPFactory;
 import frame.Frame;
 import io.FileUtils;
 import io.image.ImageSaver;
 import plot.Plot2D;
 import plot.Plot2DFactory;
+import plot.PlotUtils;
 import plotswrapper.GridPlots;
 import random.IRandom;
 import random.MersenneTwister64;
-import scheme.enums.*;
+import scheme.enums.Align;
+import scheme.enums.AlignFields;
+import scheme.enums.ColorFields;
+import scheme.enums.SizeFields;
 import space.Range;
 import utils.Screenshot;
 
@@ -47,19 +52,27 @@ public class GenerateConceptPlots
 
         Plot2D[] plots = new Plot2D[3];
         for (int i = 0; i < 3; i++)
-            plots[i] = Plot2DFactory.getPlot("f1", "f2", Range.get0R(1.5d),
-                    Range.get0R(1.5d), 6, 6, 2.2f, scheme ->
+            plots[i] = Plot2DFactory.getPlot("f_1", "f_2",
+                    DRMPFactory.getFor2D(Range.get0R(1.5d),
+                            Range.get0R(1.5d)),
+                    6,
+                    6,
+                    PlotUtils.getDecimalFormat('.',1),
+                    PlotUtils.getDecimalFormat('.',1),
+                    2.2f,
+                    scheme ->
                     {
                         scheme._colors.put(ColorFields.PLOT_BACKGROUND, Color.WHITE);
                         scheme._aligns.put(AlignFields.LEGEND, Align.RIGHT_TOP);
                         scheme._sizes.put(SizeFields.LEGEND_ENTRY_FONT_SIZE_RELATIVE_MULTIPLIER, 0.055f);
-                        scheme._sizes.put(SizeFields.MARGIN_BOTTOM_RELATIVE_SIZE_MULTIPLIER, 0.12f);
-                        scheme._sizes.put(SizeFields.MARGIN_LEFT_RELATIVE_SIZE_MULTIPLIER, 0.15f);
+                        scheme._sizes.put(SizeFields.MARGIN_BOTTOM_RELATIVE_SIZE_MULTIPLIER, 0.155f);
+                        scheme._sizes.put(SizeFields.MARGIN_LEFT_RELATIVE_SIZE_MULTIPLIER, 0.18f);
                         scheme._sizes.put(SizeFields.MARGIN_RIGHT_RELATIVE_SIZE_MULTIPLIER, 0.04f);
-                        scheme._sizes.put(SizeFields.AXIS_Y_TITLE_OFFSET_RELATIVE_MULTIPLIER, 0.1f);
-                        scheme._sizes.put(SizeFields.AXIS_X_TITLE_OFFSET_RELATIVE_MULTIPLIER, 0.07f);
+                        scheme._sizes.put(SizeFields.AXIS_Y_TITLE_OFFSET_RELATIVE_MULTIPLIER, 0.13f);
+                        scheme._sizes.put(SizeFields.AXIS_X_TITLE_OFFSET_RELATIVE_MULTIPLIER, 0.08f);
                     },
-                    pP -> pP._drawLegend = true);
+                    pP -> pP._drawLegend = true,
+                    null);
 
         GridPlots gp = new GridPlots(plots, 1, 3);
         int plotSize = 600;
@@ -134,9 +147,9 @@ public class GenerateConceptPlots
                     populationData1[i][1] = y;
                 }
                 dataSets1.add(DSFactory2D.getDS("Population (size = 10)", populationData1,
-                        new MarkerStyle(3.0f, new color.gradient.Color(cp.getColor(0)), Marker.CIRCLE, 5.0f)));
+                        new MarkerStyle(4.0f, new color.gradient.Color(cp.getColor(0)), Marker.CIRCLE, 5.0f)));
                 dataSets2.add(DSFactory2D.getDS("Population (size = 10)", populationData1,
-                        new MarkerStyle(3.0f, new color.gradient.Color(cp.getColor(0)), Marker.CIRCLE, 5.0f)));
+                        new MarkerStyle(4.0f, new color.gradient.Color(cp.getColor(0)), Marker.CIRCLE, 5.0f)));
             }
             {
                 double[][] pcs = new double[4][2];
@@ -211,7 +224,7 @@ public class GenerateConceptPlots
                     data[i][1] = y;
                 }
                 dataSets3.add(DSFactory2D.getDS("Population (size = 10)", data,
-                        new MarkerStyle(3.0f, new color.gradient.Color(cp.getColor(0)), 5.0f, Marker.CIRCLE)));
+                        new MarkerStyle(4.0f, new color.gradient.Color(cp.getColor(0)), 5.0f, Marker.CIRCLE)));
             }
 
             ArrayList<IDataSet> swapped = new ArrayList<>(4);

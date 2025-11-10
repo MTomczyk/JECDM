@@ -1,7 +1,7 @@
 package component.axis;
 
 import scheme.enums.Align;
-import utils.Font;
+import utils.FontProcessor;
 import utils.Projection;
 import utils.Size;
 
@@ -23,7 +23,7 @@ public class Tick
     /**
      * Tick label font.
      */
-    public Font _labelFont;
+    public FontProcessor _labelFont;
 
     /**
      * Tick color;
@@ -76,7 +76,7 @@ public class Tick
      * @param size        tick size
      * @param labelOffset offset: distance between the label and the end of the tick
      */
-    public void setAll(int tickNo, Font labelFont, Color axColor, Stroke lineStroke, Size lineWidth, Size size, Size labelOffset)
+    public void setAll(int tickNo, FontProcessor labelFont, Color axColor, Stroke lineStroke, Size lineWidth, Size size, Size labelOffset)
     {
         _tickNo = tickNo;
         _labelFont = labelFont;
@@ -129,8 +129,10 @@ public class Tick
 
         float xb = DV._s[0] + DV._tp[_tickNo][0];
         float yb = DV._s[1] + DV._tp[_tickNo][1];
-        Rectangle2D dRef = Font.getReferenceTextCorrectDimensions((Graphics2D) g);
-        Rectangle2D d = Font.getCorrectDimensions((Graphics2D) g, _label);
+
+        _labelFont.prepareTextDependentState(_label, _labelFont._size._actualSize, ((Graphics2D) g).getFontRenderContext());
+        Rectangle2D dRef = _labelFont.getCurrentReferenceTextBounds();
+        Rectangle2D d = _labelFont.getCurrentParsedTextBounds();
 
         float tlx = xb + DV._dtl[_tickNo][0] - (float) d.getWidth() - (float) d.getMinX();
         float tly = yb + DV._dtl[_tickNo][1] + (float) dRef.getHeight() / 2.0f;
@@ -139,19 +141,18 @@ public class Tick
         {
             tlx = xb + DV._dtl[_tickNo][0] - (float) d.getWidth() / 2.0f - (float) d.getMinX() / 2.0f;
             tly = yb + DV._dtl[_tickNo][1] + (float) dRef.getHeight();
-        }
-        else if (align == Align.RIGHT)
+        } else if (align == Align.RIGHT)
         {
             tlx = xb + DV._dtl[_tickNo][0];
             tly = yb + DV._dtl[_tickNo][1] + (float) dRef.getHeight() / 2.0f;
-        }
-        else if (align == Align.TOP)
+        } else if (align == Align.TOP)
         {
             tlx = xb + DV._dtl[_tickNo][0] - (float) d.getWidth() / 2.0f - (float) d.getMinX() / 2.0f;
             tly = yb + DV._dtl[_tickNo][1];
         }
 
-        g.drawString(_label, Projection.getP(tlx), Projection.getP(tly));
+        g.drawString(_labelFont.getCurrentAttributedString().getIterator(),
+                Projection.getP(tlx), Projection.getP(tly));
     }
 
     /**

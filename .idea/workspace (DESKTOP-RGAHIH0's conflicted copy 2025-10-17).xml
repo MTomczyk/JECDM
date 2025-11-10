@@ -1,0 +1,2034 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="8" />
+    <option name="CUSTOM_SCOPE_NAME" value="Public" />
+  </component>
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="JECDM" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6f54398c-124c-41bf-9620-f9427edafcfa" name="Changes" comment="This update introduces three new tutorials: 14, 15, 16, and several minor updates; see Changelog.txt.">
+      <change afterPath="$PROJECT_DIR$/Visualization/src/plot/PlotUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Changelog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Changelog.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/src/y2025/ERS/e1_auxiliary/GenerateConceptPlots.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/src/y2025/ERS/e1_auxiliary/GenerateConceptPlots.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/src/y2025/ERS/e1_auxiliary/concept_plot0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/src/y2025/ERS/e1_auxiliary/concept_plot0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/src/y2025/ERS/e1_auxiliary/concept_plot1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/src/y2025/ERS/e1_auxiliary/concept_plot1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projects/src/y2025/ERS/e1_auxiliary/concept_plot2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Projects/src/y2025/ERS/e1_auxiliary/concept_plot2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Visualization/src/plot/AbstractFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Visualization/src/plot/AbstractFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Visualization/src/plot/Heatmap2DFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Visualization/src/plot/Heatmap2DFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Visualization/src/plot/Heatmap3DFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Visualization/src/plot/Heatmap3DFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Visualization/src/plot/PCP2DFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Visualization/src/plot/PCP2DFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Visualization/src/plot/Plot2DFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Visualization/src/plot/Plot2DFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Visualization/src/plot/Plot3DFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Visualization/src/plot/Plot3DFactory.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="MTomczyk &lt;michal.tomczyk@cs.put.poznan.pl&gt;" />
+      </list>
+    </option>
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="SOFT" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MTomczyk&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="7455f29d-6fe9-4fe6-8811-1470cb0bc992" />
+        <option name="url" value="https://github.com/MTomczyk/JECDM.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="LLMProjectSettings">
+    <option name="turned_on" value="false" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="NamedScopeManager">
+    <scope name="Public" pattern="src:*..*&amp;&amp;!src[Private]:*..*&amp;&amp;!src[Tutorials]:*..*" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2qURsnGydyM3Fy8j0cQ36mWFCoz" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;Application.AVFEvolutionaryProviderTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AVFRandomProviderTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AVFVisualizerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AVFVisualizerTest1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AVFVisualizerTest2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AbstractRandomNumberGeneratorTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AnimationERS.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AnimationFRS.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CPsTranslationMutation2Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CPsTranslationMutation3Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CPsTranslationMutation4Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CPsTranslationMutation5Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CPsTranslationMutation6Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CPsTranslationMutation7Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CPsTranslationMutation8Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CPsTranslationMutation9Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CollapsablePanelsContainer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CollapsingBorderPanel.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CollapsingPanelsContainer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ContainersGetter.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CreateConvergencePlots.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CrossSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DTLZ2_2D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DTLZ2_2D_Cumulative.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DTLZ2_2D_Cumulative_DisplayAtTheEnd.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DTLZ2_3D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DTLZ2_3D_Cumulative.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DTLZ3_3D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DTLZ3_3D_Cumulative.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DisplayHeatmap.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DoSummary.executor&quot;: &quot;Run&quot;,
+    &quot;Application.EASimulatorAppMOEADTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.EASimulatorAppNSGAIIITest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.EASimulatorAppNSGAIITest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.EASimulatorAppNSGATest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.EASimulatorAppTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.EASimulatorTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ERSEvolutionary3DTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ERSRandom2DTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ERSRandom3DTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Example.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ExampleAVF1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ExampleModelsERS.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ExecuteCrossSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ExecuteExperiment.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ExecuteScenarioSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Experiment.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ExperimentPerformer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ExternalLoader.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Figure2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Figure3.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Figure4.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GammaUtilityMutation2Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateConceptPlots.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateIEMODPopulations.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GeneratePCs.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GeneratePCsData.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTable.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_appendix_1_TIME.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_appendix_2_ITER.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_appendix_3_SR.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_appendix_4_NCM.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_appendix_5_MIN_CN.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_appendix_5_STD_CN.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_paper.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_paper_1_TIME.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_paper_2_ITER.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_paper_3_SR.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_paper_4_NCM.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_paper_5_MIN_CN.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_paper_6_STD_CN.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_paper_ITER.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_paper_MIN_CN.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_paper_NCM.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_paper_SR.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_paper_STD_CN.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e3_paper_TIME.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e4_appendix_1_HV.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e4_appendix_2_GD.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e4_appendix_3_BS.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e4_appendix_4_AS.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GenerateTables_e4_paper_1_HV.executor&quot;: &quot;Run&quot;,
+    &quot;Application.IVEMOHM_MOEAD_no_times.executor&quot;: &quot;Run&quot;,
+    &quot;Application.IVEMOHM_NSGAIII.executor&quot;: &quot;Run&quot;,
+    &quot;Application.IVEMOHM_NSGAIII_min_gen.executor&quot;: &quot;Run&quot;,
+    &quot;Application.IVEMOHM_NSGAIII_min_gen_fixed_normalizations.executor&quot;: &quot;Run&quot;,
+    &quot;Application.IVEMOHM_NSGAIII_no_times.executor&quot;: &quot;Run&quot;,
+    &quot;Application.IVEMOHM_NSGAII_min_gen.executor&quot;: &quot;Run&quot;,
+    &quot;Application.IVEMOHM_NSGAII_no_times.executor&quot;: &quot;Run&quot;,
+    &quot;Application.IllustrateConvergence.executor&quot;: &quot;Run&quot;,
+    &quot;Application.IllustrateModels.executor&quot;: &quot;Run&quot;,
+    &quot;Application.IllustratePopulations.executor&quot;: &quot;Run&quot;,
+    &quot;Application.IllustratePopulationsDTLZ2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.IterationsLimitAnalyzer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.L1EmptyPlot.executor&quot;: &quot;Run&quot;,
+    &quot;Application.L2FitnessLandscapePlot.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MersenneTwister64Test2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Mixed.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ModelsQueueVisualizationRandom3DTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NSGA.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NSGAII.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NSGAIII.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NSGAIIIZoom.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NSGAIII_generations.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NSGAIII_gradient.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NSGAIII_gradient_generations.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NSGAII_JMETAL.executor&quot;: &quot;Run&quot;,
+    &quot;Application.OffspringDistribution.executor&quot;: &quot;Run&quot;,
+    &quot;Application.OnSimplexCombinationTest2D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.OnSimplexCombinationTest3D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.OnSimplexSimplexMutationTest2D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.OnSimplexSimplexMutationTest3D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PCsDataGeneratorAndLoader2Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PCsPLot2D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PCsPLot3D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PCsPlot2D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PCsPlot3D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PM.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PYMOO.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Plot1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Plot2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Plot3.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PolyrunTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PopulationSize.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PushPullParent2Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.QuickStart1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.QuickStart2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.QuickStart3.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ReferencePointsFactory.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RegressionPerformer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ReproductionDistribution.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RunSimulation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Runner.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SBX.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SBX2DTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SBXTOTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SBXTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Simulation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Simulator.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SimulatorDTLZ2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SimulatorKnapsack.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SimulatorMOEAD.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SpanMutation1Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SpanMutation2Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SpanRescalingMutation2Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SpanRescalingMutation3Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SphereUniformityTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.StandardCrossover1Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.StandardCrossover2Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.StandardCrossoverTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.StandardMutation1Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.StandardMutation2Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.StandardMutationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Status.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TEST.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test10_DS_Swap.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test10_DataSets5_RightClick.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test10_Disable_DSs.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test10_Markers.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test11_Animator.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test11_SingleDataPoint.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test11_SingleDataPoints.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test11_Spiral.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test11_Styles.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test12_DataSwap.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test12_DifferentNormalizations.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test12_Massive_MeasureIDSTimes.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test13_Animation_Fixed.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test13_Massive_MeasureIDSTimes.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test13_NonLinearData.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test14_Alpha.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test14_Animation_Dynamic_Save.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test14_Masking.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test15_Alpha.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test15_AlreadySorted.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test15_SpiralLegend.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test16_Colorbar.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test16_RightClickPopUp.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test16_SpiralLegend_Colorbar.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test17_Legend.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test17_SpaceNormalizationTicksGetter.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test17_WithData.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test18_MarkerStyles.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test18_RatioDisplay.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test18_SpaceNormalizationTicksGetter.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test19_ManySpheres.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test19_SpaceNormalizationTicksGetter.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test19_SuperBig.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test1_6_plots_white.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test1_WrongPainter.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test20_DisableDSs.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test20_ExtremePoints.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test21_SpiralLegend_PolyQuadLine.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test22_BlackScheme.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test22_PolyQuadLine.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test23_ClipTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test23_PolyQuadLine_Random.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test24_AnimatedChanges.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test24_SpiralLegend_PolyOctoLine.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test25_AnimatedChanges_Lines.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test25_PolyOctoLine.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test26_OnDemand.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test26_PolyOctoLine_Random.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test27_AnimatedChanges_SwingWorkerOverflow.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test27_ProjectionBounds.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test28_DisplayRangesSwapped.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test28_ProjectionBounds.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test29_BrokenLine.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test29_DataSets5_TransparentBackground.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test2_6_plots_black.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test2_CorrectPainter.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test2_Panes_Axes.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test3.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test30_Arrows.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test30_TwoPointTestGradientLine.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test31_Arrows.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test31_Legend_Surpassed_sizes.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test32_LegendWithArrows1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test32_MarkerStyles.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test33_Arrows.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test33_MarkerStyles_Gradient.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test34_Disable_DSs.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test34_SelectiveUpdate1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test35_DataUpdater_OnePlot.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test35_LineWidths.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test36_DataUpdater_TwoPlots.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test37_DataUpdater_TwoPlots_Cumulative.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test38_DataUpdater_TwoSources_ThreePlots.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test39_Gradients.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test3_ConvergencePlot_BlackScheme.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test3_Massive.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test3_NonLinearBoxes.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test3_Panes_Axes.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test3_PlotSwap.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test3_PlotSwap_WithDispose.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test40_SpaceNormalizationTicksGetter.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test41_SpaceNormalizationTicksGetter.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test42_SpaceNormalizationTicksGetter.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test43_Arrows.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test44_Arrows.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test44_LegendWithArrows1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test45_LegendWithArrows1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test46_Arrows.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test46_SelectiveUpdate1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test47_SelectiveUpdate1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test48_TwoPlotsWithSplit.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test4_ConvergencePlot_ExtremeCases.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test4_DataBigger.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test4_MassiveAlpha.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test4_Panes_Axes.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test5_1DIM.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Test5_AnimatedChanges.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test5_BlackScheme.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test5_DataBigger_Animated.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test6_BrokenLine.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test6_Colorbar.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test6_DataSets1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test7_Colorbar_NoMiddleTicks.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test7_DataSets2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test7_Disable_DSs.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test8.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test8_BlackScheme.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test8_DataSets3_SwappedDisplayRanges.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test9.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test9_AnimatedChanges.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test9_DataSets4.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test9_Edges.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial10.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial11.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial12.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial13.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial14a.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial14b.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial14c.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial14d.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial1Adjustments.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial1Alternative.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial1a.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial1aDouble.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial1a_nemo0.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial1b.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial1bAlternative.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial1bInt.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial1b_nemo0.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial1cBoolean.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial1d.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial1dChromosome.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial2a.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial2aAdjustments.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial2aDouble.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial2b.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial2bInt.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial2c.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial2cBoolean.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial2d.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial2dChromosome.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial3.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial3dtlz2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial3dtlz2Adjustments.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial3dtlz2Alternative.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial3wfg1Adjustments.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial4.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial4a.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial4b.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial4c.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial4d.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial5.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial5a.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial5b.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial6.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial7.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial7Adjustments.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial7Alternative.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial8.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Tutorial9.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UFVisualizerTest1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UFVisualizerTest2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UFVisualizerTest3.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UFVisualizerTest4.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UseCase1_SimpleConvex.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UseCases.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UtilityRescalingMutation2Test.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ValueFunctionTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizationTest_AvgAvgGeneration.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizationTest_NoTimesReached.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizeCPsTranslationMutation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizeCrossover.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizeExampleAVF.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizeInitialization.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizeInteractions.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizeInteractionsPolyrun.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizePCs.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizePerformanceRescalingMutation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizeReproduction.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizeSpanRescallingMutation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizeUtilityRescalingMutation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizeUtilityRescallingMutation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizeWeights.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizeWeights3D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VisualizeWeights4D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.WFG1_3D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.WFG3_2D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo1_knapsack_single.SimulatorKnapsack.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo2_knapsack_multi.Simulator.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo2_knapsack_multi.SimulatorKnapsack.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo3_only_nds.Simulator.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo3_only_nds.SimulatorKnapsack.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo4_nsga.Simulator.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo4_nsga.SimulatorDTLZ2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo4_nsga.SimulatorKnapsack.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo5_nsgaii.SimulatorDTLZ2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo5_nsgaii.SimulatorKnapsack.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo6_moead.SimulatorDTLZ2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo6_moead.SimulatorKnapsack.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo7_nsgaiii.SimulatorDTLZ2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo7_nsgaiii.SimulatorKnapsack.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture2.demo_nsgaii.SimulatorDTLZ2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp1.NSGA.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp1.NSGAII.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp1.NSGAIII.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp10.NSGAIII.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp12.Experiment.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp13.CrossSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp13.ExperimentPerformer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp3.NSGAIII.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp4.NSGAIII.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp5.NSGAIII.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp7.NSGAIII.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp8.NSGAII.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp8.NSGAIII.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp8.NSGAIII_generations.executor&quot;: &quot;Run&quot;,
+    &quot;Application.didactics.moo.lecture3.experiments.exp9.NSGAIII.executor&quot;: &quot;Run&quot;,
+    &quot;Application.emo.aposteriori.moead.dtlz.dtlz2.a2D.DTLZ2_2D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.emo.aposteriori.moead.dtlz.dtlz2.a3D.DTLZ2_3D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.emo.aposteriori.nsgaii.dtlz.dtlz2.a2D.DTLZ2_2D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.emo.aposteriori.nsgaiii.dtlz.dtlz2.a2D.DTLZ2_2D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.emo.interactive.iemod.dtlz.dtlz2.a2D.DTLZ2_2D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.emo.interactive.ktscone.cdemo.dtlz.dtlz2.a3D.DTLZ2_3D_Cumulative.executor&quot;: &quot;Run&quot;,
+    &quot;Application.emo.interactive.nemo.nemoii.dtlz.dtlz2.a2D.DTLZ2_2D.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS.e3_samplers.ExecuteCrossSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS_AVF.e2_calibration.e1_weights.ExecuteCrossSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS_AVF.e2_calibration.e1_weights.ExecuteExperiment.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS_AVF.e2_calibration.e2_push_pull.ExecuteCrossSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS_AVF.e2_calibration.e2_push_pull.ExecuteExperiment.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS_AVF.e2_calibration.e3_cps_translation.ExecuteCrossSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS_AVF.e2_calibration.e3_cps_translation.ExecuteExperiment.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS_AVF.e2_calibration.e4_span_rescaling_mutation.ExecuteCrossSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS_AVF.e2_calibration.e5_utility_rescaling_mutation.ExecuteCrossSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS_AVF.e2_calibration.e5_utility_rescaling_mutation.ExecuteExperiment.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS_AVF.e3_iterative_mode.ExecuteCrossSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS_AVF.e3_iterative_mode.ExecuteExperiment.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS_AVF.e4_comparative.ExecuteCrossSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.ERS_AVF.e4_comparative.ExecuteExperiment.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.SoftwareX_JECDM.e1_time_experiment.ExecuteExperiment.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.gecco2025.e1_samplers.Experiment.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.gecco2025.e2_samplers.ExecuteCrossSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.gecco2025.e2_samplers.ExecuteScenarioSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.gecco2025.illustrate_convergence.IllustrateConvergence.executor&quot;: &quot;Run&quot;,
+    &quot;Application.projects.y2025.gecco2025.tmp.GenerateTables.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t11_20.t11_evolutionary_rejection_sampling.Tutorial1a.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t11_20.t13_using_builders.Tutorial2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t11_20.t14_reproduction_strategy.Tutorial2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t11_20.t15_customizing_normalization.Tutorial1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t11_20.t15_reproduction_strategy.Tutorial1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t1_visualization_module.t1_plot2d.t1.Tutorial1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t1_visualization_module.t3_convergence_plot_2d.t2.Tutorial2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t1_visualization_module.t4_parallel_coordinate_plot_2d.t1.Tutorial1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t1_visualization_module.t4_parallel_coordinate_plot_2d.t2.Tutorial2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t1_visualization_module.t5_heatmap_2d.t2.Tutorial2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t1_visualization_module.t5_heatmap_2d.t3.Tutorial3.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t1_visualization_module.t5_heatmap_2d.t4.Tutorial4.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t1_visualization_module.t6_heatmap_3d.t1.Tutorial1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t1_visualization_module.t6_heatmap_3d.t6.Tutorial6.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t1_visualization_module.t8_data_updater.t1.Tutorial1.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t4_decision_support_module.t5_hybrid_algorithms.t1_iemod.Tutorial1a.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t5_experimentation_module.t4_interactive_emo_experiment.Tutorial4a.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t7_drawing_arrows.t1_changing_interpretation.Tutorial1a.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t7_drawing_arrows.t2_using_arrows.Tutorial1a.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t8_experimentation_tools_and_screenshots.t2_convergence_plot_from_excel.Tutorial2a.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t8_experimentation_tools_and_screenshots.t2_convergence_plot_from_excel.Tutorial2b.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t9_facilitating_usage.t1_plots.t3_pcp2d.Tutorial2a.executor&quot;: &quot;Run&quot;,
+    &quot;Application.t1_10.t9_facilitating_usage.t1_plots.t3_pcp2d.Tutorial2b.executor&quot;: &quot;Run&quot;,
+    &quot;Application.y2025.ERS.e2_ers_calibration.ExecuteExperiment.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.AVFGeneratorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFGeneratorTest.generateModel.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFGeneratorTest.generateModel1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFGeneratorTest.generateModel2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFPolyrunConstructorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFPolyrunConstructorTest.getConstraints.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFPolyrunConstructorTest.getConstraints1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFPolyrunConstructorTest.getConstraints2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFPolyrunConstructorTest.getConstraints3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFPolyrunConstructorTest.mainConstructModels5.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFPolyrunConstructorTest.mainConstructModels6.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFPolyrunConstructorTest.parseModel.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFTest.evaluate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFTest.validate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AVFVisualizationUtilsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbsorbTest.checkAndCorrect1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbsorbTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractEATest.areTimestampsConsistent.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractEATest.areTimestampsConsistent2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractEATest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractPhasesEATest.establishPhases.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractRandomNumberGeneratorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractRandomNumberGeneratorTest.getIntWithProbability.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractRandomNumberGeneratorTest.list.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractRandomNumberGeneratorTest.seedTest1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractRandomNumberGeneratorTest.seedTest2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractRandomNumberGeneratorTest.simpleCorrelationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractRandomNumberGeneratorTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractRandomNumberGeneratorTest.testParallelization.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractRandomNumberGeneratorTest.testPerformance.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractRandomNumberGeneratorTest.testValidations.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AddCharacteristicPointTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AddCharacteristicPointTest.transform.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in DecisionSupport (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in DecisionSupport (2).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in DecisionSupport (3).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in DecisionSupport (4).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in DecisionSupport.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in EvolutionaryComputation (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in EvolutionaryComputation (2).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in EvolutionaryComputation (3).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in EvolutionaryComputation (4).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Experimentation (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Experimentation (2).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Experimentation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in JECDM.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Private (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Private (2).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Private (3).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Utils (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Utils (2).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Utils.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Visualization (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Visualization (2).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Visualization.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AlternativeTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AlternativeTest.testFactory.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AlternativesTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AreaBetweenApproximateTest.calculateSimilarity1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AreaBetweenApproximateTest.calculateSimilarity2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AreaBetweenApproximateTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AreaBetweenTest.calculateSimilarity.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AreaBetweenTest.calculateSimilarity1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AreaBetweenTest.calculateSimilarity2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AreaBetweenTest.calculateSimilarity3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AreaBetweenTest.calculateSimilarity4.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AreaBetweenTest.calculateSimilarity5.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AreaBetweenTest.calculateSimilarity6.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AreaBetweenTest.calculateSimilarity8.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AreaBetweenTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ArrayUtilsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ArrayUtilsTest.getArray.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ArrayUtilsTest.getArrayFloat.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ArrayUtilsTest.getArrayGenericsInt.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoolReproduceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoolReproduceTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoolReproduceTest.test2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoolReproduceTest.test3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoolReproduceTest.test4.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ByAuxTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CDEMOBuilderTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CDEMOBuilderTest.testValidate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CDEMOTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CPsTranslationMutation1Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CPsTranslationMutation2Test.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CPsTranslationMutation7Test.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ChromosomeReproduceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ChromosomeReproduceTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ChromosomeReproduceTest.test2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ChromosomeReproduceTest.test3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ClosestModelsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ConstraintsUtilsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ConstraintsUtilsTest.fillPairwiseComparisonConstraint.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ConstraintsUtilsTest.processAttributePC.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CosTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CriteriaTest.constructCriteria.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CriteriaTest.constructCriterion.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CriteriaTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DCEMOBuilderTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DCEMOTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DasDennisTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DasDennisTest.testNoProblems.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DataPointsProcessorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DataPointsProcessorTest.getProcessedData.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DataProcessorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DecisionMakerSystemTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DecisionMakerSystemTest.test2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DefaultDRMParamsInitializerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DefaultDRMParamsInitializerTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DefaultDRMParamsInitializerTest.testDTLZ2M3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DefaultRunnerInitializerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DefaultRunnerInitializerTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DominanceUtilsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DoubleReproduceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.EADummyPopulationsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.EADummyPopulationsTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.EATimestampTest.getClone.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ESRTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.EuclideanTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.EvolutionaryModelConstructorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.EvolutionaryModelConstructorTest.getModel1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ExperimentPerformerComplex2Test.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ExperimentPerformerComplex3Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ExperimentPerformerComplex3Test.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ExperimentPerformerComplex9Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FNDSortingTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FRSTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FromStreamsInitializerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FromStreamsInitializerTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FromStreamsInitializerTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FromStreamsInitializerTest.test2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FrontTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GDConcaveSphericalTest.evaluate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GDConcaveSphericalTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GammaUtilityMutation1Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GammaUtilityMutationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GenerationsLimitsTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GenerationsLimitsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GenerationsLimitsTest.getLimit.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GlobalDataContainerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GlobalDataContainerTest.test13.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GoalsManagerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GoalsManagerTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IEMODBuilderTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IEMODTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IEMODTest.testOSManager.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IEMODTest.testPerformedEvaluations.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IEMODTest.testValidate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.INormalizationTest.getClone.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IncrementalEvaluatorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IncrementalEvaluatorTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IncrementalEvaluatorTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IncrementalEvaluatorTest.test2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IncrementalEvaluatorTest.test3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IntReproduceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IntReproduceTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LNormTest.calculateAlpha1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LNormTest.calculateAlpha2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LNormTest.calculateAlphaInfty.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LNormTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LearnBestAlternativeTest.execute.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LearnBestAlternativeTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MOEADBuilderTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MOEADGoalsManagerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MOEADTest.adjustOptimizationGoals.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MOEADTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MOEADTest.testOSManager.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MOEADTest.testPerformedEvaluations.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MOEADTest.testValidate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MathUtilsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MathUtilsTest.getSum.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MathUtilsTest.getSum1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MathUtilsTest.getSum2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MathUtilsTest.getSum3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MaxIgnoreNegativesTest.calculate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MaxIgnoreNegativesTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MeanIgnoreNegativesTest.calculate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MeanInRangeTest.calculate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MeanInRangeTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MersenneTwister64Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MersenneTwister64Test.seedTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MersenneTwister64Test.testCorrelation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MinIgnoreNegativesTest.calculate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MinIgnoreNegativesTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MinInRangeTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ModelSystem1ERSTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ModelSystemFRS3Test.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ModelsQueue1Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ModelsQueue1Test.initializeWithBatch6.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ModelsQueue2Test.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NEMO0BuilderTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NEMO0Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NEMO0Test.testPerformedEvaluations.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NEMOIIBuilderTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NEMOIIBuilderTest.testValidate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NEMOIITest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NEMOIITest.testPerformedEvaluations.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NSGAIIIGoalsManagerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NSGAIIITest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NSGAIIITest.testPerformedEvaluations.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NSGAIIITest.testValidate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NSGAIITest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NSGAIITest.testPerformedEvaluations.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NSGATest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NSGATest.testOSManagerFixed.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NSGATest.testPerformedEvaluations.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NSGATest.testValidate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NoTimesInRangeTest.calculate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.NoTimesNonNegativeTest.calculate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceManagerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceManagerTest.test11.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceManagerTest.test12.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceManagerTest.test15.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceManagerTest.test17.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceManagerTest.test18.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceManagerTest.test19.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceManagerTest.test20.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceManagerTest.test21.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceManagerTest.test22.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceManagerTest.test23.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceManagerTest.test24.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ObjectiveSpaceTest.getOSMaximallySpanned.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OffsetsTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.OnSimplexCombinationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PCsDataGeneratorAndLoader1Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PCsDataGeneratorAndLoader1Test.test3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PCsDataGeneratorAndLoaderTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PCsDataGeneratorAndLoaderTest.test2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PCsDataGeneratorTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PCsDataGeneratorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PCsDataGeneratorTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PCsDataGeneratorTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PCsDataGeneratorTest.test2 (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PCsDataGeneratorTest.test2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.POTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.POTest.isHolding.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.POTest.isHolding1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Painter2DArrowsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PerformanceRescalingMutation1Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PushPullParent1Test.crossover.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PushPullParent1Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PushPullParent1Test.transform.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PushPullParentTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PushPullParentTest.transform.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QueueingSystemTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RandomIntegerModifierTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RandomIntegerModifierTest.mutate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RandomTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RandomTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ReferencePointsOnParetoTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ReflectTest.checkAndCorrect1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ReflectTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ReproductionStrategyTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ReproductionStrategyTest.isOffspringThresholdingEnabled.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ReproductionStrategyTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ReproductionUtilsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ReproductionUtilsTest.mutateAttempt.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RunAllTest.Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RunAllTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SBXTOTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SBXTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ScreenshotTest.clipToFit.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ScreenshotTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ScreenshotTest.getColorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SingleMonotonicityBreakTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SingleMonotonicityBreakTest.transform.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SingleMonotonicityBreakTest.transform1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SingleMonotonicityBreakTest.transform2cps.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SingleMonotonicityBreakTest.transform3cps.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SingleMonotonicityBreakTest.transform3cpsTT.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SingleMonotonicityBreakTest.transform4cps.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SingleMonotonicityBreakTest.transformTimes.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SinglePointCrossoverTOTest.crossover1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SinglePointCrossoverTOTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SlopeDifferenceApproximateTest.calculateSimilarity.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SlopeDifferenceApproximateTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SpanMutation1Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SpanMutation1Test.mutate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SpanRescalingMutation1Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SpanRescalingMutation1Test.mutate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SpecimensSourceTest.createData.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SpecimensSourceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardCrossover1Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardCrossover1Test.getOffspringVF1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardCrossover1Test.getOffspringVF2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardCrossover1Test.getOffspringVF3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardCrossover1Test.getOffspringVF4.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardCrossoverTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardCrossoverTest.getOffspringVF.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardCrossoverTest.getOffspringVF2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardCrossoverTest.getOffspringVF3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardCrossoverTest.getOffspringVF4.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardDeviationIgnoreNegativesTest.calculate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardDeviationIgnoreNegativesTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardDeviationInRangeTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardMutation1Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardRepairerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardRepairerTest.repair.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardRepairerTest.repair1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardRepairerTest.repair2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StandardRescalingRepairerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SwingWorkerQueueTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SwingWorkerQueueTest.test2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SwingWorkerQueueTest.test5.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SwingWorkerQueueTest.test6.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SwingWorkerQueueTest.test7.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TestRNGSeeds.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TournamentTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TournamentTest.test2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TournamentTest.test3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UtilityRescalingMutation1Test.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UtilityRescalingMutationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UtilsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UtilsTest.getIntersection.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UtilsTest.testCalculateBinomialCoefficient.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UtilsTest.testCondition.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VFConstraintsTest.areFixedEvaluationsValid.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VFConstraintsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.evaluate.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.evaluate1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.evaluate2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.isDecreasingOnLeftFrom.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.isDecreasingOnRightFrom.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.validateEvaluationTime.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.validateTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.validateTest1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.validateTest2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.validateTest3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.validateTest4.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.validateTest5.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.validateTest6.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.validateTest7.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValueFunctionTest.validateTest9.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VectorTest.areVectorsEqualTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VectorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VectorTest.getMultiplicationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VectorTest.getOrientation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VectorTest.getOrientation2DDouble.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VectorTest.getOrientation3DDouble.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VectorTest.getPerpendicularVector2DDouble.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VectorTest.multiplyTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.WeightsGeneratorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.WeightsGeneratorTest.getNormalizedWeightVector1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.WeightsGeneratorTest.getNormalizedWeightVector3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.WeightsGeneratorTest.getNormalizedWeightVector4.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.WrapTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.development in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.development.decisionsupport in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.development.decisionsupport.model.constructor.value.polyrun in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.development.decisionsupport.model.internals.value.avf in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.development.decisionsupport.model.similarity.avf in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.development.ers in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.development.evolutionarycomputation in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.development.evolutionarycomputation.decisionsupport.operators.avf in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.development.evolutionarycomputation.tools.ivemo.simulator.app in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.development.evolutionarycomputation.tools.ivemo.simulator.widgets.runner in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.development.experimentation in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.development.experimentation.tools.feedbackgenerators in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.didactics.moo.lecture3.experiments.exp4 in Private.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ea in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ea.dummy.populations in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.emo in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.emo.aposteriori in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.emo.aposteriori.moead in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.emo.aposteriori.nsga in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.emo.aposteriori.nsgaii in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.emo.aposteriori.nsgaiii in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.emo.interactive in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.emo.interactive.iemod in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.emo.interactive.ktscone in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.emo.interactive.ktscone.cdemo in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.emo.interactive.nemo in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.emo.utils.decomposition in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.io in Utils.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.os in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.reproduction in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.reproduction.operators.crossover in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.reproduction.valuecheck in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.selection in EvolutionaryComputation.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.statistics in Utils.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.system.model in DecisionSupport.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.visualization in Visualization.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.visualization.convergence2D in Visualization.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.visualization.heatmap2D in Visualization.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.visualization.heatmap3D in Visualization.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.visualization.mixed in Visualization.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.visualization.parallelcoordinate2D in Visualization.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.visualization.plot3D in Visualization.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Dropbox/Praca/Framework/JECDM/JECDM/EvolutionaryComputation/tests/emo/interactive/ktscone/dcemo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.22318454&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Dropbox\Praca\Framework\JECDM\JECDM\EvolutionaryComputation\tests\emo\interactive\ktscone\dcemo" />
+      <recent name="D:\Dropbox\Praca\Framework\JECDM\JECDM\Private\src\projects\y2025\SoftwareX_JECDM\e1_time_experiment" />
+      <recent name="D:\Dropbox\Praca\Framework\JECDM\JECDM\EvolutionaryComputation\src\emo\interactive\utils\dmcontext" />
+      <recent name="D:\Dropbox\Praca\Framework\JECDM\JECDM\Private\src\projects\y2025\ERS_AVF\e1_auxiliary" />
+      <recent name="$PROJECT_DIR$/libs/polyrun" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="utils.Utils" />
+      <recent name="dataset.painter.glutils.PolyLineOcto" />
+      <recent name="dataset.painter.glutils.PolyLineQuad" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Dropbox\Praca\Framework\JECDM\JECDM\Projects\src\y2025\SoftwareX_JECDM" />
+      <recent name="D:\Dropbox\Praca\Framework\JECDM\JECDM\Projects\src\y2025\" />
+      <recent name="D:\Dropbox\Praca\Framework\JECDM\JECDM\Private\src\projects\y2025\SoftwareX_JECDM" />
+      <recent name="D:\Dropbox\Praca\Framework\JECDM\JECDM\Private\src\development\utils" />
+      <recent name="$PROJECT_DIR$/libs/polyrun" />
+    </key>
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="emo.aposteriori.nsga" />
+      <recent name="emo.interactive.iemod" />
+      <recent name="emo.aposteriori.nsgaiii" />
+      <recent name="development.decisionsupport.model.constructor.random" />
+      <recent name="development.evolutionarycomputation.tools.ivemo.simulator.widgets.runner" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="reproduction" />
+      <recent name="emo" />
+      <recent name="emo.interactive" />
+      <recent name="emo.aposteriori" />
+      <recent name="ea" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="reproduction" />
+      <recent name="ea" />
+      <recent name="emo.interactive.ktscone.cdemo" />
+      <recent name="emo.interactive.nemo.nemoii" />
+      <recent name="emo.interactive.nemo.nemo0" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="t11_20.t15_reproduction_strategy" />
+      <recent name="t11_20.t15_customizing_normalization" />
+      <recent name="reproduction" />
+      <recent name="t11_20.t14_reproduction_strategy" />
+      <recent name="t11_20.t13_using_builders" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.All in Visualization (1)">
+    <configuration name="AnimationERS" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="y2025.ERS.e1_auxiliary.AnimationERS" />
+      <module name="Projects" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="y2025.ERS.e1_auxiliary.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GenerateConceptPlots" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="y2025.ERS.e1_auxiliary.GenerateConceptPlots" />
+      <module name="Projects" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="y2025.ERS.e1_auxiliary.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test11_Animator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visualization.plot2D.Test11_Animator" />
+      <module name="Visualization" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="visualization.plot2D.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test6_Colorbar" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visualization.parallelcoordinate2D.Test6_Colorbar" />
+      <module name="Visualization" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="visualization.parallelcoordinate2D.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in Visualization (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Visualization" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.All in Visualization (1)" />
+        <item itemvalue="Application.Test6_Colorbar" />
+        <item itemvalue="Application.Test11_Animator" />
+        <item itemvalue="Application.GenerateConceptPlots" />
+        <item itemvalue="Application.AnimationERS" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Admin\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f54398c-124c-41bf-9620-f9427edafcfa" name="Changes" comment="" />
+      <created>1734715378573</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1734715378573</updated>
+      <workItem from="1734715379677" duration="745000" />
+      <workItem from="1734716134876" duration="1097000" />
+      <workItem from="1734783574793" duration="6887000" />
+      <workItem from="1734790523602" duration="190000" />
+      <workItem from="1734790739481" duration="78000" />
+      <workItem from="1734790826344" duration="31000" />
+      <workItem from="1735812546604" duration="15369000" />
+      <workItem from="1735896688908" duration="827000" />
+      <workItem from="1735897527790" duration="9843000" />
+      <workItem from="1735907724696" duration="14642000" />
+      <workItem from="1736071047466" duration="17090000" />
+      <workItem from="1736151315379" duration="27076000" />
+      <workItem from="1736239173061" duration="264000" />
+      <workItem from="1736246347691" duration="12273000" />
+      <workItem from="1736269117330" duration="2380000" />
+      <workItem from="1736329477552" duration="4871000" />
+      <workItem from="1736335400312" duration="2221000" />
+      <workItem from="1736337640026" duration="18916000" />
+      <workItem from="1736358031506" duration="802000" />
+      <workItem from="1736358932352" duration="1317000" />
+      <workItem from="1736418798256" duration="809000" />
+      <workItem from="1736419794241" duration="118000" />
+      <workItem from="1736427844396" duration="6000" />
+      <workItem from="1736526828372" duration="2611000" />
+      <workItem from="1736756090118" duration="4992000" />
+      <workItem from="1736761204869" duration="26000" />
+      <workItem from="1736763975269" duration="19329000" />
+      <workItem from="1736867119971" duration="11773000" />
+      <workItem from="1736927533995" duration="9525000" />
+      <workItem from="1737034552370" duration="236000" />
+      <workItem from="1737037195229" duration="3388000" />
+      <workItem from="1737044852338" duration="102000" />
+      <workItem from="1737046901508" duration="1458000" />
+      <workItem from="1737099845284" duration="3641000" />
+      <workItem from="1737104410580" duration="10081000" />
+      <workItem from="1737120780296" duration="5252000" />
+      <workItem from="1737368663260" duration="10839000" />
+      <workItem from="1737380491630" duration="2536000" />
+      <workItem from="1737384526782" duration="9944000" />
+      <workItem from="1737449538478" duration="40000" />
+      <workItem from="1737449581508" duration="58000" />
+      <workItem from="1737449742561" duration="997000" />
+      <workItem from="1737456177254" duration="740000" />
+      <workItem from="1737461157251" duration="480000" />
+      <workItem from="1737462206324" duration="901000" />
+      <workItem from="1737466591622" duration="30000" />
+      <workItem from="1737467420790" duration="152000" />
+      <workItem from="1737467089690" duration="34000" />
+      <workItem from="1737467732435" duration="10000" />
+      <workItem from="1737467787660" duration="111000" />
+      <workItem from="1737468011303" duration="147000" />
+      <workItem from="1737470722470" duration="1826000" />
+      <workItem from="1737472964992" duration="1117000" />
+      <workItem from="1737479665527" duration="83000" />
+      <workItem from="1737480034042" duration="65000" />
+      <workItem from="1737540186319" duration="2383000" />
+      <workItem from="1737542749993" duration="267000" />
+      <workItem from="1737543824596" duration="15369000" />
+      <workItem from="1737560042333" duration="308000" />
+      <workItem from="1737560632345" duration="3329000" />
+      <workItem from="1737564154163" duration="1645000" />
+      <workItem from="1737565860163" duration="168000" />
+      <workItem from="1737621600846" duration="2580000" />
+      <workItem from="1737625168115" duration="11436000" />
+      <workItem from="1737639474457" duration="2631000" />
+      <workItem from="1737644075716" duration="10731000" />
+      <workItem from="1737708119857" duration="10250000" />
+      <workItem from="1737719330736" duration="1745000" />
+      <workItem from="1737722409563" duration="12695000" />
+      <workItem from="1737806892504" duration="254000" />
+      <workItem from="1737807153527" duration="21000" />
+      <workItem from="1737807247215" duration="10716000" />
+      <workItem from="1737824301636" duration="2672000" />
+      <workItem from="1737891014532" duration="11000" />
+      <workItem from="1737897775002" duration="1689000" />
+      <workItem from="1737901070764" duration="1772000" />
+      <workItem from="1737963099573" duration="2874000" />
+      <workItem from="1737967610053" duration="1707000" />
+      <workItem from="1737971640931" duration="3784000" />
+      <workItem from="1737981518894" duration="733000" />
+      <workItem from="1737988179527" duration="2831000" />
+      <workItem from="1737999429971" duration="1168000" />
+      <workItem from="1738057838943" duration="550000" />
+      <workItem from="1738064461229" duration="592000" />
+      <workItem from="1738095153998" duration="10000" />
+      <workItem from="1738095176602" duration="87000" />
+      <workItem from="1739187775639" duration="678000" />
+      <workItem from="1739188463891" duration="19000" />
+      <workItem from="1739267739306" duration="69000" />
+      <workItem from="1739278563149" duration="1374000" />
+      <workItem from="1739286003093" duration="4600000" />
+      <workItem from="1739351920526" duration="138000" />
+      <workItem from="1739352200595" duration="138000" />
+      <workItem from="1739358899140" duration="627000" />
+      <workItem from="1739360595260" duration="7462000" />
+      <workItem from="1739438237718" duration="2697000" />
+      <workItem from="1739442520531" duration="1563000" />
+      <workItem from="1739445774700" duration="10583000" />
+      <workItem from="1739791515231" duration="47000" />
+      <workItem from="1739795817170" duration="3861000" />
+      <workItem from="1739801060356" duration="677000" />
+      <workItem from="1739802195128" duration="2080000" />
+      <workItem from="1739805399375" duration="852000" />
+      <workItem from="1739806263307" duration="8703000" />
+      <workItem from="1739815747001" duration="11000" />
+      <workItem from="1739864552197" duration="5762000" />
+      <workItem from="1739881791754" duration="15687000" />
+      <workItem from="1739957276057" duration="2930000" />
+      <workItem from="1739963535659" duration="3481000" />
+      <workItem from="1739969185360" duration="8833000" />
+      <workItem from="1739978744815" duration="4505000" />
+      <workItem from="1739983644232" duration="24000" />
+      <workItem from="1740039847087" duration="19548000" />
+      <workItem from="1740126970941" duration="23148000" />
+      <workItem from="1740393503364" duration="16272000" />
+      <workItem from="1740412105301" duration="7601000" />
+      <workItem from="1740474660921" duration="24821000" />
+      <workItem from="1740569365627" duration="20588000" />
+      <workItem from="1740643980556" duration="18150000" />
+      <workItem from="1740664559224" duration="113000" />
+      <workItem from="1740668681270" duration="2897000" />
+      <workItem from="1740671597060" duration="599000" />
+      <workItem from="1740735330836" duration="131000" />
+      <workItem from="1740753480667" duration="1107000" />
+      <workItem from="1740990089251" duration="1218000" />
+      <workItem from="1740998636922" duration="1642000" />
+      <workItem from="1741000415959" duration="974000" />
+      <workItem from="1741001404055" duration="2585000" />
+      <workItem from="1741008440262" duration="14388000" />
+      <workItem from="1741023365753" duration="14000" />
+      <workItem from="1741025044468" duration="817000" />
+      <workItem from="1741083516195" duration="14933000" />
+      <workItem from="1741167451117" duration="59000" />
+      <workItem from="1741167842476" duration="2364000" />
+      <workItem from="1741176359956" duration="8599000" />
+      <workItem from="1741186019877" duration="9000" />
+      <workItem from="1741186047169" duration="6000" />
+      <workItem from="1741186911517" duration="69000" />
+      <workItem from="1741188564186" duration="590000" />
+      <workItem from="1741189987582" duration="197000" />
+      <workItem from="1741255167965" duration="22277000" />
+      <workItem from="1741341682999" duration="16599000" />
+      <workItem from="1741594462514" duration="205000" />
+      <workItem from="1741594711488" duration="30000" />
+      <workItem from="1741594866979" duration="39000" />
+      <workItem from="1741594950079" duration="138000" />
+      <workItem from="1741595729341" duration="3859000" />
+      <workItem from="1741617581455" duration="3000" />
+      <workItem from="1741619160889" duration="4571000" />
+      <workItem from="1741687605351" duration="23214000" />
+      <workItem from="1741714314482" duration="635000" />
+      <workItem from="1741773026699" duration="3767000" />
+      <workItem from="1741784673580" duration="9489000" />
+      <workItem from="1741797612832" duration="1444000" />
+      <workItem from="1741851387832" duration="27446000" />
+      <workItem from="1741942211782" duration="68000" />
+      <workItem from="1741942419230" duration="12000" />
+      <workItem from="1741942451034" duration="40000" />
+      <workItem from="1741942499912" duration="2000" />
+      <workItem from="1741942519631" duration="32000" />
+      <workItem from="1741942573585" duration="44000" />
+      <workItem from="1741942626996" duration="5000" />
+      <workItem from="1741942635636" duration="19594000" />
+      <workItem from="1741966689401" duration="1883000" />
+      <workItem from="1742200475390" duration="2260000" />
+      <workItem from="1742222991109" duration="968000" />
+      <workItem from="1742283500637" duration="8060000" />
+      <workItem from="1742296093719" duration="12254000" />
+      <workItem from="1742309552481" duration="1151000" />
+      <workItem from="1742310713253" duration="6917000" />
+      <workItem from="1742318532625" duration="2000" />
+      <workItem from="1742372398076" duration="881000" />
+      <workItem from="1742377125145" duration="3747000" />
+      <workItem from="1742400796236" duration="428000" />
+      <workItem from="1742401233551" duration="96000" />
+      <workItem from="1742401341950" duration="570000" />
+      <workItem from="1742459719925" duration="11110000" />
+      <workItem from="1742474590210" duration="10000" />
+      <workItem from="1742547859888" duration="274000" />
+      <workItem from="1742561499258" duration="14000" />
+      <workItem from="1742561519056" duration="6862000" />
+      <workItem from="1742568826593" duration="8000" />
+      <workItem from="1742807227371" duration="1070000" />
+      <workItem from="1742811839739" duration="14000" />
+      <workItem from="1742812138062" duration="231000" />
+      <workItem from="1742911609854" duration="2127000" />
+      <workItem from="1742995685886" duration="3701000" />
+      <workItem from="1743001774207" duration="9000" />
+      <workItem from="1743001885063" duration="6598000" />
+      <workItem from="1743068078506" duration="7522000" />
+      <workItem from="1743079693251" duration="54000" />
+      <workItem from="1743079957703" duration="6447000" />
+      <workItem from="1743149588096" duration="2336000" />
+      <workItem from="1743151952653" duration="10618000" />
+      <workItem from="1743163392459" duration="10311000" />
+      <workItem from="1743415893310" duration="3997000" />
+      <workItem from="1743420071054" duration="707000" />
+      <workItem from="1743493373365" duration="17000" />
+      <workItem from="1743601255756" duration="7000" />
+      <workItem from="1743672578421" duration="1689000" />
+      <workItem from="1743674283729" duration="1142000" />
+      <workItem from="1743675439982" duration="9791000" />
+      <workItem from="1743686148152" duration="249000" />
+      <workItem from="1743755008136" duration="604000" />
+      <workItem from="1743838942399" duration="3000" />
+      <workItem from="1744189010744" duration="18367000" />
+      <workItem from="1744274913751" duration="1915000" />
+      <workItem from="1744277550176" duration="9579000" />
+      <workItem from="1744289369987" duration="3266000" />
+      <workItem from="1744298049391" duration="150000" />
+      <workItem from="1744300415727" duration="63000" />
+      <workItem from="1744300591336" duration="1244000" />
+      <workItem from="1744358574525" duration="8651000" />
+      <workItem from="1744367944870" duration="7160000" />
+      <workItem from="1744625454116" duration="50000" />
+      <workItem from="1744628136628" duration="599000" />
+      <workItem from="1744645757560" duration="858000" />
+      <workItem from="1744708435888" duration="2817000" />
+      <workItem from="1744726033236" duration="50000" />
+      <workItem from="1744729706861" duration="71000" />
+      <workItem from="1744729790211" duration="1097000" />
+      <workItem from="1744793943333" duration="2492000" />
+      <workItem from="1744804785691" duration="8560000" />
+      <workItem from="1744816157106" duration="229000" />
+      <workItem from="1744880800844" duration="111000" />
+      <workItem from="1744881171752" duration="11446000" />
+      <workItem from="1744902247398" duration="31000" />
+      <workItem from="1744964620726" duration="12835000" />
+      <workItem from="1744984639992" duration="1078000" />
+      <workItem from="1745059571390" duration="9000" />
+      <workItem from="1745059585974" duration="35000" />
+      <workItem from="1745314560473" duration="24248000" />
+      <workItem from="1745340491741" duration="30000" />
+      <workItem from="1745396271502" duration="596000" />
+      <workItem from="1745404215617" duration="1163000" />
+      <workItem from="1745405567540" duration="7350000" />
+      <workItem from="1745419446472" duration="661000" />
+      <workItem from="1745482404156" duration="3000" />
+      <workItem from="1745482458404" duration="54000" />
+      <workItem from="1745491237724" duration="314000" />
+      <workItem from="1745501433135" duration="40000" />
+      <workItem from="1745501495389" duration="4899000" />
+      <workItem from="1745506919554" duration="715000" />
+      <workItem from="1745570243733" duration="9264000" />
+      <workItem from="1745582115979" duration="679000" />
+      <workItem from="1745583465491" duration="288000" />
+      <workItem from="1745585861211" duration="3995000" />
+      <workItem from="1745593884419" duration="65000" />
+      <workItem from="1745594010451" duration="86000" />
+      <workItem from="1745822375924" duration="510000" />
+      <workItem from="1745822900753" duration="7000" />
+      <workItem from="1745827375772" duration="868000" />
+      <workItem from="1745828427409" duration="7128000" />
+      <workItem from="1745841882410" duration="1681000" />
+      <workItem from="1745848249920" duration="720000" />
+      <workItem from="1745849543328" duration="100000" />
+      <workItem from="1745849784589" duration="922000" />
+      <workItem from="1745850728043" duration="95000" />
+      <workItem from="1745921695990" duration="6000" />
+      <workItem from="1745921757924" duration="213000" />
+      <workItem from="1745922044611" duration="40000" />
+      <workItem from="1745922698926" duration="621000" />
+      <workItem from="1745924531754" duration="4112000" />
+      <workItem from="1745941313530" duration="469000" />
+      <workItem from="1746008073984" duration="2726000" />
+      <workItem from="1746010943141" duration="41000" />
+      <workItem from="1746011113815" duration="1228000" />
+      <workItem from="1746016632787" duration="53000" />
+      <workItem from="1746087083831" duration="844000" />
+      <workItem from="1746088435840" duration="16161000" />
+      <workItem from="1746172695105" duration="5003000" />
+      <workItem from="1746179045002" duration="18164000" />
+      <workItem from="1746198257823" duration="62000" />
+      <workItem from="1746198483544" duration="52000" />
+      <workItem from="1746440262830" duration="221000" />
+      <workItem from="1746445242446" duration="108000" />
+      <workItem from="1746458478814" duration="378000" />
+      <workItem from="1746458897856" duration="5284000" />
+      <workItem from="1746518378562" duration="29000" />
+      <workItem from="1746519117850" duration="17846000" />
+      <workItem from="1746541077391" duration="86000" />
+      <workItem from="1746541205401" duration="53000" />
+      <workItem from="1746541857395" duration="3300000" />
+      <workItem from="1746873048915" duration="18000" />
+      <workItem from="1746873086728" duration="145000" />
+      <workItem from="1746873239360" duration="91000" />
+      <workItem from="1746873722714" duration="5257000" />
+      <workItem from="1746882337889" duration="6296000" />
+      <workItem from="1746889120156" duration="196000" />
+      <workItem from="1746957907771" duration="6713000" />
+      <workItem from="1746971148917" duration="1097000" />
+      <workItem from="1747044617892" duration="6993000" />
+      <workItem from="1747053010790" duration="15045000" />
+      <workItem from="1747124845913" duration="25968000" />
+      <workItem from="1747152506160" duration="2000" />
+      <workItem from="1747152879431" duration="1406000" />
+      <workItem from="1747211706443" duration="15572000" />
+      <workItem from="1747293730995" duration="47000" />
+      <workItem from="1747293784934" duration="19276000" />
+      <workItem from="1747386683226" duration="1611000" />
+      <workItem from="1747388313571" duration="15424000" />
+      <workItem from="1747747491320" duration="99000" />
+      <workItem from="1747818271325" duration="8000" />
+      <workItem from="1747825890895" duration="12000" />
+      <workItem from="1747826495718" duration="13869000" />
+      <workItem from="1747902560892" duration="19731000" />
+      <workItem from="1747925057488" duration="3571000" />
+      <workItem from="1747988661451" duration="13432000" />
+      <workItem from="1748003904213" duration="8046000" />
+      <workItem from="1748241195060" duration="3803000" />
+      <workItem from="1748245505270" duration="24102000" />
+      <workItem from="1748333886631" duration="23949000" />
+      <workItem from="1748414328195" duration="302000" />
+      <workItem from="1748414636496" duration="164000" />
+      <workItem from="1748414809120" duration="148000" />
+      <workItem from="1748414964354" duration="2741000" />
+      <workItem from="1748419191478" duration="7191000" />
+      <workItem from="1748435103746" duration="7817000" />
+      <workItem from="1748507442069" duration="21041000" />
+      <workItem from="1748529780734" duration="530000" />
+      <workItem from="1748591168148" duration="11272000" />
+      <workItem from="1748852974708" duration="11998000" />
+      <workItem from="1748866288149" duration="737000" />
+      <workItem from="1748867035948" duration="14703000" />
+      <workItem from="1748938328417" duration="3394000" />
+      <workItem from="1748943577805" duration="230000" />
+      <workItem from="1748943907775" duration="14544000" />
+      <workItem from="1749025782952" duration="24115000" />
+      <workItem from="1749050986216" duration="44000" />
+      <workItem from="1749112664111" duration="21304000" />
+      <workItem from="1749135471871" duration="12000" />
+      <workItem from="1749135642533" duration="20000" />
+      <workItem from="1749195020321" duration="1916000" />
+      <workItem from="1749199698275" duration="393000" />
+      <workItem from="1749200100043" duration="15258000" />
+      <workItem from="1749216092440" duration="109000" />
+      <workItem from="1749216207290" duration="102000" />
+      <workItem from="1749451658853" duration="24776000" />
+      <workItem from="1749481133568" duration="396000" />
+      <workItem from="1749549787545" duration="21383000" />
+      <workItem from="1749572029055" duration="23140000" />
+      <workItem from="1749654069688" duration="15464000" />
+      <workItem from="1750057895025" duration="91000" />
+      <workItem from="1750057997650" duration="157000" />
+      <workItem from="1750058189963" duration="11000" />
+      <workItem from="1750058445743" duration="5076000" />
+      <workItem from="1750065744035" duration="20255000" />
+      <workItem from="1750159427885" duration="12157000" />
+      <workItem from="1750171796779" duration="1328000" />
+      <workItem from="1750232910261" duration="71000" />
+      <workItem from="1750233003648" duration="9676000" />
+      <workItem from="1750316889947" duration="17347000" />
+      <workItem from="1750402609351" duration="12718000" />
+      <workItem from="1750602947784" duration="2000" />
+      <workItem from="1750689161892" duration="2806000" />
+      <workItem from="1750753940146" duration="19251000" />
+      <workItem from="1750775269234" duration="82000" />
+      <workItem from="1750775402826" duration="71000" />
+      <workItem from="1750932783565" duration="692000" />
+      <workItem from="1750935891864" duration="6719000" />
+      <workItem from="1750943406464" duration="124000" />
+      <workItem from="1750945645243" duration="3025000" />
+      <workItem from="1751006772035" duration="1909000" />
+      <workItem from="1751011752429" duration="2351000" />
+      <workItem from="1751024104189" duration="8669000" />
+      <workItem from="1751272169864" duration="396000" />
+      <workItem from="1751277311003" duration="8887000" />
+      <workItem from="1751287359419" duration="3000" />
+      <workItem from="1751287473702" duration="1482000" />
+      <workItem from="1751288996662" duration="110000" />
+      <workItem from="1751289196897" duration="4245000" />
+      <workItem from="1751293636519" duration="586000" />
+      <workItem from="1751294322462" duration="308000" />
+      <workItem from="1751294766384" duration="97000" />
+      <workItem from="1751295715944" duration="984000" />
+      <workItem from="1751299217445" duration="5000" />
+      <workItem from="1751358770334" duration="1628000" />
+      <workItem from="1751361383854" duration="21082000" />
+      <workItem from="1751440543515" duration="5900000" />
+      <workItem from="1751446719800" duration="76000" />
+      <workItem from="1751457158892" duration="277000" />
+      <workItem from="1751457443796" duration="136000" />
+      <workItem from="1751457585654" duration="368000" />
+      <workItem from="1751458047421" duration="579000" />
+      <workItem from="1751460100321" duration="66000" />
+      <workItem from="1751460199763" duration="110000" />
+      <workItem from="1751460351468" duration="8889000" />
+      <workItem from="1751530936632" duration="867000" />
+      <workItem from="1751536483430" duration="57000" />
+      <workItem from="1751536910365" duration="211000" />
+      <workItem from="1751539182232" duration="980000" />
+      <workItem from="1751550691579" duration="807000" />
+      <workItem from="1751615616175" duration="5289000" />
+      <workItem from="1752048035315" duration="6155000" />
+      <workItem from="1752152937228" duration="3000" />
+      <workItem from="1752225368365" duration="8505000" />
+      <workItem from="1753357859307" duration="1634000" />
+      <workItem from="1753362583227" duration="5076000" />
+      <workItem from="1753431945431" duration="11000" />
+      <workItem from="1753432236997" duration="11346000" />
+      <workItem from="1753709213218" duration="11000" />
+      <workItem from="1753783162519" duration="55000" />
+      <workItem from="1753783876847" duration="366000" />
+      <workItem from="1753802841509" duration="556000" />
+      <workItem from="1753803473509" duration="1427000" />
+      <workItem from="1753856607853" duration="15386000" />
+      <workItem from="1753956200261" duration="15968000" />
+      <workItem from="1753976436200" duration="467000" />
+      <workItem from="1754033498567" duration="3873000" />
+      <workItem from="1754387534270" duration="745000" />
+      <workItem from="1754468005071" duration="9000" />
+      <workItem from="1754475486863" duration="1000" />
+      <workItem from="1754556841505" duration="597000" />
+      <workItem from="1755677632047" duration="19764000" />
+      <workItem from="1755764661678" duration="1708000" />
+      <workItem from="1755766539144" duration="5171000" />
+      <workItem from="1755773394439" duration="47000" />
+      <workItem from="1755785079448" duration="16000" />
+      <workItem from="1756119066112" duration="11000" />
+      <workItem from="1756119305508" duration="3296000" />
+      <workItem from="1756123542149" duration="60000" />
+      <workItem from="1756127990814" duration="8407000" />
+      <workItem from="1756137250875" duration="1824000" />
+      <workItem from="1756203025119" duration="42000" />
+      <workItem from="1756203073033" duration="9000" />
+      <workItem from="1756204321862" duration="2000" />
+      <workItem from="1756205082894" duration="6388000" />
+      <workItem from="1756289108772" duration="6829000" />
+      <workItem from="1756301598296" duration="309000" />
+      <workItem from="1756305204640" duration="6016000" />
+      <workItem from="1756376298776" duration="9321000" />
+      <workItem from="1756391544693" duration="1821000" />
+      <workItem from="1756402530443" duration="394000" />
+      <workItem from="1756805885108" duration="269000" />
+      <workItem from="1756806290472" duration="7343000" />
+      <workItem from="1756826470822" duration="484000" />
+      <workItem from="1756826964877" duration="2937000" />
+      <workItem from="1756829930345" duration="35000" />
+      <workItem from="1756888131730" duration="14207000" />
+      <workItem from="1756902981242" duration="4664000" />
+      <workItem from="1756973233116" duration="11112000" />
+      <workItem from="1756996331971" duration="285000" />
+      <workItem from="1757060840515" duration="15417000" />
+      <workItem from="1757077869564" duration="4050000" />
+      <workItem from="1757321441754" duration="1019000" />
+      <workItem from="1757337642053" duration="9169000" />
+      <workItem from="1757404855277" duration="1111000" />
+      <workItem from="1757407313279" duration="7451000" />
+      <workItem from="1757419574210" duration="15423000" />
+      <workItem from="1757487023380" duration="6000" />
+      <workItem from="1757487366265" duration="5299000" />
+      <workItem from="1757492705759" duration="83000" />
+      <workItem from="1757492800260" duration="22244000" />
+      <workItem from="1757583197502" duration="65000" />
+      <workItem from="1757583568803" duration="18716000" />
+      <workItem from="1757659800926" duration="12034000" />
+      <workItem from="1757679223421" duration="6923000" />
+      <workItem from="1757690011234" duration="1118000" />
+      <workItem from="1757917792450" duration="126000" />
+      <workItem from="1757918340582" duration="451000" />
+      <workItem from="1757926779895" duration="16236000" />
+      <workItem from="1757943703789" duration="8036000" />
+      <workItem from="1758008823125" duration="17234000" />
+      <workItem from="1758100370385" duration="23565000" />
+      <workItem from="1758184351913" duration="3250000" />
+      <workItem from="1758188355688" duration="2000" />
+      <workItem from="1758188628376" duration="4218000" />
+      <workItem from="1758193118462" duration="16146000" />
+      <workItem from="1758265398672" duration="9511000" />
+      <workItem from="1758527512852" duration="4273000" />
+      <workItem from="1758533005842" duration="113000" />
+      <workItem from="1758533233779" duration="97000" />
+      <workItem from="1758541948969" duration="7000" />
+      <workItem from="1758609581032" duration="291000" />
+      <workItem from="1758617161823" duration="3000" />
+      <workItem from="1759153301245" duration="6000" />
+      <workItem from="1759235625095" duration="271000" />
+      <workItem from="1759821829512" duration="8000" />
+      <workItem from="1760013167659" duration="7000" />
+      <workItem from="1760013184421" duration="33000" />
+      <workItem from="1760019653817" duration="5168000" />
+      <workItem from="1760686985260" duration="1000" />
+    </task>
+    <task id="LOCAL-00026" summary="Minor updates that are reported in &quot;Tutorial 8: Supportive Tools for the Experimentation module and creating screenshots&quot;&#10;- Experimentation: Added to tools for the Experimentation module: ConvergencePlotFromXLSX and LatexTableFromXLSX;&#10;- Visualization: Added functionality for requesting plot screenshot creation.">
+      <option name="closed" value="true" />
+      <created>1739799441711</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1739799441711</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Minor updates that are reported in &quot;Tutorial 8: Supportive Tools for the Experimentation module and creating screenshots&quot;&#10;- Experimentation: Added to tools for the Experimentation module: ConvergencePlotFromXLSX and LatexTableFromXLSX;&#10;- Visualization: Added functionality for requesting plot screenshot creation.">
+      <option name="closed" value="true" />
+      <created>1739799477457</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1739799477457</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Minor updates that are reported in &quot;Tutorial 8: Supportive Tools for the Experimentation module and creating screenshots&quot;&#10;- Experimentation: Added to tools for the Experimentation module: ConvergencePlotFromXLSX and LatexTableFromXLSX;&#10;- Visualization: Added functionality for requesting plot screenshot creation.">
+      <option name="closed" value="true" />
+      <created>1739801300860</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1739801300860</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Minor updates that are reported in &quot;Tutorial 8: Supportive Tools for the Experimentation module and creating screenshots&quot;&#10;- Experimentation: Added to tools for the Experimentation module: ConvergencePlotFromXLSX and LatexTableFromXLSX;&#10;- Visualization: Added functionality for requesting plot screenshot creation.">
+      <option name="closed" value="true" />
+      <created>1739966190693</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1739966190693</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Minor updates">
+      <option name="closed" value="true" />
+      <created>1739966226345</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1739966226345</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Minor updates (see the changelog)">
+      <option name="closed" value="true" />
+      <created>1739977007482</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1739977007482</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Minor updates (see the changelog)">
+      <option name="closed" value="true" />
+      <created>1739977159496</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1739977159496</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Minor updates (see the changelog)">
+      <option name="closed" value="true" />
+      <created>1739978032333</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1739978032333</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Minor updates (see the changelog)">
+      <option name="closed" value="true" />
+      <created>1739983247242</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1739983247242</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Minor updates (see the changelog)">
+      <option name="closed" value="true" />
+      <created>1740129309924</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1740129309924</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Minor updates (see the changelog)">
+      <option name="closed" value="true" />
+      <created>1740129945933</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1740129945933</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Minor updates (see the changelog)">
+      <option name="closed" value="true" />
+      <created>1740132309035</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1740132309035</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Minor updates (see the changelog)">
+      <option name="closed" value="true" />
+      <created>1740133124660</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1740133124660</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Minor updates (see the changelog)">
+      <option name="closed" value="true" />
+      <created>1740133482726</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1740133482726</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Minor updates (see the changelog)">
+      <option name="closed" value="true" />
+      <created>1740133505720</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1740133505720</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Minor updates (see the changelog)">
+      <option name="closed" value="true" />
+      <created>1740148147702</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1740148147702</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Minor updates (see the changelog)">
+      <option name="closed" value="true" />
+      <created>1740150462655</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1740150462655</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Minor changes + one critical change in one interface (may result in incompatibilities in own codes) (see the changelog)">
+      <option name="closed" value="true" />
+      <created>1740403215811</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1740403215812</updated>
+    </task>
+    <task id="LOCAL-00044" summary="A few fixes.">
+      <option name="closed" value="true" />
+      <created>1740481655466</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1740481655466</updated>
+    </task>
+    <task id="LOCAL-00045" summary="A few fixes.">
+      <option name="closed" value="true" />
+      <created>1740481677652</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1740481677652</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Minor updates (see Changelog.txt)">
+      <option name="closed" value="true" />
+      <created>1740489818079</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1740489818079</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Minor refactorization">
+      <option name="closed" value="true" />
+      <created>1740650247097</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1740650247097</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Minor refactorization">
+      <option name="closed" value="true" />
+      <created>1740664579273</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1740664579273</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Minor refactorization">
+      <option name="closed" value="true" />
+      <created>1741000260443</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1741000260443</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Minor refactorization">
+      <option name="closed" value="true" />
+      <created>1741022804333</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1741022804333</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Minor refactorization">
+      <option name="closed" value="true" />
+      <created>1741022890940</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1741022890940</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Minor refactorization">
+      <option name="closed" value="true" />
+      <created>1741186918779</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1741186918780</updated>
+    </task>
+    <task id="LOCAL-00053" summary="This commit introduces severa moderate changes and updates. See the Changelog.txt file and &quot;Tutorial 9: Facilitating the usage&quot; tutorial document.">
+      <option name="closed" value="true" />
+      <created>1742471973660</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1742471973661</updated>
+    </task>
+    <task id="LOCAL-00054" summary="This commit introduces severa moderate changes and updates. See the Changelog.txt file and &quot;Tutorial 9: Facilitating the usage&quot; tutorial document.">
+      <option name="closed" value="true" />
+      <created>1742472240401</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1742472240401</updated>
+    </task>
+    <task id="LOCAL-00055" summary="This commit is dedicated to the &quot;Tutorial 10: Evolutionary Rejection Sampling&quot; tutorial document">
+      <option name="closed" value="true" />
+      <created>1746012149602</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1746012149602</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Checkpoint">
+      <option name="closed" value="true" />
+      <created>1748243247982</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1748243247983</updated>
+    </task>
+    <task id="LOCAL-00057" summary="This commit is dedicated to the &quot;Tutorial 10: Evolutionary Rejection Sampling&quot; tutorial document">
+      <option name="closed" value="true" />
+      <created>1748245407856</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1748245407856</updated>
+    </task>
+    <task id="LOCAL-00058" summary="This commit is dedicated to the &quot;Tutorial 10: Evolutionary Rejection Sampling&quot; tutorial document">
+      <option name="closed" value="true" />
+      <created>1748245913798</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1748245913798</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Work in progress">
+      <option name="closed" value="true" />
+      <created>1748248500340</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1748248500340</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Work in progress">
+      <option name="closed" value="true" />
+      <created>1748415024439</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1748415024439</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Work in progress">
+      <option name="closed" value="true" />
+      <created>1748415145085</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1748415145085</updated>
+    </task>
+    <task id="LOCAL-00062" summary="This commit is dedicated to the &quot;Tutorial 10: Evolutionary Rejection Sampling&quot; tutorial document">
+      <option name="closed" value="true" />
+      <created>1748419764736</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1748419764738</updated>
+    </task>
+    <task id="LOCAL-00063" summary="This commit is dedicated to the &quot;Tutorial 10: Evolutionary Rejection Sampling&quot; tutorial document">
+      <option name="closed" value="true" />
+      <created>1748419816396</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1748419816396</updated>
+    </task>
+    <task id="LOCAL-00064" summary="This commit is dedicated to the &quot;Minor update on random number generators&quot; tutorial document">
+      <option name="closed" value="true" />
+      <created>1748943488994</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1748943488994</updated>
+    </task>
+    <task id="LOCAL-00065" summary="This commit is dedicated to the &quot;Minor update on random number generators&quot; tutorial document">
+      <option name="closed" value="true" />
+      <created>1748943548957</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1748943548957</updated>
+    </task>
+    <task id="LOCAL-00066" summary="This update introduces several moderate changes (see the Changelog.txt) and includes a new tutorial: &quot;A tool for generating reference pairwise comparisons for benchmarking interactive methods.&quot;">
+      <option name="closed" value="true" />
+      <created>1751292844190</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1751292844190</updated>
+    </task>
+    <task id="LOCAL-00067" summary="This update introduces several moderate changes (see the Changelog.txt) and includes a new tutorial: &quot;A tool for generating reference pairwise comparisons for benchmarking interactive methods.&quot;">
+      <option name="closed" value="true" />
+      <created>1751293060229</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1751293060229</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Major update (see Changelog.txt)">
+      <option name="closed" value="true" />
+      <created>1755770011104</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1755770011105</updated>
+    </task>
+    <task id="LOCAL-00069" summary="A semantic versioning X.Y.Z is introduced since this version. &#10;License is changed to MIT.&#10;For other updates, see Changelog.txt.">
+      <option name="closed" value="true" />
+      <created>1756994538286</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1756994538286</updated>
+    </task>
+    <task id="LOCAL-00070" summary="A semantic versioning X.Y.Z is introduced since this version. &#10;License is changed to MIT.&#10;For other updates, see Changelog.txt.">
+      <option name="closed" value="true" />
+      <created>1756994644097</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1756994644097</updated>
+    </task>
+    <task id="LOCAL-00071" summary="A semantic versioning X.Y.Z is introduced since this version. &#10;License is changed to MIT.&#10;For other updates, see Changelog.txt.">
+      <option name="closed" value="true" />
+      <created>1756995165188</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1756995165188</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Several minor updates, see Changelog.txt.">
+      <option name="closed" value="true" />
+      <created>1758531400764</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1758531400764</updated>
+    </task>
+    <task id="LOCAL-00073" summary="This update introduces three new tutorials: 14, 15, 16, and several minor updates; see Changelog.txt.">
+      <option name="closed" value="true" />
+      <created>1758531546985</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1758531546985</updated>
+    </task>
+    <task id="LOCAL-00074" summary="This update introduces three new tutorials: 14, 15, 16, and several minor updates; see Changelog.txt.">
+      <option name="closed" value="true" />
+      <created>1758531658032</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1758531658032</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.tex" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="development" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="- Visualization mode: updating only subsets of data sets available&#10;- Visualization mode: improved font quality (3D mode)" />
+    <MESSAGE value="- FRS: Refactorization" />
+    <MESSAGE value="- Minor refactorization" />
+    <MESSAGE value="LICENSE.txt file added" />
+    <MESSAGE value="Minor refactorization done in some tutorials" />
+    <MESSAGE value="Minor updates that are reported in &quot;Tutorial 8: Supportive Tools for the Experimentation module and creating screenshots&quot;&#10;- Experimentation: Added to tools for the Experimentation module: ConvergencePlotFromXLSX and LatexTableFromXLSX;&#10;- Visualization: Added functionality for requesting plot screenshot creation." />
+    <MESSAGE value="Minor updates" />
+    <MESSAGE value="Minor updates (see the changelog)" />
+    <MESSAGE value="Minor changes + one critical change in one interface (may result in incompatibilities in own codes) (see the changelog)" />
+    <MESSAGE value="A few fixes." />
+    <MESSAGE value="Minor updates (see Changelog.txt)" />
+    <MESSAGE value="Minor refactorization" />
+    <MESSAGE value="This commit introduces severa moderate changes and updates. See the Changelog.txt file and &quot;Tutorial 9: Facilitating the usage&quot; tutorial document." />
+    <MESSAGE value="Checkpoint" />
+    <MESSAGE value="Merge branch 'Modify-RS' into development&#10;&#10;# Conflicts:&#10;#&#9;Changelog.txt&#10;#&#9;DecisionSupport/src/model/constructor/value/rs/ers/ERS.java&#10;#&#9;DecisionSupport/src/model/constructor/value/rs/ers/IterableERS.java&#10;#&#9;DecisionSupport/src/model/similarity/lnorm/Cos.java&#10;#&#9;DecisionSupport/src/model/similarity/lnorm/Euclidean.java&#10;#&#9;DecisionSupport/tests/model/constructor/value/rs/ers/ERSRandom2DTest.java&#10;#&#9;DecisionSupport/tests/model/constructor/value/rs/ers/ERSRandom3DTest.java&#10;#&#9;DecisionSupport/tests/model/constructor/value/rs/ers/ESRTest.java&#10;#&#9;DecisionSupport/tests/model/constructor/value/rs/ers/ModelSystem1ERSTest.java&#10;#&#9;DecisionSupport/tests/model/constructor/value/rs/ers/ModelSystem2ERSTest.java&#10;#&#9;DecisionSupport/tests/model/constructor/value/rs/ers/ModelSystem3ERSTest.java&#10;#&#9;DecisionSupport/tests/model/constructor/value/rs/ers/evolutionary/EvolutionaryModelConstructorTest.java&#10;#&#9;EvolutionaryComputation/src/decisionsupport/ERSFactory.java&#10;#&#9;EvolutionaryComputation/src/decisionsupport/operators/LNormOnSimplex.java&#10;#&#9;EvolutionaryComputation/tests/decisionsupport/ERSEvolutionary3DTest.java&#10;#&#9;Projects/src/y2025/ERS/common/indicators/CompatibleModels.java&#10;#&#9;Projects/src/y2025/ERS/common/indicators/ModelClosestNeighborDistance.java&#10;#&#9;Projects/src/y2025/ERS/common/indicators/RequiredCompatibleModelsFoundInGeneration.java&#10;#&#9;Projects/src/y2025/ERS/common/indicators/SuccessRate.java&#10;#&#9;Projects/src/y2025/ERS/e1_auxiliary/AnimationERS.java&#10;#&#9;Projects/src/y2025/ERS/e2_ers_calibration/ContainersGetter.java&#10;#&#9;Projects/src/y2025/ERS/e3_samplers/ContainersGetter.java&#10;#&#9;Projects/src/y2025/ERS/e3_samplers/results/IllustrateModels.java&#10;#&#9;Projects/src/y2025/ERS/e4_interactive/ContainersGetter.java&#10;#&#9;Projects/src/y2025/ERS/e4_interactive/results/IllustratePopulationsDTLZ2.java&#10;#&#9;Tutorials/src/t1_10/t10_evolutionary_rejection_sampling/Tutorial1a.java&#10;#&#9;Visualization/src/plot/Plot3DModel.java" />
+    <MESSAGE value="Work in progress" />
+    <MESSAGE value="This commit is dedicated to the &quot;Tutorial 10: Evolutionary Rejection Sampling&quot; tutorial document" />
+    <MESSAGE value="This commit is dedicated to the &quot;Tutorial 11: Minor update on random number generators&quot; tutorial document" />
+    <MESSAGE value="This commit is dedicated to the &quot;Tutorial 11: Minor update on random number generators&quot; tutorial document" />
+    <MESSAGE value="This update introduces several moderate changes (see the Changelog.txt) and includes a new tutorial: &quot;A tool for generating reference pairwise comparisons for benchmarking interactive methods.&quot;" />
+    <MESSAGE value="Minor changes in the project's structure" />
+    <MESSAGE value="Major update (see Changelog.txt)" />
+    <MESSAGE value="A semantic versioning X.Y.Z is introduced since this version. &#10;License is changed to MIT.&#10;For other updates, see Changelog.txt." />
+    <MESSAGE value="Several minor updates, see Changelog.txt." />
+    <MESSAGE value="This update introduces three new tutorials: 14, 15, 16, and several minor updates; see Changelog.txt." />
+    <option name="LAST_COMMIT_MESSAGE" value="This update introduces three new tutorials: 14, 15, 16, and several minor updates; see Changelog.txt." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

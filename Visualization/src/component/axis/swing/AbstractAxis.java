@@ -14,7 +14,7 @@ import listeners.auxiliary.IDisplayRangesChangedListener;
 import scheme.AbstractScheme;
 import scheme.enums.Align;
 import space.Range;
-import utils.Font;
+import utils.FontProcessor;
 import utils.Projection;
 import utils.Size;
 
@@ -130,7 +130,7 @@ abstract public class AbstractAxis extends AbstractSwingComponent implements IDi
     /**
      * Font used when drawing the main label.
      */
-    protected Font _titleFont;
+    protected FontProcessor _titleFont;
 
     /**
      * Main line stroke
@@ -173,7 +173,7 @@ abstract public class AbstractAxis extends AbstractSwingComponent implements IDi
 
         _lineWidth = new Size();
         _titleOffset = new Size();
-        _titleFont = new Font();
+        _titleFont = new FontProcessor();
 
         _ticksDataGetter = p._ticksDataGetter;
 
@@ -259,7 +259,7 @@ abstract public class AbstractAxis extends AbstractSwingComponent implements IDi
             tickSize.setUseRelativeSize(scheme.getFlags(_surpassedFlags, _fields.getTickSizeUseRelative()));
             tickSize.computeActualSize(_PC.getReferenceValueGetter().getReferenceValue());
 
-            Font tickLabelFont = new Font();
+            FontProcessor tickLabelFont = new FontProcessor();
             tickLabelFont._fontName = scheme.getFonts(_surpassedFonts, _fields.getTickLabelFontName());
             tickLabelFont._color = scheme.getColors(_surpassedColors, _fields.getTickLabelFontColor());
             tickLabelFont._size.setFixedSize(scheme.getSizes(_surpassedSizes, _fields.getTickLabelFontSizeFixed()));
@@ -441,29 +441,34 @@ abstract public class AbstractAxis extends AbstractSwingComponent implements IDi
             g.setColor(_titleFont._color);
             Graphics2D g2d = (Graphics2D) g;
 
-            Rectangle2D dRef = Font.getReferenceTextCorrectDimensions(g2d);
-            Rectangle2D d = Font.getCorrectDimensions(g2d, _title);
+            _titleFont.prepareTextDependentState(_title, _titleFont._size._actualSize, g2d.getFontRenderContext());
+            Rectangle2D dRef = _titleFont.getCurrentReferenceTextBounds();
+            Rectangle2D d = _titleFont.getCurrentParsedTextBounds();
 
             if (_align == Align.LEFT)
             {
                 float x = _DV._s[0] - _titleOffset._actualSize;
                 float y = _DV._s[1] - _primaryDrawingArea.height / 2.0f + (float) d.getWidth() / 2.0f + (float) d.getMinX() / 2.0f;
-                Font.drawRotatedString(g2d, _title, x, y, (float) (-Math.PI / 2.0f));
+                FontProcessor.drawRotatedString(g2d, _titleFont.getCurrentAttributedString().getIterator()
+                        , x, y, (float) (-Math.PI / 2.0f));
             } else if (_align == Align.RIGHT)
             {
                 float x = _DV._s[0] + _titleOffset._actualSize;
                 float y = _DV._s[1] - _primaryDrawingArea.height / 2.0f - (float) d.getWidth() / 2.0f - (float) d.getMinX() / 2.0f;
-                Font.drawRotatedString(g2d, _title, x, y, (float) (Math.PI / 2.0f));
+                FontProcessor.drawRotatedString(g2d, _titleFont.getCurrentAttributedString().getIterator()
+                        , x, y, (float) (Math.PI / 2.0f));
             } else if (_align == Align.BOTTOM)
             {
                 float x = _DV._s[0] + _primaryDrawingArea.width / 2.0f - (float) d.getWidth() / 2.0f - (float) d.getMinX() / 2.0f;
                 float y = _DV._s[1] + _titleOffset._actualSize + (float) dRef.getHeight();
-                g.drawString(_title, Projection.getP(x), Projection.getP(y));
+                g.drawString(_titleFont.getCurrentAttributedString().getIterator(),
+                        Projection.getP(x), Projection.getP(y));
             } else if (_align == Align.TOP)
             {
                 float x = _DV._s[0] + _primaryDrawingArea.width / 2.0f - (float) d.getWidth() / 2.0f - (float) d.getMinX() / 2.0f;
                 float y = _DV._s[1] - _titleOffset._actualSize;
-                g.drawString(_title, Projection.getP(x), Projection.getP(y));
+                g.drawString(_titleFont.getCurrentAttributedString().getIterator()
+                        , Projection.getP(x), Projection.getP(y));
             }
         }
     }

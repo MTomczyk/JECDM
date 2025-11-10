@@ -1,69 +1,39 @@
 package utils;
 
-import color.Color;
-import com.jogamp.opengl.util.awt.TextRenderer;
-
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.Rectangle2D;
+import java.text.AttributedCharacterIterator;
 
 /**
- * Class representing a font.
- * Wrapper of {@link java.awt.Font}.
- * Stores useful additional fields and provides various functionalities.
+ * Abstract class supporting the font-related processing (Java AWT).
  *
  * @author MTomczyk
  */
 
-public class Font
+public class FontProcessor extends AbstractFontProcessor
 {
-    /**
-     * Font name.
-     */
-    public String _fontName;
-
-    /**
-     * Font size (fixed/relative).
-     */
-    public Size _size;
-
-    /**
-     * Java AWT font.
-     */
-    public java.awt.Font _font;
-
-    /**
-     * Font color.
-     */
-    public Color _color;
-
-    /**
-     * Text rendered: used for drawing 3D text.
-     */
-    public TextRenderer _renderer = null;
-
     /**
      * Default constructor.
      */
-    public Font()
+    public FontProcessor()
     {
-        _size = new Size();
+        super();
     }
 
     /**
-     * Prepares Open GL text renderer. Requires having a current GL context set.
+     * Parameterized constructor.
      *
-     * @param fontQualityUpscaling font quality upscaling factor (the higher, the higher the upscaling level; thus better quality)
+     * @param font initial font to be set
      */
-    public void prepareRenderer(float fontQualityUpscaling)
+    public FontProcessor(Font font)
     {
-        if (_renderer != null) _renderer.dispose();
-        _renderer = new TextRenderer(new java.awt.Font(_fontName, java.awt.Font.PLAIN, Projection.getP(24 * fontQualityUpscaling)), true, true);
+        super(font);
     }
 
     /**
-     * Creates the font object.
+     * Updates the font data. Dedicated to 2D visualization.
      */
     public void prepareFont()
     {
@@ -76,10 +46,14 @@ public class Font
      *
      * @param g2d Java AWT graphics 2D context
      * @return rectangle object containing information on the glyph visual properties
+     * @deprecated to be deleted
      */
-    public static Rectangle2D getReferenceTextCorrectDimensions(Graphics2D g2d)
+    @Deprecated
+    public static Rectangle2D getReferenceTextBounds(Graphics2D g2d)
     {
-        return getCorrectDimensions(g2d, "REFERENCE TEXT");
+        FontRenderContext frc = g2d.getFontRenderContext();
+        GlyphVector gv = g2d.getFont().createGlyphVector(frc, "REFERENCE TEXT");
+        return gv.getVisualBounds();
     }
 
     /**
@@ -89,6 +63,7 @@ public class Font
      * @param string text to be displayed
      * @return rectangle object containing information on the glyph visual properties
      */
+    @Deprecated
     public static Rectangle2D getCorrectDimensions(Graphics2D g2d, String string)
     {
         FontRenderContext frc = g2d.getFontRenderContext();
@@ -100,11 +75,31 @@ public class Font
      * Draws rotated string.
      *
      * @param g2d    Java AWT Graphics 2D context
-     * @param text   text to be drawn
+     * @param it     attributed character iterator
      * @param x      x-coordinate
      * @param y      y-coordinate
      * @param rotate angle (radians)
      */
+    public static void drawRotatedString(Graphics2D g2d, AttributedCharacterIterator it, float x, float y, float rotate)
+    {
+        g2d.translate(x, y);
+        g2d.rotate(rotate);
+        g2d.drawString(it, 0, 0);
+        g2d.rotate(-rotate);
+        g2d.translate(-x, -y);
+    }
+
+    /**
+     * Draws rotated string.
+     *
+     * @param g2d    Java AWT Graphics 2D context
+     * @param text   text to be drawn
+     * @param x      x-coordinate
+     * @param y      y-coordinate
+     * @param rotate angle (radians)
+     * @deprecated to be deleted
+     */
+    @Deprecated
     public static void drawRotatedString(Graphics2D g2d, String text, float x, float y, float rotate)
     {
         g2d.translate(x, y);
@@ -117,13 +112,10 @@ public class Font
     /**
      * Clears data.
      */
+    @Override
     public void dispose()
     {
-        _size = null;
-        _color = null;
+        super.dispose();
         _font = null;
-        if (_renderer != null) _renderer.dispose();
-        _renderer = null;
-        _fontName = null;
     }
 }

@@ -18,11 +18,14 @@ public interface IPerformanceIndicator
     double evaluate(IEA ea);
 
     /**
-     * Method for identifying preference direction.
+     * Method for identifying preference direction (default returns true).
      *
      * @return preference direction (if true, less is preferred; if true, more is preferred)
      */
-    boolean isLessPreferred();
+    default boolean isLessPreferred()
+    {
+        return true;
+    }
 
     /**
      * The implementation must overwrite the toString() method.

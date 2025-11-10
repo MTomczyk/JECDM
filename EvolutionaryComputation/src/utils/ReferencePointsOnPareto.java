@@ -131,11 +131,14 @@ public class ReferencePointsOnPareto
     }
 
     /**
-     * Returns a default class instance that generates random reference points for DTLZ and WFG test problems
-     * (their Pareto fronts).
+     * Returns a default class instance that generates random reference points for DTLZ, WFG, and ZDT test problems
+     * (their Pareto fronts). ZDT is included only if 2-dimension scenario is within the provided objective bounds (lm
+     * must equal 2)
      *
-     * @param n  a fixed number of random points to generate for each problem (one entry for each subsequent m-configuration, e.g., if lm = 2 and um = 6, n should be a 4-element vector)
-     * @param lm lower limit for the number of objectives considered (inclusive)
+     * @param n  a fixed number of random points to generate for each problem (one entry for each subsequent
+     *           m-configuration, e.g., if lm = 2 and um = 6, n should be a 4-element vector; n[0] points to 2
+     *           objectives)
+     * @param lm lower limit for the number of objectives considered (inclusive; at least 2)
      * @param um lower limit for the number of objectives considered (exclusive)
      * @param R  random number generator
      * @return class instance (null if the input data is invalid)
@@ -146,17 +149,39 @@ public class ReferencePointsOnPareto
         if (n.length == 0) return null;
         for (Integer i : n) if (i < 1) return null;
         if (um <= lm) return null;
+        if (lm < 2) return null;
 
-        return new ReferencePointsOnPareto(new ProblemData[]{
-                getForDTLZ1(n, lm, um, R),
-                getForDTLZ2_4(n, lm, um, R),
-                getForDTLZ5_6(n, lm, um, R),
-                getForDTLZ7(n, lm, um, R),
-                getForWFG1(n, lm, um, R),
-                getForWFG2(n, lm, um, R),
-                getForWFG3(n, lm, um, R),
-                getForWFG4_9(n, lm, um, R)
-        });
+        if (lm == 2) // include ZDT
+        {
+            return new ReferencePointsOnPareto(new ProblemData[]{
+                    getForDTLZ1(n, lm, um, R),
+                    getForDTLZ2_4(n, lm, um, R),
+                    getForDTLZ5_6(n, lm, um, R),
+                    getForDTLZ7(n, lm, um, R),
+                    getForWFG1(n, lm, um, R),
+                    getForWFG2(n, lm, um, R),
+                    getForWFG3(n, lm, um, R),
+                    getForWFG4_9(n, lm, um, R),
+                    getForZDT1_4(n[0], R),
+                    getForZDT2(n[0], R),
+                    getForZDT3(n[0], R),
+                    getForZDT5(n[0], R),
+                    getForZDT6(n[0], R),
+            });
+        }
+        else
+        {
+            return new ReferencePointsOnPareto(new ProblemData[]{
+                    getForDTLZ1(n, lm, um, R),
+                    getForDTLZ2_4(n, lm, um, R),
+                    getForDTLZ5_6(n, lm, um, R),
+                    getForDTLZ7(n, lm, um, R),
+                    getForWFG1(n, lm, um, R),
+                    getForWFG2(n, lm, um, R),
+                    getForWFG3(n, lm, um, R),
+                    getForWFG4_9(n, lm, um, R),
+            });
+        }
     }
 
     /**
@@ -164,7 +189,8 @@ public class ReferencePointsOnPareto
      *
      * @param problem problem ID (e.g., "DTLZ2")
      * @param M       the number of objectives considered
-     * @return reference points (the object is not cloned, i.e., reference is returned; returns null if no proper data can be found)
+     * @return reference points (the object is not cloned, i.e., reference is returned; returns null if no proper data
+     * can be found)
      */
     public double[][] getReferencePointsOnPF(String problem, int M)
     {
@@ -181,7 +207,8 @@ public class ReferencePointsOnPareto
     /**
      * Returns DTLZ1-related reference points.
      *
-     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm = 2 and um = 6, n should be a 4-element vector)
+     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm
+     *           = 2 and um = 6, n should be a 4-element vector)
      * @param lm lower limit for the number of objectives considered (inclusive)
      * @param um lower limit for the number of objectives considered (exclusive)
      * @param R  random number generator
@@ -198,7 +225,8 @@ public class ReferencePointsOnPareto
     /**
      * Returns DTLZ2-4-related reference points.
      *
-     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm = 2 and um = 6, n should be a 4-element vector)
+     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm
+     *           = 2 and um = 6, n should be a 4-element vector)
      * @param lm lower limit for the number of objectives considered (inclusive)
      * @param um lower limit for the number of objectives considered (exclusive)
      * @param R  random number generator
@@ -215,7 +243,8 @@ public class ReferencePointsOnPareto
     /**
      * Returns DTLZ5-6-related reference points.
      *
-     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm = 2 and um = 6, n should be a 4-element vector)
+     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm
+     *           = 2 and um = 6, n should be a 4-element vector)
      * @param lm lower limit for the number of objectives considered (inclusive)
      * @param um lower limit for the number of objectives considered (exclusive)
      * @param R  random number generator
@@ -232,7 +261,8 @@ public class ReferencePointsOnPareto
     /**
      * Returns DTLZ7-related reference points.
      *
-     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm = 2 and um = 6, n should be a 4-element vector)
+     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm
+     *           = 2 and um = 6, n should be a 4-element vector)
      * @param lm lower limit for the number of objectives considered (inclusive)
      * @param um lower limit for the number of objectives considered (exclusive)
      * @param R  random number generator
@@ -250,7 +280,8 @@ public class ReferencePointsOnPareto
     /**
      * Returns WFG1-related reference points.
      *
-     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm = 2 and um = 6, n should be a 4-element vector)
+     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm
+     *           = 2 and um = 6, n should be a 4-element vector)
      * @param lm lower limit for the number of objectives considered (inclusive)
      * @param um lower limit for the number of objectives considered (exclusive)
      * @param R  random number generator
@@ -267,7 +298,8 @@ public class ReferencePointsOnPareto
     /**
      * Returns WFG2-related reference points.
      *
-     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm = 2 and um = 6, n should be a 4-element vector)
+     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm
+     *           = 2 and um = 6, n should be a 4-element vector)
      * @param lm lower limit for the number of objectives considered (inclusive)
      * @param um lower limit for the number of objectives considered (exclusive)
      * @param R  random number generator
@@ -284,7 +316,8 @@ public class ReferencePointsOnPareto
     /**
      * Returns WFG3-related reference points.
      *
-     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm = 2 and um = 6, n should be a 4-element vector)
+     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm
+     *           = 2 and um = 6, n should be a 4-element vector)
      * @param lm lower limit for the number of objectives considered (inclusive)
      * @param um lower limit for the number of objectives considered (exclusive)
      * @param R  random number generator
@@ -301,7 +334,8 @@ public class ReferencePointsOnPareto
     /**
      * Returns WFG4-9-related reference points.
      *
-     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm = 2 and um = 6, n should be a 4-element vector)
+     * @param n  a fixed number of random points to generate (one entry for each subsequent m-configuration, e.g., if lm
+     *           = 2 and um = 6, n should be a 4-element vector)
      * @param lm lower limit for the number of objectives considered (inclusive)
      * @param um lower limit for the number of objectives considered (exclusive)
      * @param R  random number generator
@@ -313,5 +347,75 @@ public class ReferencePointsOnPareto
         for (int m = lm; m < um; m++)
             data.put(m, new ObjectivesData(m, ReferencePointsFactory.getRandomReferencePoints(Problem.WFG4, n[m - lm], m, R)));
         return new ProblemData("WFG[4-9]", data);
+    }
+
+    /**
+     * Returns ZDT1 and 4-related reference points (2D only).
+     *
+     * @param n the number of reference points
+     * @param R random number generator
+     * @return DTLZ1-4-related data
+     */
+    private static ProblemData getForZDT1_4(int n, IRandom R)
+    {
+        HashMap<Integer, ObjectivesData> data = new HashMap<>(1);
+        data.put(2, new ObjectivesData(2, ReferencePointsFactory.getRandomReferencePoints(Problem.ZDT1, n, 2, R)));
+        return new ProblemData("ZDT1|ZDT4", data);
+    }
+
+    /**
+     * Returns ZDT2-related reference points (2D only).
+     *
+     * @param n the number of reference points
+     * @param R random number generator
+     * @return DTLZ2-related data
+     */
+    private static ProblemData getForZDT2(int n, IRandom R)
+    {
+        HashMap<Integer, ObjectivesData> data = new HashMap<>(1);
+        data.put(2, new ObjectivesData(2, ReferencePointsFactory.getRandomReferencePoints(Problem.ZDT2, n, 2, R)));
+        return new ProblemData("ZDT2", data);
+    }
+
+    /**
+     * Returns ZDT3-related reference points (2D only).
+     *
+     * @param n the number of reference points
+     * @param R random number generator
+     * @return DTLZ3-related data
+     */
+    private static ProblemData getForZDT3(int n, IRandom R)
+    {
+        HashMap<Integer, ObjectivesData> data = new HashMap<>(1);
+        data.put(2, new ObjectivesData(2, ReferencePointsFactory.getRandomReferencePoints(Problem.ZDT3, n, 2, R)));
+        return new ProblemData("ZDT3", data);
+    }
+
+    /**
+     * Returns ZDT5-related reference points (2D only).
+     *
+     * @param n the number of reference points
+     * @param R random number generator
+     * @return DTLZ5-related data
+     */
+    private static ProblemData getForZDT5(int n, IRandom R)
+    {
+        HashMap<Integer, ObjectivesData> data = new HashMap<>(1);
+        data.put(2, new ObjectivesData(2, ReferencePointsFactory.getRandomReferencePoints(Problem.ZDT5, n, 2, R)));
+        return new ProblemData("ZDT5", data);
+    }
+
+    /**
+     * Returns ZDT6-related reference points (2D only).
+     *
+     * @param n the number of reference points
+     * @param R random number generator
+     * @return DTLZ6-related data
+     */
+    private static ProblemData getForZDT6(int n, IRandom R)
+    {
+        HashMap<Integer, ObjectivesData> data = new HashMap<>(1);
+        data.put(2, new ObjectivesData(2, ReferencePointsFactory.getRandomReferencePoints(Problem.ZDT6, n, 2, R)));
+        return new ProblemData("ZDT6", data);
     }
 }

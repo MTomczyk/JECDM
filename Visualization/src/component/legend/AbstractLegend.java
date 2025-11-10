@@ -11,7 +11,7 @@ import dataset.painter.style.MarkerStyle;
 import scheme.AbstractScheme;
 import scheme.enums.*;
 import utils.DrawUtils;
-import utils.Font;
+import utils.FontProcessor;
 import utils.Projection;
 import utils.Size;
 
@@ -86,7 +86,7 @@ public abstract class AbstractLegend extends AbstractSwingComponent
     /**
      * Font used when displaying entries.
      */
-    protected final Font _entryFont;
+    protected final FontProcessor _entryFont;
 
     /**
      * Parameterized constructor.
@@ -100,7 +100,7 @@ public abstract class AbstractLegend extends AbstractSwingComponent
         _innerOffset = new Size();
         _spacing = new Size();
         _drawingLabelSeparator = new Size();
-        _entryFont = new Font();
+        _entryFont = new FontProcessor();
         _dimensions = new Dimensions();
         _columnsSeparator = new Size();
         _entriesPerColumnLimit = 1;
@@ -154,7 +154,9 @@ public abstract class AbstractLegend extends AbstractSwingComponent
                 _dimensions._noEntries++;
 
                 // Label-based adjustment
-                Rectangle2D b = Font.getCorrectDimensions(g2d, usedName);
+                _entryFont.prepareTextDependentState(usedName, _entryFont._size._actualSize, g2d.getFontRenderContext());
+                Rectangle2D b = _entryFont.getCurrentParsedTextBounds();
+
                 if (Double.compare(b.getWidth(), labelColumnWidth) > 0) labelColumnWidth = (float) b.getWidth();
                 if (Double.compare(b.getHeight(), entryHeight) > 0) entryHeight = (float) b.getHeight();
 
@@ -382,8 +384,6 @@ public abstract class AbstractLegend extends AbstractSwingComponent
                 Projection.getP(_primaryDrawingArea.width),
                 Projection.getP(_primaryDrawingArea.height));
 
-        Rectangle2D referenceB = Font.getReferenceTextCorrectDimensions(g2d);
-
         Stroke defaultStroke = new BasicStroke(1.0f);
 
         if (_PC.getDataSets() != null)
@@ -397,12 +397,16 @@ public abstract class AbstractLegend extends AbstractSwingComponent
                 if (usedName == null) usedName = ds.getName();
                 if (usedName == null) continue;
 
+                _entryFont.prepareTextDependentState(usedName,
+                        _entryFont._size._actualSize, g2d.getFontRenderContext());
+                Rectangle2D referenceB = _entryFont.getCurrentReferenceTextBounds();
+
                 float mod = (float) (referenceB.getHeight() / 2.0f);
 
                 g2d.setStroke(defaultStroke);
                 g2.setColor(_entryFont._color);
 
-                g2.drawString(usedName,
+                g2.drawString(_entryFont.getCurrentAttributedString().getIterator(),
                         Projection.getP((float) (bx + labelShift - referenceB.getMinX())) - 1,
                         Projection.getP(by + mod) - 1);
 

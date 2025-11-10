@@ -35,11 +35,14 @@ public interface IIndicator
     double evaluate(IEA ea) throws TrialException;
 
     /**
-     * Method for identifying preference direction.
+     * Method for identifying preference direction (default: returns true).
      *
      * @return preference direction (if true, less is preferred; if true, more is preferred)
      */
-    boolean isLessBetter();
+    default boolean isLessBetter()
+    {
+        return true;
+    }
 
     /**
      * Returns the indicator's name. Note that the name should obey the same naming rules as the titles of the scenarios' keys and values.
@@ -51,7 +54,10 @@ public interface IIndicator
     /**
      * The method for clearing the data.
      */
-    void dispose();
+    default void dispose()
+    {
+
+    }
 
     /**
      * The implementation must overwrite the toString() method.

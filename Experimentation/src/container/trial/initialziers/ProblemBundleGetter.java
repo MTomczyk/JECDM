@@ -2,8 +2,10 @@ package container.trial.initialziers;
 
 import problem.AbstractProblemBundle;
 import problem.Problem;
+import problem.moo.cw.cw1.CW1Bundle;
 import problem.moo.dtlz.DTLZBundle;
 import problem.moo.wfg.WFGBundle;
+import problem.moo.zdt.ZDTBundle;
 
 /**
  * Auxiliary method that aids in constructing a problem bundle.
@@ -19,7 +21,8 @@ class ProblemBundleGetter
      *
      * @param problem    problem ID
      * @param objectives the number of objectives
-     * @return problem bundle matching the problem ID and the number of objectives; returns null if no matching bundle can be found
+     * @return problem bundle matching the problem ID and the number of objectives; returns null if no matching bundle
+     * can be found
      */
     protected static AbstractProblemBundle getProblemBundle(String problem, Integer objectives)
     {
@@ -28,6 +31,8 @@ class ProblemBundleGetter
         if (pID == null) return null;
         if (AbstractProblemBundle.isDTLZ(pID)) return getDTLZBundle(pID, objectives);
         else if (AbstractProblemBundle.isWFG(pID)) return getWFGBundle(pID, objectives);
+        else if (AbstractProblemBundle.isZDT(pID)) return getZDTBundle(pID);
+        else if (AbstractProblemBundle.isCW1(pID)) return getCW1Bundle(pID);
         return null;
     }
 
@@ -46,7 +51,6 @@ class ProblemBundleGetter
         return DTLZBundle.getBundle(problem, objectives, l);
     }
 
-
     /**
      * Method for retrieving a WFG problem bundle.
      *
@@ -61,5 +65,30 @@ class ProblemBundleGetter
         int k = WFGBundle.getRecommendedNOPositionRelatedParameters(problem, objectives);
         int l = WFGBundle.getRecommendedNODistanceRelatedParameters(problem, objectives);
         return WFGBundle.getBundle(problem, objectives, k, l);
+    }
+
+    /**
+     * Method for retrieving a WFG problem bundle.
+     *
+     * @param problem problem id
+     * @return WFG problem bundle
+     */
+    protected static ZDTBundle getZDTBundle(Problem problem)
+    {
+        if (problem == null) return null;
+        return ZDTBundle.getBundle(problem);
+    }
+
+    /**
+     * Method for retrieving a CW1 problem bundle.
+     *
+     * @param problem problem id
+     * @return CW1 problem bundle
+     */
+    protected static CW1Bundle getCW1Bundle(Problem problem)
+    {
+        if (problem == null) return null;
+        if (!problem.equals(Problem.CW1)) return null;
+        return CW1Bundle.getBundle();
     }
 }

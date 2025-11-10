@@ -20,6 +20,7 @@ import model.IPreferenceModel;
 import model.internals.value.scalarizing.LNorm;
 import plot.Plot3D;
 import plot.Plot3DFactory;
+import plot.PlotUtils;
 import print.PrintUtils;
 import y2025.ERS.common.PCsDataContainer;
 import scheme.WhiteScheme;
@@ -35,7 +36,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 /**
- * Auxiliary script that generates example plots portraying the reference pairs to be compared by the DM, using the data in the pcs.txt file.
+ * Auxiliary script that generates example plots portraying the reference pairs to be compared by the DM, using the data
+ * in the pcs.txt file.
  *
  * @author MTomczyk
  */
@@ -104,16 +106,21 @@ public class PCsPlot3D
             }
 
             Plot3D plot3D = Plot3DFactory.getPlot(WhiteScheme.getForPlot3D(),
-                    "f1", "f2", "f3",
+                    "f_1", "f_2", "f_3",
                     DRMPFactory.getFor4D(Range.get0R(1.5d), Range.get0R(1.5d),
-                            Range.get0R(2.0d), new Range(1.0d, 10.0d)),
+                            Range.get0R(1.5d), new Range(1.0d, 10.0d)),
                     4, 4, 4,
-                    "0.00", "0.00", "0.00",
+                    PlotUtils.getDecimalFormat('.', 1),
+                    PlotUtils.getDecimalFormat('.', 1),
+                    PlotUtils.getDecimalFormat('.', 1),
                     2.2f, 2.0f, scheme ->
                     {
                         scheme._colors.put(ColorFields.PLOT_BACKGROUND, color.Color.WHITE);
                         scheme._sizes.put(SizeFields.TITLE_FONT_SIZE_RELATIVE_MULTIPLIER, 0.035f);
                         scheme._sizes.put(SizeFields.LEGEND_ENTRY_FONT_SIZE_RELATIVE_MULTIPLIER, 0.031f);
+                        scheme._sizes.put(SizeFields.AXIS3D_X_TICK_LABEL_OFFSET, 0.07f);
+                        scheme._sizes.put(SizeFields.AXIS3D_Y_TICK_LABEL_OFFSET, 0.07f);
+                        scheme._sizes.put(SizeFields.AXIS3D_Z_TICK_LABEL_OFFSET, 0.07f);
                     },
                     pP -> {
                         pP._drawLegend = false;

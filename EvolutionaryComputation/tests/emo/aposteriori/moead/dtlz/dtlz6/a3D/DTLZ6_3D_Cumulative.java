@@ -12,6 +12,7 @@ import emo.utils.decomposition.goal.IGoal;
 import emo.utils.decomposition.similarity.lnorm.Euclidean;
 import exception.RunnerException;
 import frame.Frame;
+import org.junit.jupiter.api.Test;
 import plot.Plot3D;
 import problem.Problem;
 import problem.moo.dtlz.DTLZBundle;
@@ -33,11 +34,20 @@ import visualization.IVisualization;
 public class DTLZ6_3D_Cumulative
 {
     /**
-     * Runs evolutionary algorithm.
+     * Runs the script.
      *
-     * @param args (not used)
+     * @param args not used
      */
     public static void main(String[] args)
+    {
+        (new DTLZ6_3D_Cumulative()).test1();
+    }
+
+    /**
+     * Tests the method.
+     */
+    @Test
+    public void test1()
     {
         IRandom R = new MersenneTwister64(0);
 
@@ -46,7 +56,7 @@ public class DTLZ6_3D_Cumulative
         int noDecisionVariables = 5;
         DTLZBundle problemBundle = DTLZBundle.getBundle(problem, 3, noDecisionVariables);
 
-        IGoal [] goals =  GoalsFactory.getLNormsDND( 3, 15, Double.POSITIVE_INFINITY, problemBundle._normalizations);
+        IGoal[] goals = GoalsFactory.getLNormsDND(3, 15, Double.POSITIVE_INFINITY, problemBundle._normalizations);
         int populationSize = goals.length;
         int generations = 1000;
 
@@ -74,7 +84,9 @@ public class DTLZ6_3D_Cumulative
         try
         {
             runner.executeEvolution(generations);
-        } catch (RunnerException e)
+            Thread.sleep(100);
+            runner.dispose();
+        } catch (RunnerException | InterruptedException e)
         {
             throw new RuntimeException(e);
         }

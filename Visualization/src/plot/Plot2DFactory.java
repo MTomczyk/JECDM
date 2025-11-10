@@ -6,6 +6,7 @@ import scheme.WhiteScheme;
 import space.Range;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * Provides various means for quickly instantiating {@link Plot2D} objects.
@@ -16,10 +17,10 @@ public class Plot2DFactory
 {
     /**
      * Creates a simple 2D plot. It:
-     * - uses a white scheme,
-     * - sets the display ranges to fixed (non-dynamic) values: [0, xyLimit (parameter)],
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * - uses a white scheme, <br>
+     * - sets the display ranges to fixed (non-dynamic) values: [0, xyLimit (parameter)], <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param xLabel  X-axis label
@@ -33,11 +34,11 @@ public class Plot2DFactory
     }
 
     /**
-     * Creates a simple 2D plot. It:
-     * - uses a white scheme,
-     * - sets the display ranges to fixed (non-dynamic) values: [0, xyLimit (parameter)],
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - uses a white scheme, <br>
+     * - sets the display ranges to fixed (non-dynamic) values: [0, xyLimit (parameter)], <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param xLabel  X-axis label
@@ -52,11 +53,11 @@ public class Plot2DFactory
     }
 
     /**
-     * Creates a simple 2D plot. It:
-     * - uses a white scheme,
-     * - sets the display ranges to fixed (non-dynamic) values: [0, xyLimit (parameter)],
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - uses a white scheme, <br>
+     * - sets the display ranges to fixed (non-dynamic) values: [0, xyLimit (parameter)], <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param xLabel         X-axis label
@@ -73,11 +74,11 @@ public class Plot2DFactory
     }
 
     /**
-     * Creates a simple 2D plot. It:
-     * - uses a white scheme,
-     * - sets the display ranges to fixed (non-dynamic) values: [0, xyLimit (parameter)],
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - uses a white scheme, <br>
+     * - sets the display ranges to fixed (non-dynamic) values: [0, xyLimit (parameter)], <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param xLabel             X-axis label
@@ -97,10 +98,10 @@ public class Plot2DFactory
     }
 
     /**
-     * Creates a simple 2D plot. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - uses a white scheme, <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param xLabel             X-axis label
@@ -121,19 +122,21 @@ public class Plot2DFactory
     }
 
     /**
-     * Creates a simple 2D plot. It:
-     * - uses a white scheme,
-     * - sets the display ranges to fixed (non-dynamic) values: [0, rLim (parameter)],
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - uses a white scheme, <br>
+     * - sets the display ranges to fixed (non-dynamic) values: [0, rLim (parameter)], <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param xLabel             X-axis label
      * @param yLabel             Y-axis label
      * @param xDR                display range for X-axis (considered fixed)
      * @param yDR                display range for Y-axis (considered fixed)
-     * @param xNoTicks           adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks           adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
+     * @param xNoTicks           adjusts the number of ticks for the X-axis and the number of corresponding vertical
+     *                           grid lines
+     * @param yNoTicks           adjusts the number of ticks for the Y-axis and the number of corresponding horizontal
+     *                           grid lines
      * @param fsr                rescaling factor used for all font-based objects
      * @param schemeAdjuster     can be supplied to adjust the scheme on the fly (can be null); executed at the end
      *                           of the customization of the plot params container (after all fields are set by default)
@@ -156,17 +159,19 @@ public class Plot2DFactory
     }
 
     /**
-     * Creates a simple 2D plot. It:
-     * - it uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - it uses a white scheme, <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param xLabel             X-axis label
      * @param yLabel             Y-axis label
      * @param pDRM               display ranges manager params container
-     * @param xNoTicks           adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks           adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
+     * @param xNoTicks           adjusts the number of ticks for the X-axis and the number of corresponding vertical
+     *                           grid lines
+     * @param yNoTicks           adjusts the number of ticks for the Y-axis and the number of corresponding horizontal
+     *                           grid lines
      * @param fsr                rescaling factor used for all font-based objects
      * @param schemeAdjuster     can be supplied to adjust the scheme on the fly (can be null); executed at the end
      *                           of the customization of the plot params container (after all fields are set by default)
@@ -187,23 +192,28 @@ public class Plot2DFactory
     }
 
     /**
-     * Creates a simple 2D plot. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - uses a white scheme, <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param xLabel                X-axis label
      * @param yLabel                Y-axis label
      * @param pDRM                  display ranges manager params container
-     * @param xNoTicks              adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks              adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param axesTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (null if not used)
+     * @param xNoTicks              adjusts the number of ticks for the X-axis and the number of corresponding vertical
+     *                              grid lines
+     * @param yNoTicks              adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                              horizontal grid lines
+     * @param axesTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (null if not
+     *                              used)
      * @param fsr                   rescaling factor used for all font-based objects
      * @param schemeAdjuster        can be supplied to adjust the scheme on the fly (can be null); executed at the end
-     *                              of the customization of the plot params container (after all fields are set by default)
-     * @param plotParamsAdjuster    can be supplied to adjust the plot params on the fly (can be null); executed at the end
-     *                              of the customization of the plot params container (after all fields are set by default)
+     *                              of the customization of the plot params container (after all fields are set by
+     *                              default)
+     * @param plotParamsAdjuster    can be supplied to adjust the plot params on the fly (can be null); executed at the
+     *                              end of the customization of the plot params container (after all fields are set by
+     *                              default)
      * @return instantiated plot 2D
      */
     public static Plot2D getPlot(String xLabel,
@@ -221,23 +231,29 @@ public class Plot2DFactory
     }
 
     /**
-     * Creates a simple 2D plot. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - uses a white scheme, <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param xLabel                 X-axis label
      * @param yLabel                 Y-axis label
      * @param pDRM                   display ranges manager params container
-     * @param xNoTicks               adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks               adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
+     * @param xNoTicks               adjusts the number of ticks for the X-axis and the number of corresponding vertical
+     *                               grid lines
+     * @param yNoTicks               adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                               horizontal grid lines
+     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if
+     *                               not used)
+     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if
+     *                               not used)
      * @param schemeAdjuster         can be supplied to adjust the scheme on the fly (can be null); executed at the end
-     *                               of the customization of the plot params container (after all fields are set by default)
-     * @param plotParamsAdjuster     can be supplied to adjust the plot params on the fly (can be null); executed at the end
-     *                               of the customization of the plot params container (after all fields are set by default)
+     *                               of the customization of the plot params container (after all fields are set by
+     *                               default)
+     * @param plotParamsAdjuster     can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                               the end of the customization of the plot params container (after all fields are set
+     *                               by default)
      * @return instantiated plot 2D
      */
     public static Plot2D getPlot(String xLabel,
@@ -255,24 +271,30 @@ public class Plot2DFactory
     }
 
     /**
-     * Creates a simple 2D plot. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - uses a white scheme, <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param xLabel                 X-axis label
      * @param yLabel                 Y-axis label
      * @param pDRM                   display ranges manager params container
-     * @param xNoTicks               adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks               adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
+     * @param xNoTicks               adjusts the number of ticks for the X-axis and the number of corresponding vertical
+     *                               grid lines
+     * @param yNoTicks               adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                               horizontal grid lines
+     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if
+     *                               not used)
+     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if
+     *                               not used)
      * @param fsr                    rescaling factor used for all font-based objects
      * @param schemeAdjuster         can be supplied to adjust the scheme on the fly (can be null); executed at the end
-     *                               of the customization of the plot params container (after all fields are set by default)
-     * @param plotParamsAdjuster     can be supplied to adjust the plot params on the fly (can be null); executed at the end
-     *                               of the customization of the plot params container (after all fields are set by default)
+     *                               of the customization of the plot params container (after all fields are set by
+     *                               default)
+     * @param plotParamsAdjuster     can be supplied to adjust the plot params on the fly (can be null); executed at the
+     *                               end of the customization of the plot params container (after all fields are set by
+     *                               default)
      * @return instantiated plot 2D
      */
     public static Plot2D getPlot(String xLabel,
@@ -291,23 +313,27 @@ public class Plot2DFactory
     }
 
     /**
-     * Creates a simple 2D plot. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - uses a white scheme, <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param xLabel                   X-axis label
      * @param yLabel                   Y-axis label
      * @param pDRM                     display ranges manager params container
-     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be null);
-     *                                 executed just before returning the plot
+     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding
+     *                                 vertical grid lines
+     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the
+     *                                 end of the customization of the plot params container (after all fields are set
+     *                                 by default)
+     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                                 the end of the customization of the plot params container (after all fields are
+     *                                 set by default)
+     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be
+     *                                 null); executed just before returning the plot
      * @return instantiated plot 2D
      */
     public static Plot2D getPlot(String xLabel,
@@ -319,29 +345,33 @@ public class Plot2DFactory
                                  IPlotParamsAdjuster<Plot2D.Params> plotParamsAdjuster,
                                  IPostPlotCreationAdjuster<Plot2D> postPlotCreationAdjuster)
     {
-        return getPlot(new WhiteScheme(), xLabel, yLabel, pDRM, xNoTicks, yNoTicks, null,
+        return getPlot(new WhiteScheme(), xLabel, yLabel, pDRM, xNoTicks, yNoTicks, (String) null,
                 null, 1.0f, schemeAdjuster, plotParamsAdjuster, postPlotCreationAdjuster);
     }
 
     /**
-     * Creates a simple 2D plot. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - uses a white scheme, <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param xLabel                   X-axis label
      * @param yLabel                   Y-axis label
      * @param pDRM                     display ranges manager params container
-     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
+     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding
+     *                                 vertical grid lines
+     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                                 horizontal grid lines
      * @param fsr                      rescaling factor used for all font-based objects
-     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be null);
-     *                                 executed just before returning the plot
+     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the
+     *                                 end of the customization of the plot params container (after all fields are set
+     *                                 by default)
+     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                                 the end of the customization of the plot params container (after all fields are
+     *                                 set by default)
+     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be
+     *                                 null); executed just before returning the plot
      * @return instantiated plot 2D
      */
     public static Plot2D getPlot(String xLabel,
@@ -354,32 +384,38 @@ public class Plot2DFactory
                                  IPlotParamsAdjuster<Plot2D.Params> plotParamsAdjuster,
                                  IPostPlotCreationAdjuster<Plot2D> postPlotCreationAdjuster)
     {
-        return getPlot(new WhiteScheme(), xLabel, yLabel, pDRM, xNoTicks, yNoTicks, null,
+        return getPlot(new WhiteScheme(), xLabel, yLabel, pDRM, xNoTicks, yNoTicks, (String) null,
                 null, fsr, schemeAdjuster, plotParamsAdjuster, postPlotCreationAdjuster);
     }
 
 
     /**
-     * Creates a simple 2D plot. It:
-     * - uses a white scheme,
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - uses a white scheme, <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param xLabel                   X-axis label
      * @param yLabel                   Y-axis label
      * @param pDRM                     display ranges manager params container
-     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
+     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding
+     *                                 vertical grid lines
+     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null
+     *                                 if not used)
+     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null
+     *                                 if not used)
      * @param fsr                      rescaling factor used for all font-based objects
-     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be null);
-     *                                 executed just before returning the plot
+     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the
+     *                                 end of the customization of the plot params container (after all fields are set
+     *                                 by default)
+     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                                 the end of the customization of the plot params container (after all fields are
+     *                                 set by default)
+     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be
+     *                                 null); executed just before returning the plot
      * @return instantiated plot 2D
      */
     public static Plot2D getPlot(String xLabel,
@@ -399,19 +435,23 @@ public class Plot2DFactory
     }
 
     /**
-     * Creates a simple 2D plot. It:
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param scheme                 plot scheme
      * @param xLabel                 X-axis label
      * @param yLabel                 Y-axis label
      * @param pDRM                   display ranges manager params container
-     * @param xNoTicks               adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks               adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
+     * @param xNoTicks               adjusts the number of ticks for the X-axis and the number of corresponding vertical
+     *                               grid lines
+     * @param yNoTicks               adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                               horizontal grid lines
+     * @param xAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if
+     *                               not used)
+     * @param yAxisTicksLabelsFormat string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if
+     *                               not used)
      * @param fsr                    rescaling factor used for all font-based objects
      * @return instantiated plot 2D
      */
@@ -430,26 +470,32 @@ public class Plot2DFactory
     }
 
     /**
-     * Creates a simple 2D plot. It:
-     * - sets the font to Times New Roman,
-     * - makes the background transparent,
+     * Creates a simple 2D plot. It: <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent, <br>
      * - sets the axes labels number format to decimal.
      *
      * @param scheme                   plot scheme
      * @param xLabel                   X-axis label
      * @param yLabel                   Y-axis label
      * @param pDRM                     display ranges manager params container
-     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding vertical grid lines
-     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding horizontal grid lines
-     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null if not used)
-     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null if not used)
+     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding
+     *                                 vertical grid lines
+     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param xAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (X-axis; null
+     *                                 if not used)
+     * @param yAxisTicksLabelsFormat   string pattern for {@link DecimalFormat} used in ticks labels axes (Y-axis; null
+     *                                 if not used)
      * @param fsr                      rescaling factor used for all font-based objects
-     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at the end
-     *                                 of the customization of the plot params container (after all fields are set by default)
-     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be null);
-     *                                 executed just before returning the plot
+     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the
+     *                                 end of the customization of the plot params container (after all fields are set
+     *                                 by default)
+     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                                 the end of the customization of the plot params container (after all fields are
+     *                                 set by default)
+     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be
+     *                                 null); executed just before returning the plot
      * @return instantiated plot 2D
      */
     public static Plot2D getPlot(AbstractScheme scheme,
@@ -465,10 +511,96 @@ public class Plot2DFactory
                                  IPlotParamsAdjuster<Plot2D.Params> plotParamsAdjuster,
                                  IPostPlotCreationAdjuster<Plot2D> postPlotCreationAdjuster)
     {
+        return getPlot(scheme, xLabel, yLabel, pDRM, xNoTicks, yNoTicks,
+                xAxisTicksLabelsFormat == null ? new DecimalFormat() : new DecimalFormat(xAxisTicksLabelsFormat),
+                yAxisTicksLabelsFormat == null ? new DecimalFormat() : new DecimalFormat(yAxisTicksLabelsFormat),
+                fsr, schemeAdjuster, plotParamsAdjuster, postPlotCreationAdjuster);
+    }
+
+    /**
+     * Creates a simple 2D plot. It: <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent.
+     *
+     * @param xLabel                   X-axis label
+     * @param yLabel                   Y-axis label
+     * @param pDRM                     display ranges manager params container
+     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding
+     *                                 vertical grid lines
+     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param xAxisNumberFormat        x-axis number format (default {@link DecimalFormat} instance is used, if null)
+     * @param yAxisNumberFormat        y-axis number format (default {@link DecimalFormat} instance is used, if null)
+     * @param fsr                      rescaling factor used for all font-based objects
+     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the
+     *                                 end of the customization of the plot params container (after all fields are set
+     *                                 by default)
+     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                                 the end of the customization of the plot params container (after all fields are
+     *                                 set by default)
+     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be
+     *                                 null); executed just before returning the plot
+     * @return instantiated plot 2D
+     */
+    public static Plot2D getPlot(String xLabel,
+                                 String yLabel,
+                                 DisplayRangesManager.Params pDRM,
+                                 int xNoTicks,
+                                 int yNoTicks,
+                                 NumberFormat xAxisNumberFormat,
+                                 NumberFormat yAxisNumberFormat,
+                                 float fsr,
+                                 ISchemeAdjuster schemeAdjuster,
+                                 IPlotParamsAdjuster<Plot2D.Params> plotParamsAdjuster,
+                                 IPostPlotCreationAdjuster<Plot2D> postPlotCreationAdjuster)
+    {
+        return getPlot(new WhiteScheme(), xLabel, yLabel, pDRM, xNoTicks, yNoTicks, xAxisNumberFormat, yAxisNumberFormat,
+                fsr, schemeAdjuster, plotParamsAdjuster, postPlotCreationAdjuster);
+    }
+
+    /**
+     * Creates a simple 2D plot. It: <br>
+     * - sets the font to Times New Roman, <br>
+     * - makes the background transparent.
+     *
+     * @param scheme                   plot scheme
+     * @param xLabel                   X-axis label
+     * @param yLabel                   Y-axis label
+     * @param pDRM                     display ranges manager params container
+     * @param xNoTicks                 adjusts the number of ticks for the X-axis and the number of corresponding
+     *                                 vertical grid lines
+     * @param yNoTicks                 adjusts the number of ticks for the Y-axis and the number of corresponding
+     *                                 horizontal grid lines
+     * @param xAxisNumberFormat        x-axis number format (default {@link DecimalFormat} instance is used, if null)
+     * @param yAxisNumberFormat        y-axis number format (default {@link DecimalFormat} instance is used, if null)
+     * @param fsr                      rescaling factor used for all font-based objects
+     * @param schemeAdjuster           can be supplied to adjust the scheme on the fly (can be null); executed at the
+     *                                 end of the customization of the plot params container (after all fields are set
+     *                                 by default)
+     * @param plotParamsAdjuster       can be supplied to adjust the plot params on the fly (can be null); executed at
+     *                                 the end of the customization of the plot params container (after all fields are
+     *                                 set by default)
+     * @param postPlotCreationAdjuster can be supplied to adjust the plot params on the fly (after its creation; can be
+     *                                 null); executed just before returning the plot
+     * @return instantiated plot 2D
+     */
+    public static Plot2D getPlot(AbstractScheme scheme,
+                                 String xLabel,
+                                 String yLabel,
+                                 DisplayRangesManager.Params pDRM,
+                                 int xNoTicks,
+                                 int yNoTicks,
+                                 NumberFormat xAxisNumberFormat,
+                                 NumberFormat yAxisNumberFormat,
+                                 float fsr,
+                                 ISchemeAdjuster schemeAdjuster,
+                                 IPlotParamsAdjuster<Plot2D.Params> plotParamsAdjuster,
+                                 IPostPlotCreationAdjuster<Plot2D> postPlotCreationAdjuster)
+    {
         Plot2D.Params pP = new Plot2D.Params();
         AbstractFactory.performCommonParameterization2D(pP, scheme, xLabel, yLabel, pDRM, fsr, schemeAdjuster, plotParamsAdjuster);
         Plot2D plot2D = new Plot2D(pP);
-        AbstractFactory.adjustAxes2D(plot2D, xAxisTicksLabelsFormat, yAxisTicksLabelsFormat, xNoTicks, yNoTicks);
+        AbstractFactory.adjustAxes2D(plot2D, xAxisNumberFormat, yAxisNumberFormat, xNoTicks, yNoTicks);
         AbstractFactory.adjustNoMainAndAuxGridLines2D(plot2D, yNoTicks, xNoTicks, 2 * yNoTicks - 1, 2 * xNoTicks - 1);
         if (postPlotCreationAdjuster != null) postPlotCreationAdjuster.adjust(plot2D);
         return plot2D;

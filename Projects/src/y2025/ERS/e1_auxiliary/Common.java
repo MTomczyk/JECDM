@@ -66,8 +66,8 @@ public class Common
         int total = report._acceptedNewlyConstructedModels + report._rejectedNewlyConstructedModels;
         double nom = report._acceptedNewlyConstructedModels;
         double denom = (report._acceptedNewlyConstructedModels + report._rejectedNewlyConstructedModels);
-        String sr = String.format("%.2f", (float) nom / denom * 100.0f);
-        String label = "Compatible weight vectors (no = " + report._models.size() + "; examined = " + total + "; sr = " + sr + "%)";
+        String sr = String.format("%.2f", (float) nom / denom * 100.0f).replace(',','.');
+        String label = "Compatible weight vectors (no = " + report._models.size() + "; examined = " + total + "; SR = " + sr + "%)";
         return DSFactory3D.getDS(label, data, new MarkerStyle(size, ColorPalettes.getFromDefaultPalette(0), 0.01f,
                 Marker.SPHERE_HIGH_POLY_3D));
     }

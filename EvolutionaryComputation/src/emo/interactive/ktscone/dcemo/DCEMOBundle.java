@@ -97,7 +97,7 @@ public class DCEMOBundle extends AbstractKTSConeBundle
                                                     DecisionSupportSystem.IParamsAdjuster dssAdjuster)
         {
             return getDefault(criteria, DM, interactionRule, referenceSetConstructor, dmFeedbackProvider, dssAdjuster,
-                    null, null);
+                    new model.definitions.KTSCone(), new model.constructor.value.KTSCone());
         }
 
         /**

@@ -233,8 +233,8 @@ public class Alternative implements IAlternativeWrapper
     }
 
     /**
-     * Setter for the auxiliary scores. If are nulled, the method instantiates them as a 1-element vector containing the
-     * auxScore value.
+     * Setter for the auxiliary scores. If they are nulled, the method instantiates them as a 1-element vector
+     * containing the auxScore value.
      *
      * @param auxScore auxiliary score to be stored
      */

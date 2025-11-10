@@ -16,7 +16,8 @@ import space.normalization.INormalization;
 import space.normalization.minmax.Linear;
 
 /**
- * Abstract bundle (container) for default implementations of problem-related phases (construct/reproduce/evaluate, etc.)
+ * Abstract bundle (container) for default implementations of problem-related phases (construct/reproduce/evaluate,
+ * etc.)
  * and OS-related data helpful when solving WFG problems.
  *
  * @author MTomczyk
@@ -34,7 +35,8 @@ public class WFGBundle extends AbstractMOOProblemBundle
          * @param problem problem
          * @param M       the number of objectives
          * @param k       the number of position-related parameters (should be divisible by M - 1)
-         * @param l       the number of distance-related parameters (any number, except for WFG3 and 4 for which must be divisible by 2)
+         * @param l       the number of distance-related parameters (any number, except for WFG3 and 4 for which must be
+         *                divisible by 2)
          * @return crossover operator
          */
         ICrossover getCrossover(Problem problem, int M, int k, int l);
@@ -51,8 +53,9 @@ public class WFGBundle extends AbstractMOOProblemBundle
          * @param problem problem
          * @param M       the number of objectives
          * @param k       the number of position-related parameters (should be divisible by M - 1)
-         * @param l       the number of distance-related parameters (any number, except for WFG3 and 4 for which must be divisible by 2)
-         * @return crossover operator
+         * @param l       the number of distance-related parameters (any number, except for WFG3 and 4 for which must be
+         *                divisible by 2)
+         * @return mutation operator
          */
         IMutate getMutation(Problem problem, int M, int k, int l);
     }
@@ -65,12 +68,15 @@ public class WFGBundle extends AbstractMOOProblemBundle
      * @param construct              constructs the initial population
      * @param reproduce              creates offspring
      * @param evaluate               evaluates solutions
-     * @param displayRanges          display ranges for a test problem used when performing visualization (they do not match the true utopia/nadir points)
+     * @param displayRanges          display ranges for a test problem used when performing visualization (they do not
+     *                               match the true utopia/nadir points)
      * @param paretoFrontBounds      bounds for the Pareto front
-     * @param normalizations         min-max normalizations for a test problem (min = true utopia (or nadir) point, max = true nadir (or utopia) point)
+     * @param normalizations         min-max normalizations for a test problem (min = true utopia (or nadir) point, max
+     *                               = true nadir (or utopia) point)
      * @param utopia                 true utopia point for a test problem
      * @param nadir                  true nadir point for a test problem
-     * @param optimizationDirections optimization direction flags (for each objective); true indicates that the objective is to be maximized, false otherwise
+     * @param optimizationDirections optimization direction flags (for each objective); true indicates that the
+     *                               objective is to be maximized, false otherwise
      * @param criteria               contains reference criteria
      */
     public WFGBundle(Problem problem,
@@ -90,7 +96,7 @@ public class WFGBundle extends AbstractMOOProblemBundle
     }
 
     /**
-     * Getter for the default bundle for DTLZ problems. The number of position- and distance-related parameters
+     * Getter for the default bundle for WFG problems. The number of position- and distance-related parameters
      * is set to default (as imposed by {@link WFGBundle#getRecommendedNOPositionRelatedParameters(Problem, int)} and
      * {@link WFGBundle#getRecommendedNODistanceRelatedParameters(Problem, int)})
      *
@@ -105,13 +111,14 @@ public class WFGBundle extends AbstractMOOProblemBundle
     }
 
     /**
-     * Getter for the default bundle for DTLZ problems. The number of position- and distance-related parameters
+     * Getter for the default bundle for WFG problems. The number of position- and distance-related parameters
      * is set to default (as imposed by {@link WFGBundle#getRecommendedNOPositionRelatedParameters(Problem, int)} and
      * {@link WFGBundle#getRecommendedNODistanceRelatedParameters(Problem, int)})
      *
      * @param problem              problem id
      * @param M                    the number of considered objectives
-     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the crossover
+     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the
+     *                             crossover
      *                             operator (otherwise the default operators are used; see the code)
      * @param mutationConstructor  auxiliary object that, when provided (can be null), is used to construct the mutation
      *                             operator (otherwise the default operators are used; see the code)
@@ -127,12 +134,13 @@ public class WFGBundle extends AbstractMOOProblemBundle
 
 
     /**
-     * Getter for the default bundle for DTLZ problems.
+     * Getter for the default bundle for WFG problems.
      *
      * @param problem problem id
      * @param M       the number of considered objectives
      * @param k       the number of position-related parameters (should be divisible by M - 1)
-     * @param l       the number of distance-related parameters (any number, except for WFG3 and 4 for which must be divisible by 2)
+     * @param l       the number of distance-related parameters (any number, except for WFG3 and 4 for which must be
+     *                divisible by 2)
      * @return bundle
      */
     public static WFGBundle getBundle(Problem problem, int M, int k, int l)
@@ -141,13 +149,15 @@ public class WFGBundle extends AbstractMOOProblemBundle
     }
 
     /**
-     * Getter for the default bundle for DTLZ problems.
+     * Getter for the default bundle for WFG problems.
      *
      * @param problem              problem id
      * @param M                    the number of considered objectives
      * @param k                    the number of position-related parameters (should be divisible by M - 1)
-     * @param l                    the number of distance-related parameters (any number, except for WFG3 and 4 for which must be divisible by 2)
-     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the crossover
+     * @param l                    the number of distance-related parameters (any number, except for WFG3 and 4 for
+     *                             which must be divisible by 2)
+     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the
+     *                             crossover
      *                             operator (otherwise the default operators are used; see the code)
      * @param mutationConstructor  auxiliary object that, when provided (can be null), is used to construct the mutation
      *                             operator (otherwise the default operators are used; see the code)
@@ -196,7 +206,8 @@ public class WFGBundle extends AbstractMOOProblemBundle
      * @param evaluate evaluator object responsible for evaluating solutions in line with WFG test suite
      * @param M        the number of considered objectives
      * @param k        the number of position-related parameters (should be divisible by M - 1)
-     * @param l        the number of distance-related parameters (any number, except for WFG3 and 4 for which must be divisible by 2)
+     * @param l        the number of distance-related parameters (any number, except for WFG3 and 4 for which must be
+     *                 divisible by 2)
      * @return bundle
      */
     public static WFGBundle getBundle(Problem problem, WFGEvaluate evaluate, int M, int k, int l)
@@ -211,8 +222,10 @@ public class WFGBundle extends AbstractMOOProblemBundle
      * @param evaluate             evaluator object responsible for evaluating solutions in line with WFG test suite
      * @param M                    the number of considered objectives
      * @param k                    the number of position-related parameters (should be divisible by M - 1)
-     * @param l                    the number of distance-related parameters (any number, except for WFG3 and 4 for which must be divisible by 2)
-     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the crossover
+     * @param l                    the number of distance-related parameters (any number, except for WFG3 and 4 for
+     *                             which must be divisible by 2)
+     * @param crossoverConstructor auxiliary object that, when provided (can be null), is used to construct the
+     *                             crossover
      *                             operator (otherwise the default operators are used; see the code)
      * @param mutationConstructor  auxiliary object that, when provided (can be null), is used to construct the mutation
      *                             operator (otherwise the default operators are used; see the code)
@@ -256,8 +269,7 @@ public class WFGBundle extends AbstractMOOProblemBundle
         {
             for (int i = 0; i < M - 1; i++) ranges[i] = new Range(0.0d, (i + 1) + 0.5d);
             ranges[M - 1] = new Range(0.0d, 2 * M + 0.5d);
-        }
-        else for (int i = 0; i < M; i++) ranges[i] = new Range(0.0d, 2 * (i + 1) + 0.5d);
+        } else for (int i = 0; i < M; i++) ranges[i] = new Range(0.0d, 2 * (i + 1) + 0.5d);
         return ranges;
     }
 
@@ -275,8 +287,7 @@ public class WFGBundle extends AbstractMOOProblemBundle
         {
             for (int i = 0; i < M - 1; i++) ranges[i] = new Range(0.0d, (i + 1));
             ranges[M - 1] = new Range(0.0d, 2 * M);
-        }
-        else for (int i = 0; i < M; i++) ranges[i] = new Range(0.0d, 2 * (i + 1));
+        } else for (int i = 0; i < M; i++) ranges[i] = new Range(0.0d, 2 * (i + 1));
         return ranges;
     }
 
@@ -294,8 +305,7 @@ public class WFGBundle extends AbstractMOOProblemBundle
         {
             for (int i = 0; i < M - 1; i++) normalizations[i] = new Linear(0.0d, (i + 1));
             normalizations[M - 1] = new Linear(0.0d, 2 * M);
-        }
-        else for (int i = 0; i < M; i++) normalizations[i] = new Linear(0.0d, 2 * (i + 1));
+        } else for (int i = 0; i < M; i++) normalizations[i] = new Linear(0.0d, 2 * (i + 1));
         return normalizations;
     }
 
@@ -325,8 +335,7 @@ public class WFGBundle extends AbstractMOOProblemBundle
         {
             for (int i = 0; i < M - 1; i++) n[i] = (i + 1);
             n[M - 1] = 2 * M;
-        }
-        else for (int i = 0; i < M; i++) n[i] = 2 * (i + 1);
+        } else for (int i = 0; i < M; i++) n[i] = 2 * (i + 1);
         return n;
     }
 

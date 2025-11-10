@@ -86,4 +86,33 @@ class ScenarioDisablingConditionsTest
                 new KeyValue(kvs.getKey(), kvs.getValues()[1])}, 0);
         assertTrue(SDC.shouldBeDisabled(scenario));
     }
+
+    /**
+     * Test 4.
+     */
+    @Test
+    void shouldBeDisabled4()
+    {
+        ScenarioDisablingConditions SDC = new ScenarioDisablingConditions(new String[]{"SAMPLER", "DM"}, new String[]{"ERS", "1.0"});
+        String msg = "";
+        KeyValues kvs1 = null;
+        KeyValues kvs2 = null;
+        try
+        {
+            kvs1 = KeyValues.getInstance("SAMPLER", "S", new String[]{"ERS"}, null);
+            kvs2 = KeyValues.getInstance("DM", "DM", new String[]{"1.0"}, null);
+        } catch (GlobalException e)
+        {
+            msg = e.getMessage();
+        }
+        assertEquals("", msg);
+        assertNotNull(kvs1);
+        assertNotNull(kvs2);
+        assertEquals(1, kvs1.getValues().length);
+        Scenario scenario = new Scenario(new KeyValue[]{
+                new KeyValue(kvs1.getKey(), kvs1.getValues()[0]),
+                new KeyValue(kvs2.getKey(), kvs2.getValues()[0])
+        }, 0);
+        assertTrue(SDC.shouldBeDisabled(scenario));
+    }
 }

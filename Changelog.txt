@@ -1,3 +1,19 @@
+[v1.9.0; 10.11.2025]: This update is primarily devoted to the article ``Efficient Preference Learning Algorithm for
+Interactive Evolutionary Multi-Objective Optimization''. It includes source codes and the data used within this study
+(see Projects.y2025.ERS package). Other developments:
+- Visualization: Text used in, e.g., axis labels or tick labels, now allows for custom modifications. Currently, only three text modifications are available: italics, superscripts, and subscripts. These modifications can be forced by suitably preparing the text in the LaTeX math mode. Specifically, use $text$ to introduce italics in selected parts of text. Next _ or ^ as a prefix indicating that the following character must be used as subscript or superscript (working with blocks of code is also allowed, e.g., _{text} or ^{text}). Also, combining super/subscripts with italics is available: $_{text}$. Works in 2D and 3D plots.
+- Visualization: plot.PlotUtils class is introduced (provides various auxiliary methods; will be further developed in the future)
+- Visualization: plot factories (e.g., plot.Plot2DFactory) allow now to provide NumberFormats for tick labels explicitly (can be combined, e.g., with DecimalFormat getDecimalFormat(Character separator, int decimalPlaces) in PlotUtils)
+- Visualization: default font 3D quality (upscaling factor) changed to a higher level (2.0->8.0)
+- Visualization: utils.Font class is refactored into AbstractFontProcessor and is suitably extended by Font3DProcessor and FontProcessor; should not raise any incompatibility, as this class was not intended to be used directly
+- EvolutionaryComputation: problem.moo.zdt; ZDT test bundle added
+- EvolutionaryComputation: problem.moo.cw.cw1; an example crash-worthiness test problem added (a case study)
+- EvolutionaryComputation: tests dedicated to the EMO package and now correctly set so that they can be executed as test units
+- Utils: search.BiSection: simple implementation of the BiSection algorithm added
+- Experimentation: indicator:IIndicator gained several default implementations
+- Experimentation: tools:LatexTableFromXLSX gained several customization means (see, e.g., IHHLinePreprocessor)
+- EvolutionaryComputation: reproduction.AbstractReproduce: createOffspring method gained default implementation (two parents produce one offspring using one obligatory crossover operator and one optional mutation operator)
+
 [v1.8.0; 22.09.2025]: This update introduces several minor updates that are discussed in tutorial documents 14 (new builders), 15 (on the reproduction strategy), 16 (on customizing the normalization process)
 - General: several methods and fields became deprecated; please consult their Java docs
 - EvolutionaryComputation: pre-configured implementations of the algorithms (e.g., NSGA-II) are provided with dedicated builder objects for constructing their instances (see tutorial 14)

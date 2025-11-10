@@ -94,7 +94,7 @@ class NSGAIISortTest
 
         assertEquals(6, EA.getSpecimensContainer().getPopulation().size());
         double[] scores = new double[]
-                {0.0d, 1.0d, 1.0d, 2.0d, 2.0d, 2.0d + 1.0d/3.0d};
+                {0.0d, 1.0d, 1.0d, 2.0d, 2.0d, 2.0d + 1.0d / 3.0d};
 
 
         for (int s = 0; s < 6; s++)
@@ -104,7 +104,6 @@ class NSGAIISortTest
             assertEquals(scores[s], spec.getAlternative().getAuxScore(), 0.0001d);
         }
         for (Specimen s : notincluded) assertFalse(EA.getSpecimensContainer().getPopulation().contains(s));
-
 
 
     }

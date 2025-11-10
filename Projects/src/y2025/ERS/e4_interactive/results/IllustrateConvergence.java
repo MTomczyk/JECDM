@@ -4,7 +4,9 @@ import dataset.IDataSet;
 import frame.Frame;
 import io.FileUtils;
 import io.image.ImageSaver;
+import plot.AbstractPlot;
 import plot.Plot2D;
+import plot.PlotUtils;
 import scheme.enums.Align;
 import scheme.enums.AlignFields;
 import scheme.enums.SizeFields;
@@ -17,6 +19,7 @@ import utils.Screenshot;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -35,7 +38,7 @@ public class IllustrateConvergence
     {
         Path path;
 
-        int scenario = 0; // scenario no
+        int scenario = 1; // scenario no
         int[] sheet = new int[]{0, 0}; // sheet IDX
         int[] xIndexFRS = new int[]{0, 0}; // x-axis-related column no. (FRS)
         int[] yIndexFRS = new int[]{1, 3}; // y-axis-related column no. (FRS)
@@ -43,7 +46,7 @@ public class IllustrateConvergence
         int[] xIndexERS = new int[]{0, 0}; // x-axis-related column no. (ERS)
         int[] yIndexERS = new int[]{4, 6}; // y-axis-related column no. (ERS)
         int[] stdIndexERS = new int[]{5, -1}; // std-related column no. (ERS)
-        Align [] aligns = new Align[]{Align.RIGHT_TOP, Align.RIGHT};
+        Align[] aligns = new Align[]{Align.RIGHT_TOP, Align.RIGHT};
         boolean[] useStd = new boolean[]{true, false};
 
         String[] saveFilename = new String[]{
@@ -51,7 +54,10 @@ public class IllustrateConvergence
                 "HV_WINS_DTLZ2_3D",
         };
 
-        String[] yAxisDecimalFormat = new String[]{"0.00", "0"};
+        NumberFormat[] yAxisFormat = new NumberFormat[]{
+                PlotUtils.getDecimalFormat('.', 2),
+                PlotUtils.getDecimalFormat('.', 0),
+        };
 
         Range[] yRanges = new Range[] // y-axis-related ranges
                 {
@@ -119,8 +125,7 @@ public class IllustrateConvergence
             int height = (int) (1000 / widthHeightRatio);
 
             Frame frame = ConvergencePlotFromXLSX.getFrame(pP, dataSets, 1000, height,
-                    "0", yAxisDecimalFormat[scenario]);
-
+                    PlotUtils.getDecimalFormat('.', 0), yAxisFormat[scenario]);
             frame.setVisible(true);
 
             Screenshot screenshot = frame.getModel().getPlotsWrapper().getModel().getPlot(0).getModel().requestScreenshotCreation(width, height);

@@ -13,6 +13,7 @@ import plot.Plot2D;
 import scheme.WhiteScheme;
 import scheme.enums.Align;
 import scheme.enums.AlignFields;
+import scheme.enums.SizeFields;
 import thread.swingtimer.reporters.IDSRecalculationTimesReporter;
 import thread.swingtimer.reporters.RenderGenerationTimesReporter;
 
@@ -48,7 +49,7 @@ public class Test29_BrokenLine
         pP._clipDrawingArea = true;
         pP._scheme = new WhiteScheme();
         pP._scheme._aligns.put(AlignFields.LEGEND, Align.LEFT_TOP);
-
+        pP._scheme._sizes.put(SizeFields.MARGIN_RIGHT_RELATIVE_SIZE_MULTIPLIER, 0.3f);
         pP._pDisplayRangesManager = DisplayRangesManager.Params.getFor2D();
 
         Plot2D plot = new Plot2D(pP);

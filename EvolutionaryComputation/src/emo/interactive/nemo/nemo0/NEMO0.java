@@ -1001,6 +1001,7 @@ public class NEMO0 extends AbstractInteractiveEA implements IEA
             nemo0Builder.setUseUtopiaIncumbent(true);
         }
         else nemo0Builder.setFixedOSBoundsLearningPolicy(problem);
+
         nemo0Builder.setPopulationSize(populationSize);
         nemo0Builder.setName("NEMO-0");
         nemo0Builder.setID(id);

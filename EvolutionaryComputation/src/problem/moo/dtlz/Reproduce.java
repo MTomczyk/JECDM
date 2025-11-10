@@ -11,7 +11,8 @@ import reproduction.operators.mutation.IMutate;
 import java.util.ArrayList;
 
 /**
- * Creates offspring for the DTLZ problem (default implementation).
+ * Creates offspring for the DTLZ problem (default implementation; two parents produce one offspring using one obligatory crossover
+ * operator and one optional mutation operator).
  *
  * @author MTomczyk
  */
@@ -41,25 +42,5 @@ public class Reproduce extends AbstractReproduce implements IReproduce
         super(crossover, mutate, M);
         _P = M - 1;
         _D = D;
-    }
-
-    /**
-     * Supportive method for constructing one offspring.
-     *
-     * @param parents parents array
-     * @param R random number generator
-     * @return constructed offspring
-     */
-    @Override
-    protected Specimen createOffspring(ArrayList<Specimen> parents, IRandom R)
-    {
-        double[] p1 = parents.get(0).getDoubleDecisionVector();
-        double[] p2 = parents.get(1).getDoubleDecisionVector();
-        double[] o = _crossover.crossover(p1, p2, R)._o;
-        _mutate.mutate(o, R);
-        Chromosome c = new Chromosome(o);
-        Specimen S = new Specimen(_criteria);
-        S.setChromosome(c);
-        return S;
     }
 }

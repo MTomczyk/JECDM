@@ -14,6 +14,7 @@ import frame.Frame;
 import interaction.reference.constructor.RandomPairs;
 import interaction.trigger.rules.IterationInterval;
 import model.definitions.LNorm;
+import org.junit.jupiter.api.Test;
 import plot.Plot3D;
 import problem.Problem;
 import problem.moo.dtlz.DTLZBundle;
@@ -35,11 +36,20 @@ import visualization.IVisualization;
 public class DTLZ2_3D
 {
     /**
-     * Runs evolutionary algorithm.
+     * Runs the script.
      *
-     * @param args (not used)
+     * @param args not used
      */
     public static void main(String[] args)
+    {
+        (new DTLZ2_3D()).test1();
+    }
+
+    /**
+     * Tests the method.
+     */
+    @Test
+    public void test1()
     {
         // Sets DPI scaling to 1
         System.setProperty("sun.java2d.uiScale", "1");
@@ -51,7 +61,7 @@ public class DTLZ2_3D
         int noDecisionVariables = 5;
         DTLZBundle problemBundle = DTLZBundle.getBundle(problem, 3, noDecisionVariables);
 
-        IGoal [] goals = GoalsFactory.getLNormsDND(3, 15, Double.POSITIVE_INFINITY, problemBundle._normalizations);
+        IGoal[] goals = GoalsFactory.getLNormsDND(3, 15, Double.POSITIVE_INFINITY, problemBundle._normalizations);
         int populationSize = goals.length;
         int generations = 1000;
 
@@ -81,10 +91,12 @@ public class DTLZ2_3D
         IRunner runner = new Runner(pR);
 
         // run the evolution
-         try
+        try
         {
             runner.executeEvolution(generations);
-        } catch (RunnerException e)
+            Thread.sleep(100);
+            runner.dispose();
+        } catch (RunnerException | InterruptedException e)
         {
             throw new RuntimeException(e);
         }

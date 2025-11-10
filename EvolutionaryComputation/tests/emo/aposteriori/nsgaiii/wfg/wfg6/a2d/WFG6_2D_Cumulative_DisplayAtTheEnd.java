@@ -11,6 +11,7 @@ import emo.utils.decomposition.goal.GoalsFactory;
 import emo.utils.decomposition.goal.IGoal;
 import exception.RunnerException;
 import frame.Frame;
+import org.junit.jupiter.api.Test;
 import plot.Plot2D;
 import problem.Problem;
 import problem.moo.wfg.WFGBundle;
@@ -34,11 +35,20 @@ import visualization.IVisualization;
 public class WFG6_2D_Cumulative_DisplayAtTheEnd
 {
     /**
-     * Runs evolutionary algorithm.
+     * Runs the script.
      *
-     * @param args (not used)
+     * @param args not used
      */
     public static void main(String[] args)
+    {
+        (new WFG6_2D_Cumulative_DisplayAtTheEnd()).test1();
+    }
+
+    /**
+     * Tests the method.
+     */
+    @Test
+    public void test1()
     {
         IRandom R = new MersenneTwister64(0);
 
@@ -52,7 +62,7 @@ public class WFG6_2D_Cumulative_DisplayAtTheEnd
         //Problem problem = Problem.WFG6EASY;
         //WFGEvaluate evaluate = new WFG6Easy(2);
         //WFGBundle problemBundle = WFGBundle.getBundle(problem, evaluate, 2, 1, 1, R);
-        IGoal [] goals =  GoalsFactory.getPointLineProjectionsDND(2, 30, problemBundle._normalizations);
+        IGoal[] goals = GoalsFactory.getPointLineProjectionsDND(2, 30, problemBundle._normalizations);
 
         boolean dynamicObjectiveRanges = false;
         Criteria criteria = Criteria.constructCriteria("C", 2, false);
@@ -75,10 +85,12 @@ public class WFG6_2D_Cumulative_DisplayAtTheEnd
         IRunner runner = new Runner(pR);
 
         // run the evolution
-         try
+        try
         {
             runner.executeEvolution(generations);
-        } catch (RunnerException e)
+            Thread.sleep(100);
+            runner.dispose();
+        } catch (RunnerException | InterruptedException e)
         {
             throw new RuntimeException(e);
         }

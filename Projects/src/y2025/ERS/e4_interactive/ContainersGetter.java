@@ -2,22 +2,28 @@ package y2025.ERS.e4_interactive;
 
 import alternative.AbstractAlternatives;
 import alternative.Alternative;
+import condition.ScenarioDisablingConditions;
 import container.Containers;
 import container.global.GlobalDataContainer;
 import container.global.initializers.DefaultRandomNumberGeneratorInitializer;
+import container.scenario.AbstractScenarioDataContainer;
 import container.scenario.ScenarioDataContainerFactory;
+import container.scenario.intializers.INumberOfSteadyStateRepeatsInitializer;
 import container.trial.TrialDataContainerFactory;
 import decisionsupport.ERSFactory;
 import decisionsupport.operators.LNormOnSimplex;
 import dmcontext.DMContext;
+import ea.IEA;
 import emo.interactive.iemod.IEMOD;
+import emo.interactive.nemo.nemo0.NEMO0;
+import emo.interactive.nemo.nemoii.NEMOII;
 import emo.utils.decomposition.goal.GoalsFactory;
+import exception.ScenarioException;
 import exception.TrialException;
 import exeption.ReferenceSetsConstructorException;
 import indicator.ExecutionTime;
 import indicator.IIndicator;
 import indicator.PerformanceIndicator;
-import indicator.emo.GD;
 import indicator.emo.GDConcaveSpherical;
 import indicator.emo.HV;
 import indicator.emo.interactive.HistorySize;
@@ -39,15 +45,16 @@ import model.IPreferenceModel;
 import model.constructor.IConstructor;
 import model.constructor.random.IRandomModel;
 import model.constructor.random.LNormGenerator;
+import model.constructor.value.representative.MDVF;
+import model.constructor.value.representative.RepresentativeModel;
 import model.constructor.value.rs.ers.evolutionary.Tournament;
 import model.constructor.value.rs.frs.FRS;
 import model.constructor.value.rs.iterationslimit.Constant;
 import model.definitions.LNorm;
 import problem.Problem;
 import problem.moo.AbstractMOOProblemBundle;
-import random.MersenneTwister32;
-import y2025.ERS.common.PCsDataContainer;
 import random.IRandom;
+import random.MersenneTwister32;
 import random.MersenneTwister64;
 import scenario.CrossedSetting;
 import space.distance.Euclidean;
@@ -56,8 +63,11 @@ import space.simplex.DasDennis;
 import statistics.*;
 import statistics.tests.ITest;
 import statistics.tests.TStudent;
+import statistics.tests.WilcoxonSignedRank;
+import tools.prototypes.GDFast;
 import utils.GenerationsLimits;
 import utils.ReferencePointsOnPareto;
+import y2025.ERS.common.PCsDataContainer;
 import y2025.ERS.e1_auxiliary.GeneratePCsData;
 
 import java.io.File;
@@ -91,7 +101,7 @@ public class ContainersGetter
      * Main method for creating the containers.
      *
      * @return containers
-     * @throws Exception the exception can be thrown 
+     * @throws Exception the exception can be thrown
      */
     @SuppressWarnings("DataFlowIssue")
     public static Containers getContainers() throws Exception
@@ -150,14 +160,45 @@ public class ContainersGetter
         };
 
         pGDC._scenarioValues = new String[][]{
-                {"FRS", "ERS"},
-                {"DTLZ1", "DTLZ2", "DTLZ3", "DTLZ4", "DTLZ5", "DTLZ6", "DTLZ7",
-                        "WFG1ALPHA02", "WFG2", "WFG3", "WFG4", "WFG5", "WFG6", "WFG7", "WFG8", "WFG9"
+                {
+                        "FRS", "ERS",
+                        "FRS_NEMO0", "ERS_NEMO0",
+                        "FRS_NEMOII", "ERS_NEMOII",
                 },
-                {"2", "3", "4", "5"},
+                {
+                        "DTLZ1", "DTLZ2", "DTLZ3", "DTLZ4", "DTLZ5", "DTLZ6", "DTLZ7",
+                        "WFG1ALPHA02", "WFG2", "WFG3", "WFG4", "WFG5", "WFG6", "WFG7", "WFG8", "WFG9",
+                        "ZDT1", "ZDT2", "ZDT3", "ZDT4", "ZDT5", "ZDT6",
+                },
+                {
+                        "2", "3", "4", "5"
+                },
         };
 
-        // WFG2 M = 5 ERS i FRS
+        pGDC._scenarioDisablingConditions = new ScenarioDisablingConditions[]
+                {
+                        new ScenarioDisablingConditions("SAMPLER", "FRS"),
+                        new ScenarioDisablingConditions("SAMPLER", "ERS"),
+
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT1", "3"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT1", "4"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT1", "5"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT2", "3"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT2", "4"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT2", "5"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT3", "3"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT3", "4"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT3", "5"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT4", "3"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT4", "4"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT4", "5"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT5", "3"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT5", "4"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT5", "5"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT6", "3"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT6", "4"}),
+                        new ScenarioDisablingConditions(new String[]{"PROBLEM", "OBJECTIVES"}, new String[]{"ZDT6", "5"}),
+                };
 
         // Define the generations limits:
         GenerationsLimits GL = GenerationsLimits.getInstance(new GenerationsLimits.ProblemLimit[]{
@@ -165,18 +206,23 @@ public class ContainersGetter
                 new GenerationsLimits.ProblemLimit("DTLZ2", 250, 50),
                 new GenerationsLimits.ProblemLimit("DTLZ3", 1250, 250),
                 new GenerationsLimits.ProblemLimit("DTLZ4", 300, 100),
-                new GenerationsLimits.ProblemLimit("WFG1ALPHA02", 1200, 200)
+                new GenerationsLimits.ProblemLimit("WFG1ALPHA02", 1200, 200),
+                new GenerationsLimits.ProblemLimit("ZDT[1-6]", 1000, 100),
         });
 
-        pGDC._crossedSettings = new CrossedSetting[1];
+        pGDC._crossedSettings = new CrossedSetting[2];
         pGDC._crossedSettings[0] = new CrossedSetting(new String[]{
                 "PROBLEM", "SAMPLER", "OBJECTIVES",},
                 new String[][]{pGDC._scenarioValues[1], pGDC._scenarioValues[0], pGDC._scenarioValues[2]});
+        pGDC._crossedSettings[1] = new CrossedSetting(new String[]{
+                "OBJECTIVES", "PROBLEM", "SAMPLER",},
+                new String[][]{pGDC._scenarioValues[2], pGDC._scenarioValues[1], pGDC._scenarioValues[0]});
 
         pGDC._referenceCrossSavers = new LinkedList<>();
         pGDC._referenceCrossSavers.add(new FinalStatisticsXLSX(3));
         pGDC._referenceCrossSavers.add(new FinalRankerXLSX("SAMPLER", new ITest[]{
                 TStudent.getPairedTest(true),
+                new WilcoxonSignedRank()
         }, 3, 1.0E-5));
 
         pGDC._referenceScenarioSavers = new LinkedList<>();
@@ -202,7 +248,16 @@ public class ContainersGetter
         };
 
         // For IEMO/D (and MOEA/D): the number of steady-state repeats equals the population size
-        pSDCF._numberOfSteadyStateRepeatsInitializer = p -> populationSizes.get(p._scenario.getObjectives());
+        pSDCF._numberOfSteadyStateRepeatsInitializer = new INumberOfSteadyStateRepeatsInitializer()
+        {
+            @Override
+            public int instantiateSteadyStateRepeats(AbstractScenarioDataContainer.Params p) throws ScenarioException
+            {
+                if (p._scenario.getKeyValuesMap().get("SAMPLER").getValue().length() == 3)
+                    return populationSizes.get(p._scenario.getObjectives());
+                return 1;
+            }
+        };
         pSDCF._dataStoringInterval = 100;
         pSDCF._dataLoadingInterval = 100;
 
@@ -244,8 +299,18 @@ public class ContainersGetter
             // Closest neighborhood distances:
             if (concaveFronts.contains(problem.toString())) // if simple concave, use exact calculations
                 indicators[3] = new PerformanceIndicator(new GDConcaveSpherical(new Euclidean(normalizations), M));
-            else indicators[3] = new PerformanceIndicator("GD", new GD(new Euclidean(normalizations),
-                    RPs.getReferencePointsOnPF(problem.toString(), M)));
+            else
+            {
+                int max = 100;
+                double[][] rps = RPs.getReferencePointsOnPF(problem.toString(), M);
+                if (rps == null)
+                    indicators[3] = new PerformanceIndicator(new GDFast(new double[][]{}, normalizations, 2, max));
+                else
+                {
+                    if (rps.length <= 100) max = 50;
+                    indicators[3] = new PerformanceIndicator(new GDFast(rps, normalizations, 2, max));
+                }
+            }
             indicators[4] = new PerformanceIndicator(new ExecutionTime());
             indicators[5] = new PerformanceIndicator(new HistorySize());
             indicators[6] = new PerformanceIndicator(new ReportedInconsistencies());
@@ -279,7 +344,18 @@ public class ContainersGetter
                 initialModels[i] = new model.internals.value.scalarizing.LNorm(initialWeights.get(i),
                         Double.POSITIVE_INFINITY, problemBundle._normalizations);
 
-            if (name.equals("FRS"))
+            String sampler = name.substring(0, 3);
+            boolean iemod = false;
+            boolean nemo0 = false;
+            boolean nemoii = false;
+            if (name.length() == 3) iemod = true;
+            else
+            {
+                if (name.substring(4).equals("NEMO0")) nemo0 = true;
+                else if (name.substring(4).equals("NEMOII")) nemoii = true;
+            }
+
+            if (sampler.equals("FRS"))
             {
                 FRS.Params<model.internals.value.scalarizing.LNorm> pFRS = new FRS.Params<>(RM);
                 pFRS._initialModels = initialModels;
@@ -287,12 +363,13 @@ public class ContainersGetter
                 pFRS._inconsistencyThreshold = PS - 1;
                 pFRS._samplingLimit = 1000000000; // 10^9
                 constructor = new FRS<>(pFRS);
-            } else
+            }
+            else
             {
                 constructor = ERSFactory.getDefaultForLNorms(PS,
                         new Constant(50000),
                         M, Double.POSITIVE_INFINITY, problemBundle._normalizations,
-                        new LNormOnSimplex(Double.POSITIVE_INFINITY, 0.2d, 0.2d),
+                        new LNormOnSimplex(Double.POSITIVE_INFINITY, 0.2d, 0.2d / (2.0d * (M - 1))),
                         new Tournament<>(2), initialModels);
             }
 
@@ -338,16 +415,52 @@ public class ContainersGetter
                     PCs._PCs[2][M - 2]._trialPCs[p._trialID]._dmW.clone(),
                     Double.POSITIVE_INFINITY, problemBundle._normalizations)));
 
-            return IEMOD.getIEMOD(0, false, false,
-                    R1, GoalsFactory.getLNormsDND(M, dndCuts.get(M), Double.POSITIVE_INFINITY, problemBundle._normalizations),
-                    problemBundle, new emo.utils.decomposition.similarity.lnorm.Euclidean(), 10,
-                    rule, rsc, iDM, preferenceModel, constructor, null,
-                    p1 -> { // disable filters (do not matter, the reference pairs are not taken from the population)
-                        Refiner.Params pR = new Refiner.Params();
-                        pR._terminationFilters = new LinkedList<>();
-                        pR._reductionFilters = new LinkedList<>();
-                        p1._refiner = new Refiner(pR);
-                    });
+            IEA ea = null;
+            if (iemod)
+            {
+                ea = IEMOD.getIEMOD(0, false, false,
+                        R1, GoalsFactory.getLNormsDND(M, dndCuts.get(M), Double.POSITIVE_INFINITY, problemBundle._normalizations),
+                        problemBundle, new emo.utils.decomposition.similarity.lnorm.Euclidean(), 10,
+                        rule, rsc, iDM, preferenceModel, constructor, null,
+                        p1 -> { // disable filters (do not matter, the reference pairs are not taken from the population)
+                            Refiner.Params pR = new Refiner.Params();
+                            pR._terminationFilters = new LinkedList<>();
+                            pR._reductionFilters = new LinkedList<>();
+                            p1._refiner = new Refiner(pR);
+                        });
+            }
+            else if (nemo0)
+            {
+                ea = NEMO0.getNEMO0(0, populationSizes.get(M), false, false,
+                        R1, problemBundle, new selection.Tournament(2),
+                        problemBundle._construct, problemBundle._evaluate, problemBundle._reproduce,
+                        rule, rsc, iDM, preferenceModel,
+                        new RepresentativeModel<>(constructor, new MDVF<>()),
+                        null,
+                        p1 -> { // disable filters (do not matter, the reference pairs are not taken from the population)
+                            Refiner.Params pR = new Refiner.Params();
+                            pR._terminationFilters = new LinkedList<>();
+                            pR._reductionFilters = new LinkedList<>();
+                            p1._refiner = new Refiner(pR);
+                        },
+                        null, null);
+            }
+            else if (nemoii)
+            {
+                ea = NEMOII.getNEMOII(0, populationSizes.get(M), false, false,
+                        R1, problemBundle, new selection.Tournament(2),
+                        problemBundle._construct, problemBundle._evaluate,
+                        problemBundle._reproduce, rule, rsc, iDM, preferenceModel, constructor,
+                        null,
+                        p1 -> { // disable filters (do not matter, the reference pairs are not taken from the population)
+                            Refiner.Params pR = new Refiner.Params();
+                            pR._terminationFilters = new LinkedList<>();
+                            pR._reductionFilters = new LinkedList<>();
+                            p1._refiner = new Refiner(pR);
+                        }, null, null);
+            }
+
+            return ea;
         };
 
         // Create trial data container factory

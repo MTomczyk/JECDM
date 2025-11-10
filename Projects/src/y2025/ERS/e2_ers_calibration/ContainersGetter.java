@@ -32,6 +32,8 @@ import statistics.*;
 import statistics.tests.ITest;
 import statistics.NoTimesNonNegative;
 import statistics.tests.TStudent;
+import statistics.tests.WilcoxonSignedRank;
+import summary.TrialSummary;
 import y2025.ERS.common.*;
 import y2025.ERS.common.indicators.*;
 import y2025.ERS.e1_auxiliary.GeneratePCsData;
@@ -69,7 +71,7 @@ public class ContainersGetter
      * Main method for creating the containers.
      *
      * @return containers
-     * @throws Exception the exception can be thrown 
+     * @throws Exception the exception can be thrown
      */
     public static Containers getContainers() throws Exception
     {
@@ -77,9 +79,9 @@ public class ContainersGetter
         // Create pre-defined data
         double[] alphas = new double[]{1.0d, 5.0d, Double.POSITIVE_INFINITY}; // DM's alpha settings
         int[] objectives = new int[]{2, 3, 4, 5}; // the numbers of objectives considered
-        int[] pcs = new int[]{1, 5, 10}; // the numbers of pairwise comparisons considered (must increase monotonically)
+        int[] pcs = new int[]{1, 5}; // the numbers of pairwise comparisons considered (must increase monotonically)
         int iterationsPerGenerations = 100;
-        int generations = 100;
+        int generations = 1000;
 
         Path path = FileUtils.getPathRelatedToClass(GeneratePCsData.class, "Projects", "src", File.separatorChar);
         String fp = path.toString() + File.separatorChar + "pcs.txt";
@@ -94,8 +96,8 @@ public class ContainersGetter
         GlobalDataContainer.Params pGDC = new GlobalDataContainer.Params();
 
         pGDC._mainPath = "D:" + File.separator + "experiments" + File.separator + "ERS" + File.separator + "e2_calibration"; // my path
-        pGDC._noTrials = 30; // no trials
-        pGDC._noThreads = 15;
+        pGDC._noTrials = 100; // no trials
+        pGDC._noThreads = 20;
         pGDC._useMonitorThread = true; // monitor what is going on
         pGDC._monitorReportingInterval = 30000; // 10000; // monitor every 30 s
         pGDC._scenarioKeys = new String[]{ // define scenario keys
@@ -108,15 +110,20 @@ public class ContainersGetter
 
         pGDC._scenarioValues = new String[][]{
                 {
-                        "ERS_1_1",
-                        "ERS_2_2",
-                        "ERS_3_3",
+                        //"ERS_2_0",
+                        //"ERS_2_1",
+                        //"ERS_2_2",
+                        "ERS_0_D",
+                        "ERS_1_D",
+                        "ERS_2_D",
+                        "ERS_3_D",
                 },
                 null, // copied from the arrays (see below)
                 null,  // copied from the arrays (see below)
                 {"200"},
                 null // copied from the arrays (see below)
         };
+
 
         pGDC._scenarioValues[1] = new String[alphas.length];
         for (int i = 0; i < alphas.length; i++) pGDC._scenarioValues[1][i] = String.valueOf(alphas[i]);
@@ -139,6 +146,7 @@ public class ContainersGetter
         pGDC._referenceCrossSavers.add(new FinalStatisticsXLSX(5));
         pGDC._referenceCrossSavers.add(new FinalRankerXLSX("SAMPLER", new ITest[]{
                 TStudent.getPairedTest(true),
+                new WilcoxonSignedRank(),
         }, 5, 1.0E-5));
 
 
@@ -230,7 +238,9 @@ public class ContainersGetter
             {
                 String[] s = name.split("_");
                 double crossoverStd = Double.parseDouble(s[1]) / 10.0d;
-                double mutationStd = Double.parseDouble(s[2]) / 10.0d;
+                double mutationStd;
+                if (s[2].equals("D")) mutationStd = 0.2d / (2.0d * (M - 1));
+                else mutationStd = Double.parseDouble(s[2]) / 10.0d;
 
                 IterableERS.Params<LNorm> pERS = new IterableERS.Params<>(new LNormGenerator(M, alpha));
                 pERS._passModels = true;

@@ -47,6 +47,7 @@ import model.constructor.random.LNormGenerator;
 import model.internals.value.scalarizing.LNorm;
 import plot.Plot3D;
 import plot.Plot3DFactory;
+import plot.PlotUtils;
 import plotswrapper.GridPlots;
 import population.Specimen;
 import population.Specimens;
@@ -126,6 +127,7 @@ public class AnimationERS
             pERS._initialModels[i] = new LNorm(goals[i].getParams()[0].clone(), goals[i].getParams()[1][0]);
         IterableERS<LNorm> ers = new IterableERS<>(pERS);
 
+
         // Create the EA:
         IEMOD iemod = IEMOD.getIEMOD(0, false, false, R, goals,
                 problemBundle, new Euclidean(), 10,
@@ -143,10 +145,12 @@ public class AnimationERS
 
         {
             plots[0] = Plot3DFactory.getPlot(WhiteScheme.getForPlot3D(),
-                    "f1", "f2", "f3",
+                    "f_1", "f_2", "f_3",
                     DRMPFactory.getFor3D(1.0d, 1.0d, 1.0d),
                     5, 5, 5,
-                    "0.00", "0.00", "0.00",
+                    PlotUtils.getDecimalFormat('.',1),
+                    PlotUtils.getDecimalFormat('.',1),
+                    PlotUtils.getDecimalFormat('.',1),
                     1.5f, 2.0f,
                     scheme -> {
                         scheme._sizes.put(SizeFields.MARGIN_TOP_RELATIVE_SIZE_MULTIPLIER, 0.075f);
@@ -162,10 +166,12 @@ public class AnimationERS
         }
         {
             plots[1] = Plot3DFactory.getPlot(WhiteScheme.getForPlot3D(),
-                    "w1", "w2", "w3",
+                    "w_1", "w_2", "w_3",
                     DRMPFactory.getFor3D(1.0d, 1.0d, 1.0d),
                     5, 5, 5,
-                    "0.00", "0.00", "0.00",
+                    PlotUtils.getDecimalFormat('.',1),
+                    PlotUtils.getDecimalFormat('.',1),
+                    PlotUtils.getDecimalFormat('.',1),
                     1.5f, 2.0f,
                     scheme -> {
                         scheme._sizes.put(SizeFields.MARGIN_TOP_RELATIVE_SIZE_MULTIPLIER, 0.075f);
@@ -385,7 +391,8 @@ public class AnimationERS
         pDMC._normalizationBuilder = new StandardLinearBuilder();
         pDMC._currentAlternativesSuperset = new Specimens(iemod.getSpecimensContainer().getPopulation());
         DMContext dmContext = new DMContext(pDMC, Criteria.constructCriteria("C", 3, false), LocalDateTime.now());
-        Report<LNorm> report = new Report<>(dmContext);
+
+        Report<LNorm> report;
 
         try
         {
@@ -402,7 +409,9 @@ public class AnimationERS
 
             plots[1].getModel().setDataSets(dataSets, true, true);
             Thread.sleep(1000);
+
             ers.registerDecisionMakingContext(dmContext);
+            report = ers.instantiateReport();
 
             boolean printFlag = false;
             boolean skipSleep = false;

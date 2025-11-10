@@ -15,6 +15,7 @@ import frame.Frame;
 import interaction.reference.constructor.RandomPairs;
 import interaction.trigger.rules.IterationInterval;
 import model.definitions.LNorm;
+import org.junit.jupiter.api.Test;
 import plot.Plot3D;
 import problem.Problem;
 import problem.moo.dtlz.DTLZBundle;
@@ -36,11 +37,20 @@ import visualization.IVisualization;
 public class DTLZ3_3D_Cumulative
 {
     /**
-     * Runs evolutionary algorithm.
+     * Runs the script.
      *
-     * @param args (not used)
+     * @param args not used
      */
     public static void main(String[] args)
+    {
+        (new DTLZ3_3D_Cumulative()).test1();
+    }
+
+    /**
+     * Tests the method.
+     */
+    @Test
+    public void test1()
     {
         // Sets DPI scaling to 1
         System.setProperty("sun.java2d.uiScale", "1");
@@ -52,7 +62,7 @@ public class DTLZ3_3D_Cumulative
         int noDecisionVariables = 5;
         DTLZBundle problemBundle = DTLZBundle.getBundle(problem, 3, noDecisionVariables);
 
-        IGoal [] goals = GoalsFactory.getLNormsDND(3, 15, Double.POSITIVE_INFINITY, problemBundle._normalizations);
+        IGoal[] goals = GoalsFactory.getLNormsDND(3, 15, Double.POSITIVE_INFINITY, problemBundle._normalizations);
         int populationSize = goals.length;
         int generations = 1000;
 
@@ -70,7 +80,7 @@ public class DTLZ3_3D_Cumulative
         Frame frame = new Frame(plot, 0.5f, 0.5f);
 
         // create updater
-        DataSet ds = DataSet.getFor3D("IEMO/D",  new MarkerStyle(0.02f, Gradient.getViridisGradient(), 3, Marker.SPHERE_LOW_POLY_3D));
+        DataSet ds = DataSet.getFor3D("IEMO/D", new MarkerStyle(0.02f, Gradient.getViridisGradient(), 3, Marker.SPHERE_LOW_POLY_3D));
         IVisualization visualization = emo.Utils.getVisualization(frame, iemod, ds, true);
 
         // create runner object
@@ -81,10 +91,12 @@ public class DTLZ3_3D_Cumulative
         IRunner runner = new Runner(pR);
 
         // run the evolution
-         try
+        try
         {
             runner.executeEvolution(generations);
-        } catch (RunnerException e)
+            Thread.sleep(100);
+            runner.dispose();
+        } catch (RunnerException | InterruptedException e)
         {
             throw new RuntimeException(e);
         }

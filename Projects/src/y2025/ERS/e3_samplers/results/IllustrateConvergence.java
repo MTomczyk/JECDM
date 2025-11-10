@@ -5,6 +5,9 @@ import frame.Frame;
 import io.FileUtils;
 import io.image.ImageSaver;
 import plot.Plot2D;
+import plot.PlotUtils;
+import scheme.enums.Align;
+import scheme.enums.AlignFields;
 import scheme.enums.SizeFields;
 import space.Range;
 import tools.ConvergencePlotFromXLSX;
@@ -15,6 +18,7 @@ import utils.Screenshot;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -33,7 +37,7 @@ public class IllustrateConvergence
     {
         Path path;
 
-        int scenario = 15; // scenario no
+        int scenario = 14; // scenario no
         int[] sheet = new int[]{0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3}; // sheet IDX
         int[] xIndexFRS = new int[]{0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1}; // x-axis-related column no. (FRS)
         int[] yIndexFRS = new int[]{3, 3, 5, 7, 3, 3, 5, 7, 3, 3, 5, 7, 3, 3, 5, 7}; // y-axis-related column no. (FRS)
@@ -65,8 +69,7 @@ public class IllustrateConvergence
 
         };
 
-        String [] yAxisDecimalFormat = new String[]{"0", "0", "0.00", "0.000", "0", "0", "0.00", "0.000",
-                "0", "0", "0.00", "0.000", "0", "0", "0.00", "0.000"};
+        int[] yDecimalPlaces = new int[]{0, 0, 2, 3, 0, 0, 2, 3, 0, 0, 2, 3, 0, 0, 2, 3};
 
         Range[] yRanges = new Range[] // y-axis-related ranges
                 {
@@ -193,13 +196,22 @@ public class IllustrateConvergence
                             0.5f, 1.75f, 1.7f, 1.7f,
                             1.65f, yAxisTitleOffsets[scenario],
                             2.5f, 2.75f, 2.5f, 3.0f));
+
             pP._scheme._sizes.put(SizeFields.LEGEND_INNER_OFFSET_RELATIVE_MULTIPLIER, 0.015f);
+            //noinspection ConstantValue
+            if ((scenario == 0) || (scenario == 4) || (scenario == 8) || (scenario == 12) ||
+                    (scenario == 1) || (scenario == 5) || (scenario == 9) || (scenario == 13))
+                pP._scheme._aligns.put(AlignFields.LEGEND, Align.RIGHT_BOTTOM);
+            else if (scenario == 10) pP._scheme._aligns.put(AlignFields.LEGEND, Align.LEFT_TOP);
 
             int width = 1000;
             int height = (int) (1000 / widthHeightRatio);
 
             Frame frame = ConvergencePlotFromXLSX.getFrame(pP, dataSets, 1000, height,
-                    "0", yAxisDecimalFormat[scenario]);
+                    new DecimalFormat("0"),
+                    PlotUtils.getDecimalFormat('.', yDecimalPlaces[scenario])
+            );
+
 
             frame.setVisible(true);
 

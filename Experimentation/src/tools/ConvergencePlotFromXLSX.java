@@ -21,17 +21,20 @@ import space.Range;
 import utils.Projection;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
- * Auxiliary factory-like class providing efficient means for generating almost ready-for-presentation convergence plots.
+ * Auxiliary factory-like class providing efficient means for generating almost ready-for-presentation convergence
+ * plots.
  *
  * @author MTomczyk
  */
 public class ConvergencePlotFromXLSX
 {
     /**
-     * Params container (used to parameterize {@link ConvergencePlotFromXLSX#getParamsContainerForConvergencePlotFromXLSX(Params)}).
+     * Params container (used to parameterize
+     * {@link ConvergencePlotFromXLSX#getParamsContainerForConvergencePlotFromXLSX(Params)}).
      */
     public static class Params
     {
@@ -206,8 +209,10 @@ public class ConvergencePlotFromXLSX
      * Note that further layout adjustments can be achieved by modifying the scheme object.
      *
      * @param p                  params container
-     * @param schemeAdjuster     optional scheme adjuster (executed just after the default scheme parameterization is done; can be null if not used)
-     * @param plotParamsAdjuster optional plot params adjuster (executed just before the return call; can be null if not used)
+     * @param schemeAdjuster     optional scheme adjuster (executed just after the default scheme parameterization is
+     *                           done; can be null if not used)
+     * @param plotParamsAdjuster optional plot params adjuster (executed just before the return call; can be null if not
+     *                           used)
      * @return params container for plot 2D.
      */
     public static Plot2D.Params getParamsContainerForConvergencePlotFromXLSX(Params p, ISchemeAdjuster schemeAdjuster, IPlotParamsAdjuster<Plot2D.Params> plotParamsAdjuster)
@@ -250,8 +255,11 @@ public class ConvergencePlotFromXLSX
      * - sets axes number formats to decimals.
      * - adds a right click popup menu with "save as image" option
      *
-     * @param pP               plot 2D params container obtained via {@link ConvergencePlotFromXLSX#getParamsContainerForConvergencePlotFromXLSX(Params)}
-     * @param dataSets         data sets obtained via {@link ConvergencePlotFromXLSX#parseDataSetsFromXLSX(String, DataMatrixCoordinates, DataSetData[], Float)}
+     * @param pP               plot 2D params container obtained via
+     *                         {@link ConvergencePlotFromXLSX#getParamsContainerForConvergencePlotFromXLSX(Params)}
+     * @param dataSets         data sets obtained via
+     *                         {@link ConvergencePlotFromXLSX#parseDataSetsFromXLSX(String, DataMatrixCoordinates,
+     *                         DataSetData[], Float)}
      * @param width            frame width
      * @param widthHeightRatio width/height ratio (greater than 0)
      * @return frame
@@ -267,8 +275,11 @@ public class ConvergencePlotFromXLSX
      * - sets axes number formats to decimals.
      * - adds a right click popup menu with "save as image" option
      *
-     * @param pP                 plot 2D params container obtained via {@link ConvergencePlotFromXLSX#getParamsContainerForConvergencePlotFromXLSX(Params)}
-     * @param dataSets           data sets obtained via {@link ConvergencePlotFromXLSX#parseDataSetsFromXLSX(String, DataMatrixCoordinates, DataSetData[], Float)}
+     * @param pP                 plot 2D params container obtained via
+     *                           {@link ConvergencePlotFromXLSX#getParamsContainerForConvergencePlotFromXLSX(Params)}
+     * @param dataSets           data sets obtained via
+     *                           {@link ConvergencePlotFromXLSX#parseDataSetsFromXLSX(String, DataMatrixCoordinates,
+     *                           DataSetData[], Float)}
      * @param width              frame width
      * @param widthHeightRatio   width/height ratio (greater than 0)
      * @param xAxisDecimalFormat decimal format for X-axis ticks (e.g. "0.00")
@@ -291,12 +302,17 @@ public class ConvergencePlotFromXLSX
      * - sets axes number formats to decimals.
      * - adds a right click popup menu with "save as image" option
      *
-     * @param pP                 plot 2D params container obtained via {@link ConvergencePlotFromXLSX#getParamsContainerForConvergencePlotFromXLSX(Params)}
-     * @param dataSets           data sets obtained via {@link ConvergencePlotFromXLSX#parseDataSetsFromXLSX(String, DataMatrixCoordinates, DataSetData[], Float)}
+     * @param pP                 plot 2D params container obtained via
+     *                           {@link ConvergencePlotFromXLSX#getParamsContainerForConvergencePlotFromXLSX(Params)}
+     * @param dataSets           data sets obtained via
+     *                           {@link ConvergencePlotFromXLSX#parseDataSetsFromXLSX(String, DataMatrixCoordinates,
+     *                           DataSetData[], Float)}
      * @param width              frame width
      * @param height             frame height
-     * @param xAxisDecimalFormat decimal format for X-axis ticks (e.g. "0.00")
-     * @param yAxisDecimalFormat decimal format for Y-axis ticks (e.g. "0.00")
+     * @param xAxisDecimalFormat decimal format for X-axis ticks (e.g. "0.00"; if null, the default DecimalFormat() will
+     *                           be instantiated as the formatter)
+     * @param yAxisDecimalFormat decimal format for Y-axis ticks (e.g. "0.00"; if null, the default DecimalFormat() will
+     *                           be instantiated as the formatter)
      * @return frame
      */
     public static Frame getFrame(Plot2D.Params pP,
@@ -306,12 +322,42 @@ public class ConvergencePlotFromXLSX
                                  String xAxisDecimalFormat,
                                  String yAxisDecimalFormat)
     {
+        return getFrame(pP, dataSets, width, height,
+                xAxisDecimalFormat == null ? new DecimalFormat() : new DecimalFormat(xAxisDecimalFormat),
+                yAxisDecimalFormat == null ? new DecimalFormat() : new DecimalFormat(yAxisDecimalFormat)
+        );
+    }
+
+    /**
+     * Creates a suitably adjusted frame that visualizes a convergence plot.
+     * The method also:
+     * - sets axes number formats to decimals.
+     * - adds a right click popup menu with "save as image" option
+     *
+     * @param pP                plot 2D params container obtained via
+     *                          {@link ConvergencePlotFromXLSX#getParamsContainerForConvergencePlotFromXLSX(Params)}
+     * @param dataSets          data sets obtained via
+     *                          {@link ConvergencePlotFromXLSX#parseDataSetsFromXLSX(String, DataMatrixCoordinates,
+     *                          DataSetData[], Float)}
+     * @param width             frame width
+     * @param height            frame height
+     * @param xAxisNumberFormat number format for the x-axis (if null, DecimalFormat() is used)
+     * @param yAxisNumberFormat number format for the y-axis (if null, DecimalFormat() is used)
+     * @return frame
+     */
+    public static Frame getFrame(Plot2D.Params pP,
+                                 ArrayList<IDataSet> dataSets,
+                                 int width,
+                                 int height,
+                                 NumberFormat xAxisNumberFormat,
+                                 NumberFormat yAxisNumberFormat)
+    {
         Plot2D plot2D = new Plot2D(pP);
         Frame frame = new Frame(plot2D, width, Projection.getP(height));
 
         plot2D.getModel().setDataSets(dataSets);
-        plot2D.getComponentsContainer().getAxes()[0].getTicksDataGetter().setNumberFormat(new DecimalFormat(xAxisDecimalFormat));
-        plot2D.getComponentsContainer().getAxes()[1].getTicksDataGetter().setNumberFormat(new DecimalFormat(yAxisDecimalFormat));
+        plot2D.getComponentsContainer().getAxes()[0].getTicksDataGetter().setNumberFormat(xAxisNumberFormat);
+        plot2D.getComponentsContainer().getAxes()[1].getTicksDataGetter().setNumberFormat(yAxisNumberFormat);
 
         RightClickPopupMenu menu = new RightClickPopupMenu();
         menu.addItem(new SaveAsImage());
@@ -321,7 +367,8 @@ public class ConvergencePlotFromXLSX
 
     /**
      * The method for loaded a data matrix from an XLSX file (excel) and parses them into data sets suited
-     * for the convergence plot. Note that the parsed Excel file is not validated (use must ensure that valid data exists).
+     * for the convergence plot. Note that the parsed Excel file is not validated (use must ensure that valid data
+     * exists).
      *
      * @param path        absolute path to the file (includes prefix)
      * @param dmc         data matrix coordinates in the Excel file
@@ -338,12 +385,15 @@ public class ConvergencePlotFromXLSX
 
     /**
      * The method for loaded a data matrix from an XLSX file (excel) and parses them into data sets suited
-     * for the convergence plot. Note that the parsed Excel file is not validated (use must ensure that valid data exists).
+     * for the convergence plot. Note that the parsed Excel file is not validated (use must ensure that valid data
+     * exists).
      *
      * @param path                 absolute path to the file (includes prefix)
      * @param dmc                  data matrix coordinates in the Excel file
-     * @param dataSetData          coordinates-related data for establishing data sets used by the plot (not used if null)
-     * @param envelopeTransparency envelope color transparency level (spanned over primary upper and lower bounds, null if not used)
+     * @param dataSetData          coordinates-related data for establishing data sets used by the plot (not used if
+     *                             null)
+     * @param envelopeTransparency envelope color transparency level (spanned over primary upper and lower bounds, null
+     *                             if not used)
      * @return data table (null, if a file cannot be loaded)
      */
     public static ArrayList<IDataSet> parseDataSetsFromXLSX(String path,
@@ -356,12 +406,15 @@ public class ConvergencePlotFromXLSX
 
     /**
      * The method for loaded a data matrix from an XLSX file (excel) and parses them into data sets suited
-     * for the convergence plot. Note that the parsed Excel file is not validated (use must ensure that valid data exists).
+     * for the convergence plot. Note that the parsed Excel file is not validated (use must ensure that valid data
+     * exists).
      *
      * @param path                 absolute path to the file (includes prefix)
      * @param dmc                  data matrix coordinates in the Excel file
-     * @param dataSetData          coordinates-related data for establishing data sets used by the plot (not used if null)
-     * @param envelopeTransparency envelope color transparency level (spanned over primary upper and lower bounds, null if not used)
+     * @param dataSetData          coordinates-related data for establishing data sets used by the plot (not used if
+     *                             null)
+     * @param envelopeTransparency envelope color transparency level (spanned over primary upper and lower bounds, null
+     *                             if not used)
      * @param lw                   data set line width
      * @return data table (null, if a file cannot be loaded)
      */
@@ -376,12 +429,15 @@ public class ConvergencePlotFromXLSX
 
     /**
      * The method for loaded a data matrix from an XLSX file (excel) and parses them into data sets suited
-     * for the convergence plot. Note that the parsed Excel file is not validated (use must ensure that valid data exists).
+     * for the convergence plot. Note that the parsed Excel file is not validated (use must ensure that valid data
+     * exists).
      *
      * @param path                 absolute path to the file (includes prefix)
      * @param dmc                  data matrix coordinates in the Excel file
-     * @param dataSetData          coordinates-related data for establishing data sets used by the plot (not used if null)
-     * @param envelopeTransparency envelope color transparency level (spanned over primary upper and lower bounds, null if not used)
+     * @param dataSetData          coordinates-related data for establishing data sets used by the plot (not used if
+     *                             null)
+     * @param envelopeTransparency envelope color transparency level (spanned over primary upper and lower bounds, null
+     *                             if not used)
      * @param lw                   data set line width
      * @param colorPalette         palette providing colors for data sets to be depicted
      * @return data table (null, if a file cannot be loaded)

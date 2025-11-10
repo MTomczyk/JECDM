@@ -5,8 +5,10 @@ import phase.IConstruct;
 import phase.IEvaluate;
 import problem.AbstractProblemBundle;
 import problem.Problem;
+import problem.moo.cw.cw1.CW1Bundle;
 import problem.moo.dtlz.DTLZBundle;
 import problem.moo.wfg.WFGBundle;
+import problem.moo.zdt.ZDTBundle;
 import reproduction.IReproduce;
 import space.Range;
 import space.normalization.INormalization;
@@ -172,6 +174,8 @@ public abstract class AbstractMOOProblemBundle extends AbstractProblemBundle
         else if (AbstractMOOProblemBundle.isWFG(problem)) return WFGBundle.getBundle(problem, M,
                 WFGBundle.getRecommendedNOPositionRelatedParameters(problem, M),
                 WFGBundle.getRecommendedNODistanceRelatedParameters(problem, M));
+        else if (AbstractMOOProblemBundle.isZDT(problem)) return ZDTBundle.getBundle(problem);
+        else if (AbstractMOOProblemBundle.isCW1(problem)) return CW1Bundle.getBundle();
         return null;
     }
 
@@ -186,6 +190,8 @@ public abstract class AbstractMOOProblemBundle extends AbstractProblemBundle
     {
         if (AbstractMOOProblemBundle.isDTLZ(problem)) return DTLZBundle.getNormalizations(problem, M);
         else if (AbstractMOOProblemBundle.isWFG(problem)) return WFGBundle.getNormalizations(problem, M);
+        else if (AbstractMOOProblemBundle.isZDT(problem)) return ZDTBundle.getNormalizations(problem);
+        else if (AbstractMOOProblemBundle.isCW1(problem)) return CW1Bundle.getNormalizations();
         return null;
     }
 }

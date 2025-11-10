@@ -18,13 +18,13 @@ import plot.parallelcoordinate.ParallelCoordinatePlot2D;
 import population.Specimen;
 import population.SpecimenID;
 import problem.Problem;
-import problem.moo.wfg.WFGBundle;
 import problem.moo.wfg.evaluate.WFG1Easy;
 import problem.moo.wfg.evaluate.WFG2Easy;
 import problem.moo.wfg.evaluate.WFG3Easy;
 import problem.moo.wfg.evaluate.WFG4Easy;
 import problem.moo.wfg.shapes.Concave;
 import problem.moo.wfg.shapes.IShape;
+import problem.moo.zdt.ZDTBundle;
 import random.IRandom;
 import random.MersenneTwister64;
 import random.WeightsGenerator;
@@ -52,14 +52,14 @@ public class ReferencePointsFactory
         int n = 100000;
         IRandom R = new MersenneTwister64(0);
 
-        Problem problem = Problem.WFG9;
-        AbstractMOOProblemBundle bundle = WFGBundle.getBundle(problem, M, 6, 2);
+        Problem problem = Problem.ZDT6;
+        AbstractMOOProblemBundle bundle = ZDTBundle.getBundle(Problem.ZDT6);
 
         IGoal[] goals = GoalsFactory.getPointLineProjectionsDND(M, 10, bundle._normalizations);
         // IGoal [] goals = FamilyFactory.getLNorms(0, M, 10, 4.0d, bundle._normalizations).getGoals();
-        //double[][] rps = ReferencePointsFactory.getRandomReferencePoints(problem, n, M, R);
+        double[][] rps = ReferencePointsFactory.getRandomReferencePoints(problem, n, M, R);
         //double[][] rps = ReferencePointsFactory.getFilteredReferencePoints(problem, n, M, R, goals);
-        double[][] rps = ReferencePointsFactory.getUniformRandomRPsOnConvexSphere(2.0d, n, M, R);
+        //double[][] rps = ReferencePointsFactory.getUniformRandomRPsOnConvexSphere(2.0d, n, M, R);
 
         IDataSet ds;
         if (M == 2) ds = DataSet.getFor2D("RPs", rps, new MarkerStyle(1.0f, Color.RED, Marker.CIRCLE));
@@ -163,8 +163,7 @@ public class ReferencePointsFactory
     /**
      * This method generates random reference points on a convex and spherical Pareto front. The sphere is located in
      * the [radius,...,radius]-vector of the coordinate space, and points belonging to its first quarter are sampled
-     * only.
-     * Important note: This method generates points that are (randomly) uniformly distributed on the sphere.
+     * only. Important note: This method generates points that are (randomly) uniformly distributed on the sphere.
      *
      * @param n the number of points to sample
      * @param M the number of objectives
@@ -180,8 +179,7 @@ public class ReferencePointsFactory
     /**
      * This method generates random reference points on a convex and spherical Pareto front. The sphere is located in
      * the [radius,...,radius]-vector of the coordinate space, and points belonging to its first quarter are sampled
-     * only.
-     * Important note: This method generates points that are (randomly) uniformly distributed on the sphere.
+     * only. Important note: This method generates points that are (randomly) uniformly distributed on the sphere.
      *
      * @param r sphere radius
      * @param n the number of points to sample
@@ -201,10 +199,8 @@ public class ReferencePointsFactory
 
     /**
      * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
-     * space)
-     * The points are drawn randomly, by generating uniformly distributed decision vectors (which may not lead to a
-     * uniform
-     * distribution in the objective space).
+     * space) The points are drawn randomly, by generating uniformly distributed decision vectors (which may not lead
+     * to a uniform distribution in the objective space).
      *
      * @param problem problem ID
      * @param n       number of solutions to generate
@@ -248,6 +244,26 @@ public class ReferencePointsFactory
             case WFG4, WFG4EASY, WFG5, WFG5EASY, WFG6, WFG6EASY, WFG7, WFG7EASY, WFG8, WFG8EASY, WFG9, WFG9EASY ->
             {
                 return getForWFG4_9(n, M, R);
+            }
+            case ZDT1, ZDT4 ->
+            {
+                return getForZDT1_4(n, R);
+            }
+            case ZDT2 ->
+            {
+                return getForZDT2(n, R);
+            }
+            case ZDT3 ->
+            {
+                return getForZDT3(n, R);
+            }
+            case ZDT5 ->
+            {
+                return getForZDT5(n, R);
+            }
+            case ZDT6 ->
+            {
+                return getForZDT6(n, R);
             }
         }
 
@@ -311,7 +327,7 @@ public class ReferencePointsFactory
                 double e = goals[g].evaluate(new Specimen(new SpecimenID(0), points[s]));
 
                 if (((goals[g].isLessPreferred()) && (Double.compare(e, bestEval) < 0)) ||
-                                ((!goals[g].isLessPreferred()) && (Double.compare(e, bestEval) > 0)))
+                        ((!goals[g].isLessPreferred()) && (Double.compare(e, bestEval) > 0)))
                 {
                     bestEval = e;
                     bestIndex = s;
@@ -325,8 +341,7 @@ public class ReferencePointsFactory
 
     /**
      * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
-     * space)
-     * to the DTLZ1 problem.
+     * space) to the DTLZ1 problem.
      *
      * @param n number of solutions to generate
      * @param M problem dimensionality
@@ -346,8 +361,7 @@ public class ReferencePointsFactory
 
     /**
      * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
-     * space)
-     * to the DTLZ2, DTLZ3, and DTLZ4 problems.
+     * space) to the DTLZ2, DTLZ3, and DTLZ4 problems.
      *
      * @param n number of solutions to generate
      * @param M problem dimensionality
@@ -371,8 +385,7 @@ public class ReferencePointsFactory
 
     /**
      * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
-     * space)
-     * to the DTLZ5 and DTLZ6 problems.
+     * space) to the DTLZ5 and DTLZ6 problems.
      *
      * @param n number of solutions to generate
      * @param M problem dimensionality
@@ -396,8 +409,7 @@ public class ReferencePointsFactory
 
     /**
      * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
-     * space)
-     * to the DTLZ7 problem.
+     * space) to the DTLZ7 problem.
      *
      * @param n number of solutions to generate
      * @param M problem dimensionality
@@ -431,8 +443,7 @@ public class ReferencePointsFactory
 
     /**
      * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
-     * space)
-     * to the WFG1 problem.
+     * space) to the WFG1 problem.
      *
      * @param n number of solutions to generate
      * @param M problem dimensionality
@@ -457,8 +468,7 @@ public class ReferencePointsFactory
 
     /**
      * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
-     * space)
-     * to the WFG2 problem.
+     * space) to the WFG2 problem.
      *
      * @param n number of solutions to generate
      * @param M problem dimensionality
@@ -518,8 +528,7 @@ public class ReferencePointsFactory
 
     /**
      * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
-     * space)
-     * to the WFG3 problem.
+     * space) to the WFG3 problem.
      *
      * @param n number of solutions to generate
      * @param M problem dimensionality
@@ -544,8 +553,7 @@ public class ReferencePointsFactory
 
     /**
      * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
-     * space)
-     * to the WFG4-9 problems.
+     * space) to the WFG4-9 problems.
      *
      * @param n number of solutions to generate
      * @param M problem dimensionality
@@ -564,6 +572,141 @@ public class ReferencePointsFactory
             double[] a = new double[M - 1];
             for (int j = 0; j < M - 1; j++) a[j] = R.nextDouble();
             for (int j = 0; j < M; j++) p[i][j] = shapes.get(j).getShape(a) * (2 * (j + 1));
+        }
+        return p;
+    }
+
+
+    /**
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space) to the ZDT1 and ZDT4 problems.
+     *
+     * @param n number of solutions to generate
+     * @param R random number generator
+     * @return solutions represented as n x 2 matrix (each row corresponds to 2-dimensional solution)
+     */
+    private static double[][] getForZDT1_4(int n, IRandom R)
+    {
+        double[][] p = new double[n][2];
+        for (int i = 0; i < n; i++)
+        {
+            double x = R.nextDouble();
+            p[i][0] = x;
+            p[i][1] = 1 - Math.sqrt(x);
+        }
+        return p;
+    }
+
+    /**
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space) to the ZDT2 problem.
+     *
+     * @param n number of solutions to generate
+     * @param R random number generator
+     * @return solutions represented as n x 2 matrix (each row corresponds to 2-dimensional solution)
+     */
+    private static double[][] getForZDT2(int n, IRandom R)
+    {
+        double[][] p = new double[n][2];
+        for (int i = 0; i < n; i++)
+        {
+            double x = R.nextDouble();
+            p[i][0] = x;
+            p[i][1] = 1 - Math.pow(x, 2.0d);
+        }
+        return p;
+    }
+
+    /**
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space) to the ZDT3 problem.
+     *
+     * @param n number of solutions to generate
+     * @param R random number generator
+     * @return solutions represented as n x 2 matrix (each row corresponds to 2-dimensional solution)
+     */
+    private static double[][] getForZDT3(int n, IRandom R)
+    {
+        double e0 = 0.0d;
+        double m1 = 0.0830015349269116d;
+
+        double e1 = 0.18222872802939977d;
+        double m2 = 0.2577623633878300d;
+
+        double e2 = 0.4093136748086568d;
+        double m3 = 0.4538821040888300d;
+
+        double e3 = 0.6183967944392659d;
+        double m4 = 0.6525117038046620d;
+
+        double e4 = 0.8233317983266328d;
+        double m5 = 0.8518328654364130d;
+
+        double d1 = m1 - e0;
+        double d2 = m2 - e1;
+        double d3 = m3 - e2;
+        double d4 = m4 - e3;
+        double d5 = m5 - e4;
+
+        double sum = d1 + d2 + d3 + d4 + d5;
+        double p1 = d1 / sum;
+        double p2 = d2 / sum;
+        double p3 = d3 / sum;
+        double p4 = d4 / sum;
+        double p5 = d5 / sum;
+
+        int[] choice = new int[]{0, 1, 2, 3, 4};
+        double[] prob = new double[]{p1, p2, p3, p4, p5};
+        double[] base = new double[]{e0, e1, e2, e3, e4};
+        double[] span = new double[]{d1, d2, d3, d4, d5};
+        double cp = 10.0d * Math.PI;
+        double[][] p = new double[n][2];
+        for (int i = 0; i < n; i++)
+        {
+            int c = R.getIntWithProbability(choice, prob);
+            double x = base[c] + span[c] * R.nextDouble();
+            p[i][0] = x;
+            p[i][1] = 1.0d - Math.sqrt(x) - x * Math.sin(cp * x);
+        }
+        return p;
+    }
+
+    /**
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space) to the ZDT5 problem.
+     *
+     * @param n number of solutions to generate
+     * @param R random number generator
+     * @return solutions represented as n x 2 matrix (each row corresponds to 2-dimensional solution)
+     */
+    private static double[][] getForZDT5(int n, IRandom R)
+    {
+        double[][] p = new double[n][2];
+        for (int i = 0; i < n; i++)
+        {
+            p[i][0] = 1.0d + R.nextInt(31);
+            p[i][1] = 10.0d / p[i][0];
+        }
+        return p;
+    }
+
+    /**
+     * This method constructs the desired number of random Pareto optimal solutions (reference points in the objective
+     * space) to the ZDT5 problem.
+     *
+     * @param n number of solutions to generate
+     * @param R random number generator
+     * @return solutions represented as n x 2 matrix (each row corresponds to 2-dimensional solution)
+     */
+    private static double[][] getForZDT6(int n, IRandom R)
+    {
+        double c3 = 6.0d * Math.PI;
+        double[][] p = new double[n][2];
+        for (int i = 0; i < n; i++)
+        {
+            double x = R.nextDouble();
+            p[i][0] = 1.0d - Math.exp(-4.0d * x) * Math.pow(Math.sin(c3 * x), 6.0d);
+            p[i][1] = 1.0d - Math.pow(p[i][0], 2.0d);
         }
         return p;
     }

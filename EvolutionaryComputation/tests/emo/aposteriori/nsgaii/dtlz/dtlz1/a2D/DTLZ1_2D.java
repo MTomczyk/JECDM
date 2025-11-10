@@ -8,6 +8,7 @@ import ea.EA;
 import emo.aposteriori.Utils;
 import exception.RunnerException;
 import frame.Frame;
+import org.junit.jupiter.api.Test;
 import plot.Plot2D;
 import problem.Problem;
 import problem.moo.dtlz.DTLZBundle;
@@ -29,11 +30,20 @@ import visualization.IVisualization;
 public class DTLZ1_2D
 {
     /**
-     * Runs evolutionary algorithm.
+     * Runs the script.
      *
-     * @param args (not used)
+     * @param args not used
      */
     public static void main(String[] args)
+    {
+        (new DTLZ1_2D()).test1();
+    }
+
+    /**
+     * Tests the method.
+     */
+    @Test
+    public void test1()
     {
         IRandom R = new MersenneTwister64(0);
 
@@ -67,10 +77,12 @@ public class DTLZ1_2D
         IRunner runner = new Runner(pR);
 
         // run the evolution
-       try
+        try
         {
             runner.executeEvolution(generations);
-        } catch (RunnerException e)
+            Thread.sleep(100);
+            runner.dispose();
+        } catch (RunnerException | InterruptedException e)
         {
             throw new RuntimeException(e);
         }

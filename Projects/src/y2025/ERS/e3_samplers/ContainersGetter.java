@@ -32,9 +32,11 @@ import random.MersenneTwister32;
 import scenario.CrossedSetting;
 import statistics.*;
 import statistics.tests.ITest;
-import statistics.NoTimesNonNegative;
 import statistics.tests.TStudent;
-import y2025.ERS.common.*;
+import statistics.tests.WilcoxonSignedRank;
+import y2025.ERS.common.Common;
+import y2025.ERS.common.EAWrapperIterableSampler;
+import y2025.ERS.common.PCsDataContainer;
 import y2025.ERS.common.indicators.*;
 import y2025.ERS.e1_auxiliary.GeneratePCsData;
 
@@ -71,17 +73,24 @@ public class ContainersGetter
      * Main method for creating the containers.
      *
      * @return containers
-     * @throws Exception the exception can be thrown 
+     * @throws Exception the exception can be thrown
      */
     public static Containers getContainers() throws Exception
     {
         System.out.println("Creating pre-defined data....");
         // Create pre-defined data
-        double[] alphas = new double[]{1.0d, 5.0d, Double.POSITIVE_INFINITY}; // DM's alpha settings
-        int[] objectives = new int[]{2, 3, 4, 5}; // the numbers of objectives considered
-        int[] pcs = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; // the numbers of pairwise comparisons considered (must increase monotonically)
+        double[] alphas = new double[]{
+                1.0d, 5.0d, Double.POSITIVE_INFINITY
+        }; // DM's alpha settings
+        int[] objectives = new int[]{
+                2, 3, 4, 5
+        }; // the numbers of objectives considered
+        int[] pcs = new int[]{
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        }; // the numbers of pairwise comparisons considered (must increase monotonically)
         int iterationsPerGenerations = 100;
         int generations = 10000;
+
 
         Path path = FileUtils.getPathRelatedToClass(GeneratePCsData.class, "Projects", "src", File.separatorChar);
         String fp = path.toString() + File.separatorChar + "pcs.txt";
@@ -111,12 +120,14 @@ public class ContainersGetter
         pGDC._scenarioValues = new String[][]{
                 {
                         "FRS",
-                        "ERS_2_2", // different mutation/crossover powers
+                        "ERS_2_D", // different mutation/crossover powers
 
                 },
                 null, // copied from the arrays (see below)
                 null,  // copied from the arrays (see below)
-                {"50", "100", "150", "200"},
+                {
+                    "50", "100", "150", "200"
+                },
                 null // copied from the arrays (see below)
         };
 
@@ -141,6 +152,7 @@ public class ContainersGetter
         pGDC._referenceCrossSavers.add(new FinalStatisticsXLSX(4));
         pGDC._referenceCrossSavers.add(new FinalRankerXLSX("SAMPLER", new ITest[]{
                 TStudent.getPairedTest(true),
+                new WilcoxonSignedRank()
         }, 4, 1.0E-5));
 
         pGDC._RNGI = new DefaultRandomNumberGeneratorInitializer(MersenneTwister32::new);
@@ -228,7 +240,7 @@ public class ContainersGetter
             {
                 String[] s = name.split("_");
                 double crossoverStd = Double.parseDouble(s[1]) / 10.0d;
-                double mutationStd = Double.parseDouble(s[2]) / 10.0d;
+                double mutationStd = 0.2d / (2.0d * (M - 1));
 
                 IterableERS.Params<LNorm> pERS = new IterableERS.Params<>(new LNormGenerator(M, alpha));
                 pERS._passModels = false;

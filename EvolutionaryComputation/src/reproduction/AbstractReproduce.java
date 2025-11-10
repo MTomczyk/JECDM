@@ -1,6 +1,7 @@
 package reproduction;
 
 import ea.IEA;
+import population.Chromosome;
 import population.Parents;
 import population.Specimen;
 import random.IRandom;
@@ -55,7 +56,7 @@ public abstract class AbstractReproduce implements IReproduce
     public ArrayList<Specimen> createOffspring(IEA ea)
     {
         ArrayList<Specimen> offspring = new ArrayList<>(ea.getSpecimensContainer().getNoExpectedOffspringToConstruct());
-        for (Parents p: ea.getSpecimensContainer().getParents())
+        for (Parents p : ea.getSpecimensContainer().getParents())
         {
             Specimen o = createOffspring(p._parents, ea.getR());
             offspring.add(o);
@@ -65,7 +66,8 @@ public abstract class AbstractReproduce implements IReproduce
 
 
     /**
-     * Supportive method for constructing one offspring.
+     * Supportive method for constructing one offspring (default implementation; two parents produce one offspring using
+     * one obligatory crossover operator and one optional mutation operator)
      *
      * @param parents parents array
      * @param R       random number generator
@@ -73,6 +75,13 @@ public abstract class AbstractReproduce implements IReproduce
      */
     protected Specimen createOffspring(ArrayList<Specimen> parents, IRandom R)
     {
-        return null;
+        double[] p1 = parents.get(0).getDoubleDecisionVector();
+        double[] p2 = parents.get(1).getDoubleDecisionVector();
+        double[] o = _crossover.crossover(p1, p2, R)._o;
+        if (_mutate != null) _mutate.mutate(o, R);
+        Chromosome c = new Chromosome(o);
+        Specimen S = new Specimen(_criteria);
+        S.setChromosome(c);
+        return S;
     }
 }

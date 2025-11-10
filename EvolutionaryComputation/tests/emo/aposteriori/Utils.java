@@ -14,12 +14,12 @@ import emo.utils.decomposition.nsgaiii.RandomAssignment;
 import emo.utils.decomposition.nsgaiii.RandomSpecimen;
 import emo.utils.decomposition.similarity.ISimilarity;
 import os.ObjectiveSpaceManager;
-import phase.PhasesBundle;
 import problem.moo.AbstractMOOProblemBundle;
 import random.IRandom;
 import selection.Random;
 import selection.Tournament;
 import space.distance.Euclidean;
+import space.normalization.builder.StandardLinearBuilder;
 import space.os.ObjectiveSpace;
 
 /**
@@ -105,14 +105,12 @@ public class Utils
         MOEADBundle algorithmBundle = new MOEADBundle(pAB);
 
         // create ea instance
-        EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(algorithmBundle._phasesBundle);
+        EA.Params pEA = new EA.Params(criteria, algorithmBundle);
         pEA._id = id;
         pEA._R = R;
         pEA._populationSize = goals.length;
         pEA._offspringSize = 1;
         pEA._expectedNumberOfSteadyStateRepeats = pEA._populationSize;
-        pEA._osManager = pAB._osManager;
         return new EA(pEA);
 
     }
@@ -168,20 +166,19 @@ public class Utils
         pAB._select = new Tournament(2);
 
         ObjectiveSpaceManager.Params pOS = ObjectiveSpaceManager.getInstantiatedParams(problemBundle, !dynamicObjectiveSpace,
-                dynamicObjectiveSpace, true,false, criteria);
+                dynamicObjectiveSpace, true, false, criteria);
         pAB._osManager = new ObjectiveSpaceManager(pOS);
+        pAB._normalizationBuilder = new StandardLinearBuilder();
         if (!dynamicObjectiveSpace) pAB._initialNormalizations = problemBundle._normalizations;
         else pAB._initialNormalizations = null;
 
         NSGAIIBundle algorithmBundle = new NSGAIIBundle(pAB);
 
-        EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(algorithmBundle._phasesBundle);
-        pEA._id = id;
+        EA.Params pEA = new EA.Params(criteria, algorithmBundle);
         pEA._R = R;
         pEA._populationSize = populationSize;
         pEA._offspringSize = offspringSize;
-        pEA._osManager = pAB._osManager;
+        pEA._id = id;
         return new EA(pEA);
     }
 
@@ -238,8 +235,7 @@ public class Utils
         NSGAIIIBundle algorithmBundle = new NSGAIIIBundle(pAB);
 
         // create ea instance
-        EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(algorithmBundle._phasesBundle);
+        EA.Params pEA = new EA.Params(criteria, algorithmBundle);
         pEA._id = id;
         pEA._R = R;
         pEA._populationSize = goals.length;
@@ -310,14 +306,11 @@ public class Utils
         else pAB._initialNormalizations = null;
 
         NSGABundle algorithmBundle = new NSGABundle(pAB);
-
-        EA.Params pEA = new EA.Params(algorithmBundle._name, criteria);
-        pEA._phases = PhasesBundle.getPhasesAssignmentsFromBundle(algorithmBundle._phasesBundle);
-        pEA._id = id;
+        EA.Params pEA = new EA.Params(criteria, algorithmBundle);
         pEA._R = R;
         pEA._populationSize = populationSize;
         pEA._offspringSize = offspringSize;
-        pEA._osManager = pAB._osManager;
+        pEA._id = id;
         return new EA(pEA);
     }
 

@@ -406,6 +406,7 @@ public class AbstractPlot extends AbstractSwingComponent
      */
     protected void updateLegend()
     {
+        if (_M == null) return;
         Notification.printNotification(_GC, _PC, "Plot [id = " + _M.getPlotID() + "]: update legend method called (width = " + getWidth() + " ; height = " + getHeight() + ")");
         Graphics g = null;
         if (getGraphics() != null) g = getGraphics().create();

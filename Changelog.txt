@@ -1,4 +1,4 @@
-[v1.9.1; 09.01.2026]
+[v1.9.2; 09.01.2026]
 - References to the publication on ERS added: https://doi.org/10.1016/j.swevo.2025.102254
 - Experimentation: tools.DataSetData.getForDataWithStandardDeviation: there was a bug that caused producing convergence curves with 2x times narrowed envelopes (standard deviations); corrected
 

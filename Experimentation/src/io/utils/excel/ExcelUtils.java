@@ -5,6 +5,7 @@ package io.utils.excel;
  *
  * @author MTomczyk
  */
+@Deprecated
 public class ExcelUtils
 {
 

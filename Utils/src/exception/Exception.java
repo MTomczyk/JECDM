@@ -43,4 +43,16 @@ public class Exception extends AbstractException
     {
         super(message, handler, cause);
     }
+
+    /**
+     * Factory-like method.
+     *
+     * @param message exception message
+     * @param source  exception source
+     * @return an exception instance that can be thrown and propagated higher
+     */
+    public static Exception getInstanceWithSource(String message, Class<?> source)
+    {
+        return new Exception(message, null, source);
+    }
 }

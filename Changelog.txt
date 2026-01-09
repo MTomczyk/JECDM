@@ -1,3 +1,7 @@
+[v1.9.1; 09.01.2026]
+- References to the publication on ERS added: https://doi.org/10.1016/j.swevo.2025.102254
+- Experimentation: tools.DataSetData.getForDataWithStandardDeviation: there was a bug that caused producing convergence curves with 2x times narrowed envelopes (standard deviations); corrected
+
 [v1.9.0; 10.11.2025]: This update is primarily devoted to the article ``Efficient Preference Learning Algorithm for
 Interactive Evolutionary Multi-Objective Optimization''. It includes source codes and the data used within this study
 (see Projects.y2025.ERS package). Other developments:

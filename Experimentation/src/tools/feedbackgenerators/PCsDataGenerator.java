@@ -21,9 +21,9 @@ import java.util.Set;
 /**
  * This class assists in generating data on reference pairs of solutions (artificial data) to be compared by
  * a decision-maker. It is implemented in line with the procedure described in the article ``Efficient Preference
- * Learning Algorithm for Interactive Evolutionary Multi-Objective Optimization'' (preprint:
- * <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5415565">paper</a> TODO to be updated when published).
- * Its use is described in Tutorial 10: Evolutionary Rejection Sampling.
+ * Learning Algorithm for Interactive Evolutionary Multi-Objective Optimization''
+ * (<a href="https://doi.org/10.1016/j.swevo.2025.102254">article</a>). Its use is described in Tutorial 10:
+ * Evolutionary Rejection Sampling.
  *
  * @author MTomczyk
  */
@@ -141,7 +141,7 @@ public final class PCsDataGenerator extends AbstractPCsData
      * Parameterized constructor.
      *
      * @param p params container
-     * @throws Exception can be thrown 
+     * @throws Exception can be thrown
      */
     public PCsDataGenerator(Params p) throws Exception
     {
@@ -180,7 +180,7 @@ public final class PCsDataGenerator extends AbstractPCsData
     /**
      * This method executes the processing.
      *
-     * @throws Exception the exception can be thrown 
+     * @throws Exception the exception can be thrown
      */
     public void process() throws Exception
     {
@@ -336,7 +336,7 @@ public final class PCsDataGenerator extends AbstractPCsData
      * Auxiliary method for validating params container's data.
      *
      * @param p params container
-     * @throws Exception exception can be thrown 
+     * @throws Exception exception can be thrown
      */
     private void validate(Params p) throws Exception
     {

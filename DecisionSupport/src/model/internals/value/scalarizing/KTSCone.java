@@ -12,12 +12,12 @@ import java.util.LinkedList;
 
 /**
  * Preference model based on the preference cone concepts proposed by M. Kadziński, M. Tomczyk, and R. Słowiński
- * (<a href="https://doi.org/10.1016/j.swevo.2019.100602">...</a>). Important note: When the normalizations are not
- * provided, it is assumed that all criteria are cost-type and 0 is the utopia solution. When the normalizations are
- * used, a similar assumption is made for the normalized performance vector. If the resulting normalized vector is a zero
- * vector, it is transformed into a weight vector composed of equal weights. Also, the preference direction of this model
- * is to minimize. The zero value is transformed into a weight vector composed of equal weights. For each incompatible
- * pairwise comparison, the score is increased by 1.
+ * (<a href="https://doi.org/10.1016/j.swevo.2019.100602">publication</a>). Important note: When the normalizations are
+ * not provided, it is assumed that all criteria are cost-type and 0 is the utopia solution. When the normalizations
+ * are used, a similar assumption is made for the normalized performance vector. If the resulting normalized vector is a
+ * zero vector, it is transformed into a weight vector composed of equal weights. Also, the preference direction of
+ * this model is to minimize. The zero value is transformed into a weight vector composed of equal weights. For each
+ * incompatible pairwise comparison, the score is increased by 1.
  *
  * @author MTomczyk
  */
@@ -41,7 +41,7 @@ public class KTSCone extends AbstractValueInternalModel implements IInternalMode
     /**
      * Default constructor.
      *
-     * @param PCs            list of pairwise comparisons used to establish the cones
+     * @param PCs list of pairwise comparisons used to establish the cones
      */
     public KTSCone(LinkedList<PairwiseComparison> PCs)
     {
@@ -145,7 +145,8 @@ public class KTSCone extends AbstractValueInternalModel implements IInternalMode
     }
 
     /**
-     * The main method for setting new normalizations (used to rescale alternative evaluations given the considered criteria).
+     * The main method for setting new normalizations (used to rescale alternative evaluations given the considered
+     * criteria).
      *
      * @param normalizations normalizations used to rescale the dimensions
      */

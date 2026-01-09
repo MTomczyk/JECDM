@@ -159,17 +159,18 @@ public class DataSetData
                                                               int yIndex,
                                                               int stdIndex)
     {
-        return new DataSetData(name, xIndex, yIndex, stdIndex, stdIndex, 0.5f, 0.5f);
+        return new DataSetData(name, xIndex, yIndex, stdIndex, stdIndex, 1.0f, 1.0f);
     }
 
     /**
-     * This method creates an object suitably parameterized for handling data comprising x-coordinates and y-coordinates.
+     * This method creates an object suitably parameterized for handling data comprising x-coordinates and
+     * y-coordinates.
      *
-     * @param name     data set name
-     * @param xIndex   index of the column associated with data set x-coordinate values (starting
-     *                 from 0, points to a row in the already derived from Excel data matrix)
-     * @param yIndex   index of the column associated with data set y-coordinate values (starting
-     *                 from 0, points to a row in the already derived from Excel data matrix)
+     * @param name   data set name
+     * @param xIndex index of the column associated with data set x-coordinate values (starting
+     *               from 0, points to a row in the already derived from Excel data matrix)
+     * @param yIndex index of the column associated with data set y-coordinate values (starting
+     *               from 0, points to a row in the already derived from Excel data matrix)
      * @return suitably parameterized object
      */
     public static DataSetData getData(String name, int xIndex, int yIndex)
